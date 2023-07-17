@@ -1,0 +1,27 @@
+/* width */
+.custom-class-scrollbar::-webkit-scrollbar {
+  width: 8px;
+ 
+}
+
+/* Track */
+.custom-class-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f127; 
+}
+ 
+/* Handle */
+.custom-class-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background: #46ceffa9; 
+}
+
+/* Handle on hover */
+.custom-class-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #46CEFF; 
+}
+
+tr{
+height:20px}
+
+tr td{
+height:   auto !important;}

@@ -1,0 +1,13 @@
+.class-1 {
+    position: absolute;
+    transform: translateX(-20%) translateY(-200px);
+    z-index: -1;
+    transition: 500ms ease-in-out;
+}
+
+.class-2 {
+    position: absolute;
+    transform: translateX(-20%) translateY(15px);
+    /* z-index: -1; */
+    transition: 500ms ease-in-out;
+}
