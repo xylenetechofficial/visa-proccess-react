@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-// import { DateInput, FileInput, FileInputUnlabel, StandardInput } from "../../../../componenets/Input";
+import { DateInput, FileInput, FileInputUnlabel, StandardInput, TextAreaInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 // import { CustomRadioButton } from "../../../../componenets/RadioButton";
 // import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
@@ -15,12 +15,12 @@ import { InterviewSectorInterface } from "../../../masters/interviewSector/type"
 import { readInterviewSectorList } from "../../../masters/interviewSector/repository";
 import { InterviewModeInterface } from "../../../masters/interviewMode/type";
 import { readInterviewModeList } from "../../../masters/interviewMode/repository";
-// import { GreenButton } from "../../../../componenets/CustomButton";
+import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import FinalActualProfessionTable from "./FinalActualProfessionTable";
 import SpecialInstructionTable from "./SpecialInstructionTable";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
-import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import { BodyText1, Heading1, Heading5, Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface, EdocInterface, SpecialInstructionInterface } from "../../Extra/type";
 import EdocTable from "./EdocTable";
@@ -96,9 +96,12 @@ export default function Main(props: {
         recruitmentManagerId: 0,
         rsId: 0,
         interviewModeId: 0,
-        differed_sector_ids:[],
-        master_sector_ids:[],
-
+        approve: "",
+        remarks: "",
+        differed_sector_ids: [],
+        master_sector_ids: [],
+        om_remarks: "",
+        om_status: ""
     }
 
     const [jobOrder, setJobOrder] = useState(initValue)
@@ -145,11 +148,11 @@ export default function Main(props: {
         setInterviewModeList(data)
     }
 
-    async function onClickAdd() {
+    async function handleApprove() {
 
-        setJobOrder({ ...jobOrder, EdocList: EdocList })
+        setJobOrder({ ...jobOrder, om_status: "approve" })
 
-        const newJobOrder = { ...jobOrder, EdocList: EdocList, actualProfesionList: actualProfesionList }
+        const newJobOrder = { ...jobOrder, om_status: "approve" }
         console.log(newJobOrder)
         // call create
         await updateJobOrder(props.currentElement.id ?? 0, newJobOrder)
@@ -161,6 +164,21 @@ export default function Main(props: {
         props.onClose()
     }
 
+    async function handleReject() {
+
+        setJobOrder({ ...jobOrder, om_status: "reject" })
+
+        const newJobOrder = { ...jobOrder, om_status: "reject" }
+        console.log(newJobOrder)
+        // call create
+        await updateJobOrder(props.currentElement.id ?? 0, newJobOrder)
+
+
+        setJobOrder(initValue)
+
+        props.fetchJobOrderList()
+        props.onClose()
+    }
 
 
     const [agentList, setAgentList] = useState<AgentInterface[]>([])
@@ -190,8 +208,7 @@ export default function Main(props: {
     return (
 
         <FullScreenModal
-            buttonName="Update"
-            handleClick={onClickAdd}
+            handleClick={handleApprove}
             title="Update Job Order"
             onClose={props.onClose}
         >
@@ -200,11 +217,17 @@ export default function Main(props: {
             <div className=" grid grid-cols-1 py-3  gap-2 shadow">
 
                 <UpdateContentBox >
-                    <SubHeading1 text="Date :" /> {convertDateFormat(jobOrder.date)}
+                    <SubHeading1 text="Date :" />
+                    <BodyText1>
+                        {convertDateFormat(jobOrder.date)}
+                    </BodyText1>
                 </UpdateContentBox>
 
                 <UpdateContentBox>
-                    <SubHeading1 text="Type :" /> {jobOrder.type}
+                    <SubHeading1 text="Type :" />
+                    <BodyText1>
+                        {jobOrder.type}
+                    </BodyText1>
 
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -221,11 +244,18 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Division :" /> {jobOrder.division}
+                    <SubHeading1 text="Division :" />
+                    <BodyText1>
+                        {jobOrder.division}
+                    </BodyText1>
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Departure Sector :" /> {props.sectorList.map((sector) => sector.id == jobOrder.sectorId ? sector.name : "")}
+                    <SubHeading1 text="Departure Sector :" />
+                    <BodyText1>
+
+                        {props.sectorList.map((sector) => sector.id == jobOrder.sectorId ? sector.name : "")}
+                    </BodyText1>
                 </UpdateContentBox>
                 <UpdateContentBox>
 
@@ -248,7 +278,10 @@ export default function Main(props: {
                 {jobOrder.file1_url ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" File 1 :" />
-                        <a href={jobOrder.file1_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        <BodyText1>
+                            <a href={jobOrder.file1_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+
+                        </BodyText1>
                     </UpdateContentBox>
 
                 </> : ""}
@@ -257,7 +290,10 @@ export default function Main(props: {
                 {jobOrder.file2_url ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" File 2 :" />
-                        <a href={jobOrder.file2_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        <BodyText1>
+
+                            <a href={jobOrder.file2_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        </BodyText1>
                     </UpdateContentBox>
 
                 </> : ""}
@@ -267,7 +303,10 @@ export default function Main(props: {
                 {jobOrder.file3_url ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" File 3 :" />
-                        <a href={jobOrder.file3_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        <BodyText1>
+
+                            <a href={jobOrder.file3_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        </BodyText1>
                     </UpdateContentBox>
                 </> : ""}
 
@@ -276,7 +315,10 @@ export default function Main(props: {
                 {jobOrder.file4_url ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" File 4 :" />
-                        <a href={jobOrder.file4_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        <BodyText1>
+                            <a href={jobOrder.file4_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+
+                        </BodyText1>
 
                     </UpdateContentBox>
                 </> : ""}
@@ -285,13 +327,20 @@ export default function Main(props: {
                 {jobOrder.file5_url ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" File 5 :" />
-                        <a href={jobOrder.file5_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        <BodyText1>
+                            <a href={jobOrder.file5_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+
+                        </BodyText1>
 
                     </UpdateContentBox>
                 </> : ""}
 
                 <UpdateContentBox>
-                    <SubHeading1 text="Interview Mode :" />{interviewModeList.map((ele) => ele.id == jobOrder.interviewModeId ? ele.name : "")}
+                    <SubHeading1 text="Interview Mode :" />
+                    <BodyText1>
+                        {interviewModeList.map((ele) => ele.id == jobOrder.interviewModeId ? ele.name : "")}
+
+                    </BodyText1>
 
                     {/* <SubHeading1 text="Interview Mode :" />{jobOrder.interviewModeId} */}
                     {/* <div className="w-[180px]">
@@ -309,7 +358,10 @@ export default function Main(props: {
                 {jobOrder.momFileUrl ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" Mom File :" />
-                        <a href={jobOrder.momFileUrl} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        <BodyText1>
+
+                            <a href={jobOrder.momFileUrl} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                        </BodyText1>
 
                     </UpdateContentBox>
                 </> : ""}
@@ -366,6 +418,17 @@ export default function Main(props: {
                     isChanged={isEdocListpdated}
 
                 /> : ""}
+
+            <Heading5 text="Remarks" />
+            <TextAreaInput
+                id="remarksJobOrderApprve"
+                onChange={(value) => { setJobOrder({ ...jobOrder, remarks: value }) }}
+                label="Remarks"
+                value={jobOrder.remarks}
+            />
+
+            <RedButton text="Reject" onClick={handleReject} />
+            <GreenButton text="Approve" onClick={handleApprove} />
         </FullScreenModal>
 
     )

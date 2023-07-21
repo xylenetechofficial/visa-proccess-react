@@ -14,6 +14,7 @@ import AssignToRSAndRC from "./assignToRSAndRC/Router"
 import JobOrderApprove from "./jobOrderApprove/Router"
 import Vacancy from "./vacancy/Router"
 import VacancyApprove from "./vacancyApprove/Router"
+import VacancyApproveByOM from "./VacancyApproveByOM/Router"
 import TC from "./t&c/Router"
 import ProjectStatusKSA from "./ProjectStatusKSA/Router"
 import ProjectStatusKSAClosed from "./ProjectStatusKSAClosed/Router"
@@ -36,6 +37,7 @@ function Main() {
             <Route path='/asign-to-rc-rs/*' element={<AssignToRSAndRC />}></Route>
             <Route path='/vacancy/*' element={<Vacancy />}></Route>
             <Route path='/vacancy-approve/*' element={<VacancyApprove />}></Route>
+            <Route path='/vacancy-approve-by-om/*' element={<VacancyApproveByOM />}></Route>
             <Route path='/terms-condition/*' element={<TC />}></Route>
             <Route path='/job-order-approve/*' element={<JobOrderApprove />}></Route>
             <Route path='/project-status-ksa/*' element={<ProjectStatusKSA />}></Route>

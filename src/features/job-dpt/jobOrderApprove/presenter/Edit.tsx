@@ -20,10 +20,11 @@ import FinalActualProfessionTable from "./FinalActualProfessionTable";
 import SpecialInstructionTable from "./SpecialInstructionTable";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
-import { BodyText1, Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import { BodyText1, Heading5, Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface, EdocInterface, SpecialInstructionInterface } from "../../Extra/type";
 import EdocTable from "./EdocTable";
+import { convertDateFormat } from "../../../../utils/function";
 
 function FindUniqueActualProfessionAndsetToEDOC(data: EdocInterface[], actualProfesionList: ActualProfessionInterface[], jobOrder: JobOrderInterface) {
 
@@ -97,8 +98,8 @@ export default function Main(props: {
         interviewModeId: 0,
         approve: "",
         remarks: "",
-        differed_sector_ids:[],
-        master_sector_ids:[],
+        differed_sector_ids: [],
+        master_sector_ids: [],
 
     }
 
@@ -217,7 +218,7 @@ export default function Main(props: {
                 <UpdateContentBox >
                     <SubHeading1 text="Date :" />
                     <BodyText1>
-                        {jobOrder.date}
+                        {convertDateFormat(jobOrder.date)}
                     </BodyText1>
                 </UpdateContentBox>
 
@@ -230,7 +231,7 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                <SubHeading1 text="Country :" /> {jobOrder.client_country_name ?? ""}
+                    <SubHeading1 text="Country :" /> {jobOrder.client_country_name ?? ""}
                 </UpdateContentBox>
                 <UpdateContentBox>
 
@@ -417,6 +418,7 @@ export default function Main(props: {
 
                 /> : ""}
 
+            <Heading5 text="Remarks" />
             <TextAreaInput
                 id="remarksJobOrderApprve"
                 onChange={(value) => { setJobOrder({ ...jobOrder, remarks: value }) }}

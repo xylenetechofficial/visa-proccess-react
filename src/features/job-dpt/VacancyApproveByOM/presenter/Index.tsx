@@ -110,7 +110,7 @@ export default function Main() {
     return (
 
         <div >
-            <CustomNavbarV3 pageName="Approve By RM" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Approve By OM" searchFunction={(query) => setSearchQuery(query)} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

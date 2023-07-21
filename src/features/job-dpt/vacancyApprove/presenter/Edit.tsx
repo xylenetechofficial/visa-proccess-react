@@ -24,6 +24,7 @@ import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets
 import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface } from "../../Extra/type";
 import { generate_final_actual_profession } from "../../Extra/function";
+import { convertDateFormat } from "../../../../utils/function";
 
 
 
@@ -207,7 +208,7 @@ export default function Main(props: {
             <div className=" grid grid-cols-1 py-3  gap-2 shadow">
 
                 <UpdateContentBox >
-                    <SubHeading1 text="Date :" /> {jobOrder.date}
+                    <SubHeading1 text="Date :" /> {convertDateFormat(jobOrder.date)}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
