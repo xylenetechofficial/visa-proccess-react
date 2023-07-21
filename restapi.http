@@ -1,0 +1,901 @@
+# @hostname = xylenet.online
+# @hostname = https://3c6e-45-248-56-22.ngrok-free.app/api
+# # @hostname = 997d-2405-201-800d-8c86-e562-d727-7055-d46f.ngrok-free.app
+
+# @protocal = https
+# @endpoint = {{protocal}}://{{hostname}}/api
+# @endpoint = http://localhost/api
+@endpoint = https://8d1e-45-248-56-22.ngrok-free.app/api
+
+
+###
+GET {{endpoint}}/visa-dpt/mofa-entry-list
+?status=sjgfs
+
+
+
+# ================      Account Dashboard      =============== #
+
+### Fetch Account Dashboard List
+GET {{endpoint}}/account/account-dashboard-list
+
+
+### Patch Account Dashboard
+POST  {{endpoint}}/account/account-dashboard-cancel/3
+content-type: application/json
+
+
+{
+    "client_invoice" : "NO",
+    "penalty_amount" : 456,
+    "mistake_by" : "AGENT/CANDIDATE"
+}
+
+# mistake_by => AGENT/CANDIDATE, SOUNDLINES, CLIENT
+
+
+
+
+# ================      Candidate Discount      =============== #
+
+### Fetch Candidate Discount List
+GET {{endpoint}}/account/candidate-discount-list
+
+
+### Add Candidate Discount List
+POST  {{endpoint}}/account/candidate-discount-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id": 2,
+            "discount": 60,
+            "discount_type": "NORMAL DISCOUNT",
+            "discount_remarks": "h dvd"
+        },
+        {
+            "id": 4,
+            "discount": 90,
+            "discount_type": "ERROR DISCOUNT",
+            "discount_remarks": "h dvd"
+        }
+    ]
+}
+
+# discount_type => NORMAL DISCOUNT, ERROR DISCOUNT
+
+
+
+
+
+# ================      Candidate Discount Approve      =============== #
+
+### Fetch Candidate Discount Approve List
+GET {{endpoint}}/account/candidate-discount-approve-list
+
+
+### Patch Candidate Discount Approve List
+PATCH  {{endpoint}}/account/candidate-discount-approve-list
+content-type: application/json
+
+
+{
+    "selection_list":[
+        {
+            "discount_id": 2,
+            "status": 1
+        },
+        {
+            "discount_id": 4,
+            "status": 1
+        }
+    ]
+}
+
+# status => 1 for approve , 2 for reject
+
+
+
+
+
+
+
+
+# ================      Reject Cancel Approve      =============== #
+
+### Fetch Reject Cancel Approve List
+GET {{endpoint}}/account/reject-cancel-approve-list
+
+### Update Reject Cancel Approve List
+PATCH {{endpoint}}/account/reject-cancel-approve-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":3,
+            "mofa_cancel_id":1,
+            "status":1
+        }
+    ]
+}
+
+
+
+
+
+
+# ================      Agent Payment      =============== #
+
+### Fetch Agent Payment List
+GET {{endpoint}}/account/agent-payment-list
+?agent_id=12
+
+
+### Add Agent Payment
+POST   {{endpoint}}/account/agent-payment/agent-add
+content-type: application/json
+
+{
+    "agent_id":12,
+    "amount":1200,
+    "description":"dfjgdfjgdfjg"
+}
+
+
+### Add Candidate Payment
+POST   {{endpoint}}/account/agent-payment/candidate-add
+content-type: application/json
+
+{
+    "candidate_id":3,
+    "agent_id":12,
+    "amount":1200,
+    "remarks":"amio"
+}
+
+
+### Add Agent Payment List
+POST   {{endpoint}}/account/agent-payment-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":3,
+            "amount":34,
+            "bulk_payment_id":1,
+            "advance":0,
+            "payment_date":""
+        }
+    ]
+}
+
+
+
+
+### Fetch Agent Payment Receive Payment List
+GET {{endpoint}}/account/agent-payment/receive-payment-list
+?bulk_payment_id=0&candidate_id=2
+
+# onclick bulk payment used amount bulk_payment_id
+# onclick candiadte recieve payment candidate_id
+
+
+
+
+
+
+
+
+
+
+
+# ================      Direct Payment      =============== #
+
+### Fetch Direct Payment List
+GET {{endpoint}}/account/direct-payment-list
+
+
+### Add Advance Payment
+POST   {{endpoint}}/account/direct-payment/advance-payment-add
+content-type: application/json
+
+{
+    "name":"amio",
+    "amount":1289,
+    "passport_no":"gsfuwef5u",
+    "received_date":"02/05/2023",
+    "remarks":"remarks"
+}
+
+
+### Read Advance Payment List
+GET {{endpoint}}/account/direct-payment/advance-payment-list
+
+### Add Candidate Payment
+POST {{endpoint}}/account/direct-payment/candidate-add
+content-type: application/json
+
+{
+    "candidate_id":1,
+    "agent_id":12,
+    "amount":1200,
+    "remarks":"amio"
+}
+
+
+### Add Agent Payment List
+POST   {{endpoint}}/account/direct-payment-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":3,
+            "amount":34,
+            "bulk_payment_id":1,
+            "advance":0,
+            "payment_date":""
+        }
+    ]
+}
+
+
+
+
+### Fetch Agent Payment Receive Payment List
+GET {{endpoint}}/account/agent-payment/receive-payment-list
+?bulk_payment_id=0&candidate_id=2
+
+# onclick bulk payment used amount bulk_payment_id
+# onclick candiadte recieve payment candidate_id
+
+
+
+
+
+
+
+
+
+
+
+# ================      Agent Commission Add      =============== #
+
+### Read Advance Payment List
+GET {{endpoint}}/account/agent-commission-add?passport_no
+#N4948559
+
+
+### Add Candidate Payment
+PATCH {{endpoint}}/account/agent-commission-add/3
+content-type: application/json
+
+{
+    "agent_commission":3
+}
+
+
+
+
+
+
+
+
+
+
+
+# ================      Agent Commissions      =============== #
+
+### Read Agent Commission List
+GET {{endpoint}}/account/agent-commission-list
+
+
+
+### Add Cash Payment
+POST {{endpoint}}/account/agent-commission/cash-payment
+content-type: application/json
+
+{
+    "name":"amio",
+    "passport_no":"jhb2r23ryiu",
+    "agent_id":12,
+    "amount":1200,
+    "remarks":"amio"
+}
+
+
+
+### Add Candidate Payment
+POST {{endpoint}}/account/agent-commission/bulk-payment
+content-type: application/json
+
+{
+    "name":"amio",
+    "passport_no":"jhb2r23ryiu",
+    "agent_id":12,
+    "amount":1200,
+    "remarks":"amio"
+}
+
+
+
+### Fetch Agent Payment Receive Payment List
+GET {{endpoint}}/account/agent-commission/receive-payment-list
+?bulk_payment_id=0&candidate_id=1
+
+# onclick bulk payment used amount bulk_payment_id
+# onclick candiadte recieve payment candidate_id
+
+
+
+
+
+
+
+
+
+
+
+
+# ================      Penalty After Deployment      =============== #
+#2 done 1 pending remark
+### Read Penalty After Deployment List
+#done
+GET {{endpoint}}/account/penalty-after-deployment-list?status=no
+
+# status=no for add
+# status=yes for edit
+
+
+### Add Penalty After Deployment
+#done
+POST {{endpoint}}/account/penalty-after-deployment-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id": 5,
+            "penalty_after_departure": 23,
+            "penalty_remarks": "something"
+        }
+    ]
+}
+
+
+
+### Update Penalty After Deployment
+# where this function is needed?
+PATCH {{endpoint}}/account/penalty-after-deployment-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id": 5,
+            "penalty_after_departure": 230,
+            "penalty_remarks": "something"
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+# ================      Agent Bulk Payment      =============== #
+
+### Read Agent Bulk Payment List
+GET {{endpoint}}/account/agent-bulk-payment-list
+
+
+
+### Add Agent Bulk Payment
+POST {{endpoint}}/account/agent-bulk-payment
+content-type: application/json
+
+{
+    "agent_id":12,
+    "amount":1200,
+    "description":"amio"
+}
+
+
+
+### Update Agent Bulk Payment
+PATCH {{endpoint}}/account/agent-bulk-payment/5
+content-type: application/json
+
+{
+    "agent_id":12,
+    "amount":1200,
+    "description":"new description"
+}
+
+
+
+### Delete Agent Bulk Payment
+DELETE {{endpoint}}/account/agent-bulk-payment/5
+
+
+
+
+
+
+
+
+
+
+# ================      Incentives      =============== #
+
+### Read Incentives List
+GET {{endpoint}}/account/incentive-list?status=no
+
+# status=no for add
+# status=yes for edit
+
+
+
+### Add Incentives
+POST {{endpoint}}/account/incentive-list
+content-type: application/json
+
+{
+    "job_order_list":[
+        {
+            "id": 10,
+            "manager_incentive": 23,
+            "staff_incentive": 54
+        }
+    ]
+}
+
+
+
+### Update Incentives
+PATCH {{endpoint}}/account/incentive-list
+content-type: application/json
+
+{
+    "job_order_list":[
+        {
+            "id": 10,
+            "manager_incentive": 0,
+            "staff_incentive": 60
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+# ================      Client Suspend Amount      =============== #
+
+### Read Client Suspend Amount List
+GET {{endpoint}}/invoice-dpt/client-suspend-amount-list
+
+
+
+### Add Client Suspend Amount
+POST {{endpoint}}/invoice-dpt/client-suspend-amount
+content-type: application/json
+
+{
+    "company_id":3,
+    "payment_received_date":"54/343/343",
+    "amount_received":3,
+    "payment_description":"hdfvdfh"
+}
+
+
+### Get Client Suspend Amount
+GET {{endpoint}}/invoice-dpt/client-suspend-amount/1
+
+
+### Update Client Suspend Amount
+PATCH {{endpoint}}/invoice-dpt/client-suspend-amount/3
+content-type: application/json
+
+{
+    "company_id":3,
+    "payment_received_date":"54",
+    "amount_received":3,
+    "payment_description":"hdfvdfh"
+}
+
+
+### Delete Client Suspend Amount
+DELETE {{endpoint}}/invoice-dpt/client-suspend-amount/3
+
+
+
+
+
+
+
+# ================      Client Additional Invoice      =============== #
+
+### Read Client Additional Invoice List
+GET {{endpoint}}/invoice-dpt/client-additional-invoice-list
+
+
+
+### Add Client Additional Invoice
+POST {{endpoint}}/invoice-dpt/client-additional-invoice
+content-type: application/json
+
+{
+    "company_id":3,
+    "invoice_date":"24-9-23",
+    "invoice_number":"erw",
+    "invoice_amount":23
+}
+
+
+### Get Client Additional Invoice
+GET {{endpoint}}/invoice-dpt/client-additional-invoice/1
+
+
+### Update Client Additional Invoice
+PATCH {{endpoint}}/invoice-dpt/client-additional-invoice/3
+content-type: application/json
+
+{
+    "company_id":3,
+    "invoice_date":"8-4-23",
+    "invoice_number":"vbfdkvbdfhb",
+    "invoice_amount":33
+}
+
+
+### Delete Client Additional Invoice
+DELETE {{endpoint}}/invoice-dpt/client-additional-invoice/3
+
+
+
+
+
+
+
+# ================      Candidate Ticket Charge      =============== #
+
+### Read Candidate Ticket Charge List
+GET {{endpoint}}/invoice-dpt/candidates-ticket-charge-list
+
+
+
+### Add Candidate Ticket Charge
+POST {{endpoint}}/invoice-dpt/candidates-ticket-charge-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "ticket_charges":45,
+            "ticket_charge_currency":"IND"
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "ticket_charges":24,
+            "ticket_charge_currency":"USD"
+        }
+    ]
+}
+
+
+
+
+
+
+
+# ================      Candidate Invoice Raise      =============== #
+
+### Read Candidate Invoice Raise List
+GET {{endpoint}}/invoice-dpt/candidates-invoice-raise-list
+
+
+
+### Add Candidate Invoice Raise
+POST {{endpoint}}/invoice-dpt/candidates-invoice-raise-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "total_charges":32,
+            "invoice_number":"jhfvhjdsfbvksd",
+            "invoice_date":"4-5-67",
+            "bank_id":1
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "total_charges":25,
+            "invoice_number":"jhfvhjdsfbvksd",
+            "invoice_date":"4-5-12",
+            "bank_id":7
+        }
+    ]
+}
+
+
+### Update Candidate Invoice Raise
+PATCH {{endpoint}}/invoice-dpt/candidates-invoice-raise/1
+content-type: application/json
+
+{
+    "is_without":0,
+    "total_charges":2,
+    "invoice_number":"jhfvhjdsfbvksd",
+    "invoice_date":"4-5-67",
+    "bank_id":1
+}
+
+
+
+### Update Candidate Invoice Raise
+DELETE {{endpoint}}/invoice-dpt/candidates-invoice-raise/3
+content-type: application/json
+
+{
+    "is_without":1
+}
+
+
+
+
+
+
+
+# ================      Candidate Invoice Charge      =============== #
+
+### Read Candidate Invoice Charge List
+GET {{endpoint}}/invoice-dpt/candidates-invoice-charge-list
+
+
+
+### Add Candidate Invoice Charge
+POST {{endpoint}}/invoice-dpt/candidates-invoice-charge-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "other_charges":28,
+            "other_charge_currency":"USD",
+            "service_charges":4,
+            "service_charge_currency":"USD",
+            "ticket_charges":36,
+            "ticket_charge_currency":"IND",
+            "total_charges":58
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "other_charges":24,
+            "other_charge_currency":"IND",
+            "service_charges":24,
+            "service_charge_currency":"USD",
+            "ticket_charges":24,
+            "ticket_charge_currency":"IND",
+            "total_charges":45
+        }
+    ]
+}
+
+
+
+
+
+
+
+# ================      Candidate Invoice Number      =============== #
+
+### Read Candidate Invoice Number List
+GET {{endpoint}}/invoice-dpt/candidates-invoice-number-list
+
+
+
+### Add Candidate Invoice Number
+POST {{endpoint}}/invoice-dpt/candidates-invoice-number-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "invoice_number":"jhdftg",
+            "invoice_date":"17-5-15",
+            "bank_id":7
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "invoice_number":"tdcag",
+            "invoice_date":"23-1-23",
+            "bank_id":4
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+# ================      Client Payment      =============== #
+
+### Read Client Payment List
+GET {{endpoint}}/invoice-dpt/client-payment-list
+
+
+
+### Add Client Payment
+POST {{endpoint}}/invoice-dpt/client-payment
+content-type: application/json
+
+{
+    "company_id":2,
+    "invoice_number":"abc",
+    "invoice_date":"4-5-23",
+    "amount":24,
+    "date":"4-7-23",
+    "description":"add payment"
+}
+
+# client_suspend_amount_id  optional 
+# use if adjust from suspend amount
+
+
+
+### Update Client Payment
+PATCH {{endpoint}}/invoice-dpt/client-payment/1
+content-type: application/json
+
+{
+    "amount":4,
+    "date":"4-7-23",
+    "description":"add payment"
+}
+
+
+
+### Update Client Payment List
+PATCH {{endpoint}}/invoice-dpt/client-payment-list
+content-type: application/json
+
+{
+    "payment_list":[
+        {
+            "id":1,
+            "amount":47,
+            "date":"6-11-22",
+            "description":"update payment 1"
+        },
+        {
+            "id":6,
+            "amount":52,
+            "date":"8-2-23",
+            "description":"update payment 2"
+        }
+    ]
+}
+
+
+
+### Remove Update Client Payment
+DELETE {{endpoint}}/invoice-dpt/client-payment/1
+
+
+# Extended APi
+### Read Client Payment Candidate List By Invoice Number
+GET {{endpoint}}/invoice-dpt/client-payment/candidate-list
+?invoice_number=abc
+
+
+### Read Client Payment List
+GET {{endpoint}}/invoice-dpt/client-payment/payment-list
+?invoice_number=abc
+
+
+
+
+
+# ================      Client Additional Payment      =============== #
+
+### Read Client Additional Payment List
+GET {{endpoint}}/invoice-dpt/client-additional-payment-list
+
+
+
+### Add Client Additional Payment
+POST {{endpoint}}/invoice-dpt/client-additional-payment
+content-type: application/json
+
+{
+    "company_id":2,
+    "invoice_number":"abc",
+    "invoice_date":"4-5-23",
+    "amount":24,
+    "date":"4-7-23",
+    "description":"add payment"
+}
+
+# client_suspend_amount_id  optional 
+# use if adjust from suspend amount
+
+
+
+### Update Client Additional Payment
+PATCH {{endpoint}}/invoice-dpt/client-additional-payment/1
+content-type: application/json
+
+{
+    "amount":4,
+    "date":"4-7-23",
+    "description":"add payment"
+}
+
+
+
+### Update Client Additional Payment List
+PATCH {{endpoint}}/invoice-dpt/client-additional-payment-list
+content-type: application/json
+
+{
+    "payment_list":[
+        {
+            "id":1,
+            "amount":47,
+            "date":"6-11-22",
+            "description":"update payment 1"
+        },
+        {
+            "id":6,
+            "amount":52,
+            "date":"8-2-23",
+            "description":"update payment 2"
+        }
+    ]
+}
+
+
+
+### Remove Update Client Additional Payment
+DELETE {{endpoint}}/invoice-dpt/client-additional-payment/1
+
+
+# Extended APi
+
+### Read Client Additional Payment List
+GET {{endpoint}}/invoice-dpt/client-additional-payment/payment-list
+?invoice_number=abc
+
+
+
+
+
