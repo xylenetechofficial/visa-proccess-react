@@ -56,10 +56,6 @@ export interface RejectCancelApproveAdapter {
   consolidated_charges: number,
   consolidated_charges_names: string,
   mofa_cancel_id: number
-
-
-
-
 }
 
 export interface RejectCancelApproveSingleInterface {

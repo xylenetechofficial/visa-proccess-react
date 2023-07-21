@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface } from "../type";
+import {  PenaltyAfterDeploymentDashboardInterface } from "../type";
 import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import {
   Table,
@@ -20,7 +20,7 @@ import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 
 const AccountDashboardTable = (props: {
   // accountDashboardList: AgentPaymentReceivedInterface[];
-  accountDashboardList: any;
+  accountDashboardList: PenaltyAfterDeploymentDashboardInterface[];
   setAccountDashboardList:any;
   onClickCreate: any;
   data:any;
@@ -91,7 +91,7 @@ console.log(penaltyData)
           </TableHeadRow2>
         </TableHead2>
          <TableBody>
-          {props?.accountDashboardList?.map((ele:any, index:any) => (
+          {props?.accountDashboardList?.map((ele, index) => (
             <TableRow key={index}>
              <TableCell>{index +1 }</TableCell>
             <TableCell> {ele?.id}</TableCell>

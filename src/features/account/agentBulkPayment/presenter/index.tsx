@@ -45,7 +45,8 @@ export default function Main() {
 
   const onClickCreate = async(data:any) => {
  await createAccountDashboard(data)
-  ;
+ fetchAccountDashboardList();
+  
   };
 
   const onClickEdit = ( accountDashboard: AgentPaymentReceivedInterface) => {

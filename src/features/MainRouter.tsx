@@ -13,6 +13,9 @@ import Dev from './testComponent/Router';
 import RC from './RC/Router';
 import Agreement from './agreement/Router'
 import Account from './account/Router'
+import Invoice from './invoice/Router'
+import Immigration from './immigration/Router'
+import Delhi from './delhi/Router'
 import { UserAuthContextProvider, useUserAuth } from './context/UserAuthContext';
 import { useEffect } from 'react';
 
@@ -63,7 +66,9 @@ function Others() {
                         <Route path='/RC/*' element={<RC />}></Route>
                         <Route path='/agreement/*' element={<Agreement />}></Route>
                         <Route path='/account/*' element={<Account />}></Route>
-
+                        <Route path='/invoice/*' element={<Invoice />}></Route>
+                        <Route path='/immigration/*' element={<Immigration />}></Route>
+                        <Route path='/delhi/*' element={<Delhi />}></Route>
                     </Routes>
                 </Layout></>
                 : ""}

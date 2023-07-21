@@ -43,7 +43,7 @@ const AccountDashboardTable = (props: {
          <TableBody>
           {props.accountDashboardList.map((ele, index) => (
             <TableRow key={index}>
-              <TableCell>{ele?.id}</TableCell>
+              <TableCell>{index +1}</TableCell>
               <TableCell> {ele?.agent_name}</TableCell>
               <TableCell>
              { convertDateFormat(ele.created_at)}</TableCell>

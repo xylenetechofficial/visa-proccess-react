@@ -1,29 +1,18 @@
-import { createAccountDashboard, readAccountDashboard, updateAccountDashboard } from "../repository";
-import { useEffect, useState } from "react";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, FileInput, StandardInput, UnlabeledInput } from "../../../../componenets/Input";
+import { updateAccountDashboard } from "../repository";
+import { useState } from "react";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface, CandidateRejectInterface } from "../type";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
+import {   CandidateRejectInterface } from "../type";
 import { CountryInterface } from "../../../masters/country/type";
-import ActualProfessionTable from "./VisaProfessionTable";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
-import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
-import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
-import VisaProfessionTable from "./VisaProfessionTable";
-import { RejectCancelApproveSingleAdapter } from "../../rejectCancelApprove/type";
 import { Box } from "@mui/material";
-import { GreenButton } from "../../../../componenets/CustomButton";
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from "../../../../componenets/Table";
 
 
 export default function Main(props: {
     onClose: () => void,
     // fetchAccountDashboardList: () => void,
-    currentElement: AgentPaymentReceivedInterface,
+    currentElement: any,
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
@@ -75,21 +64,7 @@ export default function Main(props: {
         setAccountDashboard(initValue)
         // props.fetchAccountDashboardList()
     }
-    // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
-    const [visaAuhorisationList, setvisaAuhorisationList] = useState<any>([])
-    const fetchvisaAuhorisationList = async () => {
-        const data = await readVisaAuthorisationList();
-        if (data) {
-            setvisaAuhorisationList(data);
-        }
-    }
-    const fetchAccountDashboard = async () => {
-        const data: any = await readAccountDashboard(props.currentElement.id ?? 0);
-        if (data) {
-            setAccountDashboard(data);
-            setagentPaymentReceivedList(data.agentPaymentReceivedList ?? [])
-        }
-    }
+  
   
     const style = {
         position: 'absolute',

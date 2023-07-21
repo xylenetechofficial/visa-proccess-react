@@ -1,4 +1,4 @@
-import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface } from "./type";
+import { AddPenaltyAfterDeploymentInterface, AddSelectionPenaltyAfterDeploymentConverter, AddSelectionPenaltyAfterDeploymentInterface, PenaltyAfterDeploymentDashboardAdapter, PenaltyAfterDeploymentDashboardConverter, PenaltyAfterDeploymentDashboardInterface } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -30,46 +30,25 @@ export async function readAccountDashboardList(status:string) {
   const data = []
   console.log(response.data,"l")
   if (response.data) {
-    // const dataAdapter = response.data as AccountDashboardAdapter[];
-    const dataAdapter = response.data as any;
+    const dataAdapter = response.data as PenaltyAfterDeploymentDashboardAdapter[];
+    // const dataAdapter = response.data as any;
     for (let i = 0; i < dataAdapter.length; i++) {
       const element = dataAdapter[i];
-      data.push(element);
-      // data.push(AccountDashboardConverter.toInterface(element));
+      // data.push(element);
+      data.push(PenaltyAfterDeploymentDashboardConverter.toInterface(element));
     }
   }
-  // return data as AccountDashboardInterface[]
-  return data as any
+  return data as PenaltyAfterDeploymentDashboardInterface[]
+  // return data as any
 }
 
-
-
-export async function readAccountDashboard(id: number) {
-
-  const path = "/visa-dpt/block-visa/" + id;
-
-  const response = await ApiHelper.get(path, {
-    contentType: ContentType.json,
-    tokenType: AuthTokenType.JWT,
-  });
-
-  if (response.code != 200) {
-    showMessage_v2({ message: response.message, status: response.code })
-  }
-
-  return AccountDashboardConverter.toInterface(response.data as AccountDashboardAdapter)
-}
-
-
-
-
-// export async function createAccountDashboard(AccountDashboard: AccountDashboardInterface) {
-export async function createAccountDashboard(AccountDashboard: any) {
-  console.log(AccountDashboard)
+export async function createAccountDashboard(AddPenaltyAfterDeployment: AddSelectionPenaltyAfterDeploymentInterface) {
+// export async function createAddPenaltyAfterDeployment(AddPenaltyAfterDeployment: any) {
+  console.log(AddPenaltyAfterDeployment)
   const path = "/account/penalty-after-deployment-list"
 
-  // const payload = AccountDashboardConverter.toAdapter(AccountDashboard);
-  const payload = AccountDashboard
+  const payload = AddSelectionPenaltyAfterDeploymentConverter.toAdapter(AddPenaltyAfterDeployment);
+  // const payload = AddPenaltyAfterDeployment
 
   console.log(payload)
   const response = await ApiHelper.post(path, payload, {
@@ -84,27 +63,16 @@ export async function createAccountDashboard(AccountDashboard: any) {
   return false;
 }
 
-export async function updateAccountDashboard(AccountDashboard:any) {
+export async function updateAccountDashboard(AddPenaltyAfterDeployment: AddSelectionPenaltyAfterDeploymentInterface) {
 
-  // const payload = CandidateRejectConverter.toAdapter(AccountDashboard);
-  const payload = AccountDashboard;
-console.log(payload,"aa",AccountDashboard)
+  const payload = AddSelectionPenaltyAfterDeploymentConverter.toAdapter(AddPenaltyAfterDeployment);
+  // const payload = AddPenaltyAfterDeployment;
+console.log(payload,"aa",AddPenaltyAfterDeployment)
   const path = "/account/penalty-after-deployment-list";
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
   })
-  showMessage_v2({ message: response.message, status: response.code })
-
-}
-
-export async function deleteAccountDashboard(id: number) {
-
-  const path = "/visa-dpt/block-visa/" + id
-  const response = await ApiHelper.delete(path, {
-    tokenType: AuthTokenType.JWT
-  })
-
   showMessage_v2({ message: response.message, status: response.code })
 
 }

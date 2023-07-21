@@ -1,20 +1,8 @@
-import { createAccountDashboard, readAccountDashboard, updateAccountDashboard } from "../repository";
-import { useEffect, useState } from "react";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, FileInput, StandardInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
-import { SectorInterface } from "../../../masters/sector/type";
-import { CompanyInterface } from "../../../masters/company/type";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface, CandidateRejectInterface } from "../type";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
-import { CountryInterface } from "../../../masters/country/type";
-import ActualProfessionTable from "./VisaProfessionTable";
+
+import {  useState } from "react";
+import {  TextAreaInput } from "../../../../componenets/Input";
+import {   CandidateRejectInterface } from "../type";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
-import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
-import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
-import VisaProfessionTable from "./VisaProfessionTable";
-import { RejectCancelApproveSingleAdapter } from "../../rejectCancelApprove/type";
 import { Box } from "@mui/material";
 import { GreenButton } from "../../../../componenets/CustomButton";
 
@@ -22,7 +10,7 @@ import { GreenButton } from "../../../../componenets/CustomButton";
 export default function Main(props: {
     onClose: () => void,
     // fetchAccountDashboardList: () => void,
-    currentElement: AgentPaymentReceivedInterface,
+    currentElement: any,
 
 }) {
     console.log(props.currentElement, "ALLLLLLLLL")

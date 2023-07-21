@@ -14,7 +14,7 @@ import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { Checkbox } from "@mui/material";
 import { UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
+import { CustomSelectComponentUnlabeled, selectOptionConveter, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 
@@ -140,10 +140,14 @@ const AgentPaymentTable = (props: {
                   }
                   }
                   // options={props?.AgentPaymentList?.bulk_payment_list}
-                options={selectOptionConveter({
-                  options: props?.AgentPaymentList?.bulk_payment_list,
-                  options_struct: { name: "description", value: "id" },
+                // options={selectOptionConveter({
+                //   options: props?.AgentPaymentList?.bulk_payment_list,
+                //   options_struct: { name: "description", value: "id" },
 
+                // })}
+                options={selectOptionConveterv2({
+                  options: props?.AgentPaymentList?.bulk_payment_list,
+                  options_struct: [{ name: "amount", value: "id" }, { name: "amount_used", value: "id" }]
                 })}
 
                 />

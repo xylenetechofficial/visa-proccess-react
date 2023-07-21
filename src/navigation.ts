@@ -110,23 +110,52 @@ export const navigations: NavigationInterface[] = [
   },
   {
     name: "Account",
-    icon: "account_balance",
+    icon: "account_circle",
     children: [
       { name: 'Account dashboard', icon: 'pageview', path: '/account/account-dashboard/' },
       { name: 'Reject Cancel Approve', icon: 'pageview', path: '/account/reject-cancel-approve/' },
       { name: 'Agent Payment', icon: 'pageview', path: '/account/agent-payment/' },
       { name: 'Candidate Discount', icon: 'pageview', path: '/account/candidate-discount/' },
       { name: 'Candidate Discount Approve/Reject', icon: 'pageview', path: '/account/candidate-discount-approve/reject/' },
-      
-      { name: 'Direct Payment', icon: 'pageview', path: '/account/direct-payments' },
+      { name: 'Direct Payments', icon: 'pageview', path: '/account/direct-payments' },
+      { name: 'Agent Payments Received', icon: 'pageview', path: '/account/agent-payments-recieved' },
       { name: 'Agent Commissions', icon: 'pageview', path: '/account/agent-commissions' },
       { name: 'Agent Commission Add', icon: 'pageview', path: '/account/agent-commission-add' },
-      { name: 'Agent Payments Received', icon: 'pageview', path: '/account/agent-payments-received' },
-      { name: 'Agent Bulk Payment', icon: 'pageview', path: '/account/agent-bulk-payment' },
-      { name: 'Penalty After Deployment', icon: 'pageview', path: '/account/penalty-after-deployment' },
-      { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
+      { name: 'Penalty After Payments', icon: 'pageview', path: '/account/penalty-after-deployment' },
+      { name: 'Agent Bulk Payments', icon: 'pageview', path: '/account/agent-bulk-payment' },
       { name: 'Incentives', icon: 'pageview', path: '/account/incentives' },
+      { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
     ]
-  }
+  },
+  {
+    name:"Invoice",
+    icon:"work",
+    children:[
+      {name:"Client Suspense Amount List" ,icon: 'pageview', path: '/invoice/client-suspence-list/'},
+      {name:"Client Invoice Add" ,icon: 'pageview', path: '/invoice/client-invoice-add/'},
+      {name:"Client Invoice Candidates Ticket Charges" ,icon: 'pageview', path: '/invoice/client-invoice-candidates-ticket-charges/'},
+      {name:"Client Invoice Candidates Invoice Raise" ,icon: 'pageview', path: '/invoice/client-invoice-candidates-invoice-raise/'},
+      {name:"Client Additional Invoice " ,icon: 'pageview', path: '/invoice/client-additional-invoice/'},
+      {name:"Client Additional  Payment " ,icon: 'pageview', path: '/invoice/client-additional-invoice-payment-add'},
+    ]
+  },
+  {
+    name:"Immigration",
+    icon:"work",
+    children:[
+      {name:"Immigration Dashboard" ,icon: 'pageview', path: '/immigration/immigration-dashboard/'     },
+      
+    ]
+  },
+
+  {
+    name: 'Delhi Account',
+    icon: 'account_circle',
+    children: [
+      { name: 'Candidates List', icon: 'pageview', path: '/delhi/candidates-list' },
+      { name: 'RC - Candidates List', icon: 'pageview', path: '/delhi/RC-candidates-list' },
+
+    ]
+  },
 
 ]; 
