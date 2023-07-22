@@ -96,7 +96,7 @@ const FinalActualProfessionTable = (props: {
                     <TableHeadRow3  >
                         <TableHeadCell3  > Sr No.</TableHeadCell3>
                         <TableHeadCell3 > Actual Profession</TableHeadCell3>
-                        <TableHeadCell3 > Grade</TableHeadCell3>
+                        {/* <TableHeadCell3 > Grade</TableHeadCell3> */}
                         <TableHeadCell3 >Sector</TableHeadCell3>
                         <TableHeadCell3 >Sector Charge</TableHeadCell3>
                         <TableHeadCell3 > Quantity</TableHeadCell3>
@@ -133,13 +133,13 @@ const FinalActualProfessionTable = (props: {
                     ))}
 
 
-                    <TableRow>
+                    {/* <TableRow>
                         <TableCell>
                             <div style={{ width: "111px", margin: "10px 0px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
                         </TableCell>
-                    </TableRow>
+                    </TableRow> */}
                 </TableBody>
             </Table>
 
@@ -201,24 +201,27 @@ const TableData = (
         <TableRow key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
             <TableCell3 >
-                <UnlabeledInput
+            {localRowData.actual_profession}
+                {/* <UnlabeledInput
                     value={localRowData.actual_profession}
                     onchange={(value) => setLocalRowData({ ...localRowData, actual_profession: value })}
-                />
+                /> */}
             </TableCell3>
-            <TableCell3 >
+            {/* <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.grade}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, grade: parseInt(value) })}
                 />
-            </TableCell3>
+            </TableCell3> */}
             <TableCell3 >
-                <CustomSelectComponentUnlabeled
+                {props.interViewSectorList.map(e => localRowData.sector == e.id ? e.name : "")}
+
+                {/* <CustomSelectComponentUnlabeled
                     options={selectOptionConveter({ options: props.interViewSectorList, options_struct: { name: "name", value: "id" } })}
                     value={localRowData.sector}
                     onChange={(value) => setLocalRowData({ ...localRowData, sector: parseInt(value) })}
-                />
+                /> */}
             </TableCell3>
             <TableCell3 >
                 <UnlabeledInput
@@ -335,7 +338,7 @@ const TableData = (
                     onchange={(value) => setLocalRowData({ ...localRowData, air_ticket: value })}
                 /> */}
                 <CustomRadioButton
-                    // inlined={true}
+                    // inlined
                     option={AirTicketList}
                     value={localRowData.air_ticket}
                     onChange={(value) => setLocalRowData({ ...localRowData, air_ticket: value })}

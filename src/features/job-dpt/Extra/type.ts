@@ -141,6 +141,8 @@ export class ActualProfessionConverter {
       invoice_ticket_charges: i.invoice_ticket_charges,
       invoice_service_charges_currency: i.invoice_service_charges_currency,
     };
+    console.log('ActualProfessionAdapter');   // Only Dev
+    console.log(data);   // Only Dev
     return data;
   }
 

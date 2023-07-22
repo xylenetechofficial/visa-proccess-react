@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import EditModal from './Edit'
-import EditModal_2 from './Edit_2'
 import { Box, styled } from "@mui/material";
 import JobOrderTable from "./Table";
-// import { confirmationMessage } from "../../../../utils/alert";
-// import { GreenButton } from "../../../../componenets/CustomButton";
+import { confirmationMessage } from "../../../../utils/alert";
+import { GreenButton } from "../../../../componenets/CustomButton";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { JobOrderInterface } from "../type";
@@ -15,8 +14,6 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
-import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
-import { readInterviewSectorList } from "../../../masters/interviewSector/repository";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -30,7 +27,6 @@ export default function Main() {
     const [jobOrderList, setJobOrderList] = useState<JobOrderInterface[]>([])
 
     const [editJobOrder, setEditJobOrder] = useState<JobOrderInterface>({} as JobOrderInterface)
-    // const [actualProfesion, setActualProfesion] = useState<JobOrderInterface>({} as JobOrderInterface)
 
     const [modalName, setModalName] = useState('')
 
@@ -47,8 +43,8 @@ export default function Main() {
     };
     const dataFiltered = filterData(searchQuery, jobOrderList);
 
-    const onClickEdit_2 = () => {
-        setModalName('edit-2');
+    const onClickCreate = () => {
+        setModalName('create');
 
     }
 
@@ -59,7 +55,7 @@ export default function Main() {
         setModalName('edit')
     }
 
-
+    
 
     // useEffect(() => {
     // }, [editJobOrder, modalName])
@@ -100,15 +96,8 @@ export default function Main() {
         console.log(data);
         setJobOrderList(data)
     }
-
-
-    const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
-    const fetchInterviewSectorList = async () => {
-        const data = await readInterviewSectorList();
-        setInterviewSectorList(data)
-    }
     useEffect(() => {
-        fetchInterviewSectorList()
+
         fetchJobOrderList()
         fetchSectorList()
         fetchcomapanyList()
@@ -117,10 +106,6 @@ export default function Main() {
     }, [])
 
 
-    useEffect(() => {
-        console.log("=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#");   // Only Dev
-        console.log(editJobOrder);   // Only Dev
-    }, [editJobOrder])
 
     return (
 
@@ -129,6 +114,23 @@ export default function Main() {
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+
+
+                {/* <GreenButton text={"Add +"} onClick={() => {
+                    setModalName("create")
+                }} /> */}
+                {/* <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => {
+                        setModalName("create")
+                    }}
+                >
+                    Add JobOrder +
+                </Button> */}
+                {/* <IconButton>
+                    <Icon color="primary">refresh</Icon>
+                </IconButton> */}
             </CardHeader>
 
 
@@ -143,25 +145,12 @@ export default function Main() {
 
             {/* <!-- Modal --> */}
 
-
-
+          
+          
 
             {/* Edit */}
             {modalName !== "edit" ? "" :
                 <EditModal
-                    currentElement={editJobOrder}
-                    setCurrentElement={(e: JobOrderInterface) => setEditJobOrder(e)}
-                    onClose={(val:string) => setModalName(val)}
-                    fetchJobOrderList={fetchJobOrderList}
-                    companyList={companyList}
-                    countryList={countryList}
-                    sectorList={sectorList}
-                    interviewSectorList={interviewSectorList}
-                />}
-
-            {/* Edit 2 */}
-            {modalName !== "edit-2" ? "" :
-                <EditModal_2
                     currentElement={editJobOrder}
                     onClose={() => setModalName("")}
                     fetchJobOrderList={fetchJobOrderList}

@@ -16,10 +16,10 @@ import { ActualProfessionInterface } from '../../Extra/type';
 
 const ActualProfessionTable = (props: {
     jobOrder: JobOrderInterface,
-    actualProfessionList: ActualProfessionInterface[]
+    actualProfessionList:ActualProfessionInterface[]
     list?: ActualProfessionInterface[],
     onChange: (ele: ActualProfessionInterface[]) => void,
-    isChanged: string
+    isChanged:string
 }) => {
     const [actualProfessionList, setActualProfesionList] = useState<ActualProfessionInterface[]>([])
     const [onChange, setonChange] = useState<string>("")
@@ -91,7 +91,6 @@ const ActualProfessionTable = (props: {
                 <TableBody3>
                     {actualProfessionList && actualProfessionList.map((ele, index) => (
                         <TableData
-                            key={index}
                             data={ele}
                             index={index}
                             onChange={onChange}
@@ -104,7 +103,7 @@ const ActualProfessionTable = (props: {
 
                     <TableRow3>
                         <TableCell3>
-                            <div style={{ width: "111px", margin: "10px 0px" }}>
+                        <div style={{ width: "111px", margin:"10px 0px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
                         </TableCell3>

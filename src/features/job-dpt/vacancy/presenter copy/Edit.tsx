@@ -23,20 +23,17 @@ import { readAgentList } from "../../../masters/agent/repository";
 import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface } from "../../Extra/type";
-import { filter_unique_sector, generate_final_actual_profession, generate_final_actual_profession_v2, get_unique_actual_profession } from "../../Extra/function";
+import { filter_unique_sector, generate_final_actual_profession } from "../../Extra/function";
 import { convertDateFormat } from "../../../../utils/function";
 
 
 
 export default function Main(props: {
-    onClose: (val: string) => void,
-    fetchJobOrderList: any,
+    onClose: any, fetchJobOrderList: any,
     sectorList: SectorInterface[],
-    interviewSectorList: InterviewSectorInterface[]
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
     currentElement: JobOrderInterface,
-    setCurrentElement: (e: JobOrderInterface) => void
 }) {
 
     const initValue: JobOrderInterface = {
@@ -63,37 +60,113 @@ export default function Main(props: {
     const [isactualProfessionUpdated, setIsActualProfessionUpdated] = useState("")
 
     const [selectedMasterSector, setSelectedMasterSector] = useState<InterviewSectorInterface[]>([]);
-    const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
+    const [interviewSectionList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
     const [selectedDifferedSector, setSelectedDifferedSector] = useState<InterviewSectorInterface[]>([]);
     const [actualProfesionList, setActualProfesionList] = useState<ActualProfessionInterface[]>([]);
-    const [actualProfesionList_old, setActualProfesionList_old] = useState<ActualProfessionInterface[]>([]);
 
-    // const fetchInterviewSectorList = async () => {
-    //     const data = await readInterviewSectorList();
-    //     setInterviewSectorList(data)
-    // }
+    const fetchInterviewSectorList = async () => {
+        const data = await readInterviewSectorList();
+        setInterviewSectorList(data)
+    }
 
     const handleOnClickGenerate = async () => {
-        const newarray = await generate_final_actual_profession_v2(actualProfesionList_old ?? [], actualProfesionList, selectedDifferedSector, selectedMasterSector)
+        // const newarray: ActualProfessionInterface[] = [];
 
-        console.log('new actual proffesion')
-        console.log(newarray)
+        // for (let i = 0; i < actualProfesionList.length; i++) {
+        //     const actualProfesion = actualProfesionList[i];
+
+        //     // Differed Sector
+        //     for (let j = 0; j < selectedDifferedSector.length; j++) {
+        //         const differedSector = selectedDifferedSector[j]
+        //         newarray.push({
+        //             jobOrder_id: actualProfesion.id ?? 0,
+        //             actual_profession: actualProfesion.actual_profession,
+        //             quantity: actualProfesion.quantity,
+        //             seletion_target_quantity: actualProfesion.seletion_target_quantity,
+        //             min_salary: actualProfesion.min_salary,
+        //             max_salary: actualProfesion.max_salary,
+        //             job_description: actualProfesion.job_description,
+        //             master_service_charges: actualProfesion.master_service_charges,
+        //             differed_service_charges: actualProfesion.differed_service_charges,
+        //             sector: differedSector.id,
+        //             sector_charge:actualProfesion.differed_service_charges,
+        //             agent_commission: 0,
+        //             air_ticket: "",
+        //             consodilate_charges: "0",
+        //             grade: 0,
+        //             invoice_service_charges: 0,
+        //             invoice_service_charges_currency: 0,
+        //             invoice_ticket_charges: 0,
+        //             is_invoice: 0,
+        //             partial_charges: 0,
+        //             service_charges: 0,
+        //             is_master_sector:0,
+        //         })
+        //     }
+
+        //     // Master Sector
+        //     for (let j = 0; j < selectedMasterSector.length; j++) {
+        //         const masterSector = selectedMasterSector[j]
+        //         newarray.push({
+        //             jobOrder_id: actualProfesion.id ?? 0,
+        //             actual_profession: actualProfesion.actual_profession,
+        //             quantity: actualProfesion.quantity,
+        //             seletion_target_quantity: actualProfesion.seletion_target_quantity,
+        //             min_salary: actualProfesion.min_salary,
+        //             max_salary: actualProfesion.max_salary,
+        //             job_description: actualProfesion.job_description,
+        //             master_service_charges: actualProfesion.master_service_charges,
+        //             differed_service_charges: actualProfesion.differed_service_charges,
+        //             sector: masterSector.id,
+        //             sector_charge:actualProfesion.master_service_charges,
+        //             is_master_sector:1,
+        //         })
+
+        //     }
+        // }
+
+        const newarray = await generate_final_actual_profession(actualProfesionList, selectedDifferedSector, selectedMasterSector)
+
+        // console.log(newarray)
         const newJobOrder = jobOrder
-        // const oldActualProfesionList = newJobOrder.actualProfesionList ?? [];
-        // const newActualProfesionList = [...oldActualProfesionList, ...newarray];
-        // newJobOrder.actualProfesionList = newActualProfesionList
-        newJobOrder.actualProfesionList = newarray
+        const oldActualProfesionList = newJobOrder.actualProfesionList ?? [];
+        const newActualProfesionList = [...oldActualProfesionList, ...newarray];
+        newJobOrder.actualProfesionList = newActualProfesionList
 
+        // var combinedArray = jobOrder.differed_sector_ids.concat(arr2);
+
+        // // Use a Set to filter out duplicate elements
+        // var uniqueArray = [...new Set(combinedArray)];
+
+        // return uniqueArray;
+        // const new_differed_array: string[] = [];
+        // for (let i = 0; i < selectedDifferedSector.length; i++) {
+        //     if (!jobOrder.differed_sector_ids?.includes((selectedDifferedSector[i].id ?? 0).toString())) {
+        //         new_differed_array.push((selectedDifferedSector[i].id ?? 0).toString());
+        //     }
+        // }
         const new_differed_array = await filter_unique_sector(selectedDifferedSector, jobOrder.differed_sector_ids);
 
+        // const new_master_array: string[] = [];
+        // for (let i = 0; i < selectedMasterSector.length; i++) {
+        //     if (!jobOrder.differed_sector_ids?.includes((selectedMasterSector[i].id ?? 0).toString())) {
+        //         new_master_array.push((selectedMasterSector[i].id ?? 0).toString());
+        //     }
+        // }
         const new_master_array = await filter_unique_sector(selectedDifferedSector, jobOrder.differed_sector_ids);
 
 
         const master_array = [...jobOrder.master_sector_ids ?? [], ...new_master_array];
         const differed_array = [...jobOrder.differed_sector_ids ?? [], ...new_differed_array];
-        const new_job_order = { ...newJobOrder, master_sector_ids: master_array, differed_sector_ids: differed_array }
-        props.setCurrentElement(new_job_order)
-        props.onClose("edit-2")
+        setJobOrder({ ...newJobOrder, master_sector_ids: master_array, differed_sector_ids: differed_array })
+        // clean actual profesion, master and differed
+        setActualProfesionList([])
+        setSelectedDifferedSector([])
+        setSelectedMasterSector([])
+
+        // setJobOrder(newJobOrder)
+        fetchInterviewSectorList()
+        setIsActualProfessionUpdated(new Date().toTimeString())
     }
 
 
@@ -119,29 +192,10 @@ export default function Main(props: {
 
     const fetchJobOrder = async () => {
         const data = await readJobOrder(props.currentElement.id ?? 0)
-        console.log("fetch job order");   // Only Dev
+        console.log(data);
         setJobOrder(data)
-
-        // ? get master and differ sector
-        const i_list: InterviewSectorInterface[] = []
-        const m_list: InterviewSectorInterface[] = []
-        const d_list: InterviewSectorInterface[] = []
-        for (let i = 0; i < props.interviewSectorList.length; i++) {
-            const element = props.interviewSectorList[i];
-            if (props.currentElement.master_sector_ids.includes((element.id ?? 0).toString())) {
-                m_list.push(element)
-            } else if (props.currentElement.differed_sector_ids.includes((element.id ?? 0).toString())) {
-                d_list.push(element)
-            } else {
-                i_list.push(element)
-            }
-        }
-        setSelectedMasterSector(m_list)
-        setInterviewSectorList(i_list)
-        setSelectedDifferedSector(d_list)
-
-        setActualProfesionList_old(data.actualProfesionList ?? [])
-        setActualProfesionList(await get_unique_actual_profession(data.actualProfesionList ?? []))
+        // console.log("*&*^%$%^R%^$^$%^$&^%&^")
+        // console.log(data.actualProfesionList)
         setIsActualProfessionUpdated(new Date().toTimeString())
     }
 
@@ -153,21 +207,20 @@ export default function Main(props: {
 
     useEffect(() => {
         // setJobOrder(props.currentElement)
-        // setInterviewSectorList(props.interviewSectorList)
-        fetchInterviewMode()
         fetchAgentList()
         fetchJobOrder()
 
-        // fetchInterviewSectorList()
+        fetchInterviewSectorList()
 
+        fetchInterviewMode()
     }, [])
     return (
 
         <FullScreenModal
-            buttonName="Submit"
-            handleClick={handleOnClickGenerate}
-            title="Add Vacancy"
-            onClose={()=>props.onClose('')}
+            buttonName="Update"
+            handleClick={onClickAdd}
+            title="Update Job Order"
+            onClose={props.onClose}
         >
 
 
@@ -286,7 +339,7 @@ export default function Main(props: {
 
             {/* select interview section */}
             <SelectSectorSection
-                interviewSector={interviewSectorList}
+                interviewSector={interviewSectionList}
                 selectedDifferedSector={selectedDifferedSector}
                 selectedMasterSector={selectedMasterSector}
                 changeInterviewSector={(ele) => setInterviewSectorList(ele)}
@@ -307,8 +360,26 @@ export default function Main(props: {
             />
 
             {/* generate final Actual profession table */}
-            {/* <GreenButton text="Submit" onClick={handleOnClickGenerate} /> */}
+            <GreenButton text="Generate" onClick={handleOnClickGenerate} />
 
+            <h1></h1>
+            <Heading6 text="Final Actual Profession Table " />
+            <FinalActualProfessionTable
+                // interViewSectorList={interviewSectionList}
+                actualProfessionList={jobOrder.actualProfesionList ?? []}
+                jobOrder={jobOrder}
+                onChange={(ele) => setJobOrder({ ...jobOrder, actualProfesionList: ele })}
+                isChanged={isactualProfessionUpdated}
+            />
+
+            <Heading6 text="Special Instruction " />
+            <SpecialInstructionTable
+                specialInstructionList={jobOrder.specialInstructionList ?? []}
+                jobOrder={jobOrder}
+                agentList={agentList}
+                onChange={(ele) => setJobOrder({ ...jobOrder, specialInstructionList: ele })}
+                isChanged={isactualProfessionUpdated}
+            />
         </FullScreenModal>
     )
 }

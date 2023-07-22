@@ -170,11 +170,10 @@ export class JobOrderConverter {
    * toAdapter
    */
   public static toAdapter(i: JobOrderInterface) {
-    console.log("i"); // Only Dev
-    console.log(i.differed_sector_ids); // Only Dev
+    const master_sector_ids = i.master_sector_ids.join(",");
 
-    const temp = i.differed_sector_ids?.join(",");
-    console.log(temp); // Only Dev
+    const differed_sector_ids = i.differed_sector_ids?.join(",");
+
     const data: JobOrderAdapter = {
       id: i.id,
       date: i.date,
@@ -207,8 +206,8 @@ export class JobOrderConverter {
       rs_name: i.rs_name,
       rc_name: i.rc_name,
       interview_mode: i.interviewModeId,
-      differed_sector_ids: temp,
-      master_sector_ids: i.master_sector_ids.join(","),
+      differed_sector_ids: differed_sector_ids,
+      master_sector_ids: master_sector_ids,
       file1: i.file1,
       file2: i.file2,
       file3: i.file3,

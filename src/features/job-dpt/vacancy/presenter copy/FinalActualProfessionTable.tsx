@@ -71,7 +71,6 @@ const FinalActualProfessionTable = (props: {
                 return e;
             }
         });
-        console.log(nextData);   // Only Dev
         setActualProfesionList(nextData)
     }
     const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
@@ -100,7 +99,7 @@ const FinalActualProfessionTable = (props: {
                     <TableHeadRow3  >
                         <TableHeadCell3  > Sr No.</TableHeadCell3>
                         <TableHeadCell3 > Actual Profession</TableHeadCell3>
-                        {/* <TableHeadCell3 > Grade</TableHeadCell3> */}
+                        <TableHeadCell3 > Grade</TableHeadCell3>
                         <TableHeadCell3 >Sector</TableHeadCell3>
                         <TableHeadCell3 >Sector Charge</TableHeadCell3>
                         <TableHeadCell3 > Quantity</TableHeadCell3>
@@ -137,13 +136,13 @@ const FinalActualProfessionTable = (props: {
                     ))}
 
 
-                    {/* <TableRow3>
+                    <TableRow3>
                         <TableCell3>
                             <div style={{ width: "111px", margin: "10px 0px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
                         </TableCell3>
-                    </TableRow3> */}
+                    </TableRow3>
                 </TableBody3>
             </Table3>
 
@@ -182,15 +181,11 @@ const TableData = (
 
     const [consolidateChargeList, setConsolidateChargeList] = useState<ConsolidateChargeInterface[]>([])
     const fetchConsolidateCharges = async () => {
-        console.log("consolidate charges called");   // Only Dev
         const data = await readConsolidateChargeList();
-        console.log("consolidate charges list");   // Only Dev
-        console.log(data);   // Only Dev
         setConsolidateChargeList(data);
     }
 
     useEffect(() => {
-        console.log("Final open");   // Only Dev
         fetchConsolidateCharges();
     }, [])
 
@@ -198,7 +193,7 @@ const TableData = (
         setLocalRowData(props.data)
     }, [props.onChange])
     useEffect(() => {
-        console.log("rerender",localRowData); 
+        // console.log("rerender",localRowData); 
         // console.log(props.interViewSectorList)  // Only Dev
         props.onUpdate(props.index, localRowData!)
     }, [localRowData])
@@ -208,26 +203,24 @@ const TableData = (
         <TableRow3 key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
             <TableCell3 >
-                {localRowData.actual_profession}
-                {/* <UnlabeledInput
+                <UnlabeledInput
                     value={localRowData.actual_profession}
                     onchange={(value) => setLocalRowData({ ...localRowData, actual_profession: value })}
-                /> */}
+                />
             </TableCell3>
-            {/* <TableCell3 >
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.grade}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, grade: parseInt(value) })}
                 />
-            </TableCell3> */}
+            </TableCell3>
             <TableCell3 >
-                {props.interViewSectorList.map(e => localRowData.sector == e.id ? e.name : "")}
-                {/* <CustomSelectComponentUnlabeled
+                <CustomSelectComponentUnlabeled
                     options={selectOptionConveter({ options: props.interViewSectorList, options_struct: { name: "name", value: "id" } })}
                     value={localRowData.sector}
                     onChange={(value) => setLocalRowData({ ...localRowData, sector: parseInt(value) })}
-                /> */}
+                />
             </TableCell3>
             <TableCell3 >
                 <UnlabeledInput
@@ -315,13 +308,7 @@ const TableData = (
                         //     }
                         // }
                         const { name_list, total } = cal_consolidate_charge(consolidateChargeList, value)
-                        // console.log("name_list: ")
-                        // console.log(name_list)
-                        // console.log("total: ")
-                        // console.log(total)
 
-                        // console.log("value");   // Only Dev
-                        // console.log(value);   // Only Dev
                         setLocalRowData({
                             ...localRowData,
                             consolidate_charges_id: value,
@@ -329,7 +316,6 @@ const TableData = (
                             consodilate_charges_name: name_list
                         })
                     }}
-                    value={localRowData.consolidate_charges_id}
                     option={selectOptionConveter({ options: consolidateChargeList ?? [], options_struct: { name: "name", value: "id" } })}
                 />
                 {localRowData.consodilate_charges}

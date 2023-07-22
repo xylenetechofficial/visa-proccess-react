@@ -20,7 +20,7 @@ export function CustomRadioButton(props: {
         setSelectedValue(props.value)
     }, [])
     const radio_value_name = uuidv4();
-    const parentClassname = props.inlined ? "flex items-center" : "items-center w-full text-sm font-medium text-gray-900 bg-white  sm:flex dark:bg-gray-700 dark:text-white  border md:border-0 border-gray-200 rounded-lg ";
+    const parentClassname = props.inlined ? "flex items-center" : "flex flex-col items-center w-full text-sm font-medium text-gray-900 bg-white  sm:flex dark:bg-gray-700 dark:text-white  border md:border-0 border-gray-200 rounded-lg ";
     const childClassname = props.inlined ? "flex items-center mr-4" : "flex items-center pl-3";
     const liClassname = props.inlined ? "" : "w-full border-b border-gray-200 md:border-0 ";
 

@@ -23,20 +23,17 @@ import { readAgentList } from "../../../masters/agent/repository";
 import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface } from "../../Extra/type";
-import { filter_unique_sector, generate_final_actual_profession, generate_final_actual_profession_v2, get_unique_actual_profession } from "../../Extra/function";
+import { filter_unique_sector, generate_final_actual_profession } from "../../Extra/function";
 import { convertDateFormat } from "../../../../utils/function";
 
 
 
 export default function Main(props: {
-    onClose: (val: string) => void,
-    fetchJobOrderList: any,
+    onClose: any, fetchJobOrderList: any,
     sectorList: SectorInterface[],
-    interviewSectorList: InterviewSectorInterface[]
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
     currentElement: JobOrderInterface,
-    setCurrentElement: (e: JobOrderInterface) => void
 }) {
 
     const initValue: JobOrderInterface = {
@@ -63,40 +60,14 @@ export default function Main(props: {
     const [isactualProfessionUpdated, setIsActualProfessionUpdated] = useState("")
 
     const [selectedMasterSector, setSelectedMasterSector] = useState<InterviewSectorInterface[]>([]);
-    const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
+    const [interviewSectionList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
     const [selectedDifferedSector, setSelectedDifferedSector] = useState<InterviewSectorInterface[]>([]);
     const [actualProfesionList, setActualProfesionList] = useState<ActualProfessionInterface[]>([]);
-    const [actualProfesionList_old, setActualProfesionList_old] = useState<ActualProfessionInterface[]>([]);
 
-    // const fetchInterviewSectorList = async () => {
-    //     const data = await readInterviewSectorList();
-    //     setInterviewSectorList(data)
-    // }
-
-    const handleOnClickGenerate = async () => {
-        const newarray = await generate_final_actual_profession_v2(actualProfesionList_old ?? [], actualProfesionList, selectedDifferedSector, selectedMasterSector)
-
-        console.log('new actual proffesion')
-        console.log(newarray)
-        const newJobOrder = jobOrder
-        // const oldActualProfesionList = newJobOrder.actualProfesionList ?? [];
-        // const newActualProfesionList = [...oldActualProfesionList, ...newarray];
-        // newJobOrder.actualProfesionList = newActualProfesionList
-        newJobOrder.actualProfesionList = newarray
-
-        const new_differed_array = await filter_unique_sector(selectedDifferedSector, jobOrder.differed_sector_ids);
-
-        const new_master_array = await filter_unique_sector(selectedDifferedSector, jobOrder.differed_sector_ids);
-
-
-        const master_array = [...jobOrder.master_sector_ids ?? [], ...new_master_array];
-        const differed_array = [...jobOrder.differed_sector_ids ?? [], ...new_differed_array];
-        const new_job_order = { ...newJobOrder, master_sector_ids: master_array, differed_sector_ids: differed_array }
-        props.setCurrentElement(new_job_order)
-        props.onClose("edit-2")
+    const fetchInterviewSectorList = async () => {
+        const data = await readInterviewSectorList();
+        setInterviewSectorList(data)
     }
-
-
 
     const [interviewModeList, setInterviewModeList] = useState<InterviewModeInterface[]>([])
     const fetchInterviewMode = async () => {
@@ -106,7 +77,8 @@ export default function Main(props: {
 
     async function onClickAdd() {
 
-        console.log(jobOrder)
+        console.log('update call')
+        console.log(jobOrder.actualProfesionList)
         // call create
         await updateJobOrder(props.currentElement.id ?? 0, jobOrder)
 
@@ -119,29 +91,42 @@ export default function Main(props: {
 
     const fetchJobOrder = async () => {
         const data = await readJobOrder(props.currentElement.id ?? 0)
-        console.log("fetch job order");   // Only Dev
-        setJobOrder(data)
+        // data.actualProfesionList=props.currentElement.actualProfesionList
+        const old_list = data.actualProfesionList ?? []
+        const new_actual_profession_list = props.currentElement.actualProfesionList ?? []
 
-        // ? get master and differ sector
-        const i_list: InterviewSectorInterface[] = []
-        const m_list: InterviewSectorInterface[] = []
-        const d_list: InterviewSectorInterface[] = []
-        for (let i = 0; i < props.interviewSectorList.length; i++) {
-            const element = props.interviewSectorList[i];
-            if (props.currentElement.master_sector_ids.includes((element.id ?? 0).toString())) {
-                m_list.push(element)
-            } else if (props.currentElement.differed_sector_ids.includes((element.id ?? 0).toString())) {
-                d_list.push(element)
-            } else {
-                i_list.push(element)
+        // if actual profetion is old then opdate 
+        for (let index = 0; index < new_actual_profession_list.length; index++) {
+            const element = new_actual_profession_list[index];
+
+            for (let j = 0; j < old_list.length; j++) {
+
+                if (old_list[j].id == element.id) {
+                    new_actual_profession_list[index].agent_commission = old_list[j].agent_commission
+                    new_actual_profession_list[index].air_ticket = old_list[j].air_ticket
+                    new_actual_profession_list[index].consodilate_charges = old_list[j].consodilate_charges
+                    new_actual_profession_list[index].consolidate_charges_id = old_list[j].consolidate_charges_id
+                    new_actual_profession_list[index].consodilate_charges_name = old_list[j].consodilate_charges_name
+                    new_actual_profession_list[index].consodilate_charges_value = old_list[j].consodilate_charges_value
+                    new_actual_profession_list[index].grade = old_list[j].grade
+                    new_actual_profession_list[index].invoice_service_charges = old_list[j].invoice_service_charges
+                    new_actual_profession_list[index].invoice_service_charges_currency = old_list[j].invoice_service_charges_currency
+                    new_actual_profession_list[index].invoice_ticket_charges = old_list[j].invoice_ticket_charges
+                    new_actual_profession_list[index].is_invoice = old_list[j].is_invoice
+                    new_actual_profession_list[index].jobOrder_id = old_list[j].jobOrder_id
+                    new_actual_profession_list[index].partial_charges = old_list[j].partial_charges
+                    new_actual_profession_list[index].service_charges = old_list[j].service_charges
+
+                    break
+                }
             }
-        }
-        setSelectedMasterSector(m_list)
-        setInterviewSectorList(i_list)
-        setSelectedDifferedSector(d_list)
 
-        setActualProfesionList_old(data.actualProfesionList ?? [])
-        setActualProfesionList(await get_unique_actual_profession(data.actualProfesionList ?? []))
+        }
+        data.actualProfesionList=new_actual_profession_list
+        console.log(data);
+        setJobOrder(data)
+        // console.log("*&*^%$%^R%^$^$%^$&^%&^")
+        // console.log(data.actualProfesionList)
         setIsActualProfessionUpdated(new Date().toTimeString())
     }
 
@@ -153,21 +138,23 @@ export default function Main(props: {
 
     useEffect(() => {
         // setJobOrder(props.currentElement)
-        // setInterviewSectorList(props.interviewSectorList)
-        fetchInterviewMode()
+        // console.log('edit 2');   // Only Dev
+        // console.log(props.currentElement.actualProfesionList);   // Only Dev
+
         fetchAgentList()
         fetchJobOrder()
 
-        // fetchInterviewSectorList()
+        fetchInterviewSectorList()
 
+        fetchInterviewMode()
     }, [])
     return (
 
         <FullScreenModal
-            buttonName="Submit"
-            handleClick={handleOnClickGenerate}
-            title="Add Vacancy"
-            onClose={()=>props.onClose('')}
+            buttonName="Update"
+            handleClick={onClickAdd}
+            title="Update Job Order"
+            onClose={props.onClose}
         >
 
 
@@ -284,31 +271,23 @@ export default function Main(props: {
 
 
 
-            {/* select interview section */}
-            <SelectSectorSection
-                interviewSector={interviewSectorList}
-                selectedDifferedSector={selectedDifferedSector}
-                selectedMasterSector={selectedMasterSector}
-                changeInterviewSector={(ele) => setInterviewSectorList(ele)}
-                changeSelectedDifferedSector={(ele) => setSelectedDifferedSector(ele)}
-                changeSelectedMasterSector={(ele) => setSelectedMasterSector(ele)}
-            />
-
-
-
-
-            <Heading6 text="Actual Profession Table" />
-
-            <ActualProfessionTable
-                actualProfessionList={actualProfesionList}
+            <Heading6 text="Final Actual Profession Table " />
+            <FinalActualProfessionTable
+                // interViewSectorList={interviewSectionList}
+                actualProfessionList={jobOrder.actualProfesionList ?? []}
                 jobOrder={jobOrder}
-                onChange={(value) => setActualProfesionList(value)}
+                onChange={(ele) => setJobOrder({ ...jobOrder, actualProfesionList: ele })}
                 isChanged={isactualProfessionUpdated}
             />
 
-            {/* generate final Actual profession table */}
-            {/* <GreenButton text="Submit" onClick={handleOnClickGenerate} /> */}
-
+            <Heading6 text="Special Instruction " />
+            <SpecialInstructionTable
+                specialInstructionList={jobOrder.specialInstructionList ?? []}
+                jobOrder={jobOrder}
+                agentList={agentList}
+                onChange={(ele) => setJobOrder({ ...jobOrder, specialInstructionList: ele })}
+                isChanged={isactualProfessionUpdated}
+            />
         </FullScreenModal>
     )
 }
