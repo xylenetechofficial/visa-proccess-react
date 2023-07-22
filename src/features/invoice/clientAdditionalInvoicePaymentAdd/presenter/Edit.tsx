@@ -62,7 +62,7 @@ console.log(props.clientSingle,"clientSuspence")
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
 
                         options={selectOptionConveter({ options: [{name:"mahara",id:3}], options_struct: { name: "name", value: "id" } })}
-                        value={accountDashboard?.company_name}
+                        value={props?.clientSingle?.company_name}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -70,7 +70,7 @@ console.log(props.clientSingle,"clientSuspence")
                     <SubHeading1 text="PAYMENT RECEIVED DATE  :" />
                     <DateInput
                         id="sd;fksdakj"
-                        value={accountDashboard.date}
+                        value={props?.clientSingle?.date}
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, payment_received_date: value })}
                     />
                 </UpdateContentBox>
@@ -79,7 +79,7 @@ console.log(props.clientSingle,"clientSuspence")
 
                     <SubHeading1 text="AMOUNT RECEIVED (INR)  :" />
                     <UnlabeledInput
-                        value={accountDashboard.amount}
+                        value={props?.clientSingle?.amount}
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, payment_received_date: value })}
                     />
                 </UpdateContentBox>
@@ -87,7 +87,7 @@ console.log(props.clientSingle,"clientSuspence")
                 <UpdateContentBox>
                     <SubHeading1 text=" PAYMENT DESCRIPTION :" />
                     <UnlabeledInput
-                        value={accountDashboard.description}
+                        value={props?.clientSingle?.description}
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, payment_description: value })}
                     />
                 </UpdateContentBox>

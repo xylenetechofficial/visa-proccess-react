@@ -36,3 +36,16 @@ export const VisaSubmissionList = [
   { name: "Mumbai", value: "Mumbai" },
   { name: "Delhi", value: "Delhi" },
 ];
+export const BankList = [
+  { value: 1, name: "BBK Bank" },
+  { value: 2, name: "SBI Bank" },
+  { value: 3, name: "PNB" }
+];
+
+export const CurrencyList2 = [
+  { value: 1, name: "IND" },
+  { value: 2, name: "USD" },
+  { value: 3, name: "KSA" },
+  { value: 4, name: "DHS" },
+  { value: 5, name: "QR" },
+];
