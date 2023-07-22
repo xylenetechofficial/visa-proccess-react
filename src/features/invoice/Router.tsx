@@ -10,6 +10,8 @@ import ClientInvoiceCandidatesTicketCharges from "./clientInvoiceCandidatesTicke
 import ClientInvoicesCandidateInvoiceRaise from "./clientInvoicesCandidateInvoiceRaise/Router";
 import ClientAdditionalInvoice from "./clientAdditionalInvoice/Router";
 import ClientAdditionalInvoicePaymentAdd from "./clientAdditionalInvoicePaymentAdd/Router";
+import InvoiceNumbers from "./invoiceNumbers/Router";
+import InvoiceCharges from "./invoiceCharges/Router";
 
 
 
@@ -25,6 +27,8 @@ function Main() {
             <Route path='/client-invoice-candidates-invoice-raise/*' element={<ClientInvoicesCandidateInvoiceRaise />}></Route>
             <Route path='/client-additional-invoice/*' element={<ClientAdditionalInvoice />}></Route>
             <Route path='/client-additional-invoice-payment-add' element={<ClientAdditionalInvoicePaymentAdd />}></Route>
+            <Route path='/invoice-numbers' element={<InvoiceNumbers />}></Route>
+            <Route path='/invoice-charges' element={<InvoiceCharges />}></Route>
             
            
 

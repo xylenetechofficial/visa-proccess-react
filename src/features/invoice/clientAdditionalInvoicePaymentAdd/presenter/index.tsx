@@ -70,7 +70,7 @@ export default function Main() {
         "date":"4-7-23",
         "description":"add payment"
     }])
-    const [clientSingle,setClientSingle]= useState<ClientPaymentSingleAddInterface>()
+    const [clientSingle,setClientSingle]= useState<ClientPaymentSingleAddInterface[]>([])
   const fetchClientPaymentList = async ()=>{
     console.log("called")
     const data = await readClientPaymentList();
@@ -117,7 +117,6 @@ export default function Main() {
             {
                 modal === 'create' ?
                 <ClientSuspenceAdd
-                // clientSingle={clientSingle}
                 onClose={()=>setModal('')}
                 fetchClientAdditionalInvoiceList={fetchClientPaymentList}               
                 />
