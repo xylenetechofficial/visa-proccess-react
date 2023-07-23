@@ -16,9 +16,8 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
     setData:any,
     setModal:any
 }) => {
-    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "Other Charges", "Service Charges","PAYMENT RECEIVED", "BALANCE PAYMENT", "SUSPENSE AMOUNT","PAYMENT", "PAYMENT DATE", "PAYMENT DESCRIPTION","ACTION","FOLLOW UP"]
+    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "Other Charges", "Service Charges","PAYMENT RECEIVED", "BALANCE PAYMENT", "SUSPENSE AMOUNT","PAYMENT", "PAYMENT DATE", "PAYMENT DESCRIPTION","ACTION"]
    
-    
     function onUpdateRow(index: number, rowData: ClientPaymentAddInterface) {
         const nextData = props.clientPaymentData.map((e, i) => {
             if (i === index) {
@@ -102,7 +101,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                             <TableCell>
                                 <BlueButton text="EDIT" onClick={()=>{props.onClickEdit(item),props.setModal('edit')}} />
                                 <RedButton text={"DELETE"} onClick={() => console.log("Reject", index)} /></TableCell>
-                            <TableCell><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell>
+                            {/* <TableCell><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell> */}
                         </TableRow>
                     ))}
 

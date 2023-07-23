@@ -132,12 +132,12 @@ export const navigations: NavigationInterface[] = [
     name:"Invoice",
     icon:"work",
     children:[
-      {name:"Client Suspense Amount List" ,icon: 'pageview', path: '/invoice/client-suspence-list/'},
-      {name:"Client Invoice Add" ,icon: 'pageview', path: '/invoice/client-invoice-add/'},
-      {name:"Client Invoice Candidates Ticket Charges" ,icon: 'pageview', path: '/invoice/client-invoice-candidates-ticket-charges/'},
-      {name:"Client Invoice Candidates Invoice Raise" ,icon: 'pageview', path: '/invoice/client-invoice-candidates-invoice-raise/'},
-      {name:"Client Additional Invoice " ,icon: 'pageview', path: '/invoice/client-additional-invoice/'},
-      {name:"Client Additional  Payment " ,icon: 'pageview', path: '/invoice/client-additional-invoice-payment-add'},
+      {name:"Client Suspense Amount " ,icon: 'pageview', path: '/invoice/client-suspence-list/'},
+      // {name:"Client Invoice Add" ,icon: 'pageview', path: '/invoice/client-invoice-add/'},
+      {name:"Ticket Charges" ,icon: 'pageview', path: '/invoice/client-invoice-candidates-ticket-charges/'},
+      {name:"Invoice Raised" ,icon: 'pageview', path: '/invoice/client-invoice-candidates-invoice-raise/'},
+      {name:"Additional Invoice" ,icon: 'pageview', path: '/invoice/client-additional-invoice/'},
+      {name:"Client Additional Payment" ,icon: 'pageview', path: '/invoice/client-additional-invoice-payment-add'},
       {name:"Invoice Numbers " ,icon: 'pageview', path: '/invoice/invoice-numbers'},
       {name:"Invoice Charges " ,icon: 'pageview', path: '/invoice/invoice-charges'},
     ]
