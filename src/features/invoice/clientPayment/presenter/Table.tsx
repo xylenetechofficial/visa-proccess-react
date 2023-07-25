@@ -2,7 +2,7 @@ import { Checkbox } from "@mui/material";
 import { ClientPaymentAddInterface, ClientPaymentSingleAddInterface } from "../type";
 import { DateInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CustomCheckBox } from "../../../../componenets/Checkbox";
-import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { convertDateFormat } from "../../../../utils/function";
 import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table";
 import { useState } from "react";
@@ -16,7 +16,9 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
     setData:any,
     setModal:any
 }) => {
-    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "Other Charges", "Service Charges","PAYMENT RECEIVED", "BALANCE PAYMENT", "SUSPENSE AMOUNT","PAYMENT", "PAYMENT DATE", "PAYMENT DESCRIPTION","ACTION"]
+    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "OTHER CHARGES", "SERVICE CHARGES","TICKET CHARGES","TOTAL CHARGES","PAYMENT RECEIVED", "BALANCE PAYMENT", "SUSPENSE AMOUNT"
+    // ,"PAYMENT", "PAYMENT DATE", "PAYMENT DESCRIPTION"
+    ,"ACTION"]
    
     function onUpdateRow(index: number, rowData: ClientPaymentAddInterface) {
         const nextData = props.clientPaymentData.map((e, i) => {
@@ -61,9 +63,14 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                             <TableCell>{item?.invoice_date}</TableCell>
                             <TableCell>{item?.other_charges}</TableCell>
                             <TableCell>{item?.service_charges}</TableCell>
+                            <TableCell>{item?.ticket_charges}</TableCell>
+                            <TableCell>{item?.total_charges}</TableCell>
                             <TableCell>{item?.payment_received}</TableCell>
                             <TableCell>{item?.balance_payment}</TableCell>
-                            <TableCell>{item?.suspense_amount}</TableCell>
+                            <TableCell>{item?.suspense_amount}
+                            <BlueButton text="Check SA" onClick={()=>{props.setModal("suspenseAmount")}} />
+                            </TableCell>
+                           {/* </TableCell>
                             <TableCell><UnlabeledInput 
                             value={props?.data[index]?.amount}
                             onchange={(value)=>{
@@ -98,7 +105,9 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
 
                             }}  /></TableCell>
                            
-                            <TableCell>
+                        <TableCell> */}
+                        <TableCell>
+                                <GreenButton text="Add" onClick={()=>{props.setModal('create')}} />
                                 <BlueButton text="EDIT" onClick={()=>{props.onClickEdit(item),props.setModal('edit')}} />
                                 <RedButton text={"DELETE"} onClick={() => console.log("Reject", index)} /></TableCell>
                             {/* <TableCell><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell> */}

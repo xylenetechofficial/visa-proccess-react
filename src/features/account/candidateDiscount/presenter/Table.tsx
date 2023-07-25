@@ -31,7 +31,7 @@ const CandidateDiscountTable = (props: {
     return newData;
   })
   };
-  // console.log("lll", list, props.discountList)
+  console.log("lll", list, props.data)
   return (
     <div className="overflow-auto">
 
@@ -72,7 +72,7 @@ const CandidateDiscountTable = (props: {
 
           (
             <TableRow key={index}>
-              <TableCell> {item.id}</TableCell>
+              <TableCell> {index +1}</TableCell>
               <TableCell> {item.party_code} </TableCell>
               <TableCell> {item.company_name}</TableCell>
               <TableCell> {item.name}</TableCell>
@@ -187,7 +187,7 @@ const CandidateDiscountTable = (props: {
                     };
                     return newData;
                   });
-                  console.log(props.data, value)
+                  // console.log(props.data, value)
                 }}
               />
 
@@ -246,7 +246,7 @@ const CandidateDiscountTable = (props: {
                       };
                       return newArray;
                     });
-                    console.log(list,"oooooooo")
+                    // console.log(list,"oooooooo")
 
                     // props.setDiscountList((prev:any) => {
                     //   const updatedSelectionList = prev?.selection_list?.map((item:any) => {
@@ -312,6 +312,15 @@ const CandidateDiscountTable = (props: {
                       discount_remarks: value,
                     };
                     return newArray;
+                  });
+                  props.setData((prev: any) => {
+                    const newData = [...prev];
+                    newData[index] = {
+                      ...newData[index],
+                      discount_remarks: value,
+                      
+                    };
+                    return newData;
                   });
                 }} />
               </TableCell>

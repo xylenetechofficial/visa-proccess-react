@@ -71,7 +71,7 @@ const AgentPaymentTable = (props: {
           {props.AgentPaymentList?.table_data_list?.map((ele: any, index: any) => (
             <TableRow key={index + 1}>
 
-              <TableCell> {ele.id}</TableCell>
+              <TableCell> {index + 1}</TableCell>
               <TableCell> {ele.party_code}</TableCell>
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.name}</TableCell>
@@ -94,7 +94,7 @@ const AgentPaymentTable = (props: {
               <TableCell> {ele.consolidated_charges}</TableCell>
               <TableCell> {ele.penalty_after_deployment}</TableCell>
               <TableCell> {ele.extra_service_tax}</TableCell>
-              <TableCell> {ele.agent_commision}</TableCell>
+              <TableCell> {ele.agent_commission}</TableCell>
               <TableCell> {ele.discount_amount}</TableCell>
               <TableCell> {ele.received}</TableCell>
               <TableCell> {ele.balance_amount}</TableCell>
@@ -131,7 +131,7 @@ const AgentPaymentTable = (props: {
                       const newData = [...prev];
                       newData[index] = {
                         ...newData[index],
-                        agent_id: parseInt(value)
+                        bulk_payment_id: parseInt(value)
                       };
                       return newData;
                     });

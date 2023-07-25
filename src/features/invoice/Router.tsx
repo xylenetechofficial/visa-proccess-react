@@ -9,7 +9,8 @@ import ClientInvoiceAdd from "./clientInvoiceAdd/Router";
 import ClientInvoiceCandidatesTicketCharges from "./clientInvoiceCandidatesTicketCharges/Router";
 import ClientInvoicesCandidateInvoiceRaise from "./clientInvoicesCandidateInvoiceRaise/Router";
 import ClientAdditionalInvoice from "./clientAdditionalInvoice/Router";
-import ClientAdditionalInvoicePaymentAdd from "./clientAdditionalInvoicePaymentAdd/Router";
+import ClientPayment from "./clientPayment/Router";
+import ClientAdditionalPayment from "./clientAdditionalPayment/Router";
 import InvoiceNumbers from "./invoiceNumbers/Router";
 import InvoiceCharges from "./invoiceCharges/Router";
 
@@ -26,7 +27,8 @@ function Main() {
             <Route path='/client-invoice-candidates-ticket-charges/*' element={<ClientInvoiceCandidatesTicketCharges />}></Route>
             <Route path='/client-invoice-candidates-invoice-raise/*' element={<ClientInvoicesCandidateInvoiceRaise />}></Route>
             <Route path='/client-additional-invoice/*' element={<ClientAdditionalInvoice />}></Route>
-            <Route path='/client-additional-invoice-payment-add' element={<ClientAdditionalInvoicePaymentAdd />}></Route>
+            <Route path='/client-payment' element={<ClientPayment />}></Route>
+            <Route path='/client-additional-payment' element={<ClientAdditionalPayment />}></Route>
             <Route path='/invoice-numbers' element={<InvoiceNumbers />}></Route>
             <Route path='/invoice-charges' element={<InvoiceCharges />}></Route>
             

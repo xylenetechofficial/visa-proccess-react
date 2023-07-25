@@ -163,8 +163,11 @@ export default function Main(
   }, []);
   const updateBulkPayment = async (data: any) => {
     console.log(data)
-    const datas = await addAgentPayment(data);
+    const currentData :any={"selection_list":data};
+    const datas = await addAgentPayment(currentData);
+    setData([]);
     await fetchAgentPaymentList();
+    
   }
   return (
     <div>

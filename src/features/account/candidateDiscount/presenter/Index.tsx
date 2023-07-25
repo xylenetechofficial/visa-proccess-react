@@ -87,7 +87,7 @@ const [discountList, setDiscountList]= useState({
    
   }, []);
 const handleSubmit =async (data:any)=>{
-  
+  console.log(data,"lll")
 const updatedForm={selection_list:data };
 
   await updateCandidateDiscount(updatedForm)

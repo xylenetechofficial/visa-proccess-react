@@ -129,8 +129,16 @@ export default function Main() {
                 onClose={()=>setModal('')}
                 clientSingle={clientSingle}
                 fetchClientAdditionalInvoiceList={fetchClientPaymentList}
-               
-               
+                />
+                :''
+            }
+            {
+                modal === 'suspenseAmount' ?
+                <ClientSuspenceEdit
+                setModal={setModal}
+                onClose={()=>setModal('')}
+                clientSingle={clientSingle}
+                fetchClientAdditionalInvoiceList={fetchClientPaymentList}
                 />
                 :''
             }

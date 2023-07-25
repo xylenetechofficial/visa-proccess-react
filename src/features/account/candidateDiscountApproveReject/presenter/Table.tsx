@@ -59,14 +59,14 @@ console.log(props.candidateDiscountApproveReject,"ll")
         <TableBody2>
          {props?.candidateDiscountApproveReject?.map((item:any,index:number)=>(
            <TableRow>
-           <TableCell>{item.id} </TableCell>
+           <TableCell>{index + 1} </TableCell>
            <TableCell>{item.party_code}  </TableCell>
            <TableCell>{item.company_name}</TableCell>
            <TableCell>{item.name} </TableCell>
            <TableCell>{item.passport_no} </TableCell>
            <TableCell>{item.actual_profession}  </TableCell>
            <TableCell>{item.visa_profession}  </TableCell>
-           <TableCell>{item.agent} </TableCell>
+           <TableCell>{item.agent_name} </TableCell>
            <TableCell>{item.visa_received_date}  </TableCell>
            <TableCell>{item.visa_authorization}  </TableCell>
            <TableCell>{item.ticket_charges} </TableCell>
@@ -81,9 +81,9 @@ console.log(props.candidateDiscountApproveReject,"ll")
            <TableCell>{item.extra_service_tax} </TableCell>
            <TableCell>{item.consolidated_charges} </TableCell>
            <TableCell>{item.consolidated_charges} </TableCell>
+           <TableCell>{item.discount_given} </TableCell>
            <TableCell>{item.discount} </TableCell>
-           <TableCell>{item.discount_amount} </TableCell>
-           <TableCell>{item.discount_amount} </TableCell>
+           <TableCell>{item.discount_type} </TableCell>
            <TableCell>{item?.remarks} </TableCell>
            <TableCell>{item?.all}
            {/* <Checkbox onChange={(e)=>{setData((prev:any)=>{

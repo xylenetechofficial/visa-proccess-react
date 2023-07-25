@@ -522,6 +522,10 @@ content-type: application/json
 DELETE {{endpoint}}/invoice-dpt/client-suspend-amount/3
 
 
+###
+GET {{endpoint}}/invoice-dpt/client-suspend-amount/adjust-amount-list
+?company_id=3
+
 
 
 

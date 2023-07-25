@@ -30,6 +30,7 @@ const CandidatePayment = (props: {
   const handleClick = async (CandidatePayment: CandidatePaymentInterface) => {
     await createCandidatePaymentAdd(CandidatePayment)
      props.fetchAgentPaymentList();
+     handleReset();
   }
   const handleReset = () => {
     setCandidatePayment({

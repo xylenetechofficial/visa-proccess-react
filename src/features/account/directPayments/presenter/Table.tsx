@@ -78,7 +78,7 @@ const AgentPaymentTable = (props: {
           {props.AgentPaymentList?.table_data_list?.map((ele: any, index: any) => (
             <TableRow key={index + 1}>
 
-              <TableCell> {ele.id}</TableCell>
+              <TableCell> {index +1}</TableCell>
               <TableCell> {ele.party_code}</TableCell>
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.name}</TableCell>
