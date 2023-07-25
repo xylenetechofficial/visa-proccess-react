@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint = https://94ed-45-248-56-22.ngrok-free.app/api
+@endpoint = https://5289-45-248-56-22.ngrok-free.app/api
 
 
 ###

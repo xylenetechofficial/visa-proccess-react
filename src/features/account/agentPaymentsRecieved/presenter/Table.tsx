@@ -53,9 +53,9 @@ const AccountDashboardTable = (props: {
           {props.accountDashboardList.map((ele, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
-              <TableCell> {ele.id}</TableCell>
+              <TableCell> {ele.party_code}</TableCell>
               <TableCell>
-              {/* {ele.company_name} */}
+              {ele.company_name}
               </TableCell>
               <TableCell> {ele.name}</TableCell>
               <TableCell> {ele.passport_no}</TableCell>

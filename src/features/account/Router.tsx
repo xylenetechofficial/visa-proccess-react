@@ -32,7 +32,7 @@ function Main() {
             <Route path='/candidate-discount/*' element={<CandidateDiscount />}></Route>
             <Route path='/candidate-discount-approve/reject/*' element={<CandidateDiscountApproveReject />}></Route>
             <Route path='/direct-payments/*' element={<DirectPayments />}></Route>
-            <Route path='/agent-payments-received/*' element={<AgentPaymentsReceived />}></Route>
+            <Route path='/agent-payments-recieved/*' element={<AgentPaymentsReceived />}></Route>
             <Route path='/agent-commissions/*' element={<AgentCommissions />}></Route>
             <Route path='/agent-commission-add/*' element={<AgentCommissionAdd />}></Route>
             <Route path='/penalty-after-deployment/*' element={<PenaltyAfterDeployment />}></Route>

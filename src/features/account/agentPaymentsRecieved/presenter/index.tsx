@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import CreateModal from "./Create";
 import EditModal from "./Edit";
 import { Box, Modal, styled } from "@mui/material";
 import AccountDashboardTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
-import { GreenButton } from "../../../../componenets/CustomButton";
+
 import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AccountDashboardInterface, VisaProfesionInterface ,AgentPaymentReceivedInterface} from "../type";
+import { AccountDashboardInterface, AgentPaymentReceivedInterface} from "../type";
 import {
   deleteAccountDashboard,
   readAccountDashboardList,
@@ -32,16 +31,7 @@ const CardHeader = styled(Box)(() => ({
   justifyContent: "space-between",
 }));
 
-export default function Main(
-//     props: {
-//   onClose: () => void;
-//   fetchAccountDashboardList: () => void;
-//   currentElement: AccountDashboardInterface;
-//   sectorList: SectorInterface[];
-//   companyList: CompanyInterface[];
-//   countryList: CountryInterface[];
-// }
-) {
+export default function Main() {
 
    
     
