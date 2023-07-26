@@ -13,9 +13,9 @@ import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveReject
 // delete visa - dpt / block - visa - profession / { id } => DeleteAgentPaymentProfessio
 
 
-
-export async function readAgentPaymentList() {
-  const path = "/account/agent-payment-list?agent_id=2";
+// ! EMG
+export async function readAgentPaymentList(agent_id:number) {
+  const path = "/account/agent-payment-list?agent_id="+agent_id;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
