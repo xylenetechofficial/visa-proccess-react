@@ -126,6 +126,7 @@ export const navigations: NavigationInterface[] = [
       { name: 'Agent Bulk Payments', icon: 'pageview', path: '/account/agent-bulk-payment' },
       { name: 'Incentives', icon: 'pageview', path: '/account/incentives' },
       { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
+      { name: 'Account Candidate List', icon: 'preview', path:'/account/account-candidate-list'},
     ]
   },
   {
