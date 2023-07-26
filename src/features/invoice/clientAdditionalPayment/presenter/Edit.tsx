@@ -4,8 +4,8 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 import { ClientPaymentSingleAddInterface } from "../type"
-import { updateClientPayment } from "../repository"
-import {Box} from '@mui/material'
+import { updateClientPayment, updateClientSinglePayment } from "../repository"
+import { Box } from '@mui/material'
 import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton"
 import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table"
 
@@ -25,12 +25,15 @@ const style = {
 };
 
 export default function Main(props: {
-    clientPaymentData:any
+    clientPaymentData: any
     clientSingle: any,
-    onClose: ()=>void, 
+    onClose: () => void,
     fetchClientAdditionalInvoiceList: any,
-    setModal:any
-    
+    setModal: any
+    onChange: (value: any[]) => void
+    createSinglePayment: (id:number,value: any[]) => void
+    createBulkPayment: (value: any[]) => void
+
 
 }) {
 
@@ -42,20 +45,20 @@ export default function Main(props: {
         invoice_number: 0,
         invoice_amount: 0,
     }
-console.log(props.clientSingle,"clientSuspence")
+    console.log(props.clientSingle, "clientSuspence")
     const [accountDashboard, setAccountDashboard] = useState(props.clientSingle)
-    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "INVOICE AMOUNT", "PAYMENT RECEIVED", "BALANCE PAYMENT", "PAYMENT RECEIVED DATE","AMOUNT RECEIVED (INR)","PAYMENT DESCRIPTION", "ACTION"];
+    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "INVOICE AMOUNT", "PAYMENT RECEIVED", "BALANCE PAYMENT", "PAYMENT RECEIVED DATE", "AMOUNT RECEIVED (INR)", "PAYMENT DESCRIPTION", "ACTION"];
     async function onClickUpdate() {
 
         // call create
-        const newArray :any = accountDashboard;
-        const flag :any = await updateClientPayment(newArray);
+        const newArray: any = accountDashboard;
+        const flag: any = await updateClientPayment(newArray);
         // const flag = await props.createClientAdditionalInvoiceTemp(newArray);
         if (!flag) {
             return;
         }
         setAccountDashboard(initValue)
-        
+
         props.fetchClientAdditionalInvoiceList();
         props.onClose();
         props.setModal('')
@@ -63,22 +66,33 @@ console.log(props.clientSingle,"clientSuspence")
     async function onClickAdd() {
 
         // call create
-        const newArray :any = accountDashboard;
-        const flag :any = await updateClientPayment(newArray);
+        const newArray: any = accountDashboard;
+        const flag: any = await updateClientSinglePayment(newArray.id,newArray);
         // const flag = await props.createClientAdditionalInvoiceTemp(newArray);
         if (!flag) {
             return;
         }
         setAccountDashboard(initValue)
-        
+
         props.fetchClientAdditionalInvoiceList();
         props.onClose();
         props.setModal('')
     }
-  
+    function onUpdateRow(index: number, rowData: any) {
+        const nextData = props.clientPaymentData.map((e:any, i:any) => {
+          if (i === index) {
+            // Increment the clicked counter
+            return rowData;
+          } else {
+            // The rest haven't changed
+            return e;
+          }
+        });
+        props.onChange(nextData)
+      }
     return (
 
-     
+
         // <Box sx={style}>
         //     <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Invoice Payment</h3>
         //     <button
@@ -101,13 +115,13 @@ console.log(props.clientSingle,"clientSuspence")
         //         </svg>
         //         <span className="sr-only">Close modal</span>
         //     </button>
-                <FullScreenModal
+        <FullScreenModal
             buttonName="submit"
             handleClick={onClickAdd}
-            title="Candidate Reject"
+            title="Client Additional Payment"
             onClose={props.onClose}
         >
-            <div className=" grid grid-cols-1 py-3  gap-2 shadow">
+            {/* <div className=" grid grid-cols-1 py-3  gap-2 shadow">
                 <UpdateContentBox>
                     <SubHeading1 text=" Company :" />
                     <CustomSelectComponentUnlabeled
@@ -143,51 +157,50 @@ console.log(props.clientSingle,"clientSuspence")
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, payment_description: value })}
                     />
                 </UpdateContentBox>
-                <div className=" flex justify-center">
-                {/* <UpdateContentBox> */}
-                <GreenButton text="Submit" onClick={()=>{props.setModal('')}}/>
-                <RedButton text="cancel" onClick={()=>{props.setModal('')}}/>
-                {/* </UpdateContentBox> */}
-                </div>
-                </div>
+                <div className=" flex justify-center"> */}
+            {/* <UpdateContentBox> */}
+            {/* <GreenButton text="Submit" onClick={()=>{props.setModal('')}}/>
+                <RedButton text="cancel" onClick={()=>{props.setModal('')}}/> */}
+            {/* </UpdateContentBox> */}
+            {/* </div>
+                </div> */}
 
-                <div className="overflow-auto">
+            <div className="overflow-auto">
 
-<Table2>
-    <TableHead2>
-        <TableHeadRow>
-            {HEADERLIST.map((item) => (<TableHeadCell2  > {item}</TableHeadCell2>))}
-        </TableHeadRow>
-    </TableHead2>
-    <TableBody2>
-        {props.clientPaymentData?.map((item:any, index:any) => (
+                <Table2>
+                    <TableHead2>
+                        <TableHeadRow>
+                            {HEADERLIST.map((item) => (<TableHeadCell2  > {item}</TableHeadCell2>))}
+                        </TableHeadRow>
+                    </TableHead2>
+                    <TableBody2>
+                        {props.clientPaymentData?.map((item: any, index: any) => (
 
-            <TableRow key={index}>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{item?.company_name}</TableCell>
-                <TableCell>{item?.invoice_number}</TableCell>
-                <TableCell>{item?.invoice_date}</TableCell>
-                <TableCell>{item?.invoice_amount}</TableCell>
-                <TableCell>{item?.payment_received}</TableCell>
-                <TableCell>{item?.balance_payment}</TableCell>
-                <TableCell><DateInput id="date" onChange={(value)=>console.log(value)} value={accountDashboard?.payment_received_date} /></TableCell>
-                <TableCell><UnlabeledInput onchange={(value)=>{console.log(value)}} value={accountDashboard.amount}/></TableCell>
-                <TableCell><UnlabeledInput onchange={(value)=>{console.log(value)}} value={accountDashboard.payment_description}/></TableCell>
+                            <TableRow key={index}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{item?.company_name}</TableCell>
+                                <TableCell>{item?.invoice_number}</TableCell>
+                                <TableCell>{item?.invoice_date}</TableCell>
+                                <TableCell>{item?.invoice_amount}</TableCell>
+                                <TableCell>{item?.payment_received}</TableCell>
+                                <TableCell>{item?.balance_payment}</TableCell>
+                                <TableCell><DateInput id="date" onChange={(value) => console.log(value)} value={accountDashboard?.payment_received_date} /></TableCell>
+                                <TableCell><UnlabeledInput onchange={(value) => { console.log(value) }} value={accountDashboard.amount} /></TableCell>
+                                <TableCell><UnlabeledInput onchange={(value) => { console.log(value) }} value={accountDashboard.payment_description} /></TableCell>
 
-                <TableCell>
-                    <GreenButton text="Add" onClick={() => { props.setModal('create') }} />
-                    {/* <BlueButton text="EDIT" onClick={() => { props.onClickEdit(item), props.setModal('edit') }} /> */}
-                    <RedButton text={"DELETE"} onClick={() => console.log("Reject", index)} />
-                </TableCell>
+                                <TableCell>
+                                    <GreenButton text="Add" onClick={() => { props.setModal('') ,props.createSinglePayment(index, accountDashboard) }} />
+                                    <RedButton text={"DELETE"} onClick={() => console.log("Reject", index)} />
+                                </TableCell>
 
-            </TableRow>
-        ))}
-
+                            </TableRow>
+                        ))}
 
 
-    </TableBody2>
-</Table2>
-</div>
+
+                    </TableBody2>
+                </Table2>
+            </div>
         </FullScreenModal>
     )
 }

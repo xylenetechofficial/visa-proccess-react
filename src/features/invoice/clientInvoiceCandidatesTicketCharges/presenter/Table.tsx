@@ -57,7 +57,7 @@ const ClientInvoiceCandidatesTicketChargesTable = (props: {
           {props.ClientInvoiceCandidatesTicketChargesList?.map((ele, index) => (
             <TableRow key={index + 1}>
 
-              <TableCell> {ele.id}</TableCell>
+              <TableCell> {index+1}</TableCell>
               <TableCell> {ele.party_code}</TableCell>
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.candidate_name}</TableCell>

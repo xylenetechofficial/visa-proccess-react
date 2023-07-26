@@ -5,8 +5,8 @@ import ClientAdditionalInvoicePaymentAddTable from "./Table";
 import ClientSuspenceAdd from "./Create";
 import ClientSuspenceEdit from "./Edit";
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
-import { createClientPayment, readClientAdditionalPaymentList, updateBulkClientPaymentList } from '../repository';
-import { BlueButton } from '../../../../componenets/CustomButton';
+import { createBulkClientPayment, createClientPayment, deleteAdditionalPayment, readClientAdditionalPaymentList, updateBulkClientPaymentList, updateClientSinglePayment } from '../repository';
+import { BlueButton, GreenButton } from '../../../../componenets/CustomButton';
 import { ClientPaymentSingleAddInterface } from '../type';
 
 
@@ -45,9 +45,25 @@ export default function Main() {
     }
 
 }
-  const createPayment = async (item:any)=>{
+  const createPayment = async (id:number, item:any)=>{
+    console.log("called",id,item)
+    const datas :any = await updateClientSinglePayment(id, item);
+    if(datas){
+        setClientPaymentData(data)
+    }
+
+}
+  const createBulkPayment = async (item:any)=>{
     console.log("called")
-    const datas :any = await createClientPayment(item);
+    const datas :any = await createBulkClientPayment(item);
+    if(datas){
+        setClientPaymentData(data)
+    }
+
+}
+  const deleteAdditionalPaymentByid = async (id:number)=>{
+    console.log("called")
+    const datas :any = await deleteAdditionalPayment(id);
     if(datas){
         setClientPaymentData(data)
     }
@@ -63,6 +79,7 @@ export default function Main() {
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+                <GreenButton text="Add" onClick={() => { setModal('create') }} />
             </CardHeader>
             <ClientAdditionalInvoicePaymentAddTable
                 clientPaymentData={clientPaymentData}
@@ -71,6 +88,7 @@ export default function Main() {
                 data={data}
                 setData={setData}
                 setModal={setModal}
+                deleteAdditionalPaymentByid={deleteAdditionalPaymentByid}
             />
             {
                 modal === 'create' ?
@@ -87,6 +105,9 @@ export default function Main() {
                 clientPaymentData={clientPaymentData}
                 onClose={()=>setModal('')}
                 clientSingle={clientSingle}
+                onChange={(value)=>setClientSingle(value)}
+                createSinglePayment={(id,value)=>{createPayment(id, value)}}
+                createBulkPayment={(value)=>{createBulkPayment(value)}}
                 fetchClientAdditionalInvoiceList={fetchClientAdditionalPaymentList}
                 />
                 :''
@@ -98,6 +119,9 @@ export default function Main() {
                 setModal={setModal}
                 onClose={()=>setModal('')}
                 clientSingle={clientSingle}
+                onChange={(value)=>setClientSingle(value)}
+                createSinglePayment={createPayment}
+                createBulkPayment={createBulkPayment}
                 fetchClientAdditionalInvoiceList={fetchClientAdditionalPaymentList}
                 />
                 :''

@@ -107,7 +107,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                            
                         <TableCell> */}
                         <TableCell>
-                                <GreenButton text="Add" onClick={()=>{props.setModal('create')}} />
+                                
                                 <BlueButton text="EDIT" onClick={()=>{props.onClickEdit(item),props.setModal('edit')}} />
                                 <RedButton text={"DELETE"} onClick={() => console.log("Reject", index)} /></TableCell>
                             {/* <TableCell><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell> */}

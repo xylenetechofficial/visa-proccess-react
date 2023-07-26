@@ -125,3 +125,101 @@ export class ClientPaymentSingleAddConverter {
     return data;
   }
 }
+
+
+export interface AddInvoiceRaiseInterface {
+  selection_list: ClientAdditionalPaymentInterface[];
+}
+
+export interface AddInvoiceRaiseAdapter {
+  selection_list: ClientAdditionalPaymentAdapter[];
+}
+
+export class ClientAdditionalPaymentBulkAddConverter {
+  public static toInterface(a: AddInvoiceRaiseAdapter): AddInvoiceRaiseInterface {
+    console.log(a,"kkkkkk")
+    const data: AddInvoiceRaiseInterface = {
+      selection_list: a?.selection_list?.map((item) => ({
+        id:item?.id,
+        amount:item?.amount,
+        date:item?.date,
+        description:item?.description,
+      })),
+    };
+    return data;
+  }
+
+  public static toAdapter(i: AddInvoiceRaiseInterface): AddInvoiceRaiseAdapter {
+    console.log(i,"iiiii")
+    const data: AddInvoiceRaiseAdapter = {
+      
+      selection_list: i?.selection_list?.map((item) => ({
+        id:item?.id,
+        amount:item?.amount,
+        date:item?.date,
+        description:item?.description,
+      })),
+    };
+    return data;
+  }
+}
+
+export interface ClientAdditionalPaymentInterface {
+  id:number,
+  amount:number,
+  date:string,
+  description:string
+}
+
+export interface ClientAdditionalPaymentAdapter {
+  id:number,
+  amount:number,
+  date:string,
+  description:string
+}
+
+export class ClientAdditionalPaymentSingleUpdateConverter {
+  // private i: ClientAdditionalPaymentInterface
+  // private a: ClientPaymentAddAdapter
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: ClientPaymentSingleUpdateAdapter) {
+    const data: ClientPaymentSingleUpdateInterface = {
+      
+      
+      amount:a?.amount,
+      date:a?.date,
+      description:a?.description
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: ClientPaymentSingleUpdateInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: ClientPaymentSingleUpdateAdapter = {
+      amount:i?.amount,
+      date:i?.date,
+      description:i?.description
+    };
+    return data;
+  }
+}
+export interface ClientPaymentSingleUpdateInterface {
+  
+  amount:number,
+  date:string,
+  description:string
+}
+
+export interface ClientPaymentSingleUpdateAdapter {
+  
+  amount:number,
+  date:string,
+  description:string
+}

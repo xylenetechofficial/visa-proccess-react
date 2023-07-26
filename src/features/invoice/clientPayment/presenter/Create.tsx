@@ -35,7 +35,7 @@ export default function Main(props: {
 
         // call create
         const newArray: any = accountDashboard;
-         const flag = await createClientSinglePaymentAdd(newArray);
+        const flag = await createClientSinglePaymentAdd(newArray);
         if (!flag) {
             return;
         }
@@ -65,11 +65,29 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="PAYMENT RECEIVED DATE  :" />
+                    <SubHeading1 text="INVOICE NUMBER  :" />
+                    <UnlabeledInput
+                        value={accountDashboard.invoice_number}
+                        onchange={(value) => setAccountDashboard({ ...accountDashboard, invoice_number: value })}
+                    />
+                </UpdateContentBox>
+                <UpdateContentBox>
+
+                    <SubHeading1 text="INVOICE DATE  :" />
                     <DateInput
                         id="sd;fksdakj"
                         value={accountDashboard.invoice_date}
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, invoice_date: value })}
+                    />
+                </UpdateContentBox>
+
+                <UpdateContentBox>
+
+                    <SubHeading1 text="PAYMENT RECEIVED DATE  :" />
+                    <DateInput
+                        id="sd;fksdakj"
+                        value={accountDashboard.date}
+                        onChange={(value) => setAccountDashboard({ ...accountDashboard, date: value })}
                     />
                 </UpdateContentBox>
 

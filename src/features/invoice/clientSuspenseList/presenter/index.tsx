@@ -90,7 +90,7 @@ export default function Main() {
             {
                 modal === 'edit' ?
                 <ClientSuspenceEdit
-                onClose={()=>setModal('')}
+                onClose={()=>{fetchClientAdditionalInvoiceList(),setModal('') }}
                 clientSuspence={clientSuspence}
                 fetchClientAdditionalInvoiceList={fetchClientAdditionalInvoiceList}
                 createClientAdditionalInvoiceTemp={createClientAdditionalInvoiceTemp}

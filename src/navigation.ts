@@ -119,7 +119,7 @@ export const navigations: NavigationInterface[] = [
       { name: 'Candidate Discount', icon: 'pageview', path: '/account/candidate-discount/' },
       { name: 'Candidate Discount Approve/Reject', icon: 'pageview', path: '/account/candidate-discount-approve/reject/' },
       { name: 'Direct Payments', icon: 'pageview', path: '/account/direct-payments' },
-      { name: 'Agent Payments Received', icon: 'pageview', path: '/account/agent-payments-recieved' },
+      // { name: 'Agent Payments Received', icon: 'pageview', path: '/account/agent-payments-recieved' },
       { name: 'Agent Commissions', icon: 'pageview', path: '/account/agent-commissions' },
       { name: 'Agent Commission Add', icon: 'pageview', path: '/account/agent-commission-add' },
       { name: 'Penalty After Payments', icon: 'pageview', path: '/account/penalty-after-deployment' },

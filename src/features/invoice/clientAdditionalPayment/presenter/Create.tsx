@@ -5,9 +5,9 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 
 import { ClientPaymentSingleAddInterface } from "../type"
-import { createClientSinglePaymentAdd } from "../repository"
 import { Box } from "@mui/material"
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
+import { createClientPayment } from "../repository"
 
 
 const style = {
@@ -49,7 +49,7 @@ export default function Main(props: {
 
         // call create
         const newArray: any = accountDashboard;
-        const flag = await createClientSinglePaymentAdd(newArray);
+        const flag = await createClientPayment(newArray);
         if (!flag) {
             return;
         }
@@ -117,6 +117,7 @@ export default function Main(props: {
 
                     <SubHeading1 text="AMOUNT RECEIVED (INR)  :" />
                     <UnlabeledInput
+                        type="number"
                         value={accountDashboard.amount}
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, amount: parseInt(value) })}
                     />

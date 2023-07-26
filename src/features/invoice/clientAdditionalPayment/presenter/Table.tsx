@@ -15,6 +15,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
     data: any,
     setData: any,
     setModal: any
+    deleteAdditionalPaymentByid:any
 }) => {
     const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "INVOICE AMOUNT", "PAYMENT RECEIVED", "BALANCE PAYMENT", "ACTION"];
 
@@ -64,9 +65,9 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                             <TableCell>{item?.balance_payment}</TableCell>
 
                             <TableCell>
-                                <GreenButton text="Add" onClick={() => { props.setModal('create') }} />
+                                
                                 <BlueButton text="EDIT" onClick={() => { props.onClickEdit(item), props.setModal('edit') }} />
-                                <RedButton text={"DELETE"} onClick={() => console.log("Reject", index)} />
+                                <RedButton text={"DELETE"} onClick={() => props.deleteAdditionalPaymentByid(index)} />
                             </TableCell>
 
                         </TableRow>

@@ -6,7 +6,7 @@ import ClientSuspenceAdd from "./Create";
 import ClientSuspenceEdit from "./Edit";
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { createClientPayment, readClientPaymentList, updateBulkClientPaymentList } from '../repository';
-import { BlueButton } from '../../../../componenets/CustomButton';
+import { BlueButton, GreenButton } from '../../../../componenets/CustomButton';
 import { ClientPaymentSingleAddInterface } from '../type';
 
 const DataList: any[] = [{
@@ -105,6 +105,7 @@ export default function Main() {
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+                <GreenButton text="Add" onClick={()=>{setModal('create')}} />
             </CardHeader>
             <ClientAdditionalInvoicePaymentAddTable
                 clientPaymentData={clientPaymentData}
