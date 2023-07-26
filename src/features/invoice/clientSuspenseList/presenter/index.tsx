@@ -8,6 +8,7 @@ import { ClientSuspenseInterface } from '../type';
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { RedButton } from '../../../../componenets/CustomButton';
 import { readClientSuspenseList } from '../repository';
+import { readCompanyList } from '../../../masters/company/repository';
 
 const DataList: ClientSuspenseInterface[] = [{
     id: 1,
@@ -58,8 +59,10 @@ export default function Main() {
     const createClientAdditionalInvoiceTemp = async (data:any)=>{
         setClientSuspence([...clientSuspence,data])
     }
+    
     useEffect(() => {
-         fetchClientAdditionalInvoiceList()
+         fetchClientAdditionalInvoiceList();
+         
     }, [])
     return (
         <div className='h-screen'>

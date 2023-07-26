@@ -39,7 +39,7 @@ export default function Main() {
     });
 
     const [modalName, setModalName] = useState('')
-
+    const [btnClicked,setBtnClicked]=useState('')
     const onClickCreate = () => {
         setModalName('create');
 
@@ -121,13 +121,16 @@ export default function Main() {
         // setRejectCancelApproveList(data)
 
     }
+    const updateRejectCancelApproveList= async(id:number, item:any)=>{
+        const res :any = await updateRejectCancelApprove(id, item);
+        if(res){
+            fetchRejectCancelApproveList();   
+        }
+    }
     useEffect(() => {
 
         fetchRejectCancelApproveList()
-        // fetchSectorList()
-        // fetchcomapanyList()
-        // fetchCountryList()
-
+      
     }, [])
 
 
@@ -153,13 +156,16 @@ export default function Main() {
             />
             <YellowButton text={"Reject"} onClick={() => {
                 // setModalName("create")
-                updateRejectCancelApprove(1,editRejectCancelApprove)
+                setBtnClicked("Reject")
+                updateRejectCancelApproveList(1,editRejectCancelApprove)
             }} />
             <RedButton text={"Cancel / Approve"} onClick={() => {
-                updateRejectCancelApprove(2,editRejectCancelApprove)
+                setBtnClicked("Cancel / Approve")
+                updateRejectCancelApproveList(2,editRejectCancelApprove)
             }} />
            <GreenButton text={"Mofa 15 Days"} onClick={() => {
-              updateRejectCancelApprove(0,editRejectCancelApprove)
+            setBtnClicked("Mofa 15 Days")
+              updateRejectCancelApproveList(0,editRejectCancelApprove)
             }} />
         </div>
     )

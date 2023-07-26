@@ -4,6 +4,7 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 import { createClientAdditionalInvoice, updateClientAdditionalInvoice } from "../repository"
+import { readCompanyList } from "../../../masters/company/repository"
 
 
 
@@ -19,7 +20,13 @@ export default function Main(props: {
     
 
     const [accountDashboard, setAccountDashboard] = useState(props?.immigrationData)
-
+    const [companyList, setCompanyList]=useState<any>([]);
+    const fetchCompanyList = async () => {
+        setCompanyList(await readCompanyList(true))
+    }
+    useEffect(()=>{
+        fetchCompanyList()
+      },[])
 
 
 console.log(props.immigrationData,"ss")
@@ -52,7 +59,7 @@ console.log(props.immigrationData,"ss")
                     <CustomSelectComponentUnlabeled
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, company: value })}
 
-                        options={selectOptionConveter({ options: [{name:"hero company",id:3}], options_struct: { name: "name", value: "id" } })}
+                        options={selectOptionConveter({ options: companyList, options_struct: { name: "name", value: "id" } })}
                         value={accountDashboard[0].company}
                     />
                 </UpdateContentBox>

@@ -15,6 +15,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
     data:any,
     setData:any,
     setModal:any
+    deleteAdditionalPaymentByid:  (value: any) => void,
 }) => {
     const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "OTHER CHARGES", "SERVICE CHARGES","TICKET CHARGES","TOTAL CHARGES","PAYMENT RECEIVED", "BALANCE PAYMENT", "SUSPENSE AMOUNT"
     // ,"PAYMENT", "PAYMENT DATE", "PAYMENT DESCRIPTION"
@@ -70,46 +71,11 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                             <TableCell>{item?.suspense_amount}
                             <BlueButton text="Check SA" onClick={()=>{props.setModal("suspenseAmount")}} />
                             </TableCell>
-                           {/* </TableCell>
-                            <TableCell><UnlabeledInput 
-                            value={props?.data[index]?.amount}
-                            onchange={(value)=>{
-                                if (value) {
-                                    onUpdateData(index, { ...item, payment: value  })
-                                        , console.log(value)
-                                }
-                                else {
-                                    onUpdateData(index, { ...item, payment: ''  })
-                                }
-                            }}
-                            /></TableCell>
-                            <TableCell><DateInput id="payment_date" value={props?.data[index]?.date} onChange={(value) => {
-                                if (value) {
-                                    onUpdateData(index, { ...item, date: value })
-                                        , console.log(value)
-                                }
-                                else {
-                                    onUpdateData(index, { ...item, date: '' })
-                                }
-                            }}
-
-                            /></TableCell>
-                            <TableCell><TextAreaInput 
-                            id="payment_description"
-                                value={props?.data[index]?.description}
-                            onChange={(value) => {
-                                if (value) { onUpdateData(index, { ...item, description: value }) }
-                                else {
-                                    onUpdateData(index, { ...item, description: '' })
-                                }
-
-                            }}  /></TableCell>
                            
-                        <TableCell> */}
                         <TableCell>
                                 
                                 <BlueButton text="EDIT" onClick={()=>{props.onClickEdit(item),props.setModal('edit')}} />
-                                <RedButton text={"DELETE"} onClick={() => console.log("Reject", index)} /></TableCell>
+                                <RedButton text={"DELETE"} onClick={() => {console.log("Reject", index),props.deleteAdditionalPaymentByid(index)}} /></TableCell>
                             {/* <TableCell><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell> */}
                         </TableRow>
                     ))}

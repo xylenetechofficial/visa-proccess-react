@@ -84,7 +84,7 @@ const ClientInvoiceAddTable = (props: {
                         , console.log(value)
                     }
                     else {
-                      // onUpdateRow(index, { ...ele, other_charges : 0 })
+                      onUpdateRow(index, { ...ele, other_charges : parseInt(value) })
                     }
                   }}
                 />

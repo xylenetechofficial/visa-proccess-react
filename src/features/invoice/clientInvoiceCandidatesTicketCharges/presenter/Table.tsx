@@ -12,6 +12,7 @@ import {
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { CandidatesTicketChargesInterface } from "../type";
 import { CustomSelectComponentUnlabeledv2 } from "../../../../componenets/SelectBox";
+import { CurrencyList2 } from "../../../db";
 
 const ClientInvoiceCandidatesTicketChargesTable = (props: {
   ClientInvoiceCandidatesTicketChargesList: CandidatesTicketChargesInterface[];
@@ -89,7 +90,7 @@ const ClientInvoiceCandidatesTicketChargesTable = (props: {
                 />
                 <CustomSelectComponentUnlabeledv2 
                 value={ele.ticket_charge_currency}
-                options={[{name:"IND",value:"IND"},{name:"USD",value:"USD"}]}
+                options={CurrencyList2}
                 onChange={(value)=>{
                   if (value) {
                     onUpdateRow(index, { ...ele, ticket_charge_currency: value })

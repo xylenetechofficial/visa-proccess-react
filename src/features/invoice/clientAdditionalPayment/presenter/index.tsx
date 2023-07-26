@@ -38,18 +38,18 @@ export default function Main() {
 
 }
   const updatePaymentList = async (item:any)=>{
-    console.log("called")
-    const datas :any = await updateBulkClientPaymentList(data);
+    console.log("called",item)
+    const datas :any = await updateBulkClientPaymentList(item);
     if(datas){
-        setClientPaymentData(data)
+        fetchClientAdditionalPaymentList()
     }
 
 }
   const createPayment = async (id:number, item:any)=>{
-    console.log("called",id,item)
+    console.log("called111111",id,item)
     const datas :any = await updateClientSinglePayment(id, item);
     if(datas){
-        setClientPaymentData(data)
+        fetchClientAdditionalPaymentList()
     }
 
 }
@@ -57,7 +57,7 @@ export default function Main() {
     console.log("called")
     const datas :any = await createBulkClientPayment(item);
     if(datas){
-        setClientPaymentData(data)
+        fetchClientAdditionalPaymentList()
     }
 
 }
@@ -65,7 +65,7 @@ export default function Main() {
     console.log("called")
     const datas :any = await deleteAdditionalPayment(id);
     if(datas){
-        setClientPaymentData(data)
+        fetchClientAdditionalPaymentList()
     }
 
 }
@@ -109,6 +109,7 @@ export default function Main() {
                 createSinglePayment={(id,value)=>{createPayment(id, value)}}
                 createBulkPayment={(value)=>{createBulkPayment(value)}}
                 fetchClientAdditionalInvoiceList={fetchClientAdditionalPaymentList}
+                deleteAdditionalPaymentByid={deleteAdditionalPaymentByid}
                 />
                 :''
             }
@@ -123,6 +124,7 @@ export default function Main() {
                 createSinglePayment={createPayment}
                 createBulkPayment={createBulkPayment}
                 fetchClientAdditionalInvoiceList={fetchClientAdditionalPaymentList}
+                deleteAdditionalPaymentByid={deleteAdditionalPaymentByid}
                 />
                 :''
             }

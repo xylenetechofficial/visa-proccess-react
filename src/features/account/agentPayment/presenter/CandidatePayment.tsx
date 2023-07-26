@@ -1,4 +1,4 @@
-import  {  useState } from "react";
+import  {  useEffect, useState } from "react";
 import {  TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import {
   SubHeading1,
@@ -9,25 +9,24 @@ import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomSelectComponentUnlabeled,
   selectOptionConveter,
+  selectOptionConveterv3,
 } from "../../../../componenets/SelectBox";
 import { createCandidateDiscountApprovalReject } from "../repository";
 import { CandidateDiscountApproveRejectInterface } from "../../candidateDiscountApproveReject/type";
 const CandidatePayment = (props: {
   AgentPaymentList: any,
   fetchAgentPaymentList: any,
+  AgentID:any
 }) => {
 
   const initValue: CandidateDiscountApproveRejectInterface = {
     candidate_id: 1,
-    agent_id: 2,
+    agent_id: props?.AgentID,
     amount: 0,
     remarks: '',
   };
 
   const [CandidatePayment, setCandidatePayment] = useState(initValue);
-
-
-
   const handleClick = async (CandidatePayment: CandidateDiscountApproveRejectInterface) => {
     await createCandidateDiscountApprovalReject(CandidatePayment);
     handleReset();
@@ -37,12 +36,19 @@ const CandidatePayment = (props: {
   const handleReset = () => {
     setCandidatePayment({
       candidate_id: 1,
-      agent_id: 2,
+      agent_id: props.AgentID,
       amount: 0,
       remarks: '',
 
     })
   }
+  useEffect(()=>{
+    setCandidatePayment((prev)=>{return {
+      ...prev,
+      agent_id:props.AgentID
+    }})
+  },[props.AgentID])
+  
   return (
     <div className="shadow-slate-500  rounded-lg shadow-md justify-center">
       <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
@@ -59,10 +65,9 @@ const CandidatePayment = (props: {
 
             }
             }
-            options={selectOptionConveter({
+            options={selectOptionConveterv3({
               options: props?.AgentPaymentList?.table_data_list ?? [],
-              // options: [],
-              options_struct: { name: "name", value: "id" },
+              options_struct: { name1: "passport_no", name2:"name", value: "id" },
             })}
           />
         </UpdateContentBox>

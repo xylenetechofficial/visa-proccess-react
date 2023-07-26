@@ -4,7 +4,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { ClientPaymentAddInterface, ClientPaymentAddAdapter, ClientPaymentAddConverter, ClientPaymentSingleAddInterface, ClientPaymentSingleAddConverter, ClientAdditionalPaymentSingleUpdateConverter } from "./type";
+import { ClientPaymentAddInterface, ClientPaymentAddAdapter, ClientPaymentAddConverter, ClientPaymentSingleAddInterface, ClientPaymentSingleAddConverter, ClientAdditionalPaymentSingleUpdateConverter, ClientPaymentSingleUpdateInterface } from "./type";
 
 export async function readClientAdditionalPaymentList() {
   const path = "/invoice-dpt/client-additional-payment-list";
@@ -57,6 +57,7 @@ export async function createCandidatesTicketCharges(CandidatesTicketCharges:Clie
 export async function createClientPayment(clientPayment:ClientPaymentSingleAddInterface) {
     const path = "/invoice-dpt/client-payment";
   const list :any =clientPayment;
+  console.log(clientPayment.amount,"llpp")
     const payload = ClientPaymentAddConverter.toAdapter(list);
    
     const response = await ApiHelper.post(path, payload, {
@@ -90,12 +91,15 @@ export async function createBulkClientPayment(clientPayment:ClientPaymentSingleA
   }
   
 
-export async function updateClientSinglePayment(id:number,clientPayment:ClientPaymentSingleAddInterface) {
+export async function updateClientSinglePayment(id:number,clientPayment:any) {
     const path = "/invoice-dpt/client-additional-payment/"+ id;
-  const list :any =clientPayment;
-  console.log(id, clientPayment,"aa")
+    const list :ClientPaymentSingleUpdateInterface ={
+      amount:clientPayment[0]?.amount,
+      date:clientPayment[0]?.date,
+      description:clientPayment[0]?.description,
+    }
     const payload = ClientAdditionalPaymentSingleUpdateConverter.toAdapter(list);
-   
+    console.log(payload,"payload")
     const response = await ApiHelper.patch(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT
@@ -116,13 +120,17 @@ export async function updateBulkClientPaymentList( AccountDashboard: any) {
 
     const payload :any  ={"payment_list": AccountDashboard};
   console.log(payload,"aa",AccountDashboard)
-    const path = "/invoice-dpt/client-payment-list";
+    const path = "/invoice-dpt/client-additional-payment-list";
     const response = await ApiHelper.patch(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT
     })
     showMessage_v2({ message: response.message, status: response.code })
-  
+    showMessage_v2({ message: response.message, status: response.code })
+    if (response.code > 199 && response.code < 300) {
+      return true;
+    }
+    return false;
   }
 export async function updateClientPayment( AccountDashboard: any) {
 
@@ -134,7 +142,11 @@ export async function updateClientPayment( AccountDashboard: any) {
       tokenType: AuthTokenType.JWT
     })
     showMessage_v2({ message: response.message, status: response.code })
-  
+    showMessage_v2({ message: response.message, status: response.code })
+    if (response.code > 199 && response.code < 300) {
+      return true;
+    }
+    return false;
   }
   
   export async function deleteAdditionalPayment(id: number) {
@@ -145,7 +157,10 @@ export async function updateClientPayment( AccountDashboard: any) {
     })
   
     showMessage_v2({ message: response.message, status: response.code })
-  
+    if (response.code > 199 && response.code < 300) {
+      return true;
+    }
+    return false;
   }
   
   

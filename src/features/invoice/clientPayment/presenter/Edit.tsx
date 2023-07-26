@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
-import { FullScreenModal } from "../../../../componenets/Modal"
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
-import { ClientPaymentSingleAddInterface } from "../type"
-import { updateClientPayment } from "../repository"
+import { updateBulkClientPaymentList, updateClientPayment } from "../repository"
 import {Box} from '@mui/material'
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
+import { readCompanyList } from "../../../masters/company/repository"
+import { updateClientSinglePayment } from "../../clientAdditionalPayment/repository"
+import { FullScreenModal } from "../../../../componenets/Modal"
+import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table"
+import { ClientPaymentAddInterface } from "../../clientAdditionalPayment/type"
 
 
 
@@ -28,8 +31,10 @@ export default function Main(props: {
     onClose: ()=>void, 
     fetchClientAdditionalInvoiceList: any,
     setModal:any
-    
-
+    clientPaymentData:ClientPaymentAddInterface[]
+    createSinglePayment: (id:number,value: any[]) => void
+    createBulkPayment: (value: any[]) => void
+    deleteAdditionalPaymentByid: (value: any) => void
 }) {
 
     // const initValue: AccountDashboardInterface = {
@@ -40,92 +45,116 @@ export default function Main(props: {
         invoice_number: 0,
         invoice_amount: 0,
     }
-console.log(props.clientSingle,"clientSuspence")
-    const [accountDashboard, setAccountDashboard] = useState(props.clientSingle)
-
-    async function onClickUpdate() {
-
-        // call create
-        const newArray :any = accountDashboard;
-        const flag :any = await updateClientPayment(newArray);
-        // const flag = await props.createClientAdditionalInvoiceTemp(newArray);
+    console.log(props.clientSingle,"clientSuspence")
+     const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "INVOICE AMOUNT", "PAYMENT RECEIVED", "BALANCE PAYMENT", "PAYMENT RECEIVED DATE", "AMOUNT RECEIVED (INR)", "PAYMENT DESCRIPTION", "ACTION"];
+    const [accountDashboard, setAccountDashboard] = useState<any>([])
+    const [companyList, setCompanyList]=useState<any>([]);
+    const fetchCompanyList = async () => {
+        setCompanyList(await readCompanyList(true))
+    }
+    function onUpdateRow(index: number, rowData: any) {
+        const nextData = accountDashboard.map((e:any, i:any) => {
+          if (i === index) {
+            // Increment the clicked counter
+            return rowData;
+          } else {
+            // The rest haven't changed
+            return e;
+          }
+        });
+        // props.onChange(nextData)
+      }
+       async function onClickAdd() {
+        const newArray: any = accountDashboard;
+        const flag: any = await updateBulkClientPaymentList(newArray);
+        
         if (!flag) {
             return;
         }
         setAccountDashboard(initValue)
-        
+
         props.fetchClientAdditionalInvoiceList();
         props.onClose();
         props.setModal('')
     }
+    useEffect(()=>{
+        fetchCompanyList()
+      },[])
   
     return (
 
      
-        <Box sx={style}>
-            <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Invoice Payment</h3>
-            <button
-                type="button"
-                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                onClick={() => props.onClose()}
-            >
-                <svg
-                    aria-hidden="true"
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                    ></path>
-                </svg>
-                <span className="sr-only">Close modal</span>
-            </button>
-            
-            <div className=" grid grid-cols-1 py-3  gap-2 shadow">
-                <UpdateContentBox>
-                    <SubHeading1 text=" Company :" />
-                    <CustomSelectComponentUnlabeled
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
+      <FullScreenModal
+            buttonName="submit"
+            handleClick={onClickAdd}
+            title="Client  Payment"
+            onClose={props.onClose}
+        >
+                <div className="overflow-auto">
 
-                        options={selectOptionConveter({ options: [{name:"mahara",id:3}], options_struct: { name: "name", value: "id" } })}
-                        value={props?.clientSingle?.company_name}
-                    />
-                </UpdateContentBox>
-                <UpdateContentBox>
+                <Table2>
+                    <TableHead2>
+                        <TableHeadRow>
+                            {HEADERLIST.map((item) => (<TableHeadCell2  > {item}</TableHeadCell2>))}
+                        </TableHeadRow>
+                    </TableHead2>
+                    <TableBody2>
+                        {props.clientPaymentData?.map((item,  index) => (
 
-                    <SubHeading1 text="PAYMENT RECEIVED DATE  :" />
-                    <DateInput
-                        id="sd;fksdakj"
-                        value={props?.clientSingle?.date}
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, payment_received_date: value })}
-                    />
-                </UpdateContentBox>
+                            <TableRow key={index}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{item?.company_name}</TableCell>
+                                <TableCell>{item?.invoice_number}</TableCell>
+                                <TableCell>{item?.invoice_date}</TableCell>
+                                <TableCell>{item?.invoice_amount}</TableCell>
+                                <TableCell>{item?.payment_received}</TableCell>
+                                <TableCell>{item?.balance_payment}</TableCell>
+                                <TableCell><DateInput id="date" onChange={(value) =>{
+                                    setAccountDashboard((prev: any) => {
+                                const newData = [...prev];
+                                    newData[index] = {
+                                        ...newData[index],
+                                        date: value,
+                                        id:index,
+                                        
+                                    };
+                                    return newData;
+                                })}} value={accountDashboard[index]?.date} /></TableCell>
+                                <TableCell><UnlabeledInput onchange={(value) => {
+                                    setAccountDashboard((prev: any) => {
+                                const newData = [...prev];
+                                    newData[index] = {
+                                        ...newData[index],
+                                        amount: parseInt(value),
+                                        id:index,
+                                    };
+                                    return newData;
+                                })}} value={accountDashboard[index]?.amount}  /></TableCell>
+                                <TableCell><UnlabeledInput onchange={(value) => {
+                                    setAccountDashboard((prev: any) => {
+                                const newData = [...prev];
+                                    newData[index] = {
+                                        ...newData[index],
+                                        description: value,
+                                        id:index,
+                                    };
+                                    return newData;
+                                })}} value={accountDashboard[index]?.description}/></TableCell>
 
-                <UpdateContentBox>
+                                <TableCell>
+                                    <GreenButton text="Add" onClick={() => { props.setModal('') ,props.createSinglePayment(index, accountDashboard) }} />
+                                    <RedButton text={"DELETE"} onClick={() => {props.deleteAdditionalPaymentByid(index)}} />
+                                </TableCell>
 
-                    <SubHeading1 text="AMOUNT RECEIVED (INR)  :" />
-                    <UnlabeledInput
-                        value={props?.clientSingle?.amount}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, payment_received_date: value })}
-                    />
-                </UpdateContentBox>
+                            </TableRow>
+                        ))}
 
-                <UpdateContentBox>
-                    <SubHeading1 text=" PAYMENT DESCRIPTION :" />
-                    <UnlabeledInput
-                        value={props?.clientSingle?.description}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, payment_description: value })}
-                    />
-                </UpdateContentBox>
-                <div className="grid grid-cols-2 shadow ">
-                <GreenButton text="Submit" onClick={()=>{props.setModal('')}}/>
-                <RedButton text="cancel" onClick={()=>{props.setModal('')}}/>
-                </div>
-                </div>
-        </Box>
+
+
+                    </TableBody2>
+                </Table2>
+            </div>
+ 
+        </FullScreenModal>
     )
 }

@@ -5,6 +5,7 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 import { createClientSuspense, updateClientSuspense } from "../repository"
 import { ClientSuspenseInterface } from "../type"
+import { readCompanyList } from "../../../masters/company/repository"
 
 
 
@@ -27,7 +28,10 @@ export default function Main(props: {
     }
 console.log(props.clientSuspence,"clientSuspence")
     const [accountDashboard, setAccountDashboard] = useState(props.clientSuspence[0])
-
+    const [companyList, setCompanyList]=useState<any>([]);
+    const fetchCompanyList = async () => {
+        setCompanyList(await readCompanyList(true))
+    }
     async function onClickUpdate() {
 
         // call create
@@ -43,6 +47,9 @@ console.log(props.clientSuspence,"clientSuspence")
         props.onClose();
     }
   
+    useEffect(()=>{
+        fetchCompanyList();
+    },[])
     return (
 
         <FullScreenModal
@@ -57,7 +64,7 @@ console.log(props.clientSuspence,"clientSuspence")
                     <CustomSelectComponentUnlabeled
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
 
-                        options={selectOptionConveter({ options: [{name:"mahara",id:3}], options_struct: { name: "name", value: "id" } })}
+                        options={selectOptionConveter({ options: companyList, options_struct: { name: "name", value: "id" } })}
                         value={accountDashboard.company_name}
                     />
                 </UpdateContentBox>

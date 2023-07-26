@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint = https://5289-45-248-56-22.ngrok-free.app/api
+@endpoint = https://449e-45-248-56-22.ngrok-free.app/api
 
 
 ###
@@ -130,7 +130,7 @@ content-type: application/json
 
 ### Fetch Agent Payment List
 GET {{endpoint}}/account/agent-payment-list
-?agent_id=12
+?agent_id=3
 
 
 ### Add Agent Payment

@@ -89,6 +89,10 @@ export async function updateRejectCancelApprove(status:number, RejectCancelAppro
     tokenType: AuthTokenType.JWT
   })
   showMessage_v2({ message: response.message, status: response.code })
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
 
 }
 

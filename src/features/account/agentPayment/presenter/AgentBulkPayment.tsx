@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { AgentPaymentAddInterface } from "../type";
 import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
@@ -7,29 +7,39 @@ import { createAgentPaymentAdd } from "../repository";
 
 const AgentBulkPayment = (props:   { 
     fetchAgentPaymentList:any
+    AgentID:any
+    setAgentID:any
   }) => {
 
   const initValue: AgentPaymentAddInterface = {
 
-    agent_id: 2,
+    agent_id: props?.AgentID,
     amount: 0,
     description: '',
   };
 
   const [agentPayment, setagentPayment] = useState(initValue);
-
+  
   const handleClick = async (agentPayment: any) => {
     await createAgentPaymentAdd(agentPayment)
+    console.log(agentPayment,"agent_id")
     handleReset();
     await props.fetchAgentPaymentList();
   }
   const handleReset = () => {
     setagentPayment({
-      agent_id: 2,
+      agent_id: props?.AgentID,
       amount: 0,
       description: '',
     })
   }
+  useEffect(()=>{
+    setagentPayment((prev)=>{return {
+      ...prev,
+      agent_id:props.AgentID
+    }})
+  },[props.AgentID])
+  
   return (
     <div className=" shadow-slate-500 rounded-lg shadow-md justify-center">
       <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">

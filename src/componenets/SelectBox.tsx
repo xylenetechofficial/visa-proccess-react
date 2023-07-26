@@ -115,3 +115,20 @@ export function CustomSelectComponentUnlabeledv2(props: {
         </select>
     );
 }
+
+
+export const selectOptionConveterv3 = (props: {
+    options: any[],
+    options_struct: { name1: string,name2: string, value: string }
+}) => {
+    // console.log(props.options,"mm")
+    const newArray: { name: string, value: string ,}[] = []
+    props.options.map((e: any) => {
+        newArray.push({
+            name: `${e[props.options_struct.name1]} - ${e[props.options_struct.name2]}`,
+            value: e[props.options_struct.value]
+        })
+    })
+    // console.log(newArray)
+    return newArray
+}

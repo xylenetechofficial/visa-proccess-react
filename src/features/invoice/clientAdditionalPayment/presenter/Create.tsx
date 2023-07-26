@@ -8,6 +8,7 @@ import { ClientPaymentSingleAddInterface } from "../type"
 import { Box } from "@mui/material"
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
 import { createClientPayment } from "../repository"
+import { readCompanyList } from "../../../masters/company/repository"
 
 
 const style = {
@@ -44,7 +45,13 @@ export default function Main(props: {
     }
     // console.log(props.clientSingle, "clientSuspence")
     const [accountDashboard, setAccountDashboard] = useState(initValue)
-
+    const [companyList, setCompanyList]=useState<any>([]);
+    const fetchCompanyList = async () => {
+        setCompanyList(await readCompanyList(true))
+    }
+    useEffect(()=>{
+        fetchCompanyList()
+      },[])
     async function onClickUpdate() {
 
         // call create
@@ -91,7 +98,7 @@ export default function Main(props: {
                     <CustomSelectComponentUnlabeled
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
 
-                        options={selectOptionConveter({ options: [{ name: "mahara", id: 3 }], options_struct: { name: "name", value: "id" } })}
+                        options={selectOptionConveter({ options: companyList, options_struct: { name: "name", value: "id" } })}
                         value={accountDashboard.company_id}
                     />
                 </UpdateContentBox>

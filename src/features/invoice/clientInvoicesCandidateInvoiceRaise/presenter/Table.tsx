@@ -14,6 +14,7 @@ import { CustomSelectComponentUnlabeledv2, selectOptionConveter, selectOptionCon
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 import { CandidateInvoiceRaiseInterface, CandidateInvoiceRaiseListInterface } from "../type";
+import { BankList } from "../../../db";
 
 const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
   candidateInvoiceRaiseList: CandidateInvoiceRaiseListInterface[];
@@ -60,6 +61,7 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
             <TableHeadCell> TOTAL CHARGES</TableHeadCell>
             <TableHeadCell> INVOICE NUMBER</TableHeadCell>
             <TableHeadCell> INVOICE DATE</TableHeadCell>
+            <TableHeadCell> SELECT</TableHeadCell>
             <TableHeadCell> BANK NAME</TableHeadCell>
           </TableHeadRow>
         </TableHead2>
@@ -106,7 +108,7 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   onChange={(value) => {
 
                     if (value) {
-                      onUpdateRow(index, { ...ele, invoice_date: value})
+                      onUpdateRow(index, { ...ele, invoice_date: value })
                         , console.log(value)
                     }
                     else {
@@ -121,33 +123,38 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                 <Checkbox value={ele.is_without} onChange={(e) => {
 
                   if (e.target.checked) {
-                    onUpdateRow(index, { ...ele, is_without:e.target.checked ? 1 :0 })
-                      , console.log(e.target.checked,"checked")
+                    onUpdateRow(index, { ...ele, is_without: e.target.checked ? 1 : 0 })
+                      , console.log(e.target.checked, "checked")
                   }
                   else {
                     onUpdateRow(index, { ...ele, is_without: 0 })
                   }
 
                 }} />
+              </TableCell>
+
+              <TableCell>
+
                 <CustomSelectComponentUnlabeledv2
-                    value={ele.bank_id}
-                    options={selectOptionConveter({
-                      options: [{ name: "SBI", value: 1 }, { name: "PNB", value: 2 }],
-                      options_struct: {name:"name",value:"value"}
-                    })}
-                    onChange={(value) => {
-                      
-                      if (value) {
-                        onUpdateRow(index, { ...ele, bank_id: value })
-                            , console.log(value)
+                  value={ele.bank_id}
+                  options={selectOptionConveter({
+                    // options: [{ name: "SBI", value: 1 }, { name: "PNB", value: 2 }],
+                    options: BankList,
+                    options_struct: { name: "name", value: "value" }
+                  })}
+                  onChange={(value) => {
+
+                    if (value) {
+                      onUpdateRow(index, { ...ele, bank_id: value })
+                        , console.log(value)
                     }
                     else {
-                        onUpdateRow(index, { ...ele, bank_id: value  })
+                      onUpdateRow(index, { ...ele, bank_id: value })
                     }
-                    }
-                    } />
+                  }
+                  } />
               </TableCell>
-           
+
             </TableRow>
           ))
           }

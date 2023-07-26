@@ -20,6 +20,7 @@ import {
 
   SubHeading2,
   SubHeadingSpan,
+  UpdateContentBox,
 
 } from "../../../../componenets/CoustomHeader";
 
@@ -196,10 +197,10 @@ export default function Main(
       />
 
       <CardHeader>
+      <UpdateContentBox>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        {/* // ! EMG */}
-        <div className="w-48">
+          
+          <div className="w-48">
           <CustomSelectComponent
           label="Agent"
             onChange={(value: any) => setAgentID(parseInt(value))}
@@ -207,6 +208,16 @@ export default function Main(
             value={AgentID}
           />
         </div>
+        </UpdateContentBox>
+        <div className=" m-4">
+        <GreenButton
+          text={"Submit "}
+          onClick={() => {
+            updateBulkPayment(data)
+            console.log(data)
+          }}
+        />
+      </div>
       </CardHeader>
 
       <HeroPage props={AgentPaymentList} />
@@ -219,8 +230,8 @@ export default function Main(
       {/* <CardHeader2> */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mb-4">
 
-        <AgentBulkPayment fetchAgentPaymentList={fetchAgentPaymentList} />
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} />
+        <AgentBulkPayment fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} setAgentID={setAgentID}/>
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID}/>
         <PaymentBulkList AgentPaymentList={AgentPaymentList} />
       </div>
 
@@ -238,15 +249,7 @@ export default function Main(
       {/* <!-- Modal --> */}
 
       {/* Edit */}
-      <div className=" m-4">
-        <GreenButton
-          text={"Submit "}
-          onClick={() => {
-            updateBulkPayment(data)
-            console.log(data)
-          }}
-        />
-      </div>
+    
     </div>
   );
 }
