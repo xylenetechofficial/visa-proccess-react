@@ -903,3 +903,132 @@ GET {{endpoint}}/invoice-dpt/client-additional-payment/payment-list
 
 
 
+
+
+
+
+
+######################          Immigration         ######################
+
+
+# ================      Immigration Dashboard      =============== #
+
+### Read Immigration Dashboard List
+GET {{endpoint}}/immigration-dpt/immigration-dashboard-list
+
+
+
+### Add Immigration Dashboard
+POST {{endpoint}}/immigration-dpt/immigration-dashboard-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "immigration_required":"Yes",
+            "immigration_submission_date":"6-11-22",
+            "immigration_received_date":"6-11-22"
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "immigration_required":"No",
+            "immigration_submission_date":"6-11-22",
+            "immigration_received_date":"6-11-22"
+        }
+    ]
+}
+
+# immigration_required => Yes/No
+
+
+### Update Immigration Dashboard reject remarks
+PATCH {{endpoint}}/immigration-dpt/immigration-dashboard/2
+content-type: application/json
+
+{
+    "is_without": 0,
+    "immigration_reject_remarks": "fdgesfe"
+}
+
+
+
+
+
+
+
+
+
+
+
+# ================      Immigration Done PP Release      =============== #
+
+### Read Immigration Done PP Release List
+GET {{endpoint}}/immigration-dpt/immigration-done-pp-release-list
+?status=yes
+# default status=no 
+
+# status=no for add 
+# status=yes for edit
+
+
+### Add Immigration Done PP Release
+POST {{endpoint}}/immigration-dpt/immigration-done-pp-release-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "given_to":"Given To Delhi Office",
+            "given_date":"6-11-22"
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "given_to":"Given To Cancelation",
+            "given_date":"6-11-22"
+        }
+    ]
+}
+
+# immigration_required => Yes/No
+# Given To RC
+# Given To Agent
+# Given To Candidate
+# Given To Accounts
+# Given To Cancelation
+# Given To Delhi Office
+# Given To Hyderabad Office
+# Given for Amendment
+# Given for Bio-Matric
+# Given To Others
+
+
+### Update Immigration Done PP Release reject remarks
+PATCH {{endpoint}}/immigration-dpt/immigration-done-pp-release/2
+content-type: application/json
+
+{
+    "is_without": 0,
+    "given_to": "Given To Delhi Office",
+    "given_date": "9-11-23"
+}
+
+
+
+
+
+
+
+
+
+
+
+# ================      Index For Ewakala      =============== #
+
+### Read Index For Ewakala List
+GET {{endpoint}}/immigration-dpt/index-for-ewakala-list
