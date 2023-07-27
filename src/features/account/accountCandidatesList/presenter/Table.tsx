@@ -15,7 +15,7 @@ import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 
-const CandidatesListTable = (props: {
+const AccountCandidatesListTable = (props: {
 
   candidatesList: any;
   setCandidatesList: any
@@ -47,6 +47,15 @@ const CandidatesListTable = (props: {
             <TableHeadCell> SECTOR CHARGES</TableHeadCell>
             <TableHeadCell> PARTIAL CHARGES </TableHeadCell>
             <TableHeadCell> SERVICE CHARGES </TableHeadCell>
+            <TableHeadCell> CONSULATE SETTING CHARGES</TableHeadCell>
+            <TableHeadCell> CANCEL CHARGES </TableHeadCell>
+            <TableHeadCell> FLIGHT TICKET AMOUNT </TableHeadCell>
+            <TableHeadCell> TICKET CHARGES </TableHeadCell>
+            <TableHeadCell> EXTRA SERVICE CHARGES </TableHeadCell>
+            <TableHeadCell> AIR TICKET </TableHeadCell>
+            <TableHeadCell> IS DEPLOYED </TableHeadCell>
+            <TableHeadCell> CANCEL </TableHeadCell>
+
           </TableHeadRow>
         </TableHead2>
         <TableBody2>
@@ -56,8 +65,26 @@ const CandidatesListTable = (props: {
             <TableCell> </TableCell>
             <TableCell> </TableCell>
             <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
 
-            
+
 
           </TableRow>
 
@@ -70,4 +97,4 @@ const CandidatesListTable = (props: {
   );
 };
 
-export default CandidatesListTable;
+export default AccountCandidatesListTable;

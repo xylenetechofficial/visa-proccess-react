@@ -1,10 +1,10 @@
 import { Checkbox } from "@mui/material";
 import { useState } from "react";
-import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../componenets/Table";
-import { RedButton } from "../../../componenets/CustomButton";
-import { CustomCheckBox } from "../../../componenets/Checkbox";
-import { UnlabeledInput } from "../../../componenets/Input";
-import { convertDateFormat } from "../../../utils/function";
+import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table";
+import { RedButton } from "../../../../componenets/CustomButton";
+import { CustomCheckBox } from "../../../../componenets/Checkbox";
+import { UnlabeledInput } from "../../../../componenets/Input";
+import { convertDateFormat } from "../../../../utils/function";
 import { ImmigrationInterface } from "../type";
 
 

@@ -149,6 +149,8 @@ export const navigations: NavigationInterface[] = [
     icon:"work",
     children:[
       {name:"Immigration Dashboard" ,icon: 'pageview', path: '/immigration/immigration-dashboard/'     },
+      {name:"Immigration Done PP Release" ,icon: 'pageview', path: '/immigration/immigration-done-pp-release/'     },
+      {name:"Index For Ewakala" ,icon: 'pageview', path: '/immigration/index-for-ewakala/'     },
       
     ]
   },
@@ -159,6 +161,7 @@ export const navigations: NavigationInterface[] = [
     children: [
       { name: 'Candidates List', icon: 'pageview', path: '/delhi/candidates-list' },
       { name: 'RC - Candidates List', icon: 'pageview', path: '/delhi/RC-candidates-list' },
+      { name: 'RC - PP Received', icon: 'pageview', path: '/delhi/RC-pp-received' },
 
     ]
   },
