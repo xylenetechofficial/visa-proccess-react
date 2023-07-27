@@ -2,109 +2,10 @@ import { useEffect, useState } from 'react';
 import { Box, styled } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
-import { RedButton } from '../../../../componenets/CustomButton';
+import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
 import ImmigrationTable from "./Table";
 import { ImmigrationInterface } from '../type';
-
-const DataList: ImmigrationInterface[] = [{
-    id: 1,
-
-    name: "string",
-    company_name: "string",
-    passport_no: "string",
-    isChecked: 1,
-    arn: "string",
-    immigration_required: "string",
-    submission_date: "string",
-    received_date: "string",
-    party_code: 1,
-    division: "string",
-    passport_issued_date: "string",
-    passport_expiry_date: "string",
-    place_of_issue: "string",
-    date_of_birth: "string",
-    address: "string",
-    nominee_name: "string",
-    nominee_relation: "string",
-    place_of_birth: "string",
-    visa_number: "string",
-    actual_profession: "string",
-    visa_profession: "string",
-    agent_name: "string",
-    agent_location: "string",
-    visa_authorization: "string",
-    visa_issued_date: "string",
-    visa_received_date: "string",
-    visa_expire_date: "string",
-    mol_number: 0,
-    reject: 0
-},
-{
-    id: 2,
-
-    name: "string",
-    company_name: "string",
-    passport_no: "string",
-    isChecked: 2,
-    arn: "string",
-    immigration_required: "string",
-    submission_date: "string",
-    received_date: "string",
-    party_code: 2,
-    division: "string",
-    passport_issued_date: "string",
-    passport_expiry_date: "string",
-    place_of_issue: "string",
-    date_of_birth: "string",
-    address: "string",
-    nominee_name: "string",
-    nominee_relation: "string",
-    place_of_birth: "string",
-    visa_number: "string",
-    actual_profession: "string",
-    visa_profession: "string",
-    agent_name: "string",
-    agent_location: "string",
-    visa_authorization: "string",
-    visa_issued_date: "string",
-    visa_received_date: "string",
-    visa_expire_date: "string",
-    mol_number: 2,
-    reject: 2
-},
-{
-    id: 3,
-
-    name: "string",
-    company_name: "string",
-    passport_no: "string",
-    isChecked: 3,
-    arn: "string",
-    immigration_required: "string",
-    submission_date: "string",
-    received_date: "string",
-    party_code: 3,
-    division: "string",
-    passport_issued_date: "string",
-    passport_expiry_date: "string",
-    place_of_issue: "string",
-    date_of_birth: "string",
-    address: "string",
-    nominee_name: "string",
-    nominee_relation: "string",
-    place_of_birth: "string",
-    visa_number: "string",
-    actual_profession: "string",
-    visa_profession: "string",
-    agent_name: "string",
-    agent_location: "string",
-    visa_authorization: "string",
-    visa_issued_date: "string",
-    visa_received_date: "string",
-    visa_expire_date: "string",
-    mol_number: 3,
-    reject: 3
-}]
+import { createImmigrationList, readImmigrationList } from '../repository';
 
 export default function Main() {
 
@@ -119,8 +20,21 @@ export default function Main() {
     const [searchQuery, setSearchQuery] = useState("")
     const [immigrationData, setImmigrationData] = useState<ImmigrationInterface[]>([])
 
+        const fetchImmigrationList =async()=>{
+            const data :any = await readImmigrationList();
+            if(data){
+                setImmigrationData(data)
+            }
+        }
+
+        const createImmigration =async(item:any)=>{
+            const data:any = await createImmigrationList(item);
+            if(data){
+                fetchImmigrationList();
+            }
+        }
     useEffect(() => {
-        setImmigrationData(DataList)
+        fetchImmigrationList()
     }, [])
     return (
         <div className='h-screen'>
@@ -134,7 +48,9 @@ export default function Main() {
                 immigrationData={immigrationData}
                 onClickEdit={() => console.log("first")}
                 onChange={(value) => setImmigrationData(value)}
+                fetchImmigrationList={fetchImmigrationList}
             />
+            <BlueButton text='Submit' onClick={()=>{createImmigration(immigrationData)}} />
         </div>
 
     );

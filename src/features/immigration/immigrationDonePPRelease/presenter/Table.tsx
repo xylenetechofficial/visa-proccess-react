@@ -11,17 +11,32 @@ import {
 } from "../../../../componenets/Table";
 
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
+import { ImmigrationInterface } from "../type";
 
 const ImmigrationDOnePPReleaseTable = (props: {
 
-  RcPPRecieved: any;
+  RcPPRecieved: ImmigrationInterface[];
   setRcRcPPRecieved: any
+  onChange: (value: ImmigrationInterface[]) => void,
   data: any;
   setData: any;
 }) => {
 
   const [date, setDate] = useState<any>([])
   console.log(props.data)
+
+  function onUpdateRow(index: number, rowData: ImmigrationInterface) {
+    const nextData = props.RcPPRecieved.map((e, i) => {
+        if (i === index) {
+            // Increment the clicked counter
+            return rowData;
+        } else {
+            // The rest haven't changed
+            return e;
+        }
+    });
+    props.onChange(nextData)
+}
   return (
     <div className="overflow-auto">
 
@@ -48,21 +63,30 @@ const ImmigrationDOnePPReleaseTable = (props: {
           </TableHeadRow>
         </TableHead2>
         <TableBody2>
+          {props?.RcPPRecieved?.map((item, index) => (
+            <TableRow>
 
-          <TableRow>
+              <TableCell>{index+1} </TableCell>
+              <TableCell>{item?.name} </TableCell>
+              <TableCell>{item?.passport_no} </TableCell>
+              <TableCell>{item?.company_name} </TableCell>
+              <TableCell>{item?.party_code} </TableCell>
+              <TableCell>{item?.actual_profession} </TableCell>
+              <TableCell>{item?.visa_profession} </TableCell>
+              <TableCell>{item?.visa_issued_date} </TableCell>
+              <TableCell>{item?.visa_received_date} </TableCell>
+              <TableCell>{item?.agent_name} </TableCell>
+              <TableCell> </TableCell>
+              <TableCell>{item?.payment} </TableCell>
+              <TableCell> {item?.given_to}</TableCell>
+              <TableCell>{''} </TableCell>
+              <TableCell>{''} </TableCell>
 
-            <TableCell> </TableCell>
+            </TableRow>
 
 
-           
-            <TableCell>
 
-
-            </TableCell>
-
-          </TableRow>
-
-
+          ))}
 
         </TableBody2>
       </Table>

@@ -54,10 +54,10 @@ const onClickAdd= async(candidateInvoiceRaise:any)=>{
         onClickEdit={() => console.log("first")}
         onChange={(value) => setCandidateInvoiceRaiseList(value)}
         candidateInvoiceRaiseList={candidateInvoiceRaise}
-
+        setData={(value:any)=>setData(value)}
       />
 
-    <CustomButton2 buttonText="Submit" onClick={()=>onClickAdd(candidateInvoiceRaise)}/>
+    <CustomButton2 buttonText="Submit" onClick={()=>onClickAdd(data)}/>
 
     </div>
   );

@@ -44,7 +44,7 @@ const CardHeader = styled(Box)(() => ({
 const CardHeader2 = styled(Box)(() => ({
   display: "grid",
   gap: "5px",
-  gridTemplateColumns: "auto auto auto",
+  gridTemplateColumns: "200px 200px 200px",
   // paddingRight: "24px",
   // marginBottom: "18px",
 }));
@@ -172,7 +172,7 @@ export default function Main(
   // ! EMG
   useEffect(() => {
     fetchAgentPaymentList()
-  }, [AgentID])
+  }, [])
 
   useEffect(() => {
     fetchAgentList()
@@ -196,10 +196,11 @@ export default function Main(
         searchFunction={(query) => setSearchQuery(query)}
       />
 
-      <CardHeader>
-      <UpdateContentBox>
+      <CardHeader2>
+      {/* <UpdateContentBox> */}
+      <div className="w-48">
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-          
+        </div>
           <div className="w-48">
           <CustomSelectComponent
           label="Agent"
@@ -208,17 +209,18 @@ export default function Main(
             value={AgentID}
           />
         </div>
-        </UpdateContentBox>
-        <div className=" m-4">
+        
+        <div className=" w-48">
         <GreenButton
           text={"Submit "}
           onClick={() => {
-            updateBulkPayment(data)
+            fetchAgentPaymentList()
             console.log(data)
           }}
         />
       </div>
-      </CardHeader>
+      {/* </UpdateContentBox> */}
+      </CardHeader2>
 
       <HeroPage props={AgentPaymentList} />
 
@@ -250,6 +252,14 @@ export default function Main(
 
       {/* Edit */}
     
+
+      <GreenButton
+          text={"Submit "}
+          onClick={() => {
+            updateBulkPayment(data)
+            console.log(data)
+          }}
+        />
     </div>
   );
 }

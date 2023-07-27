@@ -1,5 +1,5 @@
 
-import {  Table2, TableBody,  TableCell,  TableCell3,  TableHead2,  TableHeadCell3,  TableHeadRow2, TableRow } from '../../../../componenets/Table';
+import {  Table2, TableBody,  TableCell,  TableCell3,  TableHead2,  TableHeadCell3,  TableHeadRow2, TableRow, TableRow1 } from '../../../../componenets/Table';
 import { convertDateFormat } from '../../../../utils/function';
 
 const PaymentBulkList = (AgentPaymentList:any) => {
@@ -23,13 +23,13 @@ const PaymentBulkList = (AgentPaymentList:any) => {
                 </TableHead2>
                 <TableBody>
                     {AgentPaymentList?.AgentPaymentList?.bulk_payment_list?.map((ele :any, index:any)=>(
-                         <TableRow key={index}>
+                         <TableRow1 key={index} onClick={()=>console.log(ele)}> 
                         <TableCell3 width={10}>{index+1}</TableCell3>
                         <TableCell3 width={10}>{convertDateFormat(ele.created_at)}</TableCell3>
                         <TableCell3 width={10}>{ele.amount}</TableCell3>
                         <TableCell3 width={10}>{ele.used_amount}</TableCell3>
                         <TableCell3 width={10}>{ele.description}</TableCell3>
-                        </TableRow>
+                        </TableRow1>
                     ))}
                 </TableBody>
             </Table2>

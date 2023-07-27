@@ -5,14 +5,27 @@ import { RedButton } from "../../../../componenets/CustomButton";
 import { CustomCheckBox } from "../../../../componenets/Checkbox";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { convertDateFormat } from "../../../../utils/function";
-import { ImmigrationInterface } from "../type";
+import { ImmigrationInterface, UpdateImmigrationRejectInterface } from "../type";
+import { updateImmigration } from "../repository";
 
 
 const RejectCancelApproveTable = (props: {
     onClickEdit: any;
     immigrationData: ImmigrationInterface[],
-    onChange: (value: ImmigrationInterface[]) => void
+    onChange: (value: ImmigrationInterface[]) => void,
+    fetchImmigrationList:any
 }) => {
+
+    const rejectImmigration = async (id:number,item:any)=>{
+        const list : UpdateImmigrationRejectInterface={
+            is_without: item?.is_without,
+            immigration_reject_remarks: item?.immigration_reject_remarks,
+        }
+        const data :any = await updateImmigration(id,list);
+         if(data){
+            props.fetchImmigrationList();
+         }
+    }
     const HEADERLIST = ["SR NO.", "COMPANY NAME", "CONDIDATE NAME", "PP NO.", "SELECT", "ARN", "IMMIGRATION REQUIRED", "SUBMISSION DATE", "RECEIVED DATE", "PARTY CODE", "DIVISION DATE", "PP ISSUED DATE",
         "PP EXPIRY DATE", "PLACE OF ISSUE", "DATE OF BIRTH", "ADDRESS", "NOMINEE NAME", "NOMINEE RELATION", "PLACE OF BIRTH", "VISA NUMBER", "ACTUAL PROFESSION", "VISA PROFESSION", "AGENT", "AGENT LOCATION", "VISA AUTHORISATION", "VISA ISSUED DATE", "VISA RECEIVED DATE", "VISA EXPIRE DATE", "MOL NUMBER", "REJECT"]
     function onUpdateRow(index: number, rowData: ImmigrationInterface) {
@@ -37,14 +50,15 @@ const RejectCancelApproveTable = (props: {
                     </TableHeadRow>
                 </TableHead2>
                 <TableBody2>
-                    {props.immigrationData?.map((item: any, index: any) => (
+                    {props.immigrationData?.map((item, index) => (
 
                         <TableRow key={index}>
                             <TableCell>{item?.id}</TableCell>
                             <TableCell>{item?.name}</TableCell>
                             <TableCell>{item?.company_name}</TableCell>
                             <TableCell>{item?.passport_no}</TableCell>
-                            <TableCell><Checkbox 
+                            <TableCell>
+                                {/* <Checkbox 
                             value={item?.isChecked}
                             onChange={(value)=>{
                                 if (value) {
@@ -55,8 +69,10 @@ const RejectCancelApproveTable = (props: {
                                     onUpdateRow(index, { ...item, isChecked: value  })
                                 }
                             }}
-                            /></TableCell>
-                            <TableCell><UnlabeledInput value={item.arn} onchange={(value) => {
+                            /> */}
+                            </TableCell>
+                            <TableCell>
+                                {/* <UnlabeledInput value={item.arn} onchange={(value) => {
                                 if (value) {
                                     onUpdateRow(index, { ...item, arn: value })
                                         , console.log(value)
@@ -66,7 +82,8 @@ const RejectCancelApproveTable = (props: {
                                 }
                             }}
 
-                            /></TableCell>
+                            /> */}
+                            </TableCell>
                             <TableCell><CustomCheckBox 
                                 value={item?.immigration_required}
                             onChange={(value) => {
@@ -76,7 +93,8 @@ const RejectCancelApproveTable = (props: {
                                 }
 
                             }} option={[{ name: "Yes", value: "yes" }, { name: "No", value: "no" }]} /></TableCell>
-                            <TableCell><UnlabeledInput type="date" onchange={(value) => {
+                            <TableCell>
+                                {/* <UnlabeledInput type="date" onchange={(value) => {
                                 if (value) {
                                     onUpdateRow(index, { ...item, submission_date: value })
                                         , console.log(value)
@@ -84,21 +102,22 @@ const RejectCancelApproveTable = (props: {
                                 else {
                                     onUpdateRow(index, { ...item, submission_date: value })
                                 }
-                            }} value={item?.submission_date} /></TableCell>
+                            }} value={item?.submission_date} /> */}
+                            </TableCell>
                             <TableCell><UnlabeledInput type="date" onchange={(value) => {
                                 if (value) {
-                                    onUpdateRow(index, { ...item, received_date: value })
+                                    onUpdateRow(index, { ...item, visa_received_date: value })
                                         , console.log(value)
                                 }
                                 else {
-                                    onUpdateRow(index, { ...item, received_date: value })
+                                    onUpdateRow(index, { ...item, visa_received_date: value })
                                 }
                             }}
-                                value={item?.received_date} /></TableCell>
+                                value={item?.visa_received_date} /></TableCell>
                             <TableCell>{item?.party_code}</TableCell>
                             <TableCell>{item?.division}</TableCell>
-                            <TableCell>{item?.passport_issued_date}</TableCell>
-                            <TableCell>{item?.passport_expiry_date}</TableCell>
+                            <TableCell>{item?.pp_issued_date}</TableCell>
+                            <TableCell>{item?.pp_expiry_date}</TableCell>
                             <TableCell>{item?.place_of_issue}</TableCell>
                             <TableCell>{item?.date_of_birth}</TableCell>
                             <TableCell>{item?.address}</TableCell>
@@ -109,13 +128,13 @@ const RejectCancelApproveTable = (props: {
                             <TableCell>{item?.actual_profession}</TableCell>
                             <TableCell>{item?.visa_profession}</TableCell>
                             <TableCell>{item?.agent_name}</TableCell>
-                            <TableCell>{item?.agent_location}</TableCell>
-                            <TableCell>{item?.visa_authorization}</TableCell>
+                            <TableCell>{item?.agent_location_name}</TableCell>
+                            <TableCell>{item?.visa_authorization_name}</TableCell>
                             <TableCell>{item?.visa_issued_date}</TableCell>
                             <TableCell>{item?.visa_received_date}</TableCell>
                             <TableCell>{item?.visa_expire_date}</TableCell>
                             <TableCell>{item?.mol_number}</TableCell>
-                            <TableCell><RedButton text={"Reject"} onClick={() => console.log("Reject", index)} /></TableCell>
+                            <TableCell><RedButton text={"Reject"} onClick={() => rejectImmigration(index, item)} /></TableCell>
                         </TableRow>
                     ))}
 

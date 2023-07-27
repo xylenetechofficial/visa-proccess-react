@@ -4,6 +4,11 @@ interface ParentComponentProps {
     children: ReactNode;
     width?: number;
 }
+interface ParentComponent2Props {
+    children: ReactNode;
+    width?: number;
+    onClick: (value: any) => void,
+}
 
 export const Table = ({ children }: ParentComponentProps) => {
     return (
@@ -118,6 +123,26 @@ export const TableBody3 = ({ children }: ParentComponentProps) => {
 export function TableRow({ children }: ParentComponentProps) {
     return (
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            {children}
+            {/* <td className="px-6 py-4 last:text-end">
+                Product name
+            </td>
+            <td className="px-6 py-4 last:text-end">
+                Silver
+            </td>
+            <td className="px-6 py-4 last:text-end">
+                Laptop
+            </td>
+            <td className="px-6 py-4 last:text-end">
+                $2999
+            </td> */}
+        </tr>
+
+    );
+}
+export function TableRow1({ children , onClick}: ParentComponent2Props) {
+    return (
+        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" onClick={onClick}>
             {children}
             {/* <td className="px-6 py-4 last:text-end">
                 Product name

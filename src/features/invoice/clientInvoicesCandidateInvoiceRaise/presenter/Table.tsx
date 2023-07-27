@@ -20,10 +20,10 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
   candidateInvoiceRaiseList: CandidateInvoiceRaiseListInterface[];
   onClickEdit: any,
   onChange: (value: CandidateInvoiceRaiseListInterface[]) => void
-
+  setData:(value: any) => void
 }) => {
 
-  const [date, setDate] = useState<any>([])
+  
   function onUpdateRow(index: number, rowData: CandidateInvoiceRaiseListInterface) {
     const nextData = props.candidateInvoiceRaiseList.map((e, i) => {
       if (i === index) {
@@ -92,6 +92,18 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   value={ele?.invoice_number}
                   onchange={(value) => {
                     if (value) {
+                    
+                      props.setData((prev: any) => {
+                        const newData = [...prev];
+                            newData[index] = {
+                                ...newData[index],
+                                invoice_number: value,
+                                id:index,
+                                total_charges:ele.total_charges
+                                
+                            };
+                            return newData;
+                        })
                       onUpdateRow(index, { ...ele, invoice_number: value })
                     }
                     else {
@@ -108,6 +120,16 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   onChange={(value) => {
 
                     if (value) {
+                      props.setData((prev: any) => {
+                        const newData = [...prev];
+                            newData[index] = {
+                                ...newData[index],
+                                invoice_date: value,
+                                id:index,
+                                
+                            };
+                            return newData;
+                        })
                       onUpdateRow(index, { ...ele, invoice_date: value })
                         , console.log(value)
                     }
@@ -123,6 +145,16 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                 <Checkbox value={ele.is_without} onChange={(e) => {
 
                   if (e.target.checked) {
+                    props.setData((prev: any) => {
+                      const newData = [...prev];
+                          newData[index] = {
+                              ...newData[index],
+                              is_without: e.target.checked ? 1 : 0,
+                              id:index,
+                              
+                          };
+                          return newData;
+                      })
                     onUpdateRow(index, { ...ele, is_without: e.target.checked ? 1 : 0 })
                       , console.log(e.target.checked, "checked")
                   }
@@ -145,6 +177,16 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   onChange={(value) => {
 
                     if (value) {
+                      props.setData((prev: any) => {
+                        const newData = [...prev];
+                            newData[index] = {
+                                ...newData[index],
+                                bank_id: value,
+                                id:index,
+                                
+                            };
+                            return newData;
+                        })
                       onUpdateRow(index, { ...ele, bank_id: value })
                         , console.log(value)
                     }
