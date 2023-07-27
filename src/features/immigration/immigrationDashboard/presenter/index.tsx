@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { CustomButton2, CustomNavbarV3 } from '../../../componenets/CustomComponents';
-import { DateInput, TextAreaInput } from '../../../componenets/Input';
 import { Box, styled } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
+import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
+import { RedButton } from '../../../../componenets/CustomButton';
 import ImmigrationTable from "./Table";
 import { ImmigrationInterface } from '../type';
 
@@ -125,7 +125,7 @@ export default function Main() {
     return (
         <div className='h-screen'>
 
-            <CustomNavbarV3 pageName="Reject Cancel Approve" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Immigration Dashboard" searchFunction={(query) => setSearchQuery(query)} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

@@ -12,10 +12,10 @@ import {
 
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 
-const RcCandidatesListTable = (props: {
+const RcPPRecievedTable = (props: {
 
-  RcCandidatesList: any;
-  setRcCandidatesList: any
+  RcPPRecieved: any;
+  setRcRcPPRecieved: any
   data: any;
   setData: any;
 }) => {
@@ -53,15 +53,7 @@ const RcCandidatesListTable = (props: {
 
             <TableCell> </TableCell>
 
-            <TableCell>
-              <UnlabeledInput
-                type="number"
-                value
-                onchange={(value) => {
 
-                }}
-              />
-            </TableCell>
            
             <TableCell>
 
@@ -79,4 +71,4 @@ const RcCandidatesListTable = (props: {
   );
 };
 
-export default RcCandidatesListTable;
+export default RcPPRecievedTable;

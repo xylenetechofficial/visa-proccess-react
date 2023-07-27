@@ -17,6 +17,7 @@ import PenaltyAfterDeployment from "./penaltyAfterDeployment/Router";
 import AgentBulkPayment from "./agentBulkPayment/Router";
 import Incentives from "./incentives/Router";
 import DelhiOtherDailyPayments from "./delhiOtherDailyPayments/Router";
+import AccountCandidateList from './accountCandidatesList/Router';
 
 
 
@@ -38,9 +39,9 @@ function Main() {
             <Route path='/penalty-after-deployment/*' element={<PenaltyAfterDeployment />}></Route>
             <Route path='/agent-bulk-payment/*' element={<AgentBulkPayment />}></Route>
             <Route path='/incentives/*' element={<Incentives />}></Route>
-            <Route path='/delhi-other-daily-payments*' element={<DelhiOtherDailyPayments />}></Route>
-           
-
+            <Route path='/delhi-other-daily-payments/*' element={<DelhiOtherDailyPayments />}></Route>
+            <Route path='/account-candidate-list/*' element={<AccountCandidateList />}></Route>
+        
         </Routes>
 
 
