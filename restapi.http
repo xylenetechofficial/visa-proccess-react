@@ -904,6 +904,64 @@ GET {{endpoint}}/invoice-dpt/client-additional-payment/payment-list
 
 
 
+# ================      Delhi Agent Payment      =============== #
+
+### Read Delhi Agent Payment List
+GET {{endpoint}}/account/delhi-agent-payment-list
+
+
+
+### Add In Account
+POST {{endpoint}}/account/delhi-agent-payment/add-in-account
+content-type: application/json
+
+{
+    "id": 2,
+    "is_without": 0,
+    "agent_id": 2,
+    "amount": 23,
+    "description": "description"
+}
+
+
+
+### Update Delhi Agent Payment
+PATCH {{endpoint}}/account/delhi-agent-payment/2
+content-type: application/json
+
+{
+    "is_without": 0,
+    "dad_amount": 44
+}
+
+
+
+
+
+
+# ================      Account Candidate List      =============== #
+
+### Read Account Candidate List
+GET {{endpoint}}/account/account-candidate-list
+
+
+
+### Update Account Candidate List
+PATCH {{endpoint}}/account/account-candidate/4
+content-type: application/json
+
+{
+    "is_without": 0,
+    "visa_cancel_penalty": 45,
+    "visa_cancel_remarks": "gvfgds"
+}
+
+
+
+
+
+
+
 
 
 
