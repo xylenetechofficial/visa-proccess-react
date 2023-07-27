@@ -1032,3 +1032,97 @@ content-type: application/json
 
 ### Read Index For Ewakala List
 GET {{endpoint}}/immigration-dpt/index-for-ewakala-list
+
+
+
+
+
+
+
+
+
+
+
+
+######################          Delhi Account Dashboard         ######################
+
+
+# ================      Candidate List     =============== #
+
+### Read Candidate List
+GET {{endpoint}}/delhi-account-dasboard/candidate-list
+
+
+### Add Candidate
+POST {{endpoint}}/delhi-account-dasboard/candidate-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "dad_service_tax": "Yes",
+            "dad_amount": 109
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "dad_service_tax": "No",
+            "dad_amount": 90
+        }
+    ]
+}
+
+# dad_service_tax => Yes/No
+# optional parameter => given_to and given_date
+
+
+
+
+
+# ================      RC Candidates List      =============== #
+
+### Read RC Candidates List List
+GET {{endpoint}}/delhi-account-dasboard/rc-candidate-list
+?status=yes
+# default status=no 
+
+# status=no for add 
+# status=yes for edit
+
+
+### Add RC Candidates List
+PATCH {{endpoint}}/delhi-account-dasboard/rc-candidate-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id":2,
+            "is_without":0,
+            "dad_pp_received": 1,
+            "dad_pp_received_date": "6-11-22"
+        },
+        {
+            "id":6,
+            "is_without":1,
+            "dad_pp_received": 0,
+            "dad_pp_received_date": "6-09-22"
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+# ================      RC PP Received      =============== #
+
+### Read RC PP Received List
+GET {{endpoint}}/delhi-account-dasboard/rc-pp-received-list
