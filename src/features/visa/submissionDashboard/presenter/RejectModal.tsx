@@ -12,11 +12,11 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 export default function Main(props: {
     onClose: () => void,
     currentElement: SubmissionDashboardInterface,
-    onClickSubmit:(ele:SubmissionDashboardInterface)=>void
+    onClickSubmit: (ele: SubmissionDashboardInterface) => void
 }) {
 
     const [element, setElement] = useState(props.currentElement)
-   
+
 
     useEffect(() => {
         setElement(props.currentElement)
@@ -25,8 +25,9 @@ export default function Main(props: {
 
         <ModalContent
             buttonName="Submit"
-            handleClick={()=>{
+            handleClick={() => {
                 props.onClickSubmit(element)
+                props.onClose()
             }}
             title="CANDIDATE REJECT"
             onClose={props.onClose}
@@ -59,8 +60,8 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text=" Reject Remarks :" />
                     <UnlabeledInput
-                        value={element.remarks}
-                        onchange={(value) => setElement({ ...element, remarks: value,reject:1 })}
+                        value={element.mofa_rejecte_remarks}
+                        onchange={(value) => setElement({ ...element, mofa_rejecte_remarks: value, reject: 1 })}
                     />
                 </UpdateContentBox>
 

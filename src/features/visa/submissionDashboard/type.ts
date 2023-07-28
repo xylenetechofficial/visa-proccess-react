@@ -44,6 +44,8 @@ export interface SubmissionDashboardInterface {
   reject: number;
   is_without: number;
   checked?: boolean;
+
+  mofa_rejecte_remarks?:string
 }
 
 export interface SubmissionDashboardAdapter {
@@ -90,6 +92,7 @@ export interface SubmissionDashboardAdapter {
   rejected: number;
 
   is_without: number;
+  mofa_rejecte_remarks?:string
 }
 
 export class SubmissionDashboardConverter {
@@ -144,6 +147,8 @@ export class SubmissionDashboardConverter {
       reject: a.rejected,
 
       is_without: a.is_without,
+
+      mofa_rejecte_remarks:a.mofa_rejecte_remarks
     };
 
     return data;
@@ -188,6 +193,8 @@ export class SubmissionDashboardConverter {
       remarks: i.remarks,
       rejected: i.reject,
       is_without: i.is_without,
+
+      mofa_rejecte_remarks:i.mofa_rejecte_remarks
     };
     return data;
   }
