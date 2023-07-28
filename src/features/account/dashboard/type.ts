@@ -56,17 +56,17 @@ export interface AccountDashboardAdapter{
 }
 
 export interface CandidateRejectInterface {
-  client_invoice : string,
-  penalty_amount : number,
-  mistake_by : string
+  account_dashboard_client_invoice : string,
+  account_dashboard_penalty_amount : number,
+  account_dashboard_mistake_by : string
 
 }
 
 export interface CandidateRejectAdapter {
 
-  client_invoice : string,
-  penalty_amount : number,
-  mistake_by : string
+  account_dashboard_client_invoice : string,
+  account_dashboard_penalty_amount : number,
+  account_dashboard_mistake_by : string
 }
 
 export class CandidateRejectConverter {
@@ -78,9 +78,9 @@ export class CandidateRejectConverter {
    */
   public static toInterface(a: CandidateRejectAdapter) {
     const data: CandidateRejectInterface = {
-      client_invoice : a.client_invoice,
-      penalty_amount : a.penalty_amount,
-      mistake_by : a.mistake_by
+      account_dashboard_client_invoice : a.account_dashboard_client_invoice,
+      account_dashboard_penalty_amount : a.account_dashboard_penalty_amount,
+      account_dashboard_mistake_by : a.account_dashboard_mistake_by
     };
     return data;
   }
@@ -92,9 +92,9 @@ export class CandidateRejectConverter {
     console.log("i"); // Only Dev
     console.log(i); // Only Dev
     const data: CandidateRejectAdapter = {
-      client_invoice : i.client_invoice,
-      penalty_amount : i.penalty_amount,
-      mistake_by : i.mistake_by
+      account_dashboard_client_invoice : i.account_dashboard_client_invoice,
+      account_dashboard_penalty_amount : i.account_dashboard_penalty_amount,
+      account_dashboard_mistake_by : i.account_dashboard_mistake_by
     };
     return data;
   }

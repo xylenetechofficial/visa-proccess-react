@@ -55,9 +55,9 @@ export default function Main(props: {
     const [accountDashboard, setAccountDashboard] = useState(initValue)
     const [visaProfessionList, setVisaProfessionList] = useState<CandidateRejectInterface>(
         {
-            client_invoice: '',
-            penalty_amount: 0,
-            mistake_by: '',
+            account_dashboard_client_invoice: '',
+            account_dashboard_penalty_amount: 0,
+            account_dashboard_mistake_by: '',
         })
     // const [visaProfessionList, setVisaProfessionList] = useState<any>({})
 
@@ -102,7 +102,7 @@ export default function Main(props: {
     const handleInputChange = (value: any) => {
         const numberRegex = /[0-9]+$/;
         if (numberRegex.test(value) || value =='') {
-            setVisaProfessionList((prev)=> { return {...prev, penalty_amount: value }})
+            setVisaProfessionList((prev)=> { return {...prev, account_dashboard_penalty_amount: value }})
         }
     };
     return (
@@ -162,8 +162,8 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="Client invoice   :" />
-                    <CustomRadioButton value={visaProfessionList.client_invoice}
-                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, client_invoice: value })}
+                    <CustomRadioButton value={visaProfessionList.account_dashboard_client_invoice}
+                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, account_dashboard_client_invoice: value })}
                         // onChange={(value) => console.log(value)}
                         option={[
                             { name: "Yes", value: 1 },
@@ -173,17 +173,17 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="Penalty Amount   :" />
-                    <UnlabeledInput type="text" value={visaProfessionList.penalty_amount} onchange={(value) =>
+                    <UnlabeledInput type="text" value={visaProfessionList.account_dashboard_penalty_amount} onchange={(value) =>
                     handleInputChange(value)
-                        // setVisaProfessionList({ ...visaProfessionList, penalty_amount: Number(value) })
+                        // setVisaProfessionList({ ...visaProfessionList, account_dashboard_penalty_amount: Number(value) })
                         } />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="Mistake by   :" />
 
                     <CustomRadioButton
-                        value={visaProfessionList.mistake_by}
-                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, mistake_by: value })}
+                        value={visaProfessionList.account_dashboard_mistake_by}
+                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, account_dashboard_mistake_by: value })}
                         // onChange={(value) => console.log(value)}
                         option={[
                             { name: "Agent/Candidate", value: 0 },
