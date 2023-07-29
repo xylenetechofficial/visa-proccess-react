@@ -29,6 +29,7 @@ import HeroPage from "./HeroPage";
 import PaymentBulkList from "./PaymentBulkList";
 import AgentBulkPayment from "./AgentBulkPayment";
 import CandidatePayment from "./CandidatePayment";
+import PaymentDetailFromBulk from "./PaymentDetailFromBulk";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
@@ -234,7 +235,7 @@ export default function Main(
 
         <AgentBulkPayment fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} setAgentID={setAgentID}/>
         <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID}/>
-        <PaymentBulkList AgentPaymentList={AgentPaymentList} />
+        <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName}/>
       </div>
 
       {/* </CardHeader2> */}
@@ -251,7 +252,13 @@ export default function Main(
       {/* <!-- Modal --> */}
 
       {/* Edit */}
+    {modalName ==="viewbulkpayment" ?
     
+    <PaymentDetailFromBulk onClose={()=>setModalName('')} />
+        :
+        '' 
+
+    }
 
       <GreenButton
           text={"Submit "}
