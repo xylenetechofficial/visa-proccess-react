@@ -91,6 +91,7 @@ export class ClientPaymentAddConverter {
 export interface ClientPaymentSingleAddInterface {
 
   company_id: number,
+  company_name: string,
   invoice_number: string,
   invoice_date: string,
   amount: number,
@@ -105,6 +106,8 @@ export interface ClientPaymentSingleAddInterface {
 export interface ClientPaymentSingleAddAdapter {
 
   company_id: number,
+  company_name: string,
+
   invoice_number: string,
   invoice_date: string,
   amount: number,
@@ -122,6 +125,7 @@ export class ClientPaymentSingleAddConverter {
   public static toInterface(a: ClientPaymentSingleAddAdapter) {
     const data: ClientPaymentSingleAddInterface = {
       company_id:a?.company_id,
+      company_name:a.company_name,
       invoice_number:a?.invoice_number,
       invoice_date:a?.invoice_date,
       amount:a?.amount,
@@ -139,6 +143,7 @@ export class ClientPaymentSingleAddConverter {
     console.log(i); // Only Dev
     const data: ClientPaymentSingleAddAdapter = {
       company_id:i?.company_id,
+      company_name:i.company_name,
       invoice_number:i?.invoice_number,
       invoice_date: i?.invoice_date,
       amount:i?.amount,

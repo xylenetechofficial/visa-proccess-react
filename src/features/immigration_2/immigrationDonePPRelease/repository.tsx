@@ -20,8 +20,6 @@ export async function readImmigrationDonePPReleaseList() {
   return ImmigrationCDonePPReleaseConverter.toInterfaceList(response.data as ImmigrationDonePPReleaseAdapter[])
 }
 
-
-
 export async function createImmigrationDonePPRelease(data_list: ImmigrationDonePPReleaseInterface[]) {
   const path = "/immigration-dpt/immigration-done-pp-release-list";
 

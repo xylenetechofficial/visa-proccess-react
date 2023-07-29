@@ -120,7 +120,9 @@ export default function Main(props: {
                                     };
                                     return newData;
                                 })}} value={accountDashboard[index]?.date} /></TableCell>
-                                <TableCell><UnlabeledInput onchange={(value) => {
+                                <TableCell>
+                                    
+                                    <UnlabeledInput onchange={(value) => {
                                     setAccountDashboard((prev: any) => {
                                 const newData = [...prev];
                                     newData[index] = {
@@ -129,7 +131,9 @@ export default function Main(props: {
                                         id:index,
                                     };
                                     return newData;
-                                })}} value={accountDashboard[index]?.amount}  /></TableCell>
+                                })}} value={accountDashboard[index]?.amount}  />
+                                
+                                </TableCell>
                                 <TableCell><UnlabeledInput onchange={(value) => {
                                     setAccountDashboard((prev: any) => {
                                 const newData = [...prev];

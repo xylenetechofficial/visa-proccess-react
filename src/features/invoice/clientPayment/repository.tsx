@@ -33,109 +33,109 @@ export async function readClientPaymentList() {
 
 
 
-export async function createCandidatesTicketCharges(CandidatesTicketCharges:ClientPaymentAddInterface) {
-    const path = "/invoice-dpt/candidates-ticket-charge-list";
-  const list :any ={
-    selection_list:CandidatesTicketCharges,
+export async function createCandidatesTicketCharges(CandidatesTicketCharges: ClientPaymentAddInterface) {
+  const path = "/invoice-dpt/candidates-ticket-charge-list";
+  const list: any = {
+    selection_list: CandidatesTicketCharges,
   }
-    const payload = ClientPaymentAddConverter.toAdapter(list);
-   
-    const response = await ApiHelper.post(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
-  
-    showMessage_v2({ message: response.message, status: response.code })
+  const payload = ClientPaymentAddConverter.toAdapter(list);
 
-    if (response.code > 199 && response.code < 300) {
-      return true;
-    }
-    return false;
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+
+  showMessage_v2({ message: response.message, status: response.code })
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
   }
-  
+  return false;
+}
 
-export async function createClientPayment(clientPayment:ClientPaymentSingleAddInterface) {
-    const path = "/invoice-dpt/client-payment";
-  const list :any =clientPayment;
-    const payload = ClientPaymentAddConverter.toAdapter(list);
-   
-    const response = await ApiHelper.post(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
-  
-    showMessage_v2({ message: response.message, status: response.code })
 
-    if (response.code > 199 && response.code < 300) {
-      return true;
-    }
-    return false;
+export async function createClientPayment(clientPayment: ClientPaymentSingleAddInterface) {
+  const path = "/invoice-dpt/client-payment";
+  const list: any = clientPayment;
+  const payload = ClientPaymentAddConverter.toAdapter(list);
+
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+
+  showMessage_v2({ message: response.message, status: response.code })
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
   }
-  
+  return false;
+}
 
-export async function createClientSinglePaymentAdd(clientPayment:ClientPaymentSingleAddInterface) {
-    const path = "/invoice-dpt/client-payment";
-  const list :any =clientPayment;
-    const payload = ClientPaymentSingleAddConverter.toAdapter(list);
-   
-    const response = await ApiHelper.post(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
-  
-    showMessage_v2({ message: response.message, status: response.code })
 
-    if (response.code > 199 && response.code < 300) {
-      return true;
-    }
-    return false;
+export async function createClientSinglePaymentAdd(clientPayment: ClientPaymentSingleAddInterface) {
+  const path = "/invoice-dpt/client-payment";
+
+  const payload = ClientPaymentSingleAddConverter.toAdapter(clientPayment);
+
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+
+  showMessage_v2({ message: response.message, status: response.code })
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
   }
-  
+  return false;
+}
 
-  
 
-export async function updateBulkClientPaymentList( AccountDashboard: any) {
 
-    const payload :any  ={"payment_list": AccountDashboard};
-  console.log(payload,"aa",AccountDashboard)
-    const path = "/invoice-dpt/client-payment-list";
-    const response = await ApiHelper.patch(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
-    showMessage_v2({ message: response.message, status: response.code })
-  
-    if (response.code > 199 && response.code < 300) {
-      return true;
-    }
-    return false;
+
+export async function updateBulkClientPaymentList(AccountDashboard: any) {
+
+  const payload: any = { "payment_list": AccountDashboard };
+  console.log(payload, "aa", AccountDashboard)
+  const path = "/invoice-dpt/client-payment-list";
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
   }
-export async function updateClientPayment( AccountDashboard: any) {
+  return false;
+}
+export async function updateClientPayment(AccountDashboard: any) {
 
-    const payload :any  ={"payment_list": AccountDashboard};
-  console.log(payload,"aa",AccountDashboard)
-    const path = "/invoice-dpt/client-payment-list";
-    const response = await ApiHelper.patch(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
-    showMessage_v2({ message: response.message, status: response.code })
-  
-  }
-  
-  export async function deleteAccountDashboard(id: number) {
-  
-    const path = "/account/agent-bulk-payment/" + id
-    const response = await ApiHelper.delete(path, {
-      tokenType: AuthTokenType.JWT
-    })
-  
-    showMessage_v2({ message: response.message, status: response.code })
-  
-  }
-  
-  
-  
+  const payload: any = { "payment_list": AccountDashboard };
+  console.log(payload, "aa", AccountDashboard)
+  const path = "/invoice-dpt/client-payment-list";
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+
+}
+
+export async function deleteAccountDashboard(id: number) {
+
+  const path = "/account/agent-bulk-payment/" + id
+  const response = await ApiHelper.delete(path, {
+    tokenType: AuthTokenType.JWT
+  })
+
+  showMessage_v2({ message: response.message, status: response.code })
+
+}
+
+
+
 
 
 

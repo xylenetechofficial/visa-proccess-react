@@ -8,40 +8,47 @@ import { ClientPaymentSingleAddInterface } from "../type"
 import { createClientSinglePaymentAdd } from "../repository"
 import { readCompanyList } from "../../../masters/company/repository"
 
+import { ClientPaymentAddInterface } from "../../clientAdditionalPayment/type"
+import { convertLength } from "@mui/material/styles/cssUtils"
+
+
 
 
 
 export default function Main(props: {
-    // clientSingle: ClientPaymentSingleAddInterface,
-    onClose: () => any,
+
+    client_single: ClientPaymentSingleAddInterface
+    onClose: () => void,
     fetchClientAdditionalInvoiceList: any,
-
-
 }) {
 
     // const initValue: AccountDashboardInterface = {
-    const initValue: any = {
-
+    const initValue: ClientPaymentSingleAddInterface = {
         company_id: 0,
+        company_name: "",
         invoice_number: '',
         invoice_date: '',
-        amount: '',
+        amount: 0,
         date: '',
         description: ''
     }
-    // console.log(props.clientSingle, "clientSuspence")
+
     const [accountDashboard, setAccountDashboard] = useState(initValue)
-    const [companyList, setCompanyList]=useState<any>([]);
-    const fetchCompanyList = async () => {
-        setCompanyList(await readCompanyList(true))
-    }
-    useEffect(()=>{
-        fetchCompanyList()
-      },[])
+
+    // const [companyList, setCompanyList] = useState<any>([]);
+    // const fetchCompanyList = async () => {
+    //     setCompanyList(await readCompanyList(true))
+    // }
+    useEffect(() => {
+        // fetchCompanyList()
+        setAccountDashboard(props.client_single)
+        console.log(props.client_single)
+    }, [])
     async function onClickUpdate() {
 
         // call create
         const newArray: any = accountDashboard;
+        console.log(accountDashboard)
         const flag = await createClientSinglePaymentAdd(newArray);
         if (!flag) {
             return;
@@ -63,29 +70,32 @@ export default function Main(props: {
             <div className=" grid grid-cols-1 py-3  gap-2 shadow">
                 <UpdateContentBox>
                     <SubHeading1 text=" Company :" />
-                    <CustomSelectComponentUnlabeled
+                    {accountDashboard.company_name}
+                    {/* <CustomSelectComponentUnlabeled
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
 
                         options={selectOptionConveter({ options: companyList, options_struct: { name: "name", value: "id" } })}
                         value={accountDashboard.company_id}
-                    />
+                    /> */}
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="INVOICE NUMBER  :" />
-                    <UnlabeledInput
+                    {accountDashboard.invoice_number}
+                    {/* <UnlabeledInput
                         value={accountDashboard.invoice_number}
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, invoice_number: value })}
-                    />
+                    /> */}
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="INVOICE DATE  :" />
-                    <DateInput
+                    {accountDashboard.invoice_date}
+                    {/* <DateInput
                         id="sd;fksdakj"
                         value={accountDashboard.invoice_date}
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, invoice_date: value })}
-                    />
+                    /> */}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
@@ -102,8 +112,9 @@ export default function Main(props: {
 
                     <SubHeading1 text="AMOUNT RECEIVED (INR)  :" />
                     <UnlabeledInput
+                    type="number"
                         value={accountDashboard.amount}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, amount: value })}
+                        onchange={(value) => setAccountDashboard({ ...accountDashboard, amount: parseInt(value) })}
                     />
                 </UpdateContentBox>
 

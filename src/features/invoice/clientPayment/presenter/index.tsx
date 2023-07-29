@@ -10,6 +10,7 @@ import { BlueButton, GreenButton } from '../../../../componenets/CustomButton';
 import { ClientPaymentSingleAddInterface } from '../type';
 import { createBulkClientPayment, deleteAdditionalPayment, updateClientSinglePayment } from '../../clientAdditionalPayment/repository';
 
+
 const DataList: any[] = [{
 
     id: 1,
@@ -72,6 +73,9 @@ export default function Main() {
         "description":"add payment"
     }])
     const [clientSingle,setClientSingle]= useState<ClientPaymentSingleAddInterface[]>([])
+    const [client_single,set_client_single]= useState<ClientPaymentSingleAddInterface>({} as ClientPaymentSingleAddInterface)
+
+
   const fetchClientPaymentList = async ()=>{
     console.log("called")
     const data = await readClientPaymentList();
@@ -112,6 +116,8 @@ const deleteAdditionalPaymentByid = async (id:number)=>{
     }
 
 }
+
+
     useEffect(() => {
         fetchClientPaymentList()
     }, [])
@@ -121,12 +127,14 @@ const deleteAdditionalPaymentByid = async (id:number)=>{
             <CustomNavbarV3 pageName="CLIENT   PAYMENT " searchFunction={(query) => setSearchQuery(query)} />
 
             <CardHeader>
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-                <GreenButton text="Add" onClick={()=>{setModal('create')}} />
+                {/* <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />*/}
+                {/* <GreenButton text="Add" onClick={()=>{setModal('create')}} />  */}
             </CardHeader>
+
             <ClientAdditionalInvoicePaymentAddTable
                 clientPaymentData={clientPaymentData}
                 onClickEdit={(value) => setClientSingle(value)}
+                onClickCreate={(value) => set_client_single(value)}
                 onChange={(value) => setClientPaymentData(value)}
                 data={data}
                 setData={setData}
@@ -137,7 +145,10 @@ const deleteAdditionalPaymentByid = async (id:number)=>{
                 modal === 'create' ?
                 <ClientSuspenceAdd
                 onClose={()=>setModal('')}
-                fetchClientAdditionalInvoiceList={fetchClientPaymentList}               
+                fetchClientAdditionalInvoiceList={fetchClientPaymentList}
+                client_single={client_single}
+
+               
                 />
                 :''
             }
@@ -169,7 +180,7 @@ const deleteAdditionalPaymentByid = async (id:number)=>{
                 />
                 :''
             }
-            <BlueButton text="Submit" onClick={()=>{updatePaymentList(data)}} />
+            {/* <BlueButton text="Submit" onClick={()=>{updatePaymentList(data)}} /> */}
         </div>
 
     );

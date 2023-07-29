@@ -9,18 +9,19 @@ import { useState } from "react";
 
 
 const ClientAdditionalInvoicePaymentAddTable = (props: {
-    onClickEdit:(value: any) => void,
+    onClickCreate: (value: any) => void,
+    onClickEdit: (value: any) => void,
     clientPaymentData: ClientPaymentAddInterface[],
     onChange: (value: ClientPaymentAddInterface[]) => void,
-    data:any,
-    setData:any,
-    setModal:any
-    deleteAdditionalPaymentByid:  (value: any) => void,
+    data: any,
+    setData: any,
+    setModal: any
+    deleteAdditionalPaymentByid: (value: any) => void,
 }) => {
-    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "OTHER CHARGES", "SERVICE CHARGES","TICKET CHARGES","TOTAL CHARGES","PAYMENT RECEIVED", "BALANCE PAYMENT", "SUSPENSE AMOUNT"
-    // ,"PAYMENT", "PAYMENT DATE", "PAYMENT DESCRIPTION"
-    ,"ACTION"]
-   
+    const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "OTHER CHARGES", "SERVICE CHARGES", "TICKET CHARGES", "TOTAL CHARGES", "PAYMENT RECEIVED", "BALANCE PAYMENT", "SUSPENSE AMOUNT"
+        // ,"PAYMENT", "PAYMENT DATE", "PAYMENT DESCRIPTION"
+        , "ACTION"]
+
     function onUpdateRow(index: number, rowData: ClientPaymentAddInterface) {
         const nextData = props.clientPaymentData.map((e, i) => {
             if (i === index) {
@@ -33,7 +34,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
         });
     }
     function onUpdateData(index: number, rowData: any) {
-        const nextData =props.data.map((e:any, i:any) => {
+        const nextData = props.data.map((e: any, i: any) => {
             if (i === index) {
                 // Increment the clicked counter
                 return rowData;
@@ -45,6 +46,8 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
         // props.onChange(nextData)
         props.setData(nextData)
     }
+
+
     return (
         <div className="overflow-auto">
 
@@ -58,7 +61,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                     {props.clientPaymentData?.map((item, index) => (
 
                         <TableRow key={index}>
-                            <TableCell>{index +1}</TableCell>
+                            <TableCell>{index + 1}</TableCell>
                             <TableCell>{item?.company_name}</TableCell>
                             <TableCell>{item?.invoice_number}</TableCell>
                             <TableCell>{item?.invoice_date}</TableCell>
@@ -69,13 +72,17 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                             <TableCell>{item?.payment_received}</TableCell>
                             <TableCell>{item?.balance_payment}</TableCell>
                             <TableCell>{item?.suspense_amount}
-                            <BlueButton text="Check SA" onClick={()=>{props.setModal("suspenseAmount")}} />
+                                <BlueButton text="Check SA" onClick={() => { props.setModal("suspenseAmount") }} />
                             </TableCell>
-                           
-                        <TableCell>
-                                
-                                <BlueButton text="EDIT" onClick={()=>{props.onClickEdit(item),props.setModal('edit')}} />
-                                <RedButton text={"DELETE"} onClick={() => {console.log("Reject", index),props.deleteAdditionalPaymentByid(index)}} /></TableCell>
+
+                            <TableCell>
+                                {/* <GreenButton text="Add" onClick={() => {console.log("Add Amit", item.invoice_number),props.onClickCreate(item.invoice_number), props.setModal('create') }} /> */}
+                                <GreenButton text="Add" onClick={() => {
+                                    props.onClickCreate(item)
+                                    props.setModal('create')
+                                }} />
+                                <BlueButton text="EDIT" onClick={() => { props.onClickEdit(item), props.setModal('edit') }} />
+                                <RedButton text={"DELETE"} onClick={() => { console.log("Reject", index), props.deleteAdditionalPaymentByid(index) }} /></TableCell>
                             {/* <TableCell><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell> */}
                         </TableRow>
                     ))}
