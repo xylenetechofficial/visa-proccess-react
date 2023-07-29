@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint = https://449e-45-248-56-22.ngrok-free.app/api
+@endpoint = https://9b2c-45-248-56-22.ngrok-free.app/api
 
 
 ###
@@ -177,7 +177,7 @@ content-type: application/json
 
 ### Fetch Agent Payment Receive Payment List
 GET {{endpoint}}/account/agent-payment/receive-payment-list
-?bulk_payment_id=0&candidate_id=2
+?candidate_id=2
 
 # onclick bulk payment used amount bulk_payment_id
 # onclick candiadte recieve payment candidate_id
