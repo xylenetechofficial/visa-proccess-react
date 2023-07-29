@@ -44,7 +44,7 @@ const IndexForEwakalaTable = (props: {
           {props?.indexForEwakala?.map((item, index) => (
             <TableRow key={index}>
 
-              <TableCell> {index+1} </TableCell>
+              <TableCell> {index + 1} </TableCell>
               <TableCell>{item?.party_code}</TableCell>
               <TableCell>{item?.company_name} </TableCell>
               <TableCell> {item?.received_date}</TableCell>

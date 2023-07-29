@@ -38,7 +38,9 @@ export function convertDateFormat(dateString: string) {
   const date = d.getDate();
   const month = months[d.getMonth()];
   const year = d.getFullYear();
-  return `${date} ${month} ${year}`;
+
+  if (date && month && year) return `${date} ${month} ${year}`;
+  else "";
 }
 
 export const addDaysToDate = (date: string, days: number) => {

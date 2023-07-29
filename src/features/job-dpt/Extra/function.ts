@@ -123,7 +123,10 @@ export async function generate_final_actual_profession_v2(
             // Differed Sector
             for (let j = 0; j < selectedDifferedSector.length; j++) {
               if (selectedDifferedSector[j].id == newarray[index_2].sector) {
-                newarray[index_2].sector_charge =
+                // newarray[index_2].sector_charge =
+                //   actualProfesion.differed_service_charges;
+
+                newarray[index_2].service_charges =
                   actualProfesion.differed_service_charges;
                 break;
               }
@@ -132,7 +135,10 @@ export async function generate_final_actual_profession_v2(
             // Master Sector
             for (let k = 0; k < selectedMasterSector.length; k++) {
               if (selectedMasterSector[k].id == newarray[index_2].sector) {
-                newarray[index_2].sector_charge =
+                // newarray[index_2].sector_charge =
+                //   actualProfesion.master_service_charges;
+
+                newarray[index_2].service_charges =
                   actualProfesion.master_service_charges;
                 break;
               }
@@ -173,7 +179,9 @@ export async function generate_final_actual_profession_v2(
         master_service_charges: actualProfesion.master_service_charges,
         differed_service_charges: actualProfesion.differed_service_charges,
         sector: differedSector.id,
-        sector_charge: actualProfesion.differed_service_charges,
+        service_charges: actualProfesion.differed_service_charges,
+        // sector_charge: actualProfesion.differed_service_charges,
+        sector_charge: actualProfesion.sector_charge,
         agent_commission: 0,
         air_ticket: "",
         consodilate_charges: "0",
@@ -183,7 +191,6 @@ export async function generate_final_actual_profession_v2(
         invoice_ticket_charges: 0,
         is_invoice: 0,
         partial_charges: 0,
-        service_charges: 0,
         is_master_sector: 0,
       });
     }
@@ -202,7 +209,9 @@ export async function generate_final_actual_profession_v2(
         master_service_charges: actualProfesion.master_service_charges,
         differed_service_charges: actualProfesion.differed_service_charges,
         sector: masterSector.id,
-        sector_charge: actualProfesion.master_service_charges,
+        // sector_charge: actualProfesion.master_service_charges,
+        sector_charge: actualProfesion.sector_charge,
+        service_charges: actualProfesion.master_service_charges,
         is_master_sector: 1,
       });
     }

@@ -7,42 +7,42 @@ interface HeadingProps {
 
 }
 // Heading 1
-export const Heading1: React.FC<HeadingProps> = ({ text = "Heading 1", color }) => {
+export const Heading1: React.FC<HeadingProps> = ({ text = "", color }) => {
   const textColor = color ? color : '';
   const className = ` text-5xl font-extrabold dark:text-white ${textColor}`;
 
   return <h1 className={className}>{text}</h1>;
 };
 // Heading 2
-export const Heading2: React.FC<HeadingProps> = ({ text = "Heading 2", color }) => {
+export const Heading2: React.FC<HeadingProps> = ({ text = "", color }) => {
   const textColor = color ? color : '';
   const className = ` text-4xl font-bold dark:text-white ${textColor}`;
 
   return <h1 className={className}>{text}</h1>;
 };
 // Heading 3
-export const Heading3: React.FC<HeadingProps> = ({ text = "Heading 3", color }) => {
+export const Heading3: React.FC<HeadingProps> = ({ text = "", color }) => {
   const textColor = color ? color : '';
   const className = ` text-3xl font-bold dark:text-white ${textColor}`;
 
   return <h1 className={className}>{text}</h1>;
 };
 // Heading 4
-export const Heading4: React.FC<HeadingProps> = ({ text = "Heading 4", color }) => {
+export const Heading4: React.FC<HeadingProps> = ({ text = "", color }) => {
   const textColor = color ? color : '';
   const className = ` text-2xl font-bold dark:text-white ${textColor}`;
 
   return <h1 className={className}>{text}</h1>;
 };
 // Heading 5
-export const Heading5: React.FC<HeadingProps> = ({ text = "Heading 5", color }) => {
+export const Heading5: React.FC<HeadingProps> = ({ text = "", color }) => {
   const textColor = color ? color : '';
   const className = ` text-xl font-bold dark:text-white ${textColor}`;
 
   return <h1 className={className}>{text}</h1>;
 };
 // Heading 6
-export const Heading6: React.FC<HeadingProps> = ({ text = "Heading 6", color ,align}) => {
+export const Heading6: React.FC<HeadingProps> = ({ text = "", color ,align}) => {
   const textColor = color ? color : '';
   const alignStyle = align ? "text-center" : "";
   const className = ` text-lg font-bold dark:text-white ${textColor} ${alignStyle}`;
@@ -51,7 +51,7 @@ export const Heading6: React.FC<HeadingProps> = ({ text = "Heading 6", color ,al
 };
 
 
-export const SubHeading1: React.FC<HeadingProps> = ({ text = "SubHeading 6", color }) => {
+export const SubHeading1: React.FC<HeadingProps> = ({ text = "", color }) => {
   // const textColor = color ? color : '';
   // const className = ` text-lg font-bold dark:text-white ${textColor}`;
 
@@ -62,7 +62,7 @@ export const SubHeading1: React.FC<HeadingProps> = ({ text = "SubHeading 6", col
 
 
 
-export const SubHeading2: React.FC<HeadingProps> = ({ text = "SubHeading 6", color }) => {
+export const SubHeading2: React.FC<HeadingProps> = ({ text = "", color }) => {
   // const textColor = color ? color : '';
   // const className = ` text-lg font-bold dark:text-white ${textColor}`;
 
@@ -71,7 +71,7 @@ export const SubHeading2: React.FC<HeadingProps> = ({ text = "SubHeading 6", col
   </div>;
 };
 
-export const SubHeadingSpan: React.FC<HeadingProps> = ({ text = "SubHeadingSpan 6", color }) => {
+export const SubHeadingSpan: React.FC<HeadingProps> = ({ text = "", color }) => {
   // const textColor = color ? color : '';
   // const className = ` text-lg font-bold dark:text-white ${textColor}`;
 

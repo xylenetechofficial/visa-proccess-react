@@ -12,12 +12,12 @@ import { readJobOrder, updateJobOrder } from "../repository";
 import ActualProfessionTable from "./ActualProfessionTable";
 import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
 import SelectSectorSection from "./SelectSectorSection";
-import { readInterviewSectorList } from "../../../masters/interviewSector/repository";
+// import { readInterviewSectorList } from "../../../masters/interviewSector/repository";
 import { InterviewModeInterface } from "../../../masters/interviewMode/type";
 import { readInterviewModeList } from "../../../masters/interviewMode/repository";
-import { GreenButton } from "../../../../componenets/CustomButton";
-import FinalActualProfessionTable from "./FinalActualProfessionTable";
-import SpecialInstructionTable from "./SpecialInstructionTable";
+// import { GreenButton } from "../../../../componenets/CustomButton";
+// import FinalActualProfessionTable from "./FinalActualProfessionTable";
+// import SpecialInstructionTable from "./SpecialInstructionTable";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
 import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
@@ -104,18 +104,18 @@ export default function Main(props: {
         setInterviewModeList(data)
     }
 
-    async function onClickAdd() {
+    // async function onClickAdd() {
 
-        console.log(jobOrder)
-        // call create
-        await updateJobOrder(props.currentElement.id ?? 0, jobOrder)
+    //     console.log(jobOrder)
+    //     // call create
+    //     await updateJobOrder(props.currentElement.id ?? 0, jobOrder)
 
 
-        // setJobOrder(initValue)
+    //     // setJobOrder(initValue)
 
-        props.fetchJobOrderList()
-        // props.onClose()
-    }
+    //     props.fetchJobOrderList()
+    //     // props.onClose()
+    // }
 
     const fetchJobOrder = async () => {
         const data = await readJobOrder(props.currentElement.id ?? 0)

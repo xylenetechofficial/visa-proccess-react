@@ -14,8 +14,8 @@ import RC from './RC/Router';
 import Agreement from './agreement/Router'
 import Account from './account/Router'
 import Invoice from './invoice/Router'
-import Immigration from './immigration/Router'
-import Delhi from './delhi/Router'
+import Immigration from './immigration_2/Router'
+import Delhi from './delhi_2/Router'
 import { UserAuthContextProvider, useUserAuth } from './context/UserAuthContext';
 import { useEffect } from 'react';
 

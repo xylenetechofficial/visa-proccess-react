@@ -112,8 +112,8 @@ export class ActualProfessionConverter {
    * toAdapter
    */
   public static toAdapter(i: ActualProfessionInterface) {
-    console.log("i"); // Only Dev
-    console.log(i); // Only Dev
+    // console.log("i"); // Only Dev
+    // console.log(i); // Only Dev
     const data: ActualProfessionAdapter = {
       id: i.id,
       job_order_id: i.jobOrder_id,
@@ -141,8 +141,8 @@ export class ActualProfessionConverter {
       invoice_ticket_charges: i.invoice_ticket_charges,
       invoice_service_charges_currency: i.invoice_service_charges_currency,
     };
-    console.log('ActualProfessionAdapter');   // Only Dev
-    console.log(data);   // Only Dev
+    // console.log('ActualProfessionAdapter');   // Only Dev
+    // console.log(data);   // Only Dev
     return data;
   }
 
@@ -210,8 +210,8 @@ export class SpecialInstructionConverter {
    * toAdapter
    */
   public static toAdapter(i: SpecialInstructionInterface) {
-    console.log("i"); // Only Dev
-    console.log(i); // Only Dev
+    // console.log("i"); // Only Dev
+    // console.log(i); // Only Dev
     const data: SpecialInstructionAdapter = {
       id: i.id,
       job_order_id: i.jobOrder_id,

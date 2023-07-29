@@ -69,13 +69,13 @@ const Main = (props: {
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody2>
-                    {props.immigrationDataList?.map((item, index) => (
+                    {props.immigrationDataList.map((item, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3>{item?.id}</TableCell3>
-                            <TableCell3>{item?.company_name}</TableCell3>
-                            <TableCell3>{item?.name}</TableCell3>
-                            <TableCell3>{item?.passport_no}</TableCell3>
+                            <TableCell3>{index + 1}</TableCell3>
+                            <TableCell3>{item.company_name}</TableCell3>
+                            <TableCell3>{item.name}</TableCell3>
+                            <TableCell3>{item.passport_no}</TableCell3>
                             <TableCell3>
                                 <CustomSingleCheckBox
                                     onChange={(value) => {
@@ -86,7 +86,7 @@ const Main = (props: {
                             </TableCell3>
                             <TableCell3>
                                 <CustomCheckBox
-                                    value={item?.immigration_required}
+                                    value={item.immigration_required}
                                     onChange={(value) => {
                                         onUpdateRow(index, { ...item, immigration_required: value })
                                     }}
@@ -96,38 +96,38 @@ const Main = (props: {
                                 <UnlabeledInput type="date" onchange={(value) => {
                                     onUpdateRow(index, { ...item, immigration_submission_date: value })
                                 }}
-                                    value={item?.immigration_submission_date} />
+                                    value={item.immigration_submission_date} />
                             </TableCell3>
                             <TableCell3>
                                 <UnlabeledInput type="date" onchange={(value) => {
                                     onUpdateRow(index, { ...item, immigration_received_date: value })
                                 }}
-                                    value={item?.immigration_received_date} />
+                                    value={item.immigration_received_date} />
                             </TableCell3>
 
-                            <TableCell3>{item?.party_code}</TableCell3>
-                            <TableCell3>{item?.division}</TableCell3>
+                            <TableCell3>{item.party_code}</TableCell3>
+                            <TableCell3>{item.division}</TableCell3>
 
-                            <TableCell3>{convertDateFormat(item?.pp_issued_date)}</TableCell3>
-                            <TableCell3>{convertDateFormat(item?.pp_expiry_date)}</TableCell3>
-                            <TableCell3>{item?.place_of_issue}</TableCell3>
-                            <TableCell3>{convertDateFormat(item?.date_of_birth)}</TableCell3>
-                            <TableCell3>{item?.address}</TableCell3>
+                            <TableCell3>{convertDateFormat(item.pp_issued_date)}</TableCell3>
+                            <TableCell3>{convertDateFormat(item.pp_expiry_date)}</TableCell3>
+                            <TableCell3>{item.place_of_issue}</TableCell3>
+                            <TableCell3>{convertDateFormat(item.date_of_birth)}</TableCell3>
+                            <TableCell3>{item.address}</TableCell3>
 
-                            <TableCell3>{item?.nominee_name}</TableCell3>
-                            <TableCell3>{item?.nominee_relation}</TableCell3>
-                            <TableCell3>{item?.place_of_birth}</TableCell3>
-                            <TableCell3>{item?.visa_number}</TableCell3>
-                            <TableCell3>{item?.actual_profession}</TableCell3>
-                            <TableCell3>{item?.visa_profession}</TableCell3>
+                            <TableCell3>{item.nominee_name}</TableCell3>
+                            <TableCell3>{item.nominee_relation}</TableCell3>
+                            <TableCell3>{item.place_of_birth}</TableCell3>
+                            <TableCell3>{item.visa_number}</TableCell3>
+                            <TableCell3>{item.actual_profession}</TableCell3>
+                            <TableCell3>{item.visa_profession}</TableCell3>
 
-                            <TableCell3>{item?.agent_name}</TableCell3>
-                            <TableCell3>{item?.agent_location_name}</TableCell3>
-                            <TableCell3>{item?.visa_authorization_name}</TableCell3>
-                            <TableCell3>{convertDateFormat(item?.visa_issued_date)}</TableCell3>
-                            <TableCell3>{convertDateFormat(item?.visa_received_date)}</TableCell3>
-                            <TableCell3>{convertDateFormat(item?.visa_expire_date)}</TableCell3>
-                            <TableCell3>{item?.mol_number}</TableCell3>
+                            <TableCell3>{item.agent_name}</TableCell3>
+                            <TableCell3>{item.agent_location_name}</TableCell3>
+                            <TableCell3>{item.visa_authorization_name}</TableCell3>
+                            <TableCell3>{convertDateFormat(item.visa_issued_date)}</TableCell3>
+                            <TableCell3>{convertDateFormat(item.visa_received_date)}</TableCell3>
+                            <TableCell3>{convertDateFormat(item.visa_expire_date)}</TableCell3>
+                            <TableCell3>{item.mol_number}</TableCell3>
                             <TableCell3><RedButton text={"Reject"} onClick={() => props.onClickReject(item)} /></TableCell3>
                         </TableRow3>
                     ))}

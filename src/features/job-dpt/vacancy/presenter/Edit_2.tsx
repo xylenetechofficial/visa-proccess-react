@@ -9,13 +9,13 @@ import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConv
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readJobOrder, updateJobOrder } from "../repository";
-import ActualProfessionTable from "./ActualProfessionTable";
+// import ActualProfessionTable from "./ActualProfessionTable";
 import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
-import SelectSectorSection from "./SelectSectorSection";
+// import SelectSectorSection from "./SelectSectorSection";
 import { readInterviewSectorList } from "../../../masters/interviewSector/repository";
 import { InterviewModeInterface } from "../../../masters/interviewMode/type";
 import { readInterviewModeList } from "../../../masters/interviewMode/repository";
-import { GreenButton } from "../../../../componenets/CustomButton";
+// import { GreenButton } from "../../../../componenets/CustomButton";
 import FinalActualProfessionTable from "./FinalActualProfessionTable";
 import SpecialInstructionTable from "./SpecialInstructionTable";
 import { AgentInterface } from "../../../masters/agent/type";
@@ -23,7 +23,7 @@ import { readAgentList } from "../../../masters/agent/repository";
 import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface } from "../../Extra/type";
-import { filter_unique_sector, generate_final_actual_profession } from "../../Extra/function";
+// import { filter_unique_sector, generate_final_actual_profession } from "../../Extra/function";
 import { convertDateFormat } from "../../../../utils/function";
 
 
@@ -59,10 +59,10 @@ export default function Main(props: {
     const [jobOrder, setJobOrder] = useState(initValue)
     const [isactualProfessionUpdated, setIsActualProfessionUpdated] = useState("")
 
-    const [selectedMasterSector, setSelectedMasterSector] = useState<InterviewSectorInterface[]>([]);
+    // const [selectedMasterSector, setSelectedMasterSector] = useState<InterviewSectorInterface[]>([]);
     const [interviewSectionList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
-    const [selectedDifferedSector, setSelectedDifferedSector] = useState<InterviewSectorInterface[]>([]);
-    const [actualProfesionList, setActualProfesionList] = useState<ActualProfessionInterface[]>([]);
+    // const [selectedDifferedSector, setSelectedDifferedSector] = useState<InterviewSectorInterface[]>([]);
+    // const [actualProfesionList, setActualProfesionList] = useState<ActualProfessionInterface[]>([]);
 
     const fetchInterviewSectorList = async () => {
         const data = await readInterviewSectorList();
@@ -78,9 +78,13 @@ export default function Main(props: {
     async function onClickAdd() {
 
         console.log('update call')
-        console.log(jobOrder.actualProfesionList)
+        // console.log(props.currentElement.differed_sector_ids);   // Only Dev
+        // console.log(props.currentElement.master_sector_ids);   // Only Dev
+        // console.log(jobOrder.actualProfesionList)
+        const job_order_data=jobOrder
+        
         // call create
-        await updateJobOrder(props.currentElement.id ?? 0, jobOrder)
+        await updateJobOrder(props.currentElement.id ?? 0, job_order_data)
 
 
         // setJobOrder(initValue)
@@ -115,14 +119,19 @@ export default function Main(props: {
                     new_actual_profession_list[index].is_invoice = old_list[j].is_invoice
                     new_actual_profession_list[index].jobOrder_id = old_list[j].jobOrder_id
                     new_actual_profession_list[index].partial_charges = old_list[j].partial_charges
-                    new_actual_profession_list[index].service_charges = old_list[j].service_charges
+                    // new_actual_profession_list[index].service_charges = old_list[j].service_charges
+                    new_actual_profession_list[index].sector_charge = old_list[j].sector_charge
 
                     break
                 }
             }
 
         }
-        data.actualProfesionList=new_actual_profession_list
+        data.actualProfesionList = new_actual_profession_list
+        data.differed_sector_ids=props.currentElement.differed_sector_ids
+        data.master_sector_ids=props.currentElement.master_sector_ids
+        console.log(props.currentElement.differed_sector_ids);   // Only Dev
+        console.log(props.currentElement.master_sector_ids);   // Only Dev
         console.log(data);
         setJobOrder(data)
         // console.log("*&*^%$%^R%^$^$%^$&^%&^")
