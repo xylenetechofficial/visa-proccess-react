@@ -40,7 +40,7 @@ export function convertDateFormat(dateString: string) {
   const year = d.getFullYear();
 
   if (date && month && year) return `${date} ${month} ${year}`;
-  else "";
+  else return "";
 }
 
 export const addDaysToDate = (date: string, days: number) => {
