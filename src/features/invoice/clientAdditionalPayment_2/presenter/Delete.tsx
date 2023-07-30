@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { FullScreenModal } from "../../../../componenets/Modal"
-import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
+// import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { ClientAdditionalPaymentInterface, PaymentInterface } from "../type"
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
-import { Table3, TableBody3, TableCell3, TableHead2, TableHeadCell2, TableHeadRow, TableRow3 } from "../../../../componenets/Table"
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell2, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { deletePayment, readPaymentList } from "../repository"
 import { convertDateFormat } from "../../../../utils/function"
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
+import { confirmationMessage } from "../../../../utils/alert"
 
 
 
@@ -41,12 +42,13 @@ export default function Main(props: {
     ];
 
     async function onClickDelete(id: number) {
+        const flag = await confirmationMessage("Do you really want to delete?")
+        if (!flag)
+            return
+
         const data = await deletePayment(id)
 
-        if (data) {
-            props.fetchClientAdditionalInvoiceList()
-            props.onClose()
-        }
+        fetchPaymentList()
     }
 
     async function fetchPaymentList() {
@@ -83,11 +85,11 @@ export default function Main(props: {
 
 
                 <Table3>
-                    <TableHead2>
-                        <TableHeadRow>
+                    <TableHead3>
+                        <TableHeadRow3>
                             {HEADERLIST.map((item) => (<TableHeadCell2  > {item}</TableHeadCell2>))}
-                        </TableHeadRow>
-                    </TableHead2>
+                        </TableHeadRow3>
+                    </TableHead3>
                     <TableBody3>
                         {paymentList.map((item, index) => (
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { FullScreenModal } from "../../../../componenets/Modal"
 // import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
-import { ClientAdditionalPaymentInterface, PaymentInterface } from "../type"
+import { ClientPaymentInterface, PaymentInterface } from "../type"
 // import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell2, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { deletePayment, readPaymentList } from "../repository"
@@ -24,9 +24,9 @@ const style = {
 };
 
 export default function Main(props: {
-    clientAdditionalPayment: ClientAdditionalPaymentInterface
+    ClientPayment: ClientPaymentInterface
     onClose: () => void
-    fetchClientAdditionalInvoiceList: () => void
+    fetchClientPaymentList: () => void
 
 }) {
     const [paymentList, setPaymentList] = useState<PaymentInterface[]>([])
@@ -40,7 +40,7 @@ export default function Main(props: {
     ];
 
     async function fetchPaymentList() {
-        const data = await readPaymentList(props.clientAdditionalPayment.invoice_number)
+        const data = await readPaymentList(props.ClientPayment.invoice_number)
         setPaymentList(data)
     }
     useEffect(() => {
@@ -51,24 +51,24 @@ export default function Main(props: {
         <FullScreenModal
             // buttonName=""
             handleClick={() => ''}
-            title="Client Additional Payments"
+            title="Client  Payments"
             onClose={props.onClose}
         >
 
             <div className="overflow-auto">
                 <UpdateContentBox>
                     <SubHeading1 text="Company :" />
-                    {props.clientAdditionalPayment.company_name}
+                    {props.ClientPayment.company_name}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="INVOICE NUMBER :" />
-                    {props.clientAdditionalPayment.invoice_number}
+                    {props.ClientPayment.invoice_number}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="INVOICE DATE :" />
-                    {convertDateFormat(props.clientAdditionalPayment.invoice_date)}
+                    {convertDateFormat(props.ClientPayment.invoice_date)}
                 </UpdateContentBox>
 
 

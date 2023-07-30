@@ -9,7 +9,7 @@ import ClientInvoiceAdd from "./clientInvoiceAdd/Router";
 import ClientInvoiceCandidatesTicketCharges from "./clientInvoiceCandidatesTicketCharges/Router";
 import ClientInvoicesCandidateInvoiceRaise from "./clientInvoicesCandidateInvoiceRaise/Router";
 import ClientAdditionalInvoice from "./clientAdditionalInvoice/Router";
-import ClientPayment from "./clientPayment/Router";
+import ClientPayment from "./clientPayment_2/Router";
 import ClientAdditionalPayment from "./clientAdditionalPayment_2/Router";
 import InvoiceNumbers from "./invoiceNumbers/Router";
 import InvoiceCharges from "./invoiceCharges/Router";

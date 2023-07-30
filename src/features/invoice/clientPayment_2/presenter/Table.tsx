@@ -1,5 +1,4 @@
-// import { Checkbox } from "@mui/material";
-import { ClientAdditionalPaymentInterface, PaymentInterface } from "../type";
+import { ClientPaymentInterface, PaymentInterface } from "../type";
 // import { DateInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 // import { CustomCheckBox } from "../../../../componenets/Checkbox";
 import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
@@ -8,22 +7,29 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell2, TableHeadRo
 // import { useState } from "react";
 
 
-const ClientAdditionalInvoicePaymentAddTable = (props: {
-    onClickPaymentList: (value: ClientAdditionalPaymentInterface) => void,
-    onClickAdjust: (value: ClientAdditionalPaymentInterface) => void,
-    onClickAdd: (value: ClientAdditionalPaymentInterface) => void,
-    onClickEdit: (value: ClientAdditionalPaymentInterface) => void,
-    onClickDelete: (value: ClientAdditionalPaymentInterface) => void,
-    clientAdditionalPaymentList: ClientAdditionalPaymentInterface[],
+const fetchClientPaymentListPaymentAddTable = (props: {
+    onClickCandidateList: (value: ClientPaymentInterface) => void,
+    onClickPaymentList: (value: ClientPaymentInterface) => void,
+    onClickAdjust: (value: ClientPaymentInterface) => void,
+    onClickAdd: (value: ClientPaymentInterface) => void,
+    onClickEdit: (value: ClientPaymentInterface) => void,
+    onClickDelete: (value: ClientPaymentInterface) => void,
+    ClientPaymentList: ClientPaymentInterface[],
 }) => {
     const HEADERLIST = [
         "SR NO.",
         "COMPANY NAME",
         "INVOICE NUMBER",
         "INVOICE DATE",
-        "INVOICE AMOUNT",
+        
+        "OTHER CHARGES",	
+        "SERVICE CHARGES",	
+        "TICKET CHARGES",	
+        "TOTAL CHARGES",	
+
         "PAYMENT RECEIVED",
         "BALANCE PAYMENT",
+        "BANK NAME",	
         "SUSPENSE AMOUNT",
         "ACTION"
     ];
@@ -38,17 +44,23 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody3>
-                    {props.clientAdditionalPaymentList.map((item, index) => (
+                    {props.ClientPaymentList.map((item, index) => (
 
                         <TableRow3 key={index}>
                             <TableCell3>{index + 1}</TableCell3>
                             <TableCell3>{item.company_name}</TableCell3>
-                            <TableCell3>{item.invoice_number}</TableCell3>
+                            <TableCell3><span style={{cursor:"pointer",color:"#ff3c3c"}} onClick={() => props.onClickCandidateList(item)}>{item.invoice_number}</span></TableCell3>
                             <TableCell3>{convertDateFormat(item.invoice_date)}</TableCell3>
-                            <TableCell3>{item.invoice_amount}</TableCell3>
+
+                            <TableCell3>{item.other_charges}</TableCell3>
+                            <TableCell3>{item.service_charges}</TableCell3>
+                            <TableCell3>{item.ticket_charges}</TableCell3>
+                            <TableCell3>{item.total_charges}</TableCell3>
+
                             <TableCell3><span style={{cursor:"pointer",color:"#ff3c3c"}} onClick={() => props.onClickPaymentList(item)}>{item.payment_received}</span></TableCell3>
 
                             <TableCell3>{item.balance_payment}</TableCell3>
+                            <TableCell3>{item.bank_name}</TableCell3>
                             <TableCell3>
                                 <BlueButton text="Adjust From" onClick={() => props.onClickAdjust(item)} />
                             </TableCell3>
@@ -70,4 +82,4 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
     );
 };
 
-export default ClientAdditionalInvoicePaymentAddTable;
+export default fetchClientPaymentListPaymentAddTable;

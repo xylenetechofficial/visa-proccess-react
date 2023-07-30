@@ -1,9 +1,9 @@
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { ClientAdditionalPaymentConverter, ClientAdditionalPaymentInterface, PaymentConverter, PaymentInterface, SuspenseAdjustAmountConverter, SuspenseAdjustAmountInterface } from "./type";
+import { CandidateConverter, CandidateInterface, ClientPaymentConverter, ClientPaymentInterface, PaymentConverter, PaymentInterface, SuspenseAdjustAmountConverter, SuspenseAdjustAmountInterface } from "./type";
 
-export async function readClientAdditionalPaymentList() {
-  const path = "/invoice-dpt/client-additional-payment-list";
+export async function readClientPaymentList() {
+  const path = "/invoice-dpt/client-payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -14,7 +14,7 @@ export async function readClientAdditionalPaymentList() {
     showMessage_v2({ message: response.message, status: response.code })
   }
 
-  return ClientAdditionalPaymentConverter.toInterfaceList(response.data as ClientAdditionalPaymentInterface[])
+  return ClientPaymentConverter.toInterfaceList(response.data as ClientPaymentInterface[])
 }
 
 export async function readAdjustAmountList(company_id: number) {
@@ -36,7 +36,7 @@ export async function readAdjustAmountList(company_id: number) {
 }
 
 export async function readPaymentList(invoice_number: string) {
-  const path = "/invoice-dpt/client-additional-payment/payment-list";
+  const path = "/invoice-dpt/client-payment/payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -55,8 +55,27 @@ export async function readPaymentList(invoice_number: string) {
 
 
 
+export async function readCandidateList(invoice_number: string) {
+  const path = "/invoice-dpt/client-payment/candidate-list";
+
+  const response = await ApiHelper.get(path, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      invoice_number: invoice_number
+    }
+  });
+
+  if (response.code != 200) {
+    showMessage_v2({ message: response.message, status: response.code })
+  }
+
+  return CandidateConverter.toInterfaceList(response.data as CandidateInterface[])
+}
+
+
 export async function addPayment(item: PaymentInterface) {
-  const path = "/invoice-dpt/client-additional-payment";
+  const path = "/invoice-dpt/client-payment";
 
   const payload = PaymentConverter.toAdapter(item);
 
@@ -76,7 +95,7 @@ export async function addPayment(item: PaymentInterface) {
 
 
 export async function updatePaymentList(list: PaymentInterface[]) {
-  const path = "/invoice-dpt/client-additional-payment-list";
+  const path = "/invoice-dpt/client-payment-list";
 
   const payload = {
     payment_list: PaymentConverter.toAdapterList(list)
@@ -97,7 +116,7 @@ export async function updatePaymentList(list: PaymentInterface[]) {
 
 export async function deletePayment(id: number) {
 
-  const path = "/invoice-dpt/client-additional-payment/" + id
+  const path = "/invoice-dpt/client-payment/" + id
   const response = await ApiHelper.delete(path, {
     tokenType: AuthTokenType.JWT
   })

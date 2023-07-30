@@ -115,14 +115,6 @@ export default function Main(props: {
                     {convertDateFormat(props.clientAdditionalPayment.invoice_date)}
                 </UpdateContentBox>
 
-                <CustomSelectComponent
-                    onChange={(value) => setPayment({ ...payment, client_suspend_amount_id: parseInt(value) })}
-
-                    options={selectOptionConveter({
-                        options: suspenseAdjustAmountList,
-                        options_struct: { name: "name", value: "id" },
-                    })}
-                />
                 <UpdateContentBox>
                     <SubHeading1 text="PAYMENT RECEIVED:" />
                     {props.clientAdditionalPayment.payment_received}
@@ -131,6 +123,18 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text="BALANCE PAYMENT :" />
                     {props.clientAdditionalPayment.balance_payment}
+                </UpdateContentBox>
+
+                <UpdateContentBox>
+                    <SubHeading1 text="Amount Adjust From :" />
+                    <CustomSelectComponent
+                        onChange={(value) => setPayment({ ...payment, client_suspend_amount_id: parseInt(value) })}
+
+                        options={selectOptionConveter({
+                            options: suspenseAdjustAmountList,
+                            options_struct: { name: "name", value: "id" },
+                        })}
+                    />
                 </UpdateContentBox>
 
                 <UpdateContentBox>

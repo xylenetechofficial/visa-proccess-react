@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react"
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
-// import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
+import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 
 // import { ClientPaymentSingleAddInterface } from "../type"
 import { Box } from "@mui/material"
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
 // import { createClientPayment } from "../repository"
-// import { readCompanyList } from "../../../masters/company/repository"
-import { ClientAdditionalPaymentConverter, ClientAdditionalPaymentInterface, PaymentInterface } from "../type"
+import { ClientPaymentInterface, PaymentInterface, SuspenseAdjustAmountInterface } from "../type"
 import { convertDateFormat } from "../../../../utils/function"
-import { addPayment } from "../repository"
+import { addPayment, readAdjustAmountList } from "../repository"
 
 
 const style = {
@@ -28,9 +27,9 @@ const style = {
 
 
 export default function Main(props: {
-    clientAdditionalPayment: ClientAdditionalPaymentInterface
+    ClientPayment: ClientPaymentInterface
     onClose: () => void
-    fetchClientAdditionalInvoiceList: () => void
+    fetchClientPaymentList: () => void
 }) {
 
     const initValue: PaymentInterface = {
@@ -45,11 +44,11 @@ export default function Main(props: {
     const [payment, setPayment] = useState(initValue)
 
     useEffect(() => {
-        console.log(props.clientAdditionalPayment);   // Only Dev
+        console.log(props.ClientPayment);   // Only Dev
         setPayment({
-            company_id: props.clientAdditionalPayment.company_id,
-            invoice_number: props.clientAdditionalPayment.invoice_number,
-            invoice_date: props.clientAdditionalPayment.invoice_date,
+            company_id: props.ClientPayment.company_id,
+            invoice_number: props.ClientPayment.invoice_number,
+            invoice_date: props.ClientPayment.invoice_date,
             amount: 0,
             date: '',
             description: ''
@@ -60,15 +59,25 @@ export default function Main(props: {
         const data = await addPayment(payment)
 
         if (data) {
-            props.fetchClientAdditionalInvoiceList()
+            props.fetchClientPaymentList()
             props.onClose()
         }
     }
-    
-    
+
+    const [suspenseAdjustAmountList, setSuspenseAdjustAmountList] = useState<SuspenseAdjustAmountInterface[]>([])
+
+    async function fetchAdjustAmountList() {
+        const data = await readAdjustAmountList(props.ClientPayment.company_id)
+        setSuspenseAdjustAmountList(data)
+    }
+
+    useEffect(() => {
+        fetchAdjustAmountList()
+    }, [])
+
     return (
         <Box sx={style}>
-            <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Client Additional Payment Add</h3>
+            <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Adjust From Suspense Amount</h3>
             <button
                 type="button"
                 className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
@@ -93,29 +102,41 @@ export default function Main(props: {
             <div className=" grid grid-cols-1 py-3  gap-2 shadow">
                 <UpdateContentBox>
                     <SubHeading1 text="Company :" />
-                    {props.clientAdditionalPayment.company_name}
+                    {props.ClientPayment.company_name}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="INVOICE NUMBER :" />
-                    {props.clientAdditionalPayment.invoice_number}
+                    {props.ClientPayment.invoice_number}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="INVOICE DATE :" />
-                    {convertDateFormat(props.clientAdditionalPayment.invoice_date)}
+                    {convertDateFormat(props.ClientPayment.invoice_date)}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="PAYMENT RECEIVED:" />
-                    {props.clientAdditionalPayment.payment_received}
+                    {props.ClientPayment.payment_received}
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="BALANCE PAYMENT :" />
-                    {props.clientAdditionalPayment.balance_payment}
+                    {props.ClientPayment.balance_payment}
                 </UpdateContentBox>
-                
+
+                <UpdateContentBox>
+                    <SubHeading1 text="Amount Adjust From :" />
+                    <CustomSelectComponent
+                        onChange={(value) => setPayment({ ...payment, client_suspend_amount_id: parseInt(value) })}
+
+                        options={selectOptionConveter({
+                            options: suspenseAdjustAmountList,
+                            options_struct: { name: "name", value: "id" },
+                        })}
+                    />
+                </UpdateContentBox>
+
                 <UpdateContentBox>
 
                     <SubHeading1 text="AMOUNT(INR) :" />
