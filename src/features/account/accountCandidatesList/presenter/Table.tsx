@@ -15,6 +15,7 @@ import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 import { AccountCandidateInterface } from "../type";
+import { RedButton } from "../../../../componenets/CustomButton";
 
 const AccountCandidatesListTable = (props: {
 
@@ -22,6 +23,7 @@ const AccountCandidatesListTable = (props: {
   setCandidatesList: any
   data: any;
   setData: any;
+  onClickEdit:(value:any)=>void
 }) => {
 
   const [date, setDate] = useState<any>([])
@@ -86,7 +88,7 @@ const AccountCandidatesListTable = (props: {
        <TableCell>{item.extra_service_tax} </TableCell>
        <TableCell>{item.air_ticket} </TableCell>
        <TableCell>{item.is_deployed} </TableCell>
-       <TableCell>{item.is_without} </TableCell>
+       <TableCell> <RedButton text="Cancel" onClick={()=>props.onClickEdit(item)}/></TableCell>
 
 
 

@@ -27,10 +27,25 @@ const AccountDashboardTable = (props: {
   setData:any;
   setStatus:any;
   fetchAccountDashboardList:any
+  onChange:(value :any)=>void
 }) => {
   const [penaltyData, setPenaltyData] = useState(
     props?.accountDashboardList);
 console.log(penaltyData)
+
+
+function onUpdateRow(index: number, rowData: PenaltyAfterDeploymentDashboardInterface) {
+  const nextData = props.accountDashboardList.map((e, i) => {
+      if (i === index) {
+          // Increment the clicked counter
+          return rowData;
+      } else {
+          // The rest haven't changed
+          return e;
+      }
+  });
+  props.onChange(nextData)
+}
 
   return (
     <>
@@ -140,7 +155,8 @@ console.log(penaltyData)
             <TableCell> {ele?.discount_amount} </TableCell>
             <TableCell> {ele?.payment} </TableCell>
             <TableCell> {ele?.pending_amount}  </TableCell>
-            <TableCell> <Checkbox onClick={(value)=>{
+            <TableCell> <Checkbox 
+            value={penaltyData[index]?.id} onClick={(value)=>{
               setPenaltyData((prev:any)=>{
                 const newData = [...prev];
                 newData[index] = {
@@ -239,7 +255,7 @@ console.log(penaltyData)
           ...prev,
           selection_list: penaltyData,
         };
-    });console.log(props.data,"a");props.onClickCreate(props.data); props.setStatus('yes'); props.fetchAccountDashboardList("yes"); }} />
+    });console.log(props.data,"a");props.onClickCreate(props.data); props.setStatus('yes');setPenaltyData([]) }} />
     </div>
     </>
   );

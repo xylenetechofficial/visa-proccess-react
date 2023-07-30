@@ -5,15 +5,20 @@ import ClientAdditionalInvoiceTable from "./Table";
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { RedButton } from '../../../../componenets/CustomButton';
 import AccountCandidatesListTable from './Table';
-import { readCandidateDiscountList } from '../repository';
-import { AccountCandidateInterface } from '../type';
-
+import { readCandidateDiscountList, updateCandidate } from '../repository';
+import { AccountCandidateCancelInterface, AccountCandidateInterface } from '../type';
+import CandidateCancel from './CandidateCancel';
 
 
 
 export default function Main() {
 
-
+    const initailState :AccountCandidateCancelInterface ={
+        
+    "is_without": 0,
+    "visa_cancel_penalty": 0,
+    "visa_cancel_remarks": ""
+    }
     const [searchQuery, setSearchQuery] = useState("")
     const [data, setData] = useState('')
     const [candidatesList, setCandidatesList] = useState<AccountCandidateInterface[]>([])
@@ -25,6 +30,16 @@ export default function Main() {
     if(data){
         setCandidatesList(data);
     }
+    }
+    const [modalName,setModalName]= useState('')
+    const [currentData, setCurrentData]= useState<AccountCandidateInterface>()
+    const onClickEdit =(data:any)=>{
+        setCurrentData(data);
+        setModalName('cancel');
+    }
+    const [updateCandidateData,setUpdateCandidateData] = useState(initailState)
+    const onCLickUpdate =async()=>{
+        const data:any = await updateCandidate(1,updateCandidateData)
     }
     useEffect(()=>{
         fetchAccoundCandidates();
@@ -40,8 +55,12 @@ export default function Main() {
                 setCandidatesList={setCandidatesList}
                 data={data}
                 setData={setData}
+                onClickEdit={(value)=>onClickEdit(value)}
             />
+            {modalName ==='cancel'?  
+            <CandidateCancel onClose={()=>setModalName('')} /> :''}
         </div>
+        
 
     );
 
