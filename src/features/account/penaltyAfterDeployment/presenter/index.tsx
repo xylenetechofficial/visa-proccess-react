@@ -116,6 +116,7 @@ export default function Main() {
         onClickCreate={onClickCreate}
         data={data}
         setData={setData}
+        setStatus={setStatus}
         fetchAccountDashboardList={fetchAccountDashboardList}
       />
 

@@ -171,3 +171,38 @@ export async function deleteAgentPayment(id: number) {
 
 }
 
+export async function readPaymentDetails(type:string,id:number) {
+  
+  const path = `/account/agent-payment/receive-payment-list?${type}=${id}`;
+
+  const response = await ApiHelper.get(path, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT,
+  });
+
+  if (response.code !== 200 || 204) {
+    showMessage_v2({ message: response.message, status: response.code })
+  }
+
+  // const data = []
+  // console.log(response.data)
+  // if (response.data) {
+  //   const dataAdapter :any= response.data as AgentPaymentAdapter[];
+  //   for (let i = 0; i < dataAdapter.length; i++) {
+  //     const element = dataAdapter[i];
+  //     data.push(AgentPaymentConverter.toInterface(element));
+  //   }
+  // }
+  // return data as AgentPaymentInterface[]
+  const data: any[] = [];
+console.log(response.data);
+const dataAdapter: any[] = response.data as any[];
+if (response.data) {
+  const dataAdapter: any[] = response.data as any[];
+  for (let i = 0; i < dataAdapter.length; i++) {
+    const element = dataAdapter[i];
+    data.push(element);
+  }
+}
+return dataAdapter as any[]
+}

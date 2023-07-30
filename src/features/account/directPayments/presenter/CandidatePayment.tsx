@@ -9,6 +9,7 @@ import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomSelectComponentUnlabeled,
   selectOptionConveter,
+  selectOptionConveterv3,
 } from "../../../../componenets/SelectBox";
 import { createCandidatePaymentAdd } from "../repository";
 import { CandidatePaymentInterface } from "../type";
@@ -59,10 +60,10 @@ const CandidatePayment = (props: {
 
             }
             }
-            options={selectOptionConveter({
+            options={selectOptionConveterv3({
               options: props?.AgentPaymentList?.table_data_list ?? [],
               // options: [],
-              options_struct: { name: "name", value: "id" },
+              options_struct: { name1: "passport_no", name2: 'name' ,value: "id" },
             })}
           />
         </UpdateContentBox>

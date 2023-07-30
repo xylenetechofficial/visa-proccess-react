@@ -1,4 +1,4 @@
-import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface } from "./type";
+import {  AddIncentiveConverter, IncentiveAdapter, IncentiveConverter, IncentiveInterface } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -28,48 +28,32 @@ export async function readAccountDashboardList(value:string) {
   const data = []
   console.log(response.data)
   if (response.data) {
-    // const dataAdapter = response.data as AccountDashboardAdapter[];
-    const dataAdapter = response.data as any;
+    const dataAdapter = response.data as IncentiveAdapter[];
+    // const dataAdapter = response.data as any;
     for (let i = 0; i < dataAdapter.length; i++) {
       const element = dataAdapter[i];
-      // data.push(AccountDashboardConverter.toInterface(element));
-      data.push(element);
+      data.push(IncentiveConverter.toInterface(element));
+      // data.push(element);
     }
   }
-  // return data as AccountDashboardInterface[]
-  return data as any
+  return data as IncentiveInterface[]
+  // return data as any
 }
 
 
-
-export async function readAccountDashboard(id: number) {
-
-  const path = "/visa-dpt/block-visa/" + id;
-
-  const response = await ApiHelper.get(path, {
-    contentType: ContentType.json,
-    tokenType: AuthTokenType.JWT,
-  });
-
-  if (response.code != 200) {
-    showMessage_v2({ message: response.message, status: response.code })
-  }
-
-  return AccountDashboardConverter.toInterface(response.data as AccountDashboardAdapter)
-}
 
 
 
 
 // export async function createAccountDashboard(AccountDashboard: AccountDashboardInterface) {
 export async function createAccountDashboard(AccountDashboard: any) {
-  console.log(AccountDashboard)
+  
   const path = "/account/incentive-list"
+  const list :any ={job_order_list:AccountDashboard}
+  const payload = AddIncentiveConverter.toAdapter(list);
+  // const payload = AccountDashboard;
 
-  // const payload = AccountDashboardConverter.toAdapter(AccountDashboard);
-  const payload = AccountDashboard;
-
-  console.log(payload)
+  
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
@@ -81,28 +65,3 @@ export async function createAccountDashboard(AccountDashboard: any) {
   }
   return false;
 }
-
-export async function updateAccountDashboard(id: number, AccountDashboard: CandidateRejectInterface) {
-
-  const payload = CandidateRejectConverter.toAdapter(AccountDashboard);
-console.log(payload,"aa",AccountDashboard)
-  const path = "/account/account-dashboard-cancel/" + id
-  const response = await ApiHelper.post(path, payload, {
-    contentType: ContentType.json,
-    tokenType: AuthTokenType.JWT
-  })
-  showMessage_v2({ message: response.message, status: response.code })
-
-}
-
-export async function deleteAccountDashboard(id: number) {
-
-  const path = "/visa-dpt/block-visa/" + id
-  const response = await ApiHelper.delete(path, {
-    tokenType: AuthTokenType.JWT
-  })
-
-  showMessage_v2({ message: response.message, status: response.code })
-
-}
-

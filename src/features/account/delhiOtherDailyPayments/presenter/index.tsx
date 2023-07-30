@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box,  styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import AccountDashboardTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
 import {
@@ -7,7 +7,7 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface} from "../type";
+import { AccountDashboardInterface, AgentPaymentReceivedInterface } from "../type";
 import {
   deleteAccountDashboard,
   readAccountDashboardList,
@@ -18,6 +18,7 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
+import  EditDelhiOtherPayment  from "./Edit";
 
 
 const CardHeader = styled(Box)(() => ({
@@ -31,8 +32,8 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
 
-   
-    
+
+
   const [editAccountDashboard, setAccountDashboard] =
     useState<AgentPaymentReceivedInterface>({} as AgentPaymentReceivedInterface);
 
@@ -42,11 +43,11 @@ export default function Main() {
     setModalName("create");
   };
 
-  const onClickEdit = (modaltype:string, accountDashboard: AgentPaymentReceivedInterface) => {
-    console.log(accountDashboard,"CCCCCC",modaltype)
+  const onClickEdit = (modaltype: string, accountDashboard: AgentPaymentReceivedInterface) => {
+    console.log(accountDashboard, "CCCCCC", modaltype)
     setAccountDashboard(accountDashboard);
-    console.log("onClickEdit",modaltype); // Only Dev
-    console.log(accountDashboard,modaltype); // Only Dev
+    console.log("onClickEdit", modaltype); // Only Dev
+    console.log(accountDashboard, modaltype); // Only Dev
     setModalName(modaltype);
   };
 
@@ -93,7 +94,7 @@ export default function Main() {
     if (!query) {
       return data;
     } else {
-      return data.filter((d:any) =>
+      return data.filter((d: any) =>
         d.index_date.toLowerCase().includes(query.toLowerCase())
       );
     }
@@ -102,7 +103,7 @@ export default function Main() {
 
   const fetchAccountDashboardList = async () => {
     const data = await readAccountDashboardList();
-    
+
     if (data) {
       setAccountDashboardList(data);
     }
@@ -122,25 +123,27 @@ export default function Main() {
         searchFunction={(query) => setSearchQuery(query)}
       />
 
-        <CardHeader>
+      <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-       
+
       </CardHeader>
-    
+
 
       {/*  AccountDashboard stable */}
       <AccountDashboardTable
         accountDashboardList={dataFiltered}
-        onClickEdit={onClickEdit}   
-        modalName={modalName}   
-        setModalName={setModalName}   
+        onClickEdit={onClickEdit}
+        modalName={modalName}
+        setModalName={setModalName}
       />
+  {modalName ==="editdelhiotherdailypayments" ?(
+    <EditDelhiOtherPayment  onClickEdit={()=>console.log("edit")} setModalName={setModalName}/>
+ ):""}
 
-        
-                <div className="mt-3">
-     <CustomButton2 buttonText="Submit" onClick={()=>console.log("sd")} />
-    </div>
+      <div className="mt-3">
+        <CustomButton2 buttonText="Submit" onClick={() => console.log("sd")} />
+      </div>
     </div>
   );
 }

@@ -25,6 +25,7 @@ const AccountDashboardTable = (props: {
   onClickCreate: any;
   data:any;
   setData:any;
+  setStatus:any;
   fetchAccountDashboardList:any
 }) => {
   const [penaltyData, setPenaltyData] = useState(
@@ -238,7 +239,7 @@ console.log(penaltyData)
           ...prev,
           selection_list: penaltyData,
         };
-    });console.log(props.data,"a");props.onClickCreate(props.data); props.fetchAccountDashboardList("yes"); }} />
+    });console.log(props.data,"a");props.onClickCreate(props.data); props.setStatus('yes'); props.fetchAccountDashboardList("yes"); }} />
     </div>
     </>
   );

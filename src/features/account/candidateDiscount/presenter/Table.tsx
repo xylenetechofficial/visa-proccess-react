@@ -48,6 +48,7 @@ const CandidateDiscountTable = (props: {
             <TableHeadCell2> AGENT</TableHeadCell2>
             <TableHeadCell2> VISA RECIEVED DATE </TableHeadCell2>
             <TableHeadCell2> VISA AUTHORIZATION </TableHeadCell2>
+            <TableHeadCell2> VISA AUTHORIZATION NAME </TableHeadCell2>
             <TableHeadCell2> AIR TICKET</TableHeadCell2>
             <TableHeadCell2> SERVICES CHARGES</TableHeadCell2>
             <TableHeadCell2> OTHER CHARGES</TableHeadCell2>
@@ -82,6 +83,7 @@ const CandidateDiscountTable = (props: {
               <TableCell> {item.agent_name}</TableCell>
               <TableCell> {item.visa_received_date} </TableCell>
               <TableCell> {item.visa_authorization} </TableCell>
+              <TableCell> {item.visa_authorization_name} </TableCell>
               <TableCell> AIR TICKET</TableCell>
               <TableCell> {item.service_charges}</TableCell>
               <TableCell> {item.other_charges}</TableCell>
@@ -94,7 +96,7 @@ const CandidateDiscountTable = (props: {
               <TableCell> {item.extra_service_tax}</TableCell>
               <TableCell> {item.consolidated_charges}</TableCell>
               <TableCell> {item.consolidated_charges}</TableCell>
-              <TableCell> {item?.previous}</TableCell>
+              <TableCell> {item?.discount_given}</TableCell>
               <TableCell>
                 <Checkbox onChange={(e) => {
                   if (e.target.checked) {

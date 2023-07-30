@@ -44,7 +44,7 @@ export default function Main(
   const [modalName, setModalName] = useState("");
 
 
-  const onClickAdd = async(id:number,AgentCommission: AgentCommissionInterface) => {
+  const onClickAdd = async(id:number,AgentCommission: number) => {
     
     
     console.log("onClickEdit"); // Only Dev
@@ -60,10 +60,10 @@ export default function Main(
 
 
 
-  const [countryList, setCountryList] = useState<any>([]);
+  const [countryList, setCountryList] = useState<AgentPaymentReceivedInterface>();
 
   const searchPassport = async (value:any) => {
-    const data = await readAccount(value);
+    const data :any= await readAccount(value);
     console.log(data)
     if (data) {
       setCountryList(data);

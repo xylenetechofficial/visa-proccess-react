@@ -5,8 +5,13 @@ import { convertDateFormat } from '../../../../utils/function';
 const PaymentBulkList = (props:{
     AgentPaymentList:any,
     setModalName:any
+    fetchPaymentDetail:(type :string,id:number  )=>any
 }) => {
-    console.log(props?.AgentPaymentList?.bulk_payment_list,"jpaymentj")
+    
+    const onClick = (ele:any)=>{
+        props.setModalName('viewbulkpayment');
+        props.fetchPaymentDetail('bulk_id',ele);
+    }
     return (
 
         <div className='overflow-auto shadow-md shadow-slate-500 rounded-lg justify-center h-80'>
@@ -30,7 +35,7 @@ const PaymentBulkList = (props:{
                         <TableCell3 width={10}>{index+1}</TableCell3>
                         <TableCell3 width={10}>{convertDateFormat(ele.created_at)}</TableCell3>
                         <TableCell3 width={10}>{ele.amount}</TableCell3>
-                        <TableCell3 width={10}><p onClick={()=>props.setModalName('viewbulkpayment')}>{ele.used_amount}</p></TableCell3>
+                        <TableCell3 width={10}><p className="text-red-500 cursor-pointer " onClick={()=>{onClick(ele)}}>{ele.used_amount}</p></TableCell3>
                         <TableCell3 width={10}>{ele.description}</TableCell3>
                         </TableRow1>
                     ))}

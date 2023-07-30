@@ -84,7 +84,7 @@ export default function Main(props: {
                     <UpdateContentBox>
                         <SubHeading1 text="Agent ID:" />
                         <CustomSelectComponentUnlabeled
-                            value={data.name}
+                            value={data.agent_id}
                             options={selectOptionConveter({
                                 
                                 options: agentList,

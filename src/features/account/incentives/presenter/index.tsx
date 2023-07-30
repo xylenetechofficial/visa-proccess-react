@@ -8,10 +8,9 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AccountDashboardInterface, VisaProfesionInterface ,AgentPaymentReceivedInterface} from "../type";
+
 import {
   createAccountDashboard,
-  deleteAccountDashboard,
   readAccountDashboardList,
 } from "../repository";
 import { SectorInterface } from "../../../masters/sector/type";
@@ -21,6 +20,7 @@ import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
+import { AddIncentiveInterface } from "../type";
 
 
 const CardHeader = styled(Box)(() => ({
@@ -35,9 +35,6 @@ const CardHeader = styled(Box)(() => ({
 export default function Main() {
 
    
-    
-  const [editAccountDashboard, setAccountDashboard] =
-    useState<AgentPaymentReceivedInterface>({} as AgentPaymentReceivedInterface);
 
   const [modalName, setModalName] = useState("");
   const [status, setStatus]= useState("yes");
@@ -50,29 +47,23 @@ export default function Main() {
         staff_incentive:0
       }
     ]
-  })
-  const onClickCreate = async(data:any) => {
+  });
+  const [addIncentive,setIncentive]=useState<AddIncentiveInterface[]>([])
+  const onClickCreate = async(data:AddIncentiveInterface) => {
     setModalName("create");
-    console.log(data)
-    await createAccountDashboard(data);
+    console.log(data,"DDDDDDDDDDDDDDDDDDDDDD",addIncentive)
+    await createAccountDashboard(addIncentive);
     await  fetchAccountDashboardList(status)
   };
 
-  const onClickEdit = (modaltype:string, accountDashboard: AgentPaymentReceivedInterface) => {
+  const onClickEdit = (modaltype:string, accountDashboard: any) => {
     console.log(accountDashboard,"CCCCCC",modaltype)
-    setAccountDashboard(accountDashboard);
+    
     console.log("onClickEdit",modaltype); // Only Dev
     console.log(accountDashboard,modaltype); // Only Dev
     setModalName(modaltype);
   };
 
-  const onClickDelete = async (accountDashboard: AccountDashboardInterface) => {
-    const flag = await confirmationMessage("Do you really want to delete?");
-    if (flag && accountDashboard.id) {
-      await deleteAccountDashboard(accountDashboard.id);
-      // fetchAccountDashboardList();
-    }
-  };
 
 
   const [accountDashboardList, setAccountDashboardList] = useState<any>([]);
@@ -132,6 +123,7 @@ export default function Main() {
         setUpdateIncentive={setUpdateIncentive} 
         data={data}
         setData={setData}
+        onChange={(value)=>setIncentive(value)}
         onClickCreate={onClickCreate}
       />
 

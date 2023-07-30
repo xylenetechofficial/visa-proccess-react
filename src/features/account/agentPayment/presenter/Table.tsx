@@ -21,6 +21,8 @@ const AgentPaymentTable = (props: {
   setAgentPaymentList: any
   data: any;
   setData: any;
+  setModalName:any
+  fetchPaymentDetail:(type :string,id:number  )=>any
 }) => {
 
   const [date, setDate] = useState<any>([])
@@ -97,7 +99,7 @@ const AgentPaymentTable = (props: {
               <TableCell> {ele.agent_commission}</TableCell>
               <TableCell> {ele.discount_amount}</TableCell>
               <TableCell> {ele.received}</TableCell>
-              <TableCell> {ele.balance_amount}</TableCell>
+              <TableCell> <p className="text-red-500 cursor-pointer " onClick={()=>{props.fetchPaymentDetail('candidate_id',ele),props.setModalName('viewpaymentdetailfromcandidaite')}}>{ele.balance_amount} </p></TableCell>
               <TableCell>
                 <UnlabeledInput
                   type="number"

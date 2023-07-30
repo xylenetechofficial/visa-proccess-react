@@ -122,7 +122,7 @@ export const navigations: NavigationInterface[] = [
       // { name: 'Agent Payments Received', icon: 'pageview', path: '/account/agent-payments-recieved' },
       { name: 'Agent Commissions', icon: 'pageview', path: '/account/agent-commissions' },
       { name: 'Agent Commission Add', icon: 'pageview', path: '/account/agent-commission-add' },
-      { name: 'Penalty After Payments', icon: 'pageview', path: '/account/penalty-after-deployment' },
+      { name: 'Penalty After Deployment', icon: 'pageview', path: '/account/penalty-after-deployment' },
       { name: 'Agent Bulk Payments', icon: 'pageview', path: '/account/agent-bulk-payment' },
       { name: 'Incentives', icon: 'pageview', path: '/account/incentives' },
       { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },

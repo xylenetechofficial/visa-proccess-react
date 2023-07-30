@@ -59,14 +59,14 @@ export async function readAccountDashboard(id: number) {
 
 
 
-export async function createAgentCommission(id:number,AgentCommission: AgentCommissionInterface) {
+export async function createAgentCommission(id:number,AgentCommission: number) {
   console.log(AgentCommission)
   const path = "/account/agent-commission-add/"+id
 
-  const payload = AgentCommissionConverter.toAdapter(AgentCommission);
+  const payload = AgentCommissionConverter.toAdapter({agent_commission:AgentCommission});
   // const payload = {agent_commission:AgentCommission}
 
-  console.log(payload,AgentCommission)
+  console.log(payload,AgentCommission,"agent_commissionagent_commission")
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT

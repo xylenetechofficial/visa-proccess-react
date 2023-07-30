@@ -9,7 +9,7 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { AgentPaymentInterface, VisaProfesionInterface } from "../type";
-import { addAgentPayment, deleteAgentPayment, readAgentPaymentList } from "../repository";
+import { addAgentPayment, deleteAgentPayment, readAgentPaymentList, readPaymentDetails } from "../repository";
 import { SectorInterface } from "../../../masters/sector/type";
 import { readSectorList } from "../../../masters/sector/repository";
 import { readCompanyList } from "../../../masters/company/repository";
@@ -30,6 +30,7 @@ import PaymentBulkList from "./PaymentBulkList";
 import AgentBulkPayment from "./AgentBulkPayment";
 import CandidatePayment from "./CandidatePayment";
 import PaymentDetailFromBulk from "./PaymentDetailFromBulk";
+import PaymentDetailFromCandidate from "./PaymentDetailFromCandidate";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
@@ -82,7 +83,7 @@ export default function Main(
   );
 
   const [modalName, setModalName] = useState("");
-
+  const [detailData,setDetailData] =useState<any>({})
   const onClickCreate = () => {
     setModalName("create");
   };
@@ -151,10 +152,20 @@ export default function Main(
   // };
   // const dataFiltered = filterData(searchQuery, AgentPaymentList);
 
-  const [visaprofession, setVisaProfessionList] = useState<
-    VisaProfesionInterface[]
+  const [paymentDetail, setPaymentDetailList] = useState<
+    any[]
   >([]);
 
+  const fetchPaymentDetail = async(type:string, ele:any)=>{
+    // candidate_id
+    // bulk_payment_id
+    setDetailData(ele)
+    const data :any =  await readPaymentDetails(type,ele.id)
+ console.log(type,ele.id,"SSSSS",data)
+ if(data){
+  setPaymentDetailList(data)
+ }
+  }
   const fetchAgentList = async () => {
     const data = await readAgentList();
     if (data) {
@@ -199,9 +210,9 @@ export default function Main(
 
       <CardHeader2>
       {/* <UpdateContentBox> */}
-      <div className="w-48">
-        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        </div>
+      {/* <div className="w-48"> */}
+        {/* <CustomButton2 buttonText="Add filter" icon={<FaFilter />} /> */}
+        {/* </div> */}
           <div className="w-48">
           <CustomSelectComponent
           label="Agent"
@@ -235,7 +246,7 @@ export default function Main(
 
         <AgentBulkPayment fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} setAgentID={setAgentID}/>
         <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID}/>
-        <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName}/>
+        <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type,id)=>fetchPaymentDetail(type,id)}/>
       </div>
 
       {/* </CardHeader2> */}
@@ -246,6 +257,8 @@ export default function Main(
         setAgentPaymentList={setAgentPaymentList}
         setData={setData}
         data={data}
+        setModalName={setModalName}
+        fetchPaymentDetail={(type,id)=>fetchPaymentDetail(type,id)}
 
       />
 
@@ -254,12 +267,18 @@ export default function Main(
       {/* Edit */}
     {modalName ==="viewbulkpayment" ?
     
-    <PaymentDetailFromBulk onClose={()=>setModalName('')} />
+    <PaymentDetailFromBulk onClose={()=>setModalName('')} paymentDetail={paymentDetail} detailData={detailData}/>
         :
         '' 
 
     }
+{modalName ==="viewpaymentdetailfromcandidaite" ?
+    
+    <PaymentDetailFromCandidate onClose={()=>setModalName('')} paymentDetail={paymentDetail}  detailData={detailData}/>
+        :
+        '' 
 
+    }
       <GreenButton
           text={"Submit "}
           onClick={() => {

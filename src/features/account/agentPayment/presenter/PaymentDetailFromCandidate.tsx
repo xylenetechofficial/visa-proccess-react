@@ -2,7 +2,7 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { DateInput } from "../../../../componenets/Input"
 import { FullScreenModal } from "../../../../componenets/Modal"
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
-import PaymentDetailBulkTable from "./PaymentDetailBulkTable"
+import PaymentDetailCandidateTable from "./PaymentDetailCandidateTable"
 import { Box } from "@mui/material";
 
 const style = {
@@ -20,22 +20,14 @@ const style = {
 export default function Main (props:
     {
         onClose:any,
-        paymentDetail: any[],
+        paymentDetail:any[],
         detailData:any
+
 }){
-const onClickAdd =()=>{
 
-}
-
+    
     return (
         <>
-{/*         
-        <FullScreenModal
-            buttonName="Update"
-            handleClick={onClickAdd}
-            title="Update Block Visa"
-            onClose={props.onClose}
-        > */}
 
 <Box sx={style}>
             <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Payment Detail</h3>
@@ -68,26 +60,16 @@ const onClickAdd =()=>{
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="BULK PAYMENT AMOUNT  :" />
-                    {props.detailData.agent_name}
+                    <SubHeading1 text="Company Name  :" />
+                    {props.detailData.company_name}
                 </UpdateContentBox>
-                <UpdateContentBox>
-
-                    <SubHeading1 text="BULK PAYMENT DETAILS  :" />
-                    Bulk payment details
-                </UpdateContentBox>
-                <UpdateContentBox>
-
-                    <SubHeading1 text="BULK PAYMENT DATE  :" />
-                    Bulk payment date
-                </UpdateContentBox>
-
+                
 
            </div>
 
 
-            <PaymentDetailBulkTable
-                visaProfessionList={[]}
+            <PaymentDetailCandidateTable
+                paymentDetail={props.paymentDetail}
                 onChange={(value) => console.log("Df")}
             />
 

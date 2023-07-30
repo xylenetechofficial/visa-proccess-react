@@ -4,7 +4,7 @@ interface HeadingProps {
   text?: string;
   color?: string;
   align?: string
-
+  textNum?:number;
 }
 // Heading 1
 export const Heading1: React.FC<HeadingProps> = ({ text = "", color }) => {
@@ -77,6 +77,15 @@ export const SubHeadingSpan: React.FC<HeadingProps> = ({ text = "", color }) => 
 
   return <span className="uppercase text-[11px] font-bold text-[#374151] text-center">
     {text}
+  </span>;
+};
+
+export const SubHeadingSpan1: React.FC<HeadingProps> = ({ textNum =  6, color }) => {
+  // const textColor = color ? color : '';
+  // const className = ` text-lg font-bold dark:text-white ${textColor}`;
+
+  return <span className="uppercase text-[11px] font-bold text-[#374151] text-center">
+    {textNum}
   </span>;
 };
 

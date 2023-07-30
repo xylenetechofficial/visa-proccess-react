@@ -164,9 +164,9 @@ export default function Main() {
           />
         </Modal>
       }
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <CustomButton2 buttonText="Submit" onClick={() => console.log("sd")} />
-      </div>
+      </div> */}
     </div>
   );
 }

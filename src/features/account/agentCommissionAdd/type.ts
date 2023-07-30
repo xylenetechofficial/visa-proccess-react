@@ -229,46 +229,60 @@ export class VisaProfesionConverter {
 export interface AgentPaymentReceivedInterface {
   actual_profession: string,
   agent_name: string,
+  agent_id: string,
+  agent_commission:number,
   amount_received: number,
+  balance_amount: number,
   company_name: string,
   consulate_setting_charges: string,
-  dd_charges: string
+  discount_amount: string
   document_charges: number,
-  extra_service_tax: string
+  is_without: string
   id: number,
   name: string,
   other_charges: string,
   partial_charges: string,
   party_code: number,
   passport_no: string,
+  received: string,
   photo_charges: string,
   training_charges: string,
   sector_charges: string,
   service_charges: string
+  ticket_charges: string
   visa_profession: string,
+  visa_authorization: string,
+  visa_received_date: string,
 
 }
 
 export interface AgentPaymentReceivedAdapter {
   actual_profession: string,
   agent_name: string,
+  agent_id: string,
+  agent_commission:number,
   amount_received: number,
+  balance_amount: number,
   company_name: string,
   consulate_setting_charges: string,
-  dd_charges: string
+  discount_amount: string
   document_charges: number,
-  extra_service_tax: string
+  is_without: string
   id: number,
   name: string,
   other_charges: string,
   partial_charges: string,
   party_code: number,
   passport_no: string,
+  received: string,
   photo_charges: string,
   training_charges: string,
   sector_charges: string,
   service_charges: string
+  ticket_charges: string
   visa_profession: string,
+  visa_authorization: string,
+  visa_received_date: string,
 }
 export class AgentPaymentReceivedConverter {
 
@@ -282,23 +296,30 @@ export class AgentPaymentReceivedConverter {
     const data: AgentPaymentReceivedInterface = {
       actual_profession: a.actual_profession,
       agent_name: a.agent_name,
+      agent_id: a.agent_id,
+      agent_commission: a.agent_commission,
       amount_received: a.amount_received,
+      balance_amount: a.balance_amount,
       company_name: a.company_name,
       consulate_setting_charges: a.consulate_setting_charges,
-      dd_charges: a.dd_charges,
+      discount_amount: a.discount_amount,
       document_charges: a.document_charges,
-      extra_service_tax: a.extra_service_tax,
+      is_without: a.is_without,
       id: a.id,
       name: a.name,
       other_charges: a.other_charges,
       partial_charges: a.partial_charges,
       party_code: a.party_code,
       passport_no: a.passport_no,
+      received: a.received,
       photo_charges: a.photo_charges,
       training_charges: a.training_charges,
       sector_charges: a.sector_charges,
       service_charges: a.service_charges,
+      ticket_charges: a.ticket_charges,
       visa_profession: a.visa_profession,
+      visa_authorization: a.visa_authorization,
+      visa_received_date: a.visa_received_date,
     };
     return data;
   }
@@ -312,23 +333,30 @@ export class AgentPaymentReceivedConverter {
     const data: AgentPaymentReceivedAdapter = {
       actual_profession: i.actual_profession,
       agent_name: i.agent_name,
+      agent_id: i.agent_id,
+      agent_commission: i.agent_commission,
       amount_received: i.amount_received,
+      balance_amount: i.balance_amount,
       company_name: i.company_name,
       consulate_setting_charges: i.consulate_setting_charges,
-      dd_charges: i.dd_charges,
+      discount_amount: i.discount_amount,
       document_charges: i.document_charges,
-      extra_service_tax: i.extra_service_tax,
+      is_without: i.is_without,
       id: i.id,
       name: i.name,
       other_charges: i.other_charges,
       partial_charges: i.partial_charges,
       party_code: i.party_code,
       passport_no: i.passport_no,
+      received: i.received,
       photo_charges: i.photo_charges,
       training_charges: i.training_charges,
       sector_charges: i.sector_charges,
       service_charges: i.service_charges,
+      ticket_charges: i.ticket_charges,
       visa_profession: i.visa_profession,
+      visa_authorization: i.visa_authorization,
+      visa_received_date: i.visa_received_date,
     };
     return data;
   }

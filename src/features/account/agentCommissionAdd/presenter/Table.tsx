@@ -14,7 +14,7 @@ import {
   TableHeadRow2,
   TableRow,
 } from "../../../../componenets/Table";
-import { SubHeading1, SubHeadingSpan, UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import { SubHeading1, SubHeadingSpan, SubHeadingSpan1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomButton2 } from "../../../../componenets/CustomComponents";
 import { UnlabeledInput } from "../../../../componenets/Input";
@@ -28,14 +28,14 @@ const AccountDashboardTable = (props: {
   setModalName: any
   countryList: any
 }) => {
-
+console.log(props.countryList,"countryList")
   const [agentCommission, setAgentCommission] = useState<number>(props?.countryList?.agent_commission);
 
   // const hasKeyName = props?.countryList?.some((item :any) => item.hasKeyName("name"));
   return (
     <>
       <div className="overflow-auto">
-        {props.countryList?.passport_no ? (
+        {props?.countryList ? (
           <>
             <div className="mt-2">
               <UpdateContentBox>
@@ -52,7 +52,7 @@ const AccountDashboardTable = (props: {
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Party Code :" />
-                <SubHeadingSpan text={props?.countryList?.party_code} />
+                <SubHeadingSpan1 textNum={props?.countryList?.party_code } />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
@@ -94,7 +94,7 @@ const AccountDashboardTable = (props: {
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Document Charges :" />
-                <SubHeadingSpan text={props?.countryList?.document_charges} />
+                <SubHeadingSpan1 textNum={props?.countryList?.document_charges} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
@@ -129,7 +129,7 @@ const AccountDashboardTable = (props: {
             <div className="mt-2"></div>
             <UpdateContentBox>
               <SubHeading1 text=" Balance Amount :" />
-              <SubHeadingSpan text={props?.countryList?.balance_amount} />
+              <SubHeadingSpan1 textNum={props?.countryList?.balance_amount} />
             </UpdateContentBox>
             <div className="mt-2">
               <UpdateContentBox>
@@ -139,7 +139,7 @@ const AccountDashboardTable = (props: {
             </div>
 
             <div className="grid grid-cols-2  place-items-center p-2">
-              <CustomButton2 buttonText="Submit" onClick={() => { props.onClickAdd(1, agentCommission); props.setModalName("") }} />
+              <CustomButton2 buttonText="Submit" onClick={() => { props.onClickAdd(props.countryList?.agent_id, agentCommission); props.setModalName("") }} />
               <CustomButton2 buttonText="Cancel" onClick={() => {  props.setModalName(""), props.setPassportNo(""), props.setCountryList({}) }} />
             </div>
           </>
