@@ -329,9 +329,9 @@ export class AddSelectionPenaltyAfterDeploymentConverter {
     const data: AddSelectionPenaltyAfterDeploymentAdapter = {
    
       selection_list: i?.selection_list?.map((item) => ({
-        id: item.id,
-        penalty_after_departure: item.penalty_after_departure,
-        penalty_remarks: item.penalty_remarks
+        id: item?.id,
+        penalty_after_departure: item?.penalty_after_departure,
+        penalty_remarks: item?.penalty_remarks
   
       })),
     };

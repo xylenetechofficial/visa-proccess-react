@@ -129,3 +129,55 @@ export interface AccountCandidateInterface {
     }
   }
   
+
+  
+export interface AccountCandidateCancelInterface {
+  is_without: number
+  visa_cancel_penalty:number,
+  visa_cancel_remarks:string,
+}
+  
+  
+  export interface AccountCandidateCancelAdapter {
+    
+    is_without: number
+    visa_cancel_penalty:number,
+    visa_cancel_remarks:string,
+  }
+  
+  
+  export class AccountCandidateCancelConverter {
+    // private i: AgentInterface
+    // private a: AgentAdapter
+  
+    /**
+     * toInterface
+     */
+    public static toInterface(a: AccountCandidateCancelAdapter) {
+      const data: AccountCandidateCancelInterface = {
+        is_without:a?.is_without,
+        visa_cancel_penalty:a?.visa_cancel_penalty,
+        visa_cancel_remarks:a?.visa_cancel_remarks,
+      };
+      return data;
+    }
+  
+    /**
+     * toAdapter
+     */
+    public static toAdapter(i: AccountCandidateCancelInterface) {
+      console.log("i"); // Only Dev
+      console.log(i); // Only Dev
+      const data: AccountCandidateCancelAdapter = {
+        
+        is_without:i?.is_without,
+        visa_cancel_penalty:i?.visa_cancel_penalty,
+        visa_cancel_remarks:i?.visa_cancel_remarks,
+  
+      };
+      return data;
+    }
+  }
+  
+
+  

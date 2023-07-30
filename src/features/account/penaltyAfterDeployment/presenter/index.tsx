@@ -26,16 +26,22 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const initialState :AddSelectionPenaltyAfterDeploymentInterface ={
+    selection_list:[]
+  }
 
   const [editAccountDashboard, setAccountDashboard] =
     useState<any>({} as any);
 
   const [modalName, setModalName] = useState("");
   const [status, setStatus]= useState("yes");
-  const [data, setData] = useState<AddSelectionPenaltyAfterDeploymentInterface>()
-  const onClickCreate = async (data: any) => {
+  const [data, setData] = useState<AddSelectionPenaltyAfterDeploymentInterface>(initialState)
+  const onClickCreate = async (item: any) => {
     console.log(data, "aaaaa");
-    await createAccountDashboard(data)
+   const datas:any = await createAccountDashboard(data);
+   if(datas){
+    fetchAccountDashboardList("yes");
+   }
   };
 
   // const onClickUpdate = async(modaltype: string, accountDashboard: AgentPaymentReceivedInterface) => {
@@ -118,6 +124,7 @@ export default function Main() {
         setData={setData}
         setStatus={setStatus}
         fetchAccountDashboardList={fetchAccountDashboardList}
+        onChange={(value)=>setData(value)}
       />
 
       {/* <!-- Modal --> */}
