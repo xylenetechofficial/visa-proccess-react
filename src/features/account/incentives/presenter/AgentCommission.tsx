@@ -1,10 +1,9 @@
-import { createAccountDashboard, readAccountDashboard, updateAccountDashboard } from "../repository";
+import { createAccountDashboard,  } from "../repository";
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, FileInput, StandardInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface, CandidateRejectInterface } from "../type";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
@@ -22,7 +21,7 @@ import { GreenButton } from "../../../../componenets/CustomButton";
 export default function Main(props: {
     onClose: () => void,
     // fetchAccountDashboardList: () => void,
-    currentElement: AgentPaymentReceivedInterface,
+    currentElement: any,
 
 }) {
     console.log(props.currentElement, "ALLLLLLLLL")
@@ -30,7 +29,7 @@ export default function Main(props: {
    
 
     
-    const [agentPaymentReceivedList, setagentPaymentReceivedList] = useState<CandidateRejectInterface>(
+    const [agentPaymentReceivedList, setagentPaymentReceivedList] = useState<any>(
         {
             client_invoice: '',
             penalty_amount: 0,

@@ -1,10 +1,9 @@
-import { createAccountDashboard, readAccountDashboard, updateAccountDashboard } from "../repository";
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, FileInput, StandardInput, UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface, CandidateRejectInterface } from "../type";
+
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
@@ -18,6 +17,8 @@ import { RejectCancelApproveSingleAdapter } from "../../rejectCancelApprove/type
 import { Box } from "@mui/material";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from "../../../../componenets/Table";
+import { CandidateRejectInterface } from "../../dashboard/type";
+import { AgentPaymentReceivedInterface } from "../../agentPaymentsRecieved/type";
 
 
 export default function Main(props: {
@@ -52,42 +53,15 @@ export default function Main(props: {
         visa_submission: "",
     }
 
-    const [accountDashboard, setAccountDashboard] = useState(initValue)
-    const [agentPaymentReceivedList, setagentPaymentReceivedList] = useState<CandidateRejectInterface>(
-        {
-            client_invoice: '',
-            penalty_amount: 0,
-            mistake_by: '',
-        })
-    // const [agentPaymentReceivedList, setagentPaymentReceivedList] = useState<any>({})
+   
 
 
-
-    async function onClickAdd() {
-
-        // call create
-        // const newArray: any = { ...agentPaymentReceivedList, agentPaymentReceivedList: agentPaymentReceivedList }
-        const newArray: any = { ...agentPaymentReceivedList }
-        console.log(newArray, "AAAAAAA")
-        const flag = await updateAccountDashboard(props.currentElement.id ?? 0, newArray)
-
-
-        setAccountDashboard(initValue)
-        props.fetchAccountDashboardList("no")
-    }
     // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
     const [visaAuhorisationList, setvisaAuhorisationList] = useState<any>([])
     const fetchvisaAuhorisationList = async () => {
         const data = await readVisaAuthorisationList();
         if (data) {
             setvisaAuhorisationList(data);
-        }
-    }
-    const fetchAccountDashboard = async () => {
-        const data: any = await readAccountDashboard(props.currentElement.id ?? 0);
-        if (data) {
-            setAccountDashboard(data);
-            setagentPaymentReceivedList(data.agentPaymentReceivedList ?? [])
         }
     }
   

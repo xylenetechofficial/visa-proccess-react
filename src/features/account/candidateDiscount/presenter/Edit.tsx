@@ -37,6 +37,7 @@ export default function Main(props: {
         sponsor_id: "",
         visa_accountable: 0,
         visa_authorization: 0,
+        visa_authorization_name: 0,
         visa_number: "",
         visa_date_arabic: "",
         visa_expiry_date: "",

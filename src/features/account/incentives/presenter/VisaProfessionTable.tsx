@@ -1,4 +1,3 @@
-import { VisaProfesionInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
@@ -11,6 +10,7 @@ import { UnlabeledInput } from '../../../../componenets/Input';
 import { CustomCheckBox } from '../../../../componenets/Checkbox';
 import { CustomSelectComponent, selectOptionConveter } from '../../../../componenets/SelectBox';
 import { CustomRadioButton } from '../../../../componenets/RadioButton';
+import { VisaProfesionInterface } from '../../dashboard/type';
 
 
 

@@ -4,7 +4,7 @@ import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, FileInput, StandardInput, UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import { AccountDashboardInterface, VisaProfesionInterface } from "../type";
+
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
@@ -14,6 +14,7 @@ import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/re
 import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
 import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
 import VisaProfessionTable from "./VisaProfessionTable";
+import { VisaProfesionInterface } from "../../agentBulkPayment/type";
 
 
 export default function Main(props: {
