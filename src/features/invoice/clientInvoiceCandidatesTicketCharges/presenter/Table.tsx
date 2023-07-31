@@ -83,7 +83,7 @@ const ClientInvoiceCandidatesTicketChargesTable = (props: {
                         , console.log(value)
                     }
                     else {
-                      onUpdateRow(index, { ...ele, ticket_charges: 0 })
+                      onUpdateRow(index, { ...ele, ticket_charges: parseInt(value) })
                     }
 
                   }}

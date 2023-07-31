@@ -37,8 +37,9 @@ export default function Main() {
   const [status, setStatus]= useState("yes");
   const [data, setData] = useState<AddSelectionPenaltyAfterDeploymentInterface>(initialState)
   const onClickCreate = async (item: any) => {
-    console.log(data, "aaaaa");
-   const datas:any = await createAccountDashboard(data);
+    console.log(data, "aaaaa",item);
+    const list :any = {selection_list:data}
+   const datas:any = await createAccountDashboard(list);
    if(datas){
     fetchAccountDashboardList("yes");
    }

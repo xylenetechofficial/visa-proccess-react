@@ -165,6 +165,7 @@ function onUpdateRow(index: number, rowData: PenaltyAfterDeploymentDashboardInte
                 };
                 return newData;
               }),
+              onUpdateRow(index,{...ele, id:ele.id})
               console.log(penaltyData,"ss")
             }}/>  </TableCell>
             <TableCell> <UnlabeledInput type="number"  value={ele?.penalty_after_departure}
@@ -175,17 +176,24 @@ function onUpdateRow(index: number, rowData: PenaltyAfterDeploymentDashboardInte
                 newData[index] = {
                   ...newData[index],
                   penalty_after_departure: parseInt(value),
-                  id:ele.id
+                  
                 };
                 return newData;
               });
-              props.setData((prev:any) => {
+              if(value){
+                onUpdateRow(index, {...ele, penalty_after_departure:parseInt(value)})
+              }
+              else{
+                onUpdateRow(index, {...ele, penalty_after_departure:parseInt('')})
+              }
+              
+            //   props.setData((prev:any) => {
             
-                return {
-                  ...prev,
-                  selection_list: penaltyData,
-                };
-            });
+            //     return {
+            //       ...prev,
+            //       selection_list: penaltyData,
+            //     };
+            // });
             props.setAccountDashboardList((prev:any)=>{
               const newData = [...prev];
                 newData[index] = {
@@ -207,18 +215,19 @@ function onUpdateRow(index: number, rowData: PenaltyAfterDeploymentDashboardInte
                       newData[index] = {
                         ...newData[index],
                         penalty_remarks: value,
-                        id:ele.id
+                        
                         
                       };
                       return newData;
                     });
-                    props.setData((prev:any) => {
+                    onUpdateRow(index,{...ele, penalty_remarks:value})
+                  //   props.setData((prev:any) => {
             
-                      return {
-                        ...prev,
-                        selection_list: penaltyData,
-                      };
-                  });
+                  //     return {
+                  //       ...prev,
+                  //       selection_list: penaltyData,
+                  //     };
+                  // });
                   props.setAccountDashboardList((prev:any)=>{
                     const newData = [...prev];
                       newData[index] = {
@@ -255,7 +264,7 @@ function onUpdateRow(index: number, rowData: PenaltyAfterDeploymentDashboardInte
           ...prev,
           selection_list: penaltyData,
         };
-    });console.log(props.data,"a");props.onClickCreate(props.data); props.setStatus('yes');setPenaltyData([]) }} />
+    });console.log(props.data,"a");props.onClickCreate(penaltyData); props.setStatus('yes');setPenaltyData([]) }} />
     </div>
     </>
   );

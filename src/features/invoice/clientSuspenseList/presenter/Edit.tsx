@@ -65,7 +65,7 @@ console.log(props.clientSuspence,"clientSuspence")
                         onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
 
                         options={selectOptionConveter({ options: companyList, options_struct: { name: "name", value: "id" } })}
-                        value={accountDashboard.company_name}
+                        value={accountDashboard.company_id}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>

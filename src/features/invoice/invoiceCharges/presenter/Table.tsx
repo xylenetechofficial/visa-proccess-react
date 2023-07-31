@@ -158,6 +158,9 @@ const ClientInvoiceAddTable = (props: {
                 if(value){
                   onUpdateRow(index, {...ele, total_charges:parseInt(value)})
                 }
+                else{
+                  onUpdateRow(index, {...ele, total_charges:parseInt('')})
+                }
               }}/></TableCell>
             </TableRow>
           ))
