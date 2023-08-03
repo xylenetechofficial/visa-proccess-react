@@ -83,7 +83,7 @@ export default function Main(
   );
 
   const [modalName, setModalName] = useState("");
-  const [detailData,setDetailData] =useState<any>({})
+  const [detailData, setDetailData] = useState<any>({})
   const onClickCreate = () => {
     setModalName("create");
   };
@@ -134,7 +134,7 @@ export default function Main(
   // const [AgentPaymentList, setAgentPaymentList] = useState<AgentPaymentInterface[]>([]);
   const [AgentPaymentList, setAgentPaymentList] = useState<any>([]);
   // ! EMG
-  const [AgentID, setAgentID] = useState(0);
+  const [AgentID, setAgentID] = useState(1);
   const [AgentList, setAgentList] = useState<AgentInterface[]>([]);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -156,15 +156,15 @@ export default function Main(
     any[]
   >([]);
 
-  const fetchPaymentDetail = async(type:string, ele:any)=>{
+  const fetchPaymentDetail = async (type: string, ele: any) => {
     // candidate_id
     // bulk_payment_id
     setDetailData(ele)
-    const data :any =  await readPaymentDetails(type,ele.id)
- console.log(type,ele.id,"SSSSS",data)
- if(data){
-  setPaymentDetailList(data)
- }
+    const data: any = await readPaymentDetails(type, ele.id)
+    console.log(type, ele.id, "SSSSS", data)
+    if (data) {
+      setPaymentDetailList(data)
+    }
   }
   const fetchAgentList = async () => {
     const data = await readAgentList();
@@ -189,9 +189,9 @@ export default function Main(
   useEffect(() => {
     fetchAgentList()
     // fetchAgentPaymentList();
-    fetchSectorList();
-    fetchcomapanyList();
-    fetchCountryList();
+    // fetchSectorList();
+    // fetchcomapanyList();
+    // fetchCountryList();
   }, []);
   const updateBulkPayment = async (data: any) => {
     console.log(data)
@@ -209,29 +209,25 @@ export default function Main(
       />
 
       <CardHeader2>
-      {/* <UpdateContentBox> */}
-      {/* <div className="w-48"> */}
-        {/* <CustomButton2 buttonText="Add filter" icon={<FaFilter />} /> */}
-        {/* </div> */}
-          <div className="w-48">
+        <div className="w-48">
           <CustomSelectComponent
-          label="Agent"
+            label="Agent"
             onChange={(value: any) => setAgentID(parseInt(value))}
             options={selectOptionConveter({ options: AgentList, options_struct: { name: "name", value: "id" } })}
             value={AgentID}
           />
         </div>
-        
+
         <div className=" w-48">
-        <GreenButton
-          text={"Submit "}
-          onClick={() => {
-            fetchAgentPaymentList()
-            console.log(data)
-          }}
-        />
-      </div>
-      {/* </UpdateContentBox> */}
+          <GreenButton
+            text={"Submit "}
+            onClick={() => {
+              fetchAgentPaymentList()
+              console.log(data)
+            }}
+          />
+        </div>
+
       </CardHeader2>
 
       <HeroPage props={AgentPaymentList} />
@@ -244,9 +240,9 @@ export default function Main(
       {/* <CardHeader2> */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mb-4">
 
-        <AgentBulkPayment fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} setAgentID={setAgentID}/>
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID}/>
-        <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type,id)=>fetchPaymentDetail(type,id)}/>
+        <AgentBulkPayment fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} setAgentID={setAgentID} />
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} />
+        <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)} />
       </div>
 
       {/* </CardHeader2> */}
@@ -258,34 +254,34 @@ export default function Main(
         setData={setData}
         data={data}
         setModalName={setModalName}
-        fetchPaymentDetail={(type,id)=>fetchPaymentDetail(type,id)}
+        fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)}
 
       />
 
       {/* <!-- Modal --> */}
 
       {/* Edit */}
-    {modalName ==="viewbulkpayment" ?
-    
-    <PaymentDetailFromBulk onClose={()=>setModalName('')} paymentDetail={paymentDetail} detailData={detailData}/>
-        :
-        '' 
+      {modalName === "viewbulkpayment" ?
 
-    }
-{modalName ==="viewpaymentdetailfromcandidaite" ?
-    
-    <PaymentDetailFromCandidate onClose={()=>setModalName('')} paymentDetail={paymentDetail}  detailData={detailData}/>
+        <PaymentDetailFromBulk onClose={() => setModalName('')} paymentDetail={paymentDetail} detailData={detailData} />
         :
-        '' 
+        ''
 
-    }
+      }
+      {modalName === "viewpaymentdetailfromcandidaite" ?
+
+        <PaymentDetailFromCandidate onClose={() => setModalName('')} paymentDetail={paymentDetail} detailData={detailData} />
+        :
+        ''
+
+      }
       <GreenButton
-          text={"Submit "}
-          onClick={() => {
-            updateBulkPayment(data)
-            console.log(data)
-          }}
-        />
+        text={"Submit "}
+        onClick={() => {
+          updateBulkPayment(data)
+          console.log(data)
+        }}
+      />
     </div>
   );
 }

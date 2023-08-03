@@ -165,5 +165,21 @@ export const navigations: NavigationInterface[] = [
 
     ]
   },
+  {
+    name: 'Ticketing DPT',
+    icon: 'airplane_ticket',
+    children: [
+      { name: 'Booking Request', icon: 'pageview', path: '/ticketing-dpt/booking-request' },
+      { name: 'Ticket DashBoard', icon: 'pageview', path: '/ticketing-dpt/ticket-Dashboard' },
+      { name: 'Ticket Provided By Company', icon: 'pageview', path: '/ticketing-dpt/ticket-provided-by-company' },
+      { name: 'Ticket Agency Invoice Awaiting', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoice-awaiting' },
+      { name: 'Ticket Agency Invoices', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoices' },
+      { name: 'Approve Changes Issued Tickets', icon: 'pageview', path: '/ticketing-dpt/approve-changes-issued-tickets' },
+      { name: 'RM Advance Booking', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking' },
+      { name: 'RM Advance Booking Approval', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking-approval' },
+      { name: 'Passport Release Request', icon: 'pageview', path: '/ticketing-dpt/passport-release-request' },
+
+    ]
+  },
 
 ]; 

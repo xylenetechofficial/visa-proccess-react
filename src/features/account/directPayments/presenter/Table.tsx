@@ -25,6 +25,8 @@ const AgentPaymentTable = (props: {
   onClickDelete: any;
   data: any;
   setData: any;
+  setModalName:any
+  fetchPaymentDetail:(type :string,id:number  )=>any
 }) => {
   console.log(props.AgentPaymentList, "kkk")
   // const [data, setData]= useState(props.AgentPaymentList?.table_data_list ?? [])
@@ -103,7 +105,7 @@ const AgentPaymentTable = (props: {
               <TableCell> {ele.extra_service_tax}</TableCell>
               {/* <TableCell> {ele.agent_commision}</TableCell> */}
               <TableCell> {ele.discount_amount}</TableCell>
-              <TableCell> {ele.received}</TableCell>
+              <TableCell> <p className="text-red-600 cursor-pointer" onClick={()=> {props.setModalName('viewpaymentdetailfromcandidaite'), props.fetchPaymentDetail('candidate_id',ele)}}> {ele.received} </p></TableCell>
               <TableCell> {ele.balance_amount}</TableCell>
               <TableCell>
                 <UnlabeledInput

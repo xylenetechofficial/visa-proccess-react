@@ -180,7 +180,7 @@ export async function readPaymentDetails(type:string,id:number) {
     tokenType: AuthTokenType.JWT,
   });
 
-  if (response.code !== 200 || 204) {
+  if (response.code !== 200 ) {
     showMessage_v2({ message: response.message, status: response.code })
   }
 

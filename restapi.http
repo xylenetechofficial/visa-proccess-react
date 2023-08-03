@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint = https://cd8e-45-248-56-22.ngrok-free.app/api
+@endpoint = https://d112-45-248-56-22.ngrok-free.app/api
 
 
 ###
@@ -195,7 +195,7 @@ GET {{endpoint}}/account/agent-payment/receive-payment-list
 # ================      Direct Payment      =============== #
 
 ### Fetch Direct Payment List
-GET {{endpoint}}/account/direct-payment-list
+GET {{endpoint}}/account/direct-payment-list?agent_id=3
 
 
 ### Add Advance Payment

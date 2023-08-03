@@ -2,7 +2,8 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { DateInput } from "../../../../componenets/Input"
 import { FullScreenModal } from "../../../../componenets/Modal"
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
-import PaymentDetailCandidateTable from "./PaymentDetailCandidateTable"
+import { convertDateFormat } from "../../../../utils/function"
+import PaymentDetailBulkTable from "./PaymentDetailBulkTable"
 import { Box } from "@mui/material";
 
 const style = {
@@ -22,12 +23,20 @@ export default function Main(props:
         onClose: any,
         paymentDetail: any[],
         detailData: any
-
     }) {
-
-
+    const onClickAdd = () => {
+console.log("first")
+    }
+console.log(props.detailData,'detailData')
     return (
         <>
+            {/*         
+        <FullScreenModal
+            buttonName="Update"
+            handleClick={onClickAdd}
+            title="Update Block Visa"
+            onClose={props.onClose}
+        > */}
 
             <Box sx={style}>
                 <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Payment Detail</h3>
@@ -60,15 +69,25 @@ export default function Main(props:
                     </UpdateContentBox>
                     <UpdateContentBox>
 
-                        <SubHeading1 text="Company Name  :" />
-                        {props.detailData.company_name}
+                        <SubHeading1 text="BULK PAYMENT AMOUNT  :" />
+                        {props.detailData.used_amount}
+                    </UpdateContentBox>
+                    <UpdateContentBox>
+
+                        <SubHeading1 text="BULK PAYMENT DETAILS  :" />
+                        {props.detailData.description}
+                    </UpdateContentBox>
+                    <UpdateContentBox>
+
+                        <SubHeading1 text="BULK PAYMENT DATE  :" />
+                        {convertDateFormat(props.detailData.created_at)}
                     </UpdateContentBox>
 
 
                 </div>
 
 
-                <PaymentDetailCandidateTable
+                <PaymentDetailBulkTable
                     paymentDetail={props.paymentDetail}
                     onChange={(value) => console.log("Df")}
                 />

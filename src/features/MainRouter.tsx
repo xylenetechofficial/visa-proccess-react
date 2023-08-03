@@ -16,6 +16,7 @@ import Account from './account/Router'
 import Invoice from './invoice/Router'
 import Immigration from './immigration_2/Router'
 import Delhi from './delhi_2/Router'
+import TicketingDpt from './ticketingDpt/Router'
 import { UserAuthContextProvider, useUserAuth } from './context/UserAuthContext';
 import { useEffect } from 'react';
 
@@ -69,6 +70,7 @@ function Others() {
                         <Route path='/invoice/*' element={<Invoice />}></Route>
                         <Route path='/immigration/*' element={<Immigration />}></Route>
                         <Route path='/delhi/*' element={<Delhi />}></Route>
+                        <Route path='/ticketing-dpt/*' element={<TicketingDpt />}></Route>
                     </Routes>
                 </Layout></>
                 : ""}

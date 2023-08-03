@@ -24,7 +24,7 @@ export default function Main (props:
         detailData:any
 }){
 const onClickAdd =()=>{
-
+console.log("first")
 }
 
     return (
@@ -92,7 +92,7 @@ const onClickAdd =()=>{
             />
 
         </Box>
-    )
+    
         
         </>
     )

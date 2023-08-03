@@ -60,10 +60,10 @@ const CandidatePayment = (props: {
 
             }
             }
-            options={selectOptionConveterv3({
+            options={selectOptionConveter({
               options: props?.AgentPaymentList?.table_data_list ?? [],
               // options: [],
-              options_struct: { name1: "passport_no", name2: 'name' ,value: "id" },
+              options_struct: { name: "candidate_dropdown_name",value: "id" },
             })}
           />
         </UpdateContentBox>
