@@ -2,6 +2,8 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { DateInput } from "../../../../componenets/Input"
 import { FullScreenModal } from "../../../../componenets/Modal"
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
+import { convertDateFormat } from "../../../../utils/function"
+import { useUserAuth } from "../../../context/UserAuthContext"
 import PaymentDetailBulkTable from "./PaymentDetailBulkTable"
 import { Box } from "@mui/material";
 
@@ -23,6 +25,8 @@ export default function Main (props:
         paymentDetail: any[],
         detailData:any
 }){
+    const { authAgent } = useUserAuth();
+    console.log(props.detailData)
 const onClickAdd =()=>{
 console.log("first")
 }
@@ -64,22 +68,22 @@ console.log("first")
                 <UpdateContentBox>
 
                     <SubHeading1 text="AGENT NAME  :" />
-                    {props.detailData.agent_name}
+                   {authAgent.name}
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="BULK PAYMENT AMOUNT  :" />
-                    {props.detailData.agent_name}
+                    {props.detailData.used_amount}
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="BULK PAYMENT DETAILS  :" />
-                    Bulk payment details
+                    {props.detailData.description}
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="BULK PAYMENT DATE  :" />
-                    Bulk payment date
+                    {convertDateFormat(props.detailData.created_at)}
                 </UpdateContentBox>
 
 
@@ -87,7 +91,7 @@ console.log("first")
 
 
             <PaymentDetailBulkTable
-                visaProfessionList={[]}
+                visaProfessionList={props.paymentDetail}
                 onChange={(value) => console.log("Df")}
             />
 

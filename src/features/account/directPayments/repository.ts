@@ -15,8 +15,8 @@ import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveReject
 
 
 // Fetch Direct Payment List Start
-export async function readDirectPaymentList() {
-  const path = "/account/direct-payment-list?agent_id=3";
+export async function readDirectPaymentList(id:number) {
+  const path = `/account/direct-payment-list?agent_id=${id}`;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,

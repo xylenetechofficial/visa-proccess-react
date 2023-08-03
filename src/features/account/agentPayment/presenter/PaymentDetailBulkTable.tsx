@@ -3,6 +3,7 @@ import {  GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
+import { convertDateFormat } from '../../../../utils/function';
 
 const VisaProfessionTable = (props: {
     visaProfessionList: VisaProfesionInterface[],
@@ -73,13 +74,7 @@ const VisaProfessionTable = (props: {
                     ))}
 
 
-                    <TableRow>
-                        <TableCell>
-                            <div style={{ width: "111px" }}>
-                                <GreenButton text='Add Row' onClick={onClickAddNewRow} />
-                            </div>
-                        </TableCell>
-                    </TableRow>
+                   
                 </TableBody>
             </Table>
 
@@ -92,7 +87,7 @@ export default VisaProfessionTable
 const TableData = (
     props: {
         index: number;
-        data: VisaProfesionInterface;
+        data: any;
         // onClickEdit: any;
         onUpdate: (index: number, rowData: VisaProfesionInterface) => void;
         onClickRemove: (index: number) => void;
@@ -122,50 +117,27 @@ const TableData = (
         <TableRow key={props.index}>
             <TableCell >{props.index + 1}</TableCell>
             <TableCell >
-                <UnlabeledInput
-                    value={localRowData.visa_profession}
-                    onchange={(value) => setLocalRowData({ ...localRowData, visa_profession: value })}
-                />
+            {props.data.name}
             </TableCell>
 
             <TableCell >
-                {/* {props.data.service_charges} */}
-                <UnlabeledInput
-                    value={localRowData.arabic_visa_category}
-                    onchange={(value) => setLocalRowData({ ...localRowData, arabic_visa_category: value })}
-                />
+            {props.data.passport_no}
             </TableCell>
             <TableCell >
-                {/* {props.data.quantity} */}
-                <UnlabeledInput
-                    value={localRowData.quantity}
-                    onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
-                />
+            {props.data.amount}
             </TableCell>
             <TableCell >
-                {/* {props.data.quantity} */}
-                <UnlabeledInput
-                    value={localRowData.quantity}
-                    onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
-                />
+                {convertDateFormat(props.data.created_at)}
+               
             </TableCell>
  
             <TableCell >
-                {/* {props.data.quantity} */}
-                <UnlabeledInput
-                    value={localRowData.quantity}
-                    onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
-                />
+                {props.data.payment_entry_by}
+              
             </TableCell>
  
             <TableCell >
-
-
-                <RedButton text={" Remove"} onClick={() => {
-                    props.onClickRemove(props.index)
-                }} />
-
-
+                {convertDateFormat(props.data.created_at)}
 
             </TableCell>
         </TableRow>

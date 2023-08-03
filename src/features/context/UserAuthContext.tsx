@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { UserInterface } from "./Model";
+import { AgentInterface, UserInterface } from "./Model";
 import { SetJwtToken, getJwtToken } from "../../utils/function";
 import { JwtRestApi } from "./Repository";
 
@@ -11,7 +11,7 @@ export function UserAuthContextProvider(props: { children: any }) {
     // states
     const [user, setUser] = useState<UserInterface>();
     const [loading, setLoading] = useState(true);
-
+    const [agent, setAgent] = useState<AgentInterface>();
     // functions
     // add user to context
     async function addUser(value: any) {
@@ -23,6 +23,11 @@ export function UserAuthContextProvider(props: { children: any }) {
     async function removeUser() {
         setUser(undefined);
         SetJwtToken("")
+    }
+
+    async function addAgent(value: any) {
+        setAgent(value);
+        setLoading(false)
     }
 
     async function fetchUser() {
@@ -53,15 +58,17 @@ export function UserAuthContextProvider(props: { children: any }) {
         fetchUser();
     }, []);
 
-    return (<userAuthContext.Provider value={{ addUser, removeUser, user }}>{!loading && props.children}</userAuthContext.Provider>);
+    return (<userAuthContext.Provider value={{ addUser, removeUser, user , addAgent , agent}}>{!loading && props.children}</userAuthContext.Provider>);
 }
 
 export function useUserAuth() {
-    const { addUser, removeUser, user } = useContext(userAuthContext);
+    const { addUser, removeUser, user ,addAgent, agent } = useContext(userAuthContext);
 
     return Object.freeze({
         authLogIn: (user: UserInterface) => addUser(user),
         authLogOut: () => removeUser(),
-        authUser: user as UserInterface
+        authUser: user as UserInterface,
+        authAgentAdd: (user: UserInterface) => addAgent(user),
+        authAgent:agent as AgentInterface,
     });
 }

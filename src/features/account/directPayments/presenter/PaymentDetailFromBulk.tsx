@@ -3,6 +3,7 @@ import { DateInput } from "../../../../componenets/Input"
 import { FullScreenModal } from "../../../../componenets/Modal"
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
 import { convertDateFormat } from "../../../../utils/function"
+import { useUserAuth } from "../../../context/UserAuthContext"
 import PaymentDetailBulkTable from "./PaymentDetailBulkTable"
 import { Box } from "@mui/material";
 
@@ -24,8 +25,10 @@ export default function Main(props:
         paymentDetail: any[],
         detailData: any
     }) {
+        const { authAgent } = useUserAuth();
+        console.log(authAgent,"first")
     const onClickAdd = () => {
-console.log("first")
+console.log("first",)
     }
 console.log(props.detailData,'detailData')
     return (
@@ -65,7 +68,7 @@ console.log(props.detailData,'detailData')
                     <UpdateContentBox>
 
                         <SubHeading1 text="AGENT NAME  :" />
-                        {props.detailData.agent_name}
+                        {authAgent?.name}
                     </UpdateContentBox>
                     <UpdateContentBox>
 

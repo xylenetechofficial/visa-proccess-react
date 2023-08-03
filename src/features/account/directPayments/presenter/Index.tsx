@@ -32,6 +32,7 @@ import CandidatePayment from "./CandidatePayment";
 import { readPaymentDetails } from "../../agentPayment/repository";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -73,7 +74,8 @@ export default function Main(
 
     bulk_payment_list: []
   };
-
+  const { authAgent } = useUserAuth();
+  const [passportNo, setPassportNo] = useState('')
   const [AgentPayment, setAgentPayment] = useState(initValue);
   const [data, setData] = useState<any>([])
   const [editAgentPayment, setEditAgentPayment] = useState<DirectPaymentInterface>(
@@ -154,7 +156,8 @@ export default function Main(
 
 
   const fetchAgentPaymentList = async () => {
-    const data = await readDirectPaymentList();
+    const id: any = authAgent?.id ? authAgent?.id : 1;
+    const data = await readDirectPaymentList(id);
     console.log(data, "jj");
     // const k= await readAgentPaymentReceivedPaymentList();
     // console.log(k,"SSAAAA")
@@ -181,30 +184,24 @@ export default function Main(
         pageName="Direct Payments"
         searchFunction={(query) => setSearchQuery(query)}
       />
-      <CardHeader >
-        <GreenButton text="Add Advance Payment" onClick={() => {
-          console.log("modal open"),
-            setModalName("create")
-        }} />
-
-        <div className="flex  m-4 " >
-          <div className="w-auto">
-            <UpdateContentBox>
-              <SubHeading1 text="AGENT NAME  :" />
-              <CustomSelectComponentUnlabeled options={[{ name: "DIRECT", value: '1' }, { name: "CO REFFERED ", value: '2' }]} onChange={(value) => console.log(value)} />
-            </UpdateContentBox>
-          </div>
-          <div className="w-auto">
-            <UpdateContentBox>
-              <SubHeading1 text="Passport No  :" />
-              <UnlabeledInput value={""} onchange={() => console.log("first")} />
-           <div className="ml-5 w-96"><GreenButton text="Search" /></div>
-            </UpdateContentBox>
-          </div>
-          
+      <CardHeader2 >
+        <div className="w-96">
+          <GreenButton text="Add Advance Payment" onClick={() => {
+            console.log("modal open"),
+              setModalName("create")
+          }} />
         </div>
-
-      </CardHeader >
+        <div className="w-72 flex">
+          <CustomSelectComponent label="Agent" options={[{ name: "DIRECT", value: '1' }, { name: "CO REFFERED ", value: '2' }]} value={authAgent?.id} onChange={(value) => console.log(value)} />
+        </div>
+        <div className="w-auto flex mb-5">
+          <SubHeading1 text="Passport No  :" />
+          <UnlabeledInput value={passportNo} onchange={(value) => { setPassportNo(value) }} />
+          <div className="ml-5 w-96">
+            <GreenButton text="Search" />
+          </div>
+        </div>
+      </CardHeader2 >
       <HeroPage props={AgentPaymentList} />
 
       <div className="flex bg-orange-500 w-64 mb-4">

@@ -10,7 +10,7 @@ const PaymentBulkList = (props:{
     
     const onClick = (ele:any)=>{
         props.setModalName('viewbulkpayment');
-        props.fetchPaymentDetail('bulk_id',ele);
+        props.fetchPaymentDetail('bulk_payment_id',ele);
     }
     return (
 

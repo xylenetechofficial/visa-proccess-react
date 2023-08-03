@@ -98,8 +98,8 @@ const AgentPaymentTable = (props: {
               <TableCell> {ele.extra_service_tax}</TableCell>
               <TableCell> {ele.agent_commission}</TableCell>
               <TableCell> {ele.discount_amount}</TableCell>
-              <TableCell> {ele.received}</TableCell>
-              <TableCell> <p className="text-red-500 cursor-pointer " onClick={()=>{props.fetchPaymentDetail('candidate_id',ele),props.setModalName('viewpaymentdetailfromcandidaite')}}>{ele.balance_amount} </p></TableCell>
+              <TableCell> <p className="text-red-500 cursor-pointer " onClick={()=>{props.fetchPaymentDetail('candidate_id',ele),props.setModalName('viewpaymentdetailfromcandidaite')}}>{ele.received}  </p></TableCell>
+              <TableCell> {ele.balance_amount}</TableCell>
               <TableCell>
                 <UnlabeledInput
                   type="number"

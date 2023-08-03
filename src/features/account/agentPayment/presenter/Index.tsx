@@ -18,6 +18,7 @@ import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
 import {
 
+  SubHeading1,
   SubHeading2,
   SubHeadingSpan,
   UpdateContentBox,
@@ -34,6 +35,8 @@ import PaymentDetailFromCandidate from "./PaymentDetailFromCandidate";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
+import { useUserAuth } from "../../../context/UserAuthContext";
+import { UnlabeledInput } from "../../../../componenets/Input";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -47,8 +50,6 @@ const CardHeader2 = styled(Box)(() => ({
   display: "grid",
   gap: "5px",
   gridTemplateColumns: "200px 200px 200px",
-  // paddingRight: "24px",
-  // marginBottom: "18px",
 }));
 
 export default function Main(
@@ -75,20 +76,20 @@ export default function Main(
 
     bulk_payment_list: []
   };
-
+  const { authAgent, authAgentAdd } = useUserAuth();
   const [AgentPayment, setAgentPayment] = useState(initValue);
   const [data, setData] = useState<any>([])
   const [editAgentPayment, setEditAgentPayment] = useState<AgentPaymentInterface>(
     {} as AgentPaymentInterface
   );
-
+  const [passportNo,setPassportNo]= useState('')
   const [modalName, setModalName] = useState("");
   const [detailData, setDetailData] = useState<any>({})
   const onClickCreate = () => {
     setModalName("create");
   };
 
-  // const onClickEdit = (AgentPayment: AgentPaymentInterface) => {
+  
   const onClickEdit = (AgentPayment: any) => {
     setEditAgentPayment(AgentPayment);
     console.log("onClickEdit"); // Only Dev
@@ -96,7 +97,7 @@ export default function Main(
     setModalName("edit");
   };
 
-  // const onClickDelete = async (AgentPayment: AgentPaymentInterface) => {
+
   const onClickDelete = async (AgentPayment: any) => {
     const flag = await confirmationMessage("Do you really want to delete?");
     if (flag && AgentPayment.id) {
@@ -105,33 +106,10 @@ export default function Main(
     }
   };
 
-  // useEffect(() => {
-  // }, [editAgentPayment, modalName])
-  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
-  const fetchSectorList = async () => {
-    const data = await readSectorList();
-    if (data) {
-      setSectorList(data);
-    }
-  };
 
-  const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
-  const fetchcomapanyList = async () => {
-    const data = await readCompanyList();
-    if (data) {
-      setCompanyList(data);
-    }
-  };
 
-  const [countryList, setCountryList] = useState<CountryInterface[]>([]);
-  const fetchCountryList = async () => {
-    const data = await readCountryList();
-    if (data) {
-      setCountryList(data);
-    }
-  };
 
-  // const [AgentPaymentList, setAgentPaymentList] = useState<AgentPaymentInterface[]>([]);
+ 
   const [AgentPaymentList, setAgentPaymentList] = useState<any>([]);
   // ! EMG
   const [AgentID, setAgentID] = useState(1);
@@ -201,24 +179,30 @@ export default function Main(
     await fetchAgentPaymentList();
 
   }
+  const agentOperation = async (value: any) => {
+
+
+    setAgentID(parseInt(value))
+    const filteredArray: any = AgentList.filter((item) => item.id === value);
+    await authAgentAdd(filteredArray[0])
+
+  }
   return (
     <div>
       <CustomNavbarV3
         pageName="Agent Payment"
         searchFunction={(query) => setSearchQuery(query)}
       />
-
-      <CardHeader2>
+      <CardHeader2 >
         <div className="w-48">
           <CustomSelectComponent
             label="Agent"
-            onChange={(value: any) => setAgentID(parseInt(value))}
+            onChange={(value: any) => agentOperation(value)}
             options={selectOptionConveter({ options: AgentList, options_struct: { name: "name", value: "id" } })}
             value={AgentID}
           />
         </div>
-
-        <div className=" w-48">
+        <div className="w-20">
           <GreenButton
             text={"Submit "}
             onClick={() => {
@@ -227,7 +211,13 @@ export default function Main(
             }}
           />
         </div>
-
+        <div className="w-auto flex">
+          <SubHeading1 text="Passport No  :" />
+          <UnlabeledInput value={passportNo} onchange={(value) =>{setPassportNo(value)} } />
+          <div className="ml-5 w-96">
+            <GreenButton text="Search" />
+          </div>
+        </div>
       </CardHeader2>
 
       <HeroPage props={AgentPaymentList} />

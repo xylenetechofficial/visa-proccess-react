@@ -8,3 +8,7 @@ export interface UserInterface {
     role?: string;
     password?: string;
 }
+export interface AgentInterface {
+    id:number,
+    name:string
+}
