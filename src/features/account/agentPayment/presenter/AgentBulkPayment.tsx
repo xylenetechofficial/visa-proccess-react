@@ -6,7 +6,7 @@ import { GreenButton } from "../../../../componenets/CustomButton";
 import { createAgentPaymentAdd } from "../repository";
 
 const AgentBulkPayment = (props:   { 
-    fetchAgentPaymentList:any
+    fetchAgentPaymentList:(name:string, value:any)=>void
     AgentID:any
     setAgentID:any
   }) => {
@@ -24,7 +24,7 @@ const AgentBulkPayment = (props:   {
     await createAgentPaymentAdd(agentPayment)
     console.log(agentPayment,"agent_id")
     handleReset();
-    await props.fetchAgentPaymentList();
+    await props.fetchAgentPaymentList('agent_id',props.AgentID);
   }
   const handleReset = () => {
     setagentPayment({

@@ -1,5 +1,5 @@
 import { VisaProfesionInterface } from '../type'
-import {  GreenButton, RedButton } from '../../../../componenets/CustomButton';
+import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHead2, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
@@ -12,17 +12,6 @@ const VisaProfessionTable = (props: {
 }) => {
 
     const [onChange, setonChange] = useState<string>("")
-
-    const onClickAddNewRow = () => {
-        const arr :any = [...props.paymentDetail, {
-            visa_profession: "",
-            arabic_visa_category: "",
-            block_visa_id: 0,
-            quantity: 0
-        }]
-        props.onChange(arr)
-    }
-
     const onClickRemoveRow = (index: number) => {
         if (!confirm("Are You Sure?"))
             return
@@ -31,7 +20,6 @@ const VisaProfessionTable = (props: {
         setonChange(Date.now().toString())
 
     }
-
     function onUpdateRow(index: number, rowData: VisaProfesionInterface) {
         const nextData = props.paymentDetail.map((e, i) => {
             if (i === index) {
@@ -44,11 +32,9 @@ const VisaProfessionTable = (props: {
         });
         props.onChange(nextData)
     }
-
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
-
-            <Table  >
+            <Table>
                 <TableHead2 >
                     <TableHeadRow  >
                         <TableHeadCell  > Sr No.</TableHeadCell>
@@ -70,25 +56,17 @@ const VisaProfessionTable = (props: {
                             onClickRemove={onClickRemoveRow}
                             onUpdate={onUpdateRow}
                         />
-
                     ))}
-
-
-                    
                 </TableBody>
             </Table>
-
         </div>
     )
 }
-
 export default VisaProfessionTable
-
 const TableData = (
     props: {
         index: number;
         data: any;
-        // onClickEdit: any;
         onUpdate: (index: number, rowData: VisaProfesionInterface) => void;
         onClickRemove: (index: number) => void;
         onChange: string
@@ -97,12 +75,10 @@ const TableData = (
 ) => {
 
     const [localRowData, setLocalRowData] = useState<any>({
-    // const [localRowData, setLocalRowData] = useState<VisaProfesionInterface>({
         visa_profession: "",
         arabic_visa_category: "",
         block_visa_id: 0,
         quantity: 0,
-
     })
     useEffect(() => {
         setLocalRowData(props.data)
@@ -112,37 +88,26 @@ const TableData = (
         props.onUpdate(props.index, localRowData!)
     }, [localRowData])
 
-    console.log(localRowData,props,"kkkkk")
+    console.log(localRowData, props, "kkkkk")
     return (
         <TableRow key={props.index}>
             <TableCell >{props.index + 1}</TableCell>
             <TableCell >
                 {props.data.name}
             </TableCell>
-
             <TableCell >
                 {props.data.passport_no}
-               
             </TableCell>
             <TableCell >
                 {props.data.amount}
-               
             </TableCell>
             <TableCell >
-                
-               
             </TableCell>
- 
             <TableCell >
                 {props.data.payment_entry_by}
-                
             </TableCell>
- 
-             <TableCell >
-
-
-             {convertDateFormat(props.data?.created_at)}
-
+            <TableCell >
+                {convertDateFormat(props.data?.created_at)}
             </TableCell>
         </TableRow>
     )

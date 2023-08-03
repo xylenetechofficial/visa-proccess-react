@@ -18,7 +18,7 @@ import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/u
 
 export default function Main(props: {
     onClose: ()=>void, 
-    fetchAgentPaymentList: ()=>void,
+    fetchAgentPaymentList: (name:string, value:any)=>void,
     // currentElement:AgentPaymentInterface, 
     currentElement:any, 
     
@@ -57,7 +57,7 @@ export default function Main(props: {
 
        
         setAgentPayment(initValue)
-        props.fetchAgentPaymentList()
+        props.fetchAgentPaymentList('agent_id',1)
     }
     const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
     const fetchvisaAuhorisationList = async () => {

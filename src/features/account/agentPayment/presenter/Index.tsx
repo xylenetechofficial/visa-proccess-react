@@ -3,30 +3,17 @@ import { Box, styled } from "@mui/material";
 import AgentPaymentTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import {
-  CustomButton2,
-  CustomNavbarV3,
-} from "../../../../componenets/CustomComponents";
-import { FaFilter } from "react-icons/fa";
-import { AgentPaymentInterface, VisaProfesionInterface } from "../type";
+import {  CustomNavbarV3} from "../../../../componenets/CustomComponents";
+import { AgentPaymentInterface } from "../type";
 import { addAgentPayment, deleteAgentPayment, readAgentPaymentList, readPaymentDetails } from "../repository";
-import { SectorInterface } from "../../../masters/sector/type";
-import { readSectorList } from "../../../masters/sector/repository";
-import { readCompanyList } from "../../../masters/company/repository";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CountryInterface } from "../../../masters/country/type";
-import { readCountryList } from "../../../masters/country/repository";
 import {
 
   SubHeading1,
   SubHeading2,
   SubHeadingSpan,
-  UpdateContentBox,
-
 } from "../../../../componenets/CoustomHeader";
 
 import HeroPage from "./HeroPage";
-// import CandidatePayment from "./AgentBulkPayment";
 import PaymentBulkList from "./PaymentBulkList";
 import AgentBulkPayment from "./AgentBulkPayment";
 import CandidatePayment from "./CandidatePayment";
@@ -35,16 +22,7 @@ import PaymentDetailFromCandidate from "./PaymentDetailFromCandidate";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
-import { useUserAuth } from "../../../context/UserAuthContext";
 import { UnlabeledInput } from "../../../../componenets/Input";
-const CardHeader = styled(Box)(() => ({
-  display: "flex",
-  flexWrap: "wrap",
-  paddingRight: "24px",
-  marginBottom: "18px",
-  alignItems: "center",
-  justifyContent: "space-between",
-}));
 
 const CardHeader2 = styled(Box)(() => ({
   display: "grid",
@@ -52,15 +30,7 @@ const CardHeader2 = styled(Box)(() => ({
   gridTemplateColumns: "200px 200px 200px",
 }));
 
-export default function Main(
-  // props: {
-  // onClose: any;
-  // fetchAgentPaymentList: any;
-  // sectorList: SectorInterface[];
-  // companyList: CompanyInterface[];
-  // countryList: CountryInterface[];
-  // }
-) {
+export default function Main( ) {
   const initValue: AgentPaymentInterface = {
     outstanding_since_2015: 0,
     payment_against_2015: 0,
@@ -76,7 +46,7 @@ export default function Main(
 
     bulk_payment_list: []
   };
-  const { authAgent, authAgentAdd } = useUserAuth();
+  
   const [AgentPayment, setAgentPayment] = useState(initValue);
   const [data, setData] = useState<any>([])
   const [editAgentPayment, setEditAgentPayment] = useState<AgentPaymentInterface>(
@@ -85,31 +55,7 @@ export default function Main(
   const [passportNo,setPassportNo]= useState('')
   const [modalName, setModalName] = useState("");
   const [detailData, setDetailData] = useState<any>({})
-  const onClickCreate = () => {
-    setModalName("create");
-  };
-
-  
-  const onClickEdit = (AgentPayment: any) => {
-    setEditAgentPayment(AgentPayment);
-    console.log("onClickEdit"); // Only Dev
-    console.log(AgentPayment); // Only Dev
-    setModalName("edit");
-  };
-
-
-  const onClickDelete = async (AgentPayment: any) => {
-    const flag = await confirmationMessage("Do you really want to delete?");
-    if (flag && AgentPayment.id) {
-      await deleteAgentPayment(AgentPayment.id);
-      fetchAgentPaymentList();
-    }
-  };
-
-
-
-
- 
+   
   const [AgentPaymentList, setAgentPaymentList] = useState<any>([]);
   // ! EMG
   const [AgentID, setAgentID] = useState(1);
@@ -150,9 +96,9 @@ export default function Main(
       setAgentList(data);
     }
   }
-  const fetchAgentPaymentList = async () => {
+  const fetchAgentPaymentList = async (name:string, value:any) => {
     // ! EMG
-    const data = await readAgentPaymentList(AgentID);
+    const data = await readAgentPaymentList(name,value);
     console.log(data, "jj");
     if (data) {
       setAgentPaymentList(data);
@@ -160,31 +106,33 @@ export default function Main(
     // setAgentPaymentList(data);
   };
   // ! EMG
-  useEffect(() => {
-    fetchAgentPaymentList()
-  }, [])
 
   useEffect(() => {
-    fetchAgentList()
-    // fetchAgentPaymentList();
-    // fetchSectorList();
-    // fetchcomapanyList();
-    // fetchCountryList();
+    // fetchAgentPaymentList()
+    fetchAgentList();
   }, []);
   const updateBulkPayment = async (data: any) => {
     console.log(data)
     const currentData: any = { "selection_list": data };
     const datas = await addAgentPayment(currentData);
     setData([]);
-    await fetchAgentPaymentList();
+    await fetchAgentPaymentList('agent_id',AgentID);
 
   }
   const agentOperation = async (value: any) => {
-
-
     setAgentID(parseInt(value))
     const filteredArray: any = AgentList.filter((item) => item.id === value);
-    await authAgentAdd(filteredArray[0])
+  }
+  const searchAgentPayment =()=>{
+    
+    if(passportNo){
+      fetchAgentPaymentList('passport_no',passportNo);
+      console.log("passport agent_id")
+    }
+    else{
+      fetchAgentPaymentList('agent_id',AgentID);
+      console.log("agent_id agent_id")
+    }
 
   }
   return (
@@ -194,7 +142,7 @@ export default function Main(
         searchFunction={(query) => setSearchQuery(query)}
       />
       <CardHeader2 >
-        <div className="w-48">
+        <div className="w-full">
           <CustomSelectComponent
             label="Agent"
             onChange={(value: any) => agentOperation(value)}
@@ -202,20 +150,20 @@ export default function Main(
             value={AgentID}
           />
         </div>
-        <div className="w-20">
-          <GreenButton
+        {/* <div className="w-20"> */}
+          {/* <GreenButton
             text={"Submit "}
             onClick={() => {
               fetchAgentPaymentList()
               console.log(data)
             }}
-          />
-        </div>
+          /> */}
+        {/* </div> */}
         <div className="w-auto flex">
           <SubHeading1 text="Passport No  :" />
           <UnlabeledInput value={passportNo} onchange={(value) =>{setPassportNo(value)} } />
           <div className="ml-5 w-96">
-            <GreenButton text="Search" />
+            <GreenButton text="Search"  onClick={()=>searchAgentPayment()}/>
           </div>
         </div>
       </CardHeader2>
@@ -230,8 +178,8 @@ export default function Main(
       {/* <CardHeader2> */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mb-4">
 
-        <AgentBulkPayment fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} setAgentID={setAgentID} />
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} AgentID={AgentID} />
+        <AgentBulkPayment fetchAgentPaymentList={(name, value)=>fetchAgentPaymentList(name,value)} AgentID={AgentID} setAgentID={setAgentID} />
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={(name, value)=>fetchAgentPaymentList(name,value)} AgentID={AgentID} />
         <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)} />
       </div>
 

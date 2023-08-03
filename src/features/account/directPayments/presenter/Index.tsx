@@ -74,7 +74,7 @@ export default function Main(
 
     bulk_payment_list: []
   };
-  const { authAgent } = useUserAuth();
+  const [AgentId,setAgentId]=useState(1);
   const [passportNo, setPassportNo] = useState('')
   const [AgentPayment, setAgentPayment] = useState(initValue);
   const [data, setData] = useState<any>([])
@@ -113,7 +113,7 @@ export default function Main(
     const flag = await confirmationMessage("Do you really want to delete?");
     if (flag && AgentPayment.id) {
       await deleteAgentPayment(AgentPayment.id);
-      fetchAgentPaymentList();
+      fetchAgentPaymentList('agent_id',AgentPaymentList.agent_id);
     }
   };
 
@@ -155,9 +155,8 @@ export default function Main(
 
 
 
-  const fetchAgentPaymentList = async () => {
-    const id: any = authAgent?.id ? authAgent?.id : 1;
-    const data = await readDirectPaymentList(id);
+  const fetchAgentPaymentList = async (name:string, value:any) => {
+    const data = await readDirectPaymentList(name,value);
     console.log(data, "jj");
     // const k= await readAgentPaymentReceivedPaymentList();
     // console.log(k,"SSAAAA")
@@ -166,17 +165,16 @@ export default function Main(
     }
     // setAgentPaymentList(data);
   };
-  useEffect(() => {
-    fetchAgentPaymentList();
+  const onChangeAgent =(value:any)=>{
+    setAgentId(value);
+    fetchAgentPaymentList('agent_id',value);
+  }
 
-    // fetchcomapanyList();
-    // fetchCountryList();
-  }, []);
   const updateBulkPayment = async (data: any) => {
     const agentPayment = { selection_list: data }
 
     await createAgentPayment(agentPayment)
-    fetchAgentPaymentList();
+    fetchAgentPaymentList('agent_id',AgentId);
   }
   return (
     <div>
@@ -192,13 +190,13 @@ export default function Main(
           }} />
         </div>
         <div className="w-72 flex">
-          <CustomSelectComponent label="Agent" options={[{ name: "DIRECT", value: '1' }, { name: "CO REFFERED ", value: '2' }]} value={authAgent?.id} onChange={(value) => console.log(value)} />
+          <CustomSelectComponent label="Agent" options={[{ name: "DIRECT", value: '1' }, { name: "CO REFFERED ", value: '2' }]} value={AgentId} onChange={(value) => {onChangeAgent(value),setAgentId(value), console.log(value)}} />
         </div>
         <div className="w-auto flex mb-5">
           <SubHeading1 text="Passport No  :" />
           <UnlabeledInput value={passportNo} onchange={(value) => { setPassportNo(value) }} />
           <div className="ml-5 w-96">
-            <GreenButton text="Search" />
+            <GreenButton text="Search" onClick={async()=>{fetchAgentPaymentList('passport_no',passportNo), await readDirectPaymentList('passport_no',passportNo) }}/>
           </div>
         </div>
       </CardHeader2 >
@@ -211,7 +209,7 @@ export default function Main(
 
       {/* <CardHeader2> */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-2 mb-4 h-96  ">
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={fetchAgentPaymentList} />
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={(name,value)=>fetchAgentPaymentList(name, value)} />
         <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)} />
       </div>
 
@@ -246,7 +244,7 @@ export default function Main(
         <EditModal
           currentElement={editAgentPayment}
           onClose={() => setModalName("")}
-          fetchAgentPaymentList={fetchAgentPaymentList}
+          fetchAgentPaymentList={(name, value)=>fetchAgentPaymentList(name,value)}
           companyList={companyList}
           countryList={countryList}
 
@@ -254,7 +252,7 @@ export default function Main(
       )}
       {modalName === "viewbulkpayment" ?
 
-        <PaymentDetailFromBulk onClose={() => setModalName('')} paymentDetail={paymentDetail} detailData={detailData} />
+        <PaymentDetailFromBulk onClose={() => setModalName('')} paymentDetail={paymentDetail} detailData={detailData} AgentPaymentList={AgentPaymentList}/>
         :
         ''
 

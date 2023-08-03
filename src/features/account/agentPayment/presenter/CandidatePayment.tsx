@@ -15,7 +15,7 @@ import { createCandidateDiscountApprovalReject } from "../repository";
 import { CandidateDiscountApproveRejectInterface } from "../../candidateDiscountApproveReject/type";
 const CandidatePayment = (props: {
   AgentPaymentList: any,
-  fetchAgentPaymentList: any,
+  fetchAgentPaymentList: (name:string, value:any)=>void
   AgentID:any
 }) => {
 
@@ -30,7 +30,7 @@ const CandidatePayment = (props: {
   const handleClick = async (CandidatePayment: CandidateDiscountApproveRejectInterface) => {
     await createCandidateDiscountApprovalReject(CandidatePayment);
     handleReset();
-    await props.fetchAgentPaymentList()
+    await props.fetchAgentPaymentList('agent_id',props.AgentID);
   }
 
   const handleReset = () => {

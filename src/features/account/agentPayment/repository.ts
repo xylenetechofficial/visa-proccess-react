@@ -14,8 +14,8 @@ import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveReject
 
 
 // ! EMG
-export async function readAgentPaymentList(agent_id:number) {
-  const path = "/account/agent-payment-list?agent_id="+agent_id;
+export async function readAgentPaymentList(name:string,value:any) {
+  const path = `/account/agent-payment-list?${name}=${value}`;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,

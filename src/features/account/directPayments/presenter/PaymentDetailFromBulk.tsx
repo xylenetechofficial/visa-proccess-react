@@ -1,9 +1,5 @@
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
-import { DateInput } from "../../../../componenets/Input"
-import { FullScreenModal } from "../../../../componenets/Modal"
-import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
 import { convertDateFormat } from "../../../../utils/function"
-import { useUserAuth } from "../../../context/UserAuthContext"
 import PaymentDetailBulkTable from "./PaymentDetailBulkTable"
 import { Box } from "@mui/material";
 
@@ -24,22 +20,13 @@ export default function Main(props:
         onClose: any,
         paymentDetail: any[],
         detailData: any
+        AgentPaymentList: any
     }) {
-        const { authAgent } = useUserAuth();
-        console.log(authAgent,"first")
-    const onClickAdd = () => {
-console.log("first",)
-    }
-console.log(props.detailData,'detailData')
+
+
     return (
         <>
-            {/*         
-        <FullScreenModal
-            buttonName="Update"
-            handleClick={onClickAdd}
-            title="Update Block Visa"
-            onClose={props.onClose}
-        > */}
+
 
             <Box sx={style}>
                 <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Payment Detail</h3>
@@ -68,7 +55,7 @@ console.log(props.detailData,'detailData')
                     <UpdateContentBox>
 
                         <SubHeading1 text="AGENT NAME  :" />
-                        {authAgent?.name}
+                        {props.AgentPaymentList?.agent_name}
                     </UpdateContentBox>
                     <UpdateContentBox>
 
@@ -85,18 +72,13 @@ console.log(props.detailData,'detailData')
                         <SubHeading1 text="BULK PAYMENT DATE  :" />
                         {convertDateFormat(props.detailData.created_at)}
                     </UpdateContentBox>
-
-
                 </div>
-
-
                 <PaymentDetailBulkTable
                     paymentDetail={props.paymentDetail}
                     onChange={(value) => console.log("Df")}
                 />
-
             </Box>
-            
+
 
         </>
     )

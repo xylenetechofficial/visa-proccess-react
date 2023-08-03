@@ -142,7 +142,7 @@ const AgentPaymentTable = (props: {
 
               </TableCell>
 
-              <TableCell> {ele.advance}
+              <TableCell> 
                 <Checkbox value={ele.payment_date} onChange={(e) => {
                   props.setData((prev: any) => {
                     const newData = [...prev];
