@@ -143,6 +143,7 @@ const TableData = (
             <TableCell3 > {localRowData.passportNo}</TableCell3>
             <TableCell3 > {convertDateFormat(localRowData.passortIssuwDate)}</TableCell3>
             <TableCell3 > {convertDateFormat(localRowData.passortExpiryDate)}</TableCell3>
+            <TableCell3 > {localRowData.acctualProfession}</TableCell3>
             <TableCell3 > {localRowData.agent}</TableCell3>
             <TableCell3 > {localRowData.rs}</TableCell3>
             <TableCell3 > {localRowData.rs}</TableCell3>
