@@ -8,14 +8,18 @@ import {
 } from "../../../utils/api_helper";
 import { endpoint } from "../../../constant";
 import { showMessage_v2 } from "../../../utils/alert";
+import { string } from "prop-types";
 
-export async function readAgentList(refresh = false) {
+export async function readAgentList(refresh = false, filter_for = "") {
   const path = "/masters/agent-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
+    queryParameters: {
+      filter_for: filter_for,
+    },
   });
 
   if (response.code != 200) {

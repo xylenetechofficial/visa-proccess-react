@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
 import { DateInput } from "../../../../componenets/Input"
 import { FullScreenModal } from "../../../../componenets/Modal"
@@ -30,6 +31,12 @@ export default function Main (props:
 const onClickAdd =()=>{
 console.log("first")
 }
+
+useEffect(()=>{
+    console.log(props.detailData);   // Only Dev
+
+
+},[])
 
     return (
         <>
@@ -68,7 +75,7 @@ console.log("first")
                 <UpdateContentBox>
 
                     <SubHeading1 text="AGENT NAME  :" />
-                   {authAgent.name}
+                   {props.detailData.agent_name}
                 </UpdateContentBox>
                 <UpdateContentBox>
 

@@ -3,7 +3,7 @@ import { Box, styled } from "@mui/material";
 import AgentPaymentTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import {  CustomNavbarV3} from "../../../../componenets/CustomComponents";
+import { CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { AgentPaymentInterface } from "../type";
 import { addAgentPayment, deleteAgentPayment, readAgentPaymentList, readPaymentDetails } from "../repository";
 import {
@@ -30,7 +30,7 @@ const CardHeader2 = styled(Box)(() => ({
   gridTemplateColumns: "200px 200px 200px",
 }));
 
-export default function Main( ) {
+export default function Main() {
   const initValue: AgentPaymentInterface = {
     outstanding_since_2015: 0,
     payment_against_2015: 0,
@@ -46,16 +46,16 @@ export default function Main( ) {
 
     bulk_payment_list: []
   };
-  
+
   const [AgentPayment, setAgentPayment] = useState(initValue);
   const [data, setData] = useState<any>([])
   const [editAgentPayment, setEditAgentPayment] = useState<AgentPaymentInterface>(
     {} as AgentPaymentInterface
   );
-  const [passportNo,setPassportNo]= useState('')
+  const [passportNo, setPassportNo] = useState('')
   const [modalName, setModalName] = useState("");
   const [detailData, setDetailData] = useState<any>({})
-   
+
   const [AgentPaymentList, setAgentPaymentList] = useState<any>([]);
   // ! EMG
   const [AgentID, setAgentID] = useState(1);
@@ -91,14 +91,14 @@ export default function Main( ) {
     }
   }
   const fetchAgentList = async () => {
-    const data = await readAgentList();
+    const data = await readAgentList(false, "agent_payment");
     if (data) {
       setAgentList(data);
     }
   }
-  const fetchAgentPaymentList = async (name:string, value:any) => {
+  const fetchAgentPaymentList = async (name: string, value: any) => {
     // ! EMG
-    const data = await readAgentPaymentList(name,value);
+    const data = await readAgentPaymentList(name, value);
     console.log(data, "jj");
     if (data) {
       setAgentPaymentList(data);
@@ -116,21 +116,21 @@ export default function Main( ) {
     const currentData: any = { "selection_list": data };
     const datas = await addAgentPayment(currentData);
     setData([]);
-    await fetchAgentPaymentList('agent_id',AgentID);
+    await fetchAgentPaymentList('agent_id', AgentID);
 
   }
   const agentOperation = async (value: any) => {
     setAgentID(parseInt(value))
     const filteredArray: any = AgentList.filter((item) => item.id === value);
   }
-  const searchAgentPayment =()=>{
-    
-    if(passportNo){
-      fetchAgentPaymentList('passport_no',passportNo);
+  const searchAgentPayment = () => {
+
+    if (passportNo) {
+      fetchAgentPaymentList('passport_no', passportNo);
       console.log("passport agent_id")
     }
-    else{
-      fetchAgentPaymentList('agent_id',AgentID);
+    else {
+      fetchAgentPaymentList('agent_id', AgentID);
       console.log("agent_id agent_id")
     }
 
@@ -151,7 +151,7 @@ export default function Main( ) {
           />
         </div>
         {/* <div className="w-20"> */}
-          {/* <GreenButton
+        {/* <GreenButton
             text={"Submit "}
             onClick={() => {
               fetchAgentPaymentList()
@@ -161,9 +161,9 @@ export default function Main( ) {
         {/* </div> */}
         <div className="w-auto flex">
           <SubHeading1 text="Passport No  :" />
-          <UnlabeledInput value={passportNo} onchange={(value) =>{setPassportNo(value)} } />
+          <UnlabeledInput value={passportNo} onchange={(value) => { setPassportNo(value) }} />
           <div className="ml-5 w-96">
-            <GreenButton text="Search"  onClick={()=>searchAgentPayment()}/>
+            <GreenButton text="Search" onClick={() => searchAgentPayment()} />
           </div>
         </div>
       </CardHeader2>
@@ -178,8 +178,8 @@ export default function Main( ) {
       {/* <CardHeader2> */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mb-4">
 
-        <AgentBulkPayment fetchAgentPaymentList={(name, value)=>fetchAgentPaymentList(name,value)} AgentID={AgentID} setAgentID={setAgentID} />
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={(name, value)=>fetchAgentPaymentList(name,value)} AgentID={AgentID} />
+        <AgentBulkPayment fetchAgentPaymentList={(name, value) => fetchAgentPaymentList(name, value)} AgentID={AgentID} setAgentID={setAgentID} />
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={(name, value) => fetchAgentPaymentList(name, value)} AgentID={AgentID} />
         <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)} />
       </div>
 
