@@ -57,7 +57,7 @@ export default function Main(props: {
         const data = await readBDEList()
         setBDEList(data)
     }
-    
+
     useEffect(() => {
         fetchBDEList()
     }, [])
@@ -171,6 +171,14 @@ export default function Main(props: {
                             options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
                             onChange={(value) => setJobOrder({ ...jobOrder, departureSectorId: value })}
                             label="Departure Sector"
+                        />
+
+                        {/* quantity */}
+                        <StandardInput
+                            type="number"
+                            onChangeValue={(value: string) => setJobOrder({ ...jobOrder, quantity: parseInt(value) })}
+                            label="Quantity"
+                            value={jobOrder.quantity}
                         />
                     </div>
                 </div>

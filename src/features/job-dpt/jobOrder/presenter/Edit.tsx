@@ -185,6 +185,14 @@ export default function Main(props: {
                             onChange={(value) => setJobOrder({ ...jobOrder, departureSectorId: value })}
                             label="Departure Sector"
                         />
+
+                        {/* quantity */}
+                        <StandardInput
+                            type="number"
+                            onChangeValue={(value: string) => setJobOrder({ ...jobOrder, quantity: parseInt(value) })}
+                            label="Quantity"
+                            value={jobOrder.quantity}
+                        />
                     </div>
                 </div>
                 <div className="">
