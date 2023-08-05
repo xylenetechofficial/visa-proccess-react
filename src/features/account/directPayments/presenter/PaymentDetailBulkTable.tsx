@@ -102,13 +102,13 @@ const TableData = (
                 {props.data.amount}
             </TableCell>
             <TableCell >
-                {convertDateFormatWithTime(props.data.created_at)}
+                {convertDateFormat(props.data.created_at)}
             </TableCell>
             <TableCell >
                 {props.data.payment_entry_by}
             </TableCell>
             <TableCell >
-                {convertDateFormat(props.data?.created_at)}
+                {convertDateFormatWithTime(props.data?.created_at)}
             </TableCell>
         </TableRow>
     )

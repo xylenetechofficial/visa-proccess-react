@@ -20,28 +20,28 @@ const style = {
     borderRadius: 2,
     p: 4,
 };
-export default function Main (props:
+export default function Main(props:
     {
-        AgentPaymentList:any,
-        onClose:any,
+        AgentPaymentList: any,
+        onClose: any,
         paymentDetail: any[],
-        detailData:any
-}){
-    
+        detailData: any
+    }) {
+
     console.log(props.AgentPaymentList)
-const onClickAdd =()=>{
-console.log("first")
-}
+    const onClickAdd = () => {
+        console.log("first")
+    }
 
-useEffect(()=>{
-    console.log(props.detailData);   // Only Dev
+    useEffect(() => {
+        console.log(props.detailData);   // Only Dev
 
 
-},[])
+    }, [])
 
     return (
         <>
-{/*         
+            {/*         
         <FullScreenModal
             buttonName="Update"
             handleClick={onClickAdd}
@@ -49,63 +49,63 @@ useEffect(()=>{
             onClose={props.onClose}
         > */}
 
-<Box sx={style}>
-            <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Payment Detail</h3>
-            <button
-                type="button"
-                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                onClick={() => props.onClose()}
-            >
-                <svg
-                    aria-hidden="true"
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
+            <Box sx={style}>
+                <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Payment Detail</h3>
+                <button
+                    type="button"
+                    className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                    onClick={() => props.onClose()}
                 >
-                    <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                    ></path>
-                </svg>
-                <span className="sr-only">Close modal</span>
-            </button>
-            
-            <div className="grid grid-cols-1 py-3  gap-2 shadow">
-                <UpdateContentBox>
+                    <svg
+                        aria-hidden="true"
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fillRule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                        ></path>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                </button>
 
-                    <SubHeading1 text="AGENT NAME  :" />
-                   {props.AgentPaymentList.agent_name}
-                </UpdateContentBox>
-                <UpdateContentBox>
+                <div className="grid grid-cols-1 py-3  gap-2 shadow">
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="BULK PAYMENT AMOUNT  :" />
-                    {props.detailData.used_amount}
-                </UpdateContentBox>
-                <UpdateContentBox>
+                        <SubHeading1 text="AGENT NAME  :" />
+                        {props.AgentPaymentList.agent_name}
+                    </UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="BULK PAYMENT DETAILS  :" />
-                    {props.detailData.description}
-                </UpdateContentBox>
-                <UpdateContentBox>
+                        <SubHeading1 text="BULK PAYMENT AMOUNT  :" />
+                        {props.detailData.used_amount}
+                    </UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="BULK PAYMENT DATE  :" />
-                    {convertDateFormat(props.detailData.created_at)}
-                </UpdateContentBox>
+                        <SubHeading1 text="BULK PAYMENT DETAILS  :" />
+                        {props.detailData.description}
+                    </UpdateContentBox>
+                    <UpdateContentBox>
+
+                        <SubHeading1 text="BULK PAYMENT DATE  :" />
+                        {convertDateFormat(props.detailData.created_at)}
+                    </UpdateContentBox>
 
 
-           </div>
+                </div>
 
 
-            <PaymentDetailBulkTable
-                visaProfessionList={props.paymentDetail}
-                onChange={(value) => console.log("Df")}
-            />
+                <PaymentDetailBulkTable
+                    visaProfessionList={props.paymentDetail}
+                    onChange={(value) => console.log("Df")}
+                />
 
-        </Box>
-    
-        
+            </Box>
+
+
         </>
     )
 }

@@ -55,7 +55,7 @@ const Main = (props: {
                         <TableHeadCell >Amount </TableHeadCell>
                         <TableHeadCell >Date</TableHeadCell>
                         <TableHeadCell >Advance  </TableHeadCell>
-                        <TableHeadCell >By</TableHeadCell>
+                        <TableHeadCell > Received By</TableHeadCell>
 
                     </TableHeadRow>
                 </TableHead>
