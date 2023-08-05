@@ -3,7 +3,7 @@ import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHead2, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
-import { convertDateFormat } from '../../../../utils/function';
+import { convertDateFormat, convertDateFormatWithTime } from '../../../../utils/function';
 
 const VisaProfessionTable = (props: {
     paymentDetail: any[],
@@ -102,6 +102,7 @@ const TableData = (
                 {props.data.amount}
             </TableCell>
             <TableCell >
+                {convertDateFormatWithTime(props.data.created_at)}
             </TableCell>
             <TableCell >
                 {props.data.payment_entry_by}

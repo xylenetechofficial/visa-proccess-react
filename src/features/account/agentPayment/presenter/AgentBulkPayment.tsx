@@ -24,7 +24,7 @@ const AgentBulkPayment = (props:   {
     await createAgentPaymentAdd(agentPayment)
     console.log(agentPayment,"agent_id")
     handleReset();
-    await props.fetchAgentPaymentList('agent_id',props.AgentID);
+     props.fetchAgentPaymentList('agent_id',props.AgentID);
   }
   const handleReset = () => {
     setagentPayment({

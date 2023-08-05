@@ -469,3 +469,45 @@ public static toAdapter(i: AgentPaymentReceivedPaymentListInterface) {
  return data;
 }
 }
+
+
+export interface AgentPaymentByIDInterface {
+  agent_id?:number,
+  passport_no?:string,
+
+}
+export interface AgentPaymentByIDAdapter {
+  agent_id?:number,
+  passport_no?:string,
+
+}
+
+export class AgentPaymentByIDConverter{
+    // private i: AgentPaymentByIDInterface
+  // private a: AgentPaymentByIDAdapter
+
+  /**
+   * toInterface
+   */
+
+  public static toInterface(a: AgentPaymentByIDAdapter) {
+    const data: AgentPaymentByIDInterface = {
+      agent_id:a.agent_id,
+      passport_no:a.passport_no,
+    
+    };
+    return data;
+  }
+    /**
+   * toAdapter
+   */
+    public static toAdapter(i: AgentPaymentByIDInterface) {
+      console.log("i"); // Only Dev
+      console.log(i); // Only Dev
+      const data: AgentPaymentByIDAdapter = {
+        agent_id:i.agent_id,
+        passport_no:i.passport_no,
+      };
+      return `agent_id=${i.agent_id}&passport_no=${i.passport_no}`;
+    }
+}

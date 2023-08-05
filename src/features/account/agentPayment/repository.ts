@@ -1,4 +1,4 @@
-import { AgentPaymentAddConverter, AgentPaymentAddInterface, AgentPaymentAdapter, AgentPaymentConverter, AgentPaymentInterface, ServerAdapter, VisaProfesionInterface, AddAgentPaymentInterface , AddSelectionAgentPaymentAdapter, AddAgentPaymentConverter} from "./type";
+import { AgentPaymentAddConverter, AgentPaymentAddInterface, AgentPaymentAdapter, AgentPaymentConverter, AgentPaymentInterface, ServerAdapter, VisaProfesionInterface, AddAgentPaymentInterface , AddSelectionAgentPaymentAdapter, AddAgentPaymentConverter, AgentPaymentByIDInterface, AgentPaymentByIDConverter} from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";
@@ -14,8 +14,10 @@ import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveReject
 
 
 // ! EMG
-export async function readAgentPaymentList(name:string,value:any) {
-  const path = `/account/agent-payment-list?${name}=${value}`;
+export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface) {
+
+  const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
+  const path = `/account/agent-payment-list?${payload}`;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,

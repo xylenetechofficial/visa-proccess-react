@@ -3,7 +3,7 @@ import {  GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
-import { convertDateFormat } from '../../../../utils/function';
+import { convertDateFormat, convertDateFormatWithTime } from '../../../../utils/function';
 
 const VisaProfessionTable = (props: {
     visaProfessionList: VisaProfesionInterface[],
@@ -127,7 +127,7 @@ const TableData = (
             {props.data.amount}
             </TableCell>
             <TableCell >
-                {convertDateFormat(props.data.created_at)}
+                {convertDateFormatWithTime(props.data.created_at)}
                
             </TableCell>
  

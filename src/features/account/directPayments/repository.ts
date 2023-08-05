@@ -1,10 +1,11 @@
-import { AgentPaymentAddConverter, AgentPaymentAddInterface, VisaProfesionInterface, AddSelectionAgentPaymentAdapter, CandidateAdvancePaymentInterface, CandidateAdvancePaymentConverter, DirectPaymentInterface, DirectPaymentConverter, DirectPaymentAdapter, AdvancePaymentConverter, AdvancePaymentAdapter, AdvancePaymentInterface, CandidatePaymentInterface, CandidatePaymentConverter, AgentPaymentReceivedPaymentListInterface, AgentPaymentReceivedPaymentListAdapter, AgentPaymentReceivedPaymentListConverter } from "./type";
+import { AgentPaymentAddConverter, AgentPaymentAddInterface, VisaProfesionInterface, AddSelectionAgentPaymentAdapter, CandidateAdvancePaymentInterface, CandidateAdvancePaymentConverter, DirectPaymentInterface, DirectPaymentConverter, DirectPaymentAdapter, AdvancePaymentConverter, AdvancePaymentAdapter, AdvancePaymentInterface, CandidatePaymentInterface, CandidatePaymentConverter, AgentPaymentReceivedPaymentListInterface, AgentPaymentReceivedPaymentListAdapter, AgentPaymentReceivedPaymentListConverter, AgentPaymentByIDInterface, AgentPaymentByIDConverter } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";
 
-export async function readDirectPaymentList(name:string,value: any) {
-  const path = `/account/direct-payment-list?${name}=${value}`;
+export async function readDirectPaymentList(AgentBy:AgentPaymentByIDInterface) {
+  const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
+  const path = `/account/direct-payment-list?${payload}`;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,

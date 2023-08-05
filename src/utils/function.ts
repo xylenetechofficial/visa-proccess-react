@@ -43,6 +43,44 @@ export function convertDateFormat(dateString: string) {
   else return "";
 }
 
+
+export function convertDateFormatWithTime(dateString: string) {
+  if (!dateString || dateString.trim() == "") return "";
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const d = new Date(dateString);
+  const date = d.getDate();
+  const month = months[d.getMonth()];
+  const year = d.getFullYear();
+  const hours = d.getHours();
+  const minutes = d.getMinutes();
+  const seconds = d.getSeconds();
+  
+
+  if (date && month && year) return `${date} ${month} ${year} ${hours}:${minutes}:${seconds}`;
+  else return "";
+}
 export const addDaysToDate = (date: string, days: number) => {
   const startDate = new Date(date);
 

@@ -22,12 +22,13 @@ const style = {
 };
 export default function Main (props:
     {
+        AgentPaymentList:any,
         onClose:any,
         paymentDetail: any[],
         detailData:any
 }){
-    const { authAgent } = useUserAuth();
-    console.log(props.detailData)
+    
+    console.log(props.AgentPaymentList)
 const onClickAdd =()=>{
 console.log("first")
 }
@@ -75,7 +76,7 @@ useEffect(()=>{
                 <UpdateContentBox>
 
                     <SubHeading1 text="AGENT NAME  :" />
-                   {props.detailData.agent_name}
+                   {props.AgentPaymentList.agent_name}
                 </UpdateContentBox>
                 <UpdateContentBox>
 

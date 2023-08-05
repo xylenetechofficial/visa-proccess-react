@@ -14,7 +14,7 @@ import {
 import { createCandidatePaymentAdd } from "../repository";
 import { CandidatePaymentInterface } from "../type";
 const CandidatePayment = (props: {
-  fetchAgentPaymentList: (name:string, value:any) => void,
+  fetchAgentPaymentList: () => void,
   AgentPaymentList: any;
 
 
@@ -30,7 +30,7 @@ const CandidatePayment = (props: {
   const [CandidatePayment, setCandidatePayment] = useState(initValue);
   const handleClick = async (CandidatePayment: CandidatePaymentInterface) => {
     await createCandidatePaymentAdd(CandidatePayment)
-     props.fetchAgentPaymentList('agent_id', props.AgentPaymentList.agent_id);
+     props.fetchAgentPaymentList();
      handleReset();
   }
   const handleReset = () => {

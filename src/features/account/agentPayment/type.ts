@@ -12,7 +12,7 @@ export interface AgentPaymentInterface {
   rejected_candidates: number,
   flight_candidates: number,
   amount_available_for_adjustment: number,
-  table_data_list: VisaProfesionInterface[],
+  table_data_list: AgentPaymentTableInterface[],
 
   bulk_payment_list: VisaProfesionInterface[]
 
@@ -39,7 +39,7 @@ export interface AgentPaymentAdapter {
   rejected_candidates: number,
   flight_candidates: number,
   amount_available_for_adjustment: number,
-  table_data_list: VisaProfesionInterface[],
+  table_data_list: AgentPaymentTableInterface[],
 
   bulk_payment_list: VisaProfesionInterface[]
 
@@ -243,3 +243,80 @@ export class AgentPaymentConverter {
   }
 }
 
+
+export interface AgentPaymentTableInterface {
+
+actual_profession: string,
+advance: number,
+agent_commission: number,
+agent_name: string,
+amount: number,
+attestation_charges: number,
+balance_amount: number,
+candidate_dropdown_name: string,
+company_name:string,
+consolidated_charges: number,
+consulate_setting_charges: number,
+discount_amount:number,
+document_charges: number,
+extra_service_tax: number,
+id: number,
+is_without: number,
+name:string,
+other_charges: number,
+partial_charges: number,
+party_code: number,
+passport_no:string,
+payment_date: string,
+penalty_after_deployment: number,
+photo_charges: number,
+received: number,
+sector_charges: number,
+service_charges: number,
+ticket_charges: number,
+training_charges: number,
+visa_authorization: number,
+visa_profession: string,
+visa_received_date: string,
+}
+
+export interface AgentPaymentByIDInterface {
+  agent_id?:number,
+  passport_no?:string,
+
+}
+export interface AgentPaymentByIDAdapter {
+  agent_id?:number,
+  passport_no?:string,
+
+}
+
+export class AgentPaymentByIDConverter{
+    // private i: AgentPaymentByIDInterface
+  // private a: AgentPaymentByIDAdapter
+
+  /**
+   * toInterface
+   */
+
+  public static toInterface(a: AgentPaymentByIDAdapter) {
+    const data: AgentPaymentByIDInterface = {
+      agent_id:a.agent_id,
+      passport_no:a.passport_no,
+    
+    };
+    return data;
+  }
+    /**
+   * toAdapter
+   */
+    public static toAdapter(i: AgentPaymentByIDInterface) {
+      console.log("i"); // Only Dev
+      console.log(i); // Only Dev
+      const data: AgentPaymentByIDAdapter = {
+        agent_id:i.agent_id,
+        passport_no:i.passport_no,
+      };
+      return `agent_id=${i.agent_id}&passport_no=${i.passport_no}`;
+    }
+}
