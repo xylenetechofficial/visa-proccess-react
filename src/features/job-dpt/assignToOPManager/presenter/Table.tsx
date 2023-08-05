@@ -1,6 +1,6 @@
 import { JobOrderInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
@@ -20,35 +20,35 @@ const JobOrderTable = (props: {
 }) => {
     return (
         <div className='overflow-auto'>
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Job Order Number</TableHeadCell>
-                        <TableHeadCell > Date</TableHeadCell>
-                        <TableHeadCell > Company</TableHeadCell>
-                        <TableHeadCell > Country</TableHeadCell>
-                        <TableHeadCell > BDE</TableHeadCell>
-                        <TableHeadCell > Sector</TableHeadCell>
-                        <TableHeadCell > Opration Manager</TableHeadCell>
-                        <TableHeadCell > Action</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Job Order Number</TableHeadCell3>
+                        <TableHeadCell3 > Date</TableHeadCell3>
+                        <TableHeadCell3 > Company</TableHeadCell3>
+                        <TableHeadCell3 > Country</TableHeadCell3>
+                        <TableHeadCell3 > BDE</TableHeadCell3>
+                        <TableHeadCell3 > Sector</TableHeadCell3>
+                        <TableHeadCell3 > Opration Manager</TableHeadCell3>
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.jobOrderList.map((ele, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell >{index + 1}</TableCell>
-                            <TableCell > {ele.jobOrderNumber}</TableCell>
-                            <TableCell > {convertDateFormat(ele.date)}</TableCell>
-                            <TableCell > {ele.company_name ?? ""}</TableCell>
-                            <TableCell > {ele.client_country_name ?? ""}</TableCell>
-                            <TableCell > {ele.bde_name ?? ""}</TableCell>
-                            {/* <TableCell > {BDEList.map((user) => user.id == ele.BDEName ? user.name : "")}</TableCell> */}
-                            <TableCell > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell>
-                            <TableCell > {ele.operation_manager_name ?? ""}</TableCell>
-                            <TableCell >
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.jobOrderNumber}</TableCell3>
+                            <TableCell3 > {convertDateFormat(ele.date)}</TableCell3>
+                            <TableCell3 > {ele.company_name ?? ""}</TableCell3>
+                            <TableCell3 > {ele.client_country_name ?? ""}</TableCell3>
+                            <TableCell3 > {ele.bde_name ?? ""}</TableCell3>
+                            {/* <TableCell3 > {BDEList.map((user) => user.id == ele.BDEName ? user.name : "")}</TableCell3> */}
+                            <TableCell3 > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell3>
+                            <TableCell3 > {ele.operation_manager_name ?? ""}</TableCell3>
+                            <TableCell3 >
                                 {ele.operationManagerId == 0 ?
                                     <GreenButton text={" Assign"} onClick={() => {
                                         props.onClickEdit(ele)
@@ -62,14 +62,14 @@ const JobOrderTable = (props: {
 
 
 
-                            </TableCell>
-                        </TableRow>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

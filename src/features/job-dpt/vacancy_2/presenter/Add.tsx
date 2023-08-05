@@ -164,7 +164,7 @@ export default function Main(props: {
     async function onClickAdd() {
         const data = await generate_new_job_order(actualProfesionList)
         console.log(data.actualProfesionList ?? []);   // Only Dev
-        return
+        // return
         const flag = await updateJobOrder(props.currentElement.id ?? 0, data)
 
         if (flag) {
@@ -202,7 +202,7 @@ export default function Main(props: {
         <FullScreenModal
             buttonName="Submit"
             handleClick={onClickAdd}
-            title="Add Vacancy"
+            title={props.currentElement.actual_profession_count?"Update Vacancy":"Add Vacancy"}
             onClose={() => props.onClose('')}
         >
 

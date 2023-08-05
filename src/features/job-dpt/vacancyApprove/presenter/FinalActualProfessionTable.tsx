@@ -1,6 +1,6 @@
 import { JobOrderInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableCell3, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow3, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3,  TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 // import { SectorInterface } from '../../../masters/sector/type';
 // import { CompanyInterface } from '../../../masters/company/type';
 // import { CountryInterface } from '../../../masters/country/type';
@@ -91,7 +91,7 @@ const FinalActualProfessionTable = (props: {
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
+            <Table3  >
                 <TableHead3 >
                     <TableHeadRow3  >
                         <TableHeadCell3  > Sr No.</TableHeadCell3>
@@ -120,7 +120,7 @@ const FinalActualProfessionTable = (props: {
 
                     </TableHeadRow3>
                 </TableHead3>
-                <TableBody>
+                <TableBody3>
                     {actualProfessionList && actualProfessionList.map((ele, index) => (
                         <TableData
                             data={ele}
@@ -133,15 +133,15 @@ const FinalActualProfessionTable = (props: {
                     ))}
 
 
-                    {/* <TableRow>
-                        <TableCell>
+                    {/* <TableRow3>
+                        <TableCell3>
                             <div style={{ width: "111px", margin: "10px 0px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
-                        </TableCell>
-                    </TableRow> */}
-                </TableBody>
-            </Table>
+                        </TableCell3>
+                    </TableRow3> */}
+                </TableBody3>
+            </Table3>
 
         </div>
     )
@@ -198,7 +198,7 @@ const TableData = (
 
     // console.log(localRowData)
     return (
-        <TableRow key={props.index}>
+        <TableRow3 key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
             <TableCell3 >
             {localRowData.actual_profession}
@@ -391,6 +391,6 @@ const TableData = (
 
 
             </TableCell3>
-        </TableRow>
+        </TableRow3>
     )
 }

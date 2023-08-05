@@ -1,6 +1,6 @@
 import { SelectionInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, Table2, TableBody, TableBody2, TableCell, TableCell2, TableHead, TableHead2, TableHeadCell, TableHeadCell2, TableHeadRow, TableHeadRow2, TableRow, TableRow2 } from '../../../../componenets/Table';
+import {  Table3,  TableBody3,  TableCell3,  TableHead3,  TableHeadCell3,  TableHeadRow3,  TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
@@ -66,33 +66,33 @@ const SelectionTable = (props: {
             </Table> */}
 
 
-            <Table2  >
-                <TableHead2 >
-                    <TableHeadRow2  >
-                        <TableHeadCell2  > Sr No.</TableHeadCell2>
-                        <TableHeadCell2 > COMPANY</TableHeadCell2>
-                        <TableHeadCell2 > CANDIDATE NAME</TableHeadCell2>
-                        <TableHeadCell2 > PASSPORT NO</TableHeadCell2>
-                        <TableHeadCell2 > ACTUAL PROFESSION</TableHeadCell2>
-                        <TableHeadCell2 > AGENT</TableHeadCell2>
-                        <TableHeadCell2 > ADDED DATE</TableHeadCell2>
-                        <TableHeadCell2 > Action</TableHeadCell2>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > COMPANY</TableHeadCell3>
+                        <TableHeadCell3 > CANDIDATE NAME</TableHeadCell3>
+                        <TableHeadCell3 > PASSPORT NO</TableHeadCell3>
+                        <TableHeadCell3 > ACTUAL PROFESSION</TableHeadCell3>
+                        <TableHeadCell3 > AGENT</TableHeadCell3>
+                        <TableHeadCell3 > ADDED DATE</TableHeadCell3>
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
-                    </TableHeadRow2>
-                </TableHead2>
-                <TableBody2>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.selectionList.map((ele, index) => (
 
-                        <TableRow2 key={index}>
-                            <TableCell2 >{index + 1}</TableCell2>
-                            {/* <TableCell2 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell2> */}
-                            <TableCell2 > {ele.company_name??""}</TableCell2>
-                            <TableCell2 > {ele.name}</TableCell2>
-                            <TableCell2 > {ele.passport_no}</TableCell2>
-                            <TableCell2 > {ele.actual_profession}</TableCell2>
-                            <TableCell2 > {ele.agent_name??""}</TableCell2>
-                            <TableCell2 > {convertDateFormat(ele.createAt)}</TableCell2>
-                            <TableCell2 >
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell3> */}
+                            <TableCell3 > {ele.company_name??""}</TableCell3>
+                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {ele.passport_no}</TableCell3>
+                            <TableCell3 > {ele.actual_profession}</TableCell3>
+                            <TableCell3 > {ele.agent_name??""}</TableCell3>
+                            <TableCell3 > {convertDateFormat(ele.createAt)}</TableCell3>
+                            <TableCell3 >
 
                         
                         <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
@@ -104,14 +104,14 @@ const SelectionTable = (props: {
                                 }} />
                        
 
-                            </TableCell2>
-                        </TableRow2>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody2>
-            </Table2>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

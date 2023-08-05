@@ -1,6 +1,6 @@
 import { JobOrderInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, Table2, TableBody, TableBody2, TableCell, TableCell2, TableHead, TableHead2, TableHeadCell, TableHeadCell2, TableHeadRow, TableHeadRow2, TableRow, TableRow2 } from '../../../../componenets/Table';
+import { Table, Table3,  TableBody3, TableCell3, TableHead3, TableHeadCell3,  TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
@@ -38,14 +38,14 @@ const JobOrderTable = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow key={index}>
-                            <TableCell >{index + 1}</TableCell>
-                            <TableCell > {ele.jobOrderNumber}</TableCell>
-                            <TableCell > {ele.date}</TableCell>
-                            <TableCell > {ele.company_name ?? ""}</TableCell>
-                            <TableCell > {ele.client_country_name ?? ""}</TableCell>
-                            <TableCell > {BDEList.map((user) => user.id == ele.BDEName ? user.name : "")}</TableCell>
-                            <TableCell > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell>
-                            <TableCell >
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.jobOrderNumber}</TableCell3>
+                            <TableCell3 > {ele.date}</TableCell3>
+                            <TableCell3 > {ele.company_name ?? ""}</TableCell3>
+                            <TableCell3 > {ele.client_country_name ?? ""}</TableCell3>
+                            <TableCell3 > {BDEList.map((user) => user.id == ele.BDEName ? user.name : "")}</TableCell3>
+                            <TableCell3 > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell3>
+                            <TableCell3 >
 
                         
                         <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
@@ -57,7 +57,7 @@ const JobOrderTable = (props: {
                                 }} />
                        
 
-                            </TableCell>
+                            </TableCell3>
                         </TableRow>
                     ))}
 
@@ -67,33 +67,33 @@ const JobOrderTable = (props: {
             </Table> */}
 
 
-            <Table2  >
-                <TableHead2 >
-                    <TableHeadRow2  >
-                        <TableHeadCell2  > Sr No.</TableHeadCell2>
-                        <TableHeadCell2 > Job Order Number</TableHeadCell2>
-                        <TableHeadCell2 > Date</TableHeadCell2>
-                        <TableHeadCell2 > Company</TableHeadCell2>
-                        <TableHeadCell2 > Country</TableHeadCell2>
-                        <TableHeadCell2 > BDE</TableHeadCell2>
-                        <TableHeadCell2 > Sector</TableHeadCell2>
-                        <TableHeadCell2 > Action</TableHeadCell2>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Job Order Number</TableHeadCell3>
+                        <TableHeadCell3 > Date</TableHeadCell3>
+                        <TableHeadCell3 > Company</TableHeadCell3>
+                        <TableHeadCell3 > Country</TableHeadCell3>
+                        <TableHeadCell3 > BDE</TableHeadCell3>
+                        <TableHeadCell3 > Sector</TableHeadCell3>
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
-                    </TableHeadRow2>
-                </TableHead2>
-                <TableBody2>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.jobOrderList.map((ele, index) => (
 
-                        <TableRow2 key={index}>
-                            <TableCell2 >{index + 1}</TableCell2>
-                            <TableCell2 > {ele.jobOrderNumber}</TableCell2>
-                            <TableCell2 > {convertDateFormat(ele.date)}</TableCell2>
-                            <TableCell > {ele.company_name ?? ""}</TableCell>
-                            <TableCell > {ele.client_country_name ?? ""}</TableCell>
-                            <TableCell2 > {ele.bde_name}</TableCell2>
-                            {/* <TableCell2 > {BDEList.map((user) => user.id == ele.BDEName ? user.name : "")}</TableCell2> */}
-                            <TableCell2 > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell2>
-                            <TableCell2 >
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.jobOrderNumber}</TableCell3>
+                            <TableCell3 > {convertDateFormat(ele.date)}</TableCell3>
+                            <TableCell3 > {ele.company_name ?? ""}</TableCell3>
+                            <TableCell3 > {ele.client_country_name ?? ""}</TableCell3>
+                            <TableCell3 > {ele.bde_name}</TableCell3>
+                            {/* <TableCell3 > {BDEList.map((user) => user.id == ele.BDEName ? user.name : "")}</TableCell3> */}
+                            <TableCell3 > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell3>
+                            <TableCell3 >
 
 
                                 <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
@@ -105,14 +105,14 @@ const JobOrderTable = (props: {
                                 }} />
 
 
-                            </TableCell2>
-                        </TableRow2>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody2>
-            </Table2>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

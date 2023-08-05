@@ -1,6 +1,6 @@
 import { JobOrderInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 // import { SectorInterface } from '../../../masters/sector/type';
 // import { CompanyInterface } from '../../../masters/company/type';
 // import { CountryInterface } from '../../../masters/country/type';
@@ -69,25 +69,25 @@ const ActualProfessionTable = (props: {
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Actual Profession</TableHeadCell>
-                        <TableHeadCell > QUANTITY</TableHeadCell>
-                        <TableHeadCell >Selection Target QTY</TableHeadCell>
-                        <TableHeadCell > Min. Salary</TableHeadCell>
-                        <TableHeadCell > Max. Salary</TableHeadCell>
-                        <TableHeadCell > Job Description</TableHeadCell>
-                        <TableHeadCell > Master Service Charges	 			</TableHeadCell>
-                        <TableHeadCell > Differed Service Charges</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Actual Profession</TableHeadCell3>
+                        <TableHeadCell3 > QUANTITY</TableHeadCell3>
+                        <TableHeadCell3 >Selection Target QTY</TableHeadCell3>
+                        <TableHeadCell3 > Min. Salary</TableHeadCell3>
+                        <TableHeadCell3 > Max. Salary</TableHeadCell3>
+                        <TableHeadCell3 > Job Description</TableHeadCell3>
+                        <TableHeadCell3 > Master Service Charges	 			</TableHeadCell3>
+                        <TableHeadCell3 > Differed Service Charges</TableHeadCell3>
 
 
-                        <TableHeadCell >  Action</TableHeadCell>
+                        <TableHeadCell3 >  Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {actualProfessionList && actualProfessionList.map((ele, index) => (
                         <TableData
                             data={ele}
@@ -100,15 +100,15 @@ const ActualProfessionTable = (props: {
                     ))}
 
 
-                    <TableRow>
-                        <TableCell>
+                    <TableRow3>
+                        <TableCell3>
                         <div style={{ width: "111px", margin:"10px 0px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+                        </TableCell3>
+                    </TableRow3>
+                </TableBody3>
+            </Table3>
 
         </div>
     )
@@ -149,72 +149,72 @@ const TableData = (
 
     // console.log(localRowData)
     return (
-        <TableRow key={props.index}>
-            <TableCell >{props.index + 1}</TableCell>
-            <TableCell >
+        <TableRow3 key={props.index}>
+            <TableCell3 >{props.index + 1}</TableCell3>
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.actual_profession}
                     onchange={(value) => setLocalRowData({ ...localRowData, actual_profession: value })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.quantity} */}
                 <UnlabeledInput
                     value={localRowData.quantity}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.service_charges} */}
                 <UnlabeledInput
                     value={localRowData.seletion_target_quantity}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, seletion_target_quantity: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.partial_charges} */}
                 <UnlabeledInput
                     value={localRowData.min_salary}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, min_salary: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.agent_commission} */}
                 <UnlabeledInput
                     value={localRowData.max_salary}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, max_salary: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 {/* {props.data.invoice_service_charges} */}
                 <UnlabeledInput
                     value={localRowData.job_description}
                     onchange={(value) => setLocalRowData({ ...localRowData, job_description: value })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.invoice_ticket_charges} */}
                 <UnlabeledInput
                     type='number'
                     value={localRowData.master_service_charges}
                     onchange={(value) => setLocalRowData({ ...localRowData, master_service_charges: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.invoice_ticket_charges} */}
                 <UnlabeledInput
                     type='number'
                     value={localRowData.differed_service_charges}
                     onchange={(value) => setLocalRowData({ ...localRowData, differed_service_charges: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
 
 
                 <RedButton text={" Remove"} onClick={() => {
@@ -226,7 +226,7 @@ const TableData = (
 
 
 
-            </TableCell>
-        </TableRow>
+            </TableCell3>
+        </TableRow3>
     )
 }
