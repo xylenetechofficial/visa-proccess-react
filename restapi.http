@@ -13,6 +13,12 @@ GET {{endpoint}}/visa-dpt/mofa-entry-list
 ?status=sjgfs
 
 
+##################################################################
+
+######################      Account         ######################
+
+##################################################################
+
 
 # ================      Account Dashboard      =============== #
 
@@ -477,10 +483,88 @@ content-type: application/json
 
 
 
+# ================      Delhi Agent Payment      =============== #
+
+### Read Delhi Agent Payment List
+GET {{endpoint}}/account/delhi-agent-payment-list
+
+
+
+### Add In Account
+POST {{endpoint}}/account/delhi-agent-payment/add-in-account
+content-type: application/json
+
+{
+    "id": 2,
+    "is_without": 0,
+    "agent_id": 2,
+    "amount": 23,
+    "description": "description"
+}
+
+
+
+### Update Delhi Agent Payment
+PATCH {{endpoint}}/account/delhi-agent-payment/2
+content-type: application/json
+
+{
+    "is_without": 0,
+    "dad_amount": 44
+}
 
 
 
 
+
+
+# ================      Account Candidate List      =============== #
+
+### Read Account Candidate List
+GET {{endpoint}}/account/account-candidate-list
+
+
+
+### Update Account Candidate List
+PATCH {{endpoint}}/account/account-candidate/4
+content-type: application/json
+
+{
+    "is_without": 0,
+    "visa_cancel_penalty": 45,
+    "visa_cancel_remarks": "gvfgds"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################
+
+######################      Invoice         ######################
+
+##################################################################
 
 
 # ================      Client Suspend Amount      =============== #
@@ -903,70 +987,153 @@ GET {{endpoint}}/invoice-dpt/client-additional-payment/payment-list
 
 
 
+# ================      Invoice Courier Date      =============== #
 
-# ================      Delhi Agent Payment      =============== #
-
-### Read Delhi Agent Payment List
-GET {{endpoint}}/account/delhi-agent-payment-list
-
+### Read Invoice Courier Date List
+GET {{endpoint}}/invoice-dpt/invoice-courier-date-list
 
 
-### Add In Account
-POST {{endpoint}}/account/delhi-agent-payment/add-in-account
+
+### Add Invoice Courier Date
+POST {{endpoint}}/invoice-dpt/invoice-courier-date-list
 content-type: application/json
 
 {
-    "id": 2,
-    "is_without": 0,
-    "agent_id": 2,
-    "amount": 23,
-    "description": "description"
-}
-
-
-
-### Update Delhi Agent Payment
-PATCH {{endpoint}}/account/delhi-agent-payment/2
-content-type: application/json
-
-{
-    "is_without": 0,
-    "dad_amount": 44
-}
-
-
-
-
-
-
-# ================      Account Candidate List      =============== #
-
-### Read Account Candidate List
-GET {{endpoint}}/account/account-candidate-list
-
-
-
-### Update Account Candidate List
-PATCH {{endpoint}}/account/account-candidate/4
-content-type: application/json
-
-{
-    "is_without": 0,
-    "visa_cancel_penalty": 45,
-    "visa_cancel_remarks": "gvfgds"
+    "invoice_list":[
+        {
+            "company_name": "CA",
+            "invoice_number": "jdsgfs56f",
+            "invoice_date": "16-07-23",
+            "invoice_type": "Normal",
+            "total_charges": 12,
+            "invoice_sector": "sector a",
+            "courier_date": "23-07-23"
+        },
+        {
+            "company_name": "CB",
+            "invoice_number": "hgfr",
+            "invoice_date": "17-07-23",
+            "invoice_type": "Additional",
+            "total_charges": 52,
+            "invoice_sector": "sector g",
+            "courier_date": "23-07-23"
+        }
+    ]
 }
 
 
 
 
 
+# ================      Invoice Dispatched      =============== #
+
+### Read Invoice Dispatched List
+GET {{endpoint}}/invoice-dpt/invoice-dispatched-list
+
+
+
+### Add Invoice Dispatched
+POST {{endpoint}}/invoice-dpt/invoice-dispatched-list
+content-type: application/json
+
+{
+    "invoice_list":[
+        {
+            "id": 4,
+            "received": "No",
+            "received_date": ""
+        },
+        {
+            "id": 3,
+            "received": "Yes",
+            "received_date": "16-07-23"
+        }
+    ]
+}
+
+
+
+
+
+# ================      Invoice Admin Remarks      =============== #
+
+### Read Invoice Admin Remarks List
+GET {{endpoint}}/invoice-dpt/invoice-admin-remarks-list
+
+
+
+### Add Invoice Admin Remarks
+POST {{endpoint}}/invoice-dpt/invoice-admin-remarks-list
+content-type: application/json
+
+{
+    "invoice_list":[
+        {
+            "id": 3,
+            "given_to": "Aka 1",
+            "given_to_date": "23-07-23",
+            "given_to_remarks": "NA"
+        }
+    ]
+}
+
+
+
+
+### Read Invoice Contact Person List
+GET {{endpoint}}/invoice-dpt/invoice-contact-person-list
+
+
+
+### Add Invoice Contact Person
+POST {{endpoint}}/invoice-dpt/invoice-contact-person-list
+content-type: application/json
+
+{
+    "invoice_list":[
+        {
+            "id": 3,
+            "contact_person_name": "Aka 1",
+            "contact_person_remarks": "NA"
+        }
+    ]
+}
+
+
+
+### Read Invoice Submit List
+GET {{endpoint}}/invoice-dpt/invoice-submit-list
+
+
+
+### Add Invoice Submit
+POST {{endpoint}}/invoice-dpt/invoice-submit/3
+content-type: multipart/form-data
+
+{
+    "submit_file": "SELECT A File",
+    "submit_remarks": "NA",
+    "status": "Yes"
+}
 
 
 
 
 
 
-######################          Immigration         ######################
+
+
+
+
+
+
+
+
+##################################################################
+
+######################      Immigration         ######################
+
+##################################################################
 
 
 # ================      Immigration Dashboard      =============== #
@@ -1102,7 +1269,11 @@ GET {{endpoint}}/immigration-dpt/index-for-ewakala-list
 
 
 
-######################          Delhi Account Dashboard         ######################
+##################################################################################
+
+######################      Delhi Account Dashboard         ######################
+
+##################################################################################
 
 
 # ================      Candidate List     =============== #
