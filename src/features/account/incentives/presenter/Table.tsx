@@ -74,7 +74,7 @@ const AccountDashboardTable = (props: {
         <TableBody>
           {props?.accountDashboardList?.map((ele: any, index: any) => (
             <TableRow key={index}>
-              <TableCell>{ele?.id}</TableCell>
+              <TableCell>{index + 1}</TableCell>
               <TableCell> {ele?.job_order_no}</TableCell>
               <TableCell> {ele?.job_order_date}</TableCell>
               <TableCell>

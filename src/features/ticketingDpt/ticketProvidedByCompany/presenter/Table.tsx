@@ -20,17 +20,17 @@ export default function Main() {
                     {HEADERLIST.map((item, index) => (
 
                         <TableRow3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
+                            <TableCell3> {index + 1} </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
                             <TableCell3><CustomCheckBox option={[{ name: "Yes", value: '1' }]} onChange={(e) => console.log(e)} /></TableCell3>
                             <TableCell3><CustomSelectComponentUnlabeled options={[{name:"from",value:1}]} onChange={(value)=>console.log(value)}/></TableCell3>
                             <TableCell3><CustomSelectComponentUnlabeled options={[{name:"to",value:1}]} onChange={(value)=>console.log(value)}/></TableCell3>

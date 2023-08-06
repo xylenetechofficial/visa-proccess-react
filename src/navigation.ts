@@ -142,6 +142,10 @@ export const navigations: NavigationInterface[] = [
       {name:"Additional Invoice" ,icon: 'pageview', path: '/invoice/client-additional-invoice/'},
       {name:"Invoice Numbers " ,icon: 'pageview', path: '/invoice/invoice-numbers'},
       {name:"Invoice Charges " ,icon: 'pageview', path: '/invoice/invoice-charges'},
+      {name:"Invoice Couries Date " ,icon: 'pageview', path: '/invoice/courier-date'},
+      {name:"Invoice Dispatch " ,icon: 'pageview', path: '/invoice/invoice-dispatch'},
+      {name:"Invoice Admin Remarks " ,icon: 'pageview', path: '/invoice/invoice-admin-remarks'},
+      {name:"View submitted invoices " ,icon: 'pageview', path: '/invoice/view-submitted-invoices'},
     ]
   },
   {
@@ -172,11 +176,11 @@ export const navigations: NavigationInterface[] = [
       { name: 'Booking Request', icon: 'pageview', path: '/ticketing-dpt/booking-request' },
       { name: 'Ticket DashBoard', icon: 'pageview', path: '/ticketing-dpt/ticket-Dashboard' },
       { name: 'Ticket Provided By Company', icon: 'pageview', path: '/ticketing-dpt/ticket-provided-by-company' },
-      { name: 'Ticket Agency Invoice Awaiting', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoice-awaiting' },
+      // { name: 'Ticket Agency Invoice Awaiting', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoice-awaiting' },
       { name: 'Ticket Agency Invoices', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoices' },
-      { name: 'Approve Changes Issued Tickets', icon: 'pageview', path: '/ticketing-dpt/approve-changes-issued-tickets' },
+      // { name: 'Approve Changes Issued Tickets', icon: 'pageview', path: '/ticketing-dpt/approve-changes-issued-tickets' },
       { name: 'RM Advance Booking', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking' },
-      { name: 'RM Advance Booking Approval', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking-approval' },
+      // { name: 'RM Advance Booking Approval', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking-approval' },
       { name: 'Passport Release Request', icon: 'pageview', path: '/ticketing-dpt/passport-release-request' },
 
     ]

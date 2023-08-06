@@ -13,6 +13,10 @@ import ClientPayment from "./clientPayment_2/Router";
 import ClientAdditionalPayment from "./clientAdditionalPayment_2/Router";
 import InvoiceNumbers from "./invoiceNumbers/Router";
 import InvoiceCharges from "./invoiceCharges/Router";
+import CourierDate from "./courierDate/Router";
+import InvoiceDispatch from "./invoiceDispatch/Router";
+import InvoiceAdminRemarks from "./invoiceAdminRemarks/Router";
+import ViewSubmittedInvoices from "./contactPerson/Router";
 
 
 
@@ -31,6 +35,10 @@ function Main() {
             <Route path='/client-additional-payment' element={<ClientAdditionalPayment />}></Route>
             <Route path='/invoice-numbers' element={<InvoiceNumbers />}></Route>
             <Route path='/invoice-charges' element={<InvoiceCharges />}></Route>
+            <Route path='/courier-date' element={<CourierDate />}></Route>
+            <Route path='/invoice-dispatch' element={<InvoiceDispatch />}></Route>
+            <Route path='/invoice-admin-remarks' element={<InvoiceAdminRemarks />}></Route>
+            <Route path='/view-submitted-invoices' element={<ViewSubmittedInvoices />}></Route>
             
            
 

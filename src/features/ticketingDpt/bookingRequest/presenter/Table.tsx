@@ -22,27 +22,27 @@ export default function Main() {
                     {HEADERLIST.map((item, index) => (
 
                         <TableRow3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
+                            <TableCell3> </TableCell3>
                             <TableCell3><CustomCheckBox option={[{name:"Yes",value:'1'}]} onChange={(e)=>console.log(e)}/></TableCell3>
                             <TableCell3> <CustomSelectComponent options={[{name:'priorty',value:'id'}]} onChange={(value)=>console.log(value)}/> </TableCell3>
                             <TableCell3> <CustomSelectComponent options={[{name:'priorty',value:'id'}]} onChange={(value)=>console.log(value)}/> </TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
+                            <TableCell3> </TableCell3>
                             <TableCell3> <CustomSelectComponent options={[{name:'priorty',value:'id'}]} onChange={(value)=>console.log(value)}/> </TableCell3>
-                            <TableCell3>{index + 1}</TableCell3>
+                            <TableCell3> </TableCell3>
                         </TableRow3>
                     ))}
                 </TableBody2>

@@ -1,6 +1,6 @@
 import { VisaProfesionInterface } from '../type'
 import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table, Table3, TableBody, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadRow, TableHeadRow3, TableRow, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 import { convertDateFormat } from '../../../../utils/function';
@@ -48,17 +48,17 @@ const Main = (props: {
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell >Sr No.</TableHeadCell>
-                        <TableHeadCell >Amount </TableHeadCell>
-                        <TableHeadCell >Date</TableHeadCell>
-                        <TableHeadCell >Advance  </TableHeadCell>
-                        <TableHeadCell > Received By</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableCell3 width={5}>Sr No.</TableCell3>
+                        <TableCell3 width={5}>Amount </TableCell3>
+                        <TableCell3 width={5}>Date</TableCell3>
+                        <TableCell3 width={5}>Advance  </TableCell3>
+                        <TableCell3 width={5}> Received By</TableCell3>
 
-                    </TableHeadRow>
-                </TableHead>
+                    </TableHeadRow3>
+                </TableHead3>
                 <TableBody>
                     {props.paymentDetail && props.paymentDetail.map((ele, index) => (
                         <TableData
@@ -73,7 +73,7 @@ const Main = (props: {
 
 
                 </TableBody>
-            </Table>
+            </Table3>
 
         </div>
     )
@@ -111,23 +111,23 @@ const TableData = (
 
 
     return (
-        <TableRow key={props.index}>
-            <TableCell >{props.index + 1}</TableCell>
-            <TableCell >
+        <TableRow3 key={props.index}>
+            <TableCell3 >{props.index + 1}</TableCell3>
+            <TableCell3 >
                 {props.data.amount}
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 {convertDateFormat(props?.data?.created_at)}
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {props.data.advance}
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {props.data.payment_entry_by}
-            </TableCell>
+            </TableCell3>
 
 
-        </TableRow>
+        </TableRow3>
     )
 }
