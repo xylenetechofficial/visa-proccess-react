@@ -13,6 +13,7 @@ import { CustomRadioButton } from "../../../../componenets/RadioButton";
 
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { InvoiceSubmitInterface } from "../type";
+import { GreenButton } from "../../../../componenets/CustomButton";
 
 
 const ClientInvoiceAddTable = (props: {
@@ -33,6 +34,9 @@ const ClientInvoiceAddTable = (props: {
     });
     props.onChange(nextData)
 
+  }
+  const onCreate =(id:number, item :InvoiceSubmitInterface)=>{
+    console.log(id,"id",item)
   }
   return (
     <div className="overflow-auto">
@@ -55,6 +59,7 @@ const ClientInvoiceAddTable = (props: {
             <TableHeadCell> STATUS</TableHeadCell>
             <TableHeadCell> REMARKS</TableHeadCell>
             <TableHeadCell> SUBMIT REMARKS</TableHeadCell>
+            <TableHeadCell> Action</TableHeadCell>
           </TableHeadRow>
         </TableHead2>
         <TableBody2>
@@ -75,6 +80,7 @@ const ClientInvoiceAddTable = (props: {
               <TableCell> {ele.status}</TableCell>
               <TableCell><UnlabeledInput value={ele.remarks} onchange={(value) => { onUpdateRow(index, {...ele, remarks: value }) }} /></TableCell>
               <TableCell><UnlabeledInput value={ele.submit_remarks} onchange={(value) => { onUpdateRow(index, {...ele, submit_remarks: value }) }} /></TableCell>
+              <TableCell><GreenButton text='Submit' onClick={() => { onCreate(ele.id, ele) }} /></TableCell>
             </TableRow>
           ))
           }

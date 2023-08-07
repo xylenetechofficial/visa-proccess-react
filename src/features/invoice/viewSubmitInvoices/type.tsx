@@ -1,6 +1,6 @@
 
 export interface InvoiceSubmitInterface {
-  id?: number,
+  id: number,
   company_name?: string,
   invoice_number?: string,
   invoice_date?: string,
@@ -19,7 +19,7 @@ export interface InvoiceSubmitInterface {
 }
 
 export interface InvoiceSubmitAdapter {
-  id?: number,
+  id: number,
   company_name?: string,
   invoice_number?: string,
   invoice_date?: string,

@@ -145,6 +145,7 @@ export const navigations: NavigationInterface[] = [
       {name:"Invoice Couries Date " ,icon: 'pageview', path: '/invoice/courier-date'},
       {name:"Invoice Dispatch " ,icon: 'pageview', path: '/invoice/invoice-dispatch'},
       {name:"Invoice Admin Remarks " ,icon: 'pageview', path: '/invoice/invoice-admin-remarks'},
+      {name:"Invoice Contact Person " ,icon: 'pageview', path: '/invoice/contact-person'},
       {name:"View submitted invoices " ,icon: 'pageview', path: '/invoice/view-submitted-invoices'},
     ]
   },

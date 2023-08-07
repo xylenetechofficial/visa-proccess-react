@@ -3,12 +3,13 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { AddContactPersonConverter,  AddContactPersonInterface,  ContactPersonAdapter,  ContactPersonConverter,  ContactPersonInterface} from "./type";
+import { InvoiceSubmitAdapter, InvoiceSubmitConverter, InvoiceSubmitInterface } from "./type";
 
 
 
 
-export async function readinvoiceContactPersonList() {
+
+export async function readinvoiceSubmitList() {
   const path = "/invoice-dpt/invoice-contact-person-list";
 
   const response = await ApiHelper.get(path, {
@@ -23,25 +24,25 @@ export async function readinvoiceContactPersonList() {
   const data = []
 
   if (response.data) {
-    const dataAdapter = response.data as ContactPersonAdapter[];
+    console.log(response.data)
+    const dataAdapter = response.data as InvoiceSubmitAdapter[];
     for (let i = 0; i < dataAdapter.length; i++) {
+      console.log(dataAdapter,dataAdapter[i])
       const element = dataAdapter[i];
-      data.push(ContactPersonConverter.toInterface(element));
+      data.push(InvoiceSubmitConverter.toInterface(element));
     }
   }
 
-  return data as ContactPersonInterface[]
+  return data as InvoiceSubmitInterface[]
 }
 
 
 
 
-export async function createInvoiceDispatch(ContactPerson:ContactPersonInterface[]) {
-  const path = "/invoice-dpt/invoice-contact-person-list";
-const list :AddContactPersonInterface ={
-  invoice_list:ContactPerson,
-}
-  const payload = AddContactPersonConverter.toAdapter(list);
+export async function createInvoiceSubmit(id:number, ContactPerson:InvoiceSubmitInterface) {
+  const path = "/invoice-dpt/invoice-submit/"+ id;
+
+  const payload = InvoiceSubmitConverter.toAdapter(ContactPerson);
  
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,

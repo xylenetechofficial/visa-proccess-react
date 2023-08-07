@@ -10,17 +10,17 @@ import {
 } from "../../../../componenets/Table";
 import { Checkbox } from "flowbite-react";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
-import { InvoiceDispatchInterface } from "../type";
 import { UnlabeledInput } from "../../../../componenets/Input";
+import { ContactPersonInterface } from "../type";
 
 
 const ClientInvoiceAddTable = (props: {
-  invoiceContactPersonList: InvoiceDispatchInterface[];
+  invoiceContactPersonList: ContactPersonInterface[];
   // setData:any
-  onChange: (value: InvoiceDispatchInterface[]) => void
+  onChange: (value: ContactPersonInterface[]) => void
 }) => {
 
-  function onUpdateRow(index: number, rowData: InvoiceDispatchInterface) {
+  function onUpdateRow(index: number, rowData: ContactPersonInterface) {
     const nextData = props.invoiceContactPersonList.map((e, i) => {
       if (i === index) {
         // Increment the clicked counter

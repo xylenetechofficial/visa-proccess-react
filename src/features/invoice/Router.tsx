@@ -16,7 +16,8 @@ import InvoiceCharges from "./invoiceCharges/Router";
 import CourierDate from "./courierDate/Router";
 import InvoiceDispatch from "./invoiceDispatch/Router";
 import InvoiceAdminRemarks from "./invoiceAdminRemarks/Router";
-import ViewSubmittedInvoices from "./contactPerson/Router";
+import ContactPerson from "./contactPerson/Router";
+import ViewSubmittedInvoices from "./viewSubmitInvoices/Router";
 
 
 
@@ -38,6 +39,7 @@ function Main() {
             <Route path='/courier-date' element={<CourierDate />}></Route>
             <Route path='/invoice-dispatch' element={<InvoiceDispatch />}></Route>
             <Route path='/invoice-admin-remarks' element={<InvoiceAdminRemarks />}></Route>
+            <Route path='/contact-person' element={<ContactPerson />}></Route>
             <Route path='/view-submitted-invoices' element={<ViewSubmittedInvoices />}></Route>
             
            
