@@ -3,13 +3,18 @@ import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper
 import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";
 
-export async function readDirectPaymentList(AgentBy:AgentPaymentByIDInterface) {
+export async function readDirectPaymentList(AgentBy: AgentPaymentByIDInterface) {
   const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
-  const path = `/account/direct-payment-list?${payload}`;
+  // const path = `/account/direct-payment-list?${payload}`;
+  const path = `/account/direct-payment-list`;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      agent_id: AgentBy.agent_id ?? 0,
+      passport_no: AgentBy.passport_no ?? ""
+    }
   });
 
   if (response.code != 200) {

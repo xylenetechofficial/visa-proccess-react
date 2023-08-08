@@ -19,7 +19,10 @@ export default function Main() {
   const [invoiceContactPersonList, setInvoiceContactPersonList] = useState<ContactPersonInterface[]>([])
   const onCreate = async (item: ContactPersonInterface[]) => {
 
-    await createInvoiceDispatch(item);
+  const data =  await createInvoiceDispatch(item);
+  if(data){
+    fetchInvoiceContactPerson();
+  }
   }
   const fetchInvoiceContactPerson = async () => {
     const data = await readinvoiceContactPersonList();

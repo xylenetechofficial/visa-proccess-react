@@ -9,11 +9,8 @@ import {
 
 } from "../../../../componenets/Table";
 import { Checkbox } from "flowbite-react";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { ContactPersonInterface } from "../type";
-
-
 const ClientInvoiceAddTable = (props: {
   invoiceContactPersonList: ContactPersonInterface[];
   // setData:any
@@ -67,9 +64,9 @@ const ClientInvoiceAddTable = (props: {
               <TableCell>{ele.courier_received_date}</TableCell>
               <TableCell>{ele.submitted_date}</TableCell>
               <TableCell>{ele.submitted_by}</TableCell>
-              <TableCell><Checkbox /></TableCell>
-              <TableCell><UnlabeledInput value={ele.contact_person_name} onchange={(value) => { onUpdateRow(index, { contact_person_name: value }) }} /></TableCell>
-              <TableCell><UnlabeledInput value={ele.contact_person_remarks} onchange={(value) => { onUpdateRow(index, { contact_person_remarks: value }) }} /></TableCell>
+              <TableCell><Checkbox onClick={()=>{onUpdateRow(index, {...ele, id:ele.id})}}  /></TableCell>
+              <TableCell><UnlabeledInput value={ele.contact_person_name} onchange={(value) => { onUpdateRow(index, {...ele, contact_person_name: value }) }} /></TableCell>
+              <TableCell><UnlabeledInput value={ele.contact_person_remarks} onchange={(value) => { onUpdateRow(index, {...ele, contact_person_remarks: value }) }} /></TableCell>
             </TableRow>
           ))
           }

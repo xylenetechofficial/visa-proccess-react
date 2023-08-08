@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import InvoicedispatchTable from './Table';
+import InvoiceAdminRemarkTable from './Table';
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import { createInvoiceDispatch, readinvoiceDispatchedList } from '../repository';
-import { InvoiceDispatchInterface } from '../type';
+import { createInvoiceAdminRemark, readInvoiceAdminRemarkList } from '../repository';
+import { InvoiceAdminRemarkInterface } from '../type';
 import { GreenButton } from '../../../../componenets/CustomButton';
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -16,37 +16,37 @@ export default function Main() {
     justifyContent: "space-between",
   }));
   const [searchQuery, setSearchQuery] = useState('');
-  const [invoiceDispatchList, setInvoiceDispatchList] = useState<InvoiceDispatchInterface[]>([])
-  const onCreate = async (item: InvoiceDispatchInterface[]) => {
+  const [InvoiceAdminRemarkList, setInvoiceAdminRemarkList] = useState<InvoiceAdminRemarkInterface[]>([])
+  const onCreate = async (item: InvoiceAdminRemarkInterface[]) => {
 
-    const data = await createInvoiceDispatch(item);
+    const data = await createInvoiceAdminRemark(item);
   }
-  const fetchInvoiceDispatched = async () => {
-    const data = await readinvoiceDispatchedList();
+  const fetchInvoiceAdminRemarked = async () => {
+    const data = await readInvoiceAdminRemarkList();
     if (data) {
-      setInvoiceDispatchList(data);
+      setInvoiceAdminRemarkList(data);
     }
   }
   useEffect(() => {
 
-    fetchInvoiceDispatched()
+    fetchInvoiceAdminRemarked()
   }, [])
 
   return (
 
     <>
       <CustomNavbarV3
-        pageName="Client Invoice Courier Date Entry"
+        pageName=" Invoice Admin Remarks"
         searchFunction={(query) => setSearchQuery(query)}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
 
-      <InvoicedispatchTable
-        onChange={(value) => setInvoiceDispatchList(value)}
-        invoiceDispatchList={invoiceDispatchList} />
-      <GreenButton text='Submit' onClick={() => { onCreate(invoiceDispatchList) }} />
+      <InvoiceAdminRemarkTable
+        onChange={(value) => setInvoiceAdminRemarkList(value)}
+        InvoiceAdminRemarkList={InvoiceAdminRemarkList} />
+      <GreenButton text='Submit' onClick={() => { onCreate(InvoiceAdminRemarkList) }} />
     </>
 
   )

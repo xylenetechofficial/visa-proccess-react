@@ -3,7 +3,7 @@ import InvoicedispatchTable from './Table';
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import {  createInvoiceSubmit, readinvoiceSubmitList } from '../repository';
+import {   readinvoiceSubmitList } from '../repository';
 import { GreenButton } from '../../../../componenets/CustomButton';
 import { InvoiceSubmitInterface } from '../type';
 export default function Main() {
@@ -17,10 +17,7 @@ export default function Main() {
   }));
   const [searchQuery, setSearchQuery] = useState('');
   const [invoiceContactPersonList, setInvoiceContactPersonList] = useState<InvoiceSubmitInterface[]>([])
-  const onCreate = async (id:number,item: InvoiceSubmitInterface) => {
 
-    await createInvoiceSubmit(id,item);
-  }
   const fetchInvoiceContactPerson = async () => {
     const data = await readinvoiceSubmitList();
     if (data) {

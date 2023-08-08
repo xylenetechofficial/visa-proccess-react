@@ -14,8 +14,9 @@ export interface InvoiceSubmitInterface {
   given_to_date: string,
   status: string,
   remarks: string,
-  submit_file: string,
-  submit_remarks: string
+  submit_file?: File,
+  submit_remarks: string,
+  file1?: File;
 }
 
 export interface InvoiceSubmitAdapter {
@@ -33,9 +34,9 @@ export interface InvoiceSubmitAdapter {
   given_to_date: string,
   status: string,
   remarks: string,
-  submit_file: string,
+  submit_file?: File,
   submit_remarks: string
-
+  
 
 }
 

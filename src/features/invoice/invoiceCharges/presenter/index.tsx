@@ -45,7 +45,7 @@ export default function Main() {
   return (
     <div>
       <CustomNavbarV3
-        pageName="Client Invoice Add"
+        pageName=" Invoice Charges"
         searchFunction={(query) => setSearchQuery(query)}
       />
       <CardHeader>

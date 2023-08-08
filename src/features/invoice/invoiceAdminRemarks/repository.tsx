@@ -3,13 +3,13 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { AddInvoiceDispatchConverter, AddInvoiceDispatchInterface, InvoiceDispatchAdapter, InvoiceDispatchConverter, InvoiceDispatchInterface } from "./type";
+import {  InvoiceAdminRemarkAdapter, InvoiceAdminRemarkConverter, InvoiceAdminRemarkInterface } from "./type";
 
 
 
 
-export async function readinvoiceDispatchedList() {
-  const path = "/invoice-dpt/invoice-dispatched-list";
+export async function readInvoiceAdminRemarkList() {
+  const path = "/invoice-dpt/invoice-admin-remarks-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -23,37 +23,37 @@ export async function readinvoiceDispatchedList() {
   const data = []
 
   if (response.data) {
-    const dataAdapter = response.data as InvoiceDispatchAdapter[];
+    const dataAdapter = response.data as InvoiceAdminRemarkAdapter[];
     for (let i = 0; i < dataAdapter.length; i++) {
       const element = dataAdapter[i];
-      data.push(InvoiceDispatchConverter.toInterface(element));
+      data.push(InvoiceAdminRemarkConverter.toInterface(element));
     }
   }
 
-  return data as InvoiceDispatchInterface[]
+  return data as InvoiceAdminRemarkInterface[]
 }
 
 
 
 
-export async function createInvoiceDispatch(InvoiceDispatch:InvoiceDispatchInterface[]) {
-//   const path = "/invoice-dpt/invoice-dispatched-list";
-// const list :AddInvoiceDispatchInterface ={
-//   invoice_list:InvoiceDispatch,
-// }
-//   const payload = AddInvoiceDispatchConverter.toAdapter(list);
- 
-//   const response = await ApiHelper.post(path, payload, {
-//     contentType: ContentType.json,
-//     tokenType: AuthTokenType.JWT
-//   })
+export async function createInvoiceAdminRemark(InvoiceAdminRemark:InvoiceAdminRemarkInterface[]) {
+  const path = "/invoice-dpt/invoice-admin-remarks-list";
+const list :any ={
+  invoice_list:InvoiceAdminRemark,
+}
+  // const payload = AddInvoiceAdminRemarkConverter.toAdapter(list);
+ const payload = list;
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
 
-//   showMessage_v2({ message: response.message, status: response.code })
+  showMessage_v2({ message: response.message, status: response.code })
 
-//   if (response.code > 199 && response.code < 300) {
-//     return true;
-//   }
-//   return false;
-return true;
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
+
 }
 

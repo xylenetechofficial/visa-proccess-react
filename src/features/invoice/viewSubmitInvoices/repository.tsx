@@ -10,7 +10,7 @@ import { InvoiceSubmitAdapter, InvoiceSubmitConverter, InvoiceSubmitInterface } 
 
 
 export async function readinvoiceSubmitList() {
-  const path = "/invoice-dpt/invoice-contact-person-list";
+  const path = "/invoice-dpt/invoice-submit-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -41,11 +41,11 @@ export async function readinvoiceSubmitList() {
 
 export async function createInvoiceSubmit(id:number, ContactPerson:InvoiceSubmitInterface) {
   const path = "/invoice-dpt/invoice-submit/"+ id;
-
-  const payload = InvoiceSubmitConverter.toAdapter(ContactPerson);
+  
+  // const payload = InvoiceSubmitConverter.toAdapter(ContactPerson);
  
-  const response = await ApiHelper.post(path, payload, {
-    contentType: ContentType.json,
+  const response = await ApiHelper.post(path, ContactPerson, {
+    contentType: ContentType.form,
     tokenType: AuthTokenType.JWT
   })
 

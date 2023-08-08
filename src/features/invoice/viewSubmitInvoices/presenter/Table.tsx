@@ -14,14 +14,17 @@ import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { InvoiceSubmitInterface } from "../type";
 import { GreenButton } from "../../../../componenets/CustomButton";
-
+import { useState } from "react";
+import ViewSubmittedModal from './ViewSubmitModal';
 
 const ClientInvoiceAddTable = (props: {
   invoiceContactPersonList: InvoiceSubmitInterface[];
   // setData:any
   onChange: (value: InvoiceSubmitInterface[]) => void
 }) => {
-
+  const [modalName, setModalName]= useState('');
+  
+  const [currentList, setCurrentList]= useState<any>()
   function onUpdateRow(index: number, rowData: InvoiceSubmitInterface) {
     const nextData = props.invoiceContactPersonList.map((e, i) => {
       if (i === index) {
@@ -58,7 +61,7 @@ const ClientInvoiceAddTable = (props: {
             <TableHeadCell> GIVEN TO DATE</TableHeadCell>
             <TableHeadCell> STATUS</TableHeadCell>
             <TableHeadCell> REMARKS</TableHeadCell>
-            <TableHeadCell> SUBMIT REMARKS</TableHeadCell>
+            {/* <TableHeadCell> SUBMIT REMARKS</TableHeadCell> */}
             <TableHeadCell> Action</TableHeadCell>
           </TableHeadRow>
         </TableHead2>
@@ -79,15 +82,21 @@ const ClientInvoiceAddTable = (props: {
               <TableCell> {ele.given_to_date}</TableCell>
               <TableCell> {ele.status}</TableCell>
               <TableCell><UnlabeledInput value={ele.remarks} onchange={(value) => { onUpdateRow(index, {...ele, remarks: value }) }} /></TableCell>
-              <TableCell><UnlabeledInput value={ele.submit_remarks} onchange={(value) => { onUpdateRow(index, {...ele, submit_remarks: value }) }} /></TableCell>
-              <TableCell><GreenButton text='Submit' onClick={() => { onCreate(ele.id, ele) }} /></TableCell>
+              {/* <TableCell><UnlabeledInput value={ele.submit_remarks} onchange={(value) => { onUpdateRow(index, {...ele, submit_remarks: value }) }} /></TableCell> */}
+              <TableCell><GreenButton text='Submit' onClick={() => {setCurrentList(ele), onCreate(ele.id, ele),setModalName('viewPopup') }} /></TableCell>
             </TableRow>
           ))
           }
 
         </TableBody2>
       </Table>
-
+{
+  modalName=== 'viewPopup' ? <ViewSubmittedModal onClose={()=>setModalName('')} submittedInvoice={currentList} />
+  
+  
+  
+  :''
+}
     </div>
   );
 };

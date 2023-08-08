@@ -10,17 +10,19 @@ import {
 } from "../../../../componenets/Table";
 import { Checkbox } from "flowbite-react";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
-import { InvoiceDispatchInterface } from "../type";
+import { InvoiceAdminRemarkInterface } from "../type";
+import { convertDateFormat } from "../../../../utils/function";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 
 
 const ClientInvoiceAddTable = (props: {
-  invoiceDispatchList: InvoiceDispatchInterface[];
+  InvoiceAdminRemarkList: InvoiceAdminRemarkInterface[];
   // setData:any
-  onChange: (value: InvoiceDispatchInterface[]) => void
+  onChange: (value: InvoiceAdminRemarkInterface[]) => void
 }) => {
 
   function onUpdateRow(index: number, rowData: any) {
-    const nextData = props.invoiceDispatchList.map((e, i) => {
+    const nextData = props.InvoiceAdminRemarkList.map((e, i) => {
       if (i === index) {
         // Increment the clicked counter
         return rowData;
@@ -55,8 +57,8 @@ const ClientInvoiceAddTable = (props: {
           </TableHeadRow>
         </TableHead2>
         <TableBody2>
-          {props.invoiceDispatchList?.map((ele, index) => (
-          
+          {props.InvoiceAdminRemarkList?.map((ele, index) => (
+
             <TableRow key={index + 1}>
 
               <TableCell> {index + 1}</TableCell>
@@ -66,13 +68,13 @@ const ClientInvoiceAddTable = (props: {
               <TableCell>{ele.invoice_date}</TableCell>
               <TableCell>{ele.total_charges}</TableCell>
               <TableCell> {ele.invoice_sector}</TableCell>
-              <TableCell> {ele.courier_date}</TableCell>
+              <TableCell> {convertDateFormat(ele.courier_date ?? ``)}</TableCell>
               {/* <TableCell><Checkbox onChange={(e) => { onUpdateRow(index, { ...ele, id: e.target.checked ? parseInt(ele.id ) : parseInt('') }) }} /> </TableCell> */}
               <TableCell>{ele.received_status}</TableCell>
-              <TableCell>{ele.received_status_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.received_status_date ?? ``)}</TableCell>
               <TableCell>{ele.given_to}</TableCell>
-              <TableCell>{ele.given_to_date}</TableCell>
-              <TableCell>{ele.given_to_remarks}</TableCell>
+              <TableCell><DateInput id="date" value={ele.given_to_date} onChange={(value) => onUpdateRow(index, { ...ele, given_to_date: value })} /></TableCell>
+              <TableCell><UnlabeledInput type="text" value={ele.given_to_remarks} onchange={(value) => onUpdateRow(index, { ...ele, given_to_remarks: value })} /></TableCell>
             </TableRow>
           ))
           }

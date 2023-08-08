@@ -11,6 +11,7 @@ import {
 import { Checkbox } from "flowbite-react";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { InvoiceDispatchInterface } from "../type";
+import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 
 
 const ClientInvoiceAddTable = (props: {
@@ -19,6 +20,8 @@ const ClientInvoiceAddTable = (props: {
   onChange: (value: InvoiceDispatchInterface[]) => void
 }) => {
 
+  
+  const arr=[1,2,4];
   function onUpdateRow(index: number, rowData: any) {
     const nextData = props.invoiceDispatchList.map((e, i) => {
       if (i === index) {
@@ -66,6 +69,8 @@ const ClientInvoiceAddTable = (props: {
               {/* <TableCell><Checkbox onChange={(e) => { onUpdateRow(index, { ...ele, id: e.target.checked ? parseInt(ele.id ) : parseInt('') }) }} /> </TableCell> */}
               <TableCell><Checkbox onChange={(e) => { onUpdateRow(index, { ...ele, id: ele.id, received_date: String(new Date()) }) }} /> </TableCell>
               <TableCell><CustomRadioButton option={[{ name: "Yes", value: 'yes' }, { name: "No", value: "no" }]} onChange={(value) => { onUpdateRow(index, { ...ele, name: value }), console.log(value) }} /> </TableCell>
+              <TableCell><CustomSingleCheckBox  onChange={(value) => { onUpdateRow(index, { ...ele, name: value }), console.log(value) }} /> </TableCell>
+           
             </TableRow>
           ))
           }

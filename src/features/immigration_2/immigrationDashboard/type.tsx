@@ -118,7 +118,7 @@ export class ImmigrationConverter {
 
     for (let i = 0; i < a_list.length; i++) {
       const element = a_list[i];
-      data_list.push(this.toAdapter(element));
+      data_list.push(this.toInterface(element));
     }
 
     return data_list;

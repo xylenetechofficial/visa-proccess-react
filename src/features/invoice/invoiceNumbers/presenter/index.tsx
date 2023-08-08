@@ -43,7 +43,7 @@ if(data){
   return (
     <div>
       <CustomNavbarV3
-        pageName="Client Invoice Add"
+        pageName=" Invoice Numbers"
         searchFunction={(query) => setSearchQuery(query)}
       />
       <CardHeader>
