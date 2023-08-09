@@ -8,12 +8,14 @@ import {
     TableRow,
   
   } from "../../../../componenets/Table";
-  
+  import {useState, useEffect} from 'react';
   import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-  import { CustomSelectComponent, CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+  import { CustomSelectComponent, CustomSelectComponentUnlabeled, CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
   import { CourierDateInterface } from "../type";
   import { BankList, CurrencyList2 } from "../../../db";
 import { CustomCheckBox } from "../../../../componenets/Checkbox";
+import { readSectorList } from "../../../masters/sector/repository";
+import { SectorInterface } from "../../../masters/sector/type";
   
   
   const ClientInvoiceAddTable = (props: {
@@ -35,6 +37,9 @@ import { CustomCheckBox } from "../../../../componenets/Checkbox";
       props.onChange(nextData)
     
     }
+    
+
+
     return (
       <div className="overflow-auto">
   

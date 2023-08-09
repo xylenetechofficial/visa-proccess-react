@@ -68,7 +68,10 @@ export default function Main(props: {
 
     async function fetchAdjustAmountList() {
         const data = await readAdjustAmountList(props.ClientPayment.company_id)
-        setSuspenseAdjustAmountList(data)
+        if(data){
+            setSuspenseAdjustAmountList(data)
+        }
+        
     }
 
     useEffect(() => {
