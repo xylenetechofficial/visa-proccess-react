@@ -17,6 +17,7 @@ import { ActualProfessionInterface } from "../../Extra/type";
 import { convertDateFormat } from "../../../../utils/function";
 import FinalActualProfessionTable from "./FinalActualProfessionTable";
 import SpecialInstructionTable from "./SpecialInstructionTable";
+import { showMessage_v2 } from "../../../../utils/alert";
 
 
 
@@ -69,6 +70,16 @@ export default function Main(props: {
     }
 
     async function onClickAdd() {
+        // const actual_profession_len= jobOrder.actualProfesionList?.length??0
+        const actual_profession_list = jobOrder.actualProfesionList ?? []
+
+        for (let i = 0; i < actual_profession_list.length; i++) {
+            if (actual_profession_list[i].actual_profession.trim() == "") {
+                showMessage_v2({ message: "Actual Profession Empty", status: 404 });
+                return
+            }
+        }
+
         await updateJobOrder(props.currentElement.id ?? 0, jobOrder)
         props.fetchJobOrderList()
     }

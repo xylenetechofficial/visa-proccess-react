@@ -4,7 +4,7 @@
 export interface ActualProfessionInterface {
   id?: number;
   jobOrder_id: number;
-  actual_profession?: string;
+  actual_profession: string;
   grade?: number;
   sector?: number;
   sector_charge?: number;
@@ -33,7 +33,7 @@ export interface ActualProfessionInterface {
 export interface ActualProfessionAdapter {
   id?: number;
   job_order_id: number;
-  actual_profession?: string;
+  actual_profession: string;
   quantity?: number;
   differed_service_charges?: number;
   master_service_charges?: number;

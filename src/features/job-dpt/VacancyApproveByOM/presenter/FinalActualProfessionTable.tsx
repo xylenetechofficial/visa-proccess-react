@@ -116,7 +116,7 @@ const FinalActualProfessionTable = (props: {
                         <TableHeadCell3 > Invoice Service Charges</TableHeadCell3>
                         <TableHeadCell3 > Invoice Ticket Charges</TableHeadCell3>
                         <TableHeadCell3 > Invoice Service Charges Currency</TableHeadCell3>
-                        <TableHeadCell3 >  Action</TableHeadCell3>
+                        {/* <TableHeadCell3 >  Action</TableHeadCell3> */}
 
                     </TableHeadRow3>
                 </TableHead3>

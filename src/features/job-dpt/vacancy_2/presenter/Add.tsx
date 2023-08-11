@@ -14,8 +14,10 @@ import { readInterviewModeList } from "../../../masters/interviewMode/repository
 import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface } from "../../Extra/type";
-import { filter_unique_sector, generate_final_actual_profession_v2 } from "../../Extra/function";
+// import { filter_unique_sector, generate_final_actual_profession_v2 } from "../../Extra/function";
 import { convertDateFormat } from "../../../../utils/function";
+import { showMessage_v2 } from "../../../../utils/alert";
+import { generate_final_actual_profession } from "../../Extra/function";
 
 
 
@@ -60,7 +62,7 @@ export default function Main(props: {
     const [actualProfesionList, setActualProfesionList] = useState<ActualProfessionInterface[]>([]);
     const [actualProfesionList_old, setActualProfesionList_old] = useState<ActualProfessionInterface[]>([]);
 
-    const is_exists = async (actual_profession: string, sector: number) => {
+    const is_exists = (actual_profession: string, sector: number) => {
 
         for (let i = 0; i < actualProfesionList_old.length; i++) {
             const element = actualProfesionList_old[i];
@@ -75,95 +77,119 @@ export default function Main(props: {
         const data_list: ActualProfessionInterface[] = []
         const data_list2: ActualProfessionInterface[] = []
 
-        // console.log('selectedDifferedSector');   // Only Dev
-        // console.log(selectedDifferedSector);   // Only Dev
-        // console.log('selectedMasterSector');   // Only Dev
-        // console.log(selectedMasterSector);   // Only Dev
+        // let is_duplicate = false
+        const seen: any = {}
         for (let i = 0; i < ap_list.length; i++) {
-            // console.log("master_service_charges: " + ap_list[i].master_service_charges);   // Only Dev
-            // console.log("differed_service_charges: " + ap_list[i].differed_service_charges);   // Only Dev
 
-            // let differed_matched = false
+            if (seen[ap_list[i].actual_profession]) {
+                showMessage_v2({ message: "Duplicate Actual Profession", status: 400 })
+
+                return undefined
+            } else {
+                seen[ap_list[i].actual_profession] = true
+            }
+
             for (let j = 0; j < selectedDifferedSector.length; j++) {
                 const sector = selectedDifferedSector[j];
-                if (await is_exists(ap_list[i].actual_profession ?? "", sector.id ?? 0)) {
-                    // differed_matched = true
+
+                if (is_exists(ap_list[i].actual_profession ?? "", sector.id ?? 0)) {
                     continue
                 }
+                data_list.push({
+                    jobOrder_id: ap_list[i].jobOrder_id,
+                    actual_profession: ap_list[i].actual_profession,
+                    grade: ap_list[i].grade,
+                    // aka
+                    sector: sector.id,
+                    sector_charge: ap_list[i].sector_charge,
+                    quantity: ap_list[i].quantity,
+                    seletion_target_quantity: ap_list[i].seletion_target_quantity,
+                    min_salary: ap_list[i].min_salary,
+                    max_salary: ap_list[i].max_salary,
+                    job_description: ap_list[i].job_description,
+                    master_service_charges: ap_list[i].master_service_charges,
+                    differed_service_charges: ap_list[i].differed_service_charges,
+                    // aka
+                    service_charges: ap_list[i].differed_service_charges,
+                    partial_charges: ap_list[i].partial_charges,
+                    consodilate_charges: ap_list[i].consodilate_charges,
+                    consodilate_charges_name: ap_list[i].consodilate_charges_name,
+                    consodilate_charges_value: ap_list[i].consodilate_charges_value,
+                    consolidate_charges_id: ap_list[i].consolidate_charges_id,
+                    agent_commission: ap_list[i].agent_commission,
+                    air_ticket: ap_list[i].air_ticket,
+                    is_invoice: ap_list[i].is_invoice,
+                    invoice_service_charges: ap_list[i].invoice_service_charges,
+                    invoice_ticket_charges: ap_list[i].invoice_ticket_charges,
+                    invoice_service_charges_currency: ap_list[i].invoice_service_charges_currency,
 
-                console.log(`D: service_charges for ${ap_list[i].actual_profession} ${sector.id} = ${ap_list[i].differed_service_charges}`);   // Only Dev
-                console.log('old:');   // Only Dev
-                console.log(JSON.stringify(ap_list[i]));   // Only Dev
-
-                const data = ap_list[i]
-                data.service_charges = ap_list[i].differed_service_charges
-                data.sector = sector.id
-
-                data.quantity = ap_list[i].quantity;
-                data.seletion_target_quantity =
-                    ap_list[i].seletion_target_quantity;
-                data.min_salary = ap_list[i].min_salary;
-                data.max_salary = ap_list[i].max_salary;
-                data.job_description = ap_list[i].job_description;
-                data.master_service_charges =
-                    ap_list[i].master_service_charges;
-                data.differed_service_charges =
-                    ap_list[i].differed_service_charges;
-
-                console.log('new: ');   // Only Dev
-                console.log(JSON.stringify(data));   // Only Dev
-                data_list.push(data)
+                })
             }
-        }
-        // console.log("" + data_list.toString());   // Only Dev
-        for (let i = 0; i < ap_list.length; i++) {
 
             for (let j = 0; j < selectedMasterSector.length; j++) {
                 const sector = selectedMasterSector[j];
-                if (await is_exists(ap_list[i].actual_profession ?? "", sector.id ?? 0)) {
-                    // masters_matched = true
+                console.log(`M: ${ap_list[i].actual_profession} AND ${sector.id}`);   // Only Dev
+                if (is_exists(ap_list[i].actual_profession ?? "", sector.id ?? 0)) {
                     continue
                 }
 
-                console.log(`M: service_charges for ${ap_list[i].actual_profession} ${sector.id} = ${ap_list[i].master_service_charges}`);   // Only Dev
-                console.log(`old: `)   // Only Dev
-                console.log(JSON.stringify(ap_list[i]));   // Only Dev
+                data_list.push({
+                    jobOrder_id: ap_list[i].jobOrder_id,
+                    actual_profession: ap_list[i].actual_profession,
+                    grade: ap_list[i].grade,
+                    // aka
+                    sector: sector.id,
+                    sector_charge: ap_list[i].sector_charge,
+                    quantity: ap_list[i].quantity,
+                    seletion_target_quantity: ap_list[i].seletion_target_quantity,
+                    min_salary: ap_list[i].min_salary,
+                    max_salary: ap_list[i].max_salary,
+                    job_description: ap_list[i].job_description,
+                    master_service_charges: ap_list[i].master_service_charges,
+                    differed_service_charges: ap_list[i].differed_service_charges,
+                    // aka
+                    service_charges: ap_list[i].master_service_charges,
+                    partial_charges: ap_list[i].partial_charges,
+                    consodilate_charges: ap_list[i].consodilate_charges,
+                    consodilate_charges_name: ap_list[i].consodilate_charges_name,
+                    consodilate_charges_value: ap_list[i].consodilate_charges_value,
+                    consolidate_charges_id: ap_list[i].consolidate_charges_id,
+                    agent_commission: ap_list[i].agent_commission,
+                    air_ticket: ap_list[i].air_ticket,
+                    is_invoice: ap_list[i].is_invoice,
+                    invoice_service_charges: ap_list[i].invoice_service_charges,
+                    invoice_ticket_charges: ap_list[i].invoice_ticket_charges,
+                    invoice_service_charges_currency: ap_list[i].invoice_service_charges_currency,
 
-                const data = ap_list[i]
-                data.service_charges = ap_list[i].master_service_charges
-                data.sector = sector.id
-
-                data.quantity = ap_list[i].quantity;
-                data.seletion_target_quantity =
-                    ap_list[i].seletion_target_quantity;
-                data.min_salary = ap_list[i].min_salary;
-                data.max_salary = ap_list[i].max_salary;
-                data.job_description = ap_list[i].job_description;
-                data.master_service_charges =
-                    ap_list[i].master_service_charges;
-                data.differed_service_charges =
-                    ap_list[i].differed_service_charges;
-
-                console.log('new: ');   // Only Dev
-                console.log(JSON.stringify(data));   // Only Dev
-
-                data_list2.push(data)
+                })
             }
         }
 
-        console.log('data_list');   // Only Dev
-        console.log(data_list);   // Only Dev
-        console.log('data_list2');   // Only Dev
-        console.log(data_list2);   // Only Dev
-        const new_job_order = jobOrder
-        new_job_order.actualProfesionList = [...data_list, ...data_list2]
-
-        return new_job_order
+        return { ...jobOrder, actualProfesionList: data_list }
     }
 
     async function onClickAdd() {
+
+        for (let i = 0; i < actualProfesionList.length; i++) {
+            if (actualProfesionList[i].actual_profession.trim() == "") {
+                showMessage_v2({ message: "Actual Profession Empty", status: 404 });
+                return
+            }
+        }
+
+
         const data = await generate_new_job_order(actualProfesionList)
-        console.log(data.actualProfesionList ?? []);   // Only Dev
+
+        // console.log("selectedMasterSector");   // Only Dev
+        // console.log(selectedMasterSector.length);   // Only Dev
+        // console.log('selectedDifferedSector');   // Only Dev
+        // console.log(selectedDifferedSector.length);   // Only Dev
+        // console.log("========= New Data =========");   // Only Dev
+        // console.log(data?.actualProfesionList);   // Only Dev
+
+        if (!data)
+            return
+        // console.log('onClickAdd');   // Only Dev
         // return
         const flag = await updateJobOrder(props.currentElement.id ?? 0, data)
 
@@ -202,7 +228,7 @@ export default function Main(props: {
         <FullScreenModal
             buttonName="Submit"
             handleClick={onClickAdd}
-            title={props.currentElement.actual_profession_count?"Update Vacancy":"Add Vacancy"}
+            title={props.currentElement.actual_profession_count ? "Update Vacancy" : "Add Vacancy"}
             onClose={() => props.onClose('')}
         >
 
