@@ -1,6 +1,6 @@
 import { SendToActualMofaEntryInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 
 
 
@@ -9,42 +9,42 @@ const SendToActualMofaEntryTable = (props: { sendToActualMofaEntryList: SendToAc
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        {["Sr No.",
+                            "Candidate Name",
+                            "Passport No",
+                            "Actual Profession	",
+                            "Agent	 	",
+                            "Job Order - Actual Profession	",
+                            "Job Order - Sector	",
+                            "Visa Profession	",
+                            "Mofa Number	",
+                            "Pp/copy	",
+                            "Pp Issued Date	",
+                            "Pp Expiry Date	",
+                            "Place Of Issue	",
+                            "Date Of Birth	",
+                            "Place Of Birth	",
+                            "Address	",
+                            "Nominee Name	",
+                            "Nominee Relation	",
+                            "Religion	",
+                            "Payment From	",
+                            "Action",
+                        ].map(value => <TableHeadCell3>{value}</TableHeadCell3>)}
 
-                        <TableHeadCell > Candidate Name</TableHeadCell>
-                        <TableHeadCell  >Passport No</TableHeadCell>
-                        <TableHeadCell  >Actual Profession	</TableHeadCell>
-                        <TableHeadCell  >Agent	 	</TableHeadCell>
-                        <TableHeadCell  >Job Order - Actual Profession	</TableHeadCell>
-                        <TableHeadCell  >Job Order - Sector	</TableHeadCell>
-                        <TableHeadCell  >Visa Profession	</TableHeadCell>
-                        <TableHeadCell  >Mofa Number	</TableHeadCell>
-                        <TableHeadCell  >Pp/copy	</TableHeadCell>
-                        <TableHeadCell  >Pp Issued Date	</TableHeadCell>
-                        <TableHeadCell  >Pp Expiry Date	</TableHeadCell>
-                        <TableHeadCell  >Place Of Issue	</TableHeadCell>
-                        <TableHeadCell  >Date Of Birth	</TableHeadCell>
-                        <TableHeadCell  >Place Of Birth	</TableHeadCell>
-                        <TableHeadCell  >Address	</TableHeadCell>
-                        <TableHeadCell  >Nominee Name	</TableHeadCell>
-                        <TableHeadCell  >Nominee Relation	</TableHeadCell>
-                        <TableHeadCell  >Religion	</TableHeadCell>
-                        <TableHeadCell  >Payment From	</TableHeadCell>
-                        <TableHeadCell > Action</TableHeadCell>
-                        
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.sendToActualMofaEntryList.map((ele, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell >{index + 1}</TableCell>
-                            <TableCell > {ele.name}</TableCell>
-                            <TableCell > {ele.passport_no}</TableCell>
-                            <TableCell >
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {ele.passport_no}</TableCell3>
+                            <TableCell3 >
 
                                 <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
                                     props.onClickEdit(ele)
@@ -54,14 +54,14 @@ const SendToActualMofaEntryTable = (props: { sendToActualMofaEntryList: SendToAc
                                     props.onClickDelete(ele)
                                 }} />
 
-                            </TableCell>
-                        </TableRow>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

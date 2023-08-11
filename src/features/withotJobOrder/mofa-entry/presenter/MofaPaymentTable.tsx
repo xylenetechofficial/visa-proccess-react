@@ -1,5 +1,5 @@
 import { MofaPaymentInterface } from '../type'
-import { Table2, TableBody2, TableCell2, TableHead2, TableHeadCell2, TableHeadRow2, TableRow2 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 
 
 
@@ -9,33 +9,33 @@ export default function MofaPaymentTable(props: {
 }) {
     return (
         <div className='overflow-auto'>
-            <Table2  >
-                <TableHead2 >
-                    <TableHeadRow2  >
-                        <TableHeadCell2 > Sr No.</TableHeadCell2>
-                        <TableHeadCell2 > Visa Authorisation</TableHeadCell2>
-                        <TableHeadCell2 > Total Mofa Payment</TableHeadCell2>
-                        <TableHeadCell2 > Used Mofa Payment</TableHeadCell2>
-                        <TableHeadCell2 > Balance Mofa Payment</TableHeadCell2>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3 > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Visa Authorisation</TableHeadCell3>
+                        <TableHeadCell3 > Total Mofa Payment</TableHeadCell3>
+                        <TableHeadCell3 > Used Mofa Payment</TableHeadCell3>
+                        <TableHeadCell3 > Balance Mofa Payment</TableHeadCell3>
 
-                    </TableHeadRow2>
-                </TableHead2>
-                <TableBody2>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.mofaPaymentList.map((ele, index) => (
-                        <TableRow2 key={index}>
-                            <TableCell2 >{index + 1}</TableCell2>
-                            {/* <TableCell2 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell2> */}
-                            <TableCell2 > {ele.name}</TableCell2>
-                            <TableCell2 > {ele.total_mofa_payment}</TableCell2>
-                            <TableCell2 > {ele.used_mofa_payment}</TableCell2>
-                            <TableCell2 > {ele.balance_mofa_payment}</TableCell2>
-                        </TableRow2>
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell3> */}
+                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {ele.total_mofa_payment}</TableCell3>
+                            <TableCell3 > {ele.used_mofa_payment}</TableCell3>
+                            <TableCell3 > {ele.balance_mofa_payment}</TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody2>
-            </Table2>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

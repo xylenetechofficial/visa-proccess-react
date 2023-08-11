@@ -16,7 +16,7 @@ import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
 import MofaPaymentTable from "./MofaPaymentTable";
-import { Heading2, Heading6 } from "../../../../componenets/CoustomHeader";
+import { Heading6 } from "../../../../componenets/CoustomHeader";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",

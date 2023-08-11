@@ -8,13 +8,11 @@ import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/re
 import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
 import { readAgentList } from "../../../masters/agent/repository";
 import { AgentInterface } from "../../../masters/agent/type";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
+import ModalContent from "../../../../componenets/Modal";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { GreenButton } from "../../../../componenets/CustomButton";
 import { updateMofaEntry } from "../repository";
-import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
-import { NomineeRelationList, ReligionList, SelectionStatusList, VisaSubmissionList } from "../../../db";
+import { NomineeRelationList, ReligionList, VisaSubmissionList } from "../../../db";
 
 
 export default function Main(props: {

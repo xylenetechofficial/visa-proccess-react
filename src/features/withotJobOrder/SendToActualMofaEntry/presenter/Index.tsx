@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-// import CreateModal from './Create'
-// import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
-// import SendToActualMofaEntryTable from "./Table";
-// import { confirmationMessage } from "../../../../utils/alert";
-import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
+import { BlueButton } from "../../../../componenets/CustomButton";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { PartyCodeInterface, SendToActualMofaEntryInterface } from "../type";
@@ -12,7 +8,7 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { createSendToActualMofaEntryList, readPartyCodeList, readSendToActualMofaEntryList } from "../repository";
 import SendToActualMofaTable from "./CandidateTable";
-// import { deleteSendToActualMofaEntry, readSendToActualMofaEntryList } from "../repository";
+
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",

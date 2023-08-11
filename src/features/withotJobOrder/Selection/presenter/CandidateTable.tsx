@@ -1,23 +1,18 @@
 import { SelectionInterface } from '../type'
-import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
-import { CompanyInterface } from '../../../masters/company/type';
-import { CountryInterface } from '../../../masters/country/type';
-
 
 import { useState, useEffect } from "react";
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
-import { CustomCheckBox, CustomSingleCheckBox } from '../../../../componenets/Checkbox';
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from '../../../../componenets/SelectBox';
-import { CustomRadioButton } from '../../../../componenets/RadioButton';
+import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
+import { CustomSelectComponentUnlabeled, selectOptionConveter } from '../../../../componenets/SelectBox';
 import { VisaAuthorisationInterface } from '../../../masters/visaAuthorization/type';
 import { readVisaAuthorisationList } from '../../../masters/visaAuthorization/repository';
 import { AgentInterface } from '../../../masters/agent/type';
 import { readAgentList } from '../../../masters/agent/repository';
 import { readSectorList } from '../../../masters/sector/repository';
 import { NomineeRelationList, ReligionList, SelectionStatusList, VisaSubmissionList } from '../../../db';
-// import { SelectionInterface } from '../../Extra/type';
 
 
 const SelectionTable = (props: {
@@ -126,50 +121,50 @@ const SelectionTable = (props: {
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > NAME</TableHeadCell>
-                        <TableHeadCell > PASSPORT NO</TableHeadCell>
-                        <TableHeadCell > PP Issued Date</TableHeadCell>
-                        <TableHeadCell >PP EXPIRY DATE</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > NAME</TableHeadCell3>
+                        <TableHeadCell3 > PASSPORT NO</TableHeadCell3>
+                        <TableHeadCell3 > PP Issued Date</TableHeadCell3>
+                        <TableHeadCell3 >PP EXPIRY DATE</TableHeadCell3>
 
-                        <TableHeadCell > PLACE OF ISSUE</TableHeadCell>
-                        <TableHeadCell > ACTUAL PROFESSION</TableHeadCell>
-                        <TableHeadCell >  TOTAL SALARY (SR)</TableHeadCell>
-                        <TableHeadCell > BASIC SALARY (SR)	 			</TableHeadCell>
+                        <TableHeadCell3 > PLACE OF ISSUE</TableHeadCell3>
+                        <TableHeadCell3 > ACTUAL PROFESSION</TableHeadCell3>
+                        <TableHeadCell3 >  TOTAL SALARY (SR)</TableHeadCell3>
+                        <TableHeadCell3 > BASIC SALARY (SR)	 			</TableHeadCell3>
 
-                        <TableHeadCell > HA/TA PROVIDED </TableHeadCell>
-                        <TableHeadCell > HA (SR)</TableHeadCell>
-                        <TableHeadCell > TA (SR)</TableHeadCell>
-                        <TableHeadCell > FA PROVIDED</TableHeadCell>
-                        <TableHeadCell > FA (SR)</TableHeadCell>
-                        <TableHeadCell >OTHER ALLOWANCE</TableHeadCell>
+                        <TableHeadCell3 > HA/TA PROVIDED </TableHeadCell3>
+                        <TableHeadCell3 > HA (SR)</TableHeadCell3>
+                        <TableHeadCell3 > TA (SR)</TableHeadCell3>
+                        <TableHeadCell3 > FA PROVIDED</TableHeadCell3>
+                        <TableHeadCell3 > FA (SR)</TableHeadCell3>
+                        <TableHeadCell3 >OTHER ALLOWANCE</TableHeadCell3>
 
-                        <TableHeadCell > AGENT</TableHeadCell>
-                        <TableHeadCell > AGE</TableHeadCell>
-                        <TableHeadCell >SECTOR</TableHeadCell>
-                        <TableHeadCell > SELECTION STATUS</TableHeadCell>
+                        <TableHeadCell3 > AGENT</TableHeadCell3>
+                        <TableHeadCell3 > AGE</TableHeadCell3>
+                        <TableHeadCell3 >SECTOR</TableHeadCell3>
+                        <TableHeadCell3 > SELECTION STATUS</TableHeadCell3>
 
-                        <TableHeadCell > CONTACT NO</TableHeadCell>
-                        <TableHeadCell > DATE OF BIRTH</TableHeadCell>
-                        <TableHeadCell > PLACE OF BIRTH</TableHeadCell>
-                        <TableHeadCell > ADDRESS</TableHeadCell>
+                        <TableHeadCell3 > CONTACT NO</TableHeadCell3>
+                        <TableHeadCell3 > DATE OF BIRTH</TableHeadCell3>
+                        <TableHeadCell3 > PLACE OF BIRTH</TableHeadCell3>
+                        <TableHeadCell3 > ADDRESS</TableHeadCell3>
 
-                        <TableHeadCell > NOMINEE NAME</TableHeadCell>
-                        <TableHeadCell > NOMINEE RELATION</TableHeadCell>
-                        <TableHeadCell >RELIGION</TableHeadCell>
-                        <TableHeadCell >VISA AUTHORIZATION</TableHeadCell>
+                        <TableHeadCell3 > NOMINEE NAME</TableHeadCell3>
+                        <TableHeadCell3 > NOMINEE RELATION</TableHeadCell3>
+                        <TableHeadCell3 >RELIGION</TableHeadCell3>
+                        <TableHeadCell3 >VISA AUTHORIZATION</TableHeadCell3>
 
-                        <TableHeadCell >VISA SUBMISSION</TableHeadCell>
-                        <TableHeadCell >DIVISION</TableHeadCell>
-                        <TableHeadCell > REMOVE</TableHeadCell>
+                        <TableHeadCell3 >VISA SUBMISSION</TableHeadCell3>
+                        <TableHeadCell3 >DIVISION</TableHeadCell3>
+                        <TableHeadCell3 > REMOVE</TableHeadCell3>
 
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.selectionList && props.selectionList.map((ele, index) => (
                         <TableData
                             data={ele}
@@ -185,15 +180,15 @@ const SelectionTable = (props: {
                     ))}
 
 
-                    <TableRow>
-                        <TableCell>
+                    <TableRow3>
+                        <TableCell3>
                             <div style={{ width: "111px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+                        </TableCell3>
+                    </TableRow3>
+                </TableBody3>
+            </Table3>
 
         </div>
     )
@@ -266,241 +261,241 @@ const TableData = (
 
     // console.log(localRowData)
     return (
-        <TableRow key={props.index}>
-            <TableCell >{props.index + 1}</TableCell>
+        <TableRow3 key={props.index}>
+            <TableCell3 >{props.index + 1}</TableCell3>
             {/* name */}
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.name}
                     onchange={(value) => setLocalRowData({ ...localRowData, name: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
             {/* passport  */}
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.passport_no}
                     onchange={(value) => setLocalRowData({ ...localRowData, passport_no: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
             {/* pp issued date */}
-            <TableCell >
+            <TableCell3 >
                 <DateInput
                     id='jbvh6d5r'
                     value={localRowData.pp_issued_date}
                     onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
             {/* ppp expiry date */}
-            <TableCell >
+            <TableCell3 >
                 <DateInput
                     id='dkjbvh6d5r'
                     value={localRowData.pp_expiry_date}
                     onChange={(value) => setLocalRowData({ ...localRowData, pp_expiry_date: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
             {/* place of issue */}
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.place_of_issue}
                     onchange={(value) => setLocalRowData({ ...localRowData, place_of_issue: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 {/* actual profession */}
                 <UnlabeledInput
                     value={localRowData.actual_profession}
                     onchange={(value) => setLocalRowData({ ...localRowData, actual_profession: value })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* total salary*/}
                 <UnlabeledInput
                     type='number'
                     value={localRowData.total_salary}
                     onchange={(value) => setLocalRowData({ ...localRowData, total_salary: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* basic salary*/}
                 <UnlabeledInput
                     type='number'
                     value={localRowData.basic_salary}
                     onchange={(value) => setLocalRowData({ ...localRowData, basic_salary: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
             {/* ha /ta */}
-            <TableCell >
+            <TableCell3 >
                 <CustomSingleCheckBox
                     value={localRowData.ha_or_ta_provided ? true : false}
                     onChange={(value) => setLocalRowData({ ...localRowData, ha_or_ta_provided: value ? 1 : 0 })}
                 />
 
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     type='number'
                     disabled={localRowData.ha_or_ta_provided ? true : false}
                     value={localRowData.ha}
                     onchange={(value) => setLocalRowData({ ...localRowData, ha: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     type='number'
                     disabled={localRowData.ha_or_ta_provided ? true : false}
                     value={localRowData.ta}
                     onchange={(value) => setLocalRowData({ ...localRowData, ta: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <CustomSingleCheckBox
                     value={localRowData.fa_provided ? true : false}
                     onChange={(value) => setLocalRowData({ ...localRowData, fa_provided: value ? 1 : 0 })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 <UnlabeledInput
                     type='number'
                     disabled={localRowData.fa_provided ? true : false}
                     value={localRowData.fa}
                     onchange={(value) => setLocalRowData({ ...localRowData, fa: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     type='number'
                     value={localRowData.other_allowance}
                     onchange={(value) => setLocalRowData({ ...localRowData, other_allowance: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.agent}
                     onChange={(value: any) => setLocalRowData({ ...localRowData, agent: value })}
                     options={selectOptionConveter({ options: props.agentList, options_struct: { name: "name", value: "id" } })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     type='number'
                     value={localRowData.age}
                     onchange={(value) => setLocalRowData({ ...localRowData, age: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.sector}
                     onChange={(value: any) => setLocalRowData({ ...localRowData, sector: value })}
                     options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.selection_status}
                     onChange={(value: any) => setLocalRowData({ ...localRowData, selection_status: value })}
                     options={SelectionStatusList}
                 />
 
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     type='tel'
                     value={localRowData.contact_no}
                     onchange={(value) => setLocalRowData({ ...localRowData, contact_no: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <DateInput
                     id='ajgdvf'
                     value={localRowData.date_of_birth}
                     onChange={(value) => setLocalRowData({ ...localRowData, date_of_birth: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.place_of_birth}
                     onchange={(value) => setLocalRowData({ ...localRowData, place_of_birth: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.address}
                     onchange={(value) => setLocalRowData({ ...localRowData, address: value })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.nominee_name}
                     onchange={(value) => setLocalRowData({ ...localRowData, nominee_name: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.nominee_relation}
                     onChange={(value: any) => setLocalRowData({ ...localRowData, nominee_relation: value })}
                     options={NomineeRelationList}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.religion}
                     onChange={(value: any) => setLocalRowData({ ...localRowData, religion: value })}
                     options={ReligionList} />
-            </TableCell>
+            </TableCell3>
 
 
-            <TableCell >
+            <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.visa_authorization}
                     onChange={(value: any) => setLocalRowData({ ...localRowData, visa_authorization: value })}
                     options={selectOptionConveter({ options: props.visaAuhorisationList, options_struct: { name: "name", value: "id" } })}
                 />
-            </TableCell>
+            </TableCell3>
 
 
-            <TableCell >
+            <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.visa_submission}
                     onChange={(value: any) => setLocalRowData({ ...localRowData, visa_submission: value })}
                     options={VisaSubmissionList} />
-            </TableCell>
+            </TableCell3>
 
 
-            <TableCell >
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.division}
                     onchange={(value) => setLocalRowData({ ...localRowData, division: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
 
-            <TableCell >
+            <TableCell3 >
 
                 <RedButton text={" Remove"} onClick={() => {
                     props.onClickRemove(props.index)
                 }} />
 
-            </TableCell>
-        </TableRow>
+            </TableCell3>
+        </TableRow3>
     )
 }
