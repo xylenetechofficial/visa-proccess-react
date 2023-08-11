@@ -24,6 +24,7 @@ export function CustomSelectComponent(props: {
     label?: string,
     required?: boolean,
     value?: any,
+    default?: any,
     options: { name: string, value: string }[]
     onChange: (value: any) => void
 }) {
@@ -44,7 +45,7 @@ export function CustomSelectComponent(props: {
                 value={props.value}
                 onChange={handleChange}
             >
-                <MenuItem value="">None</MenuItem>
+                {/* <MenuItem value={props.default ?? ""}>None</MenuItem> */}
                 {props.options.map((option) => (
                     <MenuItem value={option.value}>{option.name}</MenuItem>
 
@@ -81,17 +82,17 @@ export function CustomSelectComponentUnlabeled(props: {
 export const selectOptionConveterv2 = (props: {
     options: any[],
     options_struct: any
-  }) => {
+}) => {
     const newArray: { name: string, value: string }[] = [];
     props.options.forEach((e: any) => {
-      const { amount, used_amount, created_at,id } = e;
-      const optionName = `${amount.toString()}- ${convertDateFormat(created_at.toString())} - ${used_amount.toString()}`;
-      newArray.push({ name: optionName, value: id.toString() });
+        const { amount, used_amount, created_at, id } = e;
+        const optionName = `${amount.toString()}- ${convertDateFormat(created_at.toString())} - ${used_amount.toString()}`;
+        newArray.push({ name: optionName, value: id.toString() });
     });
     return newArray;
-  };
-  
-  
+};
+
+
 
 export function CustomSelectComponentUnlabeledv2(props: {
     required?: boolean,
@@ -119,10 +120,10 @@ export function CustomSelectComponentUnlabeledv2(props: {
 
 export const selectOptionConveterv3 = (props: {
     options: any[],
-    options_struct: { name1: string,name2: string, value: string }
+    options_struct: { name1: string, name2: string, value: string }
 }) => {
     // console.log(props.options,"mm")
-    const newArray: { name: string, value: string ,}[] = []
+    const newArray: { name: string, value: string, }[] = []
     props.options.map((e: any) => {
         newArray.push({
             name: `${e[props.options_struct.name1]} - ${e[props.options_struct.name2]}`,
