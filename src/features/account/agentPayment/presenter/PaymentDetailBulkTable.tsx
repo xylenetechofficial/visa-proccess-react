@@ -1,6 +1,6 @@
 import { VisaProfesionInterface } from '../type'
 import {  GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, Table3, TableBody, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow3, TableRow } from '../../../../componenets/Table';
+import { Table, Table3, TableBody, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 import { convertDateFormat, convertDateFormatWithTime } from '../../../../utils/function';
@@ -114,7 +114,7 @@ const TableData = (
 
     console.log(localRowData)
     return (
-        <TableRow key={props.index}>
+        <TableRow3 key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
             <TableCell3 >
             {props.data.name}
@@ -140,6 +140,6 @@ const TableData = (
                 {convertDateFormatWithTime(props.data.created_at)}
 
             </TableCell3>
-        </TableRow>
+        </TableRow3>
     )
 }

@@ -1,12 +1,12 @@
 
 import {
-  Table,
-  TableBody2,
-  TableCell,
-  TableHead2,
-  TableHeadCell,
-  TableHeadRow,
-  TableRow,
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
 
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
@@ -30,77 +30,77 @@ const AgentPaymentTable = (props: {
   return (
     <div className="overflow-auto">
 
-      <Table>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell> Sr No.</TableHeadCell>
-            <TableHeadCell> PARTY CODE </TableHeadCell>
-            <TableHeadCell> COMPANY NAME</TableHeadCell>
-            <TableHeadCell> CONDIDATE NAME</TableHeadCell>
-            <TableHeadCell> PASSPORT NO.</TableHeadCell>
-            <TableHeadCell> ACTUAL PROFESSION </TableHeadCell>
-            <TableHeadCell> VISA PROFESSION </TableHeadCell>
-            <TableHeadCell> AGENT</TableHeadCell>
-            <TableHeadCell> VISA RECIEVED DATE </TableHeadCell>
-            <TableHeadCell> VISA AUTHORIZATION </TableHeadCell>
-            <TableHeadCell> PHOTO CHARGES </TableHeadCell>
-            <TableHeadCell> TRAINIG CHARGES</TableHeadCell>
-            <TableHeadCell> OTHER CHARGES</TableHeadCell>
-            <TableHeadCell> DOCUMENT CHARGES</TableHeadCell>
-            <TableHeadCell> SERVICES CHARGES</TableHeadCell>
-            <TableHeadCell> PARTIAL CHARGES</TableHeadCell>
-            <TableHeadCell> SECTOR CHARGES</TableHeadCell>
-            <TableHeadCell> CONSULATE SETTING CHARGES</TableHeadCell>
-            <TableHeadCell> TICKET CHARGES</TableHeadCell>
-            <TableHeadCell> ATTESTATION CHARGES </TableHeadCell>
-            <TableHeadCell> CONSOLIDATED CHARGES </TableHeadCell>
-            <TableHeadCell> PENALTY AFTER DEPLOYMENT </TableHeadCell>
-            <TableHeadCell> EXTRA SERVICE </TableHeadCell>
-            <TableHeadCell> AGENT COMMISSION </TableHeadCell>
-            <TableHeadCell> DISCOUNT </TableHeadCell>
-            <TableHeadCell> AMOUNT RECEIVED </TableHeadCell>
-            <TableHeadCell> BALANCE AMOUNT </TableHeadCell>
-            <TableHeadCell> AMOUNT </TableHeadCell>
-            {/* <TableHeadCell> DD NO/RECEIVED / DD FROM</TableHeadCell> */}
-            <TableHeadCell> ADJUST FROM BULK PAYMENT</TableHeadCell>
-            {/* <TableHeadCell> HAS SERVICE TAX</TableHeadCell>
-            <TableHeadCell> SERVICE TAX RECEIVED</TableHeadCell> */}
-            <TableHeadCell> ADVANCE </TableHeadCell>
-            <TableHeadCell> PAYMENT DATE </TableHeadCell>
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> PARTY CODE </TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3> CONDIDATE NAME</TableHeadCell3>
+            <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+            <TableHeadCell3> AGENT</TableHeadCell3>
+            <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3>
+            <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
+            <TableHeadCell3> PHOTO CHARGES </TableHeadCell3>
+            <TableHeadCell3> TRAINIG CHARGES</TableHeadCell3>
+            <TableHeadCell3> OTHER CHARGES</TableHeadCell3>
+            <TableHeadCell3> DOCUMENT CHARGES</TableHeadCell3>
+            <TableHeadCell3> SERVICES CHARGES</TableHeadCell3>
+            <TableHeadCell3> PARTIAL CHARGES</TableHeadCell3>
+            <TableHeadCell3> SECTOR CHARGES</TableHeadCell3>
+            <TableHeadCell3> CONSULATE SETTING CHARGES</TableHeadCell3>
+            <TableHeadCell3> TICKET CHARGES</TableHeadCell3>
+            <TableHeadCell3> ATTESTATION CHARGES </TableHeadCell3>
+            <TableHeadCell3> CONSOLIDATED CHARGES </TableHeadCell3>
+            <TableHeadCell3> PENALTY AFTER DEPLOYMENT </TableHeadCell3>
+            <TableHeadCell3> EXTRA SERVICE </TableHeadCell3>
+            <TableHeadCell3> AGENT COMMISSION </TableHeadCell3>
+            <TableHeadCell3> DISCOUNT </TableHeadCell3>
+            <TableHeadCell3> AMOUNT RECEIVED </TableHeadCell3>
+            <TableHeadCell3> BALANCE AMOUNT </TableHeadCell3>
+            <TableHeadCell3> AMOUNT </TableHeadCell3>
+            {/* <TableHeadCell3> DD NO/RECEIVED / DD FROM</TableHeadCell3> */}
+            <TableHeadCell3> ADJUST FROM BULK PAYMENT</TableHeadCell3>
+            {/* <TableHeadCell3> HAS SERVICE TAX</TableHeadCell3>
+            <TableHeadCell3> SERVICE TAX RECEIVED</TableHeadCell3> */}
+            <TableHeadCell3> ADVANCE </TableHeadCell3>
+            <TableHeadCell3> PAYMENT DATE </TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
           {props.AgentPaymentList?.table_data_list?.map((ele: any, index: any) => (
-            <TableRow key={index + 1}>
+            <TableRow3 key={index + 1}>
 
-              <TableCell> {index + 1}</TableCell>
-              <TableCell> {ele.party_code}</TableCell>
-              <TableCell> {ele.company_name}</TableCell>
-              <TableCell> {ele.name}</TableCell>
-              <TableCell>{ele.passport_no}</TableCell>
-              <TableCell>{ele.actual_profession}</TableCell>
-              <TableCell>{ele.visa_profession}</TableCell>
-              <TableCell> {ele.agent_name}</TableCell>
-              <TableCell> {ele.visa_received_date}</TableCell>
-              <TableCell> {ele.visa_authorization}</TableCell>
-              <TableCell> {ele.photo_charges}</TableCell>
-              <TableCell> {ele.training_charges}</TableCell>
-              <TableCell> {ele.other_charges}</TableCell>
-              <TableCell> {ele.document_charges}</TableCell>
-              <TableCell> {ele.service_charges}</TableCell>
-              <TableCell> {ele.partial_charges}</TableCell>
-              <TableCell> {ele.sector_charges}</TableCell>
-              <TableCell> {ele.consulate_setting_charges}</TableCell>
-              <TableCell> {ele?.ticket_charges}</TableCell>
-              <TableCell> {ele.attestation_charges}</TableCell>
-              <TableCell> {ele.consolidated_charges}</TableCell>
-              <TableCell> {ele.penalty_after_deployment}</TableCell>
-              <TableCell> {ele.extra_service_tax}</TableCell>
-              <TableCell> {ele.agent_commission}</TableCell>
-              <TableCell> {ele.discount_amount}</TableCell>
-              <TableCell> <p className="text-red-500 cursor-pointer " onClick={()=>{props.fetchPaymentDetail('candidate_id',ele),props.setModalName('viewpaymentdetailfromcandidaite')}}>{ele.received}  </p></TableCell>
-              <TableCell> {ele.balance_amount}</TableCell>
-              <TableCell>
+              <TableCell3> {index + 1}</TableCell3>
+              <TableCell3> {ele.party_code}</TableCell3>
+              <TableCell3> {ele.company_name}</TableCell3>
+              <TableCell3> {ele.name}</TableCell3>
+              <TableCell3>{ele.passport_no}</TableCell3>
+              <TableCell3>{ele.actual_profession}</TableCell3>
+              <TableCell3>{ele.visa_profession}</TableCell3>
+              <TableCell3> {ele.agent_name}</TableCell3>
+              <TableCell3> {ele.visa_received_date}</TableCell3>
+              <TableCell3> {ele.visa_authorization}</TableCell3>
+              <TableCell3> {ele.photo_charges}</TableCell3>
+              <TableCell3> {ele.training_charges}</TableCell3>
+              <TableCell3> {ele.other_charges}</TableCell3>
+              <TableCell3> {ele.document_charges}</TableCell3>
+              <TableCell3> {ele.service_charges}</TableCell3>
+              <TableCell3> {ele.partial_charges}</TableCell3>
+              <TableCell3> {ele.sector_charges}</TableCell3>
+              <TableCell3> {ele.consulate_setting_charges}</TableCell3>
+              <TableCell3> {ele?.ticket_charges}</TableCell3>
+              <TableCell3> {ele.attestation_charges}</TableCell3>
+              <TableCell3> {ele.consolidated_charges}</TableCell3>
+              <TableCell3> {ele.penalty_after_deployment}</TableCell3>
+              <TableCell3> {ele.extra_service_tax}</TableCell3>
+              <TableCell3> {ele.agent_commission}</TableCell3>
+              <TableCell3> {ele.discount_amount}</TableCell3>
+              <TableCell3> <p className="text-red-500 cursor-pointer " onClick={()=>{props.fetchPaymentDetail('candidate_id',ele),props.setModalName('viewpaymentdetailfromcandidaite')}}>{ele.received}  </p></TableCell3>
+              <TableCell3> {ele.balance_amount}</TableCell3>
+              <TableCell3>
                 <UnlabeledInput
                   type="number"
                   value={props.data[index]?.amount}
@@ -118,8 +118,8 @@ const AgentPaymentTable = (props: {
                     console.log(props.data, value)
                   }}
                 />
-              </TableCell>
-              <TableCell>
+              </TableCell3>
+              <TableCell3>
 
 
                 <CustomSelectComponentUnlabeledv2
@@ -140,9 +140,9 @@ const AgentPaymentTable = (props: {
                   }
                   } />
 
-              </TableCell>
+              </TableCell3>
 
-              <TableCell> 
+              <TableCell3> 
                 <Checkbox value={ele.payment_date} onChange={(e) => {
                   props.setData((prev: any) => {
                     const newData = [...prev];
@@ -159,8 +159,8 @@ const AgentPaymentTable = (props: {
                   ]
                   )
                 }} />
-              </TableCell>
-              <TableCell>
+              </TableCell3>
+              <TableCell3>
 
                 <DateInput id="date"
 
@@ -185,14 +185,14 @@ const AgentPaymentTable = (props: {
                     });
                   }} />
 
-              </TableCell>
+              </TableCell3>
 
-            </TableRow>
+            </TableRow3>
           ))
           }
 
-        </TableBody2>
-      </Table>
+        </TableBody3>
+      </Table3>
 
     </div>
   );

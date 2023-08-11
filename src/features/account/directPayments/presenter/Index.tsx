@@ -66,7 +66,7 @@ export default function Main( ) {
 
     bulk_payment_list: []
   };
-  const [AgentId, setAgentId] = useState(1);
+  const [AgentId, setAgentId] = useState(0);
   const [passportNo, setPassportNo] = useState('')
   const [AgentPayment, setAgentPayment] = useState(initValue);
   const [data, setData] = useState<any>([])
