@@ -21,8 +21,9 @@ import { readBlockVisaList } from "../../blockVisa/repository";
 import { BlockVisaInterface } from "../../blockVisa/type";
 // import { number } from "prop-types";
 import VisaProfessionTable from "./VisaProfessionTable";
-import { BlueButton } from "../../../../componenets/CustomButton";
+// import { BlueButton } from "../../../../componenets/CustomButton";
 import { addDaysToDate } from "../../../../utils/function";
+import { showMessage_v2 } from "../../../../utils/alert";
 
 
 export default function Main(props: {
@@ -55,6 +56,7 @@ export default function Main(props: {
         jobOrderNo: "",
         party_code: "",
         visaAllocationList: [],
+        visaProfessionList:[],
         days: 709,
     }
 
@@ -65,6 +67,19 @@ export default function Main(props: {
     async function onClickAdd() {
 
         // const visaAllocationListAdapter:VisaAllocationAdapter[]=VisaAllocationConverter.toAdapterList(visaAllocationList)
+        const visa_profession_len = indexVisa.visaProfessionList?.length ?? 0
+        if (visa_profession_len < 1) {
+            showMessage_v2({ message: "Visa Profession Required", status: 404 });
+            return
+        }
+
+        for (let i = 0; i < visa_profession_len; i++) {
+            if (indexVisa.visaProfessionList[i].visa_profession.trim() == "") {
+                showMessage_v2({ message: "Visa Profession Empty", status: 404 });
+                return
+            }
+        }
+
         const newArray = { ...indexVisa, visaAllocationList: visaAllocationList }
         // call create
         // const flag = await createIndexVisa(newArray)

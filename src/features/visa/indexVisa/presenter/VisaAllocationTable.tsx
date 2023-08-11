@@ -11,7 +11,7 @@ import { UnlabeledInput } from '../../../../componenets/Input';
 // import { CustomCheckBox } from '../../../../componenets/Checkbox';
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from '../../../../componenets/SelectBox';
 import { UserInterface } from '../../../context/Model';
-import { readOperationManagerist, readRecruitCoordinatorList, readRecruitManagerList, readRecruitSuperVisorList } from '../../../masters/user/repository';
+// import { readOperationManagerist, readRecruitCoordinatorList, readRecruitManagerList, readRecruitSuperVisorList } from '../../../masters/user/repository';
 // import { CustomRadioButton } from '../../../../componenets/RadioButton';
 // import { rcList } from '../../../job-dpt/db/user';
 

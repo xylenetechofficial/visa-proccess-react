@@ -48,7 +48,8 @@ export default function Main(props: {
         visa_fee: 0,
         visa_issued_date: "",
         visa_submission: "",
-        days: 709
+        days: 709,
+        visaProfessionList:[]
     }
 
     const [blockVisa, setBlockVisa] = useState(initValue)

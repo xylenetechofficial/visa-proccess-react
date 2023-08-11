@@ -22,7 +22,7 @@ export interface BlockVisaInterface {
   rm: number;
   rc: number;
   visa_accountable: number;
-  visaProfessionList?: VisaProfesionInterface[];
+  visaProfessionList: VisaProfesionInterface[];
   balanceQuantity?: number;
 }
 // 'block_visa' => 'required|array',

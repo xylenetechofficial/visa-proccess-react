@@ -17,6 +17,7 @@ import VisaProfessionTable from "./VisaProfessionTable";
 import { addDaysToDate } from "../../../../utils/function";
 import { UserInterface } from '../../../context/Model';
 import { readOperationManagerist, readRecruitCoordinatorList, readRecruitManagerList, readRecruitSuperVisorList } from '../../../masters/user/repository';
+import { showMessage_v2 } from "../../../../utils/alert";
 
 
 export default function Main(props: {
@@ -57,6 +58,18 @@ export default function Main(props: {
 
 
     async function onClickAdd() {
+
+        if (visaProfessionList.length < 1) {
+            showMessage_v2({ message: "Visa Profession Required", status: 404 });
+            return
+        }
+
+        for (let i = 0; i < visaProfessionList.length; i++) {
+            if (visaProfessionList[i].visa_profession.trim() == "") {
+                showMessage_v2({ message: "Visa Profession Empty", status: 404 });
+                return
+            }
+        }
 
         // call create
         const newArray = { ...blockVisa, visaProfessionList: visaProfessionList }
@@ -123,7 +136,7 @@ export default function Main(props: {
             <div className=" grid grid-cols-1 py-3  gap-2 shadow">
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Index Date  :" />
+                    <SubHeading1 text="Index Date: " />
                     <DateInput
                         id="sd;fksdakj"
                         value={blockVisa.index_date}
@@ -134,7 +147,7 @@ export default function Main(props: {
 
 
                 <UpdateContentBox>
-                    <SubHeading1 text=" COMPANY :" />
+                    <SubHeading1 text="COMPANY: " />
                     <CustomSelectComponentUnlabeled
                         onChange={(value) => setBlockVisa({ ...blockVisa, company: value })}
 
@@ -144,7 +157,7 @@ export default function Main(props: {
                 </UpdateContentBox>
 
                 <UpdateContentBox>
-                    <SubHeading1 text=" Country :" />
+                    <SubHeading1 text="Country: " />
                     <CustomSelectComponentUnlabeled
                         onChange={(value) => setBlockVisa({ ...blockVisa, country: value })}
 
@@ -155,7 +168,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Quantity  :" />
+                    <SubHeading1 text="Quantity: " />
                     <UnlabeledInput
                         type="number"
                         value={blockVisa.quantity}
@@ -166,7 +179,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Visa Date(Arabic) :" />
+                    <SubHeading1 text="Visa Date(Arabic): " />
                     <UnlabeledInput
                         value={blockVisa.visa_date_arabic}
                         onchange={(value) => setBlockVisa({ ...blockVisa, visa_date_arabic: value })}
@@ -174,7 +187,7 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Visa number:" />
+                    <SubHeading1 text="Visa number: " />
                     <UnlabeledInput
                         value={blockVisa.visa_number}
                         onchange={(value) => setBlockVisa({ ...blockVisa, visa_number: value })}
@@ -182,7 +195,7 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Visa fee :" />
+                    <SubHeading1 text="Visa fee: " />
                     <UnlabeledInput
                         type="number"
 
@@ -194,7 +207,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Visa Issue Date :" />
+                    <SubHeading1 text="Visa Issue Date: " />
                     <DateInput
                         id="asdfsadfsadfsdfsa"
                         value={blockVisa.visa_issued_date}
@@ -214,7 +227,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="VISA AUTHORIZATION:  :" />
+                    <SubHeading1 text="VISA AUTHORIZATION: " />
 
                     <CustomSelectComponentUnlabeled
                         value={blockVisa.visa_authorization}
@@ -225,7 +238,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="visa submission:" />
+                    <SubHeading1 text="visa submission: " />
                     <CustomSelectComponentUnlabeled
                         options={[
                             { name: "Mumbai", value: "Mumbai" },
@@ -239,7 +252,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Arabic Sponsor Name :" />
+                    <SubHeading1 text="Arabic Sponsor Name: " />
                     <UnlabeledInput
                         value={blockVisa.arabic_sponsor_name}
                         onchange={(value) => setBlockVisa({ ...blockVisa, arabic_sponsor_name: value })}
@@ -248,7 +261,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Sponsor Id:" />
+                    <SubHeading1 text="Sponsor Id: " />
                     <UnlabeledInput
                         value={blockVisa.sponsor_id}
                         onchange={(value) => setBlockVisa({ ...blockVisa, sponsor_id: value })}
@@ -257,7 +270,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Visa expiry date :" />
+                    <SubHeading1 text="Visa expiry date: " />
                     <DateInput
                         id="adsfdsfadfsdafdsfdsafas"
                         value={blockVisa.visa_expiry_date}
@@ -267,7 +280,7 @@ export default function Main(props: {
                 </UpdateContentBox>
 
                 <UpdateContentBox>
-                <SubHeading1 text="Days :" />
+                    <SubHeading1 text="Days: " />
                     <UnlabeledInput
                         value={blockVisa.days}
                         onchange={(value) => {
@@ -280,7 +293,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="Division :" />
+                    <SubHeading1 text="Division: " />
                     <UnlabeledInput
                         value={blockVisa.division}
                         onchange={(value) => setBlockVisa({ ...blockVisa, division: value })}
@@ -290,7 +303,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="OM:  :" />
+                    <SubHeading1 text="OM: " />
 
                     <CustomSelectComponentUnlabeled
                         value={blockVisa.om}
@@ -300,7 +313,7 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="RM:  :" />
+                    <SubHeading1 text="RM: " />
 
                     <CustomSelectComponentUnlabeled
                         value={blockVisa.rm}
@@ -310,7 +323,7 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                    <SubHeading1 text="RC:  :" />
+                    <SubHeading1 text="RC: " />
 
                     <CustomSelectComponentUnlabeled
                         value={blockVisa.rc}
@@ -321,7 +334,7 @@ export default function Main(props: {
 
                 <UpdateContentBox>
 
-                    <SubHeading1 text="VISA ACCOUNTABLE :  :" />
+                    <SubHeading1 text="VISA ACCOUNTABLE: " />
 
                     <CustomRadioButton
                         value={blockVisa.visa_accountable}

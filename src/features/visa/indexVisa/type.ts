@@ -26,7 +26,7 @@ export interface IndexVisaInterface {
   rc: number;
   visa_accountable: number;
   visaAllocationList?: VisaAllocationInterface[];
-  visaProfessionList?: VisaProfesionInterface[];
+  visaProfessionList: VisaProfesionInterface[];
 
   company_name?: string;
   country_name?: string;

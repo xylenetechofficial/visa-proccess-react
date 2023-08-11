@@ -146,7 +146,6 @@ const TableData = (
             <TableCell3 > {localRowData.acctualProfession}</TableCell3>
             <TableCell3 > {localRowData.agent}</TableCell3>
             <TableCell3 > {localRowData.rs}</TableCell3>
-            <TableCell3 > {localRowData.rs}</TableCell3>
             <TableCell3 > {localRowData.rm}</TableCell3>
             <TableCell3 > {localRowData.rc}</TableCell3>
             <TableCell3 > {convertDateFormat(localRowData.approvalDate)}</TableCell3>
@@ -172,7 +171,7 @@ const TableData = (
                         }
 
                     }}
-                    options={selectOptionConveter({ options: localRowData.party_code_list ?? [], options_struct: { name: "name", value: "id" } })}
+                    options={selectOptionConveter({ options: localRowData.party_code_list ?? [], options_struct: { name: "name", value: "name" } })}
                 value={localRowData.PartyCode_VisaProfession}
                 />
             </TableCell3>
