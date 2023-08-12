@@ -2,7 +2,7 @@ import { CustomCheckBox } from "../../../../componenets/Checkbox"
 import { RedButton } from "../../../../componenets/CustomButton";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
-import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
+import { Table, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { PassportReleaseRequestInterface } from "../type";
 
 export default function Main(props: {
@@ -27,8 +27,8 @@ export default function Main(props: {
     return (
 
         <>
-
-            <Table3>
+<div className="overflow-auto">
+            <Table>
                 <TableHead3>
                     <TableHeadRow3>
                         {HEADERLIST.map((item) => (<TableHeadCell3> {item}</TableHeadCell3>))}
@@ -58,7 +58,8 @@ export default function Main(props: {
                         </TableRow3>
                     ))}
                 </TableBody2>
-            </Table3>
+            </Table>
+            </div>
         </>
     )
 }

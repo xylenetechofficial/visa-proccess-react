@@ -26,7 +26,7 @@ export default function Main(props:{
         return (
 
         <>
-
+<div className="overflow-auto">
             <Table3>
                 <TableHead3>
                     <TableHeadRow3>
@@ -66,6 +66,7 @@ export default function Main(props:{
                     ))}
                 </TableBody2>
             </Table3>
+            </div>
         </>
     )
 }

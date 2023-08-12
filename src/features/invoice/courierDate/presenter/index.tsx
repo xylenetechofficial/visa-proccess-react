@@ -6,6 +6,8 @@ import { Box, styled } from "@mui/material";
 import { AllSelectionInvoiceDateInterface, CourierDateInterface } from '../type';
 import { createInvoiceDate, readCourierDateEntrylist } from '../repository';
 import { GreenButton } from '../../../../componenets/CustomButton';
+import { readSectorList } from '../../../masters/sector/repository';
+import { SectorInterface } from '../../../masters/sector/type';
 export default function Main() {
     const CardHeader = styled(Box)(() => ({
         display: "flex",
@@ -32,15 +34,24 @@ export default function Main() {
       }
       await createInvoiceDate(list)
     }
-    useEffect(()=>{
 
+    const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
+    const fetchSectorList = async () => {
+        const data = await readSectorList();
+        if (data) {
+            setSectorList(data);
+        }
+    };
+
+    useEffect(()=>{
+      fetchSectorList();
         fetchCourierDateEntryData()
     },[])
     return (
 
         <>
          <CustomNavbarV3
-        pageName="Client Invoice Courier Date Entry"
+        pageName=" Invoice Courier Date "
         searchFunction={(query) => setSearchQuery(query)}
       />
       <CardHeader>
@@ -49,7 +60,9 @@ export default function Main() {
 
             <CourierDateTable
                 onChange ={(value)=>setCourierDateList(value)}
-                CourierDateList={courierDateList} />
+                CourierDateList={courierDateList}
+                sectorList={sectorList}
+                />
         <GreenButton text='Submit' onClick={()=>onClickAdd()} />
         </>
     )

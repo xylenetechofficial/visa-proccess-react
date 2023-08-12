@@ -36,7 +36,7 @@ export default function Main() {
 
     <>
       <CustomNavbarV3
-        pageName="Client Invoice Dispatch"
+        pageName=" Invoice Dispatch"
         searchFunction={(query) => setSearchQuery(query)}
       />
       <CardHeader>
