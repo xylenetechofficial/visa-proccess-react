@@ -32,7 +32,7 @@ const Main = (props: {
                     </TableHeadRow>
                 </TableHead2>
                 <TableBody2>
-                    {props.immigrationData?.map((item: any, index: any) => (
+                    {props.immigrationData?.map((item, index) => (
 
                         <TableRow key={index}>
                             <TableCell>{index +1}</TableCell>

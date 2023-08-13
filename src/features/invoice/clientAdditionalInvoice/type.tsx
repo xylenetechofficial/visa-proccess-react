@@ -3,7 +3,7 @@ export interface ClientAdditionalInvoiceInterface {
  
     id?: number,
     company_id: number,
-    company_name:string,
+    company_name?:string,
     invoice_number:string,
     invoice_date:string,
     invoice_amount:string,
@@ -16,7 +16,7 @@ export interface ClientAdditionalInvoiceInterface {
   export interface ClientAdditionalInvoiceAdapter {
     id?: number,
     company_id: number,
-    company_name:string,
+    company_name?:string,
     invoice_number:string,
     invoice_date:string,
     invoice_amount:string,
