@@ -1,5 +1,5 @@
 import { CustomCheckBox } from "../../../../componenets/Checkbox"
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
 import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { RMAdvanceBookingInterface } from "../type";
@@ -54,7 +54,7 @@ export default function Main(props:{
                             <TableCell3> {item.is_invoice} </TableCell3>
                             <TableCell3> {item.advance} </TableCell3>
                             <TableCell3><CustomCheckBox option={[]} onChange={(e) => onUpdateRow(index,{...item,advance:e.target.checked ? "Yes":''})} /></TableCell3>
-                            <TableCell3><UnlabeledInput value={''} onchange={(value)=>onUpdateRow(index,{...item,payment_date:value})}/></TableCell3>
+                            <TableCell3><DateInput id="paymentDate" value={item.payment_date} onChange={(value)=>onUpdateRow(index,{...item,payment_date:value})}/></TableCell3>
                         </TableRow3>
                     ))}
                 </TableBody2>

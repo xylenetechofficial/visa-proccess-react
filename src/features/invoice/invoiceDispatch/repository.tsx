@@ -38,9 +38,10 @@ export async function readinvoiceDispatchedList() {
 
 export async function createInvoiceDispatch(InvoiceDispatch:InvoiceDispatchInterface[]) {
   const path = "/invoice-dpt/invoice-dispatched-list";
-const list :AddInvoiceDispatchInterface ={
-  invoice_list:InvoiceDispatch,
-}
+// const list :AddInvoiceDispatchInterface ={
+//   invoice_list:InvoiceDispatch,
+// }
+const list ={invoice_list:InvoiceDispatch}
   const payload = AddInvoiceDispatchConverter.toAdapter(list);
  
   const response = await ApiHelper.post(path, payload, {

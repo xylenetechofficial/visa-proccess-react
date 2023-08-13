@@ -3,6 +3,7 @@ export interface ClientAdditionalInvoiceInterface {
  
     id?: number,
     company_id: number,
+    company_name:string,
     invoice_number:string,
     invoice_date:string,
     invoice_amount:string,
@@ -15,6 +16,7 @@ export interface ClientAdditionalInvoiceInterface {
   export interface ClientAdditionalInvoiceAdapter {
     id?: number,
     company_id: number,
+    company_name:string,
     invoice_number:string,
     invoice_date:string,
     invoice_amount:string,
@@ -31,6 +33,7 @@ export interface ClientAdditionalInvoiceInterface {
       const data: ClientAdditionalInvoiceInterface = {
         id:a?.id,
         company_id:a?.company_id,
+        company_name:a?.company_name,
         invoice_number:a?.invoice_number,
         invoice_date:a?.invoice_date,
         invoice_amount:a?.invoice_amount,
@@ -48,6 +51,7 @@ export interface ClientAdditionalInvoiceInterface {
       const data: ClientAdditionalInvoiceAdapter = {
         id:i?.id,
         company_id:i?.company_id,
+        company_name:i?.company_name,
         invoice_number:i?.invoice_number,
         invoice_date:i?.invoice_date,
         invoice_amount:i?.invoice_amount,

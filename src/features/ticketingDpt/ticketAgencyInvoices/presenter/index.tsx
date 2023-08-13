@@ -47,7 +47,7 @@ export default function Main() {
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
             </CardHeader>
             <TicketAgencyInvoiceTable TicketAgencyInvoicesList={TicketAgencyInvoicesList} onChange={(value)=>setTicketAgencyInvoicesList(value)}/>
-            <GreenButton text='Submit' onClick={() => onClickCreate(TicketAgencyInvoicesList[0])} />
+            {/* <GreenButton text='Submit' onClick={() => onClickCreate(TicketAgencyInvoicesList[0])} /> */}
         </>
     )
 }

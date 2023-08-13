@@ -7,6 +7,7 @@ import { createTicketProvidedByCompany, readTicketProvidedByCompanyList } from '
 import { TicketProvidedByCompanyInterface } from '../type';
 import { readSectorList } from '../../../masters/sector/repository';
 import { SectorInterface } from '../../../masters/sector/type';
+import { GreenButton } from '../../../../componenets/CustomButton';
 export default function Main() {
 
     const CardHeader = styled(Box)(() => ({
@@ -61,6 +62,7 @@ export default function Main() {
                 sectorList={sectorList}
                 onChange={(value) => setTicketProvidedByCompanyList(value)}
             />
+            <GreenButton text='Submit' onClick={()=>onClickCreate(TicketProvidedByCompanyList[0])} />
         </>
     )
 }

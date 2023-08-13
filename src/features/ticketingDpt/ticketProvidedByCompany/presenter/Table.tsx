@@ -53,8 +53,8 @@ export default function Main(props: {
                             <TableCell3><CustomCheckBox option={[]} onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell3>
                             <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })} /></TableCell3>
                             <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_to: value })} /></TableCell3>
-                            <TableCell3> <UnlabeledInput value={''} onchange={(value) => onUpdateRow(index, { ...item, pnr_no: value })} /></TableCell3>
-                            <TableCell3> <UnlabeledInput value={''} onchange={(value) => onUpdateRow(index, { ...item, departure_date: value })} /></TableCell3>
+                            <TableCell3> <UnlabeledInput value={item.pnr_no} onchange={(value) => onUpdateRow(index, { ...item, pnr_no: value })} /></TableCell3>
+                            <TableCell3> <UnlabeledInput value={item.departure_date} onchange={(value) => onUpdateRow(index, { ...item, departure_date: value })} /></TableCell3>
                         </TableRow3>
                     ))}
                 </TableBody2>

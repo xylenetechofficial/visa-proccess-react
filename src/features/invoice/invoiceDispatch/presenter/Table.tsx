@@ -85,12 +85,12 @@ const ClientInvoiceAddTable = (props: {
                   value={"Yes"}
                   checked={selectedCheckbox[index]?.isChecked === `${ele.id}yes`}
                   onChange={(value) => {
-                    handleCheckboxChange(`${ele.id}yes`,index)  , onUpdateRow(index, { ...ele, name: value.target.checked ? 'Yes':'' }) }} />Yes
+                    handleCheckboxChange(`${ele.id}yes`,index)  , onUpdateRow(index, { ...ele, received: value.target.checked ? 'Yes':'' }) }} />Yes
                 <Checkbox
                   value={"Not"}
                   checked={selectedCheckbox[index]?.isChecked === `${ele.id}no`}
                   onChange={(value) => {
-                    handleCheckboxChange(`${ele.id}no`,index) , onUpdateRow(index, { ...ele, name: value.target.checked ? 'No':'' })  }} />No
+                    handleCheckboxChange(`${ele.id}no`,index) , onUpdateRow(index, { ...ele, received: value.target.checked ? 'No':'' })  }} />No
               </TableCell>
    
             </TableRow>

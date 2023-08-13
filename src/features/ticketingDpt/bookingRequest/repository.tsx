@@ -35,8 +35,10 @@ export async function readTicketBookingRequestList() {
 
 export async function createTicketBookingRequest(TicketBookingRequest:BookingRequestInterface) {
     const path = "/ticketing-dpt/booking-request-list";
-  
-    const payload = BookingRequestConverter.toAdapter(TicketBookingRequest);
+  const list :any ={
+    selection_list:TicketBookingRequest
+  }
+    const payload = BookingRequestConverter.toAdapter(list);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT

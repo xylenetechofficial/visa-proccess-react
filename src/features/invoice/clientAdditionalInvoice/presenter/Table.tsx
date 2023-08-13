@@ -36,7 +36,7 @@ const Main = (props: {
 
                         <TableRow key={index}>
                             <TableCell>{index +1}</TableCell>
-                            <TableCell>{item?.company_id}</TableCell>
+                            <TableCell>{item?.company_name}</TableCell>
                             <TableCell>{item?.invoice_number}</TableCell>
                             <TableCell>{item?.invoice_date}</TableCell>
                             <TableCell>{item?.invoice_amount}</TableCell>

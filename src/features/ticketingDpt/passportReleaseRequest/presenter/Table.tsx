@@ -1,6 +1,6 @@
 import { CustomCheckBox } from "../../../../componenets/Checkbox"
 import { RedButton } from "../../../../componenets/CustomButton";
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
 import { Table, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { PassportReleaseRequestInterface } from "../type";
@@ -54,7 +54,7 @@ export default function Main(props: {
                             <TableCell3> {item.air_ticket} </TableCell3>
                             <TableCell3> {item.division} </TableCell3>
                             <TableCell3><CustomCheckBox option={[]} onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell3>
-                            <TableCell3><UnlabeledInput onchange={(value) => { onUpdateRow(index, { ...item, release_by_date: value }) }} value={''} /></TableCell3>
+                            <TableCell3><DateInput id="releaseDate" onChange={(value) => { onUpdateRow(index, { ...item, release_by_date: value }) }} value={item.release_by_date} /></TableCell3>
                         </TableRow3>
                     ))}
                 </TableBody2>

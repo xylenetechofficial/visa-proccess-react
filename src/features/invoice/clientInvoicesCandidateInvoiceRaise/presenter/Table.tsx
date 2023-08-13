@@ -85,7 +85,7 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
               {/* <TableCell> {ele.document_charges}</TableCell> */}
               <TableCell> {ele.service_charges}</TableCell>
               <TableCell> {ele.ticket_charges}</TableCell>
-              <TableCell> {ele.total_charges}</TableCell>
+              <TableCell> <UnlabeledInput type="number" value={ele.total_charges} onchange={(value)=>onUpdateRow(index, {...ele, total_charges:parseInt(value)})}/></TableCell>
               <TableCell>
                 <UnlabeledInput
                   type="number"
