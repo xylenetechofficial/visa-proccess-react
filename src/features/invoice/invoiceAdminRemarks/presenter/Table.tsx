@@ -18,6 +18,7 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 const ClientInvoiceAddTable = (props: {
   InvoiceAdminRemarkList: InvoiceAdminRemarkInterface[];
   // setData:any
+  setInvoiceAdminData:any,
   onChange: (value: InvoiceAdminRemarkInterface[]) => void
 }) => {
 
@@ -73,8 +74,32 @@ const ClientInvoiceAddTable = (props: {
               <TableCell>{ele.received_status}</TableCell>
               <TableCell>{convertDateFormat(ele.received_status_date ?? ``)}</TableCell>
               <TableCell>{ele.given_to}</TableCell>
-              <TableCell><DateInput id="date" value={ele.given_to_date} onChange={(value) => onUpdateRow(index, { ...ele, given_to_date: value })} /></TableCell>
-              <TableCell><UnlabeledInput type="text" value={ele.given_to_remarks} onchange={(value) => onUpdateRow(index, { ...ele, given_to_remarks: value })} /></TableCell>
+              <TableCell>
+                <DateInput id="date" value={ele.given_to_date} onChange={(value) => {
+                onUpdateRow(index, { ...ele, given_to_date: value })
+                props.setInvoiceAdminData((prev:any) => {
+                  const newData = [...prev];
+                  newData[index] = {
+                    ...newData[index],
+                    given_to_date: value,
+                    given_to:ele.given_to,
+                    id:ele.id,
+                  };
+                  return newData;
+                });
+                }} /></TableCell>
+              <TableCell><UnlabeledInput type="text" value={ele.given_to_remarks} onchange={(value) =>{
+                 onUpdateRow(index, { ...ele, given_to_remarks: value })
+                 props.setInvoiceAdminData((prev:any) => {
+                  const newData = [...prev];
+                  newData[index] = {
+                    ...newData[index],
+                    given_to_remarks: value,
+                    
+                  };
+                  return newData;
+                });
+                 }} /></TableCell>
             </TableRow>
           ))
           }

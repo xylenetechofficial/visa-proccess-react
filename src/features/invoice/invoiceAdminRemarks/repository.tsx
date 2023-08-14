@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import {  InvoiceAdminRemarkAdapter, InvoiceAdminRemarkConverter, InvoiceAdminRemarkInterface } from "./type";
+import {  AddInvoiceAdminInterface, AddInvoiceAdminRemarkConverter, InvoiceAdminRemarkAdapter, InvoiceAdminRemarkConverter, InvoiceAdminRemarkInterface } from "./type";
 
 
 
@@ -36,13 +36,13 @@ export async function readInvoiceAdminRemarkList() {
 
 
 
-export async function createInvoiceAdminRemark(InvoiceAdminRemark:InvoiceAdminRemarkInterface[]) {
+export async function createInvoiceAdminRemark(InvoiceAdminRemark:AddInvoiceAdminInterface[]) {
   const path = "/invoice-dpt/invoice-admin-remarks-list";
 const list :any ={
   invoice_list:InvoiceAdminRemark,
 }
-  // const payload = AddInvoiceAdminRemarkConverter.toAdapter(list);
- const payload = list;
+  const payload = AddInvoiceAdminRemarkConverter.toAdapter(list);
+//  const payload = list;
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT

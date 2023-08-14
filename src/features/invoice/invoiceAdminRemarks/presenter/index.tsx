@@ -4,7 +4,7 @@ import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomCom
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { createInvoiceAdminRemark, readInvoiceAdminRemarkList } from '../repository';
-import { InvoiceAdminRemarkInterface } from '../type';
+import { AddInvoiceAdminInterface, InvoiceAdminRemarkInterface } from '../type';
 import { GreenButton } from '../../../../componenets/CustomButton';
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -16,8 +16,9 @@ export default function Main() {
     justifyContent: "space-between",
   }));
   const [searchQuery, setSearchQuery] = useState('');
+  const [InvoiceAdminData, setInvoiceAdminData] = useState<AddInvoiceAdminInterface[]>([]);
   const [InvoiceAdminRemarkList, setInvoiceAdminRemarkList] = useState<InvoiceAdminRemarkInterface[]>([])
-  const onCreate = async (item: InvoiceAdminRemarkInterface[]) => {
+  const onCreate = async (item: AddInvoiceAdminInterface[]) => {
 
     const data = await createInvoiceAdminRemark(item);
   }
@@ -44,9 +45,10 @@ export default function Main() {
       </CardHeader>
 
       <InvoiceAdminRemarkTable
+        setInvoiceAdminData={setInvoiceAdminData}
         onChange={(value) => setInvoiceAdminRemarkList(value)}
         InvoiceAdminRemarkList={InvoiceAdminRemarkList} />
-      <GreenButton text='Submit' onClick={() => { onCreate(InvoiceAdminRemarkList) }} />
+      <GreenButton text='Submit' onClick={() => { onCreate(InvoiceAdminData) }} />
     </>
 
   )
