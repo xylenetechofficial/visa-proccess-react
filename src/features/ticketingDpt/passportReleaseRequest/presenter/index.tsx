@@ -25,7 +25,7 @@ export default function Main() {
         }
 
     }
-    const onClickCreate = async (item: PassportReleaseRequestInterface) => {
+    const onClickCreate = async (item: PassportReleaseRequestInterface[]) => {
         await createPassportReleaseRequest(item)
     }
 
@@ -46,7 +46,7 @@ export default function Main() {
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
             </CardHeader>
             <PassportReleaseRequest PassportReleaseRequestList={PassportReleaseRequestList} onChange={(value)=>setPassportReleaseRequestList(value)} />
-       <GreenButton text="Submit" onClick={()=>onClickCreate(PassportReleaseRequestList[0])} />
+       <GreenButton text="Submit" onClick={()=>onClickCreate(PassportReleaseRequestList)} />
         </>
     )
 }

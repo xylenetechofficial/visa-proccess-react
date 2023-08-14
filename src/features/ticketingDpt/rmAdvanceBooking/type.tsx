@@ -93,3 +93,82 @@ export class RMAdvanceBookingConverter {
         return data;
     }
 }
+
+
+
+export interface AddRMAdvanceInterface {
+
+    selection_list: RMAdvanceBookingInterface[],
+    
+  }
+  
+  export interface AddRMAdvanceAdapter {
+  
+    selection_list: RMAdvanceBookingInterface[],
+    
+  }
+  
+  
+  export class AddRMAdvanceConverter {
+    // private i: AddCandidateInvoiceNumberInterface
+    // private a: AddPenaltyAfterDeploymentAdapter
+  
+    /**
+     * toInterface
+     */
+    public static toInterface(a: AddRMAdvanceAdapter) {
+      const data: AddRMAdvanceInterface = {
+        selection_list: a?.selection_list?.map((item) => ({
+       
+         
+            id: item.id,
+            party_code: item.party_code,
+            company_name: item.company_name,
+            candidate_name: item.candidate_name,
+            pp_no: item.pp_no,
+            actual_profession: item.actual_profession,
+            visa_profession: item.visa_profession,
+            agent: item.agent,
+            visa_received_date: item.visa_received_date,
+            visa_authorization: item.visa_authorization,
+            given_to: item.given_to,
+            payment: item.payment,
+            is_invoice: item.is_invoice,
+            advance: item.advance,
+            payment_date: item.payment_date,
+        })),
+    
+      };
+      return data;
+    }
+  
+    /**
+     * toAdapter
+     */
+    public static toAdapter(i: AddRMAdvanceInterface) {
+      console.log("i"); // Only Dev
+      console.log(i); // Only Dev
+      const data: AddRMAdvanceAdapter = {
+  
+        selection_list: i?.selection_list?.map((item) => ({
+            id: item.id,
+            party_code: item.party_code,
+            company_name: item.company_name,
+            candidate_name: item.candidate_name,
+            pp_no: item.pp_no,
+            actual_profession: item.actual_profession,
+            visa_profession: item.visa_profession,
+            agent: item.agent,
+            visa_received_date: item.visa_received_date,
+            visa_authorization: item.visa_authorization,
+            given_to: item.given_to,
+            payment: item.payment,
+            is_invoice: item.is_invoice,
+            advance: item.advance,
+            payment_date: item.payment_date,
+      })),
+        
+      };
+      return data;
+    }
+  }

@@ -25,7 +25,7 @@ export default function Main() {
         }
 
     }
-    const onClickCreate = async (item: RMAdvanceBookingInterface) => {
+    const onClickCreate = async (item: RMAdvanceBookingInterface[]) => {
         await createRMAdvanceBooking(item)
     }
     
@@ -48,7 +48,7 @@ export default function Main() {
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
             </CardHeader>
           <RMAdvanceBooking RMAdvanceBookingList={RMAdvanceBookingList}onChange={(value)=>console.log(value)}/>
-<GreenButton text='Submit' onClick={()=>onClickCreate(RMAdvanceBookingList[0])}  />
+<GreenButton text='Submit' onClick={()=>onClickCreate(RMAdvanceBookingList)}  />
         </>
     )
 }

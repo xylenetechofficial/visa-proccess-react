@@ -93,3 +93,80 @@ export class PassportReleaseRequestConverter {
         return data;
     }
 }
+
+
+export interface AddPassportRequestInterface {
+
+    selection_list: PassportReleaseRequestInterface[],
+    
+  }
+  
+  export interface AddPassportRequestAdapter {
+  
+    selection_list: PassportReleaseRequestInterface[],
+    
+  }
+  
+  
+  export class AddPassportRequestConverter {
+    // private i: AddCandidateInvoiceNumberInterface
+    // private a: AddPenaltyAfterDeploymentAdapter
+  
+    /**
+     * toInterface
+     */
+    public static toInterface(a: AddPassportRequestAdapter) {
+      const data: AddPassportRequestInterface = {
+        selection_list: a?.selection_list?.map((item) => ({
+       
+            id: item.id,
+            party_code: item.party_code,
+            company_name: item.company_name,
+            candidate_name: item.candidate_name,
+            pp_no: item.pp_no,
+            actual_profession: item.actual_profession,
+            visa_profession: item.visa_profession,
+            agent: item.agent,
+            rc_name: item.rc_name,
+            visa_received_date: item.visa_received_date,
+            visa_expiry_date: item.visa_expiry_date,
+            is_invoice: item.is_invoice,
+            air_ticket: item.air_ticket,
+            division: item.division,
+            release_by_date: item.release_by_date,
+        })),
+    
+      };
+      return data;
+    }
+  
+    /**
+     * toAdapter
+     */
+    public static toAdapter(i: AddPassportRequestInterface) {
+      console.log("i"); // Only Dev
+      console.log(i); // Only Dev
+      const data: AddPassportRequestAdapter = {
+  
+        selection_list: i?.selection_list?.map((item) => ({
+            id: item.id,
+            party_code: item.party_code,
+            company_name: item.company_name,
+            candidate_name: item.candidate_name,
+            pp_no: item.pp_no,
+            actual_profession: item.actual_profession,
+            visa_profession: item.visa_profession,
+            agent: item.agent,
+            rc_name: item.rc_name,
+            visa_received_date: item.visa_received_date,
+            visa_expiry_date: item.visa_expiry_date,
+            is_invoice: item.is_invoice,
+            air_ticket: item.air_ticket,
+            division: item.division,
+            release_by_date: item.release_by_date,
+      })),
+        
+      };
+      return data;
+    }
+  }

@@ -27,7 +27,7 @@ export default function Main() {
     }
 
     }
-    const onClickCreate = async(item: BookingRequestInterface)=>{
+    const onClickCreate = async(item: BookingRequestInterface[])=>{
         await createTicketBookingRequest(item)
     }
     const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
@@ -59,7 +59,7 @@ export default function Main() {
             sectorList={sectorList}
             onChange={(value)=>setTicketBookingRequestList(value)}
             />
-            <GreenButton text="Submit" onClick={()=>onClickCreate(ticketBookingRequestList[0])} />
+            <GreenButton text="Submit" onClick={()=>onClickCreate(ticketBookingRequestList)} />
         </>
     )
 }

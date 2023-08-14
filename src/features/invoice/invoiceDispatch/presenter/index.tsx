@@ -4,7 +4,7 @@ import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomCom
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { createInvoiceDispatch, readinvoiceDispatchedList } from '../repository';
-import { InvoiceDispatchInterface } from '../type';
+import { AddInvoiceInterface, InvoiceDispatchInterface } from '../type';
 import { GreenButton } from '../../../../componenets/CustomButton';
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -17,9 +17,13 @@ export default function Main() {
   }));
   const [searchQuery, setSearchQuery] = useState('');
   const [invoiceDispatchList, setInvoiceDispatchList] = useState<InvoiceDispatchInterface[]>([])
-  const onCreate = async (item: InvoiceDispatchInterface[]) => {
+  const [invoiceDispatchData, setInvoiceDispatchData]= useState<AddInvoiceInterface[]>([])
+  const onCreate = async (item: AddInvoiceInterface[]) => {
 
     const data = await createInvoiceDispatch(item);
+    if(data){
+      fetchInvoiceDispatched();
+    }
   }
   const fetchInvoiceDispatched = async () => {
     const data = await readinvoiceDispatchedList();
@@ -44,9 +48,11 @@ export default function Main() {
       </CardHeader>
 
       <InvoicedispatchTable
-        onChange={(value) => setInvoiceDispatchList(value)}
-        invoiceDispatchList={invoiceDispatchList} />
-      <GreenButton text='Submit' onClick={() => { onCreate(invoiceDispatchList) }} />
+        onChange={(value) =>{ setInvoiceDispatchList(value)}}
+        invoiceDispatchList={invoiceDispatchList} 
+        setInvoiceDispatchData={setInvoiceDispatchData}
+        />
+      <GreenButton text='Submit' onClick={() => { onCreate(invoiceDispatchData) }} />
     </>
 
   )

@@ -21,6 +21,7 @@ export default function Main() {
     const [searchQuery, setSearchQuery] = useState('');
 
     const [TicketProvidedByCompanyList, setTicketProvidedByCompanyList] = useState<TicketProvidedByCompanyInterface[]>([])
+    const [TicketProvidedByCompanyData, setTicketProvidedByCompanyData] = useState<TicketProvidedByCompanyInterface[]>([])
     async function fetchTicketProvidedByCompany() {
         const data = await readTicketProvidedByCompanyList();
         if (data) {
@@ -28,7 +29,7 @@ export default function Main() {
         }
 
     }
-    const onClickCreate = async (item: TicketProvidedByCompanyInterface) => {
+    const onClickCreate = async (item: TicketProvidedByCompanyInterface[]) => {
         await createTicketProvidedByCompany(item)
     }
     const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
@@ -60,9 +61,10 @@ export default function Main() {
             <TicketProvidedByCompanyTable
                 TicketProvidedByCompanyList={TicketProvidedByCompanyList}
                 sectorList={sectorList}
+                setTicketProvidedByCompanyData={setTicketProvidedByCompanyData}
                 onChange={(value) => setTicketProvidedByCompanyList(value)}
             />
-            <GreenButton text='Submit' onClick={()=>onClickCreate(TicketProvidedByCompanyList[0])} />
+            <GreenButton text='Submit' onClick={()=>onClickCreate(TicketProvidedByCompanyData)} />
         </>
     )
 }

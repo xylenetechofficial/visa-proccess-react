@@ -93,3 +93,80 @@ export class TicketProvidedByCompanyConverter {
     return data;
   }
 }
+
+
+export interface AddTicketProvidedInterface {
+
+  selection_list: TicketProvidedByCompanyInterface[],
+  
+}
+
+export interface AddTicketProvidedAdapter {
+
+  selection_list: TicketProvidedByCompanyInterface[],
+  
+}
+
+
+export class AddTicketProvidedConverter {
+  // private i: AddCandidateInvoiceNumberInterface
+  // private a: AddPenaltyAfterDeploymentAdapter
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: AddTicketProvidedAdapter) {
+    const data: AddTicketProvidedInterface = {
+      selection_list: a?.selection_list?.map((item) => ({
+     
+        id: item.id,
+        party_code: item.party_code,
+        company_name: item.company_name,
+        candidate_name: item.candidate_name,
+        pp_no: item.pp_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent: item.agent,
+        rc_name: item.rc_name,
+        visa_received_date: item.visa_received_date,
+        visa_expiry_date: item.visa_expiry_date,
+        sector_from: item.sector_from,
+        sector_to: item.sector_to,
+        pnr_no: item.pnr_no,
+        departure_date: item.departure_date
+      })),
+  
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: AddTicketProvidedInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: AddTicketProvidedAdapter = {
+
+      selection_list: i?.selection_list?.map((item) => ({
+        id: item.id,
+        party_code: item.party_code,
+        company_name: item.company_name,
+        candidate_name: item.candidate_name,
+        pp_no: item.pp_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent: item.agent,
+        rc_name: item.rc_name,
+        visa_received_date: item.visa_received_date,
+        visa_expiry_date: item.visa_expiry_date,
+        sector_from: item.sector_from,
+        sector_to: item.sector_to,
+        pnr_no: item.pnr_no,
+        departure_date: item.departure_date
+    })),
+      
+    };
+    return data;
+  }
+}

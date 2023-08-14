@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { BookingRequestAdapter, BookingRequestConverter, BookingRequestInterface } from "./type";
+import { AddBookingRequestConverter, BookingRequestAdapter, BookingRequestConverter, BookingRequestInterface } from "./type";
 
 
 export async function readTicketBookingRequestList() {
@@ -33,12 +33,12 @@ export async function readTicketBookingRequestList() {
 
 
 
-export async function createTicketBookingRequest(TicketBookingRequest:BookingRequestInterface) {
+export async function createTicketBookingRequest(TicketBookingRequest:BookingRequestInterface[]) {
     const path = "/ticketing-dpt/booking-request-list";
   const list :any ={
     selection_list:TicketBookingRequest
   }
-    const payload = BookingRequestConverter.toAdapter(list);
+    const payload = AddBookingRequestConverter.toAdapter(list);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT

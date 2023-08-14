@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { PassportReleaseRequestAdapter, PassportReleaseRequestConverter, PassportReleaseRequestInterface } from "./type";
+import { AddPassportRequestConverter, PassportReleaseRequestAdapter, PassportReleaseRequestConverter, PassportReleaseRequestInterface } from "./type";
 
 
 export async function readPassportReleaseRequestList() {
@@ -33,10 +33,12 @@ export async function readPassportReleaseRequestList() {
 
 
 
-export async function createPassportReleaseRequest(PassportReleaseRequest:PassportReleaseRequestInterface) {
+export async function createPassportReleaseRequest(PassportReleaseRequest:PassportReleaseRequestInterface[]) {
     const path = "/ticketing-dpt/passport-release-request-list";
-  
-    const payload = PassportReleaseRequestConverter.toAdapter(PassportReleaseRequest);
+  const list:any ={
+    selection_list:PassportReleaseRequest
+  }
+    const payload = AddPassportRequestConverter.toAdapter(list);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT

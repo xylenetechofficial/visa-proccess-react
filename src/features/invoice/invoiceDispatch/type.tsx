@@ -2,14 +2,14 @@
 export interface InvoiceDispatchInterface {
     id:number,
     company_name?: string,
-    invoice_number?: string,
-    invoice_date?: string,
-    invoice_type?: string,
-    total_charges?: number,
-    invoice_sector?: string,
-    courier_date?: string,
-    received?: string,
-    received_date?:string ,
+    invoice_number: string,
+    invoice_date: string,
+    invoice_type: string,
+    total_charges: number,
+    invoice_sector: string,
+    courier_date: string,
+    received: string,
+    received_date:string ,
   
   
   }
@@ -17,14 +17,14 @@ export interface InvoiceDispatchInterface {
   export interface InvoiceDispatchAdapter {
     id:number,
     company_name?: string,
-    invoice_number?: string,
-    invoice_date?: string,
-    invoice_type?: string,
-    total_charges?: number,
-    invoice_sector?: string,
-    courier_date?: string,
-    received?: string,
-    received_date?:string ,
+    invoice_number: string,
+    invoice_date: string,
+    invoice_type: string,
+    total_charges: number,
+    invoice_sector: string,
+    courier_date: string,
+    received: string,
+    received_date:string ,
   
   
   }
@@ -77,16 +77,21 @@ export interface InvoiceDispatchInterface {
   }
   
   
+  export interface AddInvoiceInterface {
+    id:number,
+    received:string,
+    received_date:string,
+  }
   
   export interface AddInvoiceDispatchInterface {
   
-    invoice_list: InvoiceDispatchInterface[],
+    invoice_list: AddInvoiceInterface[],
     
   }
   
   export interface AddInvoiceDispatchAdapter {
   
-    invoice_list: InvoiceDispatchInterface[],
+    invoice_list: AddInvoiceInterface[],
     
   }
   

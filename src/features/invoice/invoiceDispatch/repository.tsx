@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { AddInvoiceDispatchConverter, AddInvoiceDispatchInterface, InvoiceDispatchAdapter, InvoiceDispatchConverter, InvoiceDispatchInterface } from "./type";
+import { AddInvoiceDispatchConverter, AddInvoiceDispatchInterface, AddInvoiceInterface, InvoiceDispatchAdapter, InvoiceDispatchConverter, InvoiceDispatchInterface } from "./type";
 
 
 
@@ -36,7 +36,7 @@ export async function readinvoiceDispatchedList() {
 
 
 
-export async function createInvoiceDispatch(InvoiceDispatch:InvoiceDispatchInterface[]) {
+export async function createInvoiceDispatch(InvoiceDispatch:AddInvoiceInterface[]) {
   const path = "/invoice-dpt/invoice-dispatched-list";
 // const list :AddInvoiceDispatchInterface ={
 //   invoice_list:InvoiceDispatch,

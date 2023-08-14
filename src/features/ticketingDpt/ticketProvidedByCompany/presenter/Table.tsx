@@ -1,15 +1,19 @@
-import { CustomCheckBox } from "../../../../componenets/Checkbox"
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { Checkbox } from "@mui/material";
+import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox"
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { SectorInterface } from "../../../masters/sector/type";
 import { TicketProvidedByCompanyInterface } from "../type";
+import { useState } from "react";
 
 export default function Main(props: {
     TicketProvidedByCompanyList: TicketProvidedByCompanyInterface[],
-    sectorList:SectorInterface[]
+    sectorList:SectorInterface[],
+    setTicketProvidedByCompanyData:any,
     onChange: (value: TicketProvidedByCompanyInterface[]) => void
 }) {
+    const [selectedCheckbox, setSelectedCheckbox] = useState([{isChecked:""}]);
     const HEADERLIST = [
         'SR NO.', 'PARTY CODE', 'COMPANY NAME', 'CANDIDATE NAME', 'PP NO', 'ACTUAL PROFESSION', 'VISA PROFESSION', 'AGENT', 'RC NAME', 'VISA RECEIVED DATE', 'VISA EXPIRE DATE', 'SELECT', 'SECTOR FROM', 'SECTOR TO', 'PNR NO ', 'DEPARTURE DATE'];
     function onUpdateRow(index: number, rowData: TicketProvidedByCompanyInterface) {
@@ -24,6 +28,16 @@ export default function Main(props: {
         });
         props.onChange(nextData)
     }
+    const handleCheckboxChange = (itemId: any,index:number) => {
+        setSelectedCheckbox((prev)=>{
+        const newData: any = [...prev];
+        newData[index] = {
+          ...newData[index],
+          isChecked: itemId,
+            };
+        return newData;
+      })
+      };
 
     return (
 
@@ -50,11 +64,75 @@ export default function Main(props: {
                             <TableCell3> {item.rc_name}</TableCell3>
                             <TableCell3>{item.visa_received_date} </TableCell3>
                             <TableCell3>{item.visa_expiry_date} </TableCell3>
-                            <TableCell3><CustomCheckBox option={[]} onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell3>
-                            <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })} /></TableCell3>
-                            <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_to: value })} /></TableCell3>
-                            <TableCell3> <UnlabeledInput value={item.pnr_no} onchange={(value) => onUpdateRow(index, { ...item, pnr_no: value })} /></TableCell3>
-                            <TableCell3> <UnlabeledInput value={item.departure_date} onchange={(value) => onUpdateRow(index, { ...item, departure_date: value })} /></TableCell3>
+                            <TableCell3>
+                                <Checkbox  checked={selectedCheckbox[index]?.isChecked === `${item.id}yes`} onChange={(e) => {
+                                if(e.target.checked){
+                                    // onUpdateRow(index, { ...item, id: item.id })
+                                    handleCheckboxChange(`${item.id}yes`,index)  
+                                }
+                                else{
+                                    handleCheckboxChange(`${item.id}no`,index)  
+                                    // onUpdateRow(index, { ...item, id: item.id })
+                                }
+                                props.setTicketProvidedByCompanyData((prev:any) => {
+                                    const newData = [...prev];
+                                    newData[index] = {
+                                      ...newData[index],
+                                      id: item.id ,
+                                    };
+                                    return newData;
+                                  });
+                                }} /></TableCell3>
+                            <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                             onChange={(value) =>{ onUpdateRow(index, { ...item, sector_from: value }),
+                             
+                             props.setTicketProvidedByCompanyData((prev:any) => {
+                                const newData = [...prev];
+                                newData[index] = {
+                                  ...newData[index],
+                                  sector_from: value ,
+                                };
+                                return newData;
+                              });
+                             }} /></TableCell3>
+                            <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                             onChange={(value) =>{ onUpdateRow(index, { ...item, sector_to: value })
+                             props.setTicketProvidedByCompanyData((prev:any) => {
+                                const newData = [...prev];
+                                newData[index] = {
+                                  ...newData[index],
+                                  sector_to: value ,
+                                };
+                                return newData;
+                              });
+                             
+                             }} /></TableCell3>
+                            <TableCell3> <UnlabeledInput value={item.pnr_no}
+
+                           onchange={(value) => 
+                             {onUpdateRow(index, { ...item, pnr_no: value })
+                             
+                             props.setTicketProvidedByCompanyData((prev:any) => {
+                                const newData = [...prev];
+                                newData[index] = {
+                                  ...newData[index],
+                                  pnr_no: value ,
+                                };
+                                return newData;
+                              });
+                             }} /></TableCell3>
+                            <TableCell3> <DateInput id="date" value={item.departure_date} onChange={(value) =>
+                                { onUpdateRow(index, { ...item, departure_date: value })
+                                props.setTicketProvidedByCompanyData((prev:any) => {
+                                    const newData = [...prev];
+                                    newData[index] = {
+                                      ...newData[index],
+                                      departure_date: value ,
+                                    };
+                                    return newData;
+                                  });
+                                
+                                }} /></TableCell3>
                         </TableRow3>
                     ))}
                 </TableBody2>

@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { RMAdvanceBookingAdapter, RMAdvanceBookingConverter, RMAdvanceBookingInterface } from "./type";
+import { AddRMAdvanceConverter, RMAdvanceBookingAdapter, RMAdvanceBookingConverter, RMAdvanceBookingInterface } from "./type";
 
 
 export async function readRMAdvanceBookingList() {
@@ -33,10 +33,12 @@ export async function readRMAdvanceBookingList() {
 
 
 
-export async function createRMAdvanceBooking(RMAdvanceBooking:RMAdvanceBookingInterface) {
+export async function createRMAdvanceBooking(RMAdvanceBooking:RMAdvanceBookingInterface[]) {
     const path = "/ticketing-dpt/rm-advance-booking-list";
-  
-    const payload = RMAdvanceBookingConverter.toAdapter(RMAdvanceBooking);
+  const list:any ={
+    selection_list:RMAdvanceBooking
+  }
+    const payload = AddRMAdvanceConverter.toAdapter(list);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT

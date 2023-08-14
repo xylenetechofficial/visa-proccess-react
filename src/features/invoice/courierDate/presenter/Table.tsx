@@ -73,7 +73,7 @@ const ClientInvoiceAddTable = (props: {
                   options_struct: { name: "name", value: "id" },
                 })}
                 onChange={(value) => { onUpdateRow(index, { ...ele, invoice_sector: value }) }} value={ele.invoice_sector} /></TableCell>
-              <TableCell> <DateInput id="courier_date" onChange={(value) => onUpdateRow(index, { ...ele, invoice_date: value })} value={ele.courier_date} /></TableCell>
+              <TableCell> <DateInput id="courier_date" onChange={(value) => onUpdateRow(index, { ...ele, invoice_date: value, courier_date:value })} value={ele.courier_date} /></TableCell>
             </TableRow>
           ))
           }
