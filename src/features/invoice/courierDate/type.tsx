@@ -153,3 +153,77 @@ export interface CourierDateInterface {
     }
   }
   
+  
+  
+  export interface AddInvoiceCourierDateInterface {
+    company_name: string,
+    invoice_number: string,
+    invoice_date: string,
+    invoice_type: string,
+    total_charges: number,
+    bank_name: string,
+    invoice_sector: string,
+    courier_date: string
+  }
+  
+  export interface AddCourierDateInterface {
+  
+    invoice_list: AddInvoiceCourierDateInterface[],
+    
+  }
+  
+  export interface AddCourierDateAdapter {
+  
+    invoice_list: AddInvoiceCourierDateInterface[],
+    
+  }
+  
+ 
+  export class AddCourierDateConverter {
+    // private i: AddCandidateInvoiceNumberInterface
+    // private a: AddPenaltyAfterDeploymentAdapter
+  
+    /**
+     * toInterface
+     */
+    public static toInterface(a: AddCourierDateAdapter) {
+      const data: AddCourierDateInterface = {
+        invoice_list: a?.invoice_list?.map((item) => ({
+          company_name:item.company_name,
+          invoice_number:item.invoice_number,
+          invoice_date:item.invoice_date,
+          invoice_type:item.invoice_type,
+          total_charges:item.total_charges,
+          bank_name:item.bank_name,
+          invoice_sector:item.invoice_sector,
+          courier_date:item.courier_date,
+        })),
+    
+      };
+      return data;
+    }
+  
+    /**
+     * toAdapter
+     */
+    public static toAdapter(i: AddCourierDateInterface) {
+      console.log("i"); // Only Dev
+      console.log(i); // Only Dev
+      const data: AddCourierDateAdapter = {
+  
+        invoice_list: i?.invoice_list?.map((item) => ({
+          company_name:item.company_name,
+          invoice_number:item.invoice_number,
+          invoice_date:item.invoice_date,
+          invoice_type:item.invoice_type,
+          total_charges:item.total_charges,
+          bank_name:item.bank_name,
+          invoice_sector:item.invoice_sector,
+          courier_date:item.courier_date,
+        })),
+        
+      };
+      return data;
+    }
+  }
+  

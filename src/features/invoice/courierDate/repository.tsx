@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { AllSelectionInvoiceDateAdapter, AllSelectionInvoiceDateConverter, AllSelectionInvoiceDateInterface, CourierDateAdapter, CourierDateConverter, CourierDateInterface } from "./type";
+import { AddCourierDateConverter, AddCourierDateInterface, AllSelectionInvoiceDateAdapter, AllSelectionInvoiceDateConverter, AllSelectionInvoiceDateInterface, CourierDateAdapter, CourierDateConverter, CourierDateInterface } from "./type";
 
 
 
@@ -32,10 +32,10 @@ console.log(data,"aa")
 return response.data
   // return data as AllSelectionInvoiceDateInterface[]
 }
-export async function createInvoiceDate (item : AllSelectionInvoiceDateInterface){
+export async function createInvoiceDate (item : AddCourierDateInterface){
   const path = "/invoice-dpt/invoice-courier-date-list";
 
-  const payload = AllSelectionInvoiceDateConverter.toAdapter(item);
+  const payload = AddCourierDateConverter.toAdapter(item);
 
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,

@@ -3,7 +3,7 @@ import CourierDateTable from './Table';
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import { AllSelectionInvoiceDateInterface, CourierDateInterface } from '../type';
+import { AddCourierDateInterface, AllSelectionInvoiceDateInterface, CourierDateInterface } from '../type';
 import { createInvoiceDate, readCourierDateEntrylist } from '../repository';
 import { GreenButton } from '../../../../componenets/CustomButton';
 import { readSectorList } from '../../../masters/sector/repository';
@@ -20,7 +20,7 @@ export default function Main() {
       const [searchQuery, setSearchQuery] = useState('');
     const [courierDateList, setCourierDateList] = useState<CourierDateInterface[]>([])
     const [additionalInvoiceList, setAdditionalInvoiceList] = useState<CourierDateInterface[]>([])
-
+    const [courierDateData, setCourierDateData]= useState<AddCourierDateInterface[]>([])
     const fetchCourierDateEntryData =async()=>{
      const data : any =   await readCourierDateEntrylist()
      if(data){
@@ -30,7 +30,7 @@ export default function Main() {
     }
     const onClickAdd =async ()=>{
       const list :any ={
-        invoice_list:courierDateList
+        invoice_list:courierDateData
       }
       await createInvoiceDate(list)
     }
@@ -62,6 +62,7 @@ export default function Main() {
                 onChange ={(value)=>setCourierDateList(value)}
                 CourierDateList={courierDateList}
                 sectorList={sectorList}
+                setCourierDateData={setCourierDateData}
                 />
         <GreenButton text='Submit' onClick={()=>onClickAdd()} />
         </>

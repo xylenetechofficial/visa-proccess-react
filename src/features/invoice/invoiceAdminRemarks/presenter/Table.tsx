@@ -35,6 +35,7 @@ const ClientInvoiceAddTable = (props: {
     props.onChange(nextData)
 
   }
+  console.log(props.InvoiceAdminRemarkList)
   return (
     <div className="overflow-auto">
 
@@ -49,7 +50,6 @@ const ClientInvoiceAddTable = (props: {
             <TableHeadCell> TOTAL CHARGES </TableHeadCell>
             <TableHeadCell> INVOICE SECTOR </TableHeadCell>
             <TableHeadCell> COURIER DATE</TableHeadCell>
-            {/* <TableHeadCell> <Checkbox />  Select </TableHeadCell> */}
             <TableHeadCell> Received Status</TableHeadCell>
             <TableHeadCell> Received Date</TableHeadCell>
             <TableHeadCell> Given To</TableHeadCell>
@@ -70,10 +70,23 @@ const ClientInvoiceAddTable = (props: {
               <TableCell>{ele.total_charges}</TableCell>
               <TableCell> {ele.invoice_sector}</TableCell>
               <TableCell> {convertDateFormat(ele.courier_date ?? ``)}</TableCell>
-              {/* <TableCell><Checkbox onChange={(e) => { onUpdateRow(index, { ...ele, id: e.target.checked ? parseInt(ele.id ) : parseInt('') }) }} /> </TableCell> */}
               <TableCell>{ele.received_status}</TableCell>
               <TableCell>{convertDateFormat(ele.received_status_date ?? ``)}</TableCell>
-              <TableCell>{ele.given_to}</TableCell>
+              <TableCell>
+                <UnlabeledInput value={ele.given_to}
+                 onchange={(value)=>{
+                  onUpdateRow(index,{...ele,given_to:value}),
+                   console.log(ele.id,"Sid"),
+                   props.setInvoiceAdminData((prev:any)=>{
+                    const newData = [...prev];
+                    newData[index] = {
+                      ...newData[index],
+                      given_to: value,
+                     
+                    };
+                    return newData;
+                   })
+                   }}/></TableCell>
               <TableCell>
                 <DateInput id="date" value={ele.given_to_date} onChange={(value) => {
                 onUpdateRow(index, { ...ele, given_to_date: value })
@@ -82,7 +95,6 @@ const ClientInvoiceAddTable = (props: {
                   newData[index] = {
                     ...newData[index],
                     given_to_date: value,
-                    given_to:ele.given_to,
                     id:ele.id,
                   };
                   return newData;
@@ -95,7 +107,7 @@ const ClientInvoiceAddTable = (props: {
                   newData[index] = {
                     ...newData[index],
                     given_to_remarks: value,
-                    
+                   
                   };
                   return newData;
                 });

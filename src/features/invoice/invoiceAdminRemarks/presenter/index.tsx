@@ -32,7 +32,7 @@ export default function Main() {
 
     fetchInvoiceAdminRemarked()
   }, [])
-
+console.log(InvoiceAdminData,"Data",InvoiceAdminRemarkList)
   return (
 
     <>
