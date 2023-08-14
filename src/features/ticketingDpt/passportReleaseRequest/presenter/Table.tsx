@@ -46,7 +46,7 @@ export default function Main(props: {
                             <TableCell3> {item.pp_no} </TableCell3>
                             <TableCell3> {item.actual_profession} </TableCell3>
                             <TableCell3> {item.visa_profession} </TableCell3>
-                            <TableCell3> {item.agent} </TableCell3>
+                            <TableCell3> {item.agent_name} </TableCell3>
                             <TableCell3> {item.rc_name} </TableCell3>
                             <TableCell3> {item.visa_received_date} </TableCell3>
                             <TableCell3> {item.visa_expiry_date} </TableCell3>
