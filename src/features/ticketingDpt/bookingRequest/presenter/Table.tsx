@@ -1,3 +1,4 @@
+import { Checkbox } from "flowbite-react"
 import { CustomCheckBox } from "../../../../componenets/Checkbox"
 import { DateInput } from "../../../../componenets/Input"
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox"
@@ -58,7 +59,7 @@ export default function Main(props: {
                                 <TableCell3>{item.division} </TableCell3>
                                 <TableCell3>{item.emigration_required} </TableCell3>
                                 <TableCell3>{item.emigration_done} </TableCell3>
-                                <TableCell3><CustomCheckBox option={[]} onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell3>
+                                <TableCell3><Checkbox onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell3>
                                 <TableCell3> <CustomSelectComponent options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })} /> </TableCell3>
                                 <TableCell3> <CustomSelectComponent options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_to: value })} /> </TableCell3>
                                 <TableCell3><DateInput id={`recired_date${index}`} onChange={(value) => onUpdateRow(index, { ...item, require_date: value })} /> </TableCell3>

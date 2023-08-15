@@ -1,3 +1,4 @@
+import { Checkbox } from "flowbite-react"
 import { CustomCheckBox } from "../../../../componenets/Checkbox"
 import { CustomSelectComponent } from "../../../../componenets/SelectBox"
 import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
@@ -54,8 +55,8 @@ export default function Main(props:{
                             <TableCell3> {item.air_ticket} </TableCell3>
                             <TableCell3> {item.visa_authorization} </TableCell3>
                             <TableCell3>{item.division} </TableCell3>
-                            <TableCell3><CustomCheckBox option={[]} onChange={(e) => onUpdateRow(index,{...item, under_process:e.target.checked ? 'yes':'' })} /> </TableCell3>
-                            <TableCell3><CustomCheckBox option={[]} onChange={(e) => onUpdateRow(index,{...item,  trying:e.target.checked ? 'yes':''})} /></TableCell3>
+                            <TableCell3><Checkbox  onChange={(e) => onUpdateRow(index,{...item, under_process:e.target.checked ? 'yes':'' })} /> </TableCell3>
+                            <TableCell3><Checkbox  onChange={(e) => onUpdateRow(index,{...item,  trying:e.target.checked ? 'yes':''})} /></TableCell3>
                         </TableRow3>
                     ))}
                 </TableBody2>
