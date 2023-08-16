@@ -132,5 +132,50 @@ export interface TicketDashboardInterface {
         };
       return data;
     }
+    public static toAdapterList (i:AddTicketDashboardInterface): AddTicketDashboardAdapter {
+      console.log(i,"kkkkkk")
+      const data: AddTicketDashboardAdapter = {
+        selection_list: i?.selection_list?.filter(item =>
+           item.id !==undefined &&
+          item.under_process !=='' &&
+          item.trying !=='' 
+         
+          ).map((item) => ({
+          id: item.id,
+        setting_visa:item.setting_visa,
+        job_order_no:item.job_order_no,
+        company_name: item.company_name,
+        candidate_name: item.candidate_name,
+        pp_no: item.pp_no,
+        actual_profession: item.actual_profession,
+        mofa_no: item.mofa_no,
+        agent: item.agent,
+        rc_name: item.rc_name,
+        visa_received_date: item.visa_received_date,
+        visa_expiry_date: item.visa_expiry_date,
+      
+        sector_from: item.sector_from,
+        sector_to: item.sector_to,
+        require_date: item.require_date,
+        priority: item.priority,
+        air_ticket: item.air_ticket,
+        division: item.division,
+        visa_authorization:item.visa_authorization,
+        
+        under_process:item.under_process,
+        trying:item.trying,
+       
+        })),
+      };
+      return data;
+    }
+  }
+  
+  export interface AddTicketDashboardInterface {
+    selection_list: TicketDashboardInterface[];
+  }
+  
+  export interface AddTicketDashboardAdapter {
+    selection_list: TicketDashboardAdapter[];
   }
   

@@ -35,7 +35,10 @@ export default function Main() {
 }
 const onClickAdd= async(candidateInvoiceRaise:any)=>{
   console.log("first",candidateInvoiceRaise)
-  await createCandidatesInvoiceRaiseList(candidateInvoiceRaise)
+  const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
+  if(data){
+    fetchCandidatesInvoiceRaiseList();
+  }
 }
   useEffect(()=>{
     fetchCandidatesInvoiceRaiseList();

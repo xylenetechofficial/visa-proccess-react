@@ -139,7 +139,12 @@ export class AddInvoiceAdminRemarkConverter {
     console.log(i); // Only Dev
     const data: AddInvoiceAdminRemarkAdapter = {
 
-      invoice_list: i?.invoice_list?.map((item) => ({
+      invoice_list: i?.invoice_list?.filter(item => 
+        item.id !== undefined &&
+        item.given_to !==  '' &&
+        item.given_to_date !==  '' &&
+        item.given_to_remarks !==  ''
+      ).map((item) => ({
         id: item.id,
         given_to:item.given_to ,
         given_to_date:item.given_to_date ,

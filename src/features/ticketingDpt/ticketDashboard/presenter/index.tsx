@@ -26,8 +26,11 @@ export default function Main() {
     }
 
     }
-    const onClickCreate = async(item: TicketDashboardInterface)=>{
-        await createTicketDashboard(item)
+    const onClickCreate = async(item: TicketDashboardInterface[])=>{
+       const data= await createTicketDashboard(item)
+       if(data){
+        fetchTicketDashboard();
+       }
     }
     useEffect(()=>{
         fetchTicketDashboard();
@@ -45,7 +48,7 @@ export default function Main() {
             </CardHeader>
 
     <TicketDashboard TicketDashboardList={TicketDashboardList} onChange={(value)=>setTicketDashboardList(value)}/>
-    {/* <GreenButton text='Submit' onClick={()=>onClickCreate(TicketDashboardList[0])} /> */}
+    <GreenButton text='Submit' onClick={()=>onClickCreate(TicketDashboardList)} />
         </>
     )
 }

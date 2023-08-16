@@ -33,10 +33,12 @@ export async function readTicketDashboardList() {
 
 
 
-export async function createTicketDashboard(TicketDashboard:TicketDashboardInterface) {
+export async function createTicketDashboard(TicketDashboard:TicketDashboardInterface[]) {
     const path = "/ticketing-dpt/tickets-dashboard-list";
-  
-    const payload = TicketDashboardConverter.toAdapter(TicketDashboard);
+  const list : any ={
+    selection_list:TicketDashboard
+  }
+    const payload = TicketDashboardConverter.toAdapterList(list);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT

@@ -3,8 +3,9 @@ import { CustomCheckBox } from "../../../../componenets/Checkbox"
 import { RedButton } from "../../../../componenets/CustomButton";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
-import { Table, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
+import { Table, TableBody2,  TableCell,  TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { PassportReleaseRequestInterface } from "../type";
+import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props: {
     PassportReleaseRequestList: PassportReleaseRequestInterface[],
@@ -40,22 +41,22 @@ export default function Main(props: {
 
                         <TableRow3>
 
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3> {item.party_code} </TableCell3>
-                            <TableCell3> {item.company_name} </TableCell3>
-                            <TableCell3> {item.candidate_name} </TableCell3>
-                            <TableCell3> {item.pp_no} </TableCell3>
-                            <TableCell3> {item.actual_profession} </TableCell3>
-                            <TableCell3> {item.visa_profession} </TableCell3>
-                            <TableCell3> {item.agent_name} </TableCell3>
-                            <TableCell3> {item.rc_name} </TableCell3>
-                            <TableCell3> {item.visa_received_date} </TableCell3>
-                            <TableCell3> {item.visa_expiry_date} </TableCell3>
-                            <TableCell3> {item.is_invoice} </TableCell3>
-                            <TableCell3> {item.air_ticket} </TableCell3>
-                            <TableCell3> {item.division} </TableCell3>
-                            <TableCell3><Checkbox  onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell3>
-                            <TableCell3><DateInput id="releaseDate" onChange={(value) => { onUpdateRow(index, { ...item, release_by_date: value }) }} value={item.release_by_date} /></TableCell3>
+                            <TableCell>{index + 1}</TableCell>
+                            <TableCell> {item.party_code} </TableCell>
+                            <TableCell> {item.company_name} </TableCell>
+                            <TableCell> {item.candidate_name} </TableCell>
+                            <TableCell> {item.pp_no} </TableCell>
+                            <TableCell> {item.actual_profession} </TableCell>
+                            <TableCell> {item.visa_profession} </TableCell>
+                            <TableCell> {item.agent_name} </TableCell>
+                            <TableCell> {item.rc_name} </TableCell>
+                            <TableCell> {convertDateFormat(item.visa_received_date)} </TableCell>
+                            <TableCell> {convertDateFormat(item.visa_expiry_date)} </TableCell>
+                            <TableCell> {item.is_invoice} </TableCell>
+                            <TableCell> {item.air_ticket} </TableCell>
+                            <TableCell> {item.division} </TableCell>
+                            <TableCell><Checkbox  onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell>
+                            <TableCell><DateInput id="releaseDate"  onChange={(value) => { onUpdateRow(index, { ...item, release_by_date: value }) }} value={item.release_by_date} /></TableCell>
                         </TableRow3>
                     ))}
                 </TableBody2>

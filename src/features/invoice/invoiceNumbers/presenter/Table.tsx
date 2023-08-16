@@ -90,7 +90,7 @@ const ClientInvoiceAddTable = (props: {
                
               </TableCell>
               <TableCell>
-                <DateInput id="invoice_date" onChange={(value)=> {
+                <DateInput value={ele.invoice_date} id="invoice_date" onChange={(value)=> {
                   if(value){
                     onUpdateRow(index,{...ele, invoice_date:value})
                   }else{
@@ -100,6 +100,7 @@ const ClientInvoiceAddTable = (props: {
               </TableCell>
               <TableCell>
                 <CustomSelectComponentUnlabeledv2  
+                value={ele.bank_id}
                 options={BankList}
                 onChange={(value)=>{
                   if(value){

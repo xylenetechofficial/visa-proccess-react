@@ -17,6 +17,7 @@ import { CustomCheckBox } from "../../../../componenets/Checkbox";
 
 import { SectorInterface } from "../../../masters/sector/type";
 import { Checkbox } from "@mui/material";
+import { convertDateFormat } from "../../../../utils/function";
 
 
 const ClientInvoiceAddTable = (props: {
@@ -65,7 +66,7 @@ const ClientInvoiceAddTable = (props: {
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.invoice_type}</TableCell>
               <TableCell>{ele.invoice_number}</TableCell>
-              <TableCell>{ele.invoice_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.invoice_date)}</TableCell>
               <TableCell>{ele.total_charges}</TableCell>
               <TableCell> <Checkbox onChange={(e) => {
 
@@ -103,7 +104,8 @@ const ClientInvoiceAddTable = (props: {
                     return newData;
                   });
 
-                }} value={ele.invoice_sector} /></TableCell>
+                }}
+                 value={ele.invoice_sector} /></TableCell>
               <TableCell> <DateInput id="courier_date" onChange={(value) => {
                 onUpdateRow(index, { ...ele, invoice_date: value, courier_date: value });
                 props.setCourierDateData((prev: any) => {

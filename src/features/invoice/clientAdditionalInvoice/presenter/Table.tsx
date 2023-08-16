@@ -1,6 +1,7 @@
 import { ClientAdditionalInvoiceInterface } from "../type";
 import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
+import { convertDateFormat } from "../../../../utils/function";
 
 
 const Main = (props: {
@@ -38,7 +39,7 @@ const Main = (props: {
                             <TableCell>{index +1}</TableCell>
                             <TableCell>{item?.company_name}</TableCell>
                             <TableCell>{item?.invoice_number}</TableCell>
-                            <TableCell>{item?.invoice_date}</TableCell>
+                            <TableCell>{convertDateFormat(item?.invoice_date)}</TableCell>
                             <TableCell>{item?.invoice_amount}</TableCell>
                             <TableCell><BlueButton text="Edit" onClick={()=>{props.setModal("edit"); props.onClickEdit(item)}}/></TableCell>
                             

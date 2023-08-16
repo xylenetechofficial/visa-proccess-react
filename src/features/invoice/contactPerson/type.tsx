@@ -127,7 +127,12 @@ export class AddContactPersonConverter {
     console.log(i); // Only Dev
     const data: AddContactPersonAdapter = {
 
-      invoice_list: i?.invoice_list?.map((item) => ({
+      invoice_list: i?.invoice_list?.filter(item =>
+        item.id !== undefined &&
+         item.contact_person_name !== '' &&
+         item.contact_person_remarks !== '' 
+      
+        ).map((item) => ({
         id:item.id,
         contact_person_name: item.contact_person_name,
         contact_person_remarks: item.contact_person_remarks,

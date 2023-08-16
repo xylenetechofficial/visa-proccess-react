@@ -141,7 +141,14 @@ export class AddInvoiceRaiseConverter {
     console.log(i,"iiiii")
     const data: AddInvoiceRaiseAdapter = {
       
-      selection_list: i?.selection_list?.map((item) => ({
+      selection_list: i?.selection_list?.filter(item =>
+        item.id !== undefined &&
+        item.is_without !== undefined &&
+        item.total_charges !== undefined &&
+        item.invoice_number !== '' &&
+        item.invoice_date !== '' &&
+        item.bank_id !== undefined   
+        ).map((item) => ({
         id: item.id,
         is_without: item.is_without,
         total_charges: item.total_charges,

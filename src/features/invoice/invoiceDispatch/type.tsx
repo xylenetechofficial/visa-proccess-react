@@ -123,7 +123,10 @@ export interface InvoiceDispatchInterface {
       console.log(i); // Only Dev
       const data: AddInvoiceDispatchAdapter = {
   
-        invoice_list: i?.invoice_list?.map((item) => ({
+        invoice_list: i?.invoice_list?.filter(item => 
+          item.id  !== undefined &&
+          item.received !== '' &&
+          item.received_date !== '').map((item) => ({
           id:item.id,
           received:item.received,
           received_date:item.received_date,})),

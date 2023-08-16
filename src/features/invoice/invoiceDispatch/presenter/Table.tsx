@@ -14,6 +14,7 @@ import { AddInvoiceInterface, InvoiceDispatchInterface } from "../type";
 import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 import { useEffect, useState } from "react";
 import { readSectorList } from "../../../masters/sector/repository";
+import { convertDateFormat } from "../../../../utils/function";
 
 
 const ClientInvoiceAddTable = (props: {
@@ -45,7 +46,7 @@ const ClientInvoiceAddTable = (props: {
       }
     });
     props.onChange(nextData)
-
+    props.setInvoiceDispatchData(nextData);
   }
 
   const data =[1,3]
@@ -76,50 +77,50 @@ const ClientInvoiceAddTable = (props: {
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.invoice_type}</TableCell>
               <TableCell>{ele.invoice_number}</TableCell>
-              <TableCell>{ele.invoice_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.invoice_date)}</TableCell>
               <TableCell>{ele.total_charges}</TableCell>
               <TableCell> {ele.invoice_sector}</TableCell>
-              <TableCell> {ele.courier_date}</TableCell>
+              <TableCell> {convertDateFormat(ele.courier_date)}</TableCell>
               <TableCell><Checkbox onChange={(e) => {
                  onUpdateRow(index, { ...ele, id: ele.id, received_date: String(new Date()) })
-                 props.setInvoiceDispatchData((prev:any) => {
-                  const newData = [...prev];
-                  newData[index] = {
-                    ...newData[index],
-                    received_date: String(new Date()),
-                    id: ele.id
-                  };
-                  return newData;
-                });
+                //  props.setInvoiceDispatchData((prev:any) => {
+                //   const newData = [...prev];
+                //   newData[index] = {
+                //     ...newData[index],
+                //     received_date: String(new Date()),
+                //     id: ele.id
+                //   };
+                //   return newData;
+                // });
                  }} /> </TableCell>
               <TableCell>
               <Checkbox
                   value={"Yes"}
                   checked={selectedCheckbox[index]?.isChecked === `${ele.id}yes`}
                   onChange={(value) => {
-                    handleCheckboxChange(`${ele.id}yes`,index)  , onUpdateRow(index, { ...ele, received: value.target.checked ? 'Yes':'' }),
-                    props.setInvoiceDispatchData((prev:any) => {
-                      const newData = [...prev];
-                      newData[index] = {
-                        ...newData[index],
-                        received: value.target.checked ? 'Yes':'' ,
-                      };
-                      return newData;
-                    });
+                    handleCheckboxChange(`${ele.id}yes`,index)  , onUpdateRow(index, { ...ele, received: value.target.checked ? 'Yes':'' })
+                    // props.setInvoiceDispatchData((prev:any) => {
+                    //   const newData = [...prev];
+                    //   newData[index] = {
+                    //     ...newData[index],
+                    //     received: value.target.checked ? 'Yes':'' ,
+                    //   };
+                    //   return newData;
+                    // });
                     }} />Yes
                 <Checkbox
                   value={"Not"}
                   checked={selectedCheckbox[index]?.isChecked === `${ele.id}no`}
                   onChange={(value) => {
                     handleCheckboxChange(`${ele.id}no`,index) , onUpdateRow(index, { ...ele, received: value.target.checked ? 'No':'' }) 
-                    props.setInvoiceDispatchData((prev:any) => {
-                      const newData = [...prev];
-                      newData[index] = {
-                        ...newData[index],
-                        received: value.target.checked ? 'No':'' ,
-                      };
-                      return newData;
-                    });
+                    // props.setInvoiceDispatchData((prev:any) => {
+                    //   const newData = [...prev];
+                    //   newData[index] = {
+                    //     ...newData[index],
+                    //     received: value.target.checked ? 'No':'' ,
+                    //   };
+                    //   return newData;
+                    // });
                     }} />No
               </TableCell>
    

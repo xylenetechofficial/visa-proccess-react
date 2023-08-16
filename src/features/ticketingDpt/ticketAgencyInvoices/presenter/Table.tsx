@@ -1,8 +1,9 @@
 import { Checkbox } from "flowbite-react"
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
-import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
+import { Table3, TableBody2,  TableCell,  TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { TicketAgencyInvoicesInterface } from "../type";
+import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props:{
     TicketAgencyInvoicesList:TicketAgencyInvoicesInterface[],
@@ -37,31 +38,31 @@ export default function Main(props:{
                     {props.TicketAgencyInvoicesList.map((item, index) => (
 
                         <TableRow3>
-                            <TableCell3>{index + 1}</TableCell3>
-                            <TableCell3>{item.party_code} </TableCell3>
-                            <TableCell3>{item.company_name} </TableCell3>
-                            <TableCell3>{item.candidate_name} </TableCell3>
-                            <TableCell3>{item.pp_no} </TableCell3>
-                            <TableCell3>{item.actual_profession} </TableCell3>
-                            <TableCell3>{item.visa_profession} </TableCell3>
-                            <TableCell3>{item.agent} </TableCell3>
-                            <TableCell3>{item.rc_name} </TableCell3>
-                            <TableCell3>{item.visa_received_date} </TableCell3>
-                            <TableCell3>{item.visa_expiry_date} </TableCell3>
-                            <TableCell3>{item.sector_from} </TableCell3>
-                            <TableCell3>{item.sector_to} </TableCell3>
-                            <TableCell3>{item.required_date} </TableCell3>
-                            <TableCell3>{item.priority} </TableCell3>
-                            <TableCell3>{item.air_ticket} </TableCell3>
-                            <TableCell3>{item.air_line} </TableCell3>
-                            <TableCell3>{item.ticket_issue_date} </TableCell3>
-                            <TableCell3>{item.pnr_no} </TableCell3>
-                            <TableCell3>{item.departure_date} </TableCell3>
-                            <TableCell3>{item.agency} </TableCell3>
-                            <TableCell3>{item.amount} </TableCell3>
-                            <TableCell3>{item.invoice_no} </TableCell3>
-                            <TableCell3>{item.invoice_date} </TableCell3>
-                            <TableCell3><Checkbox value={item.tally_entry} onChange={(e) =>  onUpdateRow(index,{...item,tally_entry: e.target.checked ? "Yes":''})} /></TableCell3>
+                            <TableCell>{index + 1}</TableCell>
+                            <TableCell>{item.party_code} </TableCell>
+                            <TableCell>{item.company_name} </TableCell>
+                            <TableCell>{item.candidate_name} </TableCell>
+                            <TableCell>{item.pp_no} </TableCell>
+                            <TableCell>{item.actual_profession} </TableCell>
+                            <TableCell>{item.visa_profession} </TableCell>
+                            <TableCell>{item.agent} </TableCell>
+                            <TableCell>{item.rc_name} </TableCell>
+                            <TableCell>{convertDateFormat(item.visa_received_date)} </TableCell>
+                            <TableCell>{convertDateFormat(item.visa_expiry_date)} </TableCell>
+                            <TableCell>{item.sector_from} </TableCell>
+                            <TableCell>{item.sector_to} </TableCell>
+                            <TableCell>{convertDateFormat(item.required_date)} </TableCell>
+                            <TableCell>{item.priority} </TableCell>
+                            <TableCell>{item.air_ticket} </TableCell>
+                            <TableCell>{item.air_line} </TableCell>
+                            <TableCell>{convertDateFormat(item.ticket_issue_date)} </TableCell>
+                            <TableCell>{item.pnr_no} </TableCell>
+                            <TableCell>{convertDateFormat(item.departure_date)} </TableCell>
+                            <TableCell>{item.agency} </TableCell>
+                            <TableCell>{item.amount} </TableCell>
+                            <TableCell>{item.invoice_no} </TableCell>
+                            <TableCell>{convertDateFormat(item.invoice_date)} </TableCell>
+                            <TableCell><Checkbox value={item.tally_entry} onChange={(e) =>  onUpdateRow(index,{...item,tally_entry: e.target.checked ? "Yes":''})} /></TableCell>
                         </TableRow3>
                     ))}
                 </TableBody2>

@@ -11,6 +11,7 @@ import {
 import { Checkbox } from "flowbite-react";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { ContactPersonInterface } from "../type";
+import { convertDateFormat } from "../../../../utils/function";
 const ClientInvoiceAddTable = (props: {
   invoiceContactPersonList: ContactPersonInterface[];
   // setData:any
@@ -58,11 +59,11 @@ const ClientInvoiceAddTable = (props: {
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.invoice_type}</TableCell>
               <TableCell>{ele.invoice_number}</TableCell>
-              <TableCell>{ele.invoice_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.invoice_date??'')}</TableCell>
               <TableCell>{ele.total_charges}</TableCell>
-              <TableCell> {ele.courier_date}</TableCell>
-              <TableCell>{ele.courier_received_date}</TableCell>
-              <TableCell>{ele.submitted_date}</TableCell>
+              <TableCell> { convertDateFormat(ele.courier_date??'')}</TableCell>
+              <TableCell>{convertDateFormat(ele.courier_received_date??'')}</TableCell>
+              <TableCell>{convertDateFormat(ele.submitted_date??'')}</TableCell>
               <TableCell>{ele.submitted_by}</TableCell>
               <TableCell><Checkbox onClick={()=>{onUpdateRow(index, {...ele, id:ele.id})}}  /></TableCell>
               <TableCell><UnlabeledInput value={ele.contact_person_name} onchange={(value) => { onUpdateRow(index, {...ele, contact_person_name: value }) }} /></TableCell>

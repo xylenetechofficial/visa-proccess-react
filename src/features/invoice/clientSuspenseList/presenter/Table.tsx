@@ -1,6 +1,7 @@
 import { ClientSuspenseInterface } from "../type";
 import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
+import { convertDateFormat } from "../../../../utils/function";
 
 
 const RejectCancelApproveTable = (props: {
@@ -38,7 +39,7 @@ const RejectCancelApproveTable = (props: {
                         <TableRow key={index}>
                             <TableCell>{index +1}</TableCell>
                             <TableCell>{item?.company_name}</TableCell>
-                            <TableCell>{item?.payment_received_date}</TableCell>
+                            <TableCell>{convertDateFormat(item?.payment_received_date)}</TableCell>
                             <TableCell>{item?.amount_received}</TableCell>
                             <TableCell>{item?.payment_description}</TableCell>
                             <TableCell>

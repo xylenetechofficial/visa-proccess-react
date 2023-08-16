@@ -16,6 +16,7 @@ import { InvoiceSubmitInterface } from "../type";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { useState } from "react";
 import ViewSubmittedModal from './ViewSubmitModal';
+import { convertDateFormat } from "../../../../utils/function";
 
 const ClientInvoiceAddTable = (props: {
   invoiceContactPersonList: InvoiceSubmitInterface[];
@@ -72,14 +73,14 @@ const ClientInvoiceAddTable = (props: {
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.invoice_type}</TableCell>
               <TableCell>{ele.invoice_number}</TableCell>
-              <TableCell>{ele.invoice_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.invoice_date??'')}</TableCell>
               <TableCell>{ele.total_charges}</TableCell>
               <TableCell> {ele.invoice_sector}</TableCell>
-              <TableCell>{ele.courier_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.courier_date??'')}</TableCell>
               <TableCell>{ele.received_status}</TableCell>
-              <TableCell>{ele.received_status_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.received_status_date??'')}</TableCell>
               <TableCell>{ele.given_to}</TableCell>
-              <TableCell> {ele.given_to_date}</TableCell>
+              <TableCell> {convertDateFormat(ele.given_to_date)}</TableCell>
               <TableCell> {ele.status}</TableCell>
               <TableCell><UnlabeledInput value={ele.remarks} onchange={(value) => { onUpdateRow(index, {...ele, remarks: value }) }} /></TableCell>
               {/* <TableCell><UnlabeledInput value={ele.submit_remarks} onchange={(value) => { onUpdateRow(index, {...ele, submit_remarks: value }) }} /></TableCell> */}

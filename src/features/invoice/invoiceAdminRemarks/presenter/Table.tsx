@@ -32,7 +32,8 @@ const ClientInvoiceAddTable = (props: {
         return e;
       }
     });
-    props.onChange(nextData)
+    props.onChange(nextData);
+    props.setInvoiceAdminData(nextData)
 
   }
   console.log(props.InvoiceAdminRemarkList)
@@ -66,7 +67,7 @@ const ClientInvoiceAddTable = (props: {
               <TableCell> {ele.company_name}</TableCell>
               <TableCell> {ele.invoice_type}</TableCell>
               <TableCell>{ele.invoice_number}</TableCell>
-              <TableCell>{ele.invoice_date}</TableCell>
+              <TableCell>{convertDateFormat(ele.invoice_date)}</TableCell>
               <TableCell>{ele.total_charges}</TableCell>
               <TableCell> {ele.invoice_sector}</TableCell>
               <TableCell> {convertDateFormat(ele.courier_date ?? ``)}</TableCell>
@@ -75,42 +76,42 @@ const ClientInvoiceAddTable = (props: {
               <TableCell>
                 <UnlabeledInput value={ele.given_to}
                  onchange={(value)=>{
-                  onUpdateRow(index,{...ele,given_to:value}),
-                   console.log(ele.id,"Sid"),
-                   props.setInvoiceAdminData((prev:any)=>{
-                    const newData = [...prev];
-                    newData[index] = {
-                      ...newData[index],
-                      given_to: value,
+                  onUpdateRow(index,{...ele,given_to:value})
+                  //  console.log(ele.id,"Sid"),
+                  //  props.setInvoiceAdminData((prev:any)=>{
+                  //   const newData = [...prev];
+                  //   newData[index] = {
+                  //     ...newData[index],
+                  //     given_to: value,
                      
-                    };
-                    return newData;
-                   })
+                  //   };
+                  //   return newData;
+                  //  })
                    }}/></TableCell>
               <TableCell>
                 <DateInput id="date" value={ele.given_to_date} onChange={(value) => {
                 onUpdateRow(index, { ...ele, given_to_date: value })
-                props.setInvoiceAdminData((prev:any) => {
-                  const newData = [...prev];
-                  newData[index] = {
-                    ...newData[index],
-                    given_to_date: value,
-                    id:ele.id,
-                  };
-                  return newData;
-                });
+                // props.setInvoiceAdminData((prev:any) => {
+                //   const newData = [...prev];
+                //   newData[index] = {
+                //     ...newData[index],
+                //     given_to_date: value,
+                //     id:ele.id,
+                //   };
+                //   return newData;
+                // });
                 }} /></TableCell>
               <TableCell><UnlabeledInput type="text" value={ele.given_to_remarks} onchange={(value) =>{
                  onUpdateRow(index, { ...ele, given_to_remarks: value })
-                 props.setInvoiceAdminData((prev:any) => {
-                  const newData = [...prev];
-                  newData[index] = {
-                    ...newData[index],
-                    given_to_remarks: value,
+                //  props.setInvoiceAdminData((prev:any) => {
+                //   const newData = [...prev];
+                //   newData[index] = {
+                //     ...newData[index],
+                //     given_to_remarks: value,
                    
-                  };
-                  return newData;
-                });
+                //   };
+                //   return newData;
+                // });
                  }} /></TableCell>
             </TableRow>
           ))

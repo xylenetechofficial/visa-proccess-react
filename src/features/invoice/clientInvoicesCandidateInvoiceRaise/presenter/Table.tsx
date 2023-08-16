@@ -34,7 +34,8 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
         return e;
       }
     });
-    props.onChange(nextData)
+    props.onChange(nextData);
+    props.setData(nextData)
   }
   return (
     <div className="overflow-auto">
@@ -85,7 +86,8 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
               {/* <TableCell> {ele.document_charges}</TableCell> */}
               <TableCell> {ele.service_charges}</TableCell>
               <TableCell> {ele.ticket_charges}</TableCell>
-              <TableCell> <UnlabeledInput type="number" value={ele.total_charges} onchange={(value)=>onUpdateRow(index, {...ele, total_charges:parseInt(value)})}/></TableCell>
+              <TableCell> <UnlabeledInput type="number" value={ele.total_charges} onchange={(value)=>
+                onUpdateRow(index, {...ele, total_charges:parseInt(value)})}/></TableCell>
               <TableCell>
                 <UnlabeledInput
                   type="number"
@@ -93,17 +95,17 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   onchange={(value) => {
                     if (value) {
                     
-                      props.setData((prev: any) => {
-                        const newData = [...prev];
-                            newData[index] = {
-                                ...newData[index],
-                                invoice_number: value,
-                                id:index,
-                                total_charges:ele.total_charges
+                      // props.setData((prev: any) => {
+                      //   const newData = [...prev];
+                      //       newData[index] = {
+                      //           ...newData[index],
+                      //           invoice_number: value,
+                      //           id:index,
+                      //           total_charges:ele.total_charges
                                 
-                            };
-                            return newData;
-                        })
+                      //       };
+                      //       return newData;
+                      //   })
                       onUpdateRow(index, { ...ele, invoice_number: value })
                     }
                     else {
@@ -120,18 +122,18 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   onChange={(value) => {
 
                     if (value) {
-                      props.setData((prev: any) => {
-                        const newData = [...prev];
-                            newData[index] = {
-                                ...newData[index],
-                                invoice_date: value,
-                                id:index,
+                      // props.setData((prev: any) => {
+                      //   const newData = [...prev];
+                      //       newData[index] = {
+                      //           ...newData[index],
+                      //           invoice_date: value,
+                      //           id:index,
                                 
-                            };
-                            return newData;
-                        })
+                      //       };
+                      //       return newData;
+                      //   })
                       onUpdateRow(index, { ...ele, invoice_date: value })
-                        , console.log(value)
+                         console.log(value)
                     }
                     else {
                       onUpdateRow(index, { ...ele, invoice_date: '' })
@@ -145,16 +147,16 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                 <Checkbox value={ele.is_without} onChange={(e) => {
 
                   if (e.target.checked) {
-                    props.setData((prev: any) => {
-                      const newData = [...prev];
-                          newData[index] = {
-                              ...newData[index],
-                              is_without: e.target.checked ? 1 : 0,
-                              id:index,
+                    // props.setData((prev: any) => {
+                    //   const newData = [...prev];
+                    //       newData[index] = {
+                    //           ...newData[index],
+                    //           is_without: e.target.checked ? 1 : 0,
+                    //           id:index,
                               
-                          };
-                          return newData;
-                      })
+                    //       };
+                    //       return newData;
+                    //   })
                     onUpdateRow(index, { ...ele, is_without: e.target.checked ? 1 : 0 })
                       , console.log(e.target.checked, "checked")
                   }
@@ -177,16 +179,16 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   onChange={(value) => {
 
                     if (value) {
-                      props.setData((prev: any) => {
-                        const newData = [...prev];
-                            newData[index] = {
-                                ...newData[index],
-                                bank_id: value,
-                                id:index,
+                      // props.setData((prev: any) => {
+                      //   const newData = [...prev];
+                      //       newData[index] = {
+                      //           ...newData[index],
+                      //           bank_id: value,
+                      //           id:index,
                                 
-                            };
-                            return newData;
-                        })
+                      //       };
+                      //       return newData;
+                      //   })
                       onUpdateRow(index, { ...ele, bank_id: value })
                         , console.log(value)
                     }
