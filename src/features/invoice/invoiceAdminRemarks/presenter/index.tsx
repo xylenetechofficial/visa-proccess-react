@@ -21,6 +21,9 @@ export default function Main() {
   const onCreate = async (item: AddInvoiceAdminInterface[]) => {
 
     const data = await createInvoiceAdminRemark(item);
+    if(data){
+      fetchInvoiceAdminRemarked();
+    }
   }
   const fetchInvoiceAdminRemarked = async () => {
     const data = await readInvoiceAdminRemarkList();
