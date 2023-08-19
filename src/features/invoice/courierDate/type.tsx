@@ -211,7 +211,8 @@ export interface CourierDateInterface {
       console.log(i); // Only Dev
       const data: AddCourierDateAdapter = {
   
-        invoice_list: i?.invoice_list?.map((item) => ({
+        invoice_list: i?.invoice_list?.filter(item =>
+          item.invoice_sector !=='' && item.courier_date !=='').map((item) => ({
           company_name:item.company_name,
           invoice_number:item.invoice_number,
           invoice_date:item.invoice_date,

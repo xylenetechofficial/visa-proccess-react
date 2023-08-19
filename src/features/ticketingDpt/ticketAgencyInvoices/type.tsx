@@ -1,6 +1,6 @@
 export interface TicketAgencyInvoicesInterface {
 
-    id?: number,
+    id: number,
     party_code: string,
     company_name: string,
     candidate_name: string,
@@ -24,13 +24,13 @@ export interface TicketAgencyInvoicesInterface {
     amount: string,
     invoice_no: string,
     invoice_date: string,
-    tally_entry: string,
+    ticketing_tally_entry: number,
 }
 
 
 // block_visa
 export interface TicketAgencyInvoicesAdapter {
-    id?: number,
+    id: number,
     party_code: string,
     company_name: string,
     candidate_name: string,
@@ -54,7 +54,7 @@ export interface TicketAgencyInvoicesAdapter {
     amount: string,
     invoice_no: string,
     invoice_date: string,
-    tally_entry: string,
+    ticketing_tally_entry: number,
 }
 
 export class TicketAgencyInvoicesConverter {
@@ -92,7 +92,7 @@ export class TicketAgencyInvoicesConverter {
             amount: a.amount,
             invoice_no: a.invoice_no,
             invoice_date: a.invoice_date,
-            tally_entry: a.tally_entry,
+            ticketing_tally_entry: a.ticketing_tally_entry,
         };
         return data;
     }
@@ -128,8 +128,108 @@ export class TicketAgencyInvoicesConverter {
             amount: i.amount,
             invoice_no: i.invoice_no,
             invoice_date: i.invoice_date,
-            tally_entry: i.tally_entry,
+            ticketing_tally_entry: i.ticketing_tally_entry,
         };
         return data;
     }
 }
+
+
+
+export interface AddTicketAgencyInterface {
+
+    selection_list: TicketAgencyInvoicesInterface[],
+    
+  }
+  
+  export interface AddTicketAgencyAdapter {
+  
+    selection_list: TicketAgencyInvoicesAdapter[],
+    
+  }
+  
+  
+  export class AddTicketAgencyConverter {
+    // private i: AddCandidateInvoiceNumberInterface
+    // private a: AddPenaltyAfterDeploymentAdapter
+  
+    /**
+     * toInterface
+     */
+    public static toInterface(a: AddTicketAgencyAdapter) {
+      const data: AddTicketAgencyInterface = {
+        selection_list: a?.selection_list?.map((item) => ({
+       
+            id: item.id,
+            party_code: item.party_code,
+            company_name: item.company_name,
+            candidate_name: item.candidate_name,
+            pp_no: item.pp_no,
+            actual_profession: item.actual_profession,
+            visa_profession: item.visa_profession,
+            agent: item.agent,
+            rc_name: item.rc_name,
+            visa_received_date: item.visa_received_date,
+            visa_expiry_date: item.visa_expiry_date,
+            sector_from: item.sector_from,
+            sector_to: item.sector_to,
+            required_date: item.required_date,
+            priority: item.priority,
+            air_ticket: item.air_ticket,
+            air_line: item.air_line,
+            ticket_issue_date: item.ticket_issue_date,
+            pnr_no: item.pnr_no,
+            departure_date: item.departure_date,
+            agency: item.agency,
+            amount: item.amount,
+            invoice_no: item.invoice_no,
+            invoice_date: item.invoice_date,
+            ticketing_tally_entry: item.ticketing_tally_entry,
+        })),
+    
+      };
+      return data;
+    }
+  
+    /**
+     * toAdapter
+     */
+    public static toAdapter(i: AddTicketAgencyInterface) {
+      console.log("i"); // Only Dev
+      console.log(i); // Only Dev
+      const data: AddTicketAgencyAdapter = {
+  
+        selection_list: i?.selection_list?.filter(item =>
+             item.ticketing_tally_entry !== 0 
+             ).map((item) => ({
+            id: item.id,
+            party_code: item.party_code,
+            company_name: item.company_name,
+            candidate_name: item.candidate_name,
+            pp_no: item.pp_no,
+            actual_profession: item.actual_profession,
+            visa_profession: item.visa_profession,
+            agent: item.agent,
+            rc_name: item.rc_name,
+            visa_received_date: item.visa_received_date,
+            visa_expiry_date: item.visa_expiry_date,
+            sector_from: item.sector_from,
+            sector_to: item.sector_to,
+            required_date: item.required_date,
+            priority: item.priority,
+            air_ticket: item.air_ticket,
+            air_line: item.air_line,
+            ticket_issue_date: item.ticket_issue_date,
+            pnr_no: item.pnr_no,
+            departure_date: item.departure_date,
+            agency: item.agency,
+            amount: item.amount,
+            invoice_no: item.invoice_no,
+            invoice_date: item.invoice_date,
+            ticketing_tally_entry: item.ticketing_tally_entry,
+      })),
+        
+      };
+      return data;
+    }
+  }

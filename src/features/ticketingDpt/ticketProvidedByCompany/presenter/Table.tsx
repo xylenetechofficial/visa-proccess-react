@@ -75,63 +75,64 @@ export default function Main(props: {
                                     handleCheckboxChange(`${item.id}no`,index)  
                                     // onUpdateRow(index, { ...item, id: item.id })
                                 }
-                                props.setTicketProvidedByCompanyData((prev:any) => {
-                                    const newData = [...prev];
-                                    newData[index] = {
-                                      ...newData[index],
-                                      id: item.id ,
-                                    };
-                                    return newData;
-                                  });
+                                // props.setTicketProvidedByCompanyData((prev:any) => {
+                                //     const newData = [...prev];
+                                //     newData[index] = {
+                                //       ...newData[index],
+                                //       id: item.id ,
+                                //     };
+                                //     return newData;
+                                //   });
                                 }} /></TableCell>
                             <TableCell><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
-                             onChange={(value) =>{ onUpdateRow(index, { ...item, sector_from: value }),
+                             onChange={(value) =>{ onUpdateRow(index, { ...item, sector_from: value })
                              
-                             props.setTicketProvidedByCompanyData((prev:any) => {
-                                const newData = [...prev];
-                                newData[index] = {
-                                  ...newData[index],
-                                  sector_from: value ,
-                                };
-                                return newData;
-                              });
+                            //  props.setTicketProvidedByCompanyData((prev:any) => {
+                            //     const newData = [...prev];
+                            //     newData[index] = {
+                            //       ...newData[index],
+                            //       sector_from: value ,
+                            //     };
+                            //     return newData;
+                            //   });
                              }} /></TableCell>
                             <TableCell><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
                              onChange={(value) =>{ onUpdateRow(index, { ...item, sector_to: value })
-                             props.setTicketProvidedByCompanyData((prev:any) => {
-                                const newData = [...prev];
-                                newData[index] = {
-                                  ...newData[index],
-                                  sector_to: value ,
-                                };
-                                return newData;
-                              });
+                            //  props.setTicketProvidedByCompanyData((prev:any) => {
+                            //     const newData = [...prev];
+                            //     newData[index] = {
+                            //       ...newData[index],
+                            //       sector_to: value ,
+                            //     };
+                            //     return newData;
+                            //   });
                              
                              }} /></TableCell>
-                            <TableCell> <UnlabeledInput value={item.pnr_no}
+                            <TableCell> 
+                              <UnlabeledInput value={item.pnr_no}
 
                            onchange={(value) => 
                              {onUpdateRow(index, { ...item, pnr_no: value })
                              
-                             props.setTicketProvidedByCompanyData((prev:any) => {
-                                const newData = [...prev];
-                                newData[index] = {
-                                  ...newData[index],
-                                  pnr_no: value ,
-                                };
-                                return newData;
-                              });
+                            //  props.setTicketProvidedByCompanyData((prev:any) => {
+                            //     const newData = [...prev];
+                            //     newData[index] = {
+                            //       ...newData[index],
+                            //       pnr_no: value ,
+                            //     };
+                            //     return newData;
+                            //   });
                              }} /></TableCell>
                             <TableCell> <DateInput id="date" value={item.departure_date} onChange={(value) =>
                                 { onUpdateRow(index, { ...item, departure_date: value })
-                                props.setTicketProvidedByCompanyData((prev:any) => {
-                                    const newData = [...prev];
-                                    newData[index] = {
-                                      ...newData[index],
-                                      departure_date: value ,
-                                    };
-                                    return newData;
-                                  });
+                                // props.setTicketProvidedByCompanyData((prev:any) => {
+                                //     const newData = [...prev];
+                                //     newData[index] = {
+                                //       ...newData[index],
+                                //       departure_date: value ,
+                                //     };
+                                //     return newData;
+                                //   });
                                 
                                 }} /></TableCell>
                         </TableRow3>

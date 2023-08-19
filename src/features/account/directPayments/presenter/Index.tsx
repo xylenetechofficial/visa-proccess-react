@@ -169,10 +169,14 @@ export default function Main( ) {
   // }
 
   const updateBulkPayment = async (data: any) => {
-    const agentPayment = { selection_list: data }
 
-    await createAgentPayment(agentPayment)
+    const list = data.filter((item:any)=> item?.id !== undefined)
+    const agentPayment = { "selection_list": list }
+
+    const res = await createAgentPayment(agentPayment)
+    if(res){
     fetchAgentPaymentList(agentBy);
+    }
   }
   return (
     <div>

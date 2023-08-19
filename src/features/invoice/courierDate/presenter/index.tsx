@@ -30,9 +30,12 @@ export default function Main() {
     }
     const onClickAdd =async ()=>{
       const list :any ={
-        invoice_list:courierDateData
+        invoice_list:courierDateList
       }
-      await createInvoiceDate(list)
+     const data = await createInvoiceDate(list);
+     if(data){
+      fetchCourierDateEntryData();
+     }
     }
 
     const [sectorList, setSectorList] = useState<SectorInterface[]>([]);

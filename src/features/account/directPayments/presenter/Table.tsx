@@ -155,7 +155,7 @@ const AgentPaymentTable = (props: {
                 />
               </TableCell>
 
-              <TableCell> {ele.advance}
+              <TableCell>
                 
                 <Checkbox
                   value={ele.payment_date}

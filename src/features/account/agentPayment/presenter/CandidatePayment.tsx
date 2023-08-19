@@ -30,9 +30,10 @@ const CandidatePayment = (props: {
   const handleClick = async (CandidatePayment: CandidateDiscountApproveRejectInterface) => {
     await createCandidateDiscountApprovalReject(CandidatePayment);
     handleReset();
-    await props.fetchAgentPaymentList('agent_id',props.AgentID);
+    console.log(props.AgentID);
+     props.fetchAgentPaymentList('agent_id',props.AgentID);
   }
-
+  console.log(props.AgentID,"console.log(props.AgentID);");
   const handleReset = () => {
     setCandidatePayment({
       candidate_id: 1,

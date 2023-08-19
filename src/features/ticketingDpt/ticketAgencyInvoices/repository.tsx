@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { TicketAgencyInvoicesAdapter, TicketAgencyInvoicesConverter, TicketAgencyInvoicesInterface } from "./type";
+import { AddTicketAgencyConverter, TicketAgencyInvoicesAdapter, TicketAgencyInvoicesConverter, TicketAgencyInvoicesInterface } from "./type";
 
 
 export async function readTicketAgencyInvoicesList() {
@@ -33,10 +33,12 @@ export async function readTicketAgencyInvoicesList() {
 
 
 
-export async function createTicketAgencyInvoices(TicketAgencyInvoices:TicketAgencyInvoicesInterface) {
+export async function createTicketAgencyInvoices(TicketAgencyInvoices:TicketAgencyInvoicesInterface[]) {
     const path = "/ticketing-dpt/ticket-agency-invoice-list";
-  
-    const payload = TicketAgencyInvoicesConverter.toAdapter(TicketAgencyInvoices);
+  const list = {
+selection_list:TicketAgencyInvoices
+  }
+    const payload = AddTicketAgencyConverter.toAdapter(list);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT

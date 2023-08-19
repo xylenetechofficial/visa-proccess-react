@@ -61,7 +61,7 @@ export default function Main() {
   const [AgentID, setAgentID] = useState(1);
   const [AgentList, setAgentList] = useState<AgentInterface[]>([]);
   const initialAgentState : AgentPaymentByIDInterface= {
-    agent_id:1,
+    agent_id:0,
     passport_no:''
   }
   const [agentBy, setAgentBy]= useState(initialAgentState)
@@ -115,12 +115,15 @@ export default function Main() {
   }, []);
   const updateBulkPayment = async (data: any) => {
     console.log(data)
-    const currentData: any = { "selection_list": data };
+    const list = data.filter((item :any)=>item?.id !== undefined )
+    console.log(list,"AAAAA)))))))",data)
+    const currentData: any = { "selection_list": list };
     const datas = await addAgentPayment(currentData);
     setData([]);
     // await fetchAgentPaymentList('agent_id', AgentID);
+    if(datas){
     await fetchAgentPaymentList(agentBy);
-
+    }
   }
   const agentOperation = async (value: number) => {
     setAgentID(value)
@@ -139,7 +142,7 @@ export default function Main() {
         <div className="w-full">
           <CustomSelectComponent
             label="Agent"
-            onChange={(value: number) => {agentOperation(value), setAgentBy({...agentBy, agent_id:value})}}
+            onChange={(value: number) => {agentOperation(value), setAgentBy({...agentBy, agent_id:value}),console.log(value,"AAAAAA")}}
             options={selectOptionConveter({ options: AgentList, options_struct: { name: "name", value: "id" } })}
             value={AgentID}
           />
@@ -158,8 +161,8 @@ export default function Main() {
         <SubHeadingSpan text={AgentPaymentList?.amount_available_for_adjustment} />
       </div>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mb-4">
-        <AgentBulkPayment fetchAgentPaymentList={(name, value) => fetchAgentPaymentList({agent_id:1,passport_no:'11'} )} AgentID={AgentID} setAgentID={setAgentID} />
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={(name, value) => fetchAgentPaymentList({agent_id:1,passport_no:'1s2'})} AgentID={AgentID} />
+        <AgentBulkPayment fetchAgentPaymentList={(name, value) => fetchAgentPaymentList({agent_id:agentBy.agent_id,passport_no:agentBy.passport_no} )} AgentID={AgentID} setAgentID={setAgentID} />
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={(name, value) => fetchAgentPaymentList({agent_id:agentBy.agent_id,passport_no:agentBy.passport_no})} AgentID={AgentID} />
         <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)} />
       </div>
       {/*  AgentPayment table */}

@@ -103,7 +103,7 @@ export interface AddTicketProvidedInterface {
 
 export interface AddTicketProvidedAdapter {
 
-  selection_list: TicketProvidedByCompanyInterface[],
+  selection_list: TicketProvidedByCompanyAdapter[],
   
 }
 
@@ -148,7 +148,7 @@ export class AddTicketProvidedConverter {
     console.log(i); // Only Dev
     const data: AddTicketProvidedAdapter = {
 
-      selection_list: i?.selection_list?.map((item) => ({
+      selection_list: i?.selection_list?.filter(item => item.sector_from !== undefined && item.sector_to !== undefined && item.pnr_no !== undefined && item.departure_date !== undefined).map((item) => ({
         id: item.id,
         party_code: item.party_code,
         company_name: item.company_name,

@@ -35,6 +35,7 @@ export async function readTicketProvidedByCompanyList() {
 
 export async function createTicketProvidedByCompany(TicketProvidedByCompany:TicketProvidedByCompanyInterface[]) {
     const path = "/ticketing-dpt/tickets-provided-by-company-list";
+    console.log(TicketProvidedByCompany)
   const list :any ={
     selection_list:TicketProvidedByCompany,
   }

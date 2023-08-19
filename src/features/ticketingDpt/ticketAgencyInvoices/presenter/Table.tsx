@@ -62,7 +62,7 @@ export default function Main(props:{
                             <TableCell>{item.amount} </TableCell>
                             <TableCell>{item.invoice_no} </TableCell>
                             <TableCell>{convertDateFormat(item.invoice_date)} </TableCell>
-                            <TableCell><Checkbox value={item.tally_entry} onChange={(e) =>  onUpdateRow(index,{...item,tally_entry: e.target.checked ? "Yes":''})} /></TableCell>
+                            <TableCell><Checkbox value={item.ticketing_tally_entry} onChange={(e) =>  onUpdateRow(index,{...item,ticketing_tally_entry: e.target.checked ? 1:0})} /></TableCell>
                         </TableRow3>
                     ))}
                 </TableBody2>

@@ -30,6 +30,7 @@ export default function Main() {
 
     }
     const onClickCreate = async (item: TicketProvidedByCompanyInterface[]) => {
+        console.log(item)
         await createTicketProvidedByCompany(item)
     }
     const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
@@ -64,7 +65,7 @@ export default function Main() {
                 setTicketProvidedByCompanyData={setTicketProvidedByCompanyData}
                 onChange={(value) => setTicketProvidedByCompanyList(value)}
             />
-            <GreenButton text='Submit' onClick={()=>onClickCreate(TicketProvidedByCompanyData)} />
+            <GreenButton text='Submit' onClick={()=>onClickCreate(TicketProvidedByCompanyList)} />
         </>
     )
 }

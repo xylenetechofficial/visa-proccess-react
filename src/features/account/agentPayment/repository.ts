@@ -17,11 +17,15 @@ import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveReject
 export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface) {
 
   const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
-  const path = `/account/agent-payment-list?${payload}`;
+  const path = `/account/agent-payment-list`;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      agent_id: AgentBy.agent_id ?? 0,
+      passport_no: AgentBy.passport_no ?? ""
+    }
   });
 
   if (response.code != 200) {

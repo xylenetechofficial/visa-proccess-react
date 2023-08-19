@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint = https://ac2a-45-248-56-52.ngrok-free.app/api
+@endpoint = https://dev.softwareinnova.website/api
 
 
 ###
@@ -1257,6 +1257,9 @@ content-type: application/json
 
 ### Read Index For Ewakala List
 GET {{endpoint}}/immigration-dpt/index-for-ewakala-list
+
+### Read Index For Ewakala List
+GET {{endpoint}}/ticketing-dpt/tickets-dashboard/ticket-to-be-booked-list
 
 
 
