@@ -16,6 +16,7 @@ import {
 import { Checkbox } from "@mui/material";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { AddIncentiveInterface, IncentiveInterface } from "../type";
+import { convertDateFormat } from "../../../../utils/function";
 
 
 const AccountDashboardTable = (props: {
@@ -76,7 +77,7 @@ const AccountDashboardTable = (props: {
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
               <TableCell> {ele?.job_order_no}</TableCell>
-              <TableCell> {ele?.job_order_date}</TableCell>
+              <TableCell> {convertDateFormat(ele?.job_order_date)}</TableCell>
               <TableCell>
                 {ele?.company}
               </TableCell>

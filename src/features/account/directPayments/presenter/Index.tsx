@@ -8,7 +8,7 @@ import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
-import { AgentPaymentByIDInterface, DirectPaymentInterface } from "../type";
+import { AddSelectionAgentPaymentInterface, AgentPaymentByIDInterface, DirectPaymentInterface } from "../type";
 import { createAgentPayment, deleteAgentPayment, readAdvancePaymentList, readAgentPaymentReceivedPaymentList, readDirectPaymentList } from "../repository";
 import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
@@ -168,9 +168,9 @@ export default function Main( ) {
   //   fetchAgentPaymentList(Agentby);
   // }
 
-  const updateBulkPayment = async (data: any) => {
+  const updateBulkPayment = async (data: AddSelectionAgentPaymentInterface[]) => {
 
-    const list = data.filter((item:any)=> item?.id !== undefined)
+    const list = data.filter((item)=> item?.id !== undefined)
     const agentPayment = { "selection_list": list }
 
     const res = await createAgentPayment(agentPayment)

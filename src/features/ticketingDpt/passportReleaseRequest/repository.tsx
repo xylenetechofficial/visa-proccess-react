@@ -39,6 +39,7 @@ export async function createPassportReleaseRequest(PassportReleaseRequest:Passpo
     selection_list:PassportReleaseRequest
   }
     const payload = AddPassportRequestConverter.toAdapter(list);
+    console.log(payload)
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT
@@ -46,19 +47,20 @@ export async function createPassportReleaseRequest(PassportReleaseRequest:Passpo
   
     if (response.code != 200) {
       showMessage_v2({ message: response.message, status: response.code })
+      return false;
     }
   
     const data = []
     console.log(response.data)
-    if (response.data) {
-      const dataAdapter = response.data as PassportReleaseRequestAdapter[];
-      for (let i = 0; i < dataAdapter.length; i++) {
-        const element = dataAdapter[i];
-        data.push(PassportReleaseRequestConverter.toInterface(element));
-      }
-    }
+    // if (response.data) {
+    //   const dataAdapter = response.data as PassportReleaseRequestAdapter[];
+    //   for (let i = 0; i < dataAdapter.length; i++) {
+    //     const element = dataAdapter[i];
+    //     data.push(PassportReleaseRequestConverter.toInterface(element));
+    //   }
+    // }
   
-    return data as PassportReleaseRequestInterface[]
+    return true
   }
   
   

@@ -1,4 +1,4 @@
-import { VisaProfesionInterface } from '../type'
+import { DirectInterface } from '../type'
 import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHead2, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
@@ -7,7 +7,7 @@ import { convertDateFormat, convertDateFormatWithTime } from '../../../../utils/
 
 const VisaProfessionTable = (props: {
     paymentDetail: any[],
-    onChange: (ele: VisaProfesionInterface[]) => void,
+    onChange: (ele: DirectInterface[]) => void,
 
 }) => {
 
@@ -20,7 +20,7 @@ const VisaProfessionTable = (props: {
         setonChange(Date.now().toString())
 
     }
-    function onUpdateRow(index: number, rowData: VisaProfesionInterface) {
+    function onUpdateRow(index: number, rowData: DirectInterface) {
         const nextData = props.paymentDetail.map((e, i) => {
             if (i === index) {
                 // Increment the clicked counter
@@ -67,7 +67,7 @@ const TableData = (
     props: {
         index: number;
         data: any;
-        onUpdate: (index: number, rowData: VisaProfesionInterface) => void;
+        onUpdate: (index: number, rowData: DirectInterface) => void;
         onClickRemove: (index: number) => void;
         onChange: string
     }

@@ -56,7 +56,7 @@ export default function Main(props: {
                             <TableCell> {item.air_ticket} </TableCell>
                             <TableCell> {item.division} </TableCell>
                             <TableCell><Checkbox  onChange={(e) => onUpdateRow(index, { ...item, id: item.id })} /></TableCell>
-                            <TableCell><DateInput id="releaseDate"  onChange={(value) => { onUpdateRow(index, { ...item, release_by_date: value }) }} value={item.release_by_date} /></TableCell>
+                            <TableCell><DateInput id="releaseDate"  onChange={(value) => { onUpdateRow(index, { ...item, ticketing_release_by_date: value }) }} value={item.ticketing_release_by_date} /></TableCell>
                         </TableRow3>
                     ))}
                 </TableBody2>

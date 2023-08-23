@@ -13,7 +13,7 @@ export interface PassportReleaseRequestInterface {
     is_invoice: string,
     air_ticket: string,
     division: string,
-    release_by_date: string,
+    ticketing_release_by_date: string,
 }
 
 
@@ -33,7 +33,7 @@ export interface PassportReleaseRequestAdapter {
     is_invoice: string,
     air_ticket: string,
     division: string,
-    release_by_date: string,
+    ticketing_release_by_date: string,
 }
 
 export class PassportReleaseRequestConverter {
@@ -61,7 +61,7 @@ export class PassportReleaseRequestConverter {
             is_invoice: a.is_invoice,
             air_ticket: a.air_ticket,
             division: a.division,
-            release_by_date: a.release_by_date,
+            ticketing_release_by_date: a.ticketing_release_by_date,
         };
         return data;
     }
@@ -88,7 +88,7 @@ export class PassportReleaseRequestConverter {
             is_invoice: i.is_invoice,
             air_ticket: i.air_ticket,
             division: i.division,
-            release_by_date: i.release_by_date,
+            ticketing_release_by_date: i.ticketing_release_by_date,
         };
         return data;
     }
@@ -133,7 +133,7 @@ export interface AddPassportRequestInterface {
             is_invoice: item.is_invoice,
             air_ticket: item.air_ticket,
             division: item.division,
-            release_by_date: item.release_by_date,
+            ticketing_release_by_date: item.ticketing_release_by_date,
         })),
     
       };
@@ -148,7 +148,7 @@ export interface AddPassportRequestInterface {
       console.log(i); // Only Dev
       const data: AddPassportRequestAdapter = {
   
-        selection_list: i?.selection_list?.map((item) => ({
+        selection_list: i?.selection_list?.filter(item => item.ticketing_release_by_date !== '').map((item) => ({
             id: item.id,
             party_code: item.party_code,
             company_name: item.company_name,
@@ -163,7 +163,7 @@ export interface AddPassportRequestInterface {
             is_invoice: item.is_invoice,
             air_ticket: item.air_ticket,
             division: item.division,
-            release_by_date: item.release_by_date,
+            ticketing_release_by_date: item.ticketing_release_by_date,
       })),
         
       };

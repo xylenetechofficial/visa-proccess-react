@@ -81,7 +81,7 @@ const AgentPaymentTable = (props: {
               <TableCell3>{ele.actual_profession}</TableCell3>
               <TableCell3>{ele.visa_profession}</TableCell3>
               <TableCell3> {ele.agent_name}</TableCell3>
-              <TableCell3> {ele.visa_received_date}</TableCell3>
+              <TableCell3> {convertDateFormat(ele.visa_received_date)}</TableCell3>
               <TableCell3> {ele.visa_authorization}</TableCell3>
               <TableCell3> {ele.photo_charges}</TableCell3>
               <TableCell3> {ele.training_charges}</TableCell3>

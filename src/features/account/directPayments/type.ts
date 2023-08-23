@@ -10,20 +10,11 @@ export interface DirectPaymentInterface {
   rejected_candidates: number,
   flight_candidates: number,
   amount_available_for_adjustment: number,
-  table_data_list: VisaProfesionInterface[],
+  table_data_list: DirectInterface[],
 
-  bulk_payment_list: VisaProfesionInterface[]
+  bulk_payment_list: BUlkAmountInterface[]
 
 }
-// 'block_visa' => 'required|array',
-// 'visa_profession_list' => 'required|array'
-
-// export interface ServerAdapter {
-//   block_visa: AgentPaymentAdapter,
-//   visa_profession_list: VisaProfesionAdapter[]
-// }
-
-// block_visa
 export interface DirectPaymentAdapter {
 
 
@@ -37,55 +28,58 @@ export interface DirectPaymentAdapter {
   rejected_candidates: number,
   flight_candidates: number,
   amount_available_for_adjustment: number,
-  table_data_list: VisaProfesionInterface[],
+  table_data_list: DirectInterface[],
 
-  bulk_payment_list: VisaProfesionInterface[]
-
-}
-
-export interface VisaProfesionInterface {
-
-  id: number,
-  party_code: number,
-  company_name: string,
-  name: string,
-  passport_no: string,
-  actual_profession: string,
-  visa_profession: string,
-  agent_name: string,
-  visa_received_date: string,
-  visa_authorization: string,
-  photo_charges: number,
-  training_charges: number,
-  other_charges: number,
-  document_charges: number,
-  service_charges: number,
-  partial_charges: number,
-  sector_charges: number,
-  consulate_setting_charges: number,
-  ticket_charges: number,
-  attestation_charges: number,
-  consolidated_charges: number,
-  penalty_after_deployment: number,
-  extra_service_tax: number,
-  agent_commission: number,
-  discount_amount: number,
-  received: number,
-  balance_amount: number,
-  amount: number,
-  advance: null,
-  payment_date: null
-
+  bulk_payment_list: BUlkAmountInterface[]
 
 }
 
-export interface VisaProfesionAdapter {
-  id?: number;
-  block_visa_id: number;
-  visa_profession: string;
-  arabic_visa_category: string;
-  quantity: number;
+export interface BUlkAmountInterface{
+  agent_id: string
+amount: string
+available_amount: number
+created_at:string
+description: string
+id: 1
+used_amount: 1510
 }
+export interface DirectInterface {
+  id: string ,
+  party_code: string ,
+  company_name: string ,
+  name: string ,
+  passport_no: string ,
+  actual_profession: string ,
+  visa_profession: string ,
+  agent_name: string ,
+  agent_id:number,
+  visa_received_date: string ,
+  visa_authorization: string ,
+  photo_charges:number,
+  training_charges:number,
+  other_charges:number,
+  document_charges:number,
+  service_charges:number,
+  partial_charges:number,
+  sector_charges:number,
+  consulate_setting_charges:number,
+  ticket_charges:number,
+  attestation_charges:number,
+  consolidated_charges:number,
+  penalty_after_deployment:number,
+  extra_service_tax:number,
+  agent_commission:number,
+  discount_amount:number,
+  received:number,
+  balance_amount:number,
+  amount:number,
+  advance:number,
+  payment_date: string,
+  is_without:number,
+  total_advance_payment:number,
+  candidate_dropdown_name: string 
+}
+
 export interface AddDirectPaymentAdvancePaymentInterface {
   name:string,
       amount:number,
@@ -130,6 +124,47 @@ export class AddDirectPaymentAdvancePaymentConverter {
   }
 }
 
+
+
+export interface AddAgentPaymentInterface {
+  selection_list: AddSelectionAgentPaymentInterface[];
+}
+
+export interface AddAgentPaymentAdapter {
+  selection_list: AddSelectionAgentPaymentAdapter[];
+}
+
+export class AddDirectPaymentConverter {
+  public static toInterface(a: AddAgentPaymentAdapter): AddAgentPaymentInterface {
+    console.log(a,"kkkkkk")
+    const data: AddAgentPaymentInterface = {
+      selection_list: a?.selection_list?.map((item) => ({
+        id: item.id,
+        amount: item.amount,
+        bulk_payment_id: item.bulk_payment_id,
+        advance: item.advance,
+        payment_date: item.payment_date,
+      })),
+    };
+    return data;
+  }
+
+  public static toAdapter(i: AddAgentPaymentInterface): AddAgentPaymentAdapter {
+    console.log(i,"iiiii")
+    const data: AddAgentPaymentAdapter = {
+      
+      selection_list: i?.selection_list?.map((item) => ({
+        id: item.id,
+        amount: item.amount,
+        bulk_payment_id: item.bulk_payment_id,
+        advance: item.advance,
+        payment_date: item.payment_date,
+      })),
+    };
+    return data;
+  }
+}
+
 export interface AddSelectionAgentPaymentInterface {
   id: number;
   amount: number;
@@ -145,7 +180,6 @@ export interface AddSelectionAgentPaymentAdapter {
   advance: number;
   payment_date: string;
 }
-
 
 
 export interface AgentPaymentAddInterface {

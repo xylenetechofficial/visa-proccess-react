@@ -4,7 +4,7 @@ import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, FileInput, StandardInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import {  CandidateAdvancePaymentInterface, VisaProfesionInterface } from "../type";
+import {  CandidateAdvancePaymentInterface } from "../type";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
@@ -34,7 +34,7 @@ export default function Main(props: {
 
     const [AgentPayment, setAgentPayment] = useState(initValue)
     const [candidateAdvancePayment, setCandidateAdvancePayment] = useState(initValue)
-    const [visaProfessionList, setVisaProfessionList] = useState<VisaProfesionInterface[]>([])
+    
 
 
 

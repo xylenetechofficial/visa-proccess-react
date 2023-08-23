@@ -1,4 +1,4 @@
-import { AgentPaymentAddConverter, AgentPaymentAddInterface, AgentPaymentAdapter, AgentPaymentConverter, AgentPaymentInterface, ServerAdapter, VisaProfesionInterface, AddAgentPaymentInterface , AddSelectionAgentPaymentAdapter, AddAgentPaymentConverter, AgentPaymentByIDInterface, AgentPaymentByIDConverter} from "./type";
+import { AgentPaymentAddConverter, AgentPaymentAddInterface, AgentPaymentAdapter, AgentPaymentConverter, AgentPaymentInterface, VisaProfesionInterface, AddAgentPaymentInterface , AddSelectionAgentPaymentAdapter, AddAgentPaymentConverter, AgentPaymentByIDInterface, AgentPaymentByIDConverter} from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";

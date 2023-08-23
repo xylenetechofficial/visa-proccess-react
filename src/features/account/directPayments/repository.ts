@@ -1,4 +1,4 @@
-import { AgentPaymentAddConverter, AgentPaymentAddInterface, VisaProfesionInterface, AddSelectionAgentPaymentAdapter, CandidateAdvancePaymentInterface, CandidateAdvancePaymentConverter, DirectPaymentInterface, DirectPaymentConverter, DirectPaymentAdapter, AdvancePaymentConverter, AdvancePaymentAdapter, AdvancePaymentInterface, CandidatePaymentInterface, CandidatePaymentConverter, AgentPaymentReceivedPaymentListInterface, AgentPaymentReceivedPaymentListAdapter, AgentPaymentReceivedPaymentListConverter, AgentPaymentByIDInterface, AgentPaymentByIDConverter } from "./type";
+import { AgentPaymentAddConverter, AgentPaymentAddInterface, AddSelectionAgentPaymentAdapter, CandidateAdvancePaymentInterface, CandidateAdvancePaymentConverter, DirectPaymentInterface, DirectPaymentConverter, DirectPaymentAdapter, AdvancePaymentConverter, AdvancePaymentAdapter, AdvancePaymentInterface, CandidatePaymentInterface, CandidatePaymentConverter, AgentPaymentReceivedPaymentListInterface, AgentPaymentReceivedPaymentListAdapter, AgentPaymentReceivedPaymentListConverter, AgentPaymentByIDInterface, AgentPaymentByIDConverter, AddDirectPaymentConverter, AddAgentPaymentInterface } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";
@@ -34,10 +34,10 @@ export async function readDirectPaymentList(AgentBy: AgentPaymentByIDInterface) 
   return dataAdapter as DirectPaymentAdapter[]
 }
 
-export async function createAgentPayment(CandidateAdvancePayment: any) {
+export async function createAgentPayment(CandidateAdvancePayment: AddAgentPaymentInterface) {
   console.log(CandidateAdvancePayment)
   const path = "/account/direct-payment-list"
-  const payload = CandidateAdvancePayment;
+  const payload = AddDirectPaymentConverter.toAdapter(CandidateAdvancePayment);
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT

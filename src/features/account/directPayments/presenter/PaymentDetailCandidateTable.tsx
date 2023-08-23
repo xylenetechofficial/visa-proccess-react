@@ -1,4 +1,4 @@
-import { VisaProfesionInterface } from '../type'
+import { DirectInterface } from '../type'
 import {  GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
@@ -7,7 +7,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 const Main = (props: {
     paymentDetail: any[],
-    onChange: (ele: VisaProfesionInterface[]) => void,
+    onChange: (ele: DirectInterface[]) => void,
 
 }) => {
 
@@ -32,7 +32,7 @@ const Main = (props: {
 
     }
 
-    function onUpdateRow(index: number, rowData: VisaProfesionInterface) {
+    function onUpdateRow(index: number, rowData: DirectInterface) {
         const nextData = props.paymentDetail.map((e, i) => {
             if (i === index) {
                 // Increment the clicked counter
@@ -86,7 +86,7 @@ const TableData = (
         index: number;
         data: any;
         // onClickEdit: any;
-        onUpdate: (index: number, rowData: VisaProfesionInterface) => void;
+        onUpdate: (index: number, rowData: DirectInterface) => void;
         onClickRemove: (index: number) => void;
         onChange: string
     }
@@ -94,7 +94,7 @@ const TableData = (
 ) => {
 
     const [localRowData, setLocalRowData] = useState<any>({
-    // const [localRowData, setLocalRowData] = useState<VisaProfesionInterface>({
+    // const [localRowData, setLocalRowData] = useState<DirectInterface>({
         visa_profession: "",
         arabic_visa_category: "",
         block_visa_id: 0,

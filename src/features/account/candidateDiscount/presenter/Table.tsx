@@ -2,6 +2,7 @@ import { Table2, TableBody, TableCell, TableHead2, TableHeadCell2, TableHeadRow,
 import { Checkbox } from '@mui/material';
 import { TextAreaInput, UnlabeledInput } from '../../../../componenets/Input';
 import { useState } from 'react';
+import { convertDateFormat } from '../../../../utils/function';
 
 const CandidateDiscountTable = (props: {
   // CandidateDiscountList: CandidateDiscountInterface[],
@@ -81,7 +82,7 @@ const CandidateDiscountTable = (props: {
               <TableCell> {item.actual_profession} </TableCell>
               <TableCell> {item.visa_profession} </TableCell>
               <TableCell> {item.agent_name}</TableCell>
-              <TableCell> {item.visa_received_date} </TableCell>
+              <TableCell> {convertDateFormat(item.visa_received_date)} </TableCell>
               <TableCell> {item.visa_authorization} </TableCell>
               <TableCell> {item.visa_authorization_name} </TableCell>
               <TableCell> AIR TICKET</TableCell>

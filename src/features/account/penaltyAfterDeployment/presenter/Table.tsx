@@ -16,6 +16,7 @@ import {
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
 import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
+import { convertDateFormat } from "../../../../utils/function";
 
 
 const AccountDashboardTable = (props: {
@@ -109,8 +110,8 @@ const AccountDashboardTable = (props: {
                 <TableCell> {ele?.id}</TableCell>
                 <TableCell> {ele?.name}</TableCell>
                 <TableCell> {ele?.passport_no}</TableCell>
-                <TableCell> {ele?.passport_issued_date}</TableCell>
-                <TableCell> {ele?.passport_expiry_date}</TableCell>
+                <TableCell> {convertDateFormat(ele?.passport_issued_date)}</TableCell>
+                <TableCell> {convertDateFormat(ele?.passport_expiry_date)}</TableCell>
                 <TableCell> {ele?.actual_profession}</TableCell>
                 <TableCell> {ele?.visa_profession} </TableCell>
                 <TableCell> {ele?.job_order_no} </TableCell>
@@ -121,13 +122,13 @@ const AccountDashboardTable = (props: {
                 <TableCell> {ele?.rm} </TableCell>
                 <TableCell> {ele?.rc} </TableCell>
                 <TableCell>{ele?.visa_authorization} </TableCell>
-                <TableCell> {ele?.visa_issued_date} </TableCell>
-                <TableCell> {ele?.visa_expiry_date} </TableCell>
+                <TableCell> {convertDateFormat(ele?.visa_issued_date)} </TableCell>
+                <TableCell> {convertDateFormat(ele?.visa_expiry_date)} </TableCell>
                 <TableCell> {ele?.division} </TableCell>
                 <TableCell> {ele?.status} </TableCell>
                 <TableCell> {ele?.pnr_no} </TableCell>
                 <TableCell> {ele?.agency} </TableCell>
-                <TableCell> {ele?.departure_date} </TableCell>
+                <TableCell> {convertDateFormat(ele?.departure_date)} </TableCell>
                 <TableCell> {ele?.mistake_by} </TableCell>
                 <TableCell> {ele?.agency_invoice} </TableCell>
                 <TableCell> {ele?.change_issue_type} </TableCell>

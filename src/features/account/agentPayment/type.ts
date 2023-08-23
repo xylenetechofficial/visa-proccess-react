@@ -17,15 +17,6 @@ export interface AgentPaymentInterface {
   bulk_payment_list: VisaProfesionInterface[]
 
 }
-// 'block_visa' => 'required|array',
-// 'visa_profession_list' => 'required|array'
-
-export interface ServerAdapter {
-  block_visa: AgentPaymentAdapter,
-  visa_profession_list: VisaProfesionAdapter[]
-}
-
-// block_visa
 export interface AgentPaymentAdapter {
 
 
@@ -79,14 +70,6 @@ export interface VisaProfesionInterface {
   payment_date: null
 
 
-}
-
-export interface VisaProfesionAdapter {
-  id?: number;
-  block_visa_id: number;
-  visa_profession: string;
-  arabic_visa_category: string;
-  quantity: number;
 }
 export interface AddAgentPaymentInterface {
   selection_list: AddSelectionAgentPaymentInterface[];

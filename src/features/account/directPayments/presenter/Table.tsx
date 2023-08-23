@@ -17,10 +17,11 @@ import { UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponentUnlabeled, selectOptionConveter, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
+import { DirectInterface, DirectPaymentInterface } from "../type";
 
 const AgentPaymentTable = (props: {
   // AgentPaymentList: AgentPaymentInterface[];
-  AgentPaymentList: any;
+  AgentPaymentList: DirectPaymentInterface;
   onClickEdit: any;
   onClickDelete: any;
   data: any;
@@ -28,8 +29,6 @@ const AgentPaymentTable = (props: {
   setModalName:any
   fetchPaymentDetail:(type :string,id:number  )=>any
 }) => {
-  console.log(props.AgentPaymentList, "kkk")
-  // const [data, setData]= useState(props.AgentPaymentList?.table_data_list ?? [])
   const [date, setDate] = useState<any>([])
   const handleChange = (e: any, index: any) => {
     console.log("first", e.target.value, index, e.nativeEvent.type)
@@ -88,7 +87,7 @@ const AgentPaymentTable = (props: {
               <TableCell>{ele.actual_profession}</TableCell>
               <TableCell>{ele.visa_profession}</TableCell>
               <TableCell> {ele.agent_name}</TableCell>
-              <TableCell> {ele.visa_received_date}</TableCell>
+              <TableCell> {convertDateFormat(ele.visa_received_date)}</TableCell>
               <TableCell> {ele.visa_authorization}</TableCell>
               <TableCell> {ele.photo_charges}</TableCell>
               <TableCell> {ele.training_charges}</TableCell>

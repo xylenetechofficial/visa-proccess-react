@@ -186,5 +186,12 @@ export const navigations: NavigationInterface[] = [
 
     ]
   },
+  {
+    name:"Account Service Charges",
+    icon:'account_circle',
+    children:[
+      {name:"Service Charges", icon:"preview" , path:'/account-service/service-charges'}
+    ]
+  }
 
 ]; 

@@ -5,6 +5,7 @@ import { CountryInterface } from '../../../masters/country/type';
 import { CandidateDiscountApproveRejectInterface } from '../type';
 import { useState } from 'react';
 import { Checkbox } from '@mui/material';
+import { convertDateFormat } from '../../../../utils/function';
 
 const AgentPaymentTable = (props: {
   candidateDiscountApproveReject: CandidateDiscountApproveRejectInterface[],
@@ -67,7 +68,7 @@ console.log(props.candidateDiscountApproveReject,"ll")
            <TableCell>{item.actual_profession}  </TableCell>
            <TableCell>{item.visa_profession}  </TableCell>
            <TableCell>{item.agent_name} </TableCell>
-           <TableCell>{item.visa_received_date}  </TableCell>
+           <TableCell>{convertDateFormat(item.visa_received_date)}  </TableCell>
            <TableCell>{item.visa_authorization}  </TableCell>
            <TableCell>{item.ticket_charges} </TableCell>
            <TableCell>{item.service_charges} </TableCell>

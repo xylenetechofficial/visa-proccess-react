@@ -13,6 +13,7 @@ import {
   TableHeadRow2,
   TableRow,
 } from "../../../../componenets/Table";
+import { convertDateFormat } from "../../../../utils/function";
 
 const AccountDashboardTable = (props: {
   accountDashboardList: AccountDashboardInterface[];
@@ -68,7 +69,7 @@ const AccountDashboardTable = (props: {
                {ele.visa_profession}
               </TableCell>
               <TableCell> {ele.agent_name}</TableCell>
-              <TableCell> {ele.visa_received_date}</TableCell>
+              <TableCell> {convertDateFormat(ele.visa_received_date)}</TableCell>
               <TableCell> {ele.process_charges}</TableCell>
               <TableCell> {ele.document_charges}</TableCell>
               <TableCell> {ele.consulate_setting_charges}</TableCell>

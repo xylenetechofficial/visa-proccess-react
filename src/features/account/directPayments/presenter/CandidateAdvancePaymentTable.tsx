@@ -1,9 +1,10 @@
-import { AdvancePaymentInterface, CandidateAdvancePaymentInterface, VisaProfesionInterface } from '../type'
+import { AdvancePaymentInterface, CandidateAdvancePaymentInterface } from '../type'
 import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 import { readAdvancePaymentList } from '../repository';
+import { convertDateFormat } from '../../../../utils/function';
 
 const CandidateAdvancePaymentTable = (props: {
     CandidateAdvancePaymentList: CandidateAdvancePaymentInterface[],
@@ -91,7 +92,7 @@ const CandidateAdvancePaymentTable = (props: {
                                {item.passport_no}
                             </TableCell>
                             <TableCell>
-                               {item.received_date}
+                               {convertDateFormat(item.received_date)}
                             </TableCell>
                             <TableCell>
                               {item.remarks}

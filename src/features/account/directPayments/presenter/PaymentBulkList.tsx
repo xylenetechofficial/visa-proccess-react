@@ -26,7 +26,7 @@ const PaymentBulkList = (props:
                         
                         <TableHeadCell3 width={10}> DATE </TableHeadCell3>
                         <TableHeadCell3 width={10}> AMOUNT </TableHeadCell3>
-                        <TableHeadCell3 width={10}> AMOUNT USED</TableHeadCell3>
+                        <TableHeadCell3 width={10}> AMOUNT AVAILABLE</TableHeadCell3>
                         <TableHeadCell3 width={10} > DESCRIPTION</TableHeadCell3>
                     </TableHeadRow2>
                 </TableHead2>
