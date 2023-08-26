@@ -18,6 +18,7 @@ import { CustomSelectComponentUnlabeled, selectOptionConveter, selectOptionConve
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 import { DirectInterface, DirectPaymentInterface } from "../type";
+import { showMessage_v2 } from "../../../../utils/alert";
 
 const AgentPaymentTable = (props: {
   // AgentPaymentList: AgentPaymentInterface[];
@@ -32,6 +33,24 @@ const AgentPaymentTable = (props: {
   const [date, setDate] = useState<any>([])
   const handleChange = (e: any, index: any) => {
     console.log("first", e.target.value, index, e.nativeEvent.type)
+  }
+    const checkBalance=(currentBalance :any, balance_amount :any)=>{
+    console.log(currentBalance, balance_amount,"Oooo")
+    if(currentBalance> balance_amount){
+      
+      showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+    }
+  }
+  const checkBalancefromDropDown= (currentBalance:number, id:number)=>{
+    console.log(currentBalance,id,"kkk")
+    if(id){
+      const filterId = props.AgentPaymentList.bulk_payment_list.filter((item :any) => item.id === id);
+    if(currentBalance > filterId[0].available_amount ){
+      console.log("first")
+      showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+    }
+      
+    }
   }
   return (
     <div className="overflow-auto">
@@ -111,7 +130,7 @@ const AgentPaymentTable = (props: {
                 type="number"
                   value={props.data[index]?.amount}
                   onchange={(value) => {
-                    console.log(value);
+                    checkBalance(props.data[index]?.amount, ele.balance_amount)
                     props.setData((prev: any) => {
                       const newData = [...prev];
                       newData[index] = {
@@ -137,7 +156,7 @@ const AgentPaymentTable = (props: {
                       };
                       return newData;
                     });
-                    
+                    checkBalancefromDropDown(props.data[index].amount, props.data[index].bulk_payment_id)
                   }
                   }
                   // options={props?.AgentPaymentList?.bulk_payment_list}

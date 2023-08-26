@@ -13,6 +13,7 @@ import {
 } from "../../../../componenets/SelectBox";
 import { createCandidateDiscountApprovalReject } from "../repository";
 import { CandidateDiscountApproveRejectInterface } from "../../candidateDiscountApproveReject/type";
+import { showMessage_v2 } from "../../../../utils/alert";
 const CandidatePayment = (props: {
   AgentPaymentList: any,
   fetchAgentPaymentList: (name:string, value:any)=>void
@@ -49,7 +50,17 @@ const CandidatePayment = (props: {
       agent_id:props.AgentID
     }})
   },[props.AgentID])
-  
+  const checkBalancefromDropDown= (currentBalance:number, id:number)=>{
+    console.log(currentBalance,id,"kkk")
+    if(id){
+      const filterId = props.AgentPaymentList.table_data_list.filter((item :any) => item.id === id);
+    if(currentBalance > filterId[0].balance_amount ){
+      
+      showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+    }
+      
+    }
+  }
   return (
     <div className="shadow-slate-500  rounded-lg shadow-md justify-center">
       <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
@@ -87,6 +98,7 @@ const CandidatePayment = (props: {
 
                 setCandidatePayment({ ...CandidatePayment, amount: parseInt(value) })
               }
+              checkBalancefromDropDown(CandidatePayment.amount, CandidatePayment.candidate_id)
             }
 
 

@@ -85,8 +85,8 @@ export const selectOptionConveterv2 = (props: {
 }) => {
     const newArray: { name: string, value: string }[] = [];
     props.options.forEach((e: any) => {
-        const { amount, used_amount, created_at, id } = e;
-        const optionName = `${amount.toString()}- ${convertDateFormat(created_at.toString())} - ${used_amount.toString()}`;
+        const { amount, available_amount, created_at, id } = e;
+        const optionName = `${amount.toString()}- ${convertDateFormat(created_at.toString())} - ${available_amount.toString()}`;
         newArray.push({ name: optionName, value: id.toString() });
     });
     return newArray;

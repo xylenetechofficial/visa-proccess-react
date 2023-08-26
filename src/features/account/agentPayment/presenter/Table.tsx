@@ -14,6 +14,7 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import {  CustomSelectComponentUnlabeledv2,  selectOptionConveterv2 } from "../../../../componenets/SelectBox";
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
+import { showMessage_v2 } from "../../../../utils/alert";
 
 const AgentPaymentTable = (props: {
   // AgentPaymentList: AgentPaymentInterface[];
@@ -27,6 +28,25 @@ const AgentPaymentTable = (props: {
 
   const [date, setDate] = useState<any>([])
   console.log(props.data)
+  const checkBalance=(currentBalance :any, balance_amount :any)=>{
+    console.log(currentBalance, balance_amount,"Oooo")
+    if(currentBalance> balance_amount){
+      
+      showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+    }
+  }
+
+  const checkBalancefromDropDown= (currentBalance:number, id:number)=>{
+console.log(currentBalance,id,"kkk")
+if(id){
+  const filterId = props.AgentPaymentList.bulk_payment_list.filter((item :any) => item.id === id);
+if(currentBalance > filterId[0].available_amount ){
+  console.log("first")
+  showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+}
+  
+}
+  }
   return (
     <div className="overflow-auto">
 
@@ -105,7 +125,7 @@ const AgentPaymentTable = (props: {
                   type="number"
                   value={props.data[index]?.amount}
                   onchange={(value) => {
-
+                    checkBalance(props.data[index]?.amount, ele.balance_amount)
                     props.setData((prev: any) => {
                       const newData = [...prev];
                       newData[index] = {
@@ -115,7 +135,7 @@ const AgentPaymentTable = (props: {
                       };
                       return newData;
                     });
-                    console.log(props.data, value)
+                    
                   }}
                 />
               </TableCell3>
@@ -123,12 +143,14 @@ const AgentPaymentTable = (props: {
 
 
                 <CustomSelectComponentUnlabeledv2
-                  value={ele.candidate_id}
+                  // value={ele.candidate_id}
+                  value={props?.data[index]?.bulk_payment_id}
                   options={selectOptionConveterv2({
                     options: props?.AgentPaymentList?.bulk_payment_list,
-                    options_struct: [{ name: "amount", value: "id" }, { name: "amount_used", value: "id" }]
+                    options_struct: [{ name: "amount", value: "id" }, { name: "available_amount", value: "id" }]
                   })}
                   onChange={(value) => {
+                   
                     props.setData((prev: any) => {
                       const newData = [...prev];
                       newData[index] = {
@@ -137,6 +159,8 @@ const AgentPaymentTable = (props: {
                       };
                       return newData;
                     });
+
+                    checkBalancefromDropDown(props.data[index]?.amount, props.data[index].bulk_payment_id)
                   }
                   } />
 
