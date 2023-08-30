@@ -86,7 +86,7 @@ export default function Main(props: {
 
     const [agentList, setAgentList] = useState<AgentInterface[]>([])
     const fetchAgentList = async () => {
-        const data = await readAgentList();
+        const data = await readAgentList(false,'document_received');
         if (data) {
             setAgentList(data);
 
