@@ -219,12 +219,14 @@ export class AddCandidateDiscountListConverter {
     const data: AddCandidateDiscountListAdapter = {
       
       selection_list: i?.selection_list?.filter(item => item?.discount_type !== '').map((item) => ({
+
         discount: item.discount,
         discount_remarks  : item.discount_remarks,
         discount_type  : item.discount_type,
         id : item.id
       })),
     };
+    console.log(data,"AWAWAWAW")
     return data;
   }
 }

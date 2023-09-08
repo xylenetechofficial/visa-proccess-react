@@ -121,6 +121,7 @@ const CandidateDiscountTable = (props: {
 
                     //   return newArray;
                     // });
+                    onUpdateRow(index, {...item, isSas: true})
                     props.setCandidateDiscountList((prev: any) => {
                       const newArray: any = [...prev];
                       newArray[index].discount = props.discountAndRemark?.discount;
@@ -185,6 +186,7 @@ const CandidateDiscountTable = (props: {
                 // value={props.data[index]?.amount}
                 type='number'
                 onchange={(value) => {
+                  onUpdateRow(index, {...item , discount:parseInt(value)})
                   console.log(value);
                   props.setData((prev: any) => {
                     const newData = [...prev];
@@ -215,6 +217,7 @@ const CandidateDiscountTable = (props: {
                   checked={selectedCheckbox[index]?.isChecked === `${item.id}yes`}
 
                   onChange={(value) => {
+                    onUpdateRow(index, {...item , discount_type:value.target.checked ? "Normal Discount":"",})
                     handleCheckboxChange(`${item.id}yes`,index)
                     setList((prev: any) => {
                       const newArray: any = [...prev];
@@ -255,6 +258,7 @@ const CandidateDiscountTable = (props: {
                   //  option={[{name:"Normal Discount",value:"Normal Discount"},{name:"Error Discount", value:"Error Discount"}]}
                   onChange={(value) => {
                     handleCheckboxChange(`${item.id}no`,index)
+                    onUpdateRow(index, {...item , discount_type:value.target.checked ? "Error Discount":"",})
                     setList((prev: any) => {
                       const newArray: any = [...prev];
                       newArray[index] = {
@@ -314,6 +318,7 @@ const CandidateDiscountTable = (props: {
               </TableCell>
               <TableCell>
                 <TextAreaInput id="remark" value={item?.discount_remarks} onChange={(value) => {
+                  onUpdateRow(index, {...item , discount_remarks:value})
                   setList((prev: any) => {
                     const newArray = [...prev];
                     newArray[index] = {
