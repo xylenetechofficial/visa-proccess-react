@@ -4,7 +4,8 @@ import { TextAreaInput } from "../../../../componenets/Input";
 import { GreenButton } from "../../../../componenets/CustomButton";
 
 export default function Main (props:{
-    onClose:any
+    onClose:any,
+    currentData:any
 }){
     const style = {
         position: 'absolute',
@@ -18,7 +19,7 @@ export default function Main (props:{
         borderRadius: 2,
         p: 4,
     };
-    
+    console.log(props.currentData)
     return (
         <>
         
@@ -48,26 +49,26 @@ export default function Main (props:{
             <div className="grid grid-cols-1 py-3  gap-2 shadow justify-center">
 
                 <UpdateContentBox>
-                    <SubHeading1 text="Candidate Name   :" />
+                    <SubHeading1 text="Candidate Name   :" />{props.currentData.name}
                     
                 </UpdateContentBox>
                 <UpdateContentBox>
-                    <SubHeading1 text="Passport No   :" />
+                    <SubHeading1 text="Passport No   :" />{props.currentData.passport_no}
                     
                 </UpdateContentBox>
 
                 <UpdateContentBox>
-                    <SubHeading1 text="Agent Name   :" />
+                    <SubHeading1 text="Agent Name   :" />{props.currentData.agent_name}
                    
                 </UpdateContentBox>
 
                 <UpdateContentBox>
-                    <SubHeading1 text="Agent Commission   :" />
+                    <SubHeading1 text="Agent Commission   :" />{props.currentData.agent}
                     </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="Remarks   :" />
                     <TextAreaInput id="remarks" 
-                    value=""
+                    value={""}
                     onChange={(value)=>console.log("ds")}
                     // value={String(agentPaymentReceivedList.penalty_amount)} onChange={(value) => {
                     //    setagentPaymentReceivedList({ ...agentPaymentReceivedList, penalty_amount: parseInt(value) })

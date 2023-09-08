@@ -88,7 +88,10 @@ const [discountList, setDiscountList]= useState({
   }, []);
 const handleSubmit =async (data:any)=>{
   console.log(data,"lll")
-const updatedForm={selection_list:data };
+
+  const list = data.filter((item:any)=> item?.discount_type !== '');
+  console.log(list)
+const updatedForm={selection_list:list };
 
   await updateCandidateDiscount(updatedForm)
   fetchCandidateDiscountList();
@@ -139,6 +142,7 @@ const handleDiscountChange = (value: string) => {
         setData={setData}
         data={data}
         discountList={discountList}
+        onChange={(value)=>console.log(value)}
         />
       <div className="mt-4">
       <CustomButton2 buttonText="Submit" onClick={()=>{handleSubmit(data)}}/>

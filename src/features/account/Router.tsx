@@ -18,6 +18,7 @@ import AgentBulkPayment from "./agentBulkPayment/Router";
 import Incentives from "./incentives/Router";
 import DelhiOtherDailyPayments from "./delhiOtherDailyPayments/Router";
 import AccountCandidateList from './accountCandidatesList/Router';
+import AccountServices from './accountServices/Router';
 
 
 
@@ -41,6 +42,7 @@ function Main() {
             <Route path='/incentives/*' element={<Incentives />}></Route>
             <Route path='/delhi-other-daily-payments/*' element={<DelhiOtherDailyPayments />}></Route>
             <Route path='/account-candidate-list/*' element={<AccountCandidateList />}></Route>
+            <Route path='/service-charges/*' element={<AccountServices />}></Route>
         
         </Routes>
 

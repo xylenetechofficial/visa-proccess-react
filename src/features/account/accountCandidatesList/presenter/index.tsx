@@ -58,7 +58,7 @@ export default function Main() {
                 onClickEdit={(value)=>onClickEdit(value)}
             />
             {modalName ==='cancel'?  
-            <CandidateCancel onClose={()=>setModalName('')} /> :''}
+            <CandidateCancel onClose={()=>setModalName('')} currentData={currentData} /> :''}
         </div>
         
 

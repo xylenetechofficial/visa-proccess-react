@@ -1,4 +1,4 @@
-import { AddCandidateDiscountConverter, AddCandidateDiscountInterface, CandidateDiscountAdapter, CandidateDiscountConverter, CandidateDiscountInterface, ServerAdapter, VisaProfesionInterface } from "./type";
+import { AddCandidateDiscountConverter, AddCandidateDiscountInterface, AddCandidateDiscountListConverter, CandidateDiscountAdapter, CandidateDiscountConverter, CandidateDiscountInterface, ServerAdapter, VisaProfesionInterface } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -81,8 +81,8 @@ export async function createCandidateDiscount(CandidateDiscount: CandidateDiscou
 export async function updateCandidateDiscount( CandidateDiscount: any) {
 // export async function updateCandidateDiscount( CandidateDiscount: AddCandidateDiscountInterface) {
 
-  // const payload = AddCandidateDiscountConverter.toAdapter(CandidateDiscount);
-  const payload =CandidateDiscount
+  const payload = AddCandidateDiscountListConverter.toAdapter(CandidateDiscount);
+  // const payload =CandidateDiscount
 
   const path = "/account/candidate-discount-list" 
   const response = await ApiHelper.post(path, payload, {

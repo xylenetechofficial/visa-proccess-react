@@ -189,3 +189,58 @@ export interface AddSelectionCandidateDiscountAdapter {
   status: number,
 }
 
+
+
+
+export interface AddCandidateDiscountListInterface {
+  selection_list: AddSelectionCandidateDiscountListInterface[];
+}
+
+export interface AddCandidateDiscountListAdapter {
+  selection_list: AddSelectionCandidateDiscountListAdapter[];
+}
+
+export class AddCandidateDiscountListConverter {
+  public static toInterface(a: AddCandidateDiscountListAdapter): AddCandidateDiscountListInterface {
+    console.log(a,"kkkkkk")
+    const data: AddCandidateDiscountListInterface = {
+      selection_list: a?.selection_list.filter((item)=> item.discount_type !== '').map((item) => ({
+        discount: item.discount,
+        discount_remarks  : item.discount_remarks,
+        discount_type  : item.discount_type,
+        id : item.id
+      })),
+    };
+    return data;
+  }
+
+  public static toAdapter(i: AddCandidateDiscountListInterface): AddCandidateDiscountListAdapter {
+    console.log(i,"iiiii")
+    const data: AddCandidateDiscountListAdapter = {
+      
+      selection_list: i?.selection_list?.filter(item => item?.discount_type !== '').map((item) => ({
+        discount: item.discount,
+        discount_remarks  : item.discount_remarks,
+        discount_type  : item.discount_type,
+        id : item.id
+      })),
+    };
+    return data;
+  }
+}
+
+export interface AddSelectionCandidateDiscountListInterface {
+  
+  discount: string
+  discount_remarks  : string
+  discount_type  : string
+  id : number
+}
+
+export interface AddSelectionCandidateDiscountListAdapter {
+  discount: string
+  discount_remarks  : string
+  discount_type  : string
+  id : number
+}
+

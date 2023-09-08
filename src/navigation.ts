@@ -127,6 +127,7 @@ export const navigations: NavigationInterface[] = [
       { name: 'Incentives', icon: 'pageview', path: '/account/incentives' },
       { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
       { name: 'Account Candidate List', icon: 'preview', path:'/account/account-candidate-list'},
+      {name:"Service Charges", icon:"preview" , path:'/account/service-charges/'}
     ]
   },
   {
@@ -186,12 +187,6 @@ export const navigations: NavigationInterface[] = [
 
     ]
   },
-  {
-    name:"Account Service Charges",
-    icon:'account_circle',
-    children:[
-      {name:"Service Charges", icon:"preview" , path:'/account-service/service-charges'}
-    ]
-  }
+  
 
 ]; 

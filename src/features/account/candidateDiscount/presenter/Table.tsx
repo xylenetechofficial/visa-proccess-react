@@ -12,7 +12,8 @@ const CandidateDiscountTable = (props: {
   setDiscountList: any,
   data: any,
   setData: any,
-  discountList: any
+  discountList: any,
+  onChange:(value: any)=>void
 
 }) => {
   console.log(props?.CandidateDiscountList, "PPPPPP", props?.discountAndRemark)
@@ -32,6 +33,19 @@ const CandidateDiscountTable = (props: {
     return newData;
   })
   };
+
+  function onUpdateRow(index: number, rowData: any) {
+    const nextData = props.CandidateDiscountList.map((e:any, i:any) => {
+        if (i === index) {
+            // Increment the clicked counter
+            return rowData;
+        } else {
+            // The rest haven't changed
+            return e;
+        }
+    });
+    props.onChange(nextData)
+}
   console.log("lll", list, props.data)
   return (
     <div className="overflow-auto">
@@ -101,25 +115,25 @@ const CandidateDiscountTable = (props: {
               <TableCell>
                 <Checkbox onChange={(e) => {
                   if (e.target.checked) {
-                    setDiscount((prev: any) => {
-                      const newArray: any = [...prev];
-                      newArray[index].sas = e.target.checked;
+                    // setDiscount((prev: any) => {
+                    //   const newArray: any = [...prev];
+                    //   newArray[index].sas = e.target.checked;
 
-                      return newArray;
-                    });
+                    //   return newArray;
+                    // });
                     props.setCandidateDiscountList((prev: any) => {
                       const newArray: any = [...prev];
                       newArray[index].discount = props.discountAndRemark?.discount;
                       newArray[index].discount_remarks = props.discountAndRemark?.discount_remark;
                       return newArray;
                     })
-                    // setList((prev:any) => {
-                    //   const newArray :any= [...prev]; 
-                    //   newArray[index].discount = props?.discountAndRemark?.discount; 
-                    //   newArray[index].discount_remarks = props?.discountAndRemark?.discount_remark; 
-                    //   newArray[index].id = item?.id; 
-                    //   return newArray;
-                    // })
+                      // setList((prev:any) => {
+                      //   const newArray :any= [...prev]; 
+                      //   newArray[index].discount = props?.discountAndRemark?.discount; 
+                      //   newArray[index].discount_remarks = props?.discountAndRemark?.discount_remark; 
+                      //   newArray[index].id = item?.id; 
+                      //   return newArray;
+                      // })
 
                     props.setData((prev: any) => {
                       const newData: any = [...prev];
