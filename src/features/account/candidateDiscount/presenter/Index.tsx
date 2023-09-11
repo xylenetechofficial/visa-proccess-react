@@ -87,11 +87,17 @@ const [discountList, setDiscountList]= useState({
    
   }, []);
 const handleSubmit =async (data:any)=>{
-  console.log(data,"lll")
+  console.log(data,"lllAAAAAAA")
+
+  
+  
 const updatedForm={selection_list:data };
 
-  await updateCandidateDiscount(updatedForm)
-  fetchCandidateDiscountList();
+  const res :any = await updateCandidateDiscount(updatedForm)
+  if(res){
+    fetchCandidateDiscountList();
+  }
+  
 }
 
 const handleDiscountChange = (value: string) => {
@@ -139,9 +145,10 @@ const handleDiscountChange = (value: string) => {
         setData={setData}
         data={data}
         discountList={discountList}
+        onChange={(value)=>{console.log(value), setCandidateDiscountList(value)}}
         />
       <div className="mt-4">
-      <CustomButton2 buttonText="Submit" onClick={()=>{handleSubmit(data)}}/>
+      <CustomButton2 buttonText="Submit" onClick={()=>{handleSubmit(CandidateDiscountList)}}/>
       </div>
     </div>
   );

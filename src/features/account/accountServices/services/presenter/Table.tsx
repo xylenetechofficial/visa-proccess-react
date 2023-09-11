@@ -1,21 +1,12 @@
 
-import {
-    Table3,
-    TableBody3,
-    TableCell3,
-    TableHead3,
-    TableHeadCell3,
-    TableHeadRow3,
-    TableRow3,
-  
-  } from "../../../../componenets/Table";
   import { Checkbox } from "@mui/material";
-  import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-  import {  CustomSelectComponentUnlabeled, CustomSelectComponentUnlabeledv2,  selectOptionConveter,  selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+  
   import { useState } from "react";
-  import { convertDateFormat } from "../../../../utils/function";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
-import { currencyList } from "../../../db";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../../componenets/Table";
+import { convertDateFormat } from "../../../../../utils/function";
+import { UnlabeledInput } from "../../../../../componenets/Input";
+import { currencyList } from "../../../../db";
+import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../../componenets/SelectBox";
   
   const ServiceChargesTable = (props: {
     // ServiceChargesList: ServiceChargesInterface[];
@@ -129,14 +120,14 @@ import { currencyList } from "../../../db";
                 <TableCell3> 
                 <CustomSelectComponentUnlabeled
                     value={ele.invoice_service_currency}
-                    onChange={(value) => onUpdateRow(index,{ ...ele, invoice_service_currency: value })}
+                    onChange={(value:any) => onUpdateRow(index,{ ...ele, invoice_service_currency: value })}
                     options={selectOptionConveter({ options: currencyList, options_struct: { name: "name", value: "id" } })}
                 /> </TableCell3>
                 <TableCell3>  <UnlabeledInput type="text" value={ele.invoice_ticket_charges}  onchange={(value)=> onUpdateRow(index,{...ele ,invoice_ticket_charges:value })}/></TableCell3>
                 <TableCell3> 
                 <CustomSelectComponentUnlabeled
                     value={ele.invoice_ticket_currency}
-                    onChange={(value) => onUpdateRow(index,{ ...ele, invoice_ticket_currency: value })}
+                    onChange={(value :any) => onUpdateRow(index,{ ...ele, invoice_ticket_currency: value })}
                     options={selectOptionConveter({ options: currencyList, options_struct: { name: "name", value: "id" } })}
                 /> 
                 

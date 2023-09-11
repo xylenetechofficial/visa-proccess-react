@@ -2,7 +2,7 @@
 import { lazy, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
-import { UserAuthContextProvider, useUserAuth } from '../context/UserAuthContext';
+
 
 import Agreement from './services/Router'
 
@@ -13,7 +13,7 @@ function Main() {
     return (
 
         <Routes>
-            <Route path='/service-charges/*' element={<Agreement />}></Route>
+            <Route path='/*' element={<Agreement />}></Route>
             
 
         </Routes>

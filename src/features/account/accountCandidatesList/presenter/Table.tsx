@@ -66,7 +66,7 @@ const AccountCandidatesListTable = (props: {
        <TableRow>
 
        <TableCell>{index + 1} </TableCell>
-       <TableCell>{} </TableCell>
+       <TableCell>{item.id} </TableCell>
        <TableCell>{item.party_code} </TableCell>
        <TableCell> {item.company_name} </TableCell>
        <TableCell> {item.name}</TableCell>
