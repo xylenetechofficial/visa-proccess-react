@@ -128,7 +128,7 @@ export default function Main(props: {
 
                                             }
                                             }
-                                            label="Mol"
+                                            label="MOL/QVC/E-VISA"
                                         />
                                     )
                                 }

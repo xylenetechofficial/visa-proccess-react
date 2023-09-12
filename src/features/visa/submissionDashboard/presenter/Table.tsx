@@ -71,6 +71,7 @@ const Table = (props: {
         ["Sr No.",],
         ["PARTY CODE"],
         ["COMPANY NAME"],
+        ["CANDIDATE NAME"],
         ["PASSPORT NO."],
         ["MUFA NUMBER"],
         ["VISA PROFESSION"],
@@ -246,7 +247,7 @@ const TableData = (
             <TableCell3 >{props.index + 1}</TableCell3>
             <TableCell3 > {localRowData.party_code}</TableCell3>
             <TableCell3 > {localRowData.company_name}</TableCell3>
-            {/* <TableCell3 > {localRowData.name}</TableCell3> */}
+            <TableCell3 > {localRowData.name}</TableCell3>
 
             <TableCell3 > {localRowData.passport_no}</TableCell3>
             <TableCell3 > {localRowData.mofa_number}</TableCell3>
