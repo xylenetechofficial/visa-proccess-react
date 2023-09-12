@@ -1,4 +1,4 @@
-import {  Table2,  TableBody2, TableCell,   TableHead2,  TableHeadCell2, TableHeadRow,  TableRow,  } from '../../../../componenets/Table';
+import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow, } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
@@ -9,18 +9,28 @@ import { convertDateFormat } from '../../../../utils/function';
 
 const AgentPaymentTable = (props: {
   candidateDiscountApproveReject: CandidateDiscountApproveRejectInterface[],
-    onClickEdit: any,
-    onClickDelete: any
-    sectorList: SectorInterface[],
-    companyList: CompanyInterface[],
-    countryList: CountryInterface[],
-    setData:any;
-    data:any
+  onClickEdit: any,
+  onClickDelete: any
+  setData: any;
+  data: any,
+  onChange: (value: any) => void
 }) => {
-const [list,setList]=useState([{discount_id:'',status:''}])
-console.log(props.candidateDiscountApproveReject,"ll")
-    return (
-        <div className="overflow-auto">
+  const [list, setList] = useState([{ discount_id: '', status: '' }])
+  function onUpdateRow(index: number, rowData: CandidateDiscountApproveRejectInterface) {
+    const nextData = props.candidateDiscountApproveReject.map((e: any, i: any) => {
+      if (i === index) {
+        // Increment the clicked counter
+        return rowData;
+      } else {
+        // The rest haven't changed
+        return e;
+      }
+    });
+    props.onChange(nextData)
+  }
+  console.log(props.candidateDiscountApproveReject, "ll")
+  return (
+    <div className="overflow-auto">
 
       <Table2>
         <TableHead2>
@@ -51,94 +61,84 @@ console.log(props.candidateDiscountApproveReject,"ll")
             <TableHeadCell2> DISCOUNT</TableHeadCell2>
             <TableHeadCell2> DISCOUNT TYPE</TableHeadCell2>
             <TableHeadCell2> REMARK</TableHeadCell2>
-            <TableHeadCell2> 
-               <Checkbox />
+            <TableHeadCell2>
+              <Checkbox />
 
-             ALL</TableHeadCell2>
+              ALL</TableHeadCell2>
           </TableHeadRow>
         </TableHead2>
         <TableBody2>
-         {props?.candidateDiscountApproveReject?.map((item:any,index:number)=>(
-           <TableRow>
-           <TableCell>{index + 1} </TableCell>
-           <TableCell>{item.party_code}  </TableCell>
-           <TableCell>{item.company_name}</TableCell>
-           <TableCell>{item.name} </TableCell>
-           <TableCell>{item.passport_no} </TableCell>
-           <TableCell>{item.actual_profession}  </TableCell>
-           <TableCell>{item.visa_profession}  </TableCell>
-           <TableCell>{item.agent_name} </TableCell>
-           <TableCell>{convertDateFormat(item.visa_received_date)}  </TableCell>
-           <TableCell>{item.visa_authorization}  </TableCell>
-           <TableCell>{item.ticket_charges} </TableCell>
-           <TableCell>{item.service_charges} </TableCell>
-           <TableCell>{item.other_charges} </TableCell>
-           <TableCell>{item.document_charges}</TableCell>
-           <TableCell>{item.consulate_setting_charges} </TableCell>
-           <TableCell>{item.partial_charges} </TableCell>
-           <TableCell>{item.sector_charges} </TableCell>
-           <TableCell>{item.ticket_charges} </TableCell>
-           <TableCell>{item.attestation_charges} </TableCell>
-           <TableCell>{item.extra_service_tax} </TableCell>
-           <TableCell>{item.consolidated_charges} </TableCell>
-           <TableCell>{item.consolidated_charges} </TableCell>
-           <TableCell>{item.discount_given} </TableCell>
-           <TableCell>{item.discount} </TableCell>
-           <TableCell>{item.discount_type} </TableCell>
-           <TableCell>{item?.remarks} </TableCell>
-           <TableCell>{item?.all}
-           {/* <Checkbox onChange={(e)=>{setData((prev:any)=>{
-            return {
-                ...prev,
-                selection_list:[
-                  ...selection_list,
-                  [index].discount_id:item.id
-                ]
-            }
-           }),console.log(e.target.checked ,index)}} 
-           
-           
-           /> */}
-           <Checkbox
-    onChange={(e) => {
+          {props?.candidateDiscountApproveReject?.map((item: any, index: number) => (
+            <TableRow>
+              <TableCell>{index + 1} </TableCell>
+              <TableCell>{item.party_code}  </TableCell>
+              <TableCell>{item.company_name}</TableCell>
+              <TableCell>{item.name} </TableCell>
+              <TableCell>{item.passport_no} </TableCell>
+              <TableCell>{item.actual_profession}  </TableCell>
+              <TableCell>{item.visa_profession}  </TableCell>
+              <TableCell>{item.agent_name} </TableCell>
+              <TableCell>{convertDateFormat(item.visa_received_date)}  </TableCell>
+              <TableCell>{item.visa_authorization}  </TableCell>
+              <TableCell>{item.ticket_charges} </TableCell>
+              <TableCell>{item.service_charges} </TableCell>
+              <TableCell>{item.other_charges} </TableCell>
+              <TableCell>{item.document_charges}</TableCell>
+              <TableCell>{item.consulate_setting_charges} </TableCell>
+              <TableCell>{item.partial_charges} </TableCell>
+              <TableCell>{item.sector_charges} </TableCell>
+              <TableCell>{item.ticket_charges} </TableCell>
+              <TableCell>{item.attestation_charges} </TableCell>
+              <TableCell>{item.extra_service_tax} </TableCell>
+              <TableCell>{item.consolidated_charges} </TableCell>
+              <TableCell>{item.consolidated_charges} </TableCell>
+              <TableCell>{item.discount_given} </TableCell>
+              <TableCell>{item.discount} </TableCell>
+              <TableCell>{item.discount_type} </TableCell>
+              <TableCell>{item?.remarks} </TableCell>
+              <TableCell>{item?.all}
 
-      setList((prev: any) => {
-        const newArray = {...prev};
-        newArray[index] = {
-          ...newArray[index],
-          discount_id: item.discount_id,
-          status: e.target.checked ? 1 : 0,
-        };
-        return newArray;
-          // ...prev,
-          
-        
-      });
-      
-      props.setData((prevs:any) => {
-        const newArray = [...prevs.selection_list];
-        newArray[index] = {
-          ...newArray[index],
-          discount_id: item.discount_id,
-          // status: e.target.checked ? 1 : 0,
-        };
-              
-        return {
-          ...prevs,
-          selection_list: newArray,
-        };
-      }); console.log( list,index,props.data);
-    }}
-  />
+                <Checkbox
+                  onChange={(e) => {
 
-            </TableCell>
-         </TableRow>
-      
-         ))}
+                    setList((prev: any) => {
+                      const newArray = { ...prev };
+                      newArray[index] = {
+                        ...newArray[index],
+                        discount_id: item.discount_id,
+                        status: e.target.checked ? 1 : 0,
+                      };
+                      return newArray;
+
+
+
+                    });
+
+                    // props.setData((prevs: any) => {
+                    //   const newArray = [...prevs.selection_list];
+                    //   newArray[index] = {
+                    //     ...newArray[index],
+                    //     discount_id: item.discount_id,
+
+                    //   };
+
+                    //   return {
+                    //     ...prevs,
+                    //     selection_list: newArray,
+                    //   };
+                    // }); console.log(list, index, props.data);
+                    onUpdateRow(index, { ...item, discount_id: e.target.checked ? item.id : '' })
+                  }}
+                />
+
+              </TableCell>
+            </TableRow>
+
+          ))}
         </TableBody2>
       </Table2>
     </div>
-    )
+  )
 }
 
 export default AgentPaymentTable

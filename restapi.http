@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint = https://dev.softwareinnova.website/api
+@endpoint =https://newdev.softwareinnova.website/api
 
 
 ###
@@ -521,12 +521,14 @@ content-type: application/json
 # ================      Account Candidate List      =============== #
 
 ### Read Account Candidate List
-GET {{endpoint}}/account/account-candidate-list
+# GET {{endpoint}}/account/account-candidate-list
+
+GET {{endpoint}}/account/service-charge-list
 
 
 
 ### Update Account Candidate List
-PATCH {{endpoint}}/account/account-candidate/4
+PATCH {{endpoint}}/account/service-charge-list
 content-type: application/json
 
 {
