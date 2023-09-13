@@ -156,7 +156,7 @@ export const navigations: NavigationInterface[] = [
     children:[
       {name:"Immigration Dashboard" ,icon: 'pageview', path: '/immigration/immigration-dashboard/'     },
       {name:"Immigration Done PP Release" ,icon: 'pageview', path: '/immigration/immigration-done-pp-release/'     },
-      {name:"Index For Ewakala" ,icon: 'pageview', path: '/immigration/index-for-ewakala/'     },
+      {name:"Demand Details" ,icon: 'pageview', path: '/immigration/index-for-ewakala/'     },
       
     ]
   },

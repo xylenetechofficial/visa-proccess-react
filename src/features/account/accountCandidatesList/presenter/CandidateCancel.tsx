@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { TextAreaInput } from "../../../../componenets/Input";
 import { GreenButton } from "../../../../componenets/CustomButton";
-
+import {useState} from 'react';
 export default function Main (props:{
     onClose:any,
     currentData:any
@@ -20,6 +20,13 @@ export default function Main (props:{
         p: 4,
     };
     console.log(props.currentData)
+    const initailState :any ={
+        "is_without": 0,
+        "visa_cancel_penalty": 0,
+        "visa_cancel_remarks": ""
+    }
+    const [data, setData] = useState<any>(initailState)
+
     return (
         <>
         
@@ -68,8 +75,8 @@ export default function Main (props:{
                 <UpdateContentBox>
                     <SubHeading1 text="Remarks   :" />
                     <TextAreaInput id="remarks" 
-                    value={""}
-                    onChange={(value)=>console.log("ds")}
+                    value={data.visa_cancel_remarks}
+                    onChange={(value)=>{setData({...data, visa_cancel_remarks:value})}}
                     // value={String(agentPaymentReceivedList.penalty_amount)} onChange={(value) => {
                     //    setagentPaymentReceivedList({ ...agentPaymentReceivedList, penalty_amount: parseInt(value) })
                     // }

@@ -39,8 +39,8 @@ const Main = (props: {
         "ACTUAL PROFESSION",
         "VISA PROFESSION",
 
-        "AGENT",
-        "AGENT LOCATION",
+        // "AGENT",
+        // "AGENT LOCATION",
         "VISA AUTHORISATION",
         "VISA ISSUED DATE",
         "VISA RECEIVED DATE",
@@ -121,8 +121,8 @@ const Main = (props: {
                             <TableCell3>{item.actual_profession}</TableCell3>
                             <TableCell3>{item.visa_profession}</TableCell3>
 
-                            <TableCell3>{item.agent_name}</TableCell3>
-                            <TableCell3>{item.agent_location_name}</TableCell3>
+                            {/* <TableCell3>{item.agent_name}</TableCell3> */}
+                            {/* <TableCell3>{item.agent_location_name}</TableCell3> */}
                             <TableCell3>{item.visa_authorization_name}</TableCell3>
                             <TableCell3>{convertDateFormat(item.visa_issued_date)}</TableCell3>
                             <TableCell3>{convertDateFormat(item.visa_received_date)}</TableCell3>

@@ -30,7 +30,8 @@ const initailState : AddServiceAdapter ={
     service_charges: '',
     agent_commission: '',
     waive_off_sector_charges: '',
-    comments: '',
+    // comments: '',
+    checked:0,
     raise_invoice: '',
     invoice_service_charges: '',
     invoice_service_currency: '',
@@ -50,9 +51,22 @@ export default function Main() {
             setServiceCharges(res)
         }
     }
-    const onClickAdd = async(item:AddServiceAdapter[]) =>{
+    const onClickAdd = async(data_list:AddServiceAdapter[]) =>{
+        const new_list = []
+        for (let index = 0; index < data_list.length; index++) {
+            const element = data_list[index];
+            if (!element.checked) continue
+
+            // // if immigration_required 
+            // if (element.immigration_required.toLowerCase() == 'yes')
+            //     // then received_date and submission_date required
+            //     if (element.immigration_received_date == '' || element.immigration_submission_date == '')
+            //         continue
+
+            new_list.push(element);
+        }
         const list:any ={
-            selection_list:item
+            selection_list:new_list
         }
          const data = await createServiceCharges(list);
 

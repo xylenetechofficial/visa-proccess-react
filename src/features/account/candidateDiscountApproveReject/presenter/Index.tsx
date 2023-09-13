@@ -8,14 +8,9 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import {  VisaProfesionInterface } from "../type";
-import { deleteBlockVisa, readBlockVisaList, updateCandidateDiscountApproveReject } from "../repository";
-import { SectorInterface } from "../../../masters/sector/type";
-import { readSectorList } from "../../../masters/sector/repository";
-import { readCompanyList } from "../../../masters/company/repository";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CountryInterface } from "../../../masters/country/type";
-import { readCountryList } from "../../../masters/country/repository";
+import { VisaProfesionInterface } from "../type";
+import { deleteBlockVisa, readCandidateDiscountList, updateCandidateDiscountApproveReject } from "../repository";
+
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -27,78 +22,37 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  // const [editBlockVisa, setEditBlockVisa] = useState<BlockVisaInterface>(
-  //   {} as BlockVisaInterface
-  // );
-  const [editBlockVisa, setEditBlockVisa] = useState<any>(
-    {} as any
-  );
 
   const [modalName, setModalName] = useState("");
 
-  const onClickCreate = () => {
-    setModalName("create");
-  };
 
   const onClickEdit = (blockVisa: any) => {
-  // const onClickEdit = (blockVisa: BlockVisaInterface) => {
-    setEditBlockVisa(blockVisa);
+
+
     console.log("onClickEdit"); // Only Dev
     console.log(blockVisa); // Only Dev
     setModalName("edit");
   };
 
   const onClickDelete = async (blockVisa: any) => {
-  // const onClickDelete = async (blockVisa: BlockVisaInterface) => {
+
     const flag = await confirmationMessage("Do you really want to delete?");
     if (flag && blockVisa.id) {
       await deleteBlockVisa(blockVisa.id);
-      fetchBlockVisaList();
+      fetchCandidateDiscountList();
     }
   };
 
-  // useEffect(() => {
-  // }, [editBlockVisa, modalName])
-  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
-  const fetchSectorList = async () => {
-    const data = await readSectorList();
-    if (data) {
-      setSectorList(data);
-    }
-  };
 
-  const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
-  const fetchcomapanyList = async () => {
-    const data = await readCompanyList();
-    if (data) {
-      setCompanyList(data);
-    }
-  };
+  const [data, setData] = useState(
+    {
+      "selection_list": [
+        {
 
-  const [countryList, setCountryList] = useState<CountryInterface[]>([]);
-  const fetchCountryList = async () => {
-    const data = await readCountryList();
-    if (data) {
-      setCountryList(data);
-    }
-  };
-const [data,setData]= useState(
-  {
-      "selection_list":[
-          {
-              
-          },
-         
+        },
+
       ]
-  })
-  // const [BDEList, setBDEList] = useState<CountryInterface[]>([])
-  // const fetchCountryList = async () => {
-  //     const data = await readCompanyList();
-  //     if(data){
-  //         setCompanyList(data);
-  //     }
-  // }
-  // const [blockVisaList, setBlockVisaList] = useState<BlockVisaInterface[]>([]);
+    })
   const [blockVisaList, setBlockVisaList] = useState<any[]>([]);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -115,12 +69,10 @@ const [data,setData]= useState(
   };
   const dataFiltered = filterData(searchQuery, blockVisaList);
 
-  const [visaprofession, setVisaProfessionList] = useState<
-    VisaProfesionInterface[]
-  >([]);
 
-  const fetchBlockVisaList = async () => {
-    const data :any = await readBlockVisaList();
+
+  const fetchCandidateDiscountList = async () => {
+    const data: any = await readCandidateDiscountList();
     console.log(data);
     if (data) {
       setBlockVisaList(data);
@@ -128,23 +80,24 @@ const [data,setData]= useState(
     setBlockVisaList(data);
   };
   useEffect(() => {
-    fetchBlockVisaList();
-    fetchSectorList();
-    fetchcomapanyList();
-    fetchCountryList();
-  }, []);
-const handleClick =(status:any)=>{
-  const newArray :any={...data}
-  console.log(newArray)
-  newArray.selection_list.map((item :any,index:any)=>{
+    fetchCandidateDiscountList();
 
-    
-    newArray.selection_list[index].status=status
-  })
-  setData(newArray);
-  console.log(data,"!!!!!!!!!!@@@@@@@@@@@@@")
-  updateCandidateDiscountApproveReject(data)
-}
+  }, []);
+  const handleClick = async (status: any) => {
+    const newArray: any = { ...data }
+    console.log(newArray, "PPPP")
+    const filteredArray = Object.values(newArray)
+      .filter((item: any) => item.discount_id !== '')
+      .map((item: any, index: any) => {
+        newArray[index].status = status;
+        return item; // Return the modified item
+      });
+    const res: any = await updateCandidateDiscountApproveReject({ selection_list: filteredArray });
+    if (res) {
+      fetchCandidateDiscountList();
+
+    }
+  }
   return (
     <div>
       <CustomNavbarV3
@@ -152,16 +105,10 @@ const handleClick =(status:any)=>{
         searchFunction={(query) => setSearchQuery(query)}
       />
 
-      
+
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-                 {/* <GreenButton
-          text={"Submit"}
-          onClick={() => {
-           console.log("")
-          }}
-        /> */}
       </CardHeader>
 
       {/*  blockVisa stable */}
@@ -169,19 +116,18 @@ const handleClick =(status:any)=>{
         candidateDiscountApproveReject={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
-        companyList={companyList}
-        countryList={countryList}
-        sectorList={sectorList}
+
         setData={setData}
         data={data}
+        onChange={(value) => setData(value)}
       />
 
-      
 
-     
 
-      <GreenButton onClick={()=>handleClick(1)} text="Approve"/>
-      <RedButton onClick={()=>handleClick(0)} text="Reject"/>
+
+
+      <GreenButton onClick={() => handleClick(1)} text="Approve" />
+      <RedButton onClick={() => handleClick(0)} text="Reject" />
     </div>
   );
 }

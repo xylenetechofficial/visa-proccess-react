@@ -2,7 +2,7 @@
 
 import { showMessage_v2 } from "../../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../../utils/api_helper";
-import { ServiceChargesConverter, ServiceChargesInterface } from "./type";
+import { AddServiceChargesInterFace, AddServiceConverter, ServiceChargesConverter, ServiceChargesInterface } from "./type";
 
 
 export async function readServiceChargesList() {
@@ -40,14 +40,16 @@ console.log(response)
 
 
 
-export async function createServiceCharges(ServiceCharges: ServiceChargesInterface) {
+export async function createServiceCharges(ServiceCharges: AddServiceChargesInterFace) {
   console.log(ServiceCharges)
   const path = "/account/service-charge-list"
-
-  const payload = ServiceChargesConverter.toAdapter(ServiceCharges);
+// const list :any ={
+//   "selection_list":ServiceCharges
+// }
+  const payload = AddServiceConverter.toAdapter(ServiceCharges);
 
   console.log(payload)
-  const response = await ApiHelper.post(path, payload, {
+  const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
   })

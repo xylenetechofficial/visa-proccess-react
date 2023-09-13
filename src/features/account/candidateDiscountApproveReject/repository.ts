@@ -13,7 +13,7 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readBlockVisaList() {
+export async function readCandidateDiscountList() {
   const path = "/account/candidate-discount-approve-list";
 
   const response = await ApiHelper.get(path, {

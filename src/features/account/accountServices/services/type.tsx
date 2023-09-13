@@ -29,6 +29,7 @@ export interface ServiceChargesInterface {
   visa_profession: string,
   visa_received_date: string,
   waive_off_sector_charges: string,
+  checked:number
 
 }
 
@@ -63,6 +64,7 @@ export interface ServiceChargesAdapter {
   visa_profession: string,
   visa_received_date: string,
   waive_off_sector_charges: string,
+  checked:number
 
 }
 
@@ -106,6 +108,7 @@ export class ServiceChargesConverter {
       visa_profession: a.visa_profession,
       visa_received_date: a.visa_received_date,
       waive_off_sector_charges: a.waive_off_sector_charges,
+      checked: a.checked,
     };
     return data;
   }
@@ -147,6 +150,7 @@ export class ServiceChargesConverter {
       visa_profession: i.visa_profession,
       visa_received_date: i.visa_received_date,
       waive_off_sector_charges: i.waive_off_sector_charges,
+      checked: i.checked,
     };
     return data;
   }
@@ -161,13 +165,14 @@ export class ServiceChargesConverter {
 export interface AddServiceInterface {
 
   id: number,
+  checked:number
   other_charges: string,
   sector_charges: string,
   partial_charges: string,
   service_charges: string,
   agent_commission: string,
   waive_off_sector_charges: string,
-  comments: string,
+  comments?: string,
   raise_invoice: string,
   invoice_service_charges: string,
   invoice_service_currency: string,
@@ -180,13 +185,14 @@ export interface AddServiceInterface {
 export interface AddServiceAdapter {
 
   id: number,
+  checked:number,
   other_charges: string,
   sector_charges: string,
   partial_charges: string,
   service_charges: string,
   agent_commission: string,
   waive_off_sector_charges: string,
-  comments: string,
+  comments?: string,
   raise_invoice: string,
   invoice_service_charges: string,
   invoice_service_currency: string,
@@ -212,7 +218,8 @@ export class AddServiceConverter {
         service_charges: item.service_charges,
         agent_commission: item.agent_commission,
         waive_off_sector_charges: item.waive_off_sector_charges,
-        comments: item.comments,
+        // comments: item.comments,
+        checked:item.checked,
         raise_invoice: item.raise_invoice,
         invoice_service_charges: item.invoice_service_charges,
         invoice_service_currency: item.invoice_service_currency,
@@ -237,7 +244,8 @@ export class AddServiceConverter {
         service_charges: item.service_charges,
         agent_commission: item.agent_commission,
         waive_off_sector_charges: item.waive_off_sector_charges,
-        comments: item.comments,
+        // comments: item.comments,
+        checked:item.checked,
         raise_invoice: item.raise_invoice,
         invoice_service_charges: item.invoice_service_charges,
         invoice_service_currency: item.invoice_service_currency,

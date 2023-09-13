@@ -7,6 +7,7 @@ import { convertDateFormat } from "../../../../../utils/function";
 import { UnlabeledInput } from "../../../../../componenets/Input";
 import { currencyList } from "../../../../db";
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../../componenets/SelectBox";
+import { CustomSingleCheckBox } from "../../../../../componenets/Checkbox";
   
   const ServiceChargesTable = (props: {
     // ServiceChargesList: ServiceChargesInterface[];
@@ -100,7 +101,12 @@ import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../.
                 <TableCell3> {ele.process_charges}</TableCell3>
                 <TableCell3> {ele.document_charges}</TableCell3>
                 <TableCell3> {ele.consulate_setting_charges}</TableCell3>
-                <TableCell3> <Checkbox /></TableCell3>
+                <TableCell3>   <CustomSingleCheckBox
+                                    onChange={(value) => {
+                                        onUpdateRow(index, { ...ele, checked: value })
+                                    }}
+                                    value={ele.checked ? true : false}
+                                /></TableCell3>
                 <TableCell3> <UnlabeledInput type="text" value={ele.other_charges}  onchange={(value)=> onUpdateRow(index,{...ele ,other_charges:value })}/></TableCell3>
                 <TableCell3> <UnlabeledInput type="text" value={ele.sector_charges}  onchange={(value)=> onUpdateRow(index,{...ele ,sector_charges:value })}/></TableCell3>
                 <TableCell3>  <UnlabeledInput type="text" value={ele.partial_charges}  onchange={(value)=> onUpdateRow(index,{...ele ,partial_charges:value })}/></TableCell3>
