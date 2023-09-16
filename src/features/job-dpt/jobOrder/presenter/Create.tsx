@@ -112,35 +112,27 @@ export default function Main(props: {
                             onChange={(value) => setJobOrder({ ...jobOrder, CountryId: parseInt(value) })}
                             label="Country"
                         />
-                        {props.countryList.map((country, index) => {
+                        {jobOrder.CountryId == 8 || jobOrder.CountryId == 0 ? "" : <CustomRadioButton
+                            inlined
+                            option={[{ name: "yes", value: 1 }, { name: "No", value: 0 }]}
+                            value={jobOrder.MOL}
+                            onChange={(value) => {
+                                if (value == 1)
+                                    setJobOrder({ ...jobOrder, MOL: value })
+                                else
+                                    setJobOrder({ ...jobOrder, MOL: value, workPermit: 0 })
 
-                            if (jobOrder.CountryId == country.id) {
-                                if (!countryList_No_Mol_WorkPermit.includes(country.name.toLowerCase())) {
-                                    return (
-                                        <CustomRadioButton
-                                            option={[{ name: "yes", value: 1 }, { name: "No", value: 0 }]}
-                                            value={jobOrder.MOL}
-                                            onChange={(value) => {
-                                                if (value == 1)
-                                                    setJobOrder({ ...jobOrder, MOL: value })
-                                                else
-                                                    setJobOrder({ ...jobOrder, MOL: value, workPermit: 0 })
-
-                                            }
-                                            }
-                                            label="MOL/QVC/E-VISA"
-                                        />
-                                    )
-                                }
                             }
-
-                        })}
-                        {jobOrder.MOL == 1 ? <CustomRadioButton
+                            }
+                            label="MOL/QVC/E-VISA: "
+                        />}
+                        {jobOrder.MOL == 0 ? "" : <CustomRadioButton
+                            inlined
                             option={[{ name: "yes", value: 1 }, { name: "No", value: 0 }]}
                             value={jobOrder.workPermit}
                             onChange={(value) => setJobOrder({ ...jobOrder, workPermit: value })}
-                            label="work Permit"
-                        /> : ""}
+                            label="work Permit: "
+                        />}
                         {/* sector */}
                         <CustomSelectComponent
                             required
