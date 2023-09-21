@@ -21,6 +21,7 @@ export interface JobOrderInterface {
   operationManagerId?: number;
   recruitmentManagerId?: number;
   interviewModeId?: number;
+  interviewSectorId?: number;
   rsId?: number;
   rcId?: number;
   file1?: File;
@@ -35,7 +36,7 @@ export interface JobOrderInterface {
   file4_url?: string;
   file5_url?: string;
 
-  quantity?:number
+  quantity?: number;
 }
 
 export interface JobOrderAdapter {
@@ -60,6 +61,7 @@ export interface JobOrderAdapter {
   rs?: number;
   rc?: number;
   interview_mode?: number;
+  interview_sector?: number;
   file1?: File;
   file2?: File;
   file3?: File;
@@ -72,8 +74,7 @@ export interface JobOrderAdapter {
   file4_url?: string;
   file5_url?: string;
 
-  quantity?:number
-
+  quantity?: number;
 }
 export class JobOrderConverter {
   // private i: AgentInterface
@@ -105,6 +106,7 @@ export class JobOrderConverter {
       rcId: a.rc,
       rsId: a.rs,
       interviewModeId: a.interview_mode,
+      interviewSectorId: a.interview_sector,
       file1: a.file1,
       file2: a.file2,
       file3: a.file3,
@@ -117,12 +119,12 @@ export class JobOrderConverter {
       file4_url: a.file4_url,
       file5_url: a.file5_url,
 
-      quantity:a.quantity
+      quantity: a.quantity,
     };
     return data;
   }
 
-    /**
+  /**
    * to interface list
    */
   public static toInterfaceList(i_list: JobOrderAdapter[]) {
@@ -163,18 +165,19 @@ export class JobOrderConverter {
       rc: i.rcId,
       rs: i.rsId,
       interview_mode: i.interviewModeId,
+      interview_sector: i.interviewSectorId,
       file1: i.file1,
       file2: i.file2,
       file3: i.file3,
       file4: i.file4,
       file5: i.file5,
 
-      quantity:i.quantity
+      quantity: i.quantity,
     };
     return data;
   }
 
-    /**
+  /**
    * to adapter list
    */
   public static toAdapterList(i_list: JobOrderInterface[]) {

@@ -56,7 +56,7 @@ export default function Main(props: {
         jobOrderNo: "",
         party_code: "",
         visaAllocationList: [],
-        visaProfessionList:[],
+        visaProfessionList: [],
         days: 709,
     }
 
@@ -394,51 +394,52 @@ export default function Main(props: {
                     </> : ""}
                 </UpdateContentBox>
 
-                <UpdateContentBox>
+                {indexVisa.country != 8 ? "" : <>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="Visa Date(Arabic) :" />
-                    <UnlabeledInput
-                        value={indexVisa.visa_date_arabic}
-                        onchange={(value) => setIndexVisa({ ...indexVisa, visa_date_arabic: value })}
-                    />
-                </UpdateContentBox>
-                <UpdateContentBox>
+                        <SubHeading1 text="Visa Date(Arabic) :" />
+                        <UnlabeledInput
+                            value={indexVisa.visa_date_arabic}
+                            onchange={(value) => setIndexVisa({ ...indexVisa, visa_date_arabic: value })}
+                        />
+                    </UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="Visa number :" />
-                    <UnlabeledInput
-                        value={indexVisa.visa_number}
-                        onchange={(value) => setIndexVisa({ ...indexVisa, visa_number: value })}
-                    />
-                </UpdateContentBox>
-                <UpdateContentBox>
+                        <SubHeading1 text="Visa number :" />
+                        <UnlabeledInput
+                            value={indexVisa.visa_number}
+                            onchange={(value) => setIndexVisa({ ...indexVisa, visa_number: value })}
+                        />
+                    </UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="Visa fee :" />
-                    <UnlabeledInput
-                        type="number"
-                        value={indexVisa.visa_fee}
-                        onchange={(value) => setIndexVisa({ ...indexVisa, visa_fee: parseInt(value) })}
-                    />
-                </UpdateContentBox>
+                        <SubHeading1 text="Visa fee :" />
+                        <UnlabeledInput
+                            type="number"
+                            value={indexVisa.visa_fee}
+                            onchange={(value) => setIndexVisa({ ...indexVisa, visa_fee: parseInt(value) })}
+                        />
+                    </UpdateContentBox>
 
 
-                <UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="Visa Issue Date :" />
-                    <DateInput
-                        id="asdfsadfsfsa"
-                        value={indexVisa.visa_issued_date}
-                        onChange={(value) => {
-                            const date = addDaysToDate(value, indexVisa.days)
-                            console.log(value)
-                            console.log(date)
-                            setIndexVisa({ ...indexVisa, visa_issued_date: value, visa_expiry_date: date })
-                        }
+                        <SubHeading1 text="Visa Issue Date :" />
+                        <DateInput
+                            id="asdfsadfsfsa"
+                            value={indexVisa.visa_issued_date}
+                            onChange={(value) => {
+                                const date = addDaysToDate(value, indexVisa.days)
+                                console.log(value)
+                                console.log(date)
+                                setIndexVisa({ ...indexVisa, visa_issued_date: value, visa_expiry_date: date })
+                            }
 
-                        }
+                            }
 
-                    />
-                </UpdateContentBox>
-
+                        />
+                    </UpdateContentBox>
+                </>}
 
 
 
@@ -454,48 +455,49 @@ export default function Main(props: {
                     />
                 </UpdateContentBox>
 
-                <UpdateContentBox>
+                {indexVisa.country != 8 ? "" : <>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="visa submission :" />
-                    <CustomSelectComponentUnlabeled
-                        options={[
-                            { name: "Mumbai", value: "Mumbai" },
-                            { name: "Delhi", value: "Delhi" },
+                        <SubHeading1 text="visa submission :" />
+                        <CustomSelectComponentUnlabeled
+                            options={[
+                                { name: "Mumbai", value: "Mumbai" },
+                                { name: "Delhi", value: "Delhi" },
 
-                        ]}
-                        value={indexVisa.visa_submission}
-                        onChange={(value) => setIndexVisa({ ...indexVisa, visa_submission: value })}
-                    />
-                </UpdateContentBox>
+                            ]}
+                            value={indexVisa.visa_submission}
+                            onChange={(value) => setIndexVisa({ ...indexVisa, visa_submission: value })}
+                        />
+                    </UpdateContentBox>
 
-                <UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="Arabic Sponsor Name :" />
-                    <UnlabeledInput
-                        value={indexVisa.arabic_sponsor_name}
-                        onchange={(value) => setIndexVisa({ ...indexVisa, arabic_sponsor_name: value })}
-                    />
-                </UpdateContentBox>
+                        <SubHeading1 text="Arabic Sponsor Name :" />
+                        <UnlabeledInput
+                            value={indexVisa.arabic_sponsor_name}
+                            onchange={(value) => setIndexVisa({ ...indexVisa, arabic_sponsor_name: value })}
+                        />
+                    </UpdateContentBox>
 
-                <UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="Sponsor Id :" />
-                    <UnlabeledInput
-                        value={indexVisa.sponsor_id}
-                        onchange={(value) => setIndexVisa({ ...indexVisa, sponsor_id: value })}
-                    />
-                </UpdateContentBox>
+                        <SubHeading1 text="Sponsor Id :" />
+                        <UnlabeledInput
+                            value={indexVisa.sponsor_id}
+                            onchange={(value) => setIndexVisa({ ...indexVisa, sponsor_id: value })}
+                        />
+                    </UpdateContentBox>
 
-                <UpdateContentBox>
+                    <UpdateContentBox>
 
-                    <SubHeading1 text="Visa expiry date :" />
-                    <DateInput
-                        id="adsfdsfadfsdafdsfdsafas"
-                        value={indexVisa.visa_expiry_date}
-                        onChange={(v) => { setBlockVisa({ ...indexVisa, visa_expiry_date: v }) }}
+                        <SubHeading1 text="Visa expiry date :" />
+                        <DateInput
+                            id="adsfdsfadfsdafdsfdsafas"
+                            value={indexVisa.visa_expiry_date}
+                            onChange={(v) => { setBlockVisa({ ...indexVisa, visa_expiry_date: v }) }}
 
-                    />
-                    {/* <UnlabeledInput
+                        />
+                        {/* <UnlabeledInput
                         value={indexVisa.days}
                         onchange={(value) => {
                             const date = addDaysToDate(indexVisa.visa_issued_date, parseInt(value))
@@ -503,8 +505,8 @@ export default function Main(props: {
 
                         }}
                     /> */}
-                </UpdateContentBox>
-
+                    </UpdateContentBox>
+                </>}
                 <UpdateContentBox>
 
                     <SubHeading1 text="Division :" />

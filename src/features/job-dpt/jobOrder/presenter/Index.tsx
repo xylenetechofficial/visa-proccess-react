@@ -15,6 +15,8 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
+import { readConsolidateChargeList } from "../../../masters/consolidateCharge/repository";
+import { ConsolidateChargeInterface } from "../../../masters/consolidateCharge/type";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -103,8 +105,15 @@ export default function Main() {
         console.log(data);
         setJobOrderList(data)
     }
-    useEffect(() => {
 
+    const [consolidateChargeList, setConsolidateChargeList] = useState<ConsolidateChargeInterface[]>([])
+    const fetchConsolidateCharges = async () => {
+        const data = await readConsolidateChargeList();
+        setConsolidateChargeList(data);
+    }
+
+    useEffect(() => {
+        fetchConsolidateCharges()
         fetchJobOrderList()
         fetchSectorList()
         fetchcomapanyList()
@@ -161,11 +170,13 @@ export default function Main() {
                     companyList={companyList}
                     countryList={countryList}
                     sectorList={sectorList}
+                    consolidateChargeList={consolidateChargeList}
                 />}
 
             {/* Edit */}
             {modalName !== "edit" ? "" :
                 <EditModal
+                    consolidateChargeList={consolidateChargeList}
                     currentElement={editJobOrder}
                     onClose={() => setModalName("")}
                     fetchJobOrderList={fetchJobOrderList}

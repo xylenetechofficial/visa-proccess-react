@@ -37,6 +37,8 @@ export default function Main(props: {
         address: "",
         religion: "",
         payment_from: "",
+
+        select_status:"",
     
     }
 

@@ -39,7 +39,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
     address: "",
     religion: "",
     payment_from: "",
-
+    select_status:"",
 }
 export default function Main() {
     const [CandidateList, setCandidateList] = useState<Mofa_Entry_Candidate_Interface[]>([])

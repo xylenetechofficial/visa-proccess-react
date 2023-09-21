@@ -10,11 +10,19 @@ import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
 // import { BDEList, } from "../../db/user";
 import ActualProfessionTable from "./ActualProfessionTable";
-import { readBDEList } from "../../../masters/user/repository";
+import { readBDEList, readOperationManagerist, readRecruitCoordinatorList, readRecruitManagerList, readRecruitSuperVisorList } from "../../../masters/user/repository";
 import { UserInterface } from "../../../context/Model";
+import { readConsolidateChargeList } from "../../../masters/consolidateCharge/repository";
+import { ConsolidateChargeInterface } from "../../../masters/consolidateCharge/type";
+import { OPManagerList } from "../../db/user";
+import { InterviewModeInterface } from "../../../masters/interviewMode/type";
+import { readInterviewModeList } from "../../../masters/interviewMode/repository";
+import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
+import { readInterviewSectorList } from "../../../masters/interviewSector/repository";
 
 const countryList_No_Mol_WorkPermit = ["ksa", "iraq", "uae", "qatar"]
 export default function Main(props: {
+    consolidateChargeList: ConsolidateChargeInterface[],
     onClose: any, fetchJobOrderList: any,
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
@@ -32,6 +40,13 @@ export default function Main(props: {
         companyId: 0,
         division: "",
         departureSectorId: 0,
+        operationManagerId: 0,
+        recruitmentManagerId: 0,
+        rsId: 0,
+        rcId: 0,
+
+        interviewModeId: 0,
+        interviewSectorId: 0,
 
 
     }
@@ -58,8 +73,52 @@ export default function Main(props: {
         setBDEList(data)
     }
 
+    const [OperationManagerist, setOperationManagerist] = useState<UserInterface[]>([])
+    const fetchOperationManagerist = async () => {
+        const data = await readOperationManagerist()
+        console.log(data);
+        setOperationManagerist(data)
+    }
+
+    const [RecruitManagerList, setRecruitManagerList] = useState<UserInterface[]>([])
+    const fetchRecruitManagerList = async () => {
+        const data = await readRecruitManagerList()
+        setRecruitManagerList(data)
+    }
+
+    const [RecruitSuperVisorList, setRecruitSuperVisorList] = useState<UserInterface[]>([])
+    const fetchRecruitSuperVisorList = async () => {
+        const data = await readRecruitSuperVisorList()
+        setRecruitSuperVisorList(data)
+    }
+
+    const [RecruitCoordinatorList, setRecruitCoordinatorList] = useState<UserInterface[]>([])
+    const fetchRecruitCoordinatorList = async () => {
+        const data = await readRecruitCoordinatorList()
+        setRecruitCoordinatorList(data)
+    }
+
+    const [interviewModeList, setInterviewModeList] = useState<InterviewModeInterface[]>([])
+    const fetchInterviewMode = async () => {
+        const data = await readInterviewModeList();
+        setInterviewModeList(data)
+    }
+
+    const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([])
+    const fetchInterviewSector = async () => {
+        const data = await readInterviewSectorList();
+        setInterviewSectorList(data)
+    }
     useEffect(() => {
         fetchBDEList()
+
+        fetchOperationManagerist()
+        fetchRecruitManagerList()
+        fetchRecruitSuperVisorList()
+        fetchRecruitCoordinatorList()
+
+        fetchInterviewMode()
+        fetchInterviewSector()
     }, [])
 
     return (
@@ -172,10 +231,73 @@ export default function Main(props: {
                             label="Quantity"
                             value={jobOrder.quantity}
                         />
+
+                        {jobOrder.type == "Domestic" ?
+                            <>
+                                {/* Operation Manager */}
+                                <CustomSelectComponent
+                                    required
+                                    value={jobOrder.operationManagerId}
+                                    options={selectOptionConveter({ options: OPManagerList, options_struct: { name: "name", value: "id" } })}
+                                    onChange={(value) => setJobOrder({ ...jobOrder, operationManagerId: value })}
+                                    label="Operation Manager"
+                                />
+                            </>
+                            : ""}
+
                     </div>
                 </div>
                 <div className="md:mx-auto ">
                     <div className="mt-4 space-y-4 md:mt-0">
+                        {jobOrder.type == "Domestic" ?
+                            <>
+                                {/* Recruit Manager */}
+                                <CustomSelectComponent
+                                    required
+                                    value={jobOrder.recruitmentManagerId}
+                                    options={selectOptionConveter({ options: RecruitManagerList, options_struct: { name: "name", value: "id" } })}
+                                    onChange={(value) => setJobOrder({ ...jobOrder, recruitmentManagerId: value })}
+                                    label="Recruit Manager"
+                                />
+
+                                {/* Recruit SuperVisor */}
+                                <CustomSelectComponent
+                                    required
+                                    value={jobOrder.rsId}
+                                    options={selectOptionConveter({ options: RecruitSuperVisorList, options_struct: { name: "name", value: "id" } })}
+                                    onChange={(value) => setJobOrder({ ...jobOrder, rsId: value })}
+                                    label="Recruit SuperVisor"
+                                />
+
+                                {/* Recruit Coordinator */}
+                                <CustomSelectComponent
+                                    required
+                                    value={jobOrder.rcId}
+                                    options={selectOptionConveter({ options: RecruitCoordinatorList, options_struct: { name: "name", value: "id" } })}
+                                    onChange={(value) => setJobOrder({ ...jobOrder, rcId: value })}
+                                    label="Recruit Coordinator"
+                                />
+
+                                {/* Interview Mode */}
+                                <CustomSelectComponent
+                                    required
+                                    value={jobOrder.interviewModeId}
+                                    options={selectOptionConveter({ options: interviewModeList, options_struct: { name: "name", value: "id" } })}
+                                    onChange={(value) => setJobOrder({ ...jobOrder, interviewModeId: value })}
+                                    label="Interview Mode"
+                                />
+
+                                {/* Interview Sector */}
+                                <CustomSelectComponent
+                                    required
+                                    value={jobOrder.interviewSectorId}
+                                    options={selectOptionConveter({ options: interviewSectorList, options_struct: { name: "name", value: "id" } })}
+                                    onChange={(value) => setJobOrder({ ...jobOrder, interviewSectorId: value })}
+                                    label="Interview Sector"
+                                />
+                            </>
+                            : ""}
+
                         <h6 className="text-lg font-medium text-gray-500 dark:text-white">Upload section</h6>
                         <FileInput label="File 1" required handleFileChange={(file) => setJobOrder({ ...jobOrder, file1: file })} />
 
@@ -196,10 +318,13 @@ export default function Main(props: {
 
 
             {jobOrder.type == "Domestic" ?
-                <ActualProfessionTable
+                <>  <ActualProfessionTable
+                    consolidateChargeList={props.consolidateChargeList}
                     jobOrder={jobOrder}
                     onChange={(value) => setJobOrder({ ...jobOrder, acttualProfesionList: value })}
-                /> : ""}
+                />
+                </>
+                : ""}
         </FullScreenModal>
     )
 }

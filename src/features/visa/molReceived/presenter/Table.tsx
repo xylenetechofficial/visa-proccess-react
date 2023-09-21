@@ -101,10 +101,10 @@ const Table = (props: {
                             <TableCell3 >
                                 <CustomSingleCheckBox
                                     onChange={(value) => {
-                                        const date = new Date();
-                                        const day = ("0" + date.getDate()).slice(-2);
-                                        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                        const year = date.getFullYear();
+                                        // const date = new Date();
+                                        // const day = ("0" + date.getDate()).slice(-2);
+                                        // const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                        // const year = date.getFullYear();
                                         onUpdateRow(index, { ...ele, checked: value ? 1 : 0 })
                                     }}
                                     value={ele.checked ? true : false}

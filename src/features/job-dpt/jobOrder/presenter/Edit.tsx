@@ -13,11 +13,14 @@ import { readJobOrder, updateJobOrder } from "../repository";
 import ActualProfessionTable from "./ActualProfessionTable";
 import { readBDEList } from "../../../masters/user/repository";
 import { UserInterface } from "../../../context/Model";
+import { ConsolidateChargeInterface } from "../../../masters/consolidateCharge/type";
 
 const countryList_No_Mol_WorkPermit = ["ksa", "iraq", "uae", "qatar"]
 
 
 export default function Main(props: {
+    consolidateChargeList: ConsolidateChargeInterface[],
+
     onClose: any, fetchJobOrderList: any,
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
@@ -98,14 +101,14 @@ export default function Main(props: {
                             }}
                         />
                         {/* type */}
-                        <CustomRadioButton
+                        {/* <CustomRadioButton
                             inlined={true}
 
                             option={[{ name: "Company", value: "Company" }, { name: "Domestic", value: "Domestic" }]}
                             onChange={(value) => setJobOrder({ ...jobOrder, type: value })}
                             label="Type*"
                             value={jobOrder.type}
-                        />
+                        /> */}
 
                         {/* company */}
                         <CustomSelectComponent
@@ -229,6 +232,7 @@ export default function Main(props: {
 
             {jobOrder.type == "Domestic" ?
                 <ActualProfessionTable
+                    consolidateChargeList={props.consolidateChargeList}
                     jobOrder={jobOrder}
                     onChange={(value) => setJobOrder({ ...jobOrder, acttualProfesionList: value })}
                 /> : ""}

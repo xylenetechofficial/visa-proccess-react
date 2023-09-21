@@ -1,32 +1,32 @@
 import { convertDateFormat } from "../../../utils/function";
 
 export interface Mofa_Entry_Candidate_Interface {
-  id?: number
-  name: string
+  id?: number;
+  name: string;
   company_name?: string;
   party_code?: string;
-  passport_no: string
-  actual_profession: string
-  division: string
-  agent_name: string
-  rs_name: string
-  rm_name: string
-  rc_name: string
-  visa_profession: string
-  mofa_number: string
-  pp_copy: string
-  pp_issued_date: string
-  pp_expiry_date: string
-  place_of_issue: string
-  date_of_birth: string
-  place_of_birth: string
-  address: string
-  religion: string
-  payment_from: string
-  visa_authorization?: number,
-  checked?: boolean
+  passport_no: string;
+  actual_profession: string;
+  division: string;
+  agent_name: string;
+  rs_name: string;
+  rm_name: string;
+  rc_name: string;
+  visa_profession: string;
+  mofa_number: string;
+  pp_copy: string;
+  pp_issued_date: string;
+  pp_expiry_date: string;
+  place_of_issue: string;
+  date_of_birth: string;
+  place_of_birth: string;
+  address: string;
+  religion: string;
+  payment_from: string;
+  visa_authorization?: number;
+  checked?: boolean;
 
-
+  select_status: string;
 }
 
 export interface Mofa_Entry_Candidate_Adapter {
@@ -52,8 +52,8 @@ export interface Mofa_Entry_Candidate_Adapter {
   address: string;
   religion: string;
   payment_from: string;
-  visa_authorization?: number,
-
+  visa_authorization?: number;
+  select_status: string;
 }
 
 export class Mofa_Entry_Converter {
@@ -87,7 +87,9 @@ export class Mofa_Entry_Converter {
       address: a.address,
       religion: a.religion,
       payment_from: a.payment_from,
-      visa_authorization:a.visa_authorization
+      visa_authorization: a.visa_authorization,
+
+      select_status: a.select_status,
     };
 
     return data;
@@ -120,7 +122,9 @@ export class Mofa_Entry_Converter {
       address: i.address,
       religion: i.religion,
       payment_from: i.payment_from,
-      visa_authorization:i.visa_authorization
+      visa_authorization: i.visa_authorization,
+
+      select_status: i.select_status,
     };
     return data;
   }

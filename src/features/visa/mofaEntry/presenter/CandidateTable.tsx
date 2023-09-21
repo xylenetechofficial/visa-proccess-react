@@ -27,7 +27,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
     address: "",
     religion: "",
     payment_from: "",
-
+    select_status: "",
 }
 
 const CandidateTable = (props: {
@@ -166,10 +166,11 @@ const TableData = (
             <TableCell3 > {localRowData.rc_name}</TableCell3>
             <TableCell3 > {localRowData.visa_profession}</TableCell3>
             <TableCell3 >
-                <CustomSingleCheckBox
-                    onChange={(value) => setLocalRowData({ ...localRowData, checked: value })}
-                    value={localRowData.checked ? true : false}
-                />
+                {localRowData.select_status == '' ?
+                    <CustomSingleCheckBox
+                        onChange={(value) => setLocalRowData({ ...localRowData, checked: value })}
+                        value={localRowData.checked ? true : false}
+                    /> : <b style={{color:"#ff5757"}}>{localRowData.select_status}</b>}
             </TableCell3>
             <TableCell3 >
                 <UnlabeledInput
