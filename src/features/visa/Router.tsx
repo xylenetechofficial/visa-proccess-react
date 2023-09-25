@@ -18,6 +18,7 @@ import VisaReceived from "./visaReceived/Router"
 import MolForwardedToVisaDepartment from "./molForwardedToVisaDepartment/Router"
 import MolReceived from "./molReceived/Router"
 import MolSubmitedToCompany from "./molSubmitedToCompany/Router"
+import MolWorkPermitCancel from "./molWorkPermitCancel/Router"
 import WorkPermitReceivedFromCompany from "./workPermitReceivedFromCompany/Router"
 import DubaiDataEntry from "./dubaiDataEntry/Router"
 
@@ -41,6 +42,7 @@ function Main() {
             <Route path='/mol-forwarded-to-visa-dept/*' element={<MolForwardedToVisaDepartment />}></Route>
             <Route path='/mol-received/*' element={<MolReceived />}></Route>
             <Route path='/mol-submited-to-company/*' element={<MolSubmitedToCompany />}></Route>
+            <Route path='/mol-work-permit-cancel/*' element={<MolWorkPermitCancel />}></Route>
             <Route path='/work-permit-recieved-from-company/*' element={<WorkPermitReceivedFromCompany />}></Route>
             <Route path='/dubai-data-entry/*' element={<DubaiDataEntry />}></Route>
 

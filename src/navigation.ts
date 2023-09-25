@@ -81,6 +81,7 @@ export const navigations: NavigationInterface[] = [
        { name: 'Mol Forwarded to visa Department', icon: 'pageview', path: '/visa/mol-forwarded-to-visa-dept' },
        { name: 'Mol Received', icon: 'pageview', path: '/visa/mol-received' },
        { name: 'Mol Submited To company', icon: 'pageview', path: '/visa/mol-submited-to-company' },
+       { name: 'Mol Work Permit To cancel', icon: 'pageview', path: '/visa/mol-work-permit-cancel' },
        { name: 'Work permit received from company', icon: 'pageview', path: '/visa/work-permit-recieved-from-company' },
     ]
   },
@@ -127,7 +128,9 @@ export const navigations: NavigationInterface[] = [
       { name: 'Incentives', icon: 'pageview', path: '/account/incentives' },
       { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
       { name: 'Account Candidate List', icon: 'preview', path:'/account/account-candidate-list'},
-      {name:"Service Charges", icon:"preview" , path:'/account/service-charges/'}
+      {name:"Service Charges", icon:"preview" , path:'/account/service-charges/'},
+      {name:"Account Dpt", icon:"preview" , path:'/account/account-dpt/'},
+      {name:"Manage Agent Payment Return", icon:"preview" , path:'/account/manage-agent-payment-return/'}
     ]
   },
   {
