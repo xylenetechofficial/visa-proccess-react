@@ -73,7 +73,7 @@ const Table = (props: {
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody3>
-                    {data.map((ele:any, index:any) => (
+                    {props.MolWorkPermitList.map((ele:any, index:any) => (
 
                         <TableRow3 key={index}>
                             <TableCell3 >{index + 1}</TableCell3>
