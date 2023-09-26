@@ -55,6 +55,13 @@ export const TableHead3 = ({ children }: ParentComponentProps) => {
         </thead>
     );
 }
+export const TableHeadRed = ({ children }: ParentComponentProps) => {
+    return (
+        <thead className="text-xs text-white uppercase bg-[#e61111] dark:bg-red-700 dark:text-gray-400">
+            {children}
+        </thead>
+    );
+}
 export const TableHeadRow = ({ children }: ParentComponentProps) => {
     return (
         <tr>

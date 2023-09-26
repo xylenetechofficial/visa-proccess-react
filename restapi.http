@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint =https://newdev.softwareinnova.website/api
+@endpoint =https://58ae-103-142-115-55.ngrok-free.app/api
 
 
 ###
@@ -1359,4 +1359,11 @@ content-type: application/json
 # ================      RC PP Received      =============== #
 
 ### Read RC PP Received List
-GET {{endpoint}}/delhi-account-dasboard/rc-pp-received-list
+GET  {{endpoint}}/visa-dpt/mol-work-permit-cancel-list
+
+
+
+
+
+#read received 
+GET  {{endpoint}}/account/receive-payment-candidate-list?candidate_id=2

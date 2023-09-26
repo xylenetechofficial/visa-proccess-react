@@ -4,7 +4,7 @@ import {
     Table3,
     TableBody2,
     TableCell,
-    TableHeadRed,
+    TableHead2,
     TableHeadCell,
     TableHeadRow,
     TableRow,
@@ -17,11 +17,10 @@ import {
   import { convertDateFormat } from "../../../../utils/function";
   
   import { RedButton } from "../../../../componenets/CustomButton";
-import { PaymentReceivedInterface } from "../type";
   
   const AccountCandidatesListTable = (props: {
   
-    paymentReceivedList: PaymentReceivedInterface[];
+    candidatesList: any[];
     setCandidatesList: any
     data: any;
     setData: any;
@@ -34,7 +33,7 @@ import { PaymentReceivedInterface } from "../type";
       <div className="overflow-auto">
   
         <Table3>
-          <TableHeadRed>
+          <TableHead2>
             <TableHeadRow>
               <TableHeadCell> Sr No.</TableHeadCell>
               <TableHeadCell> PARTY CODE </TableHeadCell>
@@ -59,9 +58,9 @@ import { PaymentReceivedInterface } from "../type";
              
   
             </TableHeadRow>
-          </TableHeadRed>
+          </TableHead2>
           <TableBody2>
-  {  props.paymentReceivedList.map((item :any,index:any) =>(
+  {  date?.map((item :any,index:any) =>(
          <TableRow>
   
          <TableCell>{index + 1} </TableCell>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { RedButton } from "../../../../componenets/CustomButton"
 import { FullScreenModal } from "../../../../componenets/Modal"
-import { Table3, TableBody2, TableCell, TableHeadRed, TableHeadCell, TableHeadRow, TableRow } from "../../../../componenets/Table"
+import { Table, TableBody2, TableCell, TableHead2, TableHeadCell, TableHeadRow, TableRow } from "../../../../componenets/Table"
 import AgentPaymentModal from './AgentPaymentReceivedDetails';
 export default function Main(props:{
     setModal:(value:string)=>void
@@ -39,8 +39,8 @@ const [editModal, setEditModal]=useState(false)
             onClose={()=>props.setModal('')}
         >
             <div className=" grid grid-cols-1 py-3  gap-2 shadow overflow-scroll">
-            <Table3>
-          <TableHeadRed>
+            <Table>
+          <TableHead2>
             <TableHeadRow>
               <TableHeadCell> Sr No.</TableHeadCell>
               <TableHeadCell> CANDIDATE NAME</TableHeadCell>
@@ -52,7 +52,7 @@ const [editModal, setEditModal]=useState(false)
               
   
             </TableHeadRow>
-          </TableHeadRed>
+          </TableHead2>
           <TableBody2>
   {  date?.map((item :any,index:any) =>(
          <TableRow>
@@ -74,7 +74,7 @@ const [editModal, setEditModal]=useState(false)
   
   
           </TableBody2>
-        </Table3>  
+        </Table>  
         {editModal ? <AgentPaymentModal setModalName={(value)=>setEditModal(value)}/>:''}         
             </div>
         </FullScreenModal>
