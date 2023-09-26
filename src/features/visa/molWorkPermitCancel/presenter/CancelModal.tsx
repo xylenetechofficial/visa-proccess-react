@@ -5,11 +5,21 @@ import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
 import { CustomRadioButton } from '../../../../componenets/RadioButton';
+import { MolForwardedTovisaDepartmentDataInterface, MolWorkPermitCancelInterface2 } from '../type';
+import { updateMolWorkPermitCancelData } from '../repository';
 
 export default function Main(props:{
-    setModalName:(value:string)=>void
+    setModalName:(value:string)=>void,
+    currentData:any
 }){
     const [data, setData]= useState({})
+    const [molWorkPermit, setmolWorkPermit] = useState<MolWorkPermitCancelInterface2>(
+        {
+            "candidate_id": props.currentData.id,
+            "client_invoice": '',
+            "penalty_amount": 0,
+            "mistake_by": ''
+        })
     const CardHeader = styled(Box)(() => ({
         display: "flex",
         flexWrap: "wrap",
@@ -30,6 +40,16 @@ export default function Main(props:{
         borderRadius: 2,
         p: 4,
     };
+    async function onClickAdd() {
+
+        // call create
+        // const newArray: any = { ...visaProfessionList, visaProfessionList: visaProfessionList }
+        const newArray: any = { ...molWorkPermit }
+        // newArray.candidate_id =props.currentElement.id
+        console.log(newArray, "AAAAAAA")
+        const flag = await updateMolWorkPermitCancelData(newArray)
+        props.setModalName('')
+    }
     return (
         <>
            <Modal open={true}
@@ -38,7 +58,7 @@ export default function Main(props:{
             aria-describedby="modal-modal-description">
               
         <Box sx={style}>
-              <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Agent Commission</h3>
+              <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Mol/Work Permit Cancel</h3>
             <button
                 type="button"
                 className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
@@ -63,41 +83,45 @@ export default function Main(props:{
 
                 <UpdateContentBox>
                     <SubHeading1 text="COMPANY NAME  :" />
-                    <SubHeading1 text=''/>
+                    <SubHeading1 text={props.currentData.company_name}/>
                 </UpdateContentBox>
 
 
                 <UpdateContentBox>
                     <SubHeading1 text="CANDIDATE NAME   :" />
-                   <SubHeading1  text=''/>
+                   <SubHeading1  text={props.currentData.name}/>
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="PASSPORT NO  :" />
-                   <SubHeading1 text=''/>
+                   <SubHeading1 text={props.currentData.passport_no}/>
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="AGENT  :" />
-                   <SubHeading1 text=''/>
+                   <SubHeading1 text={props.currentData.agent}/>
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="CLIENT INVOICE  :" />
-                   <CustomRadioButton onChange={(value)=>console.log(value)} option={[{name:"No", value:"no"},{name:"Yes", value:"yes"}]}/>
+                   <CustomRadioButton value={molWorkPermit.client_invoice} onChange={(value)=>setmolWorkPermit({ ...molWorkPermit, client_invoice: value })} option={[{name:"No", value:"no"},{name:"Yes", value:"yes"}]}/>
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="PENALTY AMOUNT  :" />
-                   <UnlabeledInput value={''} onchange={(value)=>console.log(value) }/>
+                   <UnlabeledInput value={molWorkPermit.penalty_amount} onchange={(value)=>setmolWorkPermit({ ...molWorkPermit, penalty_amount: parseInt(value) })}/>
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="MISTAKE BY  :" />
-                    <CustomSelectComponent options={[]} onChange={(value)=>console.log(value)} />
+                    <CustomSelectComponent value={molWorkPermit.mistake_by}  options={[
+                            { name: "Agent/Candidate", value: "Agent/Candidate" },
+                            { name: "Soundlines", value: "Soundlines" },
+                            { name: "client", value: "client" },
+                        ]} onChange={(value)=>setmolWorkPermit({ ...molWorkPermit, mistake_by: value })} />
                 </UpdateContentBox>
 
           
                 <div className=" flex justify-center">
 
                     <GreenButton text="Submit" onClick={()=>{console.log("agentPaymentReceivedList","AAAA"),props.setModalName('')}}/>
-                    <GreenButton text="Back" onClick={()=>{props.setModalName('')}}/>
+                    <GreenButton text="Back" onClick={()=>{props.setModalName(''), onClickAdd()}}/>
 
                 </div>
             </div>

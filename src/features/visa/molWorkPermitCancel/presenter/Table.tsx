@@ -8,10 +8,10 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const Table = (props: {
-    jobOrderList: any,
+    MolWorkPermitList: any,
     onChange: (value: MolForwardedTovisaDepartmentDataInterface[]) => void,
     setModalName:(value:string)=>void
-
+    setCurrentData:(value:any)=>void
 }) => {
     const tableHeadings = [
         ["SR. NO."],
@@ -44,7 +44,7 @@ const Table = (props: {
     const data=[1,2]
 
     function onUpdateRow(index: number, rowData: MolForwardedTovisaDepartmentDataInterface) {
-        const nextData: MolForwardedTovisaDepartmentDataInterface[] = props.jobOrderList.map((e:any, i:any) => {
+        const nextData: MolForwardedTovisaDepartmentDataInterface[] = props.MolWorkPermitList.map((e:any, i:any) => {
             if (i === index) {
                 // Increment the clicked counter
                 return rowData;
@@ -98,7 +98,7 @@ const Table = (props: {
                             <TableCell3 > {convertDateFormat(ele.molForwardedDate)}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.molReceivedDate)}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.submittedToCompanyDate)}</TableCell3>
-                            <TableCell3 > <RedButton text='Cancel' onClick={()=>props.setModalName('cancel')}/></TableCell3>
+                            <TableCell3 > <RedButton text='Cancel' onClick={()=>{props.setModalName('cancel'), props.setCurrentData(ele)}}/></TableCell3>
 
                         </TableRow3>
                     ))}

@@ -1,4 +1,4 @@
-import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface } from "./type";
+import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface, AccountDashboardInterface2, AccountDashboardConverter2 } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -102,3 +102,17 @@ export async function deleteAccountDashboard(id: number) {
 
 }
 
+
+
+export async function createAccountDashboard2( AccountDashboard: AccountDashboardInterface2) {
+
+  const payload = AccountDashboardConverter2.toAdapter(AccountDashboard);
+console.log(payload,"aa",AccountDashboard)
+  const path = "/account/account-dashboard"
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+
+}

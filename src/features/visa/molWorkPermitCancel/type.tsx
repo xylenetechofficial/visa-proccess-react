@@ -151,3 +151,57 @@ export class MolForwardedTovisaDepartmentDataConverter {
   }
 }
 
+
+export interface MolWorkPermitCancelInterface2{
+  
+  "candidate_id" : number,
+  "client_invoice" : string,
+  "penalty_amount" : number,
+  "mistake_by" : string
+
+}
+export interface MolWorkPermitCancelAdapter2{
+
+  "candidate_id" : number,
+  "client_invoice" : string,
+  "penalty_amount" : number,
+  "mistake_by" : string
+
+}
+
+
+export class MolWorkPermitCancelConverter2 {
+// private i: VisaProfesionInterface
+// private a: MolWorkPermitCancelAdapter2
+
+/**
+ * toInterface
+ */
+public static toInterface(a: MolWorkPermitCancelAdapter2) {
+  const data: MolWorkPermitCancelInterface2 = {
+    candidate_id :a.candidate_id,
+    client_invoice :a.client_invoice,
+    penalty_amount :a.penalty_amount,
+    mistake_by :a.mistake_by,
+  };
+  return data;
+}
+
+/**
+ * toAdapter
+ */
+public static toAdapter(i: MolWorkPermitCancelInterface2) {
+  console.log("i"); // Only Dev
+  console.log(i); // Only Dev
+  const data: MolWorkPermitCancelAdapter2 = {
+    candidate_id :i.candidate_id,
+    client_invoice :i.client_invoice,
+    penalty_amount :i.penalty_amount,
+    mistake_by :i.mistake_by,
+  };
+  return data;
+}
+}
+
+
+

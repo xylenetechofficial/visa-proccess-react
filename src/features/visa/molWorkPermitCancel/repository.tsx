@@ -6,7 +6,7 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 export async function readMolForwardedTovisaDept() {
-  const path = "/visa-dpt/mol-forward-to-visa-dpt-list";
+  const path = "/visa-dpt/mol-work-permit-cancel-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -27,13 +27,13 @@ export async function readMolForwardedTovisaDept() {
 
 
 
-export async function updateMolForwardedToVisaDeptData(candidateList: MolForwardedTovisaDepartmentDataInterface[]) {
+export async function updateMolWorkPermitCancelData(candidateList: MolForwardedTovisaDepartmentDataInterface[]) {
 
   const payload = {
     selection_list: MolForwardedTovisaDepartmentDataConverter.toAdapterList(candidateList)
   }
 
-  const path = "/visa-dpt/mol-forward-to-visa-dpt-list"
+  const path = "/visa-dpt/mol-work-permit-cancel"
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT

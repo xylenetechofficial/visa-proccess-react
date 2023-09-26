@@ -173,6 +173,58 @@ export class AccountDashboardConverter {
     return data;
   }
 }
+export interface AccountDashboardInterface2{
+  
+    "candidate_id" : number,
+    "client_invoice" : string,
+    "penalty_amount" : number,
+    "mistake_by" : string
+
+}
+export interface AccountDashboardAdapter2{
+  
+    "candidate_id" : number,
+    "client_invoice" : string,
+    "penalty_amount" : number,
+    "mistake_by" : string
+
+}
+
+
+export class AccountDashboardConverter2 {
+  // private i: VisaProfesionInterface
+  // private a: AccountDashboardAdapter2
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: AccountDashboardAdapter2) {
+    const data: AccountDashboardInterface2 = {
+      candidate_id :a.candidate_id,
+      client_invoice :a.client_invoice,
+      penalty_amount :a.penalty_amount,
+      mistake_by :a.mistake_by,
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: AccountDashboardInterface2) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: AccountDashboardAdapter2 = {
+      candidate_id :i.candidate_id,
+      client_invoice :i.client_invoice,
+      penalty_amount :i.penalty_amount,
+      mistake_by :i.mistake_by,
+    };
+    return data;
+  }
+}
+
+
 
 export interface VisaProfesionInterface {
  

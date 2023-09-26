@@ -1359,11 +1359,17 @@ content-type: application/json
 # ================      RC PP Received      =============== #
 
 ### Read RC PP Received List
-GET  {{endpoint}}/visa-dpt/mol-work-permit-cancel-list
+POST    {{endpoint}}/visa-dpt/mol-work-permit-cancel
+content-type: application/json
+
+{
+    "candidate_id" : 23,
+    "client_invoice" : "yes",
+    "penalty_amount" : 456,
+    "mistake_by" : "AGENT/CANDIDATE"
+}
 
 
 
 
 
-#read received 
-GET  {{endpoint}}/account/receive-payment-candidate-list?candidate_id=2

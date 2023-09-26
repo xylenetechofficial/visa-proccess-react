@@ -5,7 +5,7 @@ import { Box, styled } from "@mui/material";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { MolForwardedTovisaDepartmentDataInterface } from "../type";
-import { readMolForwardedTovisaDept, updateMolForwardedToVisaDeptData } from "../repository";
+import { readMolForwardedTovisaDept,  updateMolWorkPermitCancelData } from "../repository";
 import Table from "./Table";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import CancelModal from './CancelModal';
@@ -19,12 +19,12 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-    const [JobOrderList, setJobOrderList] = useState<MolForwardedTovisaDepartmentDataInterface[]>([])
+    const [MolWorkPermitList, setMolWorkPermitList] = useState<MolForwardedTovisaDepartmentDataInterface[]>([])
 
     const [modalName, setModalName] = useState('')
 
     const [searchQuery, setSearchQuery] = useState("")
-
+    const [currentData, setCurrentData]=useState<any>({})
     const filterData = (query: string, data: MolForwardedTovisaDepartmentDataInterface[]) => {
         if (!query) {
             return data;
@@ -34,7 +34,7 @@ export default function Main() {
             );
         }
     };
-    const dataFiltered = filterData(searchQuery, JobOrderList);
+    const dataFiltered = filterData(searchQuery, MolWorkPermitList);
 
     const onClickCreate = () => {
         setModalName('create');
@@ -46,14 +46,14 @@ export default function Main() {
     // useEffect(() => {
     // }, [editIndexVisa, modalName])
     const onClickSubmit =async () => {
-            const res=await  updateMolForwardedToVisaDeptData(JobOrderList)
+            const res=await  updateMolWorkPermitCancelData(MolWorkPermitList)
     }
 
 
     const fetchMolForwardedToDepartment = async () => {
         const data = await readMolForwardedTovisaDept();
         console.log(data);
-        setJobOrderList(data)
+        setMolWorkPermitList(data)
     }
     useEffect(() => {
 
@@ -76,12 +76,12 @@ export default function Main() {
 
             {/*  indexVisa stable */}
             <Table
-                jobOrderList={JobOrderList}
-                onChange={(value) => setJobOrderList(value)}
+                MolWorkPermitList={MolWorkPermitList}
+                onChange={(value) => setMolWorkPermitList(value)}
                 setModalName={(value)=> setModalName(value)}
-
+                setCurrentData={setCurrentData}
             />
-            {modalName === 'cancel' ? <CancelModal setModalName={(value)=> setModalName(value)} />:''}
+            {modalName === 'cancel' ? <CancelModal currentData={currentData} setModalName={(value)=> setModalName(value)} />:''}
             <GreenButton onClick={onClickSubmit} text="Submit" />
 
 

@@ -129,7 +129,7 @@ export const navigations: NavigationInterface[] = [
       { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
       { name: 'Account Candidate List', icon: 'preview', path:'/account/account-candidate-list'},
       {name:"Service Charges", icon:"preview" , path:'/account/service-charges/'},
-      {name:"Account Dpt", icon:"preview" , path:'/account/account-dpt/'},
+      {name:"Agent Payment Received", icon:"preview" , path:'/account/account-dpt/'},
       {name:"Manage Agent Payment Return", icon:"preview" , path:'/account/manage-agent-payment-return/'}
     ]
   },

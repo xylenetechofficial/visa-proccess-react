@@ -1,8 +1,8 @@
-import {  readAccountDashboard, updateAccountDashboard } from "../repository";
+import { createAccountDashboard2, readAccountDashboard, updateAccountDashboard } from "../repository";
 import { useEffect, useState } from "react";
-import  { FullScreenModal } from "../../../../componenets/Modal";
+import { FullScreenModal } from "../../../../componenets/Modal";
 import { UnlabeledInput } from "../../../../componenets/Input";
-import { AccountDashboardInterface, CandidateRejectInterface } from "../type";
+import { AccountDashboardInterface, AccountDashboardInterface2, CandidateRejectInterface } from "../type";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
@@ -53,11 +53,12 @@ export default function Main(props: {
     }
 
     const [accountDashboard, setAccountDashboard] = useState(initValue)
-    const [visaProfessionList, setVisaProfessionList] = useState<CandidateRejectInterface>(
+    const [visaProfessionList, setVisaProfessionList] = useState<AccountDashboardInterface2>(
         {
-            account_dashboard_client_invoice: '',
-            account_dashboard_penalty_amount: 0,
-            account_dashboard_mistake_by: '',
+            "candidate_id": props.currentElement.id,
+            "client_invoice": '',
+            "penalty_amount": 0,
+            "mistake_by": ''
         })
     // const [visaProfessionList, setVisaProfessionList] = useState<any>({})
 
@@ -68,12 +69,14 @@ export default function Main(props: {
         // call create
         // const newArray: any = { ...visaProfessionList, visaProfessionList: visaProfessionList }
         const newArray: any = { ...visaProfessionList }
+        // newArray.candidate_id =props.currentElement.id
         console.log(newArray, "AAAAAAA")
-        const flag = await updateAccountDashboard(props.currentElement.id ?? 0, newArray)
+        const flag = await createAccountDashboard2(newArray)
 
 
         setAccountDashboard(initValue)
         props.fetchAccountDashboardList()
+        props.onClose()
     }
     // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
     const [visaAuhorisationList, setvisaAuhorisationList] = useState<any>([])
@@ -101,8 +104,8 @@ export default function Main(props: {
 
     const handleInputChange = (value: any) => {
         const numberRegex = /[0-9]+$/;
-        if (numberRegex.test(value) || value =='') {
-            setVisaProfessionList((prev)=> { return {...prev, account_dashboard_penalty_amount: value }})
+        if (numberRegex.test(value) || value == '') {
+            setVisaProfessionList((prev) => { return { ...prev, penalty_amount: parseInt(value) } })
         }
     };
     return (
@@ -113,7 +116,7 @@ export default function Main(props: {
         //     title="Candidate Reject"
         //     onClose={props.onClose}
         // >
-    
+
         <Box sx={style}>
             <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Candidate Reject</h3>
             <button
@@ -162,39 +165,39 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="Client invoice   :" />
-                    <CustomRadioButton value={visaProfessionList.account_dashboard_client_invoice}
-                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, account_dashboard_client_invoice: value })}
+                    <CustomRadioButton value={visaProfessionList.client_invoice}
+                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, client_invoice: value })}
                         // onChange={(value) => console.log(value)}
                         option={[
-                            { name: "Yes", value: 1 },
-                            { name: "No", value: 0 },
+                            { name: "Yes", value: "yes" },
+                            { name: "No", value: "no" },
 
                         ]} />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="Penalty Amount   :" />
-                    <UnlabeledInput type="text" value={visaProfessionList.account_dashboard_penalty_amount} onchange={(value) =>
-                    handleInputChange(value)
+                    <UnlabeledInput type="number" value={visaProfessionList.penalty_amount} onchange={(value) =>
+                        handleInputChange(value)
                         // setVisaProfessionList({ ...visaProfessionList, account_dashboard_penalty_amount: Number(value) })
-                        } />
+                    } />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="Mistake by   :" />
 
                     <CustomRadioButton
-                        value={visaProfessionList.account_dashboard_mistake_by}
-                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, account_dashboard_mistake_by: value })}
+                        value={visaProfessionList.mistake_by}
+                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, mistake_by: value })}
                         // onChange={(value) => console.log(value)}
                         option={[
-                            { name: "Agent/Candidate", value: 0 },
-                            { name: "Soundlines", value: 1 },
-                            { name: "client", value: 2 },
+                            { name: "Agent/Candidate", value: "Agent/Candidate" },
+                            { name: "Soundlines", value: "Soundlines" },
+                            { name: "client", value: "client" },
                         ]}
                     />
                 </UpdateContentBox>
                 <div className="grid grid-cols-2 shadow ">
-                <GreenButton text="Submit" onClick={()=>{onClickAdd()}}/>
-                <RedButton text="cancel" onClick={()=>{props.onClose()}}/>
+                    <GreenButton text="Submit" onClick={() => { onClickAdd() }} />
+                    <RedButton text="cancel" onClick={() => { props.onClose() }} />
                 </div>
             </div>
 
