@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, FileInput, FileInputUnlabel, StandardInput, TextAreaInput } from "../../../../componenets/Input";
+import { DateInput, FileInput, FileInputUnlabel, FileOpenPopup, StandardInput, TextAreaInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 // import { CustomRadioButton } from "../../../../componenets/RadioButton";
 // import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
@@ -275,63 +275,42 @@ export default function Main(props: {
 
 
                 {jobOrder.file1_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 1 :" />
-                        <BodyText1>
-                            <a href={jobOrder.file1_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-
-                        </BodyText1>
-                    </UpdateContentBox>
-
-                </> : ""}
+                    <FileOpenPopup
+                        label="File 1"
+                        url={jobOrder.file1_url}
+                    />                </> : ""}
 
 
                 {jobOrder.file2_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 2 :" />
-                        <BodyText1>
-
-                            <a href={jobOrder.file2_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                        </BodyText1>
-                    </UpdateContentBox>
-
+                    <FileOpenPopup
+                        label="File 2"
+                        url={jobOrder.file2_url}
+                    />
                 </> : ""}
 
 
 
                 {jobOrder.file3_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 3 :" />
-                        <BodyText1>
-
-                            <a href={jobOrder.file3_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                        </BodyText1>
-                    </UpdateContentBox>
-                </> : ""}
+                    <FileOpenPopup
+                        label="File 3"
+                        url={jobOrder.file3_url}
+                    />                </> : ""}
 
 
 
                 {jobOrder.file4_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 4 :" />
-                        <BodyText1>
-                            <a href={jobOrder.file4_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-
-                        </BodyText1>
-
-                    </UpdateContentBox>
+                    <FileOpenPopup
+                        label="File 4"
+                        url={jobOrder.file4_url}
+                    />
                 </> : ""}
 
 
                 {jobOrder.file5_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 5 :" />
-                        <BodyText1>
-                            <a href={jobOrder.file5_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-
-                        </BodyText1>
-
-                    </UpdateContentBox>
+                    <FileOpenPopup
+                        label="File 5"
+                        url={jobOrder.file5_url}
+                    />
                 </> : ""}
 
                 <UpdateContentBox>

@@ -43,7 +43,6 @@ export function convertDateFormat(dateString: string) {
   else return "";
 }
 
-
 export function convertDateFormatWithTime(dateString: string) {
   if (!dateString || dateString.trim() == "") return "";
   const months = [
@@ -76,9 +75,9 @@ export function convertDateFormatWithTime(dateString: string) {
   const hours = d.getHours();
   const minutes = d.getMinutes();
   const seconds = d.getSeconds();
-  
 
-  if (date && month && year) return `${date} ${month} ${year} ${hours}:${minutes}:${seconds}`;
+  if (date && month && year)
+    return `${date} ${month} ${year} ${hours}:${minutes}:${seconds}`;
   else return "";
 }
 export const addDaysToDate = (date: string, days: number) => {
@@ -135,3 +134,21 @@ export function getInitials(name: string) {
 //   console.log(sum)
 //   return sum;
 // }
+
+export function openPopupWindow(
+  pageURL: string,
+  windowTitle: string,
+  popupWidth: number,
+  popupHeight: number
+): Window | null {
+  const leftPosition = (screen.width - popupWidth) / 2;
+  const topPosition = (screen.height - popupHeight) / 4;
+
+  const popupWindow = window.open(
+    pageURL,
+    windowTitle,
+    `resizable=yes, width=${popupWidth}, height=${popupHeight}, top=${topPosition}, left=${leftPosition}`
+  );
+
+  return popupWindow;
+}

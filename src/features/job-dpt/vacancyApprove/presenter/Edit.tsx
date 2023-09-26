@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, FileInput, FileInputUnlabel, StandardInput } from "../../../../componenets/Input";
+import { DateInput, FileInput, FileInputUnlabel, FileOpenPopup, StandardInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 // import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
@@ -52,8 +52,8 @@ export default function Main(props: {
         recruitmentManagerId: 0,
         rsId: 0,
         interviewModeId: 0,
-        differed_sector_ids:[],
-        master_sector_ids:[]
+        differed_sector_ids: [],
+        master_sector_ids: []
 
     }
     const [jobOrder, setJobOrder] = useState(initValue)
@@ -69,7 +69,7 @@ export default function Main(props: {
         setInterviewSectorList(data)
     }
 
-    const handleOnClickGenerate =async () => {
+    const handleOnClickGenerate = async () => {
         // console.log("actualProfesionList: ")
         // console.log(actualProfesionList)
 
@@ -132,7 +132,7 @@ export default function Main(props: {
         // }
 
 
-        const newarray =await generate_final_actual_profession(actualProfesionList, selectedDifferedSector, selectedMasterSector)
+        const newarray = await generate_final_actual_profession(actualProfesionList, selectedDifferedSector, selectedMasterSector)
 
 
         // console.log(newarray)
@@ -217,7 +217,7 @@ export default function Main(props: {
                 </UpdateContentBox>
                 <UpdateContentBox>
 
-                <SubHeading1 text="Country :" /> {jobOrder.client_country_name ?? ""}
+                    <SubHeading1 text="Country :" /> {jobOrder.client_country_name ?? ""}
                 </UpdateContentBox>
                 <UpdateContentBox>
 
@@ -254,48 +254,42 @@ export default function Main(props: {
 
 
                 {jobOrder.file1_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 1 :" />
-                        <a href={jobOrder.file1_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                    </UpdateContentBox>
-
-                </> : ""}
+                    <FileOpenPopup
+                        label="File 1"
+                        url={jobOrder.file1_url}
+                    />                </> : ""}
 
 
                 {jobOrder.file2_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 2 :" />
-                        <a href={jobOrder.file2_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                    </UpdateContentBox>
-
+                    <FileOpenPopup
+                        label="File 2"
+                        url={jobOrder.file2_url}
+                    />
                 </> : ""}
 
 
 
                 {jobOrder.file3_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 3 :" />
-                        <a href={jobOrder.file3_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                    </UpdateContentBox>
-                </> : ""}
+                    <FileOpenPopup
+                        label="File 3"
+                        url={jobOrder.file3_url}
+                    />                </> : ""}
 
 
 
                 {jobOrder.file4_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 4 :" />
-                        <a href={jobOrder.file4_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-
-                    </UpdateContentBox>
+                    <FileOpenPopup
+                        label="File 4"
+                        url={jobOrder.file4_url}
+                    />
                 </> : ""}
 
 
                 {jobOrder.file5_url ? <>
-                    <UpdateContentBox>
-                        <SubHeading1 text=" File 5 :" />
-                        <a href={jobOrder.file5_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-
-                    </UpdateContentBox>
+                    <FileOpenPopup
+                        label="File 5"
+                        url={jobOrder.file5_url}
+                    />
                 </> : ""}
 
                 <UpdateContentBox>

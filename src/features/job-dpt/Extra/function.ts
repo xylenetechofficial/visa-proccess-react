@@ -12,7 +12,7 @@ export function cal_consolidate_charge(
   for (let i = 0; i < consolidateChargeList.length; i++) {
     if (value.includes(consolidateChargeList[i].id?.toString())) {
       nameList.push(consolidateChargeList[i].name);
-      sum += consolidateChargeList[i].charge;
+      sum += parseInt(consolidateChargeList[i].charge.toString());
     }
   }
 

@@ -3,6 +3,7 @@ import React from "react";
 import {
     TextField,
 } from "@mui/material";
+import { openPopupWindow } from "../utils/function";
 
 /**
  * DateInput Component
@@ -145,7 +146,8 @@ export const FileInput = (props: { label?: string, required?: boolean, handleFil
                     props.handleFileChange(file)
                 }} />
             {props.url ?
-                <a href={props.url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
+                <div style={{ cursor: "pointer" }} onClick={() => openPopupWindow(props.url ?? "", "", 700, 650)}>View Uploaded File</div>
+                // <a href={props.url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
                 : ""}
 
         </div>
@@ -153,6 +155,20 @@ export const FileInput = (props: { label?: string, required?: boolean, handleFil
 
     )
 }
+
+export const FileOpenPopup = (props: { label?: string, url?: string, }) => {
+    return (
+        <>
+            <div className="w-full grid grid-cols-5">
+                <div className="uppercase col-span-2 text-[11px] font-bold text-[#374151] mr-3   flex justify-end items-center">
+                    {props.label}
+                </div>
+                <div style={{ cursor: "pointer" }} onClick={() => openPopupWindow(props.url ?? "", "", 700, 650)}>View Uploaded File</div>
+            </div>
+        </>
+    )
+}
+
 export const FileInputUnlabel = (props: { required?: boolean, handleFileChange: (ele: any) => void, url?: string, }) => {
     return (
         <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>

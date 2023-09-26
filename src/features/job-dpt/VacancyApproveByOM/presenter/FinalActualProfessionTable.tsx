@@ -227,7 +227,7 @@ const TableData = (
                 <UnlabeledInput
                     value={localRowData.sector_charge}
                     type='number'
-                    onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
+                    onchange={(value) => setLocalRowData({ ...localRowData, sector_charge: parseInt(value) })}
                 />
             </TableCell3>
             <TableCell3 >

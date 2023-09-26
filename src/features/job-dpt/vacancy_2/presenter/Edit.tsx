@@ -18,6 +18,7 @@ import { convertDateFormat } from "../../../../utils/function";
 import FinalActualProfessionTable from "./FinalActualProfessionTable";
 import SpecialInstructionTable from "./SpecialInstructionTable";
 import { showMessage_v2 } from "../../../../utils/alert";
+import { FileOpenPopup } from "../../../../componenets/Input";
 
 
 
@@ -158,49 +159,67 @@ export default function Main(props: {
 
 
                 {jobOrder.file1_url ? <>
-                    <UpdateContentBox>
+                    {/* <UpdateContentBox>
                         <SubHeading1 text=" File 1 :" />
                         <a href={jobOrder.file1_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                    </UpdateContentBox>
-
-                </> : ""}
+                    </UpdateContentBox> */}
+                    <FileOpenPopup
+                        label="File 1"
+                        url={jobOrder.file1_url}
+                    />                </> : ""}
 
 
                 {jobOrder.file2_url ? <>
-                    <UpdateContentBox>
+                    {/* <UpdateContentBox>
                         <SubHeading1 text=" File 2 :" />
                         <a href={jobOrder.file2_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                    </UpdateContentBox>
-
+                    </UpdateContentBox> */}
+                    <FileOpenPopup
+                        label="File 2"
+                        url={jobOrder.file2_url}
+                    />
                 </> : ""}
 
 
 
                 {jobOrder.file3_url ? <>
-                    <UpdateContentBox>
+                    {/* <UpdateContentBox>
                         <SubHeading1 text=" File 3 :" />
                         <a href={jobOrder.file3_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
-                    </UpdateContentBox>
-                </> : ""}
+                    </UpdateContentBox> */}
+                    <FileOpenPopup
+                        label="File 3"
+                        url={jobOrder.file3_url}
+                    />                </> : ""}
 
 
 
                 {jobOrder.file4_url ? <>
-                    <UpdateContentBox>
+                    {/* <UpdateContentBox>
                         <SubHeading1 text=" File 4 :" />
                         <a href={jobOrder.file4_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
 
-                    </UpdateContentBox>
+                    </UpdateContentBox> */}
+                    <FileOpenPopup
+                        label="File 4"
+                        url={jobOrder.file4_url}
+                    />
                 </> : ""}
 
 
                 {jobOrder.file5_url ? <>
-                    <UpdateContentBox>
+                    {/* <UpdateContentBox>
                         <SubHeading1 text=" File 5 :" />
                         <a href={jobOrder.file5_url} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
 
-                    </UpdateContentBox>
+                    </UpdateContentBox> */}
+
+                    <FileOpenPopup
+                        label="File 5"
+                        url={jobOrder.file5_url}
+                    />
                 </> : ""}
+
 
                 <UpdateContentBox>
                     <SubHeading1 text="Interview Mode :" />

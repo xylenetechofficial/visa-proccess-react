@@ -1,6 +1,6 @@
 import { JobOrderInterface } from '../type'
 // import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table3, TableBody3,  TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 // import { SectorInterface } from '../../../masters/sector/type';
 // import { CompanyInterface } from '../../../masters/company/type';
 // import { CountryInterface } from '../../../masters/country/type';
@@ -96,7 +96,7 @@ const FinalActualProfessionTable = (props: {
                     <TableHeadRow3  >
                         <TableHeadCell3  > Sr No.</TableHeadCell3>
                         <TableHeadCell3 > Actual Profession</TableHeadCell3>
-                        <TableHeadCell3 > Grade</TableHeadCell3>
+                        {/* <TableHeadCell3 > Grade</TableHeadCell3> */}
                         <TableHeadCell3 >Sector</TableHeadCell3>
                         <TableHeadCell3 >Sector Charge</TableHeadCell3>
                         <TableHeadCell3 > Quantity</TableHeadCell3>
@@ -201,18 +201,19 @@ const TableData = (
         <TableRow3 key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
             <TableCell3 >
-                <UnlabeledInput
+                {/* <UnlabeledInput
                     value={localRowData.actual_profession}
                     onchange={(value) => setLocalRowData({ ...localRowData, actual_profession: value })}
-                />
+                /> */}
+                {localRowData.actual_profession}
             </TableCell3>
-            <TableCell3 >
+            {/* <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.grade}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, grade: parseInt(value) })}
                 />
-            </TableCell3>
+            </TableCell3> */}
             <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     options={selectOptionConveter({ options: props.interViewSectorList, options_struct: { name: "name", value: "id" } })}
@@ -224,7 +225,7 @@ const TableData = (
                 <UnlabeledInput
                     value={localRowData.sector_charge}
                     type='number'
-                    onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
+                    onchange={(value) => setLocalRowData({ ...localRowData, sector_charge: parseInt(value) })}
                 />
             </TableCell3>
             <TableCell3 >
