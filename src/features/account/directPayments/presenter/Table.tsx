@@ -22,6 +22,7 @@ import { showMessage_v2 } from "../../../../utils/alert";
 
 const AgentPaymentTable = (props: {
   // AgentPaymentList: AgentPaymentInterface[];
+  agentBy:any,
   AgentPaymentList: DirectPaymentInterface;
   onClickEdit: any;
   onClickDelete: any;

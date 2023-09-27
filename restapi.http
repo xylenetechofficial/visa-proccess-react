@@ -5,12 +5,127 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint =https://58ae-103-142-115-55.ngrok-free.app/api
+@endpoint =https://f853-103-142-115-55.ngrok-free.app/api
 
 
 ###
 GET {{endpoint}}/visa-dpt/mofa-entry-list
 ?status=sjgfs
+
+
+
+
+
+##################################################################
+
+######################      Visa DPT         ######################
+
+##################################################################
+
+
+# ================      Mol Work Permit      =============== #
+
+### Fetch List
+GET {{endpoint}}/visa-dpt/mol-work-permit-cancel-list
+
+
+### post 
+Post  {{endpoint}}/visa-dpt/mol-work-permit-cancel
+content-type: application/json
+
+
+{
+    "candidate_id" : 23,
+    "client_invoice" : "yes",
+    "penalty_amount" : 456,
+    "mistake_by" : "AGENT/CANDIDATE"
+}
+
+
+
+
+# ================      Account Candidate List      =============== #
+
+### Fetch List
+GET {{endpoint}}/account/account-candidate-list
+
+
+### Post 
+Post  {{endpoint}}/account/account-candidate
+content-type: application/json
+
+
+{
+    "candidate_id" : 23,
+    "client_invoice" : "yes",
+    "penalty_amount" : 456,
+    "mistake_by" : "AGENT/CANDIDATE"
+}
+
+
+
+
+# ================      Account Dashboard      =============== #
+
+### Fetch List
+GET {{endpoint}}/account/account-dashboard-list
+
+
+### Post 
+Post  {{endpoint}}/account/account-dashboard
+content-type: application/json
+
+
+{
+    "candidate_id" : 23,
+    "client_invoice" : "yes",
+    "penalty_amount" : 456,
+    "mistake_by" : "AGENT/CANDIDATE"
+}
+
+
+
+
+
+
+
+# ######################
+//  ------------   Receive Payment   ------------ \\
+
+
+# ================      Receive Payment      =============== #
+
+### Fetch Candidate List
+# for index page
+GET {{endpoint}}/account/receive-payment-candidate-list
+
+### Fetch Payment List
+GET {{endpoint}}/account/receive-payment-candidate-list?candidate_id=2
+
+
+
+# /account/receive-payment/{id} id = payment id from Payment List
+### Patch 
+Patch  {{endpoint}}/account/receive-payment/4
+content-type: application/json
+
+{
+    "amount" : 0
+}
+
+### Delete
+Delete  {{endpoint}}/account/receive-payment/4
+
+
+
+
+
+
+
+
+
+
+
 
 
 ##################################################################

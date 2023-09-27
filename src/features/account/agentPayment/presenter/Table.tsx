@@ -11,7 +11,7 @@ import {
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import {  CustomSelectComponentUnlabeledv2,  selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
@@ -22,30 +22,30 @@ const AgentPaymentTable = (props: {
   setAgentPaymentList: any
   data: any;
   setData: any;
-  setModalName:any
-  fetchPaymentDetail:(type :string,id:number  )=>any
+  setModalName: any
+  fetchPaymentDetail: (type: string, id: number) => any
 }) => {
 
   const [date, setDate] = useState<any>([])
   console.log(props.data)
-  const checkBalance=(currentBalance :any, balance_amount :any)=>{
-    console.log(currentBalance, balance_amount,"Oooo")
-    if(currentBalance> balance_amount){
-      
+  const checkBalance = (currentBalance: any, balance_amount: any) => {
+    console.log(currentBalance, balance_amount, "Oooo")
+    if (currentBalance > balance_amount) {
+
       showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
     }
   }
 
-  const checkBalancefromDropDown= (currentBalance:number, id:number)=>{
-console.log(currentBalance,id,"kkk")
-if(id){
-  const filterId = props.AgentPaymentList.bulk_payment_list.filter((item :any) => item.id === id);
-if(currentBalance > filterId[0].available_amount ){
-  console.log("first")
-  showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
-}
-  
-}
+  const checkBalancefromDropDown = (currentBalance: number, id: number) => {
+    console.log(currentBalance, id, "kkk")
+    if (id) {
+      const filterId = props.AgentPaymentList.bulk_payment_list.filter((item: any) => item.id === id);
+      if (currentBalance > filterId[0].available_amount) {
+        console.log("first")
+        showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+      }
+
+    }
   }
   return (
     <div className="overflow-auto">
@@ -118,7 +118,7 @@ if(currentBalance > filterId[0].available_amount ){
               <TableCell3> {ele.extra_service_tax}</TableCell3>
               <TableCell3> {ele.agent_commission}</TableCell3>
               <TableCell3> {ele.discount_amount}</TableCell3>
-              <TableCell3> <p className="text-red-500 cursor-pointer " onClick={()=>{props.fetchPaymentDetail('candidate_id',ele),props.setModalName('viewpaymentdetailfromcandidaite')}}>{ele.received}  </p></TableCell3>
+              <TableCell3> <p className="text-red-500 cursor-pointer " onClick={() => { props.fetchPaymentDetail('candidate_id', ele), props.setModalName('viewpaymentdetailfromcandidaite') }}>{ele.received}  </p></TableCell3>
               <TableCell3> {ele.balance_amount}</TableCell3>
               <TableCell3>
                 <UnlabeledInput
@@ -135,7 +135,7 @@ if(currentBalance > filterId[0].available_amount ){
                       };
                       return newData;
                     });
-                    
+
                   }}
                 />
               </TableCell3>
@@ -150,7 +150,7 @@ if(currentBalance > filterId[0].available_amount ){
                     options_struct: [{ name: "amount", value: "id" }, { name: "available_amount", value: "id" }]
                   })}
                   onChange={(value) => {
-                   
+
                     props.setData((prev: any) => {
                       const newData = [...prev];
                       newData[index] = {
@@ -166,7 +166,7 @@ if(currentBalance > filterId[0].available_amount ){
 
               </TableCell3>
 
-              <TableCell3> 
+              <TableCell3>
                 <Checkbox value={ele.payment_date} onChange={(e) => {
                   props.setData((prev: any) => {
                     const newData = [...prev];

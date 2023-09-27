@@ -1,13 +1,13 @@
 import { SubmissionDashboardInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table2, Table3, TableBody, TableBody2, TableBody3, TableCell3, TableHead, TableHead2, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow2, TableHeadRow3, TableRow2, TableRow3 } from '../../../../componenets/Table';
+import { Table2, Table3, TableBody, TableBody2, TableBody3, TableCell3, TableHead, TableHead2, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow2, TableHeadRow3, TableRow2, TableRow3, TableRow3_green, TableRow3_orange } from '../../../../componenets/Table';
 import { useEffect, useState } from 'react';
 import { DateInput, TextAreaInput, UnlabeledInput } from '../../../../componenets/Input';
 
 import DocumentChargesModal from "./DocumentChagesModal"
 import ConsultantChargeModal from "./ConsultantChagesModal"
 import RejectModal from "./RejectModal";
-import { updateSubmissionDashboardDataOne } from '../repository';
+import { updateSubmissionDashboardDataOne, updateSubmissionDashboardDataOne_patch_mofa_forward } from '../repository';
 import { convertDateFormat } from '../../../../utils/function';
 import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
 const initValue: SubmissionDashboardInterface = {
@@ -249,109 +249,137 @@ const TableData = (
     }, [localRowData])
 
     // console.log(localRowData)
-    return (
-        <TableRow3 key={props.index}>
-            <TableCell3 >{props.index + 1}</TableCell3>
-            <TableCell3 > {localRowData.party_code}</TableCell3>
-            <TableCell3 > {localRowData.company_name}</TableCell3>
-            <TableCell3 > {localRowData.name}</TableCell3>
+    const UI_columns = <>
 
-            <TableCell3 > {localRowData.passport_no}</TableCell3>
-            <TableCell3 > {localRowData.mofa_number}</TableCell3>
-            <TableCell3 > {localRowData.visa_profession}</TableCell3>
-            <TableCell3 > {localRowData.visa_authorization}</TableCell3>
-            <TableCell3 > {localRowData.visa_submission}</TableCell3>
-            <TableCell3 > {localRowData.visa_no}</TableCell3>
-            <TableCell3 >
-                <CustomSingleCheckBox
-                    onChange={(value) => setLocalRowData({ ...localRowData, checked: value })}
-                    value={localRowData.checked ? true : false}
-                />
-            </TableCell3>
-            <TableCell3 >
-                <DateInput
-                    id='f;saljf;ld'
-                    value={localRowData.submission_date}
-                    onChange={(value) => setLocalRowData({ ...localRowData, submission_date: value })}
-                />
-            </TableCell3>
-            <TableCell3 >  <DateInput
-                id='f;4ljf;ld'
-                value={localRowData.visa_issue_date}
-                onChange={(value) => setLocalRowData({ ...localRowData, visa_issue_date: value })}
+        <TableCell3 >{props.index + 1}</TableCell3>
+        <TableCell3 > {localRowData.party_code}</TableCell3>
+        <TableCell3 > {localRowData.company_name}</TableCell3>
+        <TableCell3 > {localRowData.name}</TableCell3>
+
+        <TableCell3 > {localRowData.passport_no}</TableCell3>
+        <TableCell3 > {localRowData.mofa_number}</TableCell3>
+        <TableCell3 > {localRowData.visa_profession}</TableCell3>
+        <TableCell3 > {localRowData.visa_authorization}</TableCell3>
+        <TableCell3 > {localRowData.visa_submission}</TableCell3>
+        <TableCell3 > {localRowData.visa_no}</TableCell3>
+        <TableCell3 >
+            <CustomSingleCheckBox
+                onChange={(value) => setLocalRowData({ ...localRowData, checked: value })}
+                value={localRowData.checked ? true : false}
             />
-            </TableCell3>
-            <TableCell3 >  <DateInput
-                id='f;4ljf;ld'
-                value={localRowData.visa_received_date}
-                onChange={(value) => setLocalRowData({ ...localRowData, visa_received_date: value })}
+        </TableCell3>
+        <TableCell3 >
+            <DateInput
+                id='f;saljf;ld'
+                value={localRowData.submission_date}
+                onChange={(value) => setLocalRowData({ ...localRowData, submission_date: value })}
             />
-            </TableCell3>
+        </TableCell3>
+        <TableCell3 >  <DateInput
+            id='f;4ljf;ld'
+            value={localRowData.visa_issue_date}
+            onChange={(value) => setLocalRowData({ ...localRowData, visa_issue_date: value })}
+        />
+        </TableCell3>
+        <TableCell3 >  <DateInput
+            id='f;4ljf;ld'
+            value={localRowData.visa_received_date}
+            onChange={(value) => setLocalRowData({ ...localRowData, visa_received_date: value })}
+        />
+        </TableCell3>
 
-            <TableCell3 > {localRowData.arabic_sponsor_name}</TableCell3>
-            <TableCell3 > {localRowData.arabic_visa_category}</TableCell3>
-            <TableCell3 > {localRowData.visa_arabic_date}</TableCell3>
-            <TableCell3 > {convertDateFormat(localRowData.pp_issued_date)}</TableCell3>
-            <TableCell3 > {convertDateFormat(localRowData.pp_expiry_date)}</TableCell3>
-            <TableCell3 > {localRowData.place_of_issue}</TableCell3>
-            <TableCell3 > {convertDateFormat(localRowData.date_of_birth)}</TableCell3>
-            <TableCell3 > {localRowData.address}</TableCell3>
-            <TableCell3 > {localRowData.place_of_birth}</TableCell3>
-            <TableCell3 > {localRowData.actual_profession}</TableCell3>
-            <TableCell3 > {localRowData.agent_name}</TableCell3>
-            <TableCell3 > {localRowData.division}</TableCell3>
-            <TableCell3 > {localRowData.rm_name}</TableCell3>
-            <TableCell3 > {localRowData.rc_name}</TableCell3>
-            <TableCell3 > {localRowData.cancelled_candidates}</TableCell3>
-            <TableCell3 >
-                <div style={{ display: "flex", flexDirection: "column" }}>
+        <TableCell3 > {localRowData.arabic_sponsor_name}</TableCell3>
+        <TableCell3 > {localRowData.arabic_visa_category}</TableCell3>
+        <TableCell3 > {localRowData.visa_arabic_date}</TableCell3>
+        <TableCell3 > {convertDateFormat(localRowData.pp_issued_date)}</TableCell3>
+        <TableCell3 > {convertDateFormat(localRowData.pp_expiry_date)}</TableCell3>
+        <TableCell3 > {localRowData.place_of_issue}</TableCell3>
+        <TableCell3 > {convertDateFormat(localRowData.date_of_birth)}</TableCell3>
+        <TableCell3 > {localRowData.address}</TableCell3>
+        <TableCell3 > {localRowData.place_of_birth}</TableCell3>
+        <TableCell3 > {localRowData.actual_profession}</TableCell3>
+        <TableCell3 > {localRowData.agent_name}</TableCell3>
+        <TableCell3 > {localRowData.division}</TableCell3>
+        <TableCell3 > {localRowData.rm_name}</TableCell3>
+        <TableCell3 > {localRowData.rc_name}</TableCell3>
+        <TableCell3 > {localRowData.cancelled_candidates}</TableCell3>
+        <TableCell3 >
+            <div style={{ display: "flex", flexDirection: "column" }}>
 
-                    <UnlabeledInput
-                        value={localRowData.document_charges}
-                        type='number'
-                        onchange={(value) => setLocalRowData({ ...localRowData, document_charges: parseInt(value) })}
-                    />
-                    <div>
-                        <RedButton text='Doc Charges' onClick={() => {
-                            props.onClickDocCharges(localRowData)
-                        }} />
-                    </div>
+                <UnlabeledInput
+                    value={localRowData.document_charges}
+                    type='number'
+                    onchange={(value) => setLocalRowData({ ...localRowData, document_charges: parseInt(value) })}
+                />
+                <div>
+                    <RedButton text='Doc Charges' onClick={() => {
+                        props.onClickDocCharges(localRowData)
+                    }} />
                 </div>
+            </div>
 
 
-            </TableCell3>
+        </TableCell3>
 
-            <TableCell3 >
-                <div style={{ display: "flex", flexDirection: "column" }}>
+        <TableCell3 >
+            <div style={{ display: "flex", flexDirection: "column" }}>
 
-                    <UnlabeledInput
-                        value={localRowData.consulate_charges}
-                        type='number'
-                        onchange={(value) => setLocalRowData({ ...localRowData, consulate_charges: parseInt(value) })}
-                    />
-                    <div>
-                        <RedButton text='Consulate Charges' onClick={() => {
-                            props.onClickConsultantCharges(localRowData)
-                        }} />
-                    </div>
+                <UnlabeledInput
+                    value={localRowData.consulate_charges}
+                    type='number'
+                    onchange={(value) => setLocalRowData({ ...localRowData, consulate_charges: parseInt(value) })}
+                />
+                <div>
+                    <RedButton text='Consulate Charges' onClick={() => {
+                        props.onClickConsultantCharges(localRowData)
+                    }} />
                 </div>
+            </div>
 
 
-            </TableCell3>
-            <TableCell3>
+        </TableCell3>
+        <TableCell3>
+            {localRowData.mofa_rejecte_remarks != "" ? <>
+                {localRowData.mofa_rejecte_remarks}
+                <RedButton text='Forword' onClick={async () => {
+                    // on click forword mofa reject
+                    await updateSubmissionDashboardDataOne_patch_mofa_forward(localRowData)
+                    window.location.reload()
+                }} />
+            </> : <>
                 <RedButton text='Reject' onClick={() => props.onClickReject(localRowData)} />
-            </TableCell3>
-            {/* <TableCell3>
+            </>}
+        </TableCell3>
+        {/* <TableCell3>
                 <TextAreaInput
                     id='sad;fsld'
                     onChange={(value) => setLocalRowData({ ...localRowData, remarks: value })}
                     value={localRowData.remarks}
                 />
             </TableCell3> */}
+    </>
 
+    switch (localRowData.color_code) {
+        case 'orange':
+            return (
+                <TableRow3_orange key={props.index}>
+                    {UI_columns}
+                </TableRow3_orange>
+            )
 
+        case 'green':
+            return (
+                <TableRow3_green key={props.index}>
+                    {UI_columns}
+                </TableRow3_green>
+            )
 
+        default:
+            return (
+                <TableRow3 key={props.index}>
+                    {UI_columns}
+                </TableRow3>
+            )
+    }
 
-        </TableRow3>
-    )
 }

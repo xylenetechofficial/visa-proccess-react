@@ -23,6 +23,7 @@ export interface AccountCandidateInterface {
   air_ticket: string,
   is_deployed: string,
   color_code: string,
+  given_to?: string,
   is_without: number
 }
   
@@ -51,6 +52,7 @@ export interface AccountCandidateInterface {
     air_ticket: string,
     is_deployed: string,
     color_code: string,
+    given_to?: string,
     is_without: number
   }
   
@@ -87,6 +89,7 @@ export interface AccountCandidateInterface {
         air_ticket:a?.air_ticket,
         is_deployed:a?.is_deployed,
         color_code:a?.color_code,
+        given_to:a.given_to,
         is_without:a?.is_without,
       };
       return data;
@@ -122,6 +125,7 @@ export interface AccountCandidateInterface {
         air_ticket:i?.air_ticket,
         is_deployed:i?.is_deployed,
         color_code:i?.color_code,
+        given_to:i.given_to,
         is_without:i?.is_without,
   
       };

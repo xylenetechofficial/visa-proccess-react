@@ -62,3 +62,19 @@ export const GivenToList = [
   { name: "Given for Bio-Matric", value: "Given for Bio-Matric" },
   { name: "Given To Others", value: "Given To Others" },
 ];
+
+export const GivenToList_without_RC = [
+  { name: "Given To Agent", value: "Given To Agent" },
+  { name: "Given To Candidate", value: "Given To Candidate" },
+  { name: "Given To Accounts", value: "Given To Accounts" },
+  { name: "Given To Cancelation", value: "Given To Cancelation" },
+  { name: "Given To Delhi Office", value: "Given To Delhi Office" },
+  { name: "Given To Hyderabad Office", value: "Given To Hyderabad Office" },
+  { name: "Given for Amendment", value: "Given for Amendment" },
+  { name: "Given for Bio-Matric", value: "Given for Bio-Matric" },
+  { name: "Given To Others", value: "Given To Others" },
+];
+
+export const GivenToList_only_passprt = [
+  { name: "Passport Received", value: "Passport Received" },
+];

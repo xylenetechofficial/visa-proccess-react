@@ -26,8 +26,10 @@ export interface ImmigrationDonePPReleaseInterface {
     given_date: string,
     is_without: number
 
-    immigration_document_received: number
+    immigration_document_received: number,
+    balance_amount: number,
 
+    checked?: boolean
 }
 
 
@@ -59,6 +61,8 @@ export interface ImmigrationDonePPReleaseAdapter {
     is_without: number
 
     immigration_document_received: number
+
+    balance_amount: number
 }
 
 export class ImmigrationCDonePPReleaseConverter {
@@ -96,7 +100,9 @@ export class ImmigrationCDonePPReleaseConverter {
             given_date: a.given_date,
             is_without: a.is_without,
 
-            immigration_document_received: a.immigration_document_received
+            immigration_document_received: a.immigration_document_received,
+
+            balance_amount: a.balance_amount,
         };
         return data;
     }
@@ -116,8 +122,8 @@ export class ImmigrationCDonePPReleaseConverter {
      * toAdapter
      */
     public static toAdapter(i: ImmigrationDonePPReleaseInterface) {
-        console.log("i"); // Only Dev
-        console.log(i); // Only Dev
+        // console.log("i"); // Only Dev
+        // console.log(i); // Only Dev
         const data: ImmigrationDonePPReleaseAdapter = {
             id: i.id,
             name: i.name,
@@ -145,7 +151,9 @@ export class ImmigrationCDonePPReleaseConverter {
             given_date: i.given_date,
             is_without: i.is_without,
 
-            immigration_document_received: i.immigration_document_received
+            immigration_document_received: i.immigration_document_received,
+            balance_amount: i.balance_amount,
+
         };
         return data;
     }

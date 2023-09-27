@@ -55,4 +55,16 @@ export async function updateSubmissionDashboardDataOne(data: SubmissionDashboard
 
 }
 
+export async function updateSubmissionDashboardDataOne_patch_mofa_forward(data: SubmissionDashboardInterface) {
+
+  const payload = SubmissionDashboardConverter.toAdapter(data);
+
+  const path = "/visa-dpt/patch_mofa_forward/" + data.id
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+
+}
 

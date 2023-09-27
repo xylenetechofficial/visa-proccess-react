@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Table,
-  TableBody2,
-  TableCell,
-  TableHead2,
-  TableHeadCell,
-  TableHeadRow,
-  TableRow,
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
 
 } from "../../../../componenets/Table";
 
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { ImmigrationDonePPReleaseInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
-import { GivenToList } from "../../../db";
+import { GivenToList, GivenToList_only_passprt, GivenToList_without_RC } from "../../../db";
+import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 
 const ImmigrationDOnePPReleaseTable = (props: {
 
@@ -40,103 +41,130 @@ const ImmigrationDOnePPReleaseTable = (props: {
     props.onChange(nextData)
   }
 
+  // useEffect(()=>{
+
+  // },[])
+
   return (
     <div className="overflow-auto">
 
-      <Table>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell> Sr No.</TableHeadCell>
-            <TableHeadCell> Candidate</TableHeadCell>
-            <TableHeadCell> Passport No</TableHeadCell>
-            <TableHeadCell> Company</TableHeadCell>
-            <TableHeadCell> Immigration Required </TableHeadCell>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> Candidate</TableHeadCell3>
+            <TableHeadCell3> Passport No</TableHeadCell3>
+            <TableHeadCell3> Company</TableHeadCell3>
+            <TableHeadCell3> Immigration Required </TableHeadCell3>
 
-            <TableHeadCell> Payment </TableHeadCell>
-            <TableHeadCell> Service Tax Received </TableHeadCell>
-            <TableHeadCell> Is Invoice </TableHeadCell>
+            <TableHeadCell3> Payment </TableHeadCell3>
+            {/* <TableHeadCell3> Service Tax Received </TableHeadCell3> */}
+            <TableHeadCell3> Is Invoice </TableHeadCell3>
 
-            <TableHeadCell> Given To </TableHeadCell>
-            <TableHeadCell> Given Date </TableHeadCell>
+            <TableHeadCell3> Select </TableHeadCell3>
+            <TableHeadCell3> Given To </TableHeadCell3>
+            <TableHeadCell3> Given Date </TableHeadCell3>
 
-            <TableHeadCell> Division </TableHeadCell>
-            <TableHeadCell> Visa Authorization </TableHeadCell>
-            <TableHeadCell> Party Code </TableHeadCell>
+            <TableHeadCell3> Division </TableHeadCell3>
+            <TableHeadCell3> Visa Authorization </TableHeadCell3>
+            <TableHeadCell3> Party Code </TableHeadCell3>
 
-            <TableHeadCell> Submission Date </TableHeadCell>
-            <TableHeadCell> Received Date </TableHeadCell>
-            <TableHeadCell> Actual Profession </TableHeadCell>
-            <TableHeadCell> Visa Profession </TableHeadCell>
+            <TableHeadCell3> Submission Date </TableHeadCell3>
+            <TableHeadCell3> Received Date </TableHeadCell3>
+            <TableHeadCell3> Actual Profession </TableHeadCell3>
+            <TableHeadCell3> Visa Profession </TableHeadCell3>
 
-            <TableHeadCell> Agent</TableHeadCell>
-            <TableHeadCell> Agent Location</TableHeadCell>
+            <TableHeadCell3> Agent</TableHeadCell3>
+            {/* <TableHeadCell3> Agent Location</TableHeadCell3> */}
 
-            <TableHeadCell> Visa Issued Date </TableHeadCell>
-            <TableHeadCell> Visa Received Date </TableHeadCell>
-            <TableHeadCell> Visa Expire Date </TableHeadCell>
-            <TableHeadCell> Document Received </TableHeadCell>
-            <TableHeadCell> Release By Date </TableHeadCell>
-            <TableHeadCell> Release Requested By </TableHeadCell>
+            <TableHeadCell3> Visa Issued Date </TableHeadCell3>
+            <TableHeadCell3> Visa Received Date </TableHeadCell3>
+            <TableHeadCell3> Visa Expire Date </TableHeadCell3>
+            <TableHeadCell3> Document Received </TableHeadCell3>
+            <TableHeadCell3> Release By Date </TableHeadCell3>
+            <TableHeadCell3> Release Requested By </TableHeadCell3>
 
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
-          {props.RcPPRecieved.map((item, index) => (
-            <TableRow>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
+          {props.RcPPRecieved.map((item, index) => {
+            let GivenToList_local: any = [];
 
-              <TableCell>{index + 1} </TableCell>
-              <TableCell>{item.name} </TableCell>
-              <TableCell>{item.passport_no} </TableCell>
-              <TableCell>{item.company_name} </TableCell>
-              <TableCell>{item.immigration_required} </TableCell>
+            if (item.given_to == "Given To RC") {
+              GivenToList_local = GivenToList_only_passprt
+            } else if (item.balance_amount < 1) {
+              GivenToList_local = GivenToList
+            } else {
+              GivenToList_local = GivenToList_without_RC
+            }
 
-              <TableCell>{item.payment} </TableCell>
-              <TableCell>{item.service_tax_received} </TableCell>
-              <TableCell>{item.is_invoice} </TableCell>
+            return (<TableRow3>
 
-              <TableCell>
+              <TableCell3>{index + 1} </TableCell3>
+              <TableCell3>{item.name} </TableCell3>
+              <TableCell3>{item.passport_no} </TableCell3>
+              <TableCell3>{item.company_name} </TableCell3>
+              <TableCell3>{item.immigration_required} </TableCell3>
+
+              <TableCell3>{item.payment} </TableCell3>
+              {/* <TableCell3>{item.service_tax_received} </TableCell3> */}
+              <TableCell3>{item.is_invoice} </TableCell3>
+              <TableCell3 >
+                <CustomSingleCheckBox
+                  onChange={(value) => onUpdateRow(index, { ...item, checked: value })}
+                  value={item.checked ? true : false}
+                />
+              </TableCell3>
+
+              <TableCell3>
+                {/* {item.given_to == "Given To Cancelation" ? item.given_to : <>
+                  <CustomSelectComponentUnlabeled
+                    value={item.given_to}
+                    onChange={(value: any) => {
+                      onUpdateRow(index, { ...item, given_to: value })
+                    }}
+                    options={GivenToList_local}
+                  />
+                </>} */}
                 <CustomSelectComponentUnlabeled
                   value={item.given_to}
                   onChange={(value: any) => {
                     onUpdateRow(index, { ...item, given_to: value })
                   }}
-                  options={GivenToList}
+                  options={GivenToList_local}
                 />
-              </TableCell>
-              <TableCell>
+              </TableCell3>
+              <TableCell3>
                 <UnlabeledInput type="date" onchange={(value) => {
                   onUpdateRow(index, { ...item, given_date: value })
                 }}
                   value={item?.given_date} />
-              </TableCell>
+              </TableCell3>
 
-              <TableCell>{item.division} </TableCell>
-              <TableCell>{item.visa_authorization_name} </TableCell>
-              <TableCell>{item.party_code} </TableCell>
+              <TableCell3>{item.division} </TableCell3>
+              <TableCell3>{item.visa_authorization_name} </TableCell3>
+              <TableCell3>{item.party_code} </TableCell3>
 
-              <TableCell>{item.immigration_submission_date} </TableCell>
-              <TableCell>{item.immigration_received_date} </TableCell>
-              <TableCell>{item.actual_profession} </TableCell>
-              <TableCell>{item.visa_profession} </TableCell>
+              <TableCell3>{item.immigration_submission_date} </TableCell3>
+              <TableCell3>{item.immigration_received_date} </TableCell3>
+              <TableCell3>{item.actual_profession} </TableCell3>
+              <TableCell3>{item.visa_profession} </TableCell3>
 
-              <TableCell>{item.agent_name} </TableCell>
-              <TableCell>{item.agent_location_name} </TableCell>
+              <TableCell3>{item.agent_name} </TableCell3>
+              {/* <TableCell3>{item.agent_location_name} </TableCell3> */}
 
-              <TableCell>{item.visa_issued_date} </TableCell>
-              <TableCell>{item.visa_received_date} </TableCell>
-              <TableCell>{item.visa_expire_date} </TableCell>
-              <TableCell> {item.immigration_document_received}</TableCell>
-              <TableCell>{item.release_by_date} </TableCell>
-              <TableCell>{item.release_requested_by} </TableCell>
+              <TableCell3>{item.visa_issued_date} </TableCell3>
+              <TableCell3>{item.visa_received_date} </TableCell3>
+              <TableCell3>{item.visa_expire_date} </TableCell3>
+              <TableCell3> {item.immigration_document_received}</TableCell3>
+              <TableCell3>{item.release_by_date} </TableCell3>
+              <TableCell3>{item.release_requested_by} </TableCell3>
 
-            </TableRow>
+            </TableRow3>)
+          })}
 
-
-
-          ))}
-
-        </TableBody2>
-      </Table>
+        </TableBody3>
+      </Table3>
 
     </div>
   );

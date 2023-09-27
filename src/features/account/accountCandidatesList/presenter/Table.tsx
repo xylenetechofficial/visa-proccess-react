@@ -1,12 +1,12 @@
 
 import {
-  Table,
-  TableBody2,
-  TableCell,
-  TableHead2,
-  TableHeadCell,
-  TableHeadRow,
-  TableRow,
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
 
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
@@ -23,7 +23,7 @@ const AccountCandidatesListTable = (props: {
   setCandidatesList: any
   data: any;
   setData: any;
-  onClickEdit:(value:any)=>void
+  onClickEdit: (value: any) => void
 }) => {
 
   const [date, setDate] = useState<any>([])
@@ -31,75 +31,79 @@ const AccountCandidatesListTable = (props: {
   return (
     <div className="overflow-auto">
 
-      <Table>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell> Sr No.</TableHeadCell>
-            <TableHeadCell> CANDIDATE NO.</TableHeadCell>
-            <TableHeadCell> PARTY CODE </TableHeadCell>
-            <TableHeadCell> COMPANY NAME</TableHeadCell>
-            <TableHeadCell> CANDIDATE NAME</TableHeadCell>
-            <TableHeadCell> PASSPORT NO.</TableHeadCell>
-            <TableHeadCell> ACTUAL PROFESSION </TableHeadCell>
-            <TableHeadCell> VISA PROFESSION </TableHeadCell>
-            <TableHeadCell> AGENT</TableHeadCell>
-            <TableHeadCell> VISA RECIEVED DATE </TableHeadCell>
-            <TableHeadCell> PROCESS CHARGES </TableHeadCell>
-            <TableHeadCell> DOCUMENT CHARGES</TableHeadCell>
-            <TableHeadCell> OTHER CHARGES </TableHeadCell>
-            <TableHeadCell> SECTOR CHARGES</TableHeadCell>
-            <TableHeadCell> PARTIAL CHARGES </TableHeadCell>
-            <TableHeadCell> SERVICE CHARGES </TableHeadCell>
-            <TableHeadCell> CONSULATE SETTING CHARGES</TableHeadCell>
-            <TableHeadCell> CANCEL CHARGES </TableHeadCell>
-            <TableHeadCell> FLIGHT TICKET AMOUNT </TableHeadCell>
-            <TableHeadCell> TICKET CHARGES </TableHeadCell>
-            <TableHeadCell> EXTRA SERVICE CHARGES </TableHeadCell>
-            <TableHeadCell> AIR TICKET </TableHeadCell>
-            <TableHeadCell> IS DEPLOYED </TableHeadCell>
-            <TableHeadCell> CANCEL </TableHeadCell>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> CANDIDATE NO.</TableHeadCell3>
+            <TableHeadCell3> PARTY CODE </TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3> CANDIDATE NAME</TableHeadCell3>
+            <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+            <TableHeadCell3> AGENT</TableHeadCell3>
+            <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3>
+            <TableHeadCell3> PROCESS CHARGES </TableHeadCell3>
+            <TableHeadCell3> DOCUMENT CHARGES</TableHeadCell3>
+            <TableHeadCell3> OTHER CHARGES </TableHeadCell3>
+            <TableHeadCell3> SECTOR CHARGES</TableHeadCell3>
+            <TableHeadCell3> PARTIAL CHARGES </TableHeadCell3>
+            <TableHeadCell3> SERVICE CHARGES </TableHeadCell3>
+            <TableHeadCell3> CONSULATE SETTING CHARGES</TableHeadCell3>
+            <TableHeadCell3> CANCEL CHARGES </TableHeadCell3>
+            <TableHeadCell3> FLIGHT TICKET AMOUNT </TableHeadCell3>
+            <TableHeadCell3> TICKET CHARGES </TableHeadCell3>
+            <TableHeadCell3> EXTRA SERVICE CHARGES </TableHeadCell3>
+            <TableHeadCell3> AIR TICKET </TableHeadCell3>
+            <TableHeadCell3> IS DEPLOYED </TableHeadCell3>
+            <TableHeadCell3> CANCEL </TableHeadCell3>
 
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
-{  props.candidatesList?.map((item ,index) =>(
-       <TableRow>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
+          {props.candidatesList?.map((item, index) => (
+            <TableRow3>
 
-       <TableCell>{index + 1} </TableCell>
-       <TableCell>{item.id} </TableCell>
-       <TableCell>{item.party_code} </TableCell>
-       <TableCell> {item.company_name} </TableCell>
-       <TableCell> {item.name}</TableCell>
-       <TableCell>{item.passport_no} </TableCell>
-       <TableCell>{item.actual_profession} </TableCell>
-       <TableCell>{item.visa_profession} </TableCell>
-       <TableCell> {item.agent_name}</TableCell>
-       <TableCell>{item.visa_received_date} </TableCell>
-       <TableCell>{item.process_charges} </TableCell>
-       <TableCell>{item.document_charges} </TableCell>
-       <TableCell>{item.other_charges} </TableCell>
-       <TableCell>{item.sector_charges} </TableCell>
-       <TableCell>{item.partial_charges} </TableCell>
-       <TableCell> {item.service_charges} </TableCell>
-       <TableCell>{item.consulate_setting_charges} </TableCell>
-       <TableCell>{item.cancel_charges} </TableCell>
-       <TableCell>{item.flight_ticket_amount} </TableCell>
-       <TableCell>{item.ticket_charges} </TableCell>
-       <TableCell>{item.extra_service_tax} </TableCell>
-       <TableCell>{item.air_ticket} </TableCell>
-       <TableCell>{item.is_deployed} </TableCell>
-       <TableCell> <RedButton text="Cancel" onClick={()=>props.onClickEdit(item)}/></TableCell>
-
-
-
-     </TableRow>
-
-))}
-   
+              <TableCell3>{index + 1} </TableCell3>
+              <TableCell3>{item.id} </TableCell3>
+              <TableCell3>{item.party_code} </TableCell3>
+              <TableCell3> {item.company_name} </TableCell3>
+              <TableCell3> {item.name}</TableCell3>
+              <TableCell3>{item.passport_no} </TableCell3>
+              <TableCell3>{item.actual_profession} </TableCell3>
+              <TableCell3>{item.visa_profession} </TableCell3>
+              <TableCell3> {item.agent_name}</TableCell3>
+              <TableCell3>{item.visa_received_date} </TableCell3>
+              <TableCell3>{item.process_charges} </TableCell3>
+              <TableCell3>{item.document_charges} </TableCell3>
+              <TableCell3>{item.other_charges} </TableCell3>
+              <TableCell3>{item.sector_charges} </TableCell3>
+              <TableCell3>{item.partial_charges} </TableCell3>
+              <TableCell3> {item.service_charges} </TableCell3>
+              <TableCell3>{item.consulate_setting_charges} </TableCell3>
+              <TableCell3>{item.cancel_charges} </TableCell3>
+              <TableCell3>{item.flight_ticket_amount} </TableCell3>
+              <TableCell3>{item.ticket_charges} </TableCell3>
+              <TableCell3>{item.extra_service_tax} </TableCell3>
+              <TableCell3>{item.air_ticket} </TableCell3>
+              <TableCell3>{item.is_deployed} </TableCell3>
+              <TableCell3>
+                {item.given_to == "Given To Cancelation" ? <>
+                  <RedButton text="Cancel" onClick={() => props.onClickEdit(item)} />
+                </> : <></>}
+              </TableCell3>
 
 
-        </TableBody2>
-      </Table>
+
+            </TableRow3>
+
+          ))}
+
+
+
+        </TableBody3>
+      </Table3>
 
     </div>
   );

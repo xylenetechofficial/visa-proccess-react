@@ -163,10 +163,10 @@ export default function Main() {
                 setBtnClicked("Cancel / Approve")
                 updateRejectCancelApproveList(2,editRejectCancelApprove)
             }} />
-           <GreenButton text={"Mofa 15 Days"} onClick={() => {
+           {/* <GreenButton text={"Mofa 15 Days"} onClick={() => {
             setBtnClicked("Mofa 15 Days")
               updateRejectCancelApproveList(0,editRejectCancelApprove)
-            }} />
+            }} /> */}
         </div>
     )
 }

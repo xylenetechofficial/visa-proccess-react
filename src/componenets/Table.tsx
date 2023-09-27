@@ -12,7 +12,7 @@ interface ParentComponent2Props {
 
 export const Table = ({ children }: ParentComponentProps) => {
     return (
-        
+
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             {children}
         </table>
@@ -20,7 +20,7 @@ export const Table = ({ children }: ParentComponentProps) => {
 }
 export const Table2 = ({ children }: ParentComponentProps) => {
     return (
-        
+
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             {children}
         </table>
@@ -28,7 +28,7 @@ export const Table2 = ({ children }: ParentComponentProps) => {
 }
 export const Table3 = ({ children }: ParentComponentProps) => {
     return (
-        
+
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             {children}
         </table>
@@ -97,7 +97,7 @@ export const TableHeadCell2 = ({ children }: ParentComponentProps) => {
         </th>
     )
 }
-export const TableHeadCell3 = ({ children}: ParentComponentProps) => {
+export const TableHeadCell3 = ({ children }: ParentComponentProps) => {
 
     return (
         <th scope="col" className="px-3 py-1 last:text-end" >
@@ -147,7 +147,7 @@ export function TableRow({ children }: ParentComponentProps) {
 
     );
 }
-export function TableRow1({ children , onClick}: ParentComponent2Props) {
+export function TableRow1({ children, onClick }: ParentComponent2Props) {
     return (
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" onClick={onClick}>
             {children}
@@ -208,12 +208,42 @@ export function TableRow3({ children }: ParentComponentProps) {
     );
 }
 
+// #########################################################
+export function TableRow3_white({ children }: ParentComponentProps) {
+    return (
+        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            {children}
+        </tr>
+    );
+}
+export function TableRow3_red({ children }: ParentComponentProps) {
+    return (
+        <tr className="bg-red border-b dark:bg-gray-800 dark:border-gray-700" style={{ backgroundColor: "#FF4A4A", color: "black" }}>
+            {children}
+        </tr>
+    );
+}
+export function TableRow3_green({ children }: ParentComponentProps) {
+    return (
+        <tr className="bg-green border-b dark:bg-gray-800 dark:border-gray-700" style={{ backgroundColor: "#33CC33", color: "black" }}>
+            {children}
+        </tr>
+    );
+}
+export function TableRow3_orange({ children }: ParentComponentProps) {
+    return (
+        <tr className="bg-orange border-b dark:bg-gray-800 dark:border-gray-700" style={{ backgroundColor: "#FF9900", color: "black" }}>
+            {children}
+        </tr>
+    );
+}
+
 export function TableCell({ children }: ParentComponentProps) {
     return (
         <td className="px-6 py-2 last:text-end min-w-[200px] ">
             <div className="flex">
 
-            {children}
+                {children}
             </div>
         </td>
     );
@@ -224,9 +254,9 @@ export function TableCell2({ children }: ParentComponentProps) {
             {/* If any problem occurs uncomment below line */}
             <div className="flex ">
 
-            {children}
+                {children}
             </div>
-             {/* {children} */}
+            {/* {children} */}
         </td>
     );
 }
@@ -236,20 +266,20 @@ export function TableCell2lastColumn({ children }: ParentComponentProps) {
             {/* If any problem occurs uncomment below line */}
             <div className="flex justify-end w-full">
 
-            {children}
+                {children}
             </div>
-             {/* {children} */}
+            {/* {children} */}
         </td>
     );
 }
-export function TableCell3({ children,width }: ParentComponentProps) {
-    const widthStyle = width? `${width}px` : "fit-content";
+export function TableCell3({ children, width }: ParentComponentProps) {
+    const widthStyle = width ? `${width}px` : "fit-content";
 
     return (
-        <td className="px-3 py-1 last:text-end " style={{width:widthStyle}}>
+        <td className="px-3 py-1 last:text-end " style={{ width: widthStyle }}>
             <div className="flex">
 
-            {children}
+                {children}
             </div>
         </td>
     );

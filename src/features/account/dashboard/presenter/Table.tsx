@@ -2,16 +2,16 @@ import { AccountDashboardInterface } from "../type";
 import {  RedButton } from "../../../../componenets/CustomButton";
 import {
   
-  Table2,
-  TableBody,
-  TableCell,
+  Table3,
+  TableBody3,
+  TableCell3,
   
-  TableHead2,
+  TableHead3,
   
-  TableHeadCell2,
+  TableHeadCell3,
   
-  TableHeadRow2,
-  TableRow,
+  TableHeadRow3,
+  TableRow3,
 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
 
@@ -25,66 +25,66 @@ const AccountDashboardTable = (props: {
     <div className="overflow-auto">
       
 
-      <Table2>
-        <TableHead2>
-          <TableHeadRow2>
-            <TableHeadCell2> Sr No.</TableHeadCell2>
-            <TableHeadCell2> PARTY CODE </TableHeadCell2>
-            <TableHeadCell2> COMPANY NAME</TableHeadCell2>
-            <TableHeadCell2> CONDIDATE NAME</TableHeadCell2>
-            <TableHeadCell2> PASSPORT NO</TableHeadCell2>
-            <TableHeadCell2> ACTUAL PROFESSION </TableHeadCell2>
-            <TableHeadCell2> VISA PROFESSION </TableHeadCell2>
-            <TableHeadCell2> AGENT</TableHeadCell2>
-            <TableHeadCell2> VISA RECIEVED DATE </TableHeadCell2>
-            <TableHeadCell2> PROCESS CHARGES</TableHeadCell2>
-            <TableHeadCell2> DOCUMENTS CHARGES</TableHeadCell2>
-            <TableHeadCell2> CONSULATE SETTING CHARGES</TableHeadCell2>
-            <TableHeadCell2> REASON </TableHeadCell2>
-            <TableHeadCell2> RC NAME</TableHeadCell2>
-            <TableHeadCell2> DEVISION</TableHeadCell2>
-            <TableHeadCell2> VISA AUTHORIZATION </TableHeadCell2>
-            <TableHeadCell2> AIR TICKET</TableHeadCell2>
-            <TableHeadCell2> IS INVIOCE</TableHeadCell2>
-            <TableHeadCell2> TICKET CHARGES </TableHeadCell2>
-            <TableHeadCell2> SERVICES CHARGES</TableHeadCell2>
-            <TableHeadCell2> PARTIAL CHARGES</TableHeadCell2>
-            <TableHeadCell2> SECTOR CHARGES</TableHeadCell2>
-            <TableHeadCell2> AGENT COMMISSION </TableHeadCell2>
-            <TableHeadCell2> CANCEL</TableHeadCell2>
-          </TableHeadRow2>
-        </TableHead2>
-         <TableBody>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> PARTY CODE </TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3> CONDIDATE NAME</TableHeadCell3>
+            <TableHeadCell3> PASSPORT NO</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+            <TableHeadCell3> AGENT</TableHeadCell3>
+            <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3>
+            <TableHeadCell3> PROCESS CHARGES</TableHeadCell3>
+            <TableHeadCell3> DOCUMENTS CHARGES</TableHeadCell3>
+            <TableHeadCell3> CONSULATE SETTING CHARGES</TableHeadCell3>
+            <TableHeadCell3> REASON </TableHeadCell3>
+            <TableHeadCell3> RC NAME</TableHeadCell3>
+            <TableHeadCell3> DEVISION</TableHeadCell3>
+            <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
+            <TableHeadCell3> AIR TICKET</TableHeadCell3>
+            <TableHeadCell3> IS INVIOCE</TableHeadCell3>
+            <TableHeadCell3> TICKET CHARGES </TableHeadCell3>
+            {/* <TableHeadCell3> SERVICES CHARGES</TableHeadCell3> */}
+            <TableHeadCell3> PARTIAL CHARGES</TableHeadCell3>
+            <TableHeadCell3> SECTOR CHARGES</TableHeadCell3>
+            <TableHeadCell3> AGENT COMMISSION </TableHeadCell3>
+            <TableHeadCell3> CANCEL</TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+         <TableBody3>
           {props.accountDashboardList.map((ele, index) => (
-            <TableRow key={index}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell> {ele.party_code}</TableCell>
-              <TableCell>
+            <TableRow3 key={index}>
+              <TableCell3>{index + 1}</TableCell3>
+              <TableCell3> {ele.party_code}</TableCell3>
+              <TableCell3>
               {ele.company_name}
-              </TableCell>
-              <TableCell> {ele.name}</TableCell>
-              <TableCell> {ele.passport_no}</TableCell>
-              <TableCell> {ele.actual_profession}</TableCell>
-              <TableCell>
+              </TableCell3>
+              <TableCell3> {ele.name}</TableCell3>
+              <TableCell3> {ele.passport_no}</TableCell3>
+              <TableCell3> {ele.actual_profession}</TableCell3>
+              <TableCell3>
                {ele.visa_profession}
-              </TableCell>
-              <TableCell> {ele.agent_name}</TableCell>
-              <TableCell> {convertDateFormat(ele.visa_received_date)}</TableCell>
-              <TableCell> {ele.process_charges}</TableCell>
-              <TableCell> {ele.document_charges}</TableCell>
-              <TableCell> {ele.consulate_setting_charges}</TableCell>
-              <TableCell> {ele.reason}</TableCell>
-              <TableCell> {ele.rc_name}</TableCell>
-              <TableCell> {ele.division}</TableCell>
-              <TableCell> {ele.visa_authorization}</TableCell>
-              <TableCell> {ele.air_ticket}</TableCell>
-              <TableCell> {ele.is_invoice}</TableCell>
-              <TableCell> {ele.ticket_charges}</TableCell>
-              <TableCell> {ele.sector_charges}</TableCell>
-              <TableCell> {ele.partial_charges}</TableCell>
-              <TableCell> {ele.sector_charges}</TableCell>
-              <TableCell> {ele.agent_commision}</TableCell>
-              <TableCell>
+              </TableCell3>
+              <TableCell3> {ele.agent_name}</TableCell3>
+              <TableCell3> {convertDateFormat(ele.visa_received_date)}</TableCell3>
+              <TableCell3> {ele.process_charges}</TableCell3>
+              <TableCell3> {ele.document_charges}</TableCell3>
+              <TableCell3> {ele.consulate_setting_charges}</TableCell3>
+              <TableCell3> {ele.reason}</TableCell3>
+              <TableCell3> {ele.rc_name}</TableCell3>
+              <TableCell3> {ele.division}</TableCell3>
+              <TableCell3> {ele.visa_authorization}</TableCell3>
+              <TableCell3> {ele.air_ticket}</TableCell3>
+              <TableCell3> {ele.is_invoice}</TableCell3>
+              <TableCell3> {ele.ticket_charges}</TableCell3>
+              {/* <TableCell3> {ele.sector_charges}</TableCell3> */}
+              <TableCell3> {ele.partial_charges}</TableCell3>
+              <TableCell3> {ele.sector_charges}</TableCell3>
+              <TableCell3> {ele.agent_commision}</TableCell3>
+              <TableCell3>
                 <RedButton
                   text={"Cancel"}
                   preIcon="edit"
@@ -92,11 +92,11 @@ const AccountDashboardTable = (props: {
                     props.onClickEdit(ele);
                   }}
                 />
-              </TableCell>
-            </TableRow>
+              </TableCell3>
+            </TableRow3>
           ))}
-        </TableBody>
-      </Table2>
+        </TableBody3>
+      </Table3>
     </div>
   );
 };

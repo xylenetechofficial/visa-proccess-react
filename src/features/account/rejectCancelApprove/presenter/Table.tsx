@@ -2,18 +2,18 @@ import { RejectCancelApproveInterface } from "../type";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 import {
   Table,
-  Table2,
+  Table3,
   TableBody,
-  TableBody2,
-  TableCell,
+  TableBody3,
+  TableCell3,
   TableCell2,
   TableHead,
-  TableHead2,
+  TableHead3,
   TableHeadCell,
-  TableHeadCell2,
-  TableHeadRow,
+  TableHeadCell3,
+  TableHeadRow3,
   TableHeadRow2,
-  TableRow,
+  TableRow3,
   TableRow2,
 } from "../../../../componenets/Table";
 import { SectorInterface } from "../../../masters/sector/type";
@@ -65,63 +65,63 @@ return {
   return (
     <div className="overflow-auto">
 
-      <Table2>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell2> Sr No.</TableHeadCell2>
-            <TableHeadCell2> PARTY CODE </TableHeadCell2>
-            <TableHeadCell2> COMPANY NAME</TableHeadCell2>
-            <TableHeadCell2> CONDIDATE NAME</TableHeadCell2>
-            <TableHeadCell2> ACTUAL PROFESSION </TableHeadCell2>
-            <TableHeadCell2> VISA PROFESSION </TableHeadCell2>
-            <TableHeadCell2> AGENT</TableHeadCell2>
-            <TableHeadCell2> VISA RECIEVED DATE </TableHeadCell2>
-            <TableHeadCell2> PROCESS CHARGES</TableHeadCell2>
-            <TableHeadCell2> DOCUMENTS CHARGES</TableHeadCell2>
-            <TableHeadCell2> CONSULATE SETTING CHARGES</TableHeadCell2>
-            <TableHeadCell2> REASON </TableHeadCell2>
-            <TableHeadCell2> RC NAME</TableHeadCell2>
-            <TableHeadCell2> DEVISION</TableHeadCell2>
-            <TableHeadCell2> VISA AUTHORIZATION </TableHeadCell2>
-            <TableHeadCell2> SECTOR CHARGES</TableHeadCell2>
-            <TableHeadCell2> PARTIAL CHARGES</TableHeadCell2>
-            <TableHeadCell2> SERVICES CHARGES</TableHeadCell2>
-            <TableHeadCell2> AIR TICKET</TableHeadCell2>
-            <TableHeadCell2> IS INVIOCE</TableHeadCell2>
-            {/* <TableHeadCell2> TICKET CHARGES </TableHeadCell2> */}
-            <TableHeadCell2>
-              Check box</TableHeadCell2>
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> PARTY CODE </TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3> CONDIDATE NAME</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+            <TableHeadCell3> AGENT</TableHeadCell3>
+            <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3>
+            <TableHeadCell3> PROCESS CHARGES</TableHeadCell3>
+            <TableHeadCell3> DOCUMENTS CHARGES</TableHeadCell3>
+            <TableHeadCell3> CONSULATE SETTING CHARGES</TableHeadCell3>
+            <TableHeadCell3> REASON </TableHeadCell3>
+            <TableHeadCell3> RC NAME</TableHeadCell3>
+            <TableHeadCell3> DEVISION</TableHeadCell3>
+            <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
+            <TableHeadCell3> SECTOR CHARGES</TableHeadCell3>
+            <TableHeadCell3> PARTIAL CHARGES</TableHeadCell3>
+            <TableHeadCell3> SERVICES CHARGES</TableHeadCell3>
+            <TableHeadCell3> AIR TICKET</TableHeadCell3>
+            <TableHeadCell3> IS INVIOCE</TableHeadCell3>
+            {/* <TableHeadCell3> TICKET CHARGES </TableHeadCell3> */}
+            <TableHeadCell3>
+              Check box</TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
           {props.RejectCancelApproveList?.map((item :any, index:any) => (
 
-            <TableRow key={index}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{item?.party_code}</TableCell>
-              <TableCell>{item?.company_name}</TableCell>
-              <TableCell>{item?.name}</TableCell>
-              <TableCell>{item?.actual_profession}</TableCell>
-              <TableCell>{item?.visa_profession}</TableCell>
-              <TableCell>{item?.agent_name}</TableCell>
-              <TableCell>{item?.visa_received_date}</TableCell>
-              <TableCell>{item?.consolidated_charges}</TableCell>
-              <TableCell>{item?.document_charges}</TableCell>
-              <TableCell>{item?.consulate_setting_charges}</TableCell>
-              <TableCell>{item?.reason}</TableCell>
-              <TableCell>{item?.rc_name}</TableCell>
-              <TableCell>{item?.dev}</TableCell>
-              <TableCell>{item?.visa_authorization}</TableCell>
-              <TableCell>{item?.sector_charges}</TableCell>
-              <TableCell>{item?.partial_charges}</TableCell>
-              <TableCell>{item?.service_charges}</TableCell>
-              <TableCell>{item?.air_ticket}</TableCell>
-              <TableCell>{item?.is_invoice}</TableCell>
-              <TableCell><Checkbox  onClick={()=>handleCheckBox(item)}/></TableCell>
-            </TableRow>
+            <TableRow3 key={index}>
+              <TableCell3>{index + 1}</TableCell3>
+              <TableCell3>{item?.party_code}</TableCell3>
+              <TableCell3>{item?.company_name}</TableCell3>
+              <TableCell3>{item?.name}</TableCell3>
+              <TableCell3>{item?.actual_profession}</TableCell3>
+              <TableCell3>{item?.visa_profession}</TableCell3>
+              <TableCell3>{item?.agent_name}</TableCell3>
+              <TableCell3>{item?.visa_received_date}</TableCell3>
+              <TableCell3>{item?.consolidated_charges}</TableCell3>
+              <TableCell3>{item?.document_charges}</TableCell3>
+              <TableCell3>{item?.consulate_setting_charges}</TableCell3>
+              <TableCell3>{item?.reason}</TableCell3>
+              <TableCell3>{item?.rc_name}</TableCell3>
+              <TableCell3>{item?.dev}</TableCell3>
+              <TableCell3>{item?.visa_authorization}</TableCell3>
+              <TableCell3>{item?.sector_charges}</TableCell3>
+              <TableCell3>{item?.partial_charges}</TableCell3>
+              <TableCell3>{item?.service_charges}</TableCell3>
+              <TableCell3>{item?.air_ticket}</TableCell3>
+              <TableCell3>{item?.is_invoice}</TableCell3>
+              <TableCell3><Checkbox  onClick={()=>handleCheckBox(item)}/></TableCell3>
+            </TableRow3>
           ))}
-        </TableBody2>
-      </Table2>
+        </TableBody3>
+      </Table3>
     </div>
   );
 };

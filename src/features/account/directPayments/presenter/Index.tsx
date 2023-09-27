@@ -50,7 +50,7 @@ const CardHeader2 = styled(Box)(() => ({
   // marginBottom: "18px",
 }));
 
-export default function Main( ) {
+export default function Main() {
   const initValue: DirectPaymentInterface = {
     outstanding_since_2015: 0,
     payment_against_2015: 0,
@@ -170,12 +170,12 @@ export default function Main( ) {
 
   const updateBulkPayment = async (data: AddSelectionAgentPaymentInterface[]) => {
 
-    const list = data.filter((item)=> item?.id !== undefined)
+    const list = data.filter((item) => item?.id !== undefined)
     const agentPayment = { "selection_list": list }
 
     const res = await createAgentPayment(agentPayment)
-    if(res){
-    fetchAgentPaymentList(agentBy);
+    if (res) {
+      fetchAgentPaymentList(agentBy);
     }
   }
   return (
@@ -185,7 +185,7 @@ export default function Main( ) {
         searchFunction={(query) => setSearchQuery(query)}
       />
       <CardHeader2 >
-       
+
         <div className="w-72 flex">
           <CustomSelectComponent label="Agent"
             options={[{ name: "DIRECT", value: '1' }, { name: "CO REFFERED ", value: '2' }]}
@@ -207,12 +207,12 @@ export default function Main( ) {
             }} />
           </div>
         </div>
-         <div className="w-96 float-right">
+        <div className="w-96 float-right">
           <GreenButton text="Add Advance Payment" onClick={() => {
             console.log("modal open"),
               setModalName("create")
           }} />
-        </div> 
+        </div>
       </CardHeader2 >
       <HeroPage props={AgentPaymentList} />
 
@@ -223,7 +223,8 @@ export default function Main( ) {
 
       {/* <CardHeader2> */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-2 mb-4 h-96  ">
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={() => fetchAgentPaymentList(agentBy)} />
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={() => fetchAgentPaymentList(agentBy)} AgentID={agentBy}/>
+          
         <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)} />
       </div>
 
@@ -231,6 +232,8 @@ export default function Main( ) {
 
       {/*  AgentPayment stable */}
       <AgentPaymentTable
+        // ######
+        agentBy={agentBy}
         AgentPaymentList={AgentPaymentList}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
@@ -248,6 +251,7 @@ export default function Main( ) {
         <CreateModal
           onClose={() => setModalName("")}
           readAdvancePaymentList={readAdvancePaymentList}
+          // fetchAgentPaymentList={(name, value) => fetchAgentPaymentList({agent_id:agentBy.agent_id,passport_no:agentBy.passport_no})}
         />
       )}
 
@@ -258,7 +262,7 @@ export default function Main( ) {
         <EditModal
           currentElement={editAgentPayment}
           onClose={() => setModalName("")}
-          fetchAgentPaymentList={( ) => fetchAgentPaymentList( agentBy)}
+          fetchAgentPaymentList={() => fetchAgentPaymentList(agentBy)}
           companyList={companyList}
           countryList={countryList}
 

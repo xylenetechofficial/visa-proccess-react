@@ -18,42 +18,43 @@ const CandidatePayment = (props: {
   fetchAgentPaymentList: () => void,
   AgentPaymentList: any;
 
-
+  AgentID: any,
 }) => {
 
   const initValue: CandidatePaymentInterface = {
     candidate_id: 1,
-    agent_id: 12,
+    agent_id: 0,
     amount: 0,
     remarks: '',
   };
 
   const [CandidatePayment, setCandidatePayment] = useState(initValue);
   const handleClick = async (CandidatePayment: CandidatePaymentInterface) => {
-   const data=  await createCandidatePaymentAdd(CandidatePayment)
-   if(data){
-    props.fetchAgentPaymentList();
-    handleReset();
-   }
-    
+    console.log(CandidatePayment);   // Only Dev
+    const data = await createCandidatePaymentAdd(CandidatePayment)
+    if (data) {
+      props.fetchAgentPaymentList();
+      handleReset();
+    }
+
   }
   const handleReset = () => {
     setCandidatePayment({
-      candidate_id: 0,
-      agent_id: 0,
+      candidate_id: CandidatePayment.candidate_id,
+      agent_id: CandidatePayment.agent_id,
       amount: 0,
       remarks: '',
     })
   }
-  const checkBalancefromDropDown= (currentBalance:number, id:number)=>{
-    console.log(currentBalance,id,"kkk")
-    if(id){
-      const filterId = props.AgentPaymentList.table_data_list.filter((item :any) => item.id === id);
-    if(currentBalance > filterId[0].balance_amount ){
-      
-      showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
-    }
-      
+  const checkBalancefromDropDown = (currentBalance: number, id: number) => {
+    console.log(currentBalance, id, "kkk")
+    if (id) {
+      const filterId = props.AgentPaymentList.table_data_list.filter((item: any) => item.id === id);
+      if (currentBalance > filterId[0].balance_amount) {
+
+        showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+      }
+
     }
   }
 
@@ -78,7 +79,7 @@ const CandidatePayment = (props: {
             options={selectOptionConveter({
               options: props?.AgentPaymentList?.table_data_list ?? [],
               // options: [],
-              options_struct: { name: "candidate_dropdown_name",value: "id" },
+              options_struct: { name: "candidate_dropdown_name", value: "id" },
             })}
           />
         </UpdateContentBox>
@@ -89,10 +90,9 @@ const CandidatePayment = (props: {
           <UnlabeledInput
             type="number"
             value={CandidatePayment.amount}
-            onchange={(value) =>
-              {
+            onchange={(value) => {
               setCandidatePayment({ ...CandidatePayment, amount: parseInt(value) }),
-              checkBalancefromDropDown(CandidatePayment.amount, CandidatePayment.candidate_id)  
+                checkBalancefromDropDown(CandidatePayment.amount, CandidatePayment.candidate_id)
             }
             }
           />
