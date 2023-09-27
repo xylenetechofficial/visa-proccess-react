@@ -16,6 +16,7 @@ export interface CandidateInvoiceRaiseListInterface {
   rc_name: string,
   other_charges: number,
   service_charges: number,
+  service_charges_currency: string,
   ticket_charges: string,
   total_charges: number,
   invoice_number: string,
@@ -40,6 +41,7 @@ export interface CandidateInvoiceRaiseListAdapter {
   rc_name: string,
   other_charges: number,
   service_charges: number,
+  service_charges_currency: string,
   ticket_charges: string,
   total_charges: number,
   invoice_number: string,
@@ -71,6 +73,7 @@ export class CandidateInvoiceRaiseListConverter {
       rc_name: a?.rc_name,
       other_charges: a?.other_charges,
       service_charges: a?.service_charges,
+      service_charges_currency: a.service_charges_currency,
       ticket_charges: a?.ticket_charges,
       total_charges: a?.total_charges,
       invoice_number: a?.invoice_number,
@@ -102,6 +105,7 @@ export class CandidateInvoiceRaiseListConverter {
       rc_name: i?.rc_name,
       other_charges: i?.other_charges,
       service_charges: i?.service_charges,
+      service_charges_currency: i.service_charges_currency,
       ticket_charges: i?.ticket_charges,
       total_charges: i?.total_charges,
       invoice_number: i?.invoice_number,
@@ -123,7 +127,7 @@ export interface AddInvoiceRaiseAdapter {
 
 export class AddInvoiceRaiseConverter {
   public static toInterface(a: AddInvoiceRaiseAdapter): AddInvoiceRaiseInterface {
-    console.log(a,"kkkkkk")
+    console.log(a, "kkkkkk")
     const data: AddInvoiceRaiseInterface = {
       selection_list: a?.selection_list?.map((item) => ({
         id: item.id,
@@ -138,17 +142,17 @@ export class AddInvoiceRaiseConverter {
   }
 
   public static toAdapter(i: AddInvoiceRaiseInterface): AddInvoiceRaiseAdapter {
-    console.log(i,"iiiii")
+    console.log(i, "iiiii")
     const data: AddInvoiceRaiseAdapter = {
-      
+
       selection_list: i?.selection_list?.filter(item =>
         item.id !== undefined &&
         item.is_without !== undefined &&
         item.total_charges !== undefined &&
         item.invoice_number !== '' &&
         item.invoice_date !== '' &&
-        item.bank_id !== undefined   
-        ).map((item) => ({
+        item.bank_id !== undefined
+      ).map((item) => ({
         id: item.id,
         is_without: item.is_without,
         total_charges: item.total_charges,

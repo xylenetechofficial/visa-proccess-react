@@ -100,6 +100,7 @@ export default function Main() {
             }
         }
         const data = await updateSubmissionDashboardData(newArray)
+        window.location.reload()
         fetchSubmisionDashboardDataList()
 
     }

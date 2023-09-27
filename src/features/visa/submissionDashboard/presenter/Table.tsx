@@ -102,7 +102,7 @@ const Table = (props: {
         ["DOCUMENT CHARGES"],
         ["CONSULATE SETTING CHARGES"],
         ["REJECT"],
-        ["REMARKS"],
+        // ["REMARKS"],
         // ["SELECT"]
     ];
     const tableHeadingsComponent1 = tableHeadings1.map((e) => (
@@ -138,7 +138,8 @@ const Table = (props: {
     const OnClickSubmit = async (ele: SubmissionDashboardInterface) => {
         // update api call
         const data = await updateSubmissionDashboardDataOne(ele)
-        props.fetchSubmisionDashboardDataList()
+        window.location.reload()
+        // props.fetchSubmisionDashboardDataList()
     }
 
     const [onChange, setonChange] = useState<string>("")
@@ -192,14 +193,20 @@ const Table = (props: {
 
             {showModal == "DocCharge" ?
                 <DocumentChargesModal
-                    onClose={() => setShowMadal("")}
+                    onClose={() => {
+                        window.location.reload()
+                        setShowMadal("")
+                    }}
                     currentElement={currentData}
                     onClickSubmit={OnClickSubmit}
                 />
                 : " "}
             {showModal == "ConsultantCharge" ?
                 <ConsultantChargeModal
-                    onClose={() => setShowMadal("")}
+                    onClose={() => {
+                        window.location.reload()
+                        setShowMadal("")
+                    }}
                     currentElement={currentData}
                     onClickSubmit={OnClickSubmit}
                 />
@@ -334,13 +341,13 @@ const TableData = (
             <TableCell3>
                 <RedButton text='Reject' onClick={() => props.onClickReject(localRowData)} />
             </TableCell3>
-            <TableCell3>
+            {/* <TableCell3>
                 <TextAreaInput
                     id='sad;fsld'
                     onChange={(value) => setLocalRowData({ ...localRowData, remarks: value })}
                     value={localRowData.remarks}
                 />
-            </TableCell3>
+            </TableCell3> */}
 
 
 
