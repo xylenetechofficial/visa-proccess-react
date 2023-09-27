@@ -78,21 +78,21 @@ export default function Main(props: {
         props.fetchAccountDashboardList()
         props.onClose()
     }
-    // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
-    const [visaAuhorisationList, setvisaAuhorisationList] = useState<any>([])
-    const fetchvisaAuhorisationList = async () => {
-        const data = await readVisaAuthorisationList();
-        if (data) {
-            setvisaAuhorisationList(data);
-        }
-    }
-    const fetchAccountDashboard = async () => {
-        const data: any = await readAccountDashboard(props.currentElement.id ?? 0);
-        if (data) {
-            setAccountDashboard(data);
-            setVisaProfessionList(data.visaProfessionList ?? [])
-        }
-    }
+    // // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
+    // const [visaAuhorisationList, setvisaAuhorisationList] = useState<any>([])
+    // const fetchvisaAuhorisationList = async () => {
+    //     const data = await readVisaAuthorisationList();
+    //     if (data) {
+    //         setvisaAuhorisationList(data);
+    //     }
+    // }
+    // const fetchAccountDashboard = async () => {
+    //     const data: any = await readAccountDashboard(props.currentElement.id ?? 0);
+    //     if (data) {
+    //         setAccountDashboard(data);
+    //         setVisaProfessionList(data.visaProfessionList ?? [])
+    //     }
+    // }
     useEffect(() => {
         // fetchvisaAuhorisationList();
         // fetchAccountDashboard()
@@ -166,7 +166,12 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text="Client invoice   :" />
                     <CustomRadioButton value={visaProfessionList.client_invoice}
-                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, client_invoice: value })}
+                        onChange={(value) => {
+                            if (value == "yes")
+                                setVisaProfessionList({ ...visaProfessionList, client_invoice: value, mistake_by: "", penalty_amount: 0 })
+                            else
+                                setVisaProfessionList({ ...visaProfessionList, client_invoice: value })
+                        }}
                         // onChange={(value) => console.log(value)}
                         option={[
                             { name: "Yes", value: "yes" },
@@ -174,27 +179,29 @@ export default function Main(props: {
 
                         ]} />
                 </UpdateContentBox>
-                <UpdateContentBox>
-                    <SubHeading1 text="Penalty Amount   :" />
-                    <UnlabeledInput type="number" value={visaProfessionList.penalty_amount} onchange={(value) =>
-                        handleInputChange(value)
-                        // setVisaProfessionList({ ...visaProfessionList, account_dashboard_penalty_amount: Number(value) })
-                    } />
-                </UpdateContentBox>
-                <UpdateContentBox>
-                    <SubHeading1 text="Mistake by   :" />
+                {visaProfessionList.client_invoice == "yes" ? <></> : <>
+                    <UpdateContentBox>
+                        <SubHeading1 text="Penalty Amount   :" />
+                        <UnlabeledInput type="number" value={visaProfessionList.penalty_amount} onchange={(value) =>
+                            handleInputChange(value)
+                            // setVisaProfessionList({ ...visaProfessionList, account_dashboard_penalty_amount: Number(value) })
+                        } />
+                    </UpdateContentBox>
+                    <UpdateContentBox>
+                        <SubHeading1 text="Mistake by   :" />
 
-                    <CustomRadioButton
-                        value={visaProfessionList.mistake_by}
-                        onChange={(value) => setVisaProfessionList({ ...visaProfessionList, mistake_by: value })}
-                        // onChange={(value) => console.log(value)}
-                        option={[
-                            { name: "Agent/Candidate", value: "Agent/Candidate" },
-                            { name: "Soundlines", value: "Soundlines" },
-                            { name: "client", value: "client" },
-                        ]}
-                    />
-                </UpdateContentBox>
+                        <CustomRadioButton
+                            value={visaProfessionList.mistake_by}
+                            onChange={(value) => setVisaProfessionList({ ...visaProfessionList, mistake_by: value })}
+                            // onChange={(value) => console.log(value)}
+                            option={[
+                                { name: "Agent/Candidate", value: "Agent/Candidate" },
+                                { name: "Soundlines", value: "Soundlines" },
+                                { name: "client", value: "client" },
+                            ]}
+                        />
+                    </UpdateContentBox>
+                </>}
                 <div className="grid grid-cols-2 shadow ">
                     <GreenButton text="Submit" onClick={() => { onClickAdd() }} />
                     <RedButton text="cancel" onClick={() => { props.onClose() }} />
