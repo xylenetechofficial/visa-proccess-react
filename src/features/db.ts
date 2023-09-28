@@ -78,3 +78,15 @@ export const GivenToList_without_RC = [
 export const GivenToList_only_passprt = [
   { name: "Passport Received", value: "Passport Received" },
 ];
+
+export const DAD_GivenToList = [
+  { name: "Given To Cancelation", value: "Given To Cancelation" },
+  { name: "Given To Candidate", value: "Given To Candidate" },
+];
+
+export const TicketingPriorityList = [
+  { name: "FLEXIBLE", value: "FLEXIBLE" },
+  { name: "PTA", value: "PTA" },
+  { name: "TOP PRIORITY", value: "TOP PRIORITY" },
+  { name: "URGENT", value: "URGENT" },
+];

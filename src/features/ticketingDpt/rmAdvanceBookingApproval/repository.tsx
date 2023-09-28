@@ -8,7 +8,7 @@ import { RMAdvanceBookingApprovalAdapter, RMAdvanceBookingApprovalConverter, RMA
 
 export async function readRMAdvanceBookingApprovalList() {
   const path = "/ticketing-dpt/rm-advance-booking-approval-list";
-  
+
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
@@ -33,45 +33,46 @@ export async function readRMAdvanceBookingApprovalList() {
 
 
 
-export async function createRMAdvanceBookingApproval(RMAdvanceBookingApproval:RMAdvanceBookingApprovalInterface) {
-    const path = "/ticketing-dpt/rm-advance-booking-approval-list";
-  
-    const payload = RMAdvanceBookingApprovalConverter.toAdapter(RMAdvanceBookingApproval);
-    const response = await ApiHelper.post(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
-  
-    if (response.code != 200) {
-      showMessage_v2({ message: response.message, status: response.code })
-    }
-  
-    const data = []
-    console.log(response.data)
-    if (response.data) {
-      const dataAdapter = response.data as RMAdvanceBookingApprovalAdapter[];
-      for (let i = 0; i < dataAdapter.length; i++) {
-        const element = dataAdapter[i];
-        data.push(RMAdvanceBookingApprovalConverter.toInterface(element));
-      }
-    }
-  
-    return data as RMAdvanceBookingApprovalInterface[]
-  }
-  
-  
-  export async function updateRMAdvanceBookingApproval( RMAdvanceBookingApproval: RMAdvanceBookingApprovalInterface) {
+export async function createRMAdvanceBookingApproval(RMAdvanceBookingApproval: RMAdvanceBookingApprovalInterface) {
+  const path = "/ticketing-dpt/rm-advance-booking-approval-list";
 
-    const payload = RMAdvanceBookingApprovalConverter.toAdapter(RMAdvanceBookingApproval);
-  
-    const path = "/ticketing-dpt/rm-advance-booking-approval-list";
-    const response = await ApiHelper.patch(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
+  const payload = RMAdvanceBookingApprovalConverter.toAdapter(RMAdvanceBookingApproval);
+  // TODO FIX first
+  const response = await ApiHelper.post(path, { selection_list: [payload] }, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+
+  if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
-  
   }
+
+  const data = []
+  console.log(response.data)
+  if (response.data) {
+    const dataAdapter = response.data as RMAdvanceBookingApprovalAdapter[];
+    for (let i = 0; i < dataAdapter.length; i++) {
+      const element = dataAdapter[i];
+      data.push(RMAdvanceBookingApprovalConverter.toInterface(element));
+    }
+  }
+
+  return data as RMAdvanceBookingApprovalInterface[]
+}
+
+
+export async function updateRMAdvanceBookingApproval(RMAdvanceBookingApproval: RMAdvanceBookingApprovalInterface) {
+
+  const payload = RMAdvanceBookingApprovalConverter.toAdapter(RMAdvanceBookingApproval);
+
+  const path = "/ticketing-dpt/rm-advance-booking-approval-list";
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+
+}
 
 
 

@@ -5,7 +5,7 @@ import { UnlabeledInput } from "../../../../componenets/Input";
 import { convertDateFormat } from "../../../../utils/function";
 import { CandidateInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
-import { GivenToList } from "../../../db";
+import { DAD_GivenToList, GivenToList } from "../../../db";
 
 
 const Main = (props: {
@@ -98,7 +98,7 @@ const Main = (props: {
                   onChange={(value: any) => {
                     onUpdateRow(index, { ...item, given_to: value })
                   }}
-                  options={GivenToList}
+                  options={DAD_GivenToList}
                 />
               </TableCell3>
               <TableCell3>

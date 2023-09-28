@@ -1,5 +1,5 @@
 import RMAdvanceBooking from './Table'
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
@@ -26,17 +26,28 @@ export default function Main() {
 
     }
     const onClickCreate = async (item: RMAdvanceBookingInterface[]) => {
-        await createRMAdvanceBooking(item)
+
+        const new_data: RMAdvanceBookingInterface[] = []
+        for (let i = 0; i < item.length; i++) {
+            const element = item[i];
+            // console.log(item);   // Only Dev
+            // console.log(element);   // Only Dev
+            if (element.advance == "Yes")
+                new_data.push(element)
+        }
+        await createRMAdvanceBooking(new_data)
+        fetchRMAdvanceBooking()
+        // window.location.reload()
     }
-    
+
 
     useEffect(() => {
         fetchRMAdvanceBooking();
-        
+
     }, [])
 
 
-  
+
     return (
 
         <>
@@ -47,8 +58,8 @@ export default function Main() {
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
             </CardHeader>
-          <RMAdvanceBooking RMAdvanceBookingList={RMAdvanceBookingList}onChange={(value)=>console.log(value)}/>
-<GreenButton text='Submit' onClick={()=>onClickCreate(RMAdvanceBookingList)}  />
+            <RMAdvanceBooking RMAdvanceBookingList={RMAdvanceBookingList} onChange={(value) => setRMAdvanceBookingList(value)} />
+            <GreenButton text='Submit' onClick={() => onClickCreate(RMAdvanceBookingList)} />
         </>
     )
 }

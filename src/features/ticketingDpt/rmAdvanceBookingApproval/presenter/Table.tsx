@@ -7,6 +7,7 @@ import { convertDateFormat } from "../../../../utils/function";
 import { RMAdvanceBookingApprovalInterface } from "../type";
 
 export default function Main(props:{
+    onClickCreate:any
     RMAdvanceBookingApprovalList:RMAdvanceBookingApprovalInterface[],
     onChange:(value:RMAdvanceBookingApprovalInterface[])=>void
 }) {
@@ -55,7 +56,7 @@ export default function Main(props:{
                             <TableCell3> {item.emigration_required} </TableCell3>
                             <TableCell3> {item.emigration_done} </TableCell3>
                             <TableCell3>{convertDateFormat(item.payment_date)}</TableCell3>
-                            <TableCell3><RedButton text={"Aprove"} onClick={()=>{console.log('aprove')}}/></TableCell3>
+                            <TableCell3><RedButton text={"Aprove"} onClick={()=>{props.onClickCreate(item)}}/></TableCell3>
                         </TableRow3>
                     ))}
                 </TableBody2>

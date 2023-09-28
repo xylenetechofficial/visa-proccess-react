@@ -88,7 +88,10 @@ const Main = (props: {
                                 <CustomCheckBox
                                     value={item.immigration_required}
                                     onChange={(value) => {
-                                        onUpdateRow(index, { ...item, immigration_required: value })
+                                        if (value == item.immigration_required)
+                                            onUpdateRow(index, { ...item, immigration_required: "" })
+                                        else
+                                            onUpdateRow(index, { ...item, immigration_required: value })
                                     }}
                                     option={[{ name: "Yes", value: "yes" }, { name: "No", value: "no" }]} /></TableCell3>
 

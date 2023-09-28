@@ -12,6 +12,7 @@ export interface BookingRequestInterface {
   visa_received_date: string,
   visa_expiry_date: string,
   is_invoice: string,
+  raise_invoice:string,
   air_ticket: string,
   division: string,
   emigration_required: string,
@@ -21,6 +22,8 @@ export interface BookingRequestInterface {
   require_date: string,
   priority: string,
   sector_charges: string
+
+  check?: string
 }
 
 
@@ -39,6 +42,7 @@ export interface BookingRequestAdapter {
   visa_received_date: string,
   visa_expiry_date: string,
   is_invoice: string,
+  raise_invoice:string,
   air_ticket: string,
   division: string,
   emigration_required: string,
@@ -73,6 +77,7 @@ export class BookingRequestConverter {
       visa_received_date: a.visa_received_date,
       visa_expiry_date: a.visa_expiry_date,
       is_invoice: a.is_invoice,
+      raise_invoice:a.raise_invoice,
       air_ticket: a.air_ticket,
       division: a.division,
       emigration_required: a.emigration_required,
@@ -105,6 +110,7 @@ export class BookingRequestConverter {
       visa_received_date: i.visa_received_date,
       visa_expiry_date: i.visa_expiry_date,
       is_invoice: i.is_invoice,
+      raise_invoice:i.raise_invoice,
       air_ticket: i.air_ticket,
       division: i.division,
       emigration_required: i.emigration_required,
@@ -161,6 +167,7 @@ export class AddBookingRequestConverter {
       visa_received_date: item.visa_received_date,
       visa_expiry_date: item.visa_expiry_date,
       is_invoice: item.is_invoice,
+      raise_invoice:item.raise_invoice,
       air_ticket: item.air_ticket,
       division: item.division,
       emigration_required: item.emigration_required,
@@ -198,6 +205,7 @@ export class AddBookingRequestConverter {
       visa_received_date: item.visa_received_date,
       visa_expiry_date: item.visa_expiry_date,
       is_invoice: item.is_invoice,
+      raise_invoice:item.raise_invoice,
       air_ticket: item.air_ticket,
       division: item.division,
       emigration_required: item.emigration_required,
@@ -207,6 +215,8 @@ export class AddBookingRequestConverter {
       require_date: item.require_date,
       priority: item.priority,
       sector_charges: item.sector_charges,
+
+      
     
     })),
       

@@ -170,7 +170,7 @@ export const navigations: NavigationInterface[] = [
     children: [
       { name: 'Candidates List', icon: 'pageview', path: '/delhi/candidates-list' },
       { name: 'RC - Candidates List', icon: 'pageview', path: '/delhi/RC-candidates-list' },
-      { name: 'RC - PP Received', icon: 'pageview', path: '/delhi/RC-pp-received' },
+      // { name: 'RC - PP Received', icon: 'pageview', path: '/delhi/RC-pp-received' },
 
     ]
   },
@@ -185,7 +185,7 @@ export const navigations: NavigationInterface[] = [
       { name: 'Ticket Agency Invoices', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoices' },
       // { name: 'Approve Changes Issued Tickets', icon: 'pageview', path: '/ticketing-dpt/approve-changes-issued-tickets' },
       { name: 'RM Advance Booking', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking' },
-      // { name: 'RM Advance Booking Approval', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking-approval' },
+      { name: 'RM Advance Booking Approval', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking-approval' },
       { name: 'Passport Release Request', icon: 'pageview', path: '/ticketing-dpt/passport-release-request' },
 
     ]

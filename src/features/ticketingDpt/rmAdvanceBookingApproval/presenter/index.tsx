@@ -28,6 +28,7 @@ export default function Main() {
     }
     const onClickCreate = async (item: RMAdvanceBookingApprovalInterface) => {
         await createRMAdvanceBookingApproval(item)
+        fetchRMAdvanceBookingApproval()
     }
 
     useEffect(() => {
@@ -47,10 +48,10 @@ export default function Main() {
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
             </CardHeader>
 
-            <RMAdvanceBookingAproval 
-            RMAdvanceBookingApprovalList={RMAdvanceBookingApprovalList}
-            onChange={(value)=>setRMAdvanceBookingApprovalList(value)}/>
-            <GreenButton onClick={()=>onClickCreate(RMAdvanceBookingApprovalList[0])} />
+            <RMAdvanceBookingAproval
+                RMAdvanceBookingApprovalList={RMAdvanceBookingApprovalList}
+                onChange={(value) => setRMAdvanceBookingApprovalList(value)} onClickCreate={onClickCreate} />
+            {/* <GreenButton onClick={()=>onClickCreate(RMAdvanceBookingApprovalList[0])} /> */}
         </>
     )
 }
