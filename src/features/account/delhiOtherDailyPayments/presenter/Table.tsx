@@ -62,7 +62,7 @@ const AccountDashboardTable = (props: {
               <TableCell> 2400</TableCell>
               <TableCell>4500</TableCell>
               <TableCell> 09-feb-2022</TableCell>
-              <TableCell> YES<p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("editdelhiotherdailypayments", ele)}>{ele}/-</p></TableCell>
+              <TableCell> <p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("editdelhiotherdailypayments", ele)}>YES{ele}/-</p></TableCell>
               <TableCell>yes</TableCell>
               <TableCell>
                 <p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("agentcommission", ele)}>
