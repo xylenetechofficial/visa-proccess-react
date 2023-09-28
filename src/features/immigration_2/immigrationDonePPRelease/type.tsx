@@ -23,6 +23,7 @@ export interface ImmigrationDonePPReleaseInterface {
     release_by_date: string,
     release_requested_by: string,
     given_to: string,
+    local_given_to?: string,
     given_date: string,
     is_without: number
 
@@ -97,6 +98,7 @@ export class ImmigrationCDonePPReleaseConverter {
             release_by_date: a.release_by_date,
             release_requested_by: a.release_requested_by,
             given_to: a.given_to,
+            local_given_to: a.given_to,
             given_date: a.given_date,
             is_without: a.is_without,
 
@@ -104,6 +106,8 @@ export class ImmigrationCDonePPReleaseConverter {
 
             balance_amount: a.balance_amount,
         };
+
+        // console.log("local_given_to: ", data.local_given_to)
         return data;
     }
 
@@ -112,7 +116,7 @@ export class ImmigrationCDonePPReleaseConverter {
 
         for (let i = 0; i < a_list.length; i++) {
             const element = a_list[i];
-            data_list.push(this.toAdapter(element));
+            data_list.push(this.toInterface(element));
         }
 
         return data_list;

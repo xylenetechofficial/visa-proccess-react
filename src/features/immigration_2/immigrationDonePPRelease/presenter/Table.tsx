@@ -87,10 +87,12 @@ const ImmigrationDOnePPReleaseTable = (props: {
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
-          {props.RcPPRecieved.map((item, index) => {
+          {props.RcPPRecieved.map(( item, index) => {
             let GivenToList_local: any = [];
 
-            if (item.given_to == "Given To RC") {
+            console.log(item.passport_no + "  " + item.local_given_to);   // Only Dev
+
+            if (item.local_given_to == "Given To RC") {
               GivenToList_local = GivenToList_only_passprt
             } else if (item.balance_amount < 1) {
               GivenToList_local = GivenToList
@@ -117,7 +119,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
               </TableCell3>
 
               <TableCell3>
-                {/* {item.given_to == "Given To Cancelation" ? item.given_to : <>
+                {item.local_given_to == "Given To Cancelation" ? item.local_given_to : <>
                   <CustomSelectComponentUnlabeled
                     value={item.given_to}
                     onChange={(value: any) => {
@@ -125,14 +127,14 @@ const ImmigrationDOnePPReleaseTable = (props: {
                     }}
                     options={GivenToList_local}
                   />
-                </>} */}
-                <CustomSelectComponentUnlabeled
+                </>}
+                {/* <CustomSelectComponentUnlabeled
                   value={item.given_to}
                   onChange={(value: any) => {
                     onUpdateRow(index, { ...item, given_to: value })
                   }}
                   options={GivenToList_local}
-                />
+                /> */}
               </TableCell3>
               <TableCell3>
                 <UnlabeledInput type="date" onchange={(value) => {

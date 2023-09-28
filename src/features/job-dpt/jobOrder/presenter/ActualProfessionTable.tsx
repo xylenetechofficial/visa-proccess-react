@@ -143,42 +143,46 @@ const TableData = (
 
     const [localRowData, setLocalRowData] = useState<ActualProfessionInterface>({
         id: 0,
-  jobOrder_id: 0,
-  actual_profession: '',
-  grade: 0,
-  sector: 0,
-  sector_charge: 0,
-  quantity: 0,
-  seletion_target_quantity: 0,
-  min_salary: 0,
-  max_salary: 0,
-  job_description: '',
-  master_service_charges: 0,
-  differed_service_charges: 0,
-  service_charges: 0,
-  partial_charges: 0,
-  consodilate_charges: '',
-  consodilate_charges_name: [],
-  consodilate_charges_value: [],
-  consolidate_charges_id: [],
-  agent_commission: 0,
-  air_ticket: '',
-  is_invoice: 0,
-  invoice_service_charges: 0,
-  invoice_ticket_charges: 0,
-  invoice_service_charges_currency: 0,
+        jobOrder_id: 0,
+        actual_profession: '',
+        grade: 0,
+        sector: 0,
+        sector_charge: 0,
+        quantity: 0,
+        seletion_target_quantity: 0,
+        min_salary: 0,
+        max_salary: 0,
+        job_description: '',
+        master_service_charges: 0,
+        differed_service_charges: 0,
+        service_charges: 0,
+        partial_charges: 0,
+        consodilate_charges: '0',
+        consodilate_charges_name: [],
+        consodilate_charges_value: [],
+        consolidate_charges_id: [],
+        agent_commission: 0,
+        air_ticket: '',
+        is_invoice: 0,
+        invoice_service_charges: 0,
+        invoice_ticket_charges: 0,
+        invoice_service_charges_currency: 0,
 
-  is_master_sector: 0,
+        is_master_sector: 0,
     })
+    const [consolidateChargeList, setConsolidateChargeList] = useState<ConsolidateChargeInterface[]>([])
+
+
     useEffect(() => {
         setLocalRowData(props.data)
+        setConsolidateChargeList(props.consolidateChargeList)
     }, [props.onChange])
     useEffect(() => {
         console.log("rerender");   // Only Dev
         props.onUpdate(props.index, localRowData!)
     }, [localRowData])
 
-    console.log(localRowData)
+    // console.log(localRowData)
     return (
         <TableRow3 key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
@@ -224,25 +228,18 @@ const TableData = (
             <TableCell3 >
                 <MultiSelectCheckbox
                     onChange={(value) => {
-                        console.log('##########   CONSOLIDATE   ##########');   // Only Dev
-                        console.log("value: ",value);   // Only Dev
-                        
-                        const { name_list, total } = cal_consolidate_charge(props.consolidateChargeList, value)
-                        console.log("name_list: ",name_list);   // Only Dev
-                        console.log("total: ",total);   // Only Dev
-                        
+                        const { name_list, total } = cal_consolidate_charge(consolidateChargeList, value)
                         setLocalRowData({
                             ...localRowData,
                             consolidate_charges_id: value,
                             consodilate_charges: total.toString(),
                             consodilate_charges_name: name_list
                         })
-                        // console.log(total);   // Only Dev
                     }}
                     value={localRowData.consolidate_charges_id}
-                    option={selectOptionConveter({ options: props.consolidateChargeList ?? [], options_struct: { name: "name", value: "id" } })}
+                    option={selectOptionConveter({ options: consolidateChargeList ?? [], options_struct: { name: "name", value: "id" } })}
                 />
-                ={localRowData.consodilate_charges}=
+                {localRowData.consodilate_charges}
             </TableCell3>
 
             <TableCell3 >

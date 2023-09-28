@@ -124,14 +124,17 @@ export default function Main(props: {
                             required
                             value={jobOrder.CountryId}
                             options={selectOptionConveter({ options: props.countryList, options_struct: { name: "name", value: "id" } })}
-                            onChange={(value) => setJobOrder({ ...jobOrder, CountryId: parseInt(value) })}
+                            onChange={(value) => setJobOrder({ ...jobOrder, MOL: 0, workPermit: 0, CountryId: parseInt(value) })}
                             label="Country"
                         />
                         {props.countryList.map((country, index) => {
                             if (jobOrder.CountryId == country.id) {
-                                if (countryList_No_Mol_WorkPermit.includes(country.name.toLowerCase())) {
+                                // if (countryList_No_Mol_WorkPermit.includes(country.name.toLowerCase())) {
+                                // if KSA type country
+                                if (country.type_id != 1) {
                                     return (
                                         <CustomRadioButton
+                                            inlined
                                             option={[{ name: "yes", value: 1 }, { name: "No", value: 0 }]}
                                             value={jobOrder.MOL}
                                             onChange={(value) => {
@@ -150,6 +153,7 @@ export default function Main(props: {
 
                         })}
                         {jobOrder.MOL == 1 ? <CustomRadioButton
+                            inlined
                             option={[{ name: "yes", value: 1 }, { name: "No", value: 0 }]}
                             value={jobOrder.workPermit}
                             onChange={(value) => setJobOrder({ ...jobOrder, workPermit: value })}
