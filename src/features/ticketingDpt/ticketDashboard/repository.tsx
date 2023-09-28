@@ -3,7 +3,10 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AgentInvoiceAwaitinConverter, AgentInvoiceAwaitingAdapter, AgentInvoiceAwaitingInterface } from "./agentInvoiceAwaitingType";
+import { TypingAdapter, TypingConverter, TypingInterface } from "./tryingType";
 import { TickeDashboardAdapter2, TickeDashboardInterface2, TicketAdapter, TicketConverter, TicketDashboardAdapter, TicketDashboardConverter, TicketDashboardConverter2, TicketDashboardInterface, TicketInterface } from "./type";
+import { UnderprocessConverter, UnderprocessInterface } from "./underprocessType";
 
 
 export async function readTicketDashboardList() {
@@ -164,11 +167,11 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
   }
  
 
-  export async function updateUnderProcess(ticketDashboard:TicketInterface[]){
+  export async function updateUnderProcess(ticketDashboard:UnderprocessInterface[]){
   
  const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process-list";
 
- const list = TicketConverter.toAdapterList(ticketDashboard);
+ const list = UnderprocessConverter.toAdapterList(ticketDashboard);
  const payload :any={
   selection_list:list
  }
@@ -202,23 +205,23 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
     const data = []
     console.log(response.data)
     if (response.data) {
-      const dataAdapter = response.data as TickeDashboardAdapter2[];
+      const dataAdapter = response.data as AgentInvoiceAwaitingAdapter[];
       for (let i = 0; i < dataAdapter.length; i++) {
         const element = dataAdapter[i];
-        data.push(TicketDashboardConverter2.toInterface(element));
+        data.push(AgentInvoiceAwaitinConverter.toInterface(element));
       }
     }
   console.log("first",data)
-    return data as TickeDashboardInterface2[]
+    return data as AgentInvoiceAwaitingInterface[]
   
   }
  
 
-  export async function updateAgencyInvoiceAwaiting(ticketDashboard:TicketInterface[]){
+  export async function updateAgencyInvoiceAwaiting(ticketDashboard:AgentInvoiceAwaitingInterface[]){
   
  const path = "/ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list";
 
- const list = TicketConverter.toAdapterList(ticketDashboard);
+ const list = AgentInvoiceAwaitinConverter.toAdapterList(ticketDashboard);
  const payload :any={
   selection_list:list
  }
@@ -251,23 +254,23 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
     const data = []
     console.log(response.data)
     if (response.data) {
-      const dataAdapter = response.data as TickeDashboardAdapter2[];
+      const dataAdapter = response.data as TypingAdapter[];
       for (let i = 0; i < dataAdapter.length; i++) {
         const element = dataAdapter[i];
-        data.push(TicketDashboardConverter2.toInterface(element));
+        data.push(TypingConverter.toInterface(element));
       }
     }
   console.log("first",data)
-    return data as TickeDashboardInterface2[]
+    return data as TypingInterface[]
   
   }
  
 
-  export async function updateTrying(ticketDashboard:TicketInterface[]){
+  export async function updateTrying(ticketDashboard:TypingInterface[]){
    
     const path = "/ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list";
 
-    const list = TicketConverter.toAdapterList(ticketDashboard);
+    const list = TypingConverter.toAdapterList(ticketDashboard);
     const payload :any={
      selection_list:list
     }

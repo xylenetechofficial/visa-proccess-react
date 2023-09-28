@@ -1,16 +1,15 @@
 import {  useState } from "react";
 import  { FullScreenModal } from "../../../../componenets/Modal";
 import { Table3, TableBody2, TableCell, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
-import {  TicketInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import { updateUnderProcess } from "../repository";
-import { UnderprocessInterface } from "../underprocessType";
+import { updateTrying } from "../repository";
+import { TypingInterface } from "../tryingType";
 
 export default function Main(props: { onClose: any,
-  openUnderProcess:UnderprocessInterface[] ,
-   onChange:(value:UnderprocessInterface[])=>void,
+  tryingList:TypingInterface[] ,
+   onChange:(value:TypingInterface[])=>void,
    
 
    }) {
@@ -19,8 +18,8 @@ export default function Main(props: { onClose: any,
     alert("Amit");
   };
 
-  function onUpdateRow(index: number, rowData: UnderprocessInterface) {
-    const nextData = props.openUnderProcess.map((e, i) => {
+  function onUpdateRow(index: number, rowData: TypingInterface) {
+    const nextData = props.tryingList.map((e, i) => {
         if (i === index) {
             // Increment the clicked counter
             return rowData;
@@ -44,7 +43,7 @@ const handleCheckboxChange = (itemId: any,index:number) => {
 
  
 const onClickSubmit =async()=>{
-  const update = await updateUnderProcess(props.openUnderProcess)
+  const update = await updateTrying(props.tryingList)
   if(update){
     props.onClose();
   }
@@ -84,7 +83,7 @@ const onClickSubmit =async()=>{
             </TableHeadRow3>
           </TableHead3>
            <TableBody2>
-            {props.openUnderProcess.map((item :any, index:any) => (
+            {props.tryingList.map((item :any, index:any) => (
               <TableRow3>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{item.setting_visa} </TableCell>

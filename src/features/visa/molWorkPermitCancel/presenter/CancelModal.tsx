@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Modal, styled } from "@mui/material";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
 import { CustomRadioButton } from '../../../../componenets/RadioButton';
 import { MolForwardedTovisaDepartmentDataInterface, MolWorkPermitCancelInterface2 } from '../type';
@@ -131,8 +131,8 @@ export default function Main(props: {
 
                         <div className=" flex justify-center">
 
-                            <GreenButton text="Submit" onClick={() => { console.log("agentPaymentReceivedList", "AAAA"), props.setModalName('') }} />
-                            <GreenButton text="Back" onClick={() => { props.setModalName(''), onClickAdd() }} />
+                            <GreenButton text="Submit" onClick={() => { console.log("agentPaymentReceivedList", "AAAA"), props.setModalName(''), onClickAdd()}} />
+                            <RedButton text="Back" onClick={() => { props.setModalName('') }} />
 
                         </div>
                     </div>

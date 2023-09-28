@@ -12,7 +12,11 @@ import { TickeDashboardInterface2, TicketDashboardInterface, TicketInterface } f
 import { GreenButton } from "../../../../componenets/CustomButton";
 import TicketToBeBookedModal from "./TicketToBeBooked";
 import UnderProcess from "./UnderProcess";
+import Trying from "./Trying";
 import AgencyInvoiceAwaitingTable from "./AgencyInvoiceAwaiting";
+import { TypingInterface } from "../tryingType";
+import { AgentInvoiceAwaitingInterface } from "../agentInvoiceAwaitingType";
+import { UnderprocessInterface } from "../underprocessType";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -43,58 +47,58 @@ export default function Main() {
     useState<TicketInterface[]>([]);
 
   const [openUnderProcess, setOpenUnderProcess] =
-    useState<TicketInterface[]>([]);
+    useState<UnderprocessInterface[]>([]);
 
   const [agencyInvoiceAwaiting, setAgencyInvoiceAwaiting] =
-    useState<TicketDashboardInterface[]>([]);
+    useState<AgentInvoiceAwaitingInterface[]>([]);
 
   const [tryingList, setTrying] =
-    useState<TicketDashboardInterface[]>([]);
+    useState<TypingInterface[]>([]);
 
   const [modalName, setModalName] = useState("");
 
-  const TicketToBeBooked = async(ticketDashboard: TicketDashboardInterface) => {
-    // setOpenTicketToBeBooked(ticketDashboard);
+  const TicketToBeBooked = async (ticketDashboard: TicketDashboardInterface) => {
+
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("TicketToBeBooked");
-    const res :any= await readTicketToBeBookedList(ticketDashboard)
-    if(res){
-      console.log("REs=",res)
+    const res: any = await readTicketToBeBookedList(ticketDashboard)
+    if (res) {
+      console.log("REs=", res)
       setOpenTicketToBeBooked(res)
     }
   };
 
-  const underProcess = async(ticketDashboard: TicketDashboardInterface) => {
-    // setOpenUnderProcess(ticketDashboard);
+  const underProcess = async (ticketDashboard: TicketDashboardInterface) => {
+
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("underProcess");
-    const res :any = await readUnderProcessList(ticketDashboard);
-    console.log(res,"RESLL")
-    if(res){
+    const res: any = await readUnderProcessList(ticketDashboard);
+    console.log(res, "RESLL")
+    if (res) {
       setOpenUnderProcess(res)
     }
   };
 
-  const AgencyInvoiceAwaiting = async(ticketDashboard: TicketDashboardInterface) => {
-    // setOpenUnderProcess(ticketDashboard);
+  const AgencyInvoiceAwaiting = async (ticketDashboard: TicketDashboardInterface) => {
+
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("agencyinvoiceawaiting");
-    const res :any =await readAgencyInvoiceAwaiting(ticketDashboard)
-    if(res){
+    const res: any = await readAgencyInvoiceAwaiting(ticketDashboard)
+    if (res) {
       setAgencyInvoiceAwaiting(res)
     }
   };
-  const tryingFunction = async(ticketDashboard: TicketDashboardInterface) => {
-    // setOpenUnderProcess(ticketDashboard);
+  const tryingFunction = async (ticketDashboard: TicketDashboardInterface) => {
+
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
-    setModalName("underProcess");
-    const res :any =await readTrying(ticketDashboard)
-    if(res){
-      setAgencyInvoiceAwaiting(res)
+    setModalName("typingmodal");
+    const res: any = await readTrying(ticketDashboard)
+    if (res) {
+      setTrying(res)
     }
   };
 
@@ -114,7 +118,6 @@ export default function Main() {
 
       <TicketDashboard
         TicketDashboardList={TicketDashboardList}
-        // onChange={(value)=>setTicketDashboardList(value)}
         TicketToBeBooked={TicketToBeBooked}
         underProcess={underProcess}
         AgencyInvoiceAwaiting={AgencyInvoiceAwaiting}
@@ -125,8 +128,8 @@ export default function Main() {
         ""
       ) : (
         <TicketToBeBookedModal
-          onClose={() => {setModalName(""), fetchTicketDashboard()}}
-          onChange={(value)=>setOpenTicketToBeBooked(value)}
+          onClose={() => { setModalName(""), fetchTicketDashboard() }}
+          onChange={(value) => setOpenTicketToBeBooked(value)}
           openTicketToBeBooked={openTicketToBeBooked}
           TicketDashboardList={TicketDashboardList}
         />
@@ -136,20 +139,29 @@ export default function Main() {
         ""
       ) : (
         <UnderProcess
-        onClose={() => {setModalName(""), fetchTicketDashboard()}}
-        onChange={(value)=>setOpenTicketToBeBooked(value)}
-          // TicketDashboardList={TicketDashboardList}
+          onClose={() => { setModalName(""), fetchTicketDashboard() }}
+          onChange={(value) => setOpenUnderProcess(value)}
           openUnderProcess={openUnderProcess}
         />
       )}
 
 
-{modalName !== "agencyinvoiceawaiting" ? (
+      {modalName !== "agencyinvoiceawaiting" ? (
         ""
       ) : (
         <AgencyInvoiceAwaitingTable
-          onClose={() => setModalName("")}
-          TicketDashboardList={TicketDashboardList}
+          onClose={() => { setModalName(""), fetchTicketDashboard() }}
+          onChange={(value) => setAgencyInvoiceAwaiting(value)}
+          agencyInvoiceAwaiting={agencyInvoiceAwaiting}
+        />
+      )}
+      {modalName !== "typingmodal" ? (
+        ""
+      ) : (
+        <Trying
+          onClose={() => { setModalName(""), fetchTicketDashboard() }}
+          tryingList={tryingList}
+          onChange={(value) => setTrying(value)}
         />
       )}
       {/* <GreenButton text='Submit' onClick={()=>onClickCreate(TicketDashboardList)} /> */}
