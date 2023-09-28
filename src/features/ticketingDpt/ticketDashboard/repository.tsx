@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { TicketDashboardAdapter, TicketDashboardConverter, TicketDashboardInterface } from "./type";
+import { TickeDashboardAdapter2, TickeDashboardInterface2, TicketDashboardAdapter, TicketDashboardConverter, TicketDashboardConverter2, TicketDashboardInterface } from "./type";
 
 
 export async function readTicketDashboardList() {
@@ -21,24 +21,22 @@ export async function readTicketDashboardList() {
   const data = []
   console.log(response.data)
   if (response.data) {
-    const dataAdapter = response.data as TicketDashboardAdapter[];
+    const dataAdapter = response.data as TickeDashboardAdapter2[];
     for (let i = 0; i < dataAdapter.length; i++) {
       const element = dataAdapter[i];
-      data.push(TicketDashboardConverter.toInterface(element));
+      data.push(TicketDashboardConverter2.toInterface(element));
     }
   }
 
-  return data as TicketDashboardInterface[]
+  return data as TickeDashboardInterface2[]
 }
 
 
 
-export async function createTicketDashboard(TicketDashboard:TicketDashboardInterface[]) {
+export async function createTicketDashboard(TicketDashboard:TickeDashboardInterface2) {
     const path = "/ticketing-dpt/tickets-dashboard-list";
-  const list : any ={
-    selection_list:TicketDashboard
-  }
-    const payload = TicketDashboardConverter.toAdapterList(list);
+
+    const payload = TicketDashboardConverter2.toAdapter(TicketDashboard);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT
@@ -74,6 +72,9 @@ export async function createTicketDashboard(TicketDashboard:TicketDashboardInter
     showMessage_v2({ message: response.message, status: response.code })
   
   }
+
+
+ 
 
 
 

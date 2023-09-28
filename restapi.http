@@ -5,7 +5,7 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint =https://f853-103-142-115-55.ngrok-free.app/api
+@endpoint =https://5fc6-103-142-115-55.ngrok-free.app/api
 
 
 ###
@@ -1433,8 +1433,9 @@ content-type: application/json
 # ================      RC Candidates List      =============== #
 
 ### Read RC Candidates List List
-GET {{endpoint}}/delhi-account-dasboard/rc-candidate-list
-?status=yes
+GET {{endpoint}}/ticketing-dpt/tickets-dashboard-list
+
+
 # default status=no 
 
 # status=no for add 

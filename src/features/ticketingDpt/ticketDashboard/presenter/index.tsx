@@ -8,7 +8,7 @@ import BookingTable from "./Table";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { createTicketDashboard, readTicketDashboardList } from "../repository";
-import { TicketDashboardInterface } from "../type";
+import { TickeDashboardInterface2, TicketDashboardInterface } from "../type";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import OpenSectorModal from "./TicketToBeBooked";
 import UnderProcess from "./UnderProcess";
@@ -22,21 +22,21 @@ export default function Main() {
     justifyContent: "space-between",
   }));
   const [searchQuery, setSearchQuery] = useState("");
-  const [TicketDashboardList, setTicketDashboardList] = useState<
-    TicketDashboardInterface[]
-  >([]);
+  const [TicketDashboardList, setTicketDashboardList] = useState<TickeDashboardInterface2[]>([]);
+
+  console.log(TicketDashboardList, "Amit")
   async function fetchTicketDashboard() {
     const data = await readTicketDashboardList();
     if (data) {
-      setTicketDashboardList(data);
+      (data);
     }
   }
-  const onClickCreate = async (item: TicketDashboardInterface[]) => {
-    const data = await createTicketDashboard(item);
-    if (data) {
-      fetchTicketDashboard();
-    }
-  };
+  // const onClickCreate = async (item: TicketDashboardInterface[]) => {
+  //   const data = await createTicketDashboard(item);
+  //   if (data) {
+  //     fetchTicketDashboard();
+  //   }
+  // };
 
   const [openTicketToBeBooked, setOpenTicketToBeBooked] =
     useState<TicketDashboardInterface>({} as TicketDashboardInterface);
@@ -82,8 +82,8 @@ export default function Main() {
       </CardHeader>
 
       <TicketDashboard
-        // TicketDashboardList={TicketDashboardList}
-        // onChange={(value)=>setTicketDashboardList(value)
+        TicketDashboardList={TicketDashboardList}
+        // onChange={(value)=>setTicketDashboardList(value)}
         TicketToBeBooked={TicketToBeBooked}
         underProcess={underProcess}
         AgencyInvoiceAwaiting={AgencyInvoiceAwaiting}
