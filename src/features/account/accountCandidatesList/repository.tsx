@@ -1,7 +1,7 @@
 // import { CandidateDiscountConverter, CandidateDiscountInterface } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
-import { AccountCandidateAdapter, AccountCandidateCancelConverter, AccountCandidateCancelInterface, AccountCandidateConverter, AccountCandidateInterface } from "./type";
+import { AccountCandidateAdapter, AccountCandidateCancelConverter, AccountCandidateCancelConverter2, AccountCandidateCancelInterface, AccountCandidateCancelInterface2, AccountCandidateConverter, AccountCandidateInterface } from "./type";
 
 
 
@@ -38,6 +38,19 @@ export async function updateCandidate(id:number, CandidateDiscount: AccountCandi
 
   const path = "/account/account-candidate/"+ id 
   const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+
+}
+
+export async function createAccountCandidateCancel( AccountDashboard: AccountCandidateCancelInterface2) {
+
+  const payload = AccountCandidateCancelConverter2.toAdapter(AccountDashboard);
+console.log(payload,"aa",AccountDashboard)
+  const path = "/account/account-candidate"
+  const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
   })

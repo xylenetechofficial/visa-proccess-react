@@ -7,11 +7,12 @@ import {
 import BookingTable from "./Table";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import { createTicketDashboard, readTicketDashboardList } from "../repository";
-import { TickeDashboardInterface2, TicketDashboardInterface } from "../type";
+import { createTicketDashboard, readAgencyInvoiceAwaiting, readTicketDashboardList, readTicketToBeBookedList, readTrying, readUnderProcessList } from "../repository";
+import { TickeDashboardInterface2, TicketDashboardInterface, TicketInterface } from "../type";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import OpenSectorModal from "./TicketToBeBooked";
+import TicketToBeBookedModal from "./TicketToBeBooked";
 import UnderProcess from "./UnderProcess";
+import AgencyInvoiceAwaitingTable from "./AgencyInvoiceAwaiting";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -28,7 +29,7 @@ export default function Main() {
   async function fetchTicketDashboard() {
     const data = await readTicketDashboardList();
     if (data) {
-      (data);
+      setTicketDashboardList(data);
     }
   }
   // const onClickCreate = async (item: TicketDashboardInterface[]) => {
@@ -39,32 +40,62 @@ export default function Main() {
   // };
 
   const [openTicketToBeBooked, setOpenTicketToBeBooked] =
-    useState<TicketDashboardInterface>({} as TicketDashboardInterface);
+    useState<TicketInterface[]>([]);
 
   const [openUnderProcess, setOpenUnderProcess] =
-    useState<TicketDashboardInterface>({} as TicketDashboardInterface);
+    useState<TicketInterface[]>([]);
+
+  const [agencyInvoiceAwaiting, setAgencyInvoiceAwaiting] =
+    useState<TicketDashboardInterface[]>([]);
+
+  const [tryingList, setTrying] =
+    useState<TicketDashboardInterface[]>([]);
 
   const [modalName, setModalName] = useState("");
 
-  const TicketToBeBooked = (ticketDashboard: TicketDashboardInterface) => {
-    setOpenTicketToBeBooked(ticketDashboard);
+  const TicketToBeBooked = async(ticketDashboard: TicketDashboardInterface) => {
+    // setOpenTicketToBeBooked(ticketDashboard);
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("TicketToBeBooked");
+    const res :any= await readTicketToBeBookedList(ticketDashboard)
+    if(res){
+      console.log("REs=",res)
+      setOpenTicketToBeBooked(res)
+    }
   };
 
-  const underProcess = (ticketDashboard: TicketDashboardInterface) => {
-    setOpenUnderProcess(ticketDashboard);
+  const underProcess = async(ticketDashboard: TicketDashboardInterface) => {
+    // setOpenUnderProcess(ticketDashboard);
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("underProcess");
+    const res :any = await readUnderProcessList(ticketDashboard);
+    console.log(res,"RESLL")
+    if(res){
+      setOpenUnderProcess(res)
+    }
   };
 
-  const AgencyInvoiceAwaiting = (ticketDashboard: TicketDashboardInterface) => {
-    setOpenUnderProcess(ticketDashboard);
+  const AgencyInvoiceAwaiting = async(ticketDashboard: TicketDashboardInterface) => {
+    // setOpenUnderProcess(ticketDashboard);
+    console.log("onClickEdit"); // Only Dev
+    console.log(ticketDashboard); // Only Dev
+    setModalName("agencyinvoiceawaiting");
+    const res :any =await readAgencyInvoiceAwaiting(ticketDashboard)
+    if(res){
+      setAgencyInvoiceAwaiting(res)
+    }
+  };
+  const tryingFunction = async(ticketDashboard: TicketDashboardInterface) => {
+    // setOpenUnderProcess(ticketDashboard);
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("underProcess");
+    const res :any =await readTrying(ticketDashboard)
+    if(res){
+      setAgencyInvoiceAwaiting(res)
+    }
   };
 
   useEffect(() => {
@@ -87,13 +118,16 @@ export default function Main() {
         TicketToBeBooked={TicketToBeBooked}
         underProcess={underProcess}
         AgencyInvoiceAwaiting={AgencyInvoiceAwaiting}
+        tryingFunction={tryingFunction}
       />
 
       {modalName !== "TicketToBeBooked" ? (
         ""
       ) : (
-        <OpenSectorModal
-          onClose={() => setModalName("")}
+        <TicketToBeBookedModal
+          onClose={() => {setModalName(""), fetchTicketDashboard()}}
+          onChange={(value)=>setOpenTicketToBeBooked(value)}
+          openTicketToBeBooked={openTicketToBeBooked}
           TicketDashboardList={TicketDashboardList}
         />
       )}
@@ -102,16 +136,18 @@ export default function Main() {
         ""
       ) : (
         <UnderProcess
-          onClose={() => setModalName("")}
-          TicketDashboardList={TicketDashboardList}
+        onClose={() => {setModalName(""), fetchTicketDashboard()}}
+        onChange={(value)=>setOpenTicketToBeBooked(value)}
+          // TicketDashboardList={TicketDashboardList}
+          openUnderProcess={openUnderProcess}
         />
       )}
 
 
-{modalName !== "underProcess" ? (
+{modalName !== "agencyinvoiceawaiting" ? (
         ""
       ) : (
-        <UnderProcess
+        <AgencyInvoiceAwaitingTable
           onClose={() => setModalName("")}
           TicketDashboardList={TicketDashboardList}
         />

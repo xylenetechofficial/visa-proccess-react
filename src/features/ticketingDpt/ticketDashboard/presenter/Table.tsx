@@ -17,9 +17,10 @@ import { BlueButton } from "../../../../componenets/CustomButton";
 export default function Main(props: {
   TicketDashboardList: TickeDashboardInterface2[];
   // onChange: (value: TicketDashboardInterface[]) => void;
-  TicketToBeBooked: any;
-  underProcess: any;
-  AgencyInvoiceAwaiting: any;
+  TicketToBeBooked:(value:any)=>void,
+  underProcess:(value:any)=>void,
+  AgencyInvoiceAwaiting:(value:any)=>void,
+  tryingFunction:(value:any)=>void
 }) {
   return (
     <>
@@ -65,7 +66,7 @@ export default function Main(props: {
                   <span
                     className="text-red-600 cursor-pointer px-10"
                     onClick={() => {
-                      props.underProcess(ticket);
+                      props.tryingFunction(ticket);
                     }}
                   >
                     {ticket.ticket_trying}

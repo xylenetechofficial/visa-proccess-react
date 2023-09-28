@@ -184,4 +184,59 @@ export interface AccountCandidateCancelInterface {
   }
   
 
+
+  export interface AccountCandidateCancelInterface2{
+  
+    "candidate_id" : number,
+    "client_invoice" : string,
+    "penalty_amount" : number,
+    "mistake_by" : string
+
+}
+export interface AccountCandidateCancelAdapter2{
+  
+    "candidate_id" : number,
+    "client_invoice" : string,
+    "penalty_amount" : number,
+    "mistake_by" : string
+
+}
+
+
+export class AccountCandidateCancelConverter2 {
+  // private i: VisaProfesionInterface
+  // private a: AccountCandidateCancelAdapter2
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: AccountCandidateCancelAdapter2) {
+    const data: AccountCandidateCancelInterface2 = {
+      candidate_id :a.candidate_id,
+      client_invoice :a.client_invoice,
+      penalty_amount :a.penalty_amount,
+      mistake_by :a.mistake_by,
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: AccountCandidateCancelInterface2) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: AccountCandidateCancelAdapter2 = {
+      candidate_id :i.candidate_id,
+      client_invoice :i.client_invoice,
+      penalty_amount :i.penalty_amount,
+      mistake_by :i.mistake_by,
+    };
+    return data;
+  }
+}
+
+
+
+
   

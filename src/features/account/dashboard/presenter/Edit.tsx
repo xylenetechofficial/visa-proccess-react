@@ -53,7 +53,7 @@ export default function Main(props: {
     }
 
     const [accountDashboard, setAccountDashboard] = useState(initValue)
-    const [visaProfessionList, setVisaProfessionList] = useState<AccountDashboardInterface2>(
+    const [molWokPermitCancel, setMolWokPermitCancel] = useState<AccountDashboardInterface2>(
         {
             "candidate_id": props.currentElement.id,
             "client_invoice": '',
@@ -68,13 +68,13 @@ export default function Main(props: {
 
         // call create
         // const newArray: any = { ...visaProfessionList, visaProfessionList: visaProfessionList }
-        const newArray: any = { ...visaProfessionList }
+        const newArray: any = { ...molWokPermitCancel }
         // newArray.candidate_id =props.currentElement.id
         console.log(newArray, "AAAAAAA")
         const flag = await createAccountDashboard2(newArray)
 
 
-        setAccountDashboard(initValue)
+        setMolWokPermitCancel(initValue)
         props.fetchAccountDashboardList()
         props.onClose()
     }
@@ -105,7 +105,7 @@ export default function Main(props: {
     const handleInputChange = (value: any) => {
         const numberRegex = /[0-9]+$/;
         if (numberRegex.test(value) || value == '') {
-            setVisaProfessionList((prev) => { return { ...prev, penalty_amount: parseInt(value) } })
+            setMolWokPermitCancel((prev) => { return { ...prev, penalty_amount: parseInt(value) } })
         }
     };
     return (
@@ -117,99 +117,194 @@ export default function Main(props: {
         //     onClose={props.onClose}
         // >
 
+        // <Box sx={style}>
+        //     <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Candidate Reject</h3>
+        //     <button
+        //         type="button"
+        //         className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+        //         onClick={() => props.onClose()}
+        //     >
+        //         <svg
+        //             aria-hidden="true"
+        //             className="w-5 h-5"
+        //             fill="currentColor"
+        //             viewBox="0 0 20 20"
+        //             xmlns="http://www.w3.org/2000/svg"
+        //         >
+        //             <path
+        //                 fillRule="evenodd"
+        //                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        //                 clipRule="evenodd"
+        //             ></path>
+        //         </svg>
+        //         <span className="sr-only">Close modal</span>
+        //     </button>
+
+        //     <div className="grid grid-cols-1 py-3  gap-2 shadow">
+
+        //         <UpdateContentBox>
+        //             <SubHeading1 text="Company Name   :" />
+        //             <SubHeading1 text={props.currentElement?.company_name} />
+        //         </UpdateContentBox>
+
+        //         <UpdateContentBox>
+        //             <SubHeading1 text="pARTY cODE   :" />
+        //             <SubHeading1 text={String(props.currentElement?.party_code)} />
+        //         </UpdateContentBox>
+        //         <UpdateContentBox>
+        //             <SubHeading1 text="Candidate Name   :" />
+        //             <SubHeading1 text={props.currentElement?.name} />
+        //         </UpdateContentBox>
+        //         <UpdateContentBox>
+        //             <SubHeading1 text="Passport No   :" />
+        //             <SubHeading1 text={props.currentElement?.passport_no} />
+        //         </UpdateContentBox>
+        //         <UpdateContentBox>
+        //             <SubHeading1 text="Agent    :" />
+        //             <SubHeading1 text={props.currentElement?.agent_name} />
+        //         </UpdateContentBox>
+        //         <UpdateContentBox>
+        //             <SubHeading1 text="Client invoice   :" />
+        //             <CustomRadioButton value={visaProfessionList.client_invoice}
+        //                 onChange={(value) => {
+        //                     if (value == "yes")
+        //                         setVisaProfessionList({ ...visaProfessionList, client_invoice: value, mistake_by: "", penalty_amount: 0 })
+        //                     else
+        //                         setVisaProfessionList({ ...visaProfessionList, client_invoice: value })
+        //                 }}
+        //                 // onChange={(value) => console.log(value)}
+        //                 option={[
+        //                     { name: "Yes", value: "yes" },
+        //                     { name: "No", value: "no" },
+
+        //                 ]} />
+        //         </UpdateContentBox>
+        //         {visaProfessionList.client_invoice == "yes" ? <></> : <>
+        //             <UpdateContentBox>
+        //                 <SubHeading1 text="Penalty Amount   :" />
+        //                 <UnlabeledInput type="number" value={visaProfessionList.penalty_amount} onchange={(value) =>
+        //                     handleInputChange(value)
+        //                     // setVisaProfessionList({ ...visaProfessionList, account_dashboard_penalty_amount: Number(value) })
+        //                 } />
+        //             </UpdateContentBox>
+        //             <UpdateContentBox>
+        //                 <SubHeading1 text="Mistake by   :" />
+
+        //                 <CustomRadioButton
+        //                     value={visaProfessionList.mistake_by}
+        //                     onChange={(value) => setVisaProfessionList({ ...visaProfessionList, mistake_by: value })}
+        //                     // onChange={(value) => console.log(value)}
+        //                     option={[
+        //                         { name: "Agent/Candidate", value: "Agent/Candidate" },
+        //                         { name: "Soundlines", value: "Soundlines" },
+        //                         { name: "client", value: "client" },
+        //                     ]}
+        //                 />
+        //             </UpdateContentBox>
+        //         </>}
+        //         <div className="grid grid-cols-2 shadow ">
+        //             <GreenButton text="Submit" onClick={() => { onClickAdd() }} />
+        //             <RedButton text="cancel" onClick={() => { props.onClose() }} />
+        //         </div>
+        //     </div>
+
+
+
+        // </Box>
+
         <Box sx={style}>
-            <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Candidate Reject</h3>
-            <button
-                type="button"
-                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                onClick={() => props.onClose()}
+        <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">Candidate Reject</h3>
+        <button
+            type="button"
+            className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+            onClick={() => props.onClose()}
+        >
+            <svg
+                aria-hidden="true"
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
             >
-                <svg
-                    aria-hidden="true"
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                    ></path>
-                </svg>
-                <span className="sr-only">Close modal</span>
-            </button>
+                <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                ></path>
+            </svg>
+            <span className="sr-only">Close modal</span>
+        </button>
 
-            <div className="grid grid-cols-1 py-3  gap-2 shadow">
+        <div className="grid grid-cols-1 py-3  gap-2 shadow">
 
-                <UpdateContentBox>
-                    <SubHeading1 text="Company Name   :" />
-                    <SubHeading1 text={props.currentElement?.company_name} />
-                </UpdateContentBox>
+            <UpdateContentBox>
+                <SubHeading1 text="Company Name   :" />
+                <SubHeading1 text={props.currentElement?.company_name} />
+            </UpdateContentBox>
 
+            <UpdateContentBox>
+                <SubHeading1 text="pARTY cODE   :" />
+                <SubHeading1 text={String(props.currentElement?.party_code)} />
+            </UpdateContentBox>
+            <UpdateContentBox>
+                <SubHeading1 text="Candidate Name   :" />
+                <SubHeading1 text={props.currentElement?.name} />
+            </UpdateContentBox>
+            <UpdateContentBox>
+                <SubHeading1 text="Passport No   :" />
+                <SubHeading1 text={props.currentElement?.passport_no} />
+            </UpdateContentBox>
+            <UpdateContentBox>
+                <SubHeading1 text="Agent    :" />
+                <SubHeading1 text={props.currentElement?.agent_name} />
+            </UpdateContentBox>
+            <UpdateContentBox>
+                <SubHeading1 text="Client invoice   :" />
+                <CustomRadioButton value={molWokPermitCancel.client_invoice}
+                    onChange={(value) => {
+                        if (value == "yes")
+                            setMolWokPermitCancel({ ...molWokPermitCancel, client_invoice: value, mistake_by: "", penalty_amount: 0 })
+                        else
+                            setMolWokPermitCancel({ ...molWokPermitCancel, client_invoice: value })
+                    }}
+                    // onChange={(value) => console.log(value)}
+                    option={[
+                        { name: "Yes", value: "yes" },
+                        { name: "No", value: "no" },
+
+                    ]} />
+            </UpdateContentBox>
+            {molWokPermitCancel.client_invoice == "yes" ? <></> : <>
                 <UpdateContentBox>
-                    <SubHeading1 text="pARTY cODE   :" />
-                    <SubHeading1 text={String(props.currentElement?.party_code)} />
+                    <SubHeading1 text="Penalty Amount   :" />
+                    <UnlabeledInput type="number" value={molWokPermitCancel.penalty_amount} onchange={(value) =>
+                        // handleInputChange(value)
+                        setMolWokPermitCancel({ ...molWokPermitCancel, penalty_amount: Number(value) })
+                    } />
                 </UpdateContentBox>
                 <UpdateContentBox>
-                    <SubHeading1 text="Candidate Name   :" />
-                    <SubHeading1 text={props.currentElement?.name} />
-                </UpdateContentBox>
-                <UpdateContentBox>
-                    <SubHeading1 text="Passport No   :" />
-                    <SubHeading1 text={props.currentElement?.passport_no} />
-                </UpdateContentBox>
-                <UpdateContentBox>
-                    <SubHeading1 text="Agent    :" />
-                    <SubHeading1 text={props.currentElement?.agent_name} />
-                </UpdateContentBox>
-                <UpdateContentBox>
-                    <SubHeading1 text="Client invoice   :" />
-                    <CustomRadioButton value={visaProfessionList.client_invoice}
-                        onChange={(value) => {
-                            if (value == "yes")
-                                setVisaProfessionList({ ...visaProfessionList, client_invoice: value, mistake_by: "", penalty_amount: 0 })
-                            else
-                                setVisaProfessionList({ ...visaProfessionList, client_invoice: value })
-                        }}
+                    <SubHeading1 text="Mistake by   :" />
+
+                    <CustomRadioButton
+                        value={molWokPermitCancel.mistake_by}
+                        onChange={(value) => setMolWokPermitCancel({ ...molWokPermitCancel, mistake_by: value })}
                         // onChange={(value) => console.log(value)}
                         option={[
-                            { name: "Yes", value: "yes" },
-                            { name: "No", value: "no" },
-
-                        ]} />
+                            { name: "Agent/Candidate", value: "Agent/Candidate" },
+                            { name: "Soundlines", value: "Soundlines" },
+                            { name: "client", value: "client" },
+                        ]}
+                    />
                 </UpdateContentBox>
-                {visaProfessionList.client_invoice == "yes" ? <></> : <>
-                    <UpdateContentBox>
-                        <SubHeading1 text="Penalty Amount   :" />
-                        <UnlabeledInput type="number" value={visaProfessionList.penalty_amount} onchange={(value) =>
-                            handleInputChange(value)
-                            // setVisaProfessionList({ ...visaProfessionList, account_dashboard_penalty_amount: Number(value) })
-                        } />
-                    </UpdateContentBox>
-                    <UpdateContentBox>
-                        <SubHeading1 text="Mistake by   :" />
-
-                        <CustomRadioButton
-                            value={visaProfessionList.mistake_by}
-                            onChange={(value) => setVisaProfessionList({ ...visaProfessionList, mistake_by: value })}
-                            // onChange={(value) => console.log(value)}
-                            option={[
-                                { name: "Agent/Candidate", value: "Agent/Candidate" },
-                                { name: "Soundlines", value: "Soundlines" },
-                                { name: "client", value: "client" },
-                            ]}
-                        />
-                    </UpdateContentBox>
-                </>}
-                <div className="grid grid-cols-2 shadow ">
-                    <GreenButton text="Submit" onClick={() => { onClickAdd() }} />
-                    <RedButton text="cancel" onClick={() => { props.onClose() }} />
-                </div>
+            </>}
+            <div className="grid grid-cols-2 shadow ">
+                <GreenButton text="Submit" onClick={() => { onClickAdd() }} />
+                <RedButton text="cancel" onClick={() => { props.onClose() }} />
             </div>
+        </div>
 
 
 
-        </Box>
+    </Box>
     )
 }

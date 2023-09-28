@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { TickeDashboardAdapter2, TickeDashboardInterface2, TicketDashboardAdapter, TicketDashboardConverter, TicketDashboardConverter2, TicketDashboardInterface } from "./type";
+import { TickeDashboardAdapter2, TickeDashboardInterface2, TicketAdapter, TicketConverter, TicketDashboardAdapter, TicketDashboardConverter, TicketDashboardConverter2, TicketDashboardInterface, TicketInterface } from "./type";
 
 
 export async function readTicketDashboardList() {
@@ -27,7 +27,7 @@ export async function readTicketDashboardList() {
       data.push(TicketDashboardConverter2.toInterface(element));
     }
   }
-
+console.log("first",data)
   return data as TickeDashboardInterface2[]
 }
 
@@ -73,8 +73,214 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
   
   }
 
+  
+//get post ticketing-dpt/tickets-dashboard/ticket-to-be-booked-list
+//post ticketing-dpt/tickets-dashboard/ticket-to-be-booked-list
 
+
+  export async function   readTicketToBeBookedList(ticketDashboard:any){
+    const path = "/ticketing-dpt/tickets-dashboard/ticket-to-be-booked-list";
+  console.log(ticketDashboard,"IPA")
+    const response = await ApiHelper.get(path, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT,
+      queryParameters:{
+        ticketing_sector_from:ticketDashboard.ticketing_sector_from,
+        ticketing_sector_to:ticketDashboard.ticketing_sector_to
+      }
+    });
+  
+    if (response.code != 200) {
+      showMessage_v2({ message: response.message, status: response.code })
+    }
+  
+    const data = []
+    console.log(response.data)
+    if (response.data) {
+      const dataAdapter = response.data as TicketAdapter[];
+      for (let i = 0; i < dataAdapter.length; i++) {
+        const element = dataAdapter[i];
+        data.push(TicketConverter.toInterface(element));
+      }
+    }
+  console.log("first",data)
+    return data as TicketInterface[]
+  
+  }
  
+
+  export async function updateTicketToBeBookedList(ticketDashboard:TicketInterface[]){
+
+ const path = "/ticketing-dpt/tickets-dashboard/ticket-to-be-booked-list";
+
+ const list = TicketConverter.toAdapterList(ticketDashboard);
+ const payload :any={
+  selection_list:list
+ }
+ const response = await ApiHelper.post(path, payload, {
+   contentType: ContentType.json,
+   tokenType: AuthTokenType.JWT,
+ });
+ showMessage_v2({ message: response.message, status: response.code });
+ if (response.code > 199 && response.code < 300) {
+   return true;
+ }
+ return false;
+  }
+//get ticketing-dpt/tickets-dashboard/ticket-under-process-list
+ //post ticketing-dpt/tickets-dashboard/ticket-under-process-list
+//delete ticketing-dpt/tickets-dashboard/ticket-under-process/{id}
+
+
+
+  export async function   readUnderProcessList(ticketDashboard:any){
+    const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process-list";
+  console.log(ticketDashboard,"IPA")
+    const response = await ApiHelper.get(path, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT,
+      queryParameters:{
+        ticketing_sector_from:ticketDashboard.ticketing_sector_from,
+        ticketing_sector_to:ticketDashboard.ticketing_sector_to
+      }
+    });
+  
+    if (response.code != 200) {
+      showMessage_v2({ message: response.message, status: response.code })
+    }
+  
+    const data = []
+    console.log(response.data)
+    if (response.data) {
+      const dataAdapter = response.data as TickeDashboardAdapter2[];
+      for (let i = 0; i < dataAdapter.length; i++) {
+        const element = dataAdapter[i];
+        data.push(TicketDashboardConverter2.toInterface(element));
+      }
+    }
+  console.log("first",data)
+    return data as TickeDashboardInterface2[]
+  
+  }
+ 
+
+  export async function updateUnderProcess(ticketDashboard:TicketInterface[]){
+  
+ const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process-list";
+
+ const list = TicketConverter.toAdapterList(ticketDashboard);
+ const payload :any={
+  selection_list:list
+ }
+ const response = await ApiHelper.post(path, payload, {
+   contentType: ContentType.json,
+   tokenType: AuthTokenType.JWT,
+ });
+ showMessage_v2({ message: response.message, status: response.code });
+ if (response.code > 199 && response.code < 300) {
+   return true;
+ }
+ return false;
+  }
+
+  export async function   readAgencyInvoiceAwaiting(ticketDashboard:any){
+    const path = "/ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list";
+  console.log(ticketDashboard,"IPA")
+    const response = await ApiHelper.get(path, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT,
+      queryParameters:{
+        ticketing_sector_from:ticketDashboard.ticketing_sector_from,
+        ticketing_sector_to:ticketDashboard.ticketing_sector_to
+      }
+    });
+  
+    if (response.code != 200) {
+      showMessage_v2({ message: response.message, status: response.code })
+    }
+  
+    const data = []
+    console.log(response.data)
+    if (response.data) {
+      const dataAdapter = response.data as TickeDashboardAdapter2[];
+      for (let i = 0; i < dataAdapter.length; i++) {
+        const element = dataAdapter[i];
+        data.push(TicketDashboardConverter2.toInterface(element));
+      }
+    }
+  console.log("first",data)
+    return data as TickeDashboardInterface2[]
+  
+  }
+ 
+
+  export async function updateAgencyInvoiceAwaiting(ticketDashboard:TicketInterface[]){
+  
+ const path = "/ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list";
+
+ const list = TicketConverter.toAdapterList(ticketDashboard);
+ const payload :any={
+  selection_list:list
+ }
+ const response = await ApiHelper.post(path, payload, {
+   contentType: ContentType.json,
+   tokenType: AuthTokenType.JWT,
+ });
+ showMessage_v2({ message: response.message, status: response.code });
+ if (response.code > 199 && response.code < 300) {
+   return true;
+ }
+ return false;
+  }
+  export async function   readTrying(ticketDashboard:any){
+    const path = "/ticketing-dpt/tickets-dashboard/ticket-trying-list";
+  console.log(ticketDashboard,"IPA")
+    const response = await ApiHelper.get(path, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT,
+      queryParameters:{
+        ticketing_sector_from:ticketDashboard.ticketing_sector_from,
+        ticketing_sector_to:ticketDashboard.ticketing_sector_to
+      }
+    });
+  
+    if (response.code != 200) {
+      showMessage_v2({ message: response.message, status: response.code })
+    }
+  
+    const data = []
+    console.log(response.data)
+    if (response.data) {
+      const dataAdapter = response.data as TickeDashboardAdapter2[];
+      for (let i = 0; i < dataAdapter.length; i++) {
+        const element = dataAdapter[i];
+        data.push(TicketDashboardConverter2.toInterface(element));
+      }
+    }
+  console.log("first",data)
+    return data as TickeDashboardInterface2[]
+  
+  }
+ 
+
+  export async function updateTrying(ticketDashboard:TicketInterface[]){
+   
+    const path = "/ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list";
+
+    const list = TicketConverter.toAdapterList(ticketDashboard);
+    const payload :any={
+     selection_list:list
+    }
+    const response = await ApiHelper.post(path, payload, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT,
+    });
+    showMessage_v2({ message: response.message, status: response.code });
+    if (response.code > 199 && response.code < 300) {
+      return true;
+    }
+    return false;
+    }
 
 
 

@@ -232,3 +232,134 @@ export class TicketDashboardConverter2 {
     return data;
   }
 }
+
+
+export interface TicketInterface {
+  id:number,
+actual_profession: string,
+agent_name: string,
+air_ticket: string,
+candidate_name: string,
+company_name: string,
+division: string,
+job_order_no: string,
+mofa_number: string,
+passport_no: string,
+priority: string,
+rc_name: string,
+required_date: string,
+setting_visa: string,
+ticketing_sector_from: string,
+ticketing_sector_to: string,
+ticketing_trying: number,
+ticketing_under_process: number,
+visa_authorisation: string,
+visa_expire_date: string,
+visa_received_date: string,
+
+}
+export interface TicketAdapter{
+  id:number,
+actual_profession: string,
+agent_name: string,
+air_ticket: string,
+candidate_name: string,
+company_name: string,
+division: string,
+job_order_no: string,
+mofa_number: string,
+passport_no: string,
+priority: string,
+rc_name: string,
+required_date: string,
+setting_visa: string,
+ticketing_sector_from: string,
+ticketing_sector_to: string,
+ticketing_trying: number,
+ticketing_under_process: number,
+visa_authorisation: string,
+visa_expire_date: string,
+visa_received_date: string,
+}
+
+export class TicketConverter {
+  // private i: TicketInterface
+  // private a: TicketAdapter
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: TicketAdapter) {
+    const data: TicketInterface = {
+      id:a.id,
+      actual_profession:a.actual_profession,
+      agent_name:a.agent_name,
+      air_ticket:a.air_ticket,
+      candidate_name:a.candidate_name,
+      company_name:a.company_name,
+      division:a.division,
+      job_order_no:a.job_order_no,
+      mofa_number:a.mofa_number,
+      passport_no:a.passport_no,
+      priority:a.priority,
+      rc_name:a.rc_name,
+      required_date:a.required_date,
+      setting_visa:a.setting_visa,
+      ticketing_sector_from:a.ticketing_sector_from,
+      ticketing_sector_to:a.ticketing_sector_to,
+      ticketing_trying:a.ticketing_trying,
+      ticketing_under_process:a.ticketing_under_process,
+      visa_authorisation:a.visa_authorisation,
+      visa_expire_date:a.visa_expire_date,
+      visa_received_date:a.visa_received_date,
+    };
+    return data;
+  }
+  // public static toInterfaceList(i_list: TickeDashboardAdapter2[]) {
+  //   const data: TickeDashboardInterface2[] = [];
+
+  //   for (let i = 0; i < i_list.length; i++) {
+  //     const element = i_list[i];
+  //     data.push(TicketDashboardConverter2.toInterface(element));
+  //   }
+
+  //   return data;
+  // }
+  public static toAdapter(i: TicketInterface) {
+    const data: TicketAdapter = {
+      id:i.id,
+      actual_profession:i.actual_profession,
+      agent_name:i.agent_name,
+      air_ticket:i.air_ticket,
+      candidate_name:i.candidate_name,
+      company_name:i.company_name,
+      division:i.division,
+      job_order_no:i.job_order_no,
+      mofa_number:i.mofa_number,
+      passport_no:i.passport_no,
+      priority:i.priority,
+      rc_name:i.rc_name,
+      required_date:i.required_date,
+      setting_visa:i.setting_visa,
+      ticketing_sector_from:i.ticketing_sector_from,
+      ticketing_sector_to:i.ticketing_sector_to,
+      ticketing_trying:i.ticketing_trying,
+      ticketing_under_process:i.ticketing_under_process,
+      visa_authorisation:i.visa_authorisation,
+      visa_expire_date:i.visa_expire_date,
+      visa_received_date:i.visa_received_date, };
+    return data;
+  }
+
+  public static toAdapterList(i_list: TicketInterface[]) {
+    const data_list: TicketAdapter[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toAdapter(element));
+    }
+
+    return data_list;
+  }
+
+}
