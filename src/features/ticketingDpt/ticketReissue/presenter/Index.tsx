@@ -1,10 +1,11 @@
 import { Box, styled } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
-import { GreenButton } from "../../../../componenets/CustomButton";
 import TicketReissueTable from './Table'
 import { FaFilter } from "react-icons/fa";
 import EditModal from './Edit'
+import { TicketReissueInterface } from "../type";
+import { readTicketReissueList } from "../repository";
 
 export default function Main(){
 
@@ -22,6 +23,22 @@ export default function Main(){
     const [modalName, setModalName] = useState('')
 
     const [reIssue, setReIssue] = useState({})
+    const [ticketReissueList, setTicketReissueList] = useState<TicketReissueInterface[]>([])
+
+    // const fetchTicketReissueList = async () => {
+    //     const data: any = await readTicketReissueList();
+    //     if(data){
+    //         setTicketReissueList(data)
+    //     }
+    //     console.log(data, "Amit")
+    // }
+
+    async function fetchTicketReissueList() {
+        const data = await readTicketReissueList();
+        if (data) {
+            setTicketReissueList(data);
+        }
+      }
 
     const onClickEdit = (reissue: any) => {
         setReIssue(reissue)
@@ -30,6 +47,9 @@ export default function Main(){
         setModalName('edit')
     }
 
+    useEffect(() => {
+        fetchTicketReissueList()
+    }, [])
     return(
         <>
             <CustomNavbarV3
@@ -43,7 +63,9 @@ export default function Main(){
 
             <TicketReissueTable
              onClickEdit={onClickEdit}
-               
+             ticketReissueList={ticketReissueList}
+             fetchTicketReissueList={fetchTicketReissueList}
+
             />
 
 

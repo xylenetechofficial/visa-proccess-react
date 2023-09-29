@@ -5,7 +5,8 @@
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
-@endpoint =https://5fc6-103-142-115-55.ngrok-free.app/api
+# @endpoint =https://5fc6-103-142-115-55.ngrok-free.app/api
+@endpoint = https://e68f-103-142-115-55.ngrok-free.app/api
 
 
 ###
@@ -1662,3 +1663,8 @@ ticketing_invoice_date
 get ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list
 post ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list
 post ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list
+
+
+### Read RC Candidates List List
+GET {{endpoint}}/ticketing-dpt/ticket-reissue-list
+

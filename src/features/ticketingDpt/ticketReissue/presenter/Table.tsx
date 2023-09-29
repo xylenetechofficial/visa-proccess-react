@@ -6,11 +6,18 @@ import {
   TableHeadCell3,
   TableHeadRow3,
   TableRow,
+  TableRow3,
 } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
 import { Checkbox } from "flowbite-react";
+import { TicketReissueInterface } from "../type";
 
-export default function Main(props: {  onClickEdit: any }) {
+export default function Main(props: {  onClickEdit: any,
+  ticketReissueList: TicketReissueInterface[],
+  fetchTicketReissueList: any
+}) {
+  console.log(props.ticketReissueList, "Table")
+  
   const onChange = ()=>{}
   return (
     <>
@@ -35,31 +42,37 @@ export default function Main(props: {  onClickEdit: any }) {
           </TableHead3>
 
           <TableBody3>
-            <TableRow>
-              <TableCell3>1</TableCell3>
-              <TableCell3>candidate name</TableCell3>
-              <TableCell3>company name</TableCell3>
-              <TableCell3>passport no</TableCell3>
-              <TableCell3>agent</TableCell3>
-              <TableCell3>payment</TableCell3>
-              <TableCell3>given</TableCell3>
-              <TableCell3>departure</TableCell3>
-              <TableCell3>previous</TableCell3>
-              <TableCell3>payment</TableCell3>
-              <TableCell3>payment</TableCell3>
-              <TableCell3>
-              <Checkbox onChange={() => console.log()}
-                  />
-              </TableCell3>
-              <TableCell3>
-                <BlueButton
-                  text={"Open to"}
-                  onClick={() => {
-                    props.onClickEdit();
-                  }}
-                />
-              </TableCell3>
-            </TableRow>
+            {
+
+  props.ticketReissueList.map((item,index) => (
+    <TableRow3 key={index}>
+    <TableCell3>{index + 1}</TableCell3>
+    <TableCell3>{item.candidate_name}</TableCell3>
+    <TableCell3>company name</TableCell3>
+    <TableCell3>passport no</TableCell3>
+    <TableCell3>agent</TableCell3>
+    <TableCell3>payment</TableCell3>
+    <TableCell3>given</TableCell3>
+    <TableCell3>departure</TableCell3>
+    <TableCell3>previous</TableCell3>
+    <TableCell3>payment</TableCell3>
+    <TableCell3>payment</TableCell3>
+    <TableCell3>
+    <Checkbox onChange={() => console.log()}
+        />
+    </TableCell3>
+    <TableCell3>
+      <BlueButton
+        text={"Open to"}
+        onClick={() => {
+          props.onClickEdit();
+        }}
+      />
+    </TableCell3>
+  </TableRow3>
+  ))
+            }
+           
           </TableBody3>
         </Table3>
       </div>
