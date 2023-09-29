@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { Table3, TableBody2, TableCell, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { TicketDashboardInterface } from "../type";
 import { AgentInvoiceAwaitingInterface } from "../agentInvoiceAwaitingType";
 import { convertDateFormat } from "../../../../utils/function";
@@ -65,41 +65,41 @@ export default function Main(props: {
                 <TableHeadCell3>invoice date</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
-           <TableBody2>
+           <TableBody3>
             {props.agencyInvoiceAwaiting.map((item, index) => (
               <TableRow3>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{item.party_code} </TableCell>
-                <TableCell>{item.company_name} </TableCell>
-                <TableCell>{item.candidate_name} </TableCell>
-                <TableCell>{item.passport_no} </TableCell>
-                <TableCell>{item.actual_profession} </TableCell>
-                <TableCell>{item.mofa_number} </TableCell>
-                <TableCell>{item.agent_name} </TableCell>
-                <TableCell>{item.rc_name} </TableCell>
-                <TableCell>
+                <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{item.party_code} </TableCell3>
+                <TableCell3>{item.company_name} </TableCell3>
+                <TableCell3>{item.candidate_name} </TableCell3>
+                <TableCell3>{item.passport_no} </TableCell3>
+                <TableCell3>{item.actual_profession} </TableCell3>
+                <TableCell3>{item.mofa_number} </TableCell3>
+                <TableCell3>{item.agent_name} </TableCell3>
+                <TableCell3>{item.rc_name} </TableCell3>
+                <TableCell3>
                   {convertDateFormat(item.visa_received_date)}{" "}
-                </TableCell>
-                <TableCell>
+                </TableCell3>
+                <TableCell3>
                   {convertDateFormat(item.visa_expire_date)}{" "}
-                </TableCell>
-                <TableCell>{item.ticketing_sector_from} </TableCell>
-                <TableCell>{item.ticketing_sector_to} </TableCell>
-                <TableCell>{convertDateFormat(item.required_date)} </TableCell>
-                <TableCell>{item.priority} </TableCell>
-                <TableCell> {item.air_ticket} </TableCell>
-                <TableCell> {item.air_line} </TableCell>
-                <TableCell>{item.ticket_issue_date} </TableCell>
-                <TableCell>{item.ticketing_pnr_no} </TableCell>
-                <TableCell>{item.ticketing_departure_date} </TableCell>
-                <TableCell>{item.agency} </TableCell>
-                <TableCell>{item.amount} </TableCell>
-                <TableCell><UnlabeledInput value={item.ticketing_invoice_no} onchange={(value)=>onUpdateRow(index,{...item,ticketing_invoice_no:value})} /></TableCell>
-                <TableCell>{item.ticketing_invoice_date} </TableCell>
+                </TableCell3>
+                <TableCell3>{item.ticketing_sector_from} </TableCell3>
+                <TableCell3>{item.ticketing_sector_to} </TableCell3>
+                <TableCell3>{convertDateFormat(item.required_date)} </TableCell3>
+                <TableCell3>{item.priority} </TableCell3>
+                <TableCell3> {item.air_ticket} </TableCell3>
+                <TableCell3> {item.air_line} </TableCell3>
+                <TableCell3>{item.ticket_issue_date} </TableCell3>
+                <TableCell3>{item.ticketing_pnr_no} </TableCell3>
+                <TableCell3>{item.ticketing_departure_date} </TableCell3>
+                <TableCell3>{item.agency} </TableCell3>
+                <TableCell3>{item.amount} </TableCell3>
+                <TableCell3><UnlabeledInput value={item.ticketing_invoice_no} onchange={(value)=>onUpdateRow(index,{...item,ticketing_invoice_no:value})} /></TableCell3>
+                <TableCell3>{item.ticketing_invoice_date} </TableCell3>
                 
               </TableRow3>
             ))}
-          </TableBody2> 
+          </TableBody3> 
         </Table3>
       </div>
     </FullScreenModal>

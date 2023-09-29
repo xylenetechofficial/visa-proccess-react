@@ -1,53 +1,66 @@
-import { TableBody, TableCell } from "@mui/material";
 import {
   Table3,
+  TableBody3,
+  TableCell3,
   TableHead3,
-  TableHeadCell,
-  TableHeadRow,
+  TableHeadCell3,
+  TableHeadRow3,
   TableRow,
-  TableRow1,
 } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
+import { Checkbox } from "flowbite-react";
 
 export default function Main(props: {  onClickEdit: any }) {
+  const onChange = ()=>{}
   return (
     <>
       <div className="overflow-auto">
         <Table3>
           <TableHead3>
-            <TableHeadRow>
-              <TableHeadCell>sn. no</TableHeadCell>
-              <TableHeadCell>candidate name</TableHeadCell>
-              <TableHeadCell>company name</TableHeadCell>
-              <TableHeadCell>agent</TableHeadCell>
-              <TableHeadCell>rc</TableHeadCell>
-              <TableHeadCell>payment received</TableHeadCell>
-              <TableHeadCell>given to</TableHeadCell>
-              <TableHeadCell>departure date</TableHeadCell>
-              <TableHeadCell>ticket charges</TableHeadCell>
-              <TableHeadCell>previous re-issue charges</TableHeadCell>
-              <TableHeadCell>select</TableHeadCell>
-              <TableHeadCell>re-issue charges</TableHeadCell>
-            </TableHeadRow>
+            <TableHeadRow3>
+              <TableHeadCell3>sn. no</TableHeadCell3>
+              <TableHeadCell3>candidate name</TableHeadCell3>
+              <TableHeadCell3>company name</TableHeadCell3>
+              <TableHeadCell3>passport no</TableHeadCell3>
+              <TableHeadCell3>agent</TableHeadCell3>
+              <TableHeadCell3>rc</TableHeadCell3>
+              <TableHeadCell3>payment received</TableHeadCell3>
+              <TableHeadCell3>given to</TableHeadCell3>
+              <TableHeadCell3>departure date</TableHeadCell3>
+              <TableHeadCell3>ticket charges</TableHeadCell3>
+              <TableHeadCell3>previous re-issue charges</TableHeadCell3>
+              <TableHeadCell3>select</TableHeadCell3>
+              <TableHeadCell3>re-issue charges</TableHeadCell3>
+            </TableHeadRow3>
           </TableHead3>
 
-          <TableBody>
+          <TableBody3>
             <TableRow>
-              <TableCell>1</TableCell>
-              <TableCell>1</TableCell>
-              <TableCell>1</TableCell>
-              <TableCell>1</TableCell>
-              <TableCell>1</TableCell>
-              <TableCell>
+              <TableCell3>1</TableCell3>
+              <TableCell3>candidate name</TableCell3>
+              <TableCell3>company name</TableCell3>
+              <TableCell3>passport no</TableCell3>
+              <TableCell3>agent</TableCell3>
+              <TableCell3>payment</TableCell3>
+              <TableCell3>given</TableCell3>
+              <TableCell3>departure</TableCell3>
+              <TableCell3>previous</TableCell3>
+              <TableCell3>payment</TableCell3>
+              <TableCell3>payment</TableCell3>
+              <TableCell3>
+              <Checkbox onChange={() => console.log()}
+                  />
+              </TableCell3>
+              <TableCell3>
                 <BlueButton
-                  text={"EDIT"}
+                  text={"Open to"}
                   onClick={() => {
                     props.onClickEdit();
                   }}
                 />
-              </TableCell>
+              </TableCell3>
             </TableRow>
-          </TableBody>
+          </TableBody3>
         </Table3>
       </div>
     </>

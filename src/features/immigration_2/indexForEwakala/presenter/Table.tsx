@@ -1,12 +1,12 @@
 import { useState } from "react";
 import {
-  Table,
-  TableBody2,
-  TableCell,
-  TableHead2,
-  TableHeadCell,
-  TableHeadRow,
-  TableRow,
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
 
 } from "../../../../componenets/Table";
 
@@ -26,41 +26,40 @@ const IndexForEwakalaTable = (props: {
   return (
     <div className="overflow-auto">
 
-      <Table>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell> Sr No.</TableHeadCell>
-
-            <TableHeadCell> PARTY CODE </TableHeadCell>
-            <TableHeadCell> COMPANY NAME</TableHeadCell>
-            <TableHeadCell>RECEIVED DATE</TableHeadCell>
-            <TableHeadCell> ACTUAL PROFESSION </TableHeadCell>
-            <TableHeadCell> VISA QUANTITY </TableHeadCell>
-            <TableHeadCell> VISA NUMBER </TableHeadCell>
-            <TableHeadCell> VISA AUTHORIZATION </TableHeadCell>
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> PARTY CODE </TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3>RECEIVED DATE</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            <TableHeadCell3> VISA QUANTITY </TableHeadCell3>
+            <TableHeadCell3> VISA NUMBER </TableHeadCell3>
+            <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
           {props?.indexForEwakala?.map((item, index) => (
-            <TableRow key={index}>
+            <TableRow3 key={index}>
 
-              <TableCell> {index + 1} </TableCell>
-              <TableCell>{item?.party_code}</TableCell>
-              <TableCell>{item?.company_name} </TableCell>
-              <TableCell> {item?.received_date}</TableCell>
-              <TableCell>  </TableCell>
-              <TableCell>{item?.visa_quantity} </TableCell>
-              <TableCell>{item?.visa_number} </TableCell>
-              <TableCell>{item?.visa_authorization_name} </TableCell>
+              <TableCell3> {index + 1} </TableCell3>
+              <TableCell3>{item?.party_code}</TableCell3>
+              <TableCell3>{item?.company_name} </TableCell3>
+              <TableCell3> {item?.received_date}</TableCell3>
+              <TableCell3>  </TableCell3>
+              <TableCell3>{item?.visa_quantity} </TableCell3>
+              <TableCell3>{item?.visa_number} </TableCell3>
+              <TableCell3>{item?.visa_authorization_name} </TableCell3>
 
-            </TableRow>
+            </TableRow3>
 
           ))}
 
 
 
-        </TableBody2>
-      </Table>
+        </TableBody3>
+      </Table3>
 
     </div>
   );

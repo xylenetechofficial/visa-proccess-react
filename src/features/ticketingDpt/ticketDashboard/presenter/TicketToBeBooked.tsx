@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { Table3, TableBody2, TableCell, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
+import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { TicketDashboardInterface, TicketInterface } from "../type";
 import { Checkbox } from "@mui/material";
 import { convertDateFormat } from "../../../../utils/function";
@@ -83,30 +83,30 @@ const onClickSubmit =async()=>{
           <TableBody2>
             {props.openTicketToBeBooked.map((item, index) => (
               <TableRow3>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{item.setting_visa} </TableCell>
-                <TableCell>{item.job_order_no} </TableCell>
-                <TableCell>{item.company_name} </TableCell>
-                <TableCell>{item.candidate_name} </TableCell>
-                <TableCell>{item.passport_no} </TableCell>
-                <TableCell>{item.actual_profession} </TableCell>
-                <TableCell>{item.mofa_number} </TableCell>
-                <TableCell>{item.agent_name} </TableCell>
-                <TableCell>{item.rc_name} </TableCell>
-                <TableCell>
+                <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{item.setting_visa} </TableCell3>
+                <TableCell3>{item.job_order_no} </TableCell3>
+                <TableCell3>{item.company_name} </TableCell3>
+                <TableCell3>{item.candidate_name} </TableCell3>
+                <TableCell3>{item.passport_no} </TableCell3>
+                <TableCell3>{item.actual_profession} </TableCell3>
+                <TableCell3>{item.mofa_number} </TableCell3>
+                <TableCell3>{item.agent_name} </TableCell3>
+                <TableCell3>{item.rc_name} </TableCell3>
+                <TableCell3>
                   {convertDateFormat(item.visa_received_date)}{" "}
-                </TableCell>
-                <TableCell>
+                </TableCell3>
+                <TableCell3>
                   {convertDateFormat(item.visa_expire_date)}{" "}
-                </TableCell>
-                <TableCell>{item.ticketing_sector_from} </TableCell>
-                <TableCell>{item.ticketing_sector_to} </TableCell>
-                <TableCell>{convertDateFormat(item.required_date)} </TableCell>
-                <TableCell>{item.priority} </TableCell>
-                <TableCell> {item.air_ticket} </TableCell>
-                <TableCell> {item.visa_authorisation} </TableCell>
-                <TableCell>{item.division} </TableCell>
-                <TableCell>
+                </TableCell3>
+                <TableCell3>{item.ticketing_sector_from} </TableCell3>
+                <TableCell3>{item.ticketing_sector_to} </TableCell3>
+                <TableCell3>{convertDateFormat(item.required_date)} </TableCell3>
+                <TableCell3>{item.priority} </TableCell3>
+                <TableCell3> {item.air_ticket} </TableCell3>
+                <TableCell3> {item.visa_authorisation} </TableCell3>
+                <TableCell3>{item.division} </TableCell3>
+                <TableCell3>
                   <Checkbox
                   //  value={"unser"}
                    checked={selectedCheckbox[index]?.isChecked === `${item.id}unser`}
@@ -121,8 +121,8 @@ const onClickSubmit =async()=>{
                       
                     }
                   />{" "}
-                </TableCell>
-                <TableCell>
+                </TableCell3>
+                <TableCell3>
                   <Checkbox
                   // value={"typing"}
                   checked={selectedCheckbox[index]?.isChecked === `${item.id}typing`}
@@ -133,7 +133,7 @@ const onClickSubmit =async()=>{
                     }
                     }
                   />
-                </TableCell>
+                </TableCell3>
               </TableRow3>
             ))}
           </TableBody2>

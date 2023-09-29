@@ -1,4 +1,4 @@
-import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { RC_CandidateInterface } from "../type";
@@ -58,7 +58,7 @@ const Main = (props: {
             {HEADERLIST.map((item) => (<TableHeadCell3> {item}</TableHeadCell3>))}
           </TableHeadRow3>
         </TableHead3>
-        <TableBody2>
+        <TableBody3>
           {props.rc_candidateDataList.map((item, index) => (
 
             <TableRow3 key={index}>
@@ -102,7 +102,7 @@ const Main = (props: {
 
 
 
-        </TableBody2>
+        </TableBody3>
       </Table3>
     </div>
   );
