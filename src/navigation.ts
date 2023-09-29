@@ -188,6 +188,7 @@ export const navigations: NavigationInterface[] = [
       { name: 'RM Advance Booking', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking' },
       { name: 'RM Advance Booking Approval', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking-approval' },
       { name: 'Passport Release Request', icon: 'pageview', path: '/ticketing-dpt/passport-release-request' },
+      { name: 'Ticket Reissue', icon: 'pageview', path: '/ticketing-dpt/ticket-reissue' },
 
     ]
   },

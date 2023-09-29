@@ -61,6 +61,8 @@ const CandidateTable = (props: {
         ["RS"],
         ["RM"],
         ["RC"],
+        ["visa issue date"],
+        ["visa issue date on pp"],
         ["VISA PROFESSION"],
         ["SELECT"],
         ["*MOFA NUMBER"],
@@ -73,7 +75,7 @@ const CandidateTable = (props: {
         ["ADDRESS"],
         ["RELIGION"],
         ["PAYMENT FROM"],
-        // ["REJECT"],
+        ["REJECT"],
 
 
     ];
@@ -87,7 +89,6 @@ const CandidateTable = (props: {
                 <TableHead >
                     <TableHeadRow  >
                         {tableHeadingsComponent}
-
                     </TableHeadRow>
                 </TableHead>
                 <TableBody>
@@ -177,7 +178,8 @@ const TableData = (
                     value={localRowData.mofa_number}
                     onchange={(value) => setLocalRowData({ ...localRowData, mofa_number: value })}
                 /></TableCell3>
-            <TableCell3 >  <CustomSelectComponentUnlabeled
+            <TableCell3 > 
+                 <CustomSelectComponentUnlabeled
                 value={localRowData.pp_copy}
                 onChange={(value: any) => setLocalRowData({ ...localRowData, pp_copy: value })}
                 options={[

@@ -25,9 +25,7 @@ const DegreeAttestationTable = () => {
             <TableHeadCell>vendor name</TableHeadCell>
             <TableHeadCell>for visa process</TableHeadCell>
             <TableHeadCell>for degree cancelation charge</TableHeadCell>
-          </TableHeadRow>
-
-          
+          </TableHeadRow>     
         </TableHead3>
       </Table3>
     </div>

@@ -75,10 +75,9 @@ export default function Main(props: {
             onClose={props.onClose}
         >
             <UpdateContentBox>
-                <SubHeading1 text="COMPANY: " />
+                <SubHeading1 text="PARTY CODE: " />
                 <CustomSelectComponentUnlabeled
                     onChange={(value) => setPartyCode(parseInt(value))}
-
                     options={selectOptionConveter({ options: partyCodeList, options_struct: { name: "name", value: "id" } })}
                     value={partyCode}
                 />
