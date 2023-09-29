@@ -83,6 +83,7 @@ export const navigations: NavigationInterface[] = [
        { name: 'Mol Submited To company', icon: 'pageview', path: '/visa/mol-submited-to-company' },
        { name: 'Mol Work Permit To cancel', icon: 'pageview', path: '/visa/mol-work-permit-cancel' },
        { name: 'Work permit received from company', icon: 'pageview', path: '/visa/work-permit-recieved-from-company' },
+       { name: 'Degree Attestation', icon: 'pageview', path: '/visa/degree-attestation' },
     ]
   },
   {

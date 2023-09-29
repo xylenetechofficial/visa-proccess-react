@@ -21,6 +21,7 @@ import MolSubmitedToCompany from "./molSubmitedToCompany/Router"
 import MolWorkPermitCancel from "./molWorkPermitCancel/Router"
 import WorkPermitReceivedFromCompany from "./workPermitReceivedFromCompany/Router"
 import DubaiDataEntry from "./dubaiDataEntry/Router"
+import DegreeAttestation from "./degreeAttestation/Router"
 
 
 
@@ -45,6 +46,7 @@ function Main() {
             <Route path='/mol-work-permit-cancel/*' element={<MolWorkPermitCancel />}></Route>
             <Route path='/work-permit-recieved-from-company/*' element={<WorkPermitReceivedFromCompany />}></Route>
             <Route path='/dubai-data-entry/*' element={<DubaiDataEntry />}></Route>
+            <Route path='/degree-attestation/*' element={<DegreeAttestation />}></Route>
 
 
         </Routes>
