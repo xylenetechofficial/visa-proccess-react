@@ -3,43 +3,27 @@ import { RedButton } from "../../../../componenets/CustomButton"
 import { FullScreenModal } from "../../../../componenets/Modal"
 import { Table3, TableBody2, TableCell, TableHeadRed, TableHeadCell, TableHeadRow, TableRow } from "../../../../componenets/Table"
 import AgentPaymentModal from './AgentPaymentReceivedDetails';
-export default function Main(props:{
-    setModal:(value:string)=>void
+import { PaymentReceivedInterface } from "../type";
+export default function Main(props: {
+  setModal: (value: string) => void,
+  editPaymentList: PaymentReceivedInterface[]
 }) {
 
-const [date,setDate]= useState([{}]);
-const [editModal, setEditModal]=useState(false)
-    function onUpdateRow(index: number, rowData: any) {
-        // const nextData :any= props.immigrationData.map((e:any, i:any) => {
-        //   if (i === index) {
-        //     // Increment the clicked counter
-        //     return rowData;
-        //   } else {
-        //     // The rest haven't changed
-        //     return e;
-        //   }
-        // });
-        // onChange(nextData)
-        // props.setData(nextData)
-       
-      }
-    //   const onChange =(data:any)=>{
-    //     setAccountDashboard(data)
-    //   }
-    // console.log(accountDashboard,"lllllllllll")
-    const onClickEdit=()=>{
-        setEditModal(true)
-    }
-    return (
+  const [currentData, setCurrentData] = useState<PaymentReceivedInterface>({} as PaymentReceivedInterface)
+  const [editModal, setEditModal] = useState(false)
 
-        <FullScreenModal
-            // buttonName="Add"
-            handleClick={()=>props.setModal('')}
-            title="Agent Payments Received Details"
-            onClose={()=>props.setModal('')}
-        >
-            <div className=" grid grid-cols-1 py-3  gap-2 shadow overflow-scroll">
-            <Table3>
+  const onClickEdit = () => {
+    setEditModal(true)
+  }
+  return (
+
+    <FullScreenModal
+      handleClick={() => props.setModal('')}
+      title="Agent Payments Received Details"
+      onClose={() => props.setModal('')}
+    >
+      <div className=" grid grid-cols-1 py-3  gap-2 shadow overflow-scroll">
+        <Table3>
           <TableHeadRed>
             <TableHeadRow>
               <TableHeadCell> Sr No.</TableHeadCell>
@@ -49,34 +33,24 @@ const [editModal, setEditModal]=useState(false)
               <TableHeadCell> AMOUNT RECEIVED</TableHeadCell>
               <TableHeadCell> DATE </TableHeadCell>
               <TableHeadCell> EDIT</TableHeadCell>
-              
-  
             </TableHeadRow>
           </TableHeadRed>
           <TableBody2>
-  {  date?.map((item :any,index:any) =>(
-         <TableRow>
-  
-         <TableCell>{index + 1} </TableCell>
-         <TableCell> {item.name}</TableCell>
-         <TableCell>{item.passport_no} </TableCell>
-         <TableCell> {item.agent_name}</TableCell>
-         <TableCell>{item.amount_received} </TableCell>
-         <TableCell>{item.date} </TableCell>
-         <TableCell> <RedButton text="Edit" onClick={()=>onClickEdit()}/></TableCell>
-  
-  
-  
-       </TableRow>
-  
-  ))}
-     
-  
-  
+            {props.editPaymentList.map((item, index) => (
+              <TableRow>
+                <TableCell>{index + 1} </TableCell>
+                <TableCell> {item.name}</TableCell>
+                <TableCell>{item.passport_no} </TableCell>
+                <TableCell> {item.agent_name}</TableCell>
+                <TableCell>{item.amount_received} </TableCell>
+                <TableCell>{item.received} </TableCell>
+                <TableCell> <RedButton text="Edit" onClick={() => { onClickEdit(), setCurrentData(item) }} /></TableCell>
+              </TableRow>
+            ))}
           </TableBody2>
-        </Table3>  
-        {editModal ? <AgentPaymentModal setModalName={(value)=>setEditModal(value)}/>:''}         
-            </div>
-        </FullScreenModal>
-    )
+        </Table3>
+        {editModal ? <AgentPaymentModal currentData={currentData} setModalName={(value) => setEditModal(value)} /> : ''}
+      </div>
+    </FullScreenModal>
+  )
 }

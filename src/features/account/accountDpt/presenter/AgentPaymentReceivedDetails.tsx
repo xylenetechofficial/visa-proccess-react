@@ -3,11 +3,15 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { useState } from "react";
+import { PaymentReceivedInterface } from "../type";
+import { updateAgentPaymentReceivedDetail } from "../repository";
 
 export default function Main(props:{
-    setModalName:(value:boolean)=>void
+    setModalName:(value:boolean)=>void,
+    currentData:PaymentReceivedInterface,
+    
 }){
-    const [paymentValue,setPaymentValue]=useState('')
+    const [paymentValue,setPaymentValue]=useState<number>(0)
     const CardHeader = styled(Box)(() => ({
         display: "flex",
         flexWrap: "wrap",
@@ -28,6 +32,10 @@ export default function Main(props:{
         borderRadius: 2,
         p: 4,
     };
+
+    const onClickAdd =async(amount:number, id:number)=>{
+        const res = await updateAgentPaymentReceivedDetail(amount,id)
+    }
 return (
     <>
    <Modal open={true}
@@ -36,7 +44,7 @@ return (
             aria-describedby="modal-modal-description">
               
         <Box sx={style}>
-              <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Agent Commission</h3>
+              <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Edit Agent payment Received </h3>
             <button
                 type="button"
                 className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
@@ -61,28 +69,28 @@ return (
 
                 <UpdateContentBox>
                     <SubHeading1 text="Candidate Name   :" />
-                    <SubHeading1 text={""} />
+                    <SubHeading1 text={props.currentData.name} />
                 </UpdateContentBox>
 
 
                 <UpdateContentBox>
                     <SubHeading1 text="Agent Name   :" />
-                    <SubHeading1 text={""} />
+                    <SubHeading1 text={props.currentData.agent_name} />
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="Date  :" />
-                    <SubHeading1 text={""} />
+                    <SubHeading1 text={props.currentData.date} />
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text="Payment Received   :" />
-                    <UnlabeledInput placeholder="Enter payment received amount" value={paymentValue} onchange={(value)=>setPaymentValue(value)}/>
+                    <UnlabeledInput placeholder="Enter payment received amount" type="number" value={paymentValue} onchange={(value)=>setPaymentValue(parseInt(value))}/>
                 </UpdateContentBox>
           
                 <div className=" flex justify-center">
 
-                    <GreenButton text="Submit" onClick={()=>{console.log("agentPaymentReceivedList","AAAA"),props.setModalName(false)}}/>
+                    <GreenButton text="Submit" onClick={()=>{props.setModalName(false), onClickAdd(paymentValue,props.currentData.id)}}/>
                     <GreenButton text="Back" onClick={()=>{props.setModalName(false)}}/>
 
                 </div>

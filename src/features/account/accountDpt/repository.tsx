@@ -60,3 +60,48 @@ export async function createServiceCharges(ServiceCharges: PaymentReceivedInterf
   return false;
 }
 
+
+
+export async function readEditPaymentReceivedList(ele:PaymentReceivedInterface) {
+
+  //   const payload = ServiceChargesByIDConverter.toAdapter(AgentBy);
+    const path = `/account/receive-payment-list`;
+  
+    const response = await ApiHelper.get(path, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT,
+      queryParameters:{
+        candidate_id:ele.id
+      }
+     
+    });
+  console.log(response)
+    if (response.code != 200) {
+      showMessage_v2({ message: response.message, status: response.code })
+    } 
+  //   return response.data
+    const data: PaymentReceivedInterface[] = [];
+  console.log(response.data);
+  const dataAdapter: PaymentReceivedAdapter[] = response.data as PaymentReceivedAdapter[];
+  if (response.data) {
+    const dataAdapter: PaymentReceivedAdapter[] = response.data as PaymentReceivedAdapter[];
+    for (let i = 0; i < dataAdapter.length; i++) {
+      const element = dataAdapter[i];
+      data.push(PaymentReceivedConverter.toInterface(element));
+    }
+  }
+  return dataAdapter as PaymentReceivedAdapter[]
+  }
+
+
+  export async function updateAgentPaymentReceivedDetail(amount:number, id:number){
+    
+    const path =`/account/receive-payment/${id}`
+    const payload = {amount:amount};   
+    const response = await ApiHelper.patch(path, payload, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT
+    })
+    showMessage_v2({ message: response.message, status: response.code })
+  
+  }

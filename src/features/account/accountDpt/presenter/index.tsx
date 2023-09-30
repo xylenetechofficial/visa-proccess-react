@@ -3,7 +3,7 @@ import { CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import AgentPaymentReceivedDetailTable from './Table';
 import EditModal from './Edit'
 import { PaymentReceivedInterface } from '../type';
-import { readPaymentReceivedList } from '../repository';
+import { readEditPaymentReceivedList, readPaymentReceivedList } from '../repository';
 
 export default function Main() {
     const [searchQuery, setSearchQuery] = useState("")
@@ -15,6 +15,14 @@ export default function Main() {
             setPaymentReceivedList(res)
         }
     }
+    const [editPaymentList, setEditPaymentList]= useState<any>([])
+    const fetchEditPaymentList= async(ele:PaymentReceivedInterface)=>{
+        console.log("first");
+     const res  = await   readEditPaymentReceivedList(ele)
+     if(res){
+        setEditPaymentList(res)
+     }
+    }
     useEffect(()=>{
         fetchList()
     },[])
@@ -24,12 +32,10 @@ export default function Main() {
             <CustomNavbarV3 pageName="AGENT PAYMENTS RECEIVED" searchFunction={(query) => setSearchQuery(query)} />
             <AgentPaymentReceivedDetailTable
                 paymentReceivedList={paymentReceivedList}
-                setCandidatesList={[]}
-                data={[]}
-                setData={[]}
-                onClickEdit={(value) => setModal('edit')}
+                onClickEdit={(value) => {setModal('edit'),fetchEditPaymentList(value)}}
             />
             {modal === "edit" ? <EditModal
+            editPaymentList={editPaymentList}
                 setModal={(value) => setModal(value)}
             /> : ''}
 

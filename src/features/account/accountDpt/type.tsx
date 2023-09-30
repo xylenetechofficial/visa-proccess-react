@@ -18,7 +18,8 @@ export interface PaymentReceivedInterface {
     "extra_service_tax": number,
     "amount_received": number,
     "is_without": number,
-    "received": number
+    "received": number,
+    "date":string
   }
 
   export interface PaymentReceivedAdapter{
@@ -41,7 +42,8 @@ export interface PaymentReceivedInterface {
     "extra_service_tax": number,
     "amount_received": number,
     "is_without": number,
-    "received": number
+    "received": number,
+    "date":string
   }
 
   
@@ -75,6 +77,7 @@ export class PaymentReceivedConverter {
     amount_received:a.amount_received,
     is_without:a.is_without,
     received:a.received,
+    date:a.date
       }
       return data;
     }
@@ -106,6 +109,7 @@ export class PaymentReceivedConverter {
         amount_received:i.amount_received,
         is_without:i.is_without,
         received:i.received,
+        date:i.date
       };
       return data;
     }
