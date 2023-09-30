@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { UserAuthContextProvider, useUserAuth } from '../context/UserAuthContext';
 
 import Agent from './agent/Router';
+import Vendor from './vendor/Router';
 import Country from './country/Router';
 import User from './user/Router';
 import Role from './role/Router';
@@ -28,12 +29,14 @@ import AgentSpecialNote from './agentSpecialNote/Router';
 
 
 
+
 function Main() {
     // const { user } = useUserAuth()
     return (
 
         <Routes>
             <Route path='/agent/*' element={<Agent />}></Route>
+            <Route path='/vendor/*' element={<Vendor />}></Route>
             <Route path='/country/*' element={<Country />}></Route>
             <Route path='/user/*' element={<User />}></Route>
             <Route path='/role/*' element={<Role />}></Route>
