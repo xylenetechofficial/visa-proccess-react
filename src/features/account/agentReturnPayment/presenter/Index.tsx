@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CreateModal from './Create'
-import EditModal from './Edit'
+// import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
@@ -8,8 +8,8 @@ import { MofaPaymentInterface, Mofa_Entry_Candidate_Interface } from "../type";
 import { readMofaEntryCandiateList, readMofaPaymentList } from "../repository";
 import Table from "./Table";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import { Heading6 } from "../../../../componenets/CoustomHeader";
-import MofaPaymentTable from "./MofaPaymentTable";
+// import { Heading6 } from "../../../../componenets/CoustomHeader";
+// import MofaPaymentTable from "./MofaPaymentTable";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -39,10 +39,9 @@ const initValue: Mofa_Entry_Candidate_Interface = {
     address: "",
     religion: "",
     payment_from: "",
-    select_status:"",
-
-    visa_issue_date:"",
-    visa_received_date:"",
+    select_status: "",
+    visa_issue_date: "",
+    visa_received_date: "",
 }
 export default function Main() {
     const [CandidateList, setCandidateList] = useState<Mofa_Entry_Candidate_Interface[]>([])
@@ -98,8 +97,8 @@ export default function Main() {
 
     useEffect(() => {
 
-        fetchMofaPaymentList()
-        fetchMofaEntryCandiateList()
+        // fetchMofaPaymentList()
+        // fetchMofaEntryCandiateList()
     }, [])
 
 
@@ -107,26 +106,17 @@ export default function Main() {
     return (
 
         <div >
-            <CustomNavbarV3 pageName="Mofa Entry" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Manage Agent Payment Return" searchFunction={(query) => setSearchQuery(query)} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
                 <GreenButton onClick={() => setModalName("add")} text="Add" />
             </CardHeader>
 
-
-            {/*  mofa payment stable */}
-            <Heading6 text="Visa Authorisation" />
-            <MofaPaymentTable mofaPaymentList={mofaPaymentList} />
-            {/*  mofaEntry stable */}
-            <div className="mt-6"></div>
-            <Heading6 text="Mofa entry" />
-            {/*  indexVisa stable */}
             <Table
                 candidateList={CandidateList}
                 onClickAdd={onClickAdd}
                 onClickEdit={onClickEdit}
-
             />
 
             {/* <!-- Modal --> */}
@@ -143,14 +133,17 @@ export default function Main() {
 
             {/* Edit */}
             {modalName !== "edit" ? "" :
-                <EditModal
+                <>
+                    {/* <EditModal
                     currentElement={currentElement}
                     onClose={() => {
                         fetchMofaEntryCandiateList()
                         setModalName("")
                     }}
                     fetchMofaEntryCandiateList={fetchMofaEntryCandiateList}
-                />}
+                /> */}
+                </>
+            }
         </div>
     )
 }

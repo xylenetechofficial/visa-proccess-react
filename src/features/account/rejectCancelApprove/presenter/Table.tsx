@@ -30,38 +30,38 @@ const RejectCancelApproveTable = (props: {
   sectorList: SectorInterface[];
   companyList: CompanyInterface[];
   countryList: CountryInterface[];
-  setEditRejectCancelApprove:any;
-  editRejectCancelApprove:any
+  setEditRejectCancelApprove: any;
+  editRejectCancelApprove: any
 }) => {
-console.log(props.RejectCancelApproveList,"AAAAAAAAAAAA")
+  console.log(props.RejectCancelApproveList, "AAAAAAAAAAAA")
 
-const handleCheckBoxa =(item:any)=>{
-console.log(item)
-props.setEditRejectCancelApprove((prev:any)=>{
-return {
-  ...prev
-}
-})
-}
+  const handleCheckBoxa = (item: any) => {
+    console.log(item)
+    props.setEditRejectCancelApprove((prev: any) => {
+      return {
+        ...prev
+      }
+    })
+  }
 
-const handleCheckBox = (item:any) => {
-  // console.log(item);
+  const handleCheckBox = (item: any) => {
+    // console.log(item);
 
-  props.setEditRejectCancelApprove((prev:any) => {
-    // Iterate through the selection_list and find the item with the given id
-    // const newData= [...prev]
-return {
-  ...prev,
-  selection_list:[{
-    id:item.id,
-    mofa_cancel_id:item.mofa_cancel_id,
-    status:1
-  } 
-  ]
-}
-  });
-  console.log(props.editRejectCancelApprove)
-}
+    props.setEditRejectCancelApprove((prev: any) => {
+      // Iterate through the selection_list and find the item with the given id
+      // const newData= [...prev]
+      return {
+        ...prev,
+        selection_list: [{
+          id: item.id,
+          mofa_cancel_id: item.mofa_cancel_id,
+          status: 1
+        }
+        ]
+      }
+    });
+    console.log(props.editRejectCancelApprove)
+  }
   return (
     <div className="overflow-auto">
 
@@ -73,7 +73,7 @@ return {
             <TableHeadCell3> COMPANY NAME</TableHeadCell3>
             <TableHeadCell3> CONDIDATE NAME</TableHeadCell3>
             <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
-            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+            <TableHeadCell3> PASSPORT NUMBER </TableHeadCell3>
             <TableHeadCell3> AGENT</TableHeadCell3>
             <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3>
             <TableHeadCell3> PROCESS CHARGES</TableHeadCell3>
@@ -94,7 +94,7 @@ return {
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
-          {props.RejectCancelApproveList?.map((item :any, index:any) => (
+          {props.RejectCancelApproveList?.map((item: any, index: any) => (
 
             <TableRow3 key={index}>
               <TableCell3>{index + 1}</TableCell3>
@@ -102,7 +102,7 @@ return {
               <TableCell3>{item?.company_name}</TableCell3>
               <TableCell3>{item?.name}</TableCell3>
               <TableCell3>{item?.actual_profession}</TableCell3>
-              <TableCell3>{item?.visa_profession}</TableCell3>
+              <TableCell3>{item?.passport_no}</TableCell3>
               <TableCell3>{item?.agent_name}</TableCell3>
               <TableCell3>{item?.visa_received_date}</TableCell3>
               <TableCell3>{item?.consolidated_charges}</TableCell3>
@@ -114,10 +114,10 @@ return {
               <TableCell3>{item?.visa_authorization}</TableCell3>
               <TableCell3>{item?.sector_charges}</TableCell3>
               <TableCell3>{item?.partial_charges}</TableCell3>
-              <TableCell3>{item?.service_charges}</TableCell3>
+              <TableCell3>{item?.service_charges} ( {item?.ccp_cancel_type} )</TableCell3>
               <TableCell3>{item?.air_ticket}</TableCell3>
               <TableCell3>{item?.is_invoice}</TableCell3>
-              <TableCell3><Checkbox  onClick={()=>handleCheckBox(item)}/></TableCell3>
+              <TableCell3><Checkbox onClick={() => handleCheckBox(item)} /></TableCell3>
             </TableRow3>
           ))}
         </TableBody3>

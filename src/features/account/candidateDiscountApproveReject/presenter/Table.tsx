@@ -1,4 +1,4 @@
-import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow, } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3, } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
@@ -32,71 +32,71 @@ const AgentPaymentTable = (props: {
   return (
     <div className="overflow-auto">
 
-      <Table2>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell2> Sr No.</TableHeadCell2>
-            <TableHeadCell2> PARTY CODE </TableHeadCell2>
-            <TableHeadCell2> COMPANY NAME</TableHeadCell2>
-            <TableHeadCell2> CONDIDATE NAME</TableHeadCell2>
-            <TableHeadCell2> PASSPORT NO.</TableHeadCell2>
-            <TableHeadCell2> ACTUAL PROFESSION </TableHeadCell2>
-            <TableHeadCell2> VISA PROFESSION </TableHeadCell2>
-            <TableHeadCell2> AGENT</TableHeadCell2>
-            <TableHeadCell2> VISA RECIEVED DATE </TableHeadCell2>
-            <TableHeadCell2> VISA AUTHORIZATION </TableHeadCell2>
-            <TableHeadCell2> AIR TICKET</TableHeadCell2>
-            <TableHeadCell2> SERVICES CHARGES</TableHeadCell2>
-            <TableHeadCell2> OTHER CHARGES</TableHeadCell2>
-            <TableHeadCell2> DOCUMENT CHARGES</TableHeadCell2>
-            <TableHeadCell2> CONSULATE SETTING CHARGES</TableHeadCell2>
-            <TableHeadCell2> PARTIAL CHARGES</TableHeadCell2>
-            <TableHeadCell2> SECTOR CHARGES</TableHeadCell2>
-            <TableHeadCell2> TICKET CHARGES </TableHeadCell2>
-            <TableHeadCell2> ATTESTATION CHARGES </TableHeadCell2>
-            <TableHeadCell2> EXTRA SERVICE TAX </TableHeadCell2>
-            <TableHeadCell2> CONSOLIDATED CHARGES</TableHeadCell2>
-            <TableHeadCell2> CONSOLIDATED CHARGES NAME</TableHeadCell2>
-            <TableHeadCell2> PREVIOUS DISCOUNT GIVEN</TableHeadCell2>
-            <TableHeadCell2> DISCOUNT</TableHeadCell2>
-            <TableHeadCell2> DISCOUNT TYPE</TableHeadCell2>
-            <TableHeadCell2> REMARK</TableHeadCell2>
-            <TableHeadCell2>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> PARTY CODE </TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3> CONDIDATE NAME</TableHeadCell3>
+            <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+            <TableHeadCell3> AGENT</TableHeadCell3>
+            <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3>
+            <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
+            <TableHeadCell3> AIR TICKET</TableHeadCell3>
+            <TableHeadCell3> SERVICES CHARGES</TableHeadCell3>
+            <TableHeadCell3> OTHER CHARGES</TableHeadCell3>
+            <TableHeadCell3> DOCUMENT CHARGES</TableHeadCell3>
+            <TableHeadCell3> CONSULATE SETTING CHARGES</TableHeadCell3>
+            <TableHeadCell3> PARTIAL CHARGES</TableHeadCell3>
+            <TableHeadCell3> SECTOR CHARGES</TableHeadCell3>
+            <TableHeadCell3> TICKET CHARGES </TableHeadCell3>
+            <TableHeadCell3> ATTESTATION CHARGES </TableHeadCell3>
+            <TableHeadCell3> EXTRA SERVICE TAX </TableHeadCell3>
+            <TableHeadCell3> CONSOLIDATED CHARGES</TableHeadCell3>
+            <TableHeadCell3> CONSOLIDATED CHARGES NAME</TableHeadCell3>
+            <TableHeadCell3> PREVIOUS DISCOUNT GIVEN</TableHeadCell3>
+            <TableHeadCell3> DISCOUNT</TableHeadCell3>
+            <TableHeadCell3> DISCOUNT TYPE</TableHeadCell3>
+            <TableHeadCell3> REMARK</TableHeadCell3>
+            <TableHeadCell3>
               <Checkbox />
 
-              ALL</TableHeadCell2>
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
+              ALL</TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
           {props?.candidateDiscountApproveReject?.map((item: any, index: number) => (
-            <TableRow>
-              <TableCell>{index + 1} </TableCell>
-              <TableCell>{item.party_code}  </TableCell>
-              <TableCell>{item.company_name}</TableCell>
-              <TableCell>{item.name} </TableCell>
-              <TableCell>{item.passport_no} </TableCell>
-              <TableCell>{item.actual_profession}  </TableCell>
-              <TableCell>{item.visa_profession}  </TableCell>
-              <TableCell>{item.agent_name} </TableCell>
-              <TableCell>{convertDateFormat(item.visa_received_date)}  </TableCell>
-              <TableCell>{item.visa_authorization}  </TableCell>
-              <TableCell>{item.ticket_charges} </TableCell>
-              <TableCell>{item.service_charges} </TableCell>
-              <TableCell>{item.other_charges} </TableCell>
-              <TableCell>{item.document_charges}</TableCell>
-              <TableCell>{item.consulate_setting_charges} </TableCell>
-              <TableCell>{item.partial_charges} </TableCell>
-              <TableCell>{item.sector_charges} </TableCell>
-              <TableCell>{item.ticket_charges} </TableCell>
-              <TableCell>{item.attestation_charges} </TableCell>
-              <TableCell>{item.extra_service_tax} </TableCell>
-              <TableCell>{item.consolidated_charges} </TableCell>
-              <TableCell>{item.consolidated_charges} </TableCell>
-              <TableCell>{item.discount_given} </TableCell>
-              <TableCell>{item.discount} </TableCell>
-              <TableCell>{item.discount_type} </TableCell>
-              <TableCell>{item?.remarks} </TableCell>
-              <TableCell>{item?.all}
+            <TableRow3>
+              <TableCell3>{index + 1} </TableCell3>
+              <TableCell3>{item.party_code}  </TableCell3>
+              <TableCell3>{item.company_name}</TableCell3>
+              <TableCell3>{item.name} </TableCell3>
+              <TableCell3>{item.passport_no} </TableCell3>
+              <TableCell3>{item.actual_profession}  </TableCell3>
+              <TableCell3>{item.visa_profession}  </TableCell3>
+              <TableCell3>{item.agent_name} </TableCell3>
+              <TableCell3>{convertDateFormat(item.visa_received_date)}  </TableCell3>
+              <TableCell3>{item.visa_authorization}  </TableCell3>
+              <TableCell3>{item.ticket_charges} </TableCell3>
+              <TableCell3>{item.service_charges} </TableCell3>
+              <TableCell3>{item.other_charges} </TableCell3>
+              <TableCell3>{item.document_charges}</TableCell3>
+              <TableCell3>{item.consulate_setting_charges} </TableCell3>
+              <TableCell3>{item.partial_charges} </TableCell3>
+              <TableCell3>{item.sector_charges} </TableCell3>
+              <TableCell3>{item.ticket_charges} </TableCell3>
+              <TableCell3>{item.attestation_charges} </TableCell3>
+              <TableCell3>{item.extra_service_tax} </TableCell3>
+              <TableCell3>{item.consolidated_charges} </TableCell3>
+              <TableCell3>{item.consolidated_charges} </TableCell3>
+              <TableCell3>{item.discount_given} </TableCell3>
+              <TableCell3>{item.discount} </TableCell3>
+              <TableCell3>{item.discount_type} </TableCell3>
+              <TableCell3>{item?.remarks} </TableCell3>
+              <TableCell3>{item?.all}
 
                 <Checkbox
                   onChange={(e) => {
@@ -131,12 +131,12 @@ const AgentPaymentTable = (props: {
                   }}
                 />
 
-              </TableCell>
-            </TableRow>
+              </TableCell3>
+            </TableRow3>
 
           ))}
-        </TableBody2>
-      </Table2>
+        </TableBody3>
+      </Table3>
     </div>
   )
 }

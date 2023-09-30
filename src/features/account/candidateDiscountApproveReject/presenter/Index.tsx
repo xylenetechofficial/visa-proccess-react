@@ -127,7 +127,7 @@ export default function Main() {
 
 
       <GreenButton onClick={() => handleClick(1)} text="Approve" />
-      <RedButton onClick={() => handleClick(0)} text="Reject" />
+      <RedButton onClick={() => handleClick(2)} text="Reject" />
     </div>
   );
 }

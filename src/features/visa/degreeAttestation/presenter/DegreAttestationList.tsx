@@ -37,13 +37,13 @@ const DegreeAttestationList = (props: {
 
   const onClickRemoveRow = (index: number) => {
     if (!confirm("Are You Sure?")) return;
-    const arr = props.degreAttestationList.filter((e, i) => i !== index);
+    const arr = props.degreAttestationList.filter((e:any, i:any) => i !== index);
     props.onChange(arr);
     setonChange(Date.now().toString());
   };
 
   function onUpdateRow(index: number, rowData: any) {
-    const nextData = props.degreAttestationList.map((e, i) => {
+    const nextData = props.degreAttestationList.map((e:any, i:any) => {
       if (i === index) {
         // Increment the clicked counter
         return rowData;
@@ -71,7 +71,7 @@ const DegreeAttestationList = (props: {
         </TableHead>
         <TableBody>
           {props.degreAttestationList &&
-            props.degreAttestationList.map((ele, index) => (
+            props.degreAttestationList.map((ele:any, index:any) => (
               <TableData
                 data={ele}
                 index={index}

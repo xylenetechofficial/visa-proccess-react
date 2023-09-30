@@ -55,9 +55,9 @@ export default function Main(props: {
         console.log(data);
         setCandidateList(data)
     }
-    useEffect(() => {
-        fetchMofaEntryCandiateList(partyCode)
-    }, [partyCode])
+    // useEffect(() => {
+    //     // fetchMofaEntryCandiateList(partyCode)
+    // }, [partyCode])
 
 
 
@@ -77,7 +77,10 @@ export default function Main(props: {
             <UpdateContentBox>
                 <SubHeading1 text="PARTY CODE: " />
                 <CustomSelectComponentUnlabeled
-                    onChange={(value) => setPartyCode(parseInt(value))}
+                    onChange={(value) => {
+                        setPartyCode(parseInt(value))
+                        fetchMofaEntryCandiateList(parseInt(value))
+                    }}
                     options={selectOptionConveter({ options: partyCodeList, options_struct: { name: "name", value: "id" } })}
                     value={partyCode}
                 />

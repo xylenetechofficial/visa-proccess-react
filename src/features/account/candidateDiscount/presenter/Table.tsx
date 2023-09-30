@@ -99,7 +99,7 @@ const CandidateDiscountTable = (props: {
               <TableCell> {convertDateFormat(item.visa_received_date)} </TableCell>
               <TableCell> {item.visa_authorization} </TableCell>
               <TableCell> {item.visa_authorization_name} </TableCell>
-              <TableCell> AIR TICKET</TableCell>
+              <TableCell> {item.air_ticket}</TableCell>
               <TableCell> {item.service_charges}</TableCell>
               <TableCell> {item.other_charges}</TableCell>
               <TableCell> {item.document_charges}</TableCell>

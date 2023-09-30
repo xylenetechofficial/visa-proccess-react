@@ -11,7 +11,9 @@ export default function Main(props: {
 }) {
     const [degreAttestationList, setDegreAttestationList] = useState([])
 
-    async function onClickAdd() {}
+    async function onClickAdd() {
+        return
+    }
     return(
 <FullScreenModal 
 buttonName="Add"
