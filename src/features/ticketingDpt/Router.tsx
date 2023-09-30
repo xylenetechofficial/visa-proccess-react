@@ -11,6 +11,7 @@ import TicketAgencyInvoiceAwaiting from "./ticketAgencyInvoiceAwaiting/Router";
 import TicketAgencyInvoices from "./ticketAgencyInvoices/Router";
 import TicketProvidedByCompany from "./ticketProvidedByCompany/Router";
 import TicketReissue from "./ticketReissue/Router";
+import TicketReissueApprove from "./ticketReissueApprove/Router";
 
 
 
@@ -29,6 +30,7 @@ function Main() {
             <Route path='/ticket-agency-invoices/*' element={<TicketAgencyInvoices />}></Route>
             <Route path='/ticket-provided-by-company/*' element={<TicketProvidedByCompany />}></Route>
             <Route path='/ticket-reissue/*' element={<TicketReissue />}></Route>
+            <Route path='/ticket-reissue-approve/*' element={<TicketReissueApprove />}></Route>
 
         </Routes>
 

@@ -84,6 +84,8 @@ export const navigations: NavigationInterface[] = [
        { name: 'Mol Work Permit To cancel', icon: 'pageview', path: '/visa/mol-work-permit-cancel' },
        { name: 'Work permit received from company', icon: 'pageview', path: '/visa/work-permit-recieved-from-company' },
        { name: 'Degree Attestation', icon: 'pageview', path: '/visa/degree-attestation' },
+       { name: 'Index Active', icon: 'pageview', path: '/visa/index-active' },
+       { name: 'Index Full', icon: 'pageview', path: '/visa/index-full' },
     ]
   },
   {
@@ -189,6 +191,7 @@ export const navigations: NavigationInterface[] = [
       { name: 'RM Advance Booking Approval', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking-approval' },
       { name: 'Passport Release Request', icon: 'pageview', path: '/ticketing-dpt/passport-release-request' },
       { name: 'Ticket Reissue', icon: 'pageview', path: '/ticketing-dpt/ticket-reissue' },
+      { name: 'Ticket Reissue Approve', icon: 'pageview', path: '/ticketing-dpt/ticket-reissue-approve' },
 
     ]
   },
