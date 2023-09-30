@@ -164,11 +164,10 @@ const AgentPaymentTable = (props: {
                 // options={selectOptionConveter({
                 //   options: props?.AgentPaymentList?.bulk_payment_list,
                 //   options_struct: { name: "description", value: "id" },
-
                 // })}
-                options={selectOptionConveterv2({
+                options={selectOptionConveter({
                   options: props?.AgentPaymentList?.bulk_payment_list,
-                  options_struct: [{ name: "amount", value: "id" }, { name: "amount_used", value: "id" }]
+                  options_struct: { name: "name", value: "id" },
                 })}
 
                 />

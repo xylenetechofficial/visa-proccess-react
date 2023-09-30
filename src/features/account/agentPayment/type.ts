@@ -14,7 +14,7 @@ export interface AgentPaymentInterface {
   amount_available_for_adjustment: number,
   table_data_list: AgentPaymentTableInterface[],
 
-  bulk_payment_list: VisaProfesionInterface[]
+  bulk_payment_list: BulkPaymentInterface[]
 
 }
 export interface AgentPaymentAdapter {
@@ -32,11 +32,11 @@ export interface AgentPaymentAdapter {
   amount_available_for_adjustment: number,
   table_data_list: AgentPaymentTableInterface[],
 
-  bulk_payment_list: VisaProfesionInterface[]
+  bulk_payment_list: BulkPaymentInterface[]
 
 }
 
-export interface VisaProfesionInterface {
+export interface BulkPaymentInterface {
 
   id: number,
   party_code: number,

@@ -96,7 +96,7 @@ export default function Main(props: {
                 } />
             </UpdateContentBox>
             <UpdateContentBox>
-                <SubHeading1 text="Amount :" />
+                <SubHeading1 text="Description :" />
                 <TextAreaInput
                     id="Dfs"
                     onChange={(value) =>

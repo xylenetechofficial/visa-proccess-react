@@ -11,7 +11,7 @@ import {
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+import { CustomSelectComponentUnlabeledv2, selectOptionConveter, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
@@ -145,9 +145,9 @@ const AgentPaymentTable = (props: {
                 <CustomSelectComponentUnlabeledv2
                   // value={ele.candidate_id}
                   value={props?.data[index]?.bulk_payment_id}
-                  options={selectOptionConveterv2({
+                  options={selectOptionConveter({
                     options: props?.AgentPaymentList?.bulk_payment_list,
-                    options_struct: [{ name: "amount", value: "id" }, { name: "available_amount", value: "id" }]
+                    options_struct: { name: "name", value: "id" },
                   })}
                   onChange={(value) => {
 

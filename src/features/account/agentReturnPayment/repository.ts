@@ -18,7 +18,7 @@ export async function readMofaEntryCandiateList(
   status: string,
   partyCode?: number
 ) {
-  const path = "/visa-dpt/mofa-entry-list";
+  const path = "/account/agent-return-payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -62,7 +62,7 @@ export async function readBulkPaymentList(agent_id: number) {
 }
 
 export async function readMofaPaymentList() {
-  const path = "/visa-dpt/mofa-payment-list";
+  const path = "/account/agent-return-payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -93,7 +93,7 @@ export async function UpdateMofaEntry(
 ) {
   const payload = Mofa_Entry_Converter.toAdapter(candidateEle);
 
-  const path = "/visa-dpt/mofa-entry/" + id;
+  const path = "/account/agent-return-payment/" + id;
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
