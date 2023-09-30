@@ -1,12 +1,14 @@
 import { Box, styled } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import TicketReissueTable from './Table'
 import { FaFilter } from "react-icons/fa";
 import EditModal from './Edit'
+import { readTicketIssueList } from "../repository";
+import { TicketIssueInterface } from "../type";
 
-export default function Main(){
+export default function Main() {
 
     const CardHeader = styled(Box)(() => ({
         display: "flex",
@@ -21,7 +23,7 @@ export default function Main(){
 
     const [modalName, setModalName] = useState('')
 
-    const [reIssue, setReIssue] = useState({})
+    const [reIssue, setReIssue] = useState<TicketIssueInterface>({}as TicketIssueInterface)
 
     const onClickEdit = (reissue: any) => {
         setReIssue(reissue)
@@ -29,8 +31,18 @@ export default function Main(){
         console.log(reissue);   // Only Dev
         setModalName('edit')
     }
+    const [ticketIssueList, setTicketIssueList]= useState<TicketIssueInterface[]>([])
+    const fetchTicketissue =async()=>{
+        const res :any= await readTicketIssueList();
+        if(res){
+            setTicketIssueList(res)
+        }
+    }
+    useEffect(()=>{
+        fetchTicketissue()
+    },[])
 
-    return(
+    return (
         <>
             <CustomNavbarV3
                 pageName="Ticket Reissue"
@@ -42,18 +54,21 @@ export default function Main(){
 
 
             <TicketReissueTable
-             onClickEdit={onClickEdit}
-               
+                onClickEdit={onClickEdit}
+                ticketIssueList={ticketIssueList}
+                
+
             />
 
 
-{
-modalName !== "edit" ? "" : 
-<EditModal 
-reIssue={reIssue}
- onClose={() => setModalName("")}
- />
-    } 
+            {
+                modalName !== "edit" ? "" :
+                    <EditModal
+                        reIssue={reIssue}
+                        setReIssue={setReIssue}
+                        onClose={() => setModalName("")}
+                    />
+            }
 
             {/* <GreenButton text='Submit'  /> */}
         </>

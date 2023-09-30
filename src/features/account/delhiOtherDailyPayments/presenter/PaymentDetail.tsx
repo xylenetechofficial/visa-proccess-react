@@ -1,25 +1,25 @@
-import {  readAccountDashboard, updateAccountDashboard } from "../repository";
-import {  useState } from "react";
+import { createAccountDashboard, readAccountDashboard, updateAccountDashboard } from "../repository";
+import { useState } from "react";
 
-import {  TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
+import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import {  AgentPaymentReceivedInterface, CandidateRejectInterface } from "../type";
+import { AgentPaymentReceivedInterface, CandidateRejectInterface, DelhiOtherDailyPaymentInterface } from "../type";
 import { CountryInterface } from "../../../masters/country/type";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
 import { Box } from "@mui/material";
+import { GreenButton } from "../../../../componenets/CustomButton";
 
 
 export default function Main(props: {
     onClose: () => void,
     fetchAccountDashboardList: () => void,
-    currentElement: AgentPaymentReceivedInterface,
-    sectorList: SectorInterface[],
-    companyList: CompanyInterface[],
-    countryList: CountryInterface[],
+    currentElement: DelhiOtherDailyPaymentInterface,
+    setAccountDashboard: (value: any) => void
+
 }) {
-    console.log(props.currentElement, "ALLLLLLLLL")
+    console.log(props.currentElement, "ALLLLLLLL???")
     // const initValue: AccountDashboardInterface = {
     const initValue: any = {
         id: 0,
@@ -81,7 +81,7 @@ export default function Main(props: {
             setagentPaymentReceivedList(data.agentPaymentReceivedList ?? [])
         }
     }
-  
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -94,9 +94,17 @@ export default function Main(props: {
         borderRadius: 2,
         p: 4,
     };
+
+    const handleSubmit =async()=>{
+    console.log("first")
+    const res :any = await createAccountDashboard(props.currentElement)
+    if(res){
+        console.log("res",res)
+    }
+    }
     return (
 
-    
+
 
         <Box sx={style}>
             {/* <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">Payment Detail</h3> */}
@@ -121,69 +129,67 @@ export default function Main(props: {
                 <span className="sr-only">Close modal</span>
             </button>
             <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
-            delhi/other daily payment adjust
-                        </div>
+                delhi/other daily payment adjust
+            </div>
             <div className="grid grid-cols-1 py-3  gap-2 shadow justify-center">
 
-                 <UpdateContentBox>
+                <UpdateContentBox>
                     <SubHeading1 text="CANDIDATE NAME   :" />
-                    <SubHeading1 text={String(props.currentElement?.party_code)} />
+                    <SubHeading1 text={props.currentElement.candidate_name} />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="PASSPORT NO   :" />
-                    <SubHeading1 text={props.currentElement?.company_name} />
+                    <SubHeading1 text={props.currentElement.passport_no} />
                 </UpdateContentBox>
-                 <UpdateContentBox>
+                <UpdateContentBox>
                     <SubHeading1 text="COMPANY    :" />
-                    <SubHeading1 text={String(props.currentElement?.party_code)} />
+                    <SubHeading1 text={props.currentElement.company_name} />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="PARTY CODE  :" />
-                    <SubHeading1 text={props.currentElement?.company_name} />
+                    <SubHeading1 text={String(props.currentElement.party_code)} />
                 </UpdateContentBox>
-                 <UpdateContentBox>
+                <UpdateContentBox>
                     <SubHeading1 text="AGENT NAME   :" />
-                    <SubHeading1 text={String(props.currentElement?.party_code)} />
+                    <SubHeading1 text={String(props.currentElement.agent_name)} />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="TOTAL SERVICE CHARGES   :" />
-                    <SubHeading1 text={props.currentElement?.company_name} />
+                    <SubHeading1 text={String(props.currentElement.total_service_charges)} />
                 </UpdateContentBox>
-                 <UpdateContentBox>
+                <UpdateContentBox>
                     <SubHeading1 text="AMOUNT RECEIVED   :" />
-                    <SubHeading1 text={String(props.currentElement?.party_code)} />
+                    <SubHeading1 text={String(props.currentElement.dad_amount)} />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="AMOUNT RECEIVED DATE   :" />
-                    <SubHeading1 text={props.currentElement?.company_name} />
+                    <SubHeading1 text={props.currentElement.received_date} />
                 </UpdateContentBox>
                 <UpdateContentBox>
                     <SubHeading1 text="RECEIVED AT   :" />
-                    <SubHeading1 text={props.currentElement?.company_name} />
+                    <SubHeading1 text={"Delhi"} />
                 </UpdateContentBox>
-
-           
-               
-            
                 <div className='overflow-auto' style={{ justifyContent: "center" }}>
-                <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
-            Add in Agent Bulk payment  & adjust account
-                        </div>
+                    <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
+                        Add in Agent Bulk payment  & adjust account
+                    </div>
+                    <UpdateContentBox>
+                        <SubHeading1 text="DESCRIPTION OF PAYMENT :" />
+                        <TextAreaInput id="description"  onChange={(value) => { props.setAccountDashboard({ ...props.currentElement, description: value })}}  value={String(props.currentElement.description??'')} />
+                    </UpdateContentBox>
+                    <UpdateContentBox>
+                        <SubHeading1 text="AMOUNT :" />
+                        <UnlabeledInput type="number" disabled={true} value={props.currentElement.dad_amount} onchange={()=>console.log("first")} />
+                    </UpdateContentBox>
+                </div>
                 <UpdateContentBox>
-                    <SubHeading1 text="DESCRIPTION OF PAYMENT :" />
-                    <TextAreaInput id="description" value="AA" onChange={()=>console.log("first")}/>
+                <GreenButton text="Submit" onClick={()=>handleSubmit()}/>
                 </UpdateContentBox>
-                <UpdateContentBox>
-                    <SubHeading1 text="AMOUNT :" />
-                   <UnlabeledInput onchange={()=>{console.log("first")}} value={"hh"}/>
-                </UpdateContentBox>
-        </div>
-
             </div>
         </Box>
 
 
 
-   
+
     )
 }

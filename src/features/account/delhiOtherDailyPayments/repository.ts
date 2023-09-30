@@ -1,21 +1,10 @@
-import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface } from "./type";
+import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface, DelhiOtherDailyPaymentAdapter, DelhiOtherDailyPaymentConverter, DelhiOtherDailyPaymentInterface } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-// get visa - dpt / block - visa - list => GetAccountDashboardList
-// post visa - dpt / block - visa => PostAccountDashboard
-// get visa - dpt / block - visa / { id } => GetAccountDashboard
-// patch visa - dpt / block - visa / { id } => PatchAccountDashboard
-// delete visa - dpt / block - visa / { id } => DeleteAccountDashboard
-
-// //  ------------   Block Visa Profession   ------------ \\
-// delete visa - dpt / block - visa - profession / { id } => DeleteAccountDashboardProfessio
-
-
-
 export async function readAccountDashboardList() {
   // const path = "/visa-dpt/block-visa-list";
-  const path = "/account/account-dashboard-list";
+  const path = "/account/delhi-agent-payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
@@ -29,13 +18,13 @@ export async function readAccountDashboardList() {
   const data = []
   console.log(response.data)
   if (response.data) {
-    const dataAdapter = response.data as AccountDashboardAdapter[];
+    const dataAdapter = response.data as DelhiOtherDailyPaymentAdapter[];
     for (let i = 0; i < dataAdapter.length; i++) {
       const element = dataAdapter[i];
-      data.push(AccountDashboardConverter.toInterface(element));
+      data.push(DelhiOtherDailyPaymentConverter.toInterface(element));
     }
   }
-  return data as AccountDashboardInterface[]
+  return data as DelhiOtherDailyPaymentInterface[]
 }
 
 
@@ -59,11 +48,11 @@ export async function readAccountDashboard(id: number) {
 
 
 
-export async function createAccountDashboard(AccountDashboard: AccountDashboardInterface) {
+export async function createAccountDashboard(AccountDashboard: DelhiOtherDailyPaymentInterface) {
   console.log(AccountDashboard)
-  const path = "/visa-dpt/block-visa"
+  const path = "/account/delhi-agent-payment/add-in-account"
 
-  const payload = AccountDashboardConverter.toAdapter(AccountDashboard);
+  const payload = DelhiOtherDailyPaymentConverter.toAdapter(AccountDashboard);
 
   console.log(payload)
   const response = await ApiHelper.post(path, payload, {

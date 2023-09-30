@@ -9,6 +9,8 @@ import {
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { Box } from "@mui/material";
 import { CustomSelectComponent } from "../../../../componenets/SelectBox";
+import { TicketIssueInterface } from "../type";
+import { createTicketIssueList } from "../repository";
 
 const style = {
   position: "absolute",
@@ -23,7 +25,10 @@ const style = {
   p: 4,
 };
 
-export default function Main(props: { onClose: any; reIssue: any }) {
+export default function Main(props: { onClose: () => void, reIssue: TicketIssueInterface , setReIssue:(value:any)=>void}) {
+  const handleSubmit =async()=>{
+    const res = await createTicketIssueList(props.reIssue)
+  }
   return (
     <>
       <Box sx={style}>
@@ -54,39 +59,46 @@ export default function Main(props: { onClose: any; reIssue: any }) {
         <div className=" grid grid-cols-1 py-3  gap-2 shadow">
           <UpdateContentBox>
             <SubHeading1 text="party code :" />
+            <SubHeading1 text={""} />
           </UpdateContentBox>
 
           <UpdateContentBox>
             <SubHeading1 text="company name :" />
+            <SubHeading1 text={props.reIssue.company_name} />
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="candidate name :" />
+            <SubHeading1 text={props.reIssue.candidate_name} />
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="passport no :" />
+            <SubHeading1 text={props.reIssue.passport_no} />
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="select status :" />
+            {/* <SubHeading1 text={props.reIssue.s} /> */}
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="mistake by :" />
 
-            {/* <CustomSelectComponent
-               /> */}
+            <CustomSelectComponent
+            onChange={(value) =>{props.setReIssue({...props.reIssue, ticketing_mistake_by:value})}}
+            options={[{name:"Refund",value:"refund"},{name:"No Refund",value:"no-refund"}]}
+              value={props.reIssue.ticketing_mistake_by} />
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="re-issue amount :" />
-                      {/* name Input */}
+            {/* name Input */}
             <StandardInput
-              value={name}
-              onChangeValue={(e: string) => {}}
+              value={props.reIssue.ticketing_reissue_charge}
+              onChangeValue={(e: string) => {props.setReIssue({...props.reIssue,ticketing_reissue_charge:e})}}
               label="amount"
             />
           </UpdateContentBox>
 
 
           <div className="grid grid-cols-2 shadow-sm">
-            <GreenButton text="Submit" onClick={() => {}} />
+            <GreenButton text="Submit" onClick={() => { handleSubmit()}} />
             <RedButton
               text="cancel"
               onClick={() => {

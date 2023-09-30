@@ -334,3 +334,102 @@ export class AgentPaymentReceivedConverter {
   }
 
 }
+
+
+export interface DelhiOtherDailyPaymentInterface {
+  "id": number,
+  "candidate_name": string,
+  "passport_no": string,
+  "party_code": number,
+  "company_id": number,
+  "company_name": string,
+  "agent_id": string,
+  "agent_name": string,
+  "total_service_charges": number,
+  "dad_amount": number,
+  "received_date": string,
+  "dad_service_tax": string,
+  "service_tax_received": string,
+  "is_without": number,
+  "amount":number,
+  "description":string,
+
+}
+export interface DelhiOtherDailyPaymentAdapter {
+  "id": number,
+  "candidate_name": string,
+  "passport_no": string,
+  "party_code": number,
+  "company_id": number,
+  "company_name": string,
+  "agent_id": string,
+  "agent_name": string,
+  "total_service_charges": number,
+  "dad_amount": number,
+  "received_date": string,
+  "dad_service_tax": string,
+  "service_tax_received": string,
+  "is_without": number,
+  "amount":number,
+  "description":string,
+
+}
+
+export class DelhiOtherDailyPaymentConverter {
+
+  // private i: DelhiOtherDailyPaymentInterface
+  // private a: AgentPaymentReceivedAdapter
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: DelhiOtherDailyPaymentAdapter) {
+    const data: DelhiOtherDailyPaymentInterface = {
+      "id": a.id,
+      "candidate_name": a.candidate_name,
+      "passport_no": a.passport_no,
+      "party_code": a.party_code,
+      "company_id": a.company_id,
+      "company_name": a.company_name,
+      "agent_id": a.agent_id,
+      "agent_name": a.agent_name,
+      "total_service_charges": a.total_service_charges,
+      "dad_amount": a.dad_amount,
+      "received_date": a.received_date,
+      "dad_service_tax": a.dad_service_tax,
+      "service_tax_received": a.service_tax_received,
+      "is_without": a.is_without,      
+      "amount":a.amount,
+      "description":a.description,
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: DelhiOtherDailyPaymentInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: DelhiOtherDailyPaymentAdapter = {
+      "id": i.id,
+      "candidate_name": i.candidate_name,
+      "passport_no": i.passport_no,
+      "party_code": i.party_code,
+      "company_id": i.company_id,
+      "company_name": i.company_name,
+      "agent_id": i.agent_id,
+      "agent_name": i.agent_name,
+      "total_service_charges": i.total_service_charges,
+      "dad_amount": i.dad_amount,
+      "received_date": i.received_date,
+      "dad_service_tax": i.dad_service_tax,
+      "service_tax_received": i.service_tax_received,
+      "is_without": i.is_without,
+      "amount":i.amount,
+      "description":i.description
+    };
+    return data;
+  }
+
+}
