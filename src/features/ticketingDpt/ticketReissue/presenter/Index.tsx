@@ -4,10 +4,10 @@ import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomCom
 import TicketReissueTable from './Table'
 import { FaFilter } from "react-icons/fa";
 import EditModal from './Edit'
-import { TicketReissueInterface } from "../type";
-import { readTicketReissueList } from "../repository";
+import { readTicketIssueList } from "../repository";
+import { TicketIssueInterface } from "../type";
 
-export default function Main(){
+export default function Main() {
 
     const CardHeader = styled(Box)(() => ({
         display: "flex",
@@ -22,23 +22,7 @@ export default function Main(){
 
     const [modalName, setModalName] = useState('')
 
-    const [reIssue, setReIssue] = useState({})
-    const [ticketReissueList, setTicketReissueList] = useState<TicketReissueInterface[]>([])
-
-    // const fetchTicketReissueList = async () => {
-    //     const data: any = await readTicketReissueList();
-    //     if(data){
-    //         setTicketReissueList(data)
-    //     }
-    //     console.log(data, "Amit")
-    // }
-
-    async function fetchTicketReissueList() {
-        const data = await readTicketReissueList();
-        if (data) {
-            setTicketReissueList(data);
-        }
-      }
+    const [reIssue, setReIssue] = useState<TicketIssueInterface>({}as TicketIssueInterface)
 
     const onClickEdit = (reissue: any) => {
         setReIssue(reissue)
@@ -46,11 +30,18 @@ export default function Main(){
         console.log(reissue);   // Only Dev
         setModalName('edit')
     }
+    const [ticketIssueList, setTicketIssueList]= useState<TicketIssueInterface[]>([])
+    const fetchTicketissue =async()=>{
+        const res :any= await readTicketIssueList();
+        if(res){
+            setTicketIssueList(res)
+        }
+    }
+    useEffect(()=>{
+        fetchTicketissue()
+    },[])
 
-    useEffect(() => {
-        fetchTicketReissueList()
-    }, [])
-    return(
+    return (
         <>
             <CustomNavbarV3
                 pageName="Ticket Reissue"
@@ -62,20 +53,21 @@ export default function Main(){
 
 
             <TicketReissueTable
-             onClickEdit={onClickEdit}
-             ticketReissueList={ticketReissueList}
-             fetchTicketReissueList={fetchTicketReissueList}
+                onClickEdit={onClickEdit}
+                ticketIssueList={ticketIssueList}
+                
 
             />
 
 
-{
-modalName !== "edit" ? "" : 
-<EditModal 
-reIssue={reIssue}
- onClose={() => setModalName("")}
- />
-    } 
+            {
+                modalName !== "edit" ? "" :
+                    <EditModal
+                        reIssue={reIssue}
+                        setReIssue={setReIssue}
+                        onClose={() => setModalName("")}
+                    />
+            }
 
             {/* <GreenButton text='Submit'  /> */}
         </>

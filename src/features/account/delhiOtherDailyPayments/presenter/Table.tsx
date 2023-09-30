@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  AgentPaymentReceivedInterface } from "../type";
+import {  AgentPaymentReceivedInterface, DelhiOtherDailyPaymentInterface } from "../type";
 import {  GreenButton,  } from "../../../../componenets/CustomButton";
 import {
   Table,
@@ -18,7 +18,7 @@ import { Checkbox } from "@mui/material";
 
 
 const AccountDashboardTable = (props: {
-  accountDashboardList: AgentPaymentReceivedInterface[];
+  accountDashboardList: DelhiOtherDailyPaymentInterface[];
   onClickEdit: any;
   modalName:any,
   setModalName:any
@@ -27,9 +27,7 @@ const AccountDashboardTable = (props: {
   return (
     <>
     <div className="overflow-auto">
-    <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
-            delhi/other daily payment 
-                        </div>
+    
 
       <Table2>
         <TableHead2>
@@ -49,23 +47,25 @@ const AccountDashboardTable = (props: {
           </TableHeadRow2>
         </TableHead2>
         <TableBody>
-          {dummy.map((ele, index) => (
+          {props.accountDashboardList.map((ele, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
               {/* <TableCell> {ele.id}</TableCell> */}
-              <TableCell>MOHAMMAD RASHID </TableCell>
+              <TableCell>{ele.candidate_name} </TableCell>
               <TableCell>
-               L7252926
+               {ele.passport_no}
               </TableCell>
-              <TableCell> SOUNDLINES ADMINISTERATIVE COMPANY</TableCell>
-              <TableCell>  unregistered(delhi)</TableCell>
-              <TableCell> 2400</TableCell>
-              <TableCell>4500</TableCell>
-              <TableCell> 09-feb-2022</TableCell>
-              <TableCell> <p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("editdelhiotherdailypayments", ele)}>YES{ele}/-</p></TableCell>
-              <TableCell>yes</TableCell>
+              <TableCell> {ele.company_name}</TableCell>
+              <TableCell>  {ele.agent_name}</TableCell>
+              <TableCell> {ele.total_service_charges}</TableCell>
+              <TableCell> {ele.dad_amount}</TableCell>
+              <TableCell>{"Delhi"}</TableCell>
+              <TableCell> {ele.dad_service_tax}</TableCell>
+              <TableCell> {ele.service_tax_received}</TableCell>
+              {/* <TableCell> <p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("editdelhiotherdailypayments", ele)}>YES{ele.id}/-</p></TableCell> */}
+              {/* <TableCell>yes</TableCell> */}
               <TableCell>
-                <p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("agentcommission", ele)}>
+                <p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("addinAccount", ele)}>
                   Add In Account</p>
               </TableCell>
             </TableRow>

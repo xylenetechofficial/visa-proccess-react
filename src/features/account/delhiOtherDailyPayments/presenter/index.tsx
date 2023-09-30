@@ -7,7 +7,7 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface } from "../type";
+import { AccountDashboardInterface, AgentPaymentReceivedInterface, DelhiOtherDailyPaymentInterface } from "../type";
 import {
   deleteAccountDashboard,
   readAccountDashboardList,
@@ -19,6 +19,7 @@ import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
 import  EditDelhiOtherPayment  from "./Edit";
+import  AddInAccountPage  from "./PaymentDetail";
 
 
 const CardHeader = styled(Box)(() => ({
@@ -35,7 +36,7 @@ export default function Main() {
 
 
   const [editAccountDashboard, setAccountDashboard] =
-    useState<AgentPaymentReceivedInterface>({} as AgentPaymentReceivedInterface);
+    useState<DelhiOtherDailyPaymentInterface>({}as DelhiOtherDailyPaymentInterface);
 
   const [modalName, setModalName] = useState("");
 
@@ -43,7 +44,7 @@ export default function Main() {
     setModalName("create");
   };
 
-  const onClickEdit = (modaltype: string, accountDashboard: AgentPaymentReceivedInterface) => {
+  const onClickEdit = (modaltype: string, accountDashboard: DelhiOtherDailyPaymentInterface) => {
     console.log(accountDashboard, "CCCCCC", modaltype)
     setAccountDashboard(accountDashboard);
     console.log("onClickEdit", modaltype); // Only Dev
@@ -59,32 +60,10 @@ export default function Main() {
     }
   };
 
-  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
-  const fetchSectorList = async () => {
-    const data = await readSectorList();
-    if (data) {
-      setSectorList(data);
-    }
-  };
 
-  const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
-  const fetchcomapanyList = async () => {
-    const data = await readCompanyList();
-    if (data) {
-      setCompanyList(data);
-    }
-  };
-
-  const [countryList, setCountryList] = useState<CountryInterface[]>([]);
-  const fetchCountryList = async () => {
-    const data = await readCountryList();
-    if (data) {
-      setCountryList(data);
-    }
-  };
 
   const [accountDashboardList, setAccountDashboardList] = useState<
-    AccountDashboardInterface[]
+  DelhiOtherDailyPaymentInterface[]
   >([]);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -111,9 +90,7 @@ export default function Main() {
   };
   useEffect(() => {
     fetchAccountDashboardList();
-    fetchSectorList();
-    fetchcomapanyList();
-    fetchCountryList();
+    
   }, []);
 
   return (
@@ -140,6 +117,14 @@ export default function Main() {
   {modalName ==="editdelhiotherdailypayments" ?(
     <EditDelhiOtherPayment  onClickEdit={()=>console.log("edit")} setModalName={setModalName}/>
  ):""}
+ {modalName==="addinAccount"? <AddInAccountPage 
+     onClose= {()=>setModalName('')}
+     fetchAccountDashboardList= {()=>fetchAccountDashboardList()}
+     currentElement={editAccountDashboard}
+     setAccountDashboard={setAccountDashboard}
+     />
+     :""
+    }
 
       <div className="mt-3">
         <CustomButton2 buttonText="Submit" onClick={() => console.log("sd")} />
