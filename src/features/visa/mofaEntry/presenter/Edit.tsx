@@ -39,7 +39,8 @@ export default function Main(props: {
         payment_from: "",
 
         select_status:"",
-    
+ visa_issue_date:"",
+ visa_received_date:"",
     }
 
     const [localRowData, setLocalRowData] = useState<Mofa_Entry_Candidate_Interface>(initValue)

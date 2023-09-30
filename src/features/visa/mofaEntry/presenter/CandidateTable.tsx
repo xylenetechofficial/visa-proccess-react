@@ -1,5 +1,5 @@
 import { Mofa_Entry_Candidate_Interface } from '../type'
-import { Table, TableBody, TableCell, TableCell3, TableHead, TableHeadCell2, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
 import { CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
@@ -28,6 +28,9 @@ const initValue: Mofa_Entry_Candidate_Interface = {
     religion: "",
     payment_from: "",
     select_status: "",
+    visa_issue_date: "",
+    visa_received_date: "",
+
 }
 
 const CandidateTable = (props: {
@@ -61,12 +64,12 @@ const CandidateTable = (props: {
         ["RS"],
         ["RM"],
         ["RC"],
-        ["visa issue date"],
-        ["visa issue date on pp"],
         ["VISA PROFESSION"],
         ["SELECT"],
-        ["*MOFA NUMBER"],
+        ["MOFA NUMBER"],
         ["PP/COPY"],
+        ["visa issue date"],
+        ["visa issue date on pp"],
         ["PP ISSUED DATE"],
         ["PP EXPIRY DATE"],
         ["PLACE OF ISSUE"],
@@ -80,18 +83,18 @@ const CandidateTable = (props: {
 
     ];
     const tableHeadingsComponent = tableHeadings.map((e) => (
-        <TableHeadCell2  > {e[0]}</TableHeadCell2>
+        <TableHeadCell3  > {e[0]}</TableHeadCell3>
     ));
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
                         {tableHeadingsComponent}
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.candidateList && props.candidateList.map((ele, index) => (
                         <TableData
                             data={ele}
@@ -103,15 +106,15 @@ const CandidateTable = (props: {
                     ))}
 
 
-                    {/* <TableRow>
+                    {/* <TableRow3>
                         <TableCell>
                             <div style={{ width: "111px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
                         </TableCell>
-                    </TableRow> */}
-                </TableBody>
-            </Table>
+                    </TableRow3> */}
+                </TableBody3>
+            </Table3>
 
         </div>
     )
@@ -141,7 +144,7 @@ const TableData = (
 
     // console.log(localRowData)
     return (
-        <TableRow key={props.index}>
+        <TableRow3 key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
 
             <TableCell3 >
@@ -171,22 +174,38 @@ const TableData = (
                     <CustomSingleCheckBox
                         onChange={(value) => setLocalRowData({ ...localRowData, checked: value })}
                         value={localRowData.checked ? true : false}
-                    /> : <b style={{color:"#ff5757"}}>{localRowData.select_status}</b>}
+                    /> : <b style={{ color: "#ff5757" }}>{localRowData.select_status}</b>}
             </TableCell3>
             <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.mofa_number}
                     onchange={(value) => setLocalRowData({ ...localRowData, mofa_number: value })}
                 /></TableCell3>
-            <TableCell3 > 
-                 <CustomSelectComponentUnlabeled
-                value={localRowData.pp_copy}
-                onChange={(value: any) => setLocalRowData({ ...localRowData, pp_copy: value })}
-                options={[
-                    { name: "PP", value: "PP" },
-                    { name: "COPY", value: "COPY" },
-                    // { name: "RAISE INVOICE", value: "RAISE INVOICE" }
-                ]} /></TableCell3>
+            <TableCell3 >
+                <CustomSelectComponentUnlabeled
+                    value={localRowData.pp_copy}
+                    onChange={(value: any) => setLocalRowData({ ...localRowData, pp_copy: value })}
+                    options={[
+                        { name: "PP", value: "PP" },
+                        { name: "COPY", value: "COPY" },
+                        // { name: "RAISE INVOICE", value: "RAISE INVOICE" }
+                    ]} /></TableCell3>
+
+            <TableCell3 >
+                <DateInput
+                    id='jbvh6dsd5r'
+                    value={localRowData.visa_issue_date}
+                    onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
+                />
+            </TableCell3>
+
+            <TableCell3 >
+                <DateInput
+                    id='jbvh6ad5r'
+                    value={localRowData.visa_received_date}
+                    onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
+                />
+            </TableCell3>
 
             <TableCell3 >
                 <DateInput
@@ -245,7 +264,7 @@ const TableData = (
 
 
 
-        </TableRow>
+        </TableRow3>
     )
 }
 

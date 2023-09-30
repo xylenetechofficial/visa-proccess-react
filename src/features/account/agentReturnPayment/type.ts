@@ -29,7 +29,6 @@ export interface Mofa_Entry_Candidate_Interface {
   select_status: string;
   visa_issue_date: string;
   visa_received_date: string;
-  is_ksa?: number;
 }
 
 export interface Mofa_Entry_Candidate_Adapter {
@@ -60,7 +59,6 @@ export interface Mofa_Entry_Candidate_Adapter {
 
   visa_issue_date: string;
   visa_received_date: string;
-  is_ksa?: number;
 }
 
 export class Mofa_Entry_Converter {
@@ -100,8 +98,6 @@ export class Mofa_Entry_Converter {
 
       visa_issue_date: a.visa_issue_date,
       visa_received_date: a.visa_received_date,
-
-      is_ksa: a.is_ksa,
     };
 
     return data;
@@ -140,8 +136,6 @@ export class Mofa_Entry_Converter {
 
       visa_issue_date: i.visa_issue_date,
       visa_received_date: i.visa_received_date,
-
-      is_ksa: i.is_ksa,
     };
     return data;
   }
@@ -246,6 +240,92 @@ export class MofaPaymentConverter {
    */
   public static toAdapterList(i_list: MofaPaymentInterface[]) {
     const data_list: MofaPaymentAdapter[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toAdapter(element));
+    }
+
+    return data_list;
+  }
+}
+
+// #######################################
+
+export interface BulkPaymentInterface {
+  id?: number;
+  agent_id: number;
+  agent_name: string;
+  amount: number;
+  description: string;
+  created_at?: string;
+  available_amount: number;
+
+  checked?: boolean;
+}
+
+export interface BulkPaymentAdapter {
+  id?: number;
+  agent_id: number;
+  agent_name: string;
+  amount: number;
+  description: string;
+  created_at?: string;
+  available_amount: number;
+}
+
+export class BulkPaymentConverter {
+  /**
+   * toInterface
+   */
+  public static toInterface(i: BulkPaymentAdapter) {
+    const data: BulkPaymentInterface = {
+      id: i.id,
+      agent_id: i.agent_id,
+      agent_name: i.agent_name,
+      amount: i.amount,
+      description: i.description,
+      created_at: i.created_at,
+      available_amount: i.available_amount,
+    };
+
+    return data;
+  }
+
+  /**
+   * to interface list
+   */
+  public static toInterfaceList(i_list: BulkPaymentAdapter[]) {
+    const data_list: BulkPaymentInterface[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toInterface(element));
+    }
+
+    return data_list;
+  }
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: BulkPaymentInterface) {
+    const data: BulkPaymentAdapter = {
+      id: i.id,
+      agent_id: i.agent_id,
+      agent_name: i.agent_name,
+      amount: i.amount,
+      description: i.description,
+      created_at: i.created_at,
+      available_amount: i.available_amount,
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter list
+   */
+  public static toAdapterList(i_list: BulkPaymentInterface[]) {
+    const data_list: BulkPaymentAdapter[] = [];
 
     for (let i = 0; i < i_list.length; i++) {
       const element = i_list[i];

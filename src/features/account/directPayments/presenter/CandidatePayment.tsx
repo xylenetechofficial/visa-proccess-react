@@ -30,7 +30,10 @@ const CandidatePayment = (props: {
 
   const [CandidatePayment, setCandidatePayment] = useState(initValue);
   const handleClick = async (CandidatePayment: CandidatePaymentInterface) => {
+    const agentId = JSON.parse(localStorage.getItem("agentId") ?? "0")
+    CandidatePayment.agent_id = parseInt(agentId)
     console.log(CandidatePayment);   // Only Dev
+
     const data = await createCandidatePaymentAdd(CandidatePayment)
     if (data) {
       props.fetchAgentPaymentList();

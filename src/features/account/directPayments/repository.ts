@@ -117,8 +117,8 @@ export async function createCandidateAdvancePayment(
 export async function createCandidatePaymentAdd(
   CandidatePayment: CandidatePaymentInterface
 ) {
-  console.log(CandidatePayment); // Only Dev
-  return;
+  // console.log(CandidatePayment); // Only Dev
+  // return;
 
   const path = "/account/direct-payment/candidate-add";
   const payload = CandidatePaymentConverter.toAdapter(CandidatePayment);

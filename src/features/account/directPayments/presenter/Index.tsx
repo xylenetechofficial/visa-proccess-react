@@ -190,6 +190,7 @@ export default function Main() {
           <CustomSelectComponent label="Agent"
             options={[{ name: "DIRECT", value: '1' }, { name: "CO REFFERED ", value: '2' }]}
             value={AgentId} onChange={(value: number) => {
+              localStorage.setItem('agentId', JSON.stringify(value));
               setAgentBy({ ...agentBy, agent_id: value }), setAgentId(value)
               console.log(value)
             }} />
@@ -223,8 +224,8 @@ export default function Main() {
 
       {/* <CardHeader2> */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-2 mb-4 h-96  ">
-        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={() => fetchAgentPaymentList(agentBy)} AgentID={agentBy}/>
-          
+        <CandidatePayment AgentPaymentList={AgentPaymentList} fetchAgentPaymentList={() => fetchAgentPaymentList(agentBy)} AgentID={agentBy} />
+
         <PaymentBulkList AgentPaymentList={AgentPaymentList} setModalName={setModalName} fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)} />
       </div>
 
@@ -249,9 +250,12 @@ export default function Main() {
         ""
       ) : (
         <CreateModal
-          onClose={() => setModalName("")}
+          onClose={() => {
+            fetchAgentPaymentList(agentBy)
+            setModalName("")
+          }}
           readAdvancePaymentList={readAdvancePaymentList}
-          // fetchAgentPaymentList={(name, value) => fetchAgentPaymentList({agent_id:agentBy.agent_id,passport_no:agentBy.passport_no})}
+        // fetchAgentPaymentList={(name, value) => fetchAgentPaymentList({agent_id:agentBy.agent_id,passport_no:agentBy.passport_no})}
         />
       )}
 
