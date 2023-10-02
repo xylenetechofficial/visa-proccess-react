@@ -83,7 +83,7 @@ export default function Main(props: { onClose: () => void, reIssue: TicketIssueI
 
             <CustomSelectComponent
             onChange={(value) =>{props.setReIssue({...props.reIssue, ticketing_mistake_by:value})}}
-            options={[{name:"Refund",value:"refund"},{name:"No Refund",value:"no-refund"}]}
+            options={[{name:"Refund",value:"refund"},{name:"No Refund",value:"no-refund"},{name:"Name Changes",value:"namechanges"},{name:"Void",value:"void"},{name:"Re-Issue",value:"reissue"}]}
               value={props.reIssue.ticketing_mistake_by} />
           </UpdateContentBox>
           <UpdateContentBox>
