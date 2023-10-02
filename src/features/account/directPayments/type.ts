@@ -40,8 +40,9 @@ amount: string
 available_amount: number
 created_at:string
 description: string
-id: 1
-used_amount: 1510
+id: number
+used_amount: number
+name:string
 }
 export interface DirectInterface {
   id: string ,

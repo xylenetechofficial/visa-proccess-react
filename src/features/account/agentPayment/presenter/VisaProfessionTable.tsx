@@ -1,12 +1,12 @@
-import { VisaProfesionInterface } from '../type'
+import { BulkPaymentInterface } from '../type'
 import {  GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 
 const VisaProfessionTable = (props: {
-    visaProfessionList: VisaProfesionInterface[],
-    onChange: (ele: VisaProfesionInterface[]) => void,
+    visaProfessionList: BulkPaymentInterface[],
+    onChange: (ele: BulkPaymentInterface[]) => void,
 
 }) => {
 
@@ -31,7 +31,7 @@ const VisaProfessionTable = (props: {
 
     }
 
-    function onUpdateRow(index: number, rowData: VisaProfesionInterface) {
+    function onUpdateRow(index: number, rowData: BulkPaymentInterface) {
         const nextData = props.visaProfessionList.map((e, i) => {
             if (i === index) {
                 // Increment the clicked counter
@@ -90,9 +90,9 @@ export default VisaProfessionTable
 const TableData = (
     props: {
         index: number;
-        data: VisaProfesionInterface;
+        data: BulkPaymentInterface;
         // onClickEdit: any;
-        onUpdate: (index: number, rowData: VisaProfesionInterface) => void;
+        onUpdate: (index: number, rowData: BulkPaymentInterface) => void;
         onClickRemove: (index: number) => void;
         onChange: string
     }
@@ -100,7 +100,7 @@ const TableData = (
 ) => {
 
     const [localRowData, setLocalRowData] = useState<any>({
-    // const [localRowData, setLocalRowData] = useState<VisaProfesionInterface>({
+    // const [localRowData, setLocalRowData] = useState<BulkPaymentInterface>({
         visa_profession: "",
         arabic_visa_category: "",
         block_visa_id: 0,

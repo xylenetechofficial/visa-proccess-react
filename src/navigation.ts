@@ -5,6 +5,7 @@ export const navigations: NavigationInterface[] = [
     icon: 'account_circle',
     children: [
       { name: 'Agent', icon: 'pageview', path: '/masters/agent' },
+      { name: 'Vendor', icon: 'pageview', path: '/masters/vendor' },
       { name: 'Agent Special Note', icon: 'pageview', path: '/masters/agent-special-note' },
       { name: 'Company', icon: 'pageview', path: '/masters/company' },
       { name: 'Country', icon: 'pageview', path: '/masters/country' },
