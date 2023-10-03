@@ -1,7 +1,7 @@
 import { BankInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
 import { VisaAuthorisationInterface } from '../../visaAuthorization/type';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 
 
 
@@ -10,26 +10,26 @@ import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, Ta
 const BankTable = (props: { bankList: BankInterface[], onClickEdit: any, onClickDelete: any, visaAuthorisationList: VisaAuthorisationInterface[] }) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Table>
-                <TableHead>
-                    <TableHeadRow >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Name</TableHeadCell>
-                        <TableHeadCell > Visa Authorisation</TableHeadCell>
-                        <TableHeadCell > Action</TableHeadCell>
+            <Table3>
+                <TableHead3>
+                    <TableHeadRow3 >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Name</TableHeadCell3>
+                        <TableHeadCell3 > Visa Authorisation</TableHeadCell3>
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.bankList.map((ele, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell >{index + 1}</TableCell>
-                            <TableCell > {ele.name}</TableCell>
-                            <TableCell > {
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {
                                 props.visaAuthorisationList?.map((e) => e.id == ele.visaAuthorisation ? e.name : "")
-                            }</TableCell>
-                            <TableCell >
+                            }</TableCell3>
+                            <TableCell3 >
 
                                 <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
                                     props.onClickEdit(ele)
@@ -39,14 +39,14 @@ const BankTable = (props: { bankList: BankInterface[], onClickEdit: any, onClick
                                     props.onClickDelete(ele)
                                 }} />
 
-                            </TableCell>
-                        </TableRow>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
 
         </div>
     )
