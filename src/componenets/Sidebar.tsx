@@ -13,8 +13,8 @@ import { navigations } from '../navigation';
  */
 
 function CustomSidebarButton(props: { navigation: NavigationInterface, currentDept: string, changeCurrentDept: (value: string) => void }) {
-    const classStyleSelected = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-[#4B4B4B] bg-[#EEEEEE] text-[#414141]";
-    const classStyleNonSelected = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-[#4B4B4B] hover:bg-[#EEEEEE] hover:text-[#414141]"
+    const classStyleSelected = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-black bg-[#EEEEEE] text-[#414141]";
+    const classStyleNonSelected = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-black hover:bg-[#EEEEEE] hover:text-[#414141]"
     return (<li>
         <NavLink to={props.navigation.path ?? ""} onClick={() => {
             if (props.currentDept == props.navigation.name) {
@@ -24,7 +24,7 @@ function CustomSidebarButton(props: { navigation: NavigationInterface, currentDe
 
             }
         }} className={props.currentDept == props.navigation.name ? classStyleSelected : classStyleNonSelected}>
-            {props.navigation.icon == '' ? <svg aria-hidden="true" className="w-6 h-6 text-[#4B4B4B] transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+            {props.navigation.icon == '' ? <svg aria-hidden="true" className="w-6 h-6 text-black transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
                 : <Icon>{props.navigation.icon}</Icon>}
             <span className="ml-3">{props.navigation.name}</span>
         </NavLink>
@@ -34,8 +34,8 @@ function CustomSidebarButton(props: { navigation: NavigationInterface, currentDe
 
 function CustomSidebarbuttonMultiLevel(props: { navigation: NavigationInterface, currentDept: string, changeCurrentDept: (value: string) => void }) {
     // const [showChildren, setShowChildren] = useState(false)
-    const classStyleNonselect = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-[#4B4B4B] hover:bg-[#EEEEEE] hover:text-[#414141]";
-    const classStyleSelected = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-[#4B4B4B] bg-[#EEEEEE] text-[#414141]"
+    const classStyleNonselect = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-black hover:bg-[#EEEEEE] hover:text-[#414141]";
+    const classStyleSelected = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-black bg-[#EEEEEE] text-[#414141]"
     return (<li>
         <button onClick={() => {
             // setShowChildren(!showChildren)
@@ -55,7 +55,7 @@ function CustomSidebarbuttonMultiLevel(props: { navigation: NavigationInterface,
         {props.navigation.children?.length && props.currentDept == props.navigation.name ? <ul id={props.navigation.name} className="   py-2 space-y-2 mt-[-2] bg-[#f8f8f8]">
             {props.navigation.children.map((ele) => (
                 <li>
-                    <NavLink to={ele.path ?? ""} className="flex items-center w-full p-2  transition duration-75 pl-11 group rounded-sm text-[#4B4B4B]  hover:bg-[#EEEEEE] hover:text-[#414141]">
+                    <NavLink to={ele.path ?? ""} className="flex items-center w-full p-2  transition duration-75 pl-11 group rounded-sm text-black  hover:bg-[#EEEEEE] hover:text-[#414141]">
                         {/* <Icon fontSize='small'>{ele.icon}</Icon> */}
                         {ele.name}
                     </NavLink>
@@ -143,7 +143,7 @@ export function CustomSideBar(props: { navigation: NavigationInterface[] }) {
         </svg>
     </button>)
 
-    const companyIcon = (<img src={visaIcon} className="h-8 ml-5 my-[25px] " alt="FlowBite Logo" />)
+    const companyIcon = (<img src={visaIcon} className="h-8 ml-5 my-[25px]" alt="FlowBite Logo" />)
 
     const searchInput = (
 

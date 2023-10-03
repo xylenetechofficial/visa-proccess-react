@@ -50,7 +50,7 @@ export const TableHead2 = ({ children }: ParentComponentProps) => {
 }
 export const TableHead3 = ({ children }: ParentComponentProps) => {
     return (
-        <thead className="text-xs text-gray-700 uppercase bg-[#F1F2F6] dark:bg-gray-700 dark:text-gray-400">
+        <thead className="font-bold text-white uppercase bg-[#e61111] dark:bg-gray-700 dark:text-gray-400">
             {children}
         </thead>
     );
@@ -100,7 +100,7 @@ export const TableHeadCell2 = ({ children }: ParentComponentProps) => {
 export const TableHeadCell3 = ({ children }: ParentComponentProps) => {
 
     return (
-        <th scope="col" className="px-3 py-1 last:text-end" >
+        <th scope="col" className="px-3 py-1 last:text-center border border-gray-500" >
             {children}
         </th>
     )
@@ -276,8 +276,8 @@ export function TableCell3({ children, width }: ParentComponentProps) {
     const widthStyle = width ? `${width}px` : "fit-content";
 
     return (
-        <td className="px-3 py-1 last:text-end " style={{ width: widthStyle }}>
-            <div className="flex">
+        <td className="px-3 py-1 text-xs font-semibold last:text-center border border-x-gray-200 " style={{ width: widthStyle }}>
+            <div className="flex text-black">
 
                 {children}
             </div>
