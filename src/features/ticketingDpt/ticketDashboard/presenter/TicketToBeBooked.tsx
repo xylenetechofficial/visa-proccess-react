@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
+import { Table3, TableBody2, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { TicketDashboardInterface, TicketInterface } from "../type";
 import { Checkbox } from "@mui/material";
 import { convertDateFormat } from "../../../../utils/function";
@@ -80,7 +80,7 @@ const onClickSubmit =async()=>{
                 <TableHeadCell3>Trying</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
-          <TableBody2>
+          <TableBody3>
             {props.openTicketToBeBooked.map((item, index) => (
               <TableRow3>
                 <TableCell3>{index + 1}</TableCell3>
@@ -136,7 +136,7 @@ const onClickSubmit =async()=>{
                 </TableCell3>
               </TableRow3>
             ))}
-          </TableBody2>
+          </TableBody3>
         </Table3>
         <GreenButton text="Submit" onClick={()=>onClickSubmit()} />
       </div>

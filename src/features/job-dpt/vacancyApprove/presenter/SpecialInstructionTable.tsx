@@ -1,6 +1,6 @@
 import {  JobOrderInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table3, TableBody3, TableCell3, TableHead, TableHeadCell, TableHeadRow, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 // import { SectorInterface } from '../../../masters/sector/type';
 // import { CompanyInterface } from '../../../masters/company/type';
 // import { CountryInterface } from '../../../masters/country/type';
@@ -71,16 +71,16 @@ const SpecialInstructionTable = (props: {
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
             <Table3  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Agent </TableHeadCell>
-                        <TableHeadCell > Agent Commission</TableHeadCell>
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Agent </TableHeadCell3>
+                        <TableHeadCell3 > Agent Commission</TableHeadCell3>
 
-                        <TableHeadCell >  Action</TableHeadCell>
+                        <TableHeadCell3 >  Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
+                    </TableHeadRow3>
+                </TableHead3>
                 <TableBody3>
                     {specialInstructionList && specialInstructionList.map((ele, index) => (
                         <TableData

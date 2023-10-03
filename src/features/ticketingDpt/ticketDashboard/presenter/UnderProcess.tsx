@@ -1,6 +1,6 @@
 import {  useState } from "react";
 import  { FullScreenModal } from "../../../../componenets/Modal";
-import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
+import { Table3, TableBody2, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import {  TicketInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
@@ -84,9 +84,9 @@ const onClickSubmit =async()=>{
                 <TableHeadCell3>trying</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
-           <TableBody2>
+           <TableBody3>
             {props.openUnderProcess.map((item :any, index:any) => (
-              <TableRow3>
+              <TableRow3 key={index}>
                 <TableCell3>{index + 1}</TableCell3>
                 <TableCell3>{item.setting_visa} </TableCell3>
                 <TableCell3>{item.job_order_no} </TableCell3>
@@ -140,7 +140,7 @@ const onClickSubmit =async()=>{
                 </TableCell3>
               </TableRow3>
             ))}
-          </TableBody2> 
+          </TableBody3> 
         </Table3>
       </div>
       <GreenButton text="Submit" onClick={()=>onClickSubmit()} />

@@ -1,6 +1,6 @@
 import { Mofa_Entry_Candidate_Interface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table3, TableBody, TableBody3, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadCell2, TableHeadCell3, TableHeadRow, TableHeadRow3, TableRow, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3,TableCell3, TableHead3, TableHeadCell2, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { convertDateFormat } from '../../../../utils/function';
 
 

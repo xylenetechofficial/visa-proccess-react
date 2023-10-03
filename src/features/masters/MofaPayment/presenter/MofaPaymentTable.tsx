@@ -1,6 +1,6 @@
 import { MofaPaymentInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { convertDateFormat } from '../../../../utils/function';
 
 
@@ -10,28 +10,28 @@ const MofaPaymentTable = (props: { mofaPaymentList: MofaPaymentInterface[], onCl
     return (
         <div className='overflow-auto'>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell > Sr No.</TableHeadCell>
-                        <TableHeadCell > Visa Authorisation</TableHeadCell>
-                        <TableHeadCell > Payment</TableHeadCell>
-                        <TableHeadCell > Date</TableHeadCell>
-                        <TableHeadCell > Narration</TableHeadCell>
-                        <TableHeadCell > Action</TableHeadCell>
+            <Table3>
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3 > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Visa Authorisation</TableHeadCell3>
+                        <TableHeadCell3 > Payment</TableHeadCell3>
+                        <TableHeadCell3 > Date</TableHeadCell3>
+                        <TableHeadCell3 > Narration</TableHeadCell3>
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.mofaPaymentList.map((ele, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell >{index + 1}</TableCell>
-                            <TableCell > {ele.visa_authorisation_name ?? ""}</TableCell>
-                            <TableCell > {ele.payment}</TableCell>
-                            <TableCell > {convertDateFormat(ele.date)}</TableCell>
-                            <TableCell > {ele.narration}</TableCell>
-                            <TableCell >
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.visa_authorisation_name ?? ""}</TableCell3>
+                            <TableCell3 > {ele.payment}</TableCell3>
+                            <TableCell3 > {convertDateFormat(ele.date)}</TableCell3>
+                            <TableCell3 > {ele.narration}</TableCell3>
+                            <TableCell3 >
 
                                 <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
                                     props.onClickEdit(ele)
@@ -41,14 +41,14 @@ const MofaPaymentTable = (props: { mofaPaymentList: MofaPaymentInterface[], onCl
                                     props.onClickDelete(ele)
                                 }} />
 
-                            </TableCell>
-                        </TableRow>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

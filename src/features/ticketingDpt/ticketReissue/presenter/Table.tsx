@@ -5,7 +5,6 @@ import {
   TableHead3,
   TableHeadCell3,
   TableHeadRow3,
-  TableRow,
   TableRow3,
 } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
@@ -42,7 +41,7 @@ export default function Main(props: {  onClickEdit: any ,ticketIssueList:TicketI
             {props.ticketIssueList.map((ele,index)=>
           
           
-            <TableRow>
+            <TableRow3 key={index}>
               <TableCell3>{index+1}</TableCell3>
               <TableCell3>{ele.candidate_name}</TableCell3>
               <TableCell3>{ele.company_name}</TableCell3>
@@ -66,7 +65,7 @@ export default function Main(props: {  onClickEdit: any ,ticketIssueList:TicketI
                   }}
                 />
               </TableCell3>
-            </TableRow>
+            </TableRow3>
             
             )}
           </TableBody3>

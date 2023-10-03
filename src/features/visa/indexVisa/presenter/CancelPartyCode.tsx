@@ -16,7 +16,7 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
-import { Table3, TableBody2, TableCell2, TableCell2lastColumn, TableHead3, TableHeadCell3, TableHeadRow3, TableRow2 } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -83,7 +83,7 @@ export default function Main() {
                 <Table3  >
                     <TableHead3 >
                         <TableHeadRow3  >
-                            <TableHeadCell3  > Sr No.</TableHeadCell3>
+                            <TableHeadCell3 > Sr No.</TableHeadCell3>
                             <TableHeadCell3 > DATE</TableHeadCell3>
                             <TableHeadCell3 > COMPANY NAME</TableHeadCell3>
                             <TableHeadCell3 > Party Code</TableHeadCell3>
@@ -91,18 +91,17 @@ export default function Main() {
 
                         </TableHeadRow3>
                     </TableHead3>
-                    <TableBody2>
+                    <TableBody3>
                         {cancelPartyCodeList.map((ele, index) => (
-
-                            <TableRow2 key={index}>
-                                <TableCell2 >{index + 1}</TableCell2>
-                                <TableCell2 > {convertDateFormat(ele.created_at??"")}</TableCell2>
-                                <TableCell2 > {ele.company_name}</TableCell2>
-                                <TableCell2 > {ele.party_code}</TableCell2>
-                                <TableCell2lastColumn > {ele.user_name}</TableCell2lastColumn>
-                            </TableRow2>
+                            <TableRow3 key={index}>
+                                <TableCell3 >{index + 1}</TableCell3>
+                                <TableCell3 > {convertDateFormat(ele.created_at??"")}</TableCell3>
+                                <TableCell3 > {ele.company_name}</TableCell3>
+                                <TableCell3 > {ele.party_code}</TableCell3>
+                                <TableCell3 > {ele.user_name}</TableCell3>
+                            </TableRow3>
                         ))}
-                    </TableBody2>
+                    </TableBody3>
                 </Table3>
 
             </div>

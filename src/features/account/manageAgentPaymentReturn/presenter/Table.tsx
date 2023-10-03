@@ -1,14 +1,5 @@
 
-import {
-    Table,
-    TableBody2,
-    TableCell,
-    TableHead2,
-    TableHeadCell,
-    TableHeadRow,
-    TableRow,
-  
-  } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
   import { Checkbox } from "@mui/material";
   import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
   import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
@@ -29,38 +20,38 @@ import {
     return (
       <div className="overflow-auto">
   
-        <Table>
-          <TableHead2>
-            <TableHeadRow>
-              <TableHeadCell> Sr No.</TableHeadCell>
-              <TableHeadCell> AGENT </TableHeadCell>
-              <TableHeadCell> DATE</TableHeadCell>
-              <TableHeadCell> AMOUNT</TableHeadCell>
-              <TableHeadCell> DESCRIPTION</TableHeadCell>
-              <TableHeadCell> ACTION </TableHeadCell>
+        <Table3>
+          <TableHead3>
+            <TableHeadRow3>
+              <TableHeadCell3> Sr No.</TableHeadCell3>
+              <TableHeadCell3> AGENT </TableHeadCell3>
+              <TableHeadCell3> DATE</TableHeadCell3>
+              <TableHeadCell3> AMOUNT</TableHeadCell3>
+              <TableHeadCell3> DESCRIPTION</TableHeadCell3>
+              <TableHeadCell3> ACTION </TableHeadCell3>
              
   
-            </TableHeadRow>
-          </TableHead2>
-          <TableBody2>
+            </TableHeadRow3>
+          </TableHead3>
+          <TableBody3>
   {  date?.map((item :any,index:any) =>(
-         <TableRow>
+         <TableRow3>
   
-         <TableCell>{index + 1} </TableCell>
-         <TableCell>{item.agent} </TableCell>
-         <TableCell> {item.date} </TableCell>
-         <TableCell> {item.amount}</TableCell>
-         <TableCell>{item.description} </TableCell>
-         <TableCell><RedButton text="Edit" onClick={()=>props.onClickEdit('edit')}/> </TableCell> 
+         <TableCell3>{index + 1} </TableCell3>
+         <TableCell3>{item.agent} </TableCell3>
+         <TableCell3> {item.date} </TableCell3>
+         <TableCell3> {item.amount}</TableCell3>
+         <TableCell3>{item.description} </TableCell3>
+         <TableCell3><RedButton text="Edit" onClick={()=>props.onClickEdit('edit')}/> </TableCell3> 
   
-       </TableRow>
+       </TableRow3>
   
   ))}
      
   
   
-          </TableBody2>
-        </Table>
+          </TableBody3>
+        </Table3>
   
       </div>
     );

@@ -1,6 +1,6 @@
 import { SubmissionDashboardInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table2, Table3, TableBody, TableBody2, TableBody3, TableCell3, TableHead, TableHead2, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow2, TableHeadRow3, TableRow2, TableRow3, TableRow3_green, TableRow3_orange } from '../../../../componenets/Table';
+import {  Table3,   TableBody3, TableCell3,   TableHead3,  TableHeadCell3,  TableHeadRow3,  TableRow3, TableRow3_green, TableRow3_orange } from '../../../../componenets/Table';
 import { useEffect, useState } from 'react';
 import { DateInput, TextAreaInput, UnlabeledInput } from '../../../../componenets/Input';
 

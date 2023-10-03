@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ActualProfessionInterface, EdocInterface } from '../../Extra/type'
 import { JobOrderInterface } from '../type'
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table'
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table'
 import { GreenButton, RedButton } from '../../../../componenets/CustomButton'
 import { UnlabeledInput } from '../../../../componenets/Input'
 
@@ -62,19 +62,19 @@ function EdocTable(props: {
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table>
-                <TableHead >
-                    <TableHeadRow >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Actual Profession</TableHeadCell>
-                        <TableHeadCell > EDOC</TableHeadCell>
-                        <TableHeadCell > COMMISSION</TableHeadCell>
-                        <TableHeadCell > VISA COST</TableHeadCell>
-                        <TableHeadCell >  Action</TableHeadCell>
+            <Table3>
+                <TableHead3>
+                    <TableHeadRow3>
+                        <TableHeadCell3> Sr No.</TableHeadCell3>
+                        <TableHeadCell3> Actual Profession</TableHeadCell3>
+                        <TableHeadCell3 > EDOC</TableHeadCell3>
+                        <TableHeadCell3 > COMMISSION</TableHeadCell3>
+                        <TableHeadCell3 > VISA COST</TableHeadCell3>
+                        <TableHeadCell3 >  Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.EDOCList.map((ele, index) => {
                         return(
                         <TableData
@@ -89,14 +89,14 @@ function EdocTable(props: {
 
 
                     {/* <TableRow>
-                        <TableCell>
+                        <TableCell3>
                             <div style={{ width: "111px", margin: "10px 0px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
-                        </TableCell>
+                        </TableCell3>
                     </TableRow> */}
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
 
         </div>
     )
@@ -137,41 +137,41 @@ const TableData = (
 
     // console.log(localRowData)
     return (
-        <TableRow key={props.index}>
-            <TableCell >{props.index + 1}</TableCell>
-            <TableCell >
+        <TableRow3 key={props.index}>
+            <TableCell3 >{props.index + 1}</TableCell3>
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.actualProfession}
                     onchange={(value) => setLocalRowData({ ...localRowData, actualProfession: value })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.quantity} */}
                 <UnlabeledInput
                     value={localRowData.EDOC}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, EDOC: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.service_charges} */}
                 <UnlabeledInput
                     value={localRowData.commission}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, commission: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.partial_charges} */}
                 <UnlabeledInput
                     value={localRowData.visaCost}
                     type='number'
                     onchange={(value) => setLocalRowData({ ...localRowData, visaCost: parseInt(value) })}
                 />
-            </TableCell>
+            </TableCell3>
 
 
-            <TableCell >
+            <TableCell3 >
 
 
                 <RedButton text={" Remove"} onClick={() => {
@@ -183,7 +183,7 @@ const TableData = (
 
 
 
-            </TableCell>
-        </TableRow>
+            </TableCell3>
+        </TableRow3>
     )
 }

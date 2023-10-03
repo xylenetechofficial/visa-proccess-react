@@ -1,13 +1,4 @@
-import {
-  Table,
-  TableBody2,
-  TableCell,
-  TableHead2,
-  TableHeadCell,
-  TableHeadRow,
-  TableRow,
-
-} from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { Checkbox } from "flowbite-react";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { InvoiceAdminRemarkInterface } from "../type";
@@ -40,40 +31,40 @@ const ClientInvoiceAddTable = (props: {
   return (
     <div className="overflow-auto">
 
-      <Table>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell> Sr No.</TableHeadCell>
-            <TableHeadCell> COMPANY NAME</TableHeadCell>
-            <TableHeadCell> INVOICE TYPE</TableHeadCell>
-            <TableHeadCell> INVOICE NUMBER</TableHeadCell>
-            <TableHeadCell> INVOICE DATE </TableHeadCell>
-            <TableHeadCell> TOTAL CHARGES </TableHeadCell>
-            <TableHeadCell> INVOICE SECTOR </TableHeadCell>
-            <TableHeadCell> COURIER DATE</TableHeadCell>
-            <TableHeadCell> Received Status</TableHeadCell>
-            <TableHeadCell> Received Date</TableHeadCell>
-            <TableHeadCell> Given To</TableHeadCell>
-            <TableHeadCell> Given To Date</TableHeadCell>
-            <TableHeadCell> Given To Remarks</TableHeadCell>
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3> INVOICE TYPE</TableHeadCell3>
+            <TableHeadCell3> INVOICE NUMBER</TableHeadCell3>
+            <TableHeadCell3> INVOICE DATE </TableHeadCell3>
+            <TableHeadCell3> TOTAL CHARGES </TableHeadCell3>
+            <TableHeadCell3> INVOICE SECTOR </TableHeadCell3>
+            <TableHeadCell3> COURIER DATE</TableHeadCell3>
+            <TableHeadCell3> Received Status</TableHeadCell3>
+            <TableHeadCell3> Received Date</TableHeadCell3>
+            <TableHeadCell3> Given To</TableHeadCell3>
+            <TableHeadCell3> Given To Date</TableHeadCell3>
+            <TableHeadCell3> Given To Remarks</TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
           {props.InvoiceAdminRemarkList?.map((ele, index) => (
 
-            <TableRow key={index + 1}>
+            <TableRow3 key={index + 1}>
 
-              <TableCell> {index + 1}</TableCell>
-              <TableCell> {ele.company_name}</TableCell>
-              <TableCell> {ele.invoice_type}</TableCell>
-              <TableCell>{ele.invoice_number}</TableCell>
-              <TableCell>{convertDateFormat(ele.invoice_date)}</TableCell>
-              <TableCell>{ele.total_charges}</TableCell>
-              <TableCell> {ele.invoice_sector}</TableCell>
-              <TableCell> {convertDateFormat(ele.courier_date ?? ``)}</TableCell>
-              <TableCell>{ele.received_status}</TableCell>
-              <TableCell>{convertDateFormat(ele.received_status_date ?? ``)}</TableCell>
-              <TableCell>
+              <TableCell3> {index + 1}</TableCell3>
+              <TableCell3> {ele.company_name}</TableCell3>
+              <TableCell3> {ele.invoice_type}</TableCell3>
+              <TableCell3>{ele.invoice_number}</TableCell3>
+              <TableCell3>{convertDateFormat(ele.invoice_date)}</TableCell3>
+              <TableCell3>{ele.total_charges}</TableCell3>
+              <TableCell3> {ele.invoice_sector}</TableCell3>
+              <TableCell3> {convertDateFormat(ele.courier_date ?? ``)}</TableCell3>
+              <TableCell3>{ele.received_status}</TableCell3>
+              <TableCell3>{convertDateFormat(ele.received_status_date ?? ``)}</TableCell3>
+              <TableCell3>
                 <UnlabeledInput value={ele.given_to}
                  onchange={(value)=>{
                   onUpdateRow(index,{...ele,given_to:value})
@@ -87,8 +78,8 @@ const ClientInvoiceAddTable = (props: {
                   //   };
                   //   return newData;
                   //  })
-                   }}/></TableCell>
-              <TableCell>
+                   }}/></TableCell3>
+              <TableCell3>
                 <DateInput id="date" value={ele.given_to_date} onChange={(value) => {
                 onUpdateRow(index, { ...ele, given_to_date: value })
                 // props.setInvoiceAdminData((prev:any) => {
@@ -100,8 +91,8 @@ const ClientInvoiceAddTable = (props: {
                 //   };
                 //   return newData;
                 // });
-                }} /></TableCell>
-              <TableCell><UnlabeledInput type="text" value={ele.given_to_remarks} onchange={(value) =>{
+                }} /></TableCell3>
+              <TableCell3><UnlabeledInput type="text" value={ele.given_to_remarks} onchange={(value) =>{
                  onUpdateRow(index, { ...ele, given_to_remarks: value })
                 //  props.setInvoiceAdminData((prev:any) => {
                 //   const newData = [...prev];
@@ -112,13 +103,13 @@ const ClientInvoiceAddTable = (props: {
                 //   };
                 //   return newData;
                 // });
-                 }} /></TableCell>
-            </TableRow>
+                 }} /></TableCell3>
+            </TableRow3>
           ))
           }
 
-        </TableBody2>
-      </Table>
+        </TableBody3>
+      </Table3>
 
     </div>
   );

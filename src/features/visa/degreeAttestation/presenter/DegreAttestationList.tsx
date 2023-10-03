@@ -4,13 +4,13 @@ import {
   RedButton,
 } from "../../../../componenets/CustomButton";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeadCell,
-  TableHeadRow,
-  TableRow,
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
 } from "../../../../componenets/Table";
 
 import { useState, useEffect } from "react";
@@ -57,19 +57,19 @@ const DegreeAttestationList = (props: {
 
   return (
     <div className="overflow-auto " style={{ justifyContent: "center" }}>
-      <Table>
-        <TableHead>
-          <TableHeadRow>
-            <TableHeadCell>sn. no</TableHeadCell>
-            <TableHeadCell>name</TableHeadCell>
-            <TableHeadCell>passport no</TableHeadCell>
-            <TableHeadCell>agent </TableHeadCell>
-            <TableHeadCell>rc name</TableHeadCell>
-            <TableHeadCell>attestation charges</TableHeadCell>
-            <TableHeadCell>remove</TableHeadCell>
-          </TableHeadRow>
-        </TableHead>
-        <TableBody>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3>sn. no</TableHeadCell3>
+            <TableHeadCell3>name</TableHeadCell3>
+            <TableHeadCell3>passport no</TableHeadCell3>
+            <TableHeadCell3>agent </TableHeadCell3>
+            <TableHeadCell3>rc name</TableHeadCell3>
+            <TableHeadCell3>attestation charges</TableHeadCell3>
+            <TableHeadCell3>remove</TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
           {props.degreAttestationList &&
             props.degreAttestationList.map((ele:any, index:any) => (
               <TableData
@@ -81,15 +81,15 @@ const DegreeAttestationList = (props: {
               />
             ))}
 
-          <TableRow>
-            <TableCell>
+          <TableRow3>
+            <TableCell3>
               <div style={{ width: "111px" }}>
                 <GreenButton text="Add Row" onClick={onClickAddNewRow} />
               </div>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+            </TableCell3>
+          </TableRow3>
+        </TableBody3>
+      </Table3>
     </div>
   );
 };
@@ -117,18 +117,18 @@ const TableData = (props: {
 
   console.log(localRowData);
   return (
-    <TableRow key={props.index}>
-      <TableCell>{props.index + 1}</TableCell>
-      <TableCell>
+    <TableRow3 key={props.index}>
+      <TableCell3>{props.index + 1}</TableCell3>
+      <TableCell3>
         <UnlabeledInput
           value={localRowData}
           onchange={(value) =>
             setLocalRowData({ ...localRowData})
           }
         />
-      </TableCell>
+      </TableCell3>
 
-      <TableCell>
+      <TableCell3>
         {/* {props.data.service_charges} */}
         <UnlabeledInput
           value={localRowData}
@@ -136,8 +136,8 @@ const TableData = (props: {
             setLocalRowData({ ...localRowData,})
           }
         />
-      </TableCell>
-      <TableCell>
+      </TableCell3>
+      <TableCell3>
         {/* {props.data.quantity} */}
         <UnlabeledInput
         
@@ -146,8 +146,8 @@ const TableData = (props: {
             setLocalRowData({ ...localRowData,  })
           }
         />
-      </TableCell>
-      <TableCell>
+      </TableCell3>
+      <TableCell3>
         {/* {props.data.service_charges} */}
         <UnlabeledInput
           value={localRowData}
@@ -155,8 +155,8 @@ const TableData = (props: {
             setLocalRowData({ ...localRowData, })
           }
         />
-      </TableCell>
-      <TableCell>
+      </TableCell3>
+      <TableCell3>
         {/* {props.data.service_charges} */}
         <UnlabeledInput
           value={localRowData}
@@ -164,15 +164,15 @@ const TableData = (props: {
             setLocalRowData({ ...localRowData, })
           }
         />
-      </TableCell>
-      <TableCell>
+      </TableCell3>
+      <TableCell3>
         <RedButton
           text={" Remove"}
           onClick={() => {
             props.onClickRemove(props.index);
           }}
         />
-      </TableCell>
-    </TableRow>
+      </TableCell3>
+    </TableRow3>
   );
 };

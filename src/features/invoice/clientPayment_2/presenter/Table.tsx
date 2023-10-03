@@ -3,7 +3,7 @@ import { ClientPaymentInterface, PaymentInterface } from "../type";
 // import { CustomCheckBox } from "../../../../componenets/Checkbox";
 import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { convertDateFormat } from "../../../../utils/function";
-import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell2, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 // import { useState } from "react";
 
 
@@ -40,7 +40,7 @@ const fetchClientPaymentListPaymentAddTable = (props: {
             <Table3>
                 <TableHead3>
                     <TableHeadRow3>
-                        {HEADERLIST.map((item) => (<TableHeadCell2> {item}</TableHeadCell2>))}
+                        {HEADERLIST.map((item) => (<TableHeadCell3> {item}</TableHeadCell3>))}
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody3>

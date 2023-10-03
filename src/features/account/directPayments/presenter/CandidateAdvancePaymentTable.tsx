@@ -1,6 +1,6 @@
 import { AdvancePaymentInterface, CandidateAdvancePaymentInterface } from '../type'
 import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 import { readAdvancePaymentList } from '../repository';
@@ -62,53 +62,53 @@ const CandidateAdvancePaymentTable = (props: {
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Name</TableHeadCell>
-                        <TableHeadCell > PASSPORT NO. </TableHeadCell>
-                        <TableHeadCell > ADVANCE AMOUNT</TableHeadCell>
-                        <TableHeadCell >  RECIEVED DATE</TableHeadCell>
-                        <TableHeadCell >  REMARKS</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Name</TableHeadCell3>
+                        <TableHeadCell3 > PASSPORT NO. </TableHeadCell3>
+                        <TableHeadCell3 > ADVANCE AMOUNT</TableHeadCell3>
+                        <TableHeadCell3 >  RECIEVED DATE</TableHeadCell3>
+                        <TableHeadCell3 >  REMARKS</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
 
                     {advancePaymentList?.map((item, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell>
+                        <TableRow3 key={index}>
+                            <TableCell3>
                                {item.id}
-                            </TableCell>
-                            <TableCell>
+                            </TableCell3>
+                            <TableCell3>
                                 {item.name}
-                            </TableCell>
-                            <TableCell>
+                            </TableCell3>
+                            <TableCell3>
                                {item.amount}
-                            </TableCell>
-                            <TableCell>
+                            </TableCell3>
+                            <TableCell3>
                                {item.passport_no}
-                            </TableCell>
-                            <TableCell>
+                            </TableCell3>
+                            <TableCell3>
                                {convertDateFormat(item.received_date)}
-                            </TableCell>
-                            <TableCell>
+                            </TableCell3>
+                            <TableCell3>
                               {item.remarks}
-                            </TableCell>
-                        </TableRow>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
                     {/* <TableRow>
-                        <TableCell>
+                        <TableCell3>
                             <div style={{ width: "111px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
-                        </TableCell>
+                        </TableCell3>
                     </TableRow> */}
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
 
         </div>
     )
@@ -147,29 +147,29 @@ export default CandidateAdvancePaymentTable
 //     console.log(localRowData)
 //     return (
 //         <TableRow key={props.index}>
-//             <TableCell >{props.index + 1}</TableCell>
-//             <TableCell >
+//             <TableCell3 >{props.index + 1}</TableCell3>
+//             <TableCell3 >
 //                 <UnlabeledInput
 //                     value={localRowData.visa_profession}
 //                     onchange={(value) => setLocalRowData({ ...localRowData, visa_profession: value })}
 //                 />
-//             </TableCell>
+//             </TableCell3>
 
-//             <TableCell >
+//             <TableCell3 >
 //                 {/* {props.data.service_charges} */}
 //                 <UnlabeledInput
 //                     value={localRowData.arabic_visa_category}
 //                     onchange={(value) => setLocalRowData({ ...localRowData, arabic_visa_category: value })}
 //                 />
-//             </TableCell>
-//             <TableCell >
+//             </TableCell3>
+//             <TableCell3 >
 //                 {/* {props.data.quantity} */}
 //                 <UnlabeledInput
 //                     value={localRowData.quantity}
 //                     onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
 //                 />
-//             </TableCell>
-//             <TableCell >
+//             </TableCell3>
+//             <TableCell3 >
 
 
 //                 <RedButton text={" Remove"} onClick={() => {
@@ -178,7 +178,7 @@ export default CandidateAdvancePaymentTable
 
 
 
-//             </TableCell>
+//             </TableCell3>
 //         </TableRow>
 //     )
 // }

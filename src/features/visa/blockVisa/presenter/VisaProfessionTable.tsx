@@ -1,6 +1,6 @@
 import { VisaProfesionInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
@@ -57,18 +57,18 @@ const VisaProfessionTable = (props: {
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Visa Profession</TableHeadCell>
-                        <TableHeadCell > Arabic Visa Category</TableHeadCell>
-                        <TableHeadCell > Quantity</TableHeadCell>
-                        <TableHeadCell >  Action</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3 >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Visa Profession</TableHeadCell3>
+                        <TableHeadCell3 > Arabic Visa Category</TableHeadCell3>
+                        <TableHeadCell3 > Quantity</TableHeadCell3>
+                        <TableHeadCell3 >  Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.visaProfessionList && props.visaProfessionList.map((ele, index) => (
                         <TableData
                             data={ele}
@@ -81,15 +81,15 @@ const VisaProfessionTable = (props: {
                     ))}
 
 
-                    <TableRow>
-                        <TableCell>
+                    <TableRow3>
+                        <TableCell3>
                             <div style={{ width: "111px" }}>
                                 <GreenButton text='Add Row' onClick={onClickAddNewRow} />
                             </div>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+                        </TableCell3>
+                    </TableRow3>
+                </TableBody3>
+            </Table3>
 
         </div>
     )
@@ -126,31 +126,31 @@ const TableData = (
 
     console.log(localRowData)
     return (
-        <TableRow key={props.index}>
-            <TableCell >{props.index + 1}</TableCell>
-            <TableCell >
+        <TableRow3 key={props.index}>
+            <TableCell3>{props.index + 1}</TableCell3>
+            <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.visa_profession}
                     onchange={(value) => setLocalRowData({ ...localRowData, visa_profession: value })}
                 />
-            </TableCell>
+            </TableCell3>
 
-            <TableCell >
+            <TableCell3 >
                 {/* {props.data.service_charges} */}
                 <UnlabeledInput
                     value={localRowData.arabic_visa_category}
                     onchange={(value) => setLocalRowData({ ...localRowData, arabic_visa_category: value })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {/* {props.data.quantity} */}
                 <UnlabeledInput
                     type="number"
                     value={localRowData.quantity}
                     onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
                 />
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
 
 
                 <RedButton text={" Remove"} onClick={() => {
@@ -159,7 +159,7 @@ const TableData = (
 
 
 
-            </TableCell>
-        </TableRow>
+            </TableCell3>
+        </TableRow3>
     )
 }

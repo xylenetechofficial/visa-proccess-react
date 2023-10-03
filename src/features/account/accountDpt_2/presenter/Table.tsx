@@ -2,12 +2,12 @@
 import {
    
     Table3,
-    TableBody2,
-    TableCell,
-    TableHead2,
-    TableHeadCell,
-    TableHeadRow,
-    TableRow,
+    TableBody3,
+    TableCell3,
+    TableHead3,
+    TableHeadCell3,
+    TableHeadRow3,
+    TableRow3,
   
   } from "../../../../componenets/Table";
   import { Checkbox } from "@mui/material";
@@ -33,66 +33,66 @@ import {
       <div className="overflow-auto">
   
         <Table3>
-          <TableHead2>
-            <TableHeadRow>
-              <TableHeadCell> Sr No.</TableHeadCell>
-              <TableHeadCell> PARTY CODE </TableHeadCell>
-              <TableHeadCell> COMPANY NAME</TableHeadCell>
-              <TableHeadCell> CANDIDATE NAME</TableHeadCell>
-              <TableHeadCell> PASSPORT NO.</TableHeadCell>
-              <TableHeadCell> ACTUAL PROFESSION </TableHeadCell>
-              <TableHeadCell> VISA PROFESSION </TableHeadCell>
-              <TableHeadCell> AGENT</TableHeadCell>
-              <TableHeadCell> PHOTO CHARGES </TableHeadCell>
-              <TableHeadCell> TRAINING CHARGES</TableHeadCell>
-              <TableHeadCell> DOCUMENT CHARGES </TableHeadCell>
-              <TableHeadCell> OTHER CHARGES</TableHeadCell>
-              <TableHeadCell> DD CHARGES </TableHeadCell>
-              <TableHeadCell> SERVICE CHARGES </TableHeadCell>
-              <TableHeadCell> PARTIAL CHARGES</TableHeadCell>
-              <TableHeadCell> CONSULATE SETTING CHARGES </TableHeadCell>
-              <TableHeadCell> SECTOR CHARGES </TableHeadCell>
-              <TableHeadCell> EXTRA SERVICE CHARGES </TableHeadCell>
-              <TableHeadCell> AMOUNT RECEIVED </TableHeadCell>
-              <TableHeadCell> EDIT </TableHeadCell>
+          <TableHead3>
+            <TableHeadRow3>
+              <TableHeadCell3> Sr No.</TableHeadCell3>
+              <TableHeadCell3> PARTY CODE </TableHeadCell3>
+              <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+              <TableHeadCell3> CANDIDATE NAME</TableHeadCell3>
+              <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
+              <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+              <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+              <TableHeadCell3> AGENT</TableHeadCell3>
+              <TableHeadCell3> PHOTO CHARGES </TableHeadCell3>
+              <TableHeadCell3> TRAINING CHARGES</TableHeadCell3>
+              <TableHeadCell3> DOCUMENT CHARGES </TableHeadCell3>
+              <TableHeadCell3> OTHER CHARGES</TableHeadCell3>
+              <TableHeadCell3> DD CHARGES </TableHeadCell3>
+              <TableHeadCell3> SERVICE CHARGES </TableHeadCell3>
+              <TableHeadCell3> PARTIAL CHARGES</TableHeadCell3>
+              <TableHeadCell3> CONSULATE SETTING CHARGES </TableHeadCell3>
+              <TableHeadCell3> SECTOR CHARGES </TableHeadCell3>
+              <TableHeadCell3> EXTRA SERVICE CHARGES </TableHeadCell3>
+              <TableHeadCell3> AMOUNT RECEIVED </TableHeadCell3>
+              <TableHeadCell3> EDIT </TableHeadCell3>
              
   
-            </TableHeadRow>
-          </TableHead2>
-          <TableBody2>
+            </TableHeadRow3>
+          </TableHead3>
+          <TableBody3>
   {  date?.map((item :any,index:any) =>(
-         <TableRow>
+         <TableRow3>
   
-         <TableCell>{index + 1} </TableCell>
-         <TableCell>{item.party_code} </TableCell>
-         <TableCell> {item.company_name} </TableCell>
-         <TableCell> {item.name}</TableCell>
-         <TableCell>{item.passport_no} </TableCell>
-         <TableCell>{item.actual_profession} </TableCell>
-         <TableCell>{item.visa_profession} </TableCell>
-         <TableCell> {item.agent_name}</TableCell>
-         <TableCell>{item.photo_charges} </TableCell>
-         <TableCell>{item.training_charges} </TableCell>
-         <TableCell>{item.document_charges} </TableCell>
-         <TableCell>{item.other_charges} </TableCell>
-         <TableCell>{item.dd_charges} </TableCell>
-         <TableCell>{item.services_charges} </TableCell>
-         <TableCell> {item.partial_charges} </TableCell>
-         <TableCell>{item.consulate_setting_charges} </TableCell>
-         <TableCell>{item.sector_charges} </TableCell>
-         <TableCell>{item.extra_service_tax} </TableCell>
-         <TableCell>{item.amount_received} </TableCell>
-         <TableCell> <RedButton text="Edit" onClick={()=>props.onClickEdit(item)}/></TableCell>
+         <TableCell3>{index + 1} </TableCell3>
+         <TableCell3>{item.party_code} </TableCell3>
+         <TableCell3> {item.company_name} </TableCell3>
+         <TableCell3> {item.name}</TableCell3>
+         <TableCell3>{item.passport_no} </TableCell3>
+         <TableCell3>{item.actual_profession} </TableCell3>
+         <TableCell3>{item.visa_profession} </TableCell3>
+         <TableCell3> {item.agent_name}</TableCell3>
+         <TableCell3>{item.photo_charges} </TableCell3>
+         <TableCell3>{item.training_charges} </TableCell3>
+         <TableCell3>{item.document_charges} </TableCell3>
+         <TableCell3>{item.other_charges} </TableCell3>
+         <TableCell3>{item.dd_charges} </TableCell3>
+         <TableCell3>{item.services_charges} </TableCell3>
+         <TableCell3> {item.partial_charges} </TableCell3>
+         <TableCell3>{item.consulate_setting_charges} </TableCell3>
+         <TableCell3>{item.sector_charges} </TableCell3>
+         <TableCell3>{item.extra_service_tax} </TableCell3>
+         <TableCell3>{item.amount_received} </TableCell3>
+         <TableCell3> <RedButton text="Edit" onClick={()=>props.onClickEdit(item)}/></TableCell3>
   
   
   
-       </TableRow>
+       </TableRow3>
   
   ))}
      
   
   
-          </TableBody2>
+          </TableBody3>
         </Table3>
   
       </div>

@@ -8,7 +8,6 @@ import {
 } from "../../../../componenets/SelectBox";
 import {
   Table3,
-  TableBody2,
   TableBody3,
   TableCell3,
   TableHead3,

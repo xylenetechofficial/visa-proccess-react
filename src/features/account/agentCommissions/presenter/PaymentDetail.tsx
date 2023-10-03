@@ -2,7 +2,7 @@ import { AccountDashboardInterface } from "../type";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { Box } from "@mui/material";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import { Table, TableBody, TableCell, TableCell2, TableHead, TableHeadCell, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
 
 
@@ -70,40 +70,40 @@ export default function Main(props: {
 
                 <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-                    <Table  >
-                        <TableHead >
-                            <TableHeadRow >
-                                <TableHeadCell2  > PAYMENYT RECEIVED</TableHeadCell2>
-                                <TableHeadCell2 > RECEIVED DATE</TableHeadCell2>
-                                <TableHeadCell2 > ADVANCE </TableHeadCell2>
-                                <TableHeadCell2 >  RECIEVED BY</TableHeadCell2>
+                    <Table3  >
+                        <TableHead3 >
+                            <TableHeadRow3>
+                                <TableHeadCell3  > PAYMENYT RECEIVED</TableHeadCell3>
+                                <TableHeadCell3 > RECEIVED DATE</TableHeadCell3>
+                                <TableHeadCell3 > ADVANCE </TableHeadCell3>
+                                <TableHeadCell3 >  RECIEVED BY</TableHeadCell3>
 
 
-                            </TableHeadRow>
-                        </TableHead>
-                        <TableBody>
+                            </TableHeadRow3>
+                        </TableHead3>
+                        <TableBody3>
 
                             {props?.agentPaymentReceivedList?.map((ele: any, index: any) => (
 
-                                <TableRow>
-                                    <TableCell2 width={10}>
+                                <TableRow3>
+                                    <TableCell3 width={10}>
                                         {ele?.name}
-                                    </TableCell2>
-                                    <TableCell2 width={10}>
+                                    </TableCell3>
+                                    <TableCell3 width={10}>
                                        {convertDateFormat(ele?.created_at)}
-                                    </TableCell2>
-                                    <TableCell2 width={10}>
+                                    </TableCell3>
+                                    <TableCell3 width={10}>
                                         {ele?.amount}
-                                    </TableCell2>
-                                    <TableCell2 width={10}>
+                                    </TableCell3>
+                                    <TableCell3 width={10}>
                                         {ele?.payment_entry_by}
-                                    </TableCell2>
-                                </TableRow>
+                                    </TableCell3>
+                                </TableRow3>
                             ))}
 
 
-                        </TableBody>
-                    </Table>
+                        </TableBody3>
+                    </Table3>
 
                 </div>
 

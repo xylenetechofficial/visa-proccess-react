@@ -1,5 +1,5 @@
 import { Mofa_Entry_Candidate_Interface } from '../type'
-import { Table3, TableBody3, TableCell, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
 import { CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';

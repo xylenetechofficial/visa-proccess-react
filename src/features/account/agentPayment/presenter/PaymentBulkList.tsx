@@ -1,5 +1,5 @@
 
-import { Table3, TableBody3, TableCell, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { convertDateFormat } from '../../../../utils/function';
 
 const PaymentBulkList = (props: {

@@ -1,5 +1,5 @@
 import { ClientAdditionalInvoiceInterface } from "../type";
-import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
 import { convertDateFormat } from "../../../../utils/function";
 
@@ -26,30 +26,30 @@ const Main = (props: {
     return (
         <div className="overflow-auto">
 
-            <Table2>
-                <TableHead2>
-                    <TableHeadRow>
-                        {HEADERLIST.map((item) => (<TableHeadCell2> {item}</TableHeadCell2>))}
-                    </TableHeadRow>
-                </TableHead2>
-                <TableBody2>
+            <Table3>
+                <TableHead3>
+                    <TableHeadRow3>
+                        {HEADERLIST.map((item) => (<TableHeadCell3> {item}</TableHeadCell3>))}
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.immigrationData?.map((item, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell>{index +1}</TableCell>
-                            <TableCell>{item?.company_name}</TableCell>
-                            <TableCell>{item?.invoice_number}</TableCell>
-                            <TableCell>{convertDateFormat(item?.invoice_date)}</TableCell>
-                            <TableCell>{item?.invoice_amount}</TableCell>
-                            <TableCell><BlueButton text="Edit" onClick={()=>{props.setModal("edit"); props.onClickEdit(item)}}/></TableCell>
+                        <TableRow3 key={index}>
+                            <TableCell3>{index +1}</TableCell3>
+                            <TableCell3>{item?.company_name}</TableCell3>
+                            <TableCell3>{item?.invoice_number}</TableCell3>
+                            <TableCell3>{convertDateFormat(item?.invoice_date)}</TableCell3>
+                            <TableCell3>{item?.invoice_amount}</TableCell3>
+                            <TableCell3><BlueButton text="Edit" onClick={()=>{props.setModal("edit"); props.onClickEdit(item)}}/></TableCell3>
                             
-                        </TableRow>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody2>
-            </Table2>
+                </TableBody3>
+            </Table3>
         </div>
     );
 };

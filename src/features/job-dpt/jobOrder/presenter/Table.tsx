@@ -1,6 +1,6 @@
 import { JobOrderInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, Table3,  TableBody3, TableCell3, TableHead3, TableHeadCell3,  TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
+import { Table3,  TableBody3, TableCell3, TableHead3, TableHeadCell3,  TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';

@@ -1,5 +1,5 @@
 import { Checkbox } from "flowbite-react"
-import { Table2, TableBody, TableCell, TableHead2, TableHeadCell2, TableHeadRow2, TableRow } from "../../../../componenets/Table"
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { GreenButton } from "../../../../componenets/CustomButton"
 import { Box, Modal, styled } from "@mui/material"
 
@@ -63,49 +63,49 @@ export default function Main(props: {
         {/* <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
           delhi/other daily payment EDIT
         </div> */}
-        <Table2>
-          <TableHead2>
-            <TableHeadRow2>
-              <TableHeadCell2> Sr No.</TableHeadCell2>
-              <TableHeadCell2> CONDIDATE NAME</TableHeadCell2>
-              <TableHeadCell2> PASSPORT NO</TableHeadCell2>
-              <TableHeadCell2> COMPANY NAME</TableHeadCell2>
-              <TableHeadCell2> AGENT </TableHeadCell2>
-              <TableHeadCell2> TOTAL SERVICE CHARGES </TableHeadCell2>
-              <TableHeadCell2> <Checkbox /> </TableHeadCell2>
-              <TableHeadCell2> AMOUNT RECEIVED</TableHeadCell2>
-              <TableHeadCell2> RECEIVED AT </TableHeadCell2>
-              <TableHeadCell2> SERVICE TAX</TableHeadCell2>
-              <TableHeadCell2> SERVICE TAX RECEIVED</TableHeadCell2>
+        <Table3>
+          <TableHead3>
+            <TableHeadRow3>
+              <TableHeadCell3> Sr No.</TableHeadCell3>
+              <TableHeadCell3> CONDIDATE NAME</TableHeadCell3>
+              <TableHeadCell3> PASSPORT NO</TableHeadCell3>
+              <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+              <TableHeadCell3> AGENT </TableHeadCell3>
+              <TableHeadCell3> TOTAL SERVICE CHARGES </TableHeadCell3>
+              <TableHeadCell3> <Checkbox /> </TableHeadCell3>
+              <TableHeadCell3> AMOUNT RECEIVED</TableHeadCell3>
+              <TableHeadCell3> RECEIVED AT </TableHeadCell3>
+              <TableHeadCell3> SERVICE TAX</TableHeadCell3>
+              <TableHeadCell3> SERVICE TAX RECEIVED</TableHeadCell3>
 
 
-            </TableHeadRow2>
-          </TableHead2>
-          <TableBody>
+            </TableHeadRow3>
+          </TableHead3>
+          <TableBody3>
             {dummy.map((ele, index) => (
-              <TableRow key={index}>
-                <TableCell>{index + 1}</TableCell>
-                {/* <TableCell> {ele.id}</TableCell> */}
-                <TableCell>MOHAMMAD RASHID </TableCell>
-                <TableCell>
+              <TableRow3 key={index}>
+                <TableCell3>{index + 1}</TableCell3>
+                {/* <TableCell3> {ele.id}</TableCell3> */}
+                <TableCell3>MOHAMMAD RASHID </TableCell3>
+                <TableCell3>
                   L7252926
-                </TableCell>
-                <TableCell> SOUNDLINES ADMINISTERATIVE COMPANY</TableCell>
-                <TableCell>  unregistered(delhi)</TableCell>
-                <TableCell> 2400</TableCell>
-                <TableCell> <Checkbox /></TableCell>
-                <TableCell>4500</TableCell>
-                <TableCell> 09-feb-2022</TableCell>
-                <TableCell> YES<p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("paymentdetails", ele)}>{ele}/-</p></TableCell>
-                <TableCell>yes</TableCell>
-                {/* <TableCell>
+                </TableCell3>
+                <TableCell3> SOUNDLINES ADMINISTERATIVE COMPANY</TableCell3>
+                <TableCell3>  unregistered(delhi)</TableCell3>
+                <TableCell3> 2400</TableCell3>
+                <TableCell3> <Checkbox /></TableCell3>
+                <TableCell3>4500</TableCell3>
+                <TableCell3> 09-feb-2022</TableCell3>
+                <TableCell3> YES<p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("paymentdetails", ele)}>{ele}/-</p></TableCell3>
+                <TableCell3>yes</TableCell3>
+                {/* <TableCell3>
           <p className="text-red-500 cursor-pointer font-medium" onClick={() => props.onClickEdit("agentcommission", ele)}>
             -UP</p>
-        </TableCell> */}
-              </TableRow>
+        </TableCell3> */}
+              </TableRow3>
             ))}
-          </TableBody>
-        </Table2>
+          </TableBody3>
+        </Table3>
         <GreenButton text="Submit" onClick={() => { console.log("first"), props.setModalName("") }
         } />
       </div>

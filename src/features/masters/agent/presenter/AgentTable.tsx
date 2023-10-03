@@ -3,7 +3,7 @@ import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
 import { useState, useEffect } from "react";
 import { SectorInterface } from '../../sector/type';
 import { readSectorList } from '../../sector/repository';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import {  Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3, } from '../../../../componenets/Table';
 
 
 
@@ -26,28 +26,28 @@ const AgentTable = (props: { agentList: AgentInterface[], onClickEdit: any, onCl
         <div className='overflow-auto'>
 
 
-            <Table >
-                <TableHead >
-                    <TableHeadRow>
-                        <TableHeadCell > Sr No.</TableHeadCell>
-                        <TableHeadCell> Name</TableHeadCell>
-                        <TableHeadCell> Document Registration</TableHeadCell>
-                        <TableHeadCell> Location</TableHeadCell>
-                        <TableHeadCell> Number</TableHeadCell>
-                        <TableHeadCell > Action </TableHeadCell>
+            <Table3 >
+                <TableHead3 >
+                    <TableHeadRow3>
+                        <TableHeadCell3 > Sr No.</TableHeadCell3>
+                        <TableHeadCell3> Name</TableHeadCell3>
+                        <TableHeadCell3> Document Registration</TableHeadCell3>
+                        <TableHeadCell3> Location</TableHeadCell3>
+                        <TableHeadCell3> Number</TableHeadCell3>
+                        <TableHeadCell3 > Action </TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.agentList.map((ele, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell >{index + 1}</TableCell>
-                            <TableCell > {ele.name}</TableCell>
-                            <TableCell > {ele.isDocumentRegistration==1 ? "Yes" : "No"}</TableCell>
-                            <TableCell > {sectorList?.map((e) => e.id == ele.location ? e.name : "")}</TableCell>
-                            <TableCell > {ele.number}</TableCell>
-                            <TableCell >
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {ele.isDocumentRegistration==1 ? "Yes" : "No"}</TableCell3>
+                            <TableCell3 > {sectorList?.map((e) => e.id == ele.location ? e.name : "")}</TableCell3>
+                            <TableCell3 > {ele.number}</TableCell3>
+                            <TableCell3 >
 
                                 <BlueButton text={" EDIT"} onClick={() => {
                                     props.onClickEdit(ele)
@@ -57,14 +57,14 @@ const AgentTable = (props: { agentList: AgentInterface[], onClickEdit: any, onCl
                                     props.onClickDelete(ele)
                                 }} />
 
-                            </TableCell>
-                        </TableRow>
+                            </TableCell3>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
         </div>
     )
 }

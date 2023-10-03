@@ -40,7 +40,7 @@ export default function Main(props: {
 
           <TableBody3>
             {props.ticketReissueApproveList.map((item,index)=>
-           <TableRow3>
+           <TableRow3 key={index}>
            <TableCell3>{index+1}</TableCell3>
            <TableCell3>{item.candidate_name}</TableCell3>
            <TableCell3>{item.company_name}</TableCell3>

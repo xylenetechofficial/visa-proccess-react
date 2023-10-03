@@ -8,7 +8,7 @@ import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
 import { readCompanyList } from "../../../masters/company/repository"
 import { updateClientSinglePayment } from "../../clientAdditionalPayment/repository"
 import { FullScreenModal } from "../../../../componenets/Modal"
-import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table"
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { ClientPaymentAddInterface } from "../../clientAdditionalPayment/type"
 
 
@@ -92,24 +92,24 @@ export default function Main(props: {
         >
                 <div className="overflow-auto">
 
-                <Table2>
-                    <TableHead2>
-                        <TableHeadRow>
-                            {HEADERLIST.map((item) => (<TableHeadCell2  > {item}</TableHeadCell2>))}
-                        </TableHeadRow>
-                    </TableHead2>
-                    <TableBody2>
+                <Table3>
+                    <TableHead3>
+                        <TableHeadRow3>
+                            {HEADERLIST.map((item) => (<TableHeadCell3  > {item}</TableHeadCell3>))}
+                        </TableHeadRow3>
+                    </TableHead3>
+                    <TableBody3>
                         {props.clientPaymentData?.map((item,  index) => (
 
-                            <TableRow key={index}>
-                                <TableCell>{index + 1}</TableCell>
-                                <TableCell>{item?.company_name}</TableCell>
-                                <TableCell>{item?.invoice_number}</TableCell>
-                                <TableCell>{item?.invoice_date}</TableCell>
-                                <TableCell>{item?.invoice_amount}</TableCell>
-                                <TableCell>{item?.payment_received}</TableCell>
-                                <TableCell>{item?.balance_payment}</TableCell>
-                                <TableCell><DateInput id="date" onChange={(value) =>{
+                            <TableRow3 key={index}>
+                                <TableCell3>{index + 1}</TableCell3>
+                                <TableCell3>{item?.company_name}</TableCell3>
+                                <TableCell3>{item?.invoice_number}</TableCell3>
+                                <TableCell3>{item?.invoice_date}</TableCell3>
+                                <TableCell3>{item?.invoice_amount}</TableCell3>
+                                <TableCell3>{item?.payment_received}</TableCell3>
+                                <TableCell3>{item?.balance_payment}</TableCell3>
+                                <TableCell3><DateInput id="date" onChange={(value) =>{
                                     setAccountDashboard((prev: any) => {
                                 const newData = [...prev];
                                     newData[index] = {
@@ -119,8 +119,8 @@ export default function Main(props: {
                                         
                                     };
                                     return newData;
-                                })}} value={accountDashboard[index]?.date} /></TableCell>
-                                <TableCell><UnlabeledInput onchange={(value) => {
+                                })}} value={accountDashboard[index]?.date} /></TableCell3>
+                                <TableCell3><UnlabeledInput onchange={(value) => {
                                     setAccountDashboard((prev: any) => {
                                 const newData = [...prev];
                                     newData[index] = {
@@ -129,8 +129,8 @@ export default function Main(props: {
                                         id:index,
                                     };
                                     return newData;
-                                })}} value={accountDashboard[index]?.amount}  /></TableCell>
-                                <TableCell><UnlabeledInput onchange={(value) => {
+                                })}} value={accountDashboard[index]?.amount}  /></TableCell3>
+                                <TableCell3><UnlabeledInput onchange={(value) => {
                                     setAccountDashboard((prev: any) => {
                                 const newData = [...prev];
                                     newData[index] = {
@@ -139,20 +139,20 @@ export default function Main(props: {
                                         id:index,
                                     };
                                     return newData;
-                                })}} value={accountDashboard[index]?.description}/></TableCell>
+                                })}} value={accountDashboard[index]?.description}/></TableCell3>
 
-                                <TableCell>
+                                <TableCell3>
                                     <GreenButton text="Add" onClick={() => { props.setModal('') ,props.createSinglePayment(index, accountDashboard) }} />
                                     <RedButton text={"DELETE"} onClick={() => {props.deleteAdditionalPaymentByid(index)}} />
-                                </TableCell>
+                                </TableCell3>
 
-                            </TableRow>
+                            </TableRow3>
                         ))}
 
 
 
-                    </TableBody2>
-                </Table2>
+                    </TableBody3>
+                </Table3>
             </div>
  
         </FullScreenModal>

@@ -1,20 +1,14 @@
 import { RejectCancelApproveInterface } from "../type";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 import {
-  Table,
+ 
   Table3,
-  TableBody,
   TableBody3,
   TableCell3,
-  TableCell2,
-  TableHead,
   TableHead3,
-  TableHeadCell,
   TableHeadCell3,
   TableHeadRow3,
-  TableHeadRow2,
   TableRow3,
-  TableRow2,
 } from "../../../../componenets/Table";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
