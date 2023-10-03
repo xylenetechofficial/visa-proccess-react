@@ -1,5 +1,5 @@
 
-import {  Table2, TableBody,  TableCell,  TableCell3,  TableHead2,  TableHeadCell3,  TableHeadRow2, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { convertDateFormat } from '../../../../utils/function';
 
 const PaymentBulkList = (props:
@@ -20,19 +20,19 @@ const PaymentBulkList = (props:
     <div className="text-xl p-3 m-1 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
  agent bulk payment list
       </div>
-            <Table2>
-                <TableHead2 >
-                    <TableHeadRow2  >
+            <Table3>
+                <TableHead3 >
+                    <TableHeadRow3  >
                         
                         <TableHeadCell3 width={10}> DATE </TableHeadCell3>
                         <TableHeadCell3 width={10}> AMOUNT </TableHeadCell3>
                         <TableHeadCell3 width={10}> AMOUNT AVAILABLE</TableHeadCell3>
                         <TableHeadCell3 width={10} > DESCRIPTION</TableHeadCell3>
-                    </TableHeadRow2>
-                </TableHead2>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props?.AgentPaymentList?.bulk_payment_list?.map((ele :any, index:any)=>(
-                         <TableRow key={index}>
+                         <TableRow3 key={index}>
                         
                         <TableCell3 width={10}>{convertDateFormat(ele.created_at)}</TableCell3>
                         <TableCell3 width={10}>{ele.amount}</TableCell3>
@@ -44,10 +44,10 @@ const PaymentBulkList = (props:
                                 </TableCell3>
                         
                         <TableCell3 width={10}>{ele.description}</TableCell3>
-                        </TableRow>
+                        </TableRow3>
                     ))}
-                </TableBody>
-            </Table2>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

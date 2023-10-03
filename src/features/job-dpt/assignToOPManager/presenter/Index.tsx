@@ -123,7 +123,7 @@ export default function Main() {
 
     return (
 
-        <div >
+        <div>
             <CustomNavbarV3 pageName="Assign Operation Manager" searchFunction={(query) => setSearchQuery(query)} />
 
             <CardHeader>

@@ -1,7 +1,7 @@
 import { InterviewScheduleInterface } from '../type'
 import { Paper, } from '@mui/material';
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { CompanyInterface } from '../../../masters/company/type';
 import { SectorInterface } from '../../../masters/sector/type';
 import { InterviewSchedulePeriodInterface } from '../../interviewSchedulePeriod/type';
@@ -25,19 +25,19 @@ const InterviewScheduleTable = (props:
         // style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
 
-            <Table >
-                <TableHead >
-                    <TableHeadRow>
-                        <TableHeadCell > Sr No.</TableHeadCell>
-                        <TableHeadCell> Comapany</TableHeadCell>
-                        <TableHeadCell> Date</TableHeadCell>
-                        <TableHeadCell> Sector</TableHeadCell>
-                        <TableHeadCell> Staff</TableHeadCell>
-                        <TableHeadCell > Action</TableHeadCell>
+            <Table3 >
+                <TableHead3 >
+                    <TableHeadRow3>
+                        <TableHeadCell3 > Sr No.</TableHeadCell3>
+                        <TableHeadCell3> Comapany</TableHeadCell3>
+                        <TableHeadCell3> Date</TableHeadCell3>
+                        <TableHeadCell3> Sector</TableHeadCell3>
+                        <TableHeadCell3> Staff</TableHeadCell3>
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.interviewScheduleList.map((ele, index) => {
 
                         let companyName = "";
@@ -58,13 +58,13 @@ const InterviewScheduleTable = (props:
 
                         return (
 
-                            <TableRow key={index}>
-                                <TableCell >{index + 1}</TableCell>
-                                <TableCell > {companyName}</TableCell>
-                                <TableCell>{convertDateFormat(ele.date)}</TableCell>
-                                <TableCell>{props.sectorList.map((e) => e.id == ele.sectorId ? e.name : "")}</TableCell>
-                                <TableCell>{ele.staff}</TableCell>
-                                <TableCell >
+                            <TableRow3 key={index}>
+                                <TableCell3 >{index + 1}</TableCell3>
+                                <TableCell3 > {companyName}</TableCell3>
+                                <TableCell3>{convertDateFormat(ele.date)}</TableCell3>
+                                <TableCell3>{props.sectorList.map((e) => e.id == ele.sectorId ? e.name : "")}</TableCell3>
+                                <TableCell3>{ele.staff}</TableCell3>
+                                <TableCell3 >
 
                                     <BlueButton text={" EDIT"} onClick={() => {
                                         props.onClickEdit(ele)
@@ -74,15 +74,15 @@ const InterviewScheduleTable = (props:
                                         props.onClickDelete(ele)
                                     }} />
 
-                                </TableCell>
-                            </TableRow>
+                                </TableCell3>
+                            </TableRow3>
                         )
                     })}
 
 
 
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

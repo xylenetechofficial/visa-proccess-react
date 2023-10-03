@@ -4,7 +4,7 @@ import { DateInput, TextAreaInput, UnlabeledInput } from "../../../../componenet
 import { CustomCheckBox } from "../../../../componenets/Checkbox";
 import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { convertDateFormat } from "../../../../utils/function";
-import { Table2, TableBody2, TableCell, TableHead2, TableHeadCell2, TableHeadRow, TableRow } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { useState } from "react";
 
 
@@ -48,42 +48,42 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
     return (
         <div className="overflow-auto">
 
-            <Table2>
-                <TableHead2>
-                    <TableHeadRow>
-                        {HEADERLIST.map((item) => (<TableHeadCell2> {item}</TableHeadCell2>))}
-                    </TableHeadRow>
-                </TableHead2>
-                <TableBody2>
+            <Table3>
+                <TableHead3>
+                    <TableHeadRow3>
+                        {HEADERLIST.map((item) => (<TableHeadCell3> {item}</TableHeadCell3>))}
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.clientPaymentData?.map((item, index) => (
 
-                        <TableRow key={index}>
-                            <TableCell>{index +1}</TableCell>
-                            <TableCell>{item?.company_name}</TableCell>
-                            <TableCell>{item?.invoice_number}</TableCell>
-                            <TableCell>{item?.invoice_date}</TableCell>
-                            <TableCell>{item?.other_charges}</TableCell>
-                            <TableCell>{item?.service_charges}</TableCell>
-                            <TableCell>{item?.ticket_charges}</TableCell>
-                            <TableCell>{item?.total_charges}</TableCell>
-                            <TableCell>{item?.payment_received}</TableCell>
-                            <TableCell>{item?.balance_payment}</TableCell>
-                            <TableCell>{item?.suspense_amount}
+                        <TableRow3 key={index}>
+                            <TableCell3>{index +1}</TableCell3>
+                            <TableCell3>{item?.company_name}</TableCell3>
+                            <TableCell3>{item?.invoice_number}</TableCell3>
+                            <TableCell3>{item?.invoice_date}</TableCell3>
+                            <TableCell3>{item?.other_charges}</TableCell3>
+                            <TableCell3>{item?.service_charges}</TableCell3>
+                            <TableCell3>{item?.ticket_charges}</TableCell3>
+                            <TableCell3>{item?.total_charges}</TableCell3>
+                            <TableCell3>{item?.payment_received}</TableCell3>
+                            <TableCell3>{item?.balance_payment}</TableCell3>
+                            <TableCell3>{item?.suspense_amount}
                             <BlueButton text="Check SA" onClick={()=>{props.setModal("suspenseAmount")}} />
-                            </TableCell>
+                            </TableCell3>
                            
-                        <TableCell>
+                        <TableCell3>
                                 
                                 <BlueButton text="EDIT" onClick={()=>{props.onClickEdit(item),props.setModal('edit')}} />
-                                <RedButton text={"DELETE"} onClick={() => {console.log("Reject", index),props.deleteAdditionalPaymentByid(index)}} /></TableCell>
-                            {/* <TableCell><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell> */}
-                        </TableRow>
+                                <RedButton text={"DELETE"} onClick={() => {console.log("Reject", index),props.deleteAdditionalPaymentByid(index)}} /></TableCell3>
+                            {/* <TableCell3><RedButton text={"ADD FOLLOWUP"} onClick={() => console.log("Reject", index)} /></TableCell3> */}
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody2>
-            </Table2>
+                </TableBody3>
+            </Table3>
         </div>
     );
 };

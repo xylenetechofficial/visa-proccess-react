@@ -4,12 +4,9 @@ import {
   
   Table3,
   TableBody3,
-  TableCell3,
-  
-  TableHead3,
-  
+  TableCell3, 
+  TableHead3, 
   TableHeadCell3,
-  
   TableHeadRow3,
   TableRow3,
 } from "../../../../componenets/Table";

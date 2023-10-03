@@ -1,11 +1,11 @@
 import {
-  Table,
-  TableBody2,
-  TableCell,
-  TableHead2,
-  TableHeadCell,
-  TableHeadRow,
-  TableRow,
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
 
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
@@ -40,55 +40,55 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
   return (
     <div className="overflow-auto">
 
-      <Table>
-        <TableHead2>
-          <TableHeadRow>
-            <TableHeadCell> Sr No.</TableHeadCell>
-            <TableHeadCell> PARTY CODE </TableHeadCell>
-            <TableHeadCell> COMPANY NAME</TableHeadCell>
-            <TableHeadCell> CANDIDATE NAME</TableHeadCell>
-            <TableHeadCell> PASSPORT NO.</TableHeadCell>
-            <TableHeadCell> ACTUAL PROFESSION </TableHeadCell>
-            <TableHeadCell> VISA PROFESSION </TableHeadCell>
-            {/* <TableHeadCell> VISA RECIEVED DATE </TableHeadCell> */}
-            <TableHeadCell> AGENT</TableHeadCell>
-            <TableHeadCell> DIVISION </TableHeadCell>
-            <TableHeadCell> VISA AUTHORIZATION </TableHeadCell>
-            <TableHeadCell> RC </TableHeadCell>
-            {/* <TableHeadCell>  DEPARTURE DATE</TableHeadCell> */}
-            <TableHeadCell> OTHER CHARGES</TableHeadCell>
-            <TableHeadCell> SERVICES CHARGES</TableHeadCell>
-            <TableHeadCell> TICKET CHARGES</TableHeadCell>
-            <TableHeadCell> TOTAL CHARGES</TableHeadCell>
-            <TableHeadCell> INVOICE NUMBER</TableHeadCell>
-            <TableHeadCell> INVOICE DATE</TableHeadCell>
-            <TableHeadCell> SELECT</TableHeadCell>
-            <TableHeadCell> BANK NAME</TableHeadCell>
-          </TableHeadRow>
-        </TableHead2>
-        <TableBody2>
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> PARTY CODE </TableHeadCell3>
+            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
+            <TableHeadCell3> CANDIDATE NAME</TableHeadCell3>
+            <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
+            {/* <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3> */}
+            <TableHeadCell3> AGENT</TableHeadCell3>
+            <TableHeadCell3> DIVISION </TableHeadCell3>
+            <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
+            <TableHeadCell3> RC </TableHeadCell3>
+            {/* <TableHeadCell3>  DEPARTURE DATE</TableHeadCell3> */}
+            <TableHeadCell3> OTHER CHARGES</TableHeadCell3>
+            <TableHeadCell3> SERVICES CHARGES</TableHeadCell3>
+            <TableHeadCell3> TICKET CHARGES</TableHeadCell3>
+            <TableHeadCell3> TOTAL CHARGES</TableHeadCell3>
+            <TableHeadCell3> INVOICE NUMBER</TableHeadCell3>
+            <TableHeadCell3> INVOICE DATE</TableHeadCell3>
+            <TableHeadCell3> SELECT</TableHeadCell3>
+            <TableHeadCell3> BANK NAME</TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
           {props.candidateInvoiceRaiseList?.map((ele, index) => (
-            <TableRow key={index + 1}>
+            <TableRow3 key={index + 1}>
 
-              <TableCell> {index + 1}</TableCell>
-              <TableCell> {ele.party_code}</TableCell>
-              <TableCell> {ele.company_name}</TableCell>
-              <TableCell> {ele.candidate_name}</TableCell>
-              <TableCell>{ele.passport_no}</TableCell>
-              <TableCell>{ele.actual_profession}</TableCell>
-              <TableCell>{ele.visa_profession}</TableCell>
-              <TableCell> {ele.agent_name}</TableCell>
-              <TableCell> {ele.division}</TableCell>
-              <TableCell> {ele.visa_authorisation_name}</TableCell>
-              <TableCell> {ele.rc_name}</TableCell>
-              <TableCell> {ele.other_charges}</TableCell>
-              {/* <TableCell> {ele.other_charges}</TableCell> */}
-              {/* <TableCell> {ele.document_charges}</TableCell> */}
-              <TableCell> {ele.service_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell>
-              <TableCell> {ele.ticket_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell>
-              <TableCell> <UnlabeledInput type="number" value={ele.total_charges} onchange={(value) =>
-                onUpdateRow(index, { ...ele, total_charges: parseInt(value) })} /></TableCell>
-              <TableCell>
+              <TableCell3> {index + 1}</TableCell3>
+              <TableCell3> {ele.party_code}</TableCell3>
+              <TableCell3> {ele.company_name}</TableCell3>
+              <TableCell3> {ele.candidate_name}</TableCell3>
+              <TableCell3>{ele.passport_no}</TableCell3>
+              <TableCell3>{ele.actual_profession}</TableCell3>
+              <TableCell3>{ele.visa_profession}</TableCell3>
+              <TableCell3> {ele.agent_name}</TableCell3>
+              <TableCell3> {ele.division}</TableCell3>
+              <TableCell3> {ele.visa_authorisation_name}</TableCell3>
+              <TableCell3> {ele.rc_name}</TableCell3>
+              <TableCell3> {ele.other_charges}</TableCell3>
+              {/* <TableCell3> {ele.other_charges}</TableCell3> */}
+              {/* <TableCell3> {ele.document_charges}</TableCell3> */}
+              <TableCell3> {ele.service_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
+              <TableCell3> {ele.ticket_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
+              <TableCell3> <UnlabeledInput type="number" value={ele.total_charges} onchange={(value) =>
+                onUpdateRow(index, { ...ele, total_charges: parseInt(value) })} /></TableCell3>
+              <TableCell3>
                 <UnlabeledInput
                   type="number"
                   value={ele?.invoice_number}
@@ -114,8 +114,8 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   }
                   }
                 />
-              </TableCell>
-              <TableCell>
+              </TableCell3>
+              <TableCell3>
                 <DateInput id="date"
 
                   value={ele.invoice_date}
@@ -141,9 +141,9 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
 
                   }} />
 
-              </TableCell>
+              </TableCell3>
 
-              <TableCell>
+              <TableCell3>
                 <Checkbox value={ele.is_without} onChange={(e) => {
 
                   if (e.target.checked) {
@@ -165,9 +165,9 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   }
 
                 }} />
-              </TableCell>
+              </TableCell3>
 
-              <TableCell>
+              <TableCell3>
 
                 <CustomSelectComponentUnlabeledv2
                   value={ele.bank_id}
@@ -197,14 +197,14 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                     }
                   }
                   } />
-              </TableCell>
+              </TableCell3>
 
-            </TableRow>
+            </TableRow3>
           ))
           }
 
-        </TableBody2>
-      </Table>
+        </TableBody3>
+      </Table3>
 
     </div>
   );

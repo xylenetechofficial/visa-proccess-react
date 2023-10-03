@@ -1,6 +1,6 @@
 import { BulkPaymentInterface } from '../type'
 import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, Table3, TableBody3, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadRow, TableHeadRow3, TableRow, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 import { convertDateFormat } from '../../../../utils/function';

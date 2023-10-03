@@ -1,6 +1,6 @@
 import { IndexVisaInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, Table2, TableBody, TableBody2, TableCell, TableCell2, TableCell2lastColumn, TableHead, TableHead2, TableHeadCell, TableHeadCell2, TableHeadRow, TableHeadRow2, TableRow, TableRow2 } from '../../../../componenets/Table';
+import { Table, Table2, Table3, TableBody, TableBody2, TableBody3, TableCell, TableCell2, TableCell2lastColumn, TableCell3, TableHead, TableHead2, TableHead3, TableHeadCell, TableHeadCell2, TableHeadCell3, TableHeadRow, TableHeadRow2, TableHeadRow3, TableRow, TableRow2, TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
@@ -22,48 +22,48 @@ const IndexVisaTable = (props: {
         <div className='overflow-auto'>
            
 
-            <Table2  >
-                <TableHead2 >
-                    <TableHeadRow2  >
-                        <TableHeadCell2  > Sr No.</TableHeadCell2>
-                        <TableHeadCell2 > Job Order Number</TableHeadCell2>
-                        <TableHeadCell2 > INDEX DATE</TableHeadCell2>
-                        <TableHeadCell2 > COMPANY NAME</TableHeadCell2>
-                        <TableHeadCell2 > Party Code</TableHeadCell2>
-                        <TableHeadCell2 > VISA ISSUED DATE</TableHeadCell2>
-                        <TableHeadCell2 > VISA EXPIRY DATE</TableHeadCell2>
-                        <TableHeadCell2 > COUNTRY</TableHeadCell2>
-                        <TableHeadCell2 > VISA DATE (ARABIC)</TableHeadCell2>
-                        <TableHeadCell2 > VISA NUMBER</TableHeadCell2>
-                        <TableHeadCell2 > VISA FEE</TableHeadCell2>
-                        <TableHeadCell2 > VISA AUTHORIZATION</TableHeadCell2>
-                        <TableHeadCell2 > VISA SUBMISSION</TableHeadCell2>
-                        <TableHeadCell2 > SPONSOR ID</TableHeadCell2>
-                        <TableHeadCell2 > Action</TableHeadCell2>
+            <Table3>
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Job Order Number</TableHeadCell3>
+                        <TableHeadCell3 > INDEX DATE</TableHeadCell3>
+                        <TableHeadCell3 > COMPANY NAME</TableHeadCell3>
+                        <TableHeadCell3 > Party Code</TableHeadCell3>
+                        <TableHeadCell3 > VISA ISSUED DATE</TableHeadCell3>
+                        <TableHeadCell3 > VISA EXPIRY DATE</TableHeadCell3>
+                        <TableHeadCell3 > COUNTRY</TableHeadCell3>
+                        <TableHeadCell3 > VISA DATE (ARABIC)</TableHeadCell3>
+                        <TableHeadCell3 > VISA NUMBER</TableHeadCell3>
+                        <TableHeadCell3 > VISA FEE</TableHeadCell3>
+                        <TableHeadCell3 > VISA AUTHORIZATION</TableHeadCell3>
+                        <TableHeadCell3 > VISA SUBMISSION</TableHeadCell3>
+                        <TableHeadCell3 > SPONSOR ID</TableHeadCell3>
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
-                    </TableHeadRow2>
-                </TableHead2>
-                <TableBody2>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.indexVisaList.map((ele, index) => (
 
-                        <TableRow2 key={index}>
-                            <TableCell2 >{index + 1}</TableCell2>
-                            <TableCell2 > {ele.jobOrderNo}</TableCell2>
-                            <TableCell2 > {convertDateFormat(ele.index_date)}</TableCell2>
-                            {/* <TableCell2 > {props.companyList.map((company) => company.id == ele.company ? company.name : "")}</TableCell2> */}
-                            <TableCell2 > {ele.company_name??""}</TableCell2>
-                            <TableCell2 > {ele.party_code}</TableCell2>
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 > {ele.jobOrderNo}</TableCell3>
+                            <TableCell3 > {convertDateFormat(ele.index_date)}</TableCell3>
+                            {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company ? company.name : "")}</TableCell3> */}
+                            <TableCell3 > {ele.company_name??""}</TableCell3>
+                            <TableCell3 > {ele.party_code}</TableCell3>
                     
-                            <TableCell2 > {convertDateFormat(ele.visa_issued_date)}</TableCell2>
-                            <TableCell2 > {convertDateFormat(ele.visa_expiry_date)}</TableCell2>  
-                            {/* <TableCell2 > {props.countryList.map((country) => country.id == ele.country ? country.name : "")}</TableCell2> */}
-                            <TableCell2 > {ele.country_name??""}</TableCell2>
-                            <TableCell2 > {ele.visa_date_arabic}</TableCell2>
-                            <TableCell2 > {ele.visa_number}</TableCell2>
-                            <TableCell2 > {ele.visa_fee}</TableCell2>
-                            <TableCell2 > {ele.visa_authorization_name??""}</TableCell2>
-                            <TableCell2 > {ele.visa_submission}</TableCell2>
-                            <TableCell2 > {ele.sponsor_id}</TableCell2>
+                            <TableCell3 > {convertDateFormat(ele.visa_issued_date)}</TableCell3>
+                            <TableCell3 > {convertDateFormat(ele.visa_expiry_date)}</TableCell3>  
+                            {/* <TableCell3 > {props.countryList.map((country) => country.id == ele.country ? country.name : "")}</TableCell3> */}
+                            <TableCell3 > {ele.country_name??""}</TableCell3>
+                            <TableCell3 > {ele.visa_date_arabic}</TableCell3>
+                            <TableCell3 > {ele.visa_number}</TableCell3>
+                            <TableCell3 > {ele.visa_fee}</TableCell3>
+                            <TableCell3 > {ele.visa_authorization_name??""}</TableCell3>
+                            <TableCell3 > {ele.visa_submission}</TableCell3>
+                            <TableCell3 > {ele.sponsor_id}</TableCell3>
                             <TableCell2lastColumn >
 
                         
@@ -77,13 +77,13 @@ const IndexVisaTable = (props: {
                        
 
                             </TableCell2lastColumn>
-                        </TableRow2>
+                        </TableRow3>
                     ))}
 
 
 
-                </TableBody2>
-            </Table2>
+                </TableBody3>
+            </Table3>
 
         </div>
     )

@@ -16,7 +16,7 @@ import VisaProfessionTable from "./VisaProfessionTable";
 import { RejectCancelApproveSingleAdapter } from "../../rejectCancelApprove/type";
 import { Box } from "@mui/material";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from "../../../../componenets/Table";
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { CandidateRejectInterface } from "../../dashboard/type";
 import { AgentPaymentReceivedInterface } from "../../agentPaymentsRecieved/type";
 
@@ -120,37 +120,37 @@ export default function Main(props: {
             
                 <div className='overflow-auto' style={{ justifyContent: "center" }}>
 
-            <Table  >
-                <TableHead >
-                    <TableHeadRow >
-                        <TableHeadCell  > PAYMENYT RECEIVED</TableHeadCell>
-                        <TableHeadCell > RECEIVED DATE</TableHeadCell>
-                        <TableHeadCell > ADVANCE </TableHeadCell>
-                        <TableHeadCell >  RECIEVED BY</TableHeadCell>
+            <Table3  >
+                <TableHead3 >
+                    <TableHeadRow3 >
+                        <TableHeadCell3  > PAYMENYT RECEIVED</TableHeadCell3>
+                        <TableHeadCell3 > RECEIVED DATE</TableHeadCell3>
+                        <TableHeadCell3 > ADVANCE </TableHeadCell3>
+                        <TableHeadCell3 >  RECIEVED BY</TableHeadCell3>
                         
 
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                 
 
 
-                    <TableRow>
-                        <TableCell>
+                    <TableRow3>
+                        <TableCell3>
                             1
-                        </TableCell>
-                        <TableCell>
+                        </TableCell3>
+                        <TableCell3>
                             2
-                        </TableCell>
-                        <TableCell>
+                        </TableCell3>
+                        <TableCell3>
                             3
-                        </TableCell>
-                        <TableCell>
+                        </TableCell3>
+                        <TableCell3>
                             4
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+                        </TableCell3>
+                    </TableRow3>
+                </TableBody3>
+            </Table3>
 
         </div>
 

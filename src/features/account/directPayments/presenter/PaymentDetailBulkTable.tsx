@@ -1,6 +1,6 @@
 import { DirectInterface } from '../type'
 import { GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, TableBody, TableCell, TableHead, TableHead2, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 import { convertDateFormat, convertDateFormatWithTime } from '../../../../utils/function';
@@ -34,20 +34,20 @@ const VisaProfessionTable = (props: {
     }
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
-            <Table>
-                <TableHead2 >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Name</TableHeadCell>
-                        <TableHeadCell > PP No.</TableHeadCell>
-                        <TableHeadCell > Received Amount</TableHeadCell>
-                        <TableHeadCell >  Received Date</TableHeadCell>
-                        <TableHeadCell >  payment Entry By</TableHeadCell>
-                        <TableHeadCell >  payment Entry on</TableHeadCell>
+            <Table3>
+                <TableHead3 >
+                    <TableHeadRow3  >
+                        <TableHeadCell3  > Sr No.</TableHeadCell3>
+                        <TableHeadCell3 > Name</TableHeadCell3>
+                        <TableHeadCell3 > PP No.</TableHeadCell3>
+                        <TableHeadCell3 > Received Amount</TableHeadCell3>
+                        <TableHeadCell3 >  Received Date</TableHeadCell3>
+                        <TableHeadCell3 >  payment Entry By</TableHeadCell3>
+                        <TableHeadCell3 >  payment Entry on</TableHeadCell3>
 
-                    </TableHeadRow>
-                </TableHead2>
-                <TableBody>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
                     {props.paymentDetail && props.paymentDetail.map((ele, index) => (
                         <TableData
                             data={ele}
@@ -57,8 +57,8 @@ const VisaProfessionTable = (props: {
                             onUpdate={onUpdateRow}
                         />
                     ))}
-                </TableBody>
-            </Table>
+                </TableBody3>
+            </Table3>
         </div>
     )
 }
@@ -90,26 +90,26 @@ const TableData = (
 
     console.log(localRowData, props, "kkkkk")
     return (
-        <TableRow key={props.index}>
-            <TableCell >{props.index + 1}</TableCell>
-            <TableCell >
+        <TableRow3 key={props.index}>
+            <TableCell3 >{props.index + 1}</TableCell3>
+            <TableCell3 >
                 {props.data.name}
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {props.data.passport_no}
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {props.data.amount}
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {convertDateFormat(props.data.created_at)}
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {props.data.payment_entry_by}
-            </TableCell>
-            <TableCell >
+            </TableCell3>
+            <TableCell3 >
                 {convertDateFormatWithTime(props.data?.created_at)}
-            </TableCell>
-        </TableRow>
+            </TableCell3>
+        </TableRow3>
     )
 }

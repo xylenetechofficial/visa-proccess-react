@@ -1,6 +1,6 @@
 import { BulkPaymentInterface } from '../type'
 import {  GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table, Table3, TableBody, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from '../../../../componenets/Input';
 import { convertDateFormat, convertDateFormatWithTime } from '../../../../utils/function';
@@ -61,7 +61,7 @@ const VisaProfessionTable = (props: {
 
                     </TableHeadRow3>
                 </TableHead3>
-                <TableBody>
+                <TableBody3>
                     {props.visaProfessionList && props.visaProfessionList.map((ele, index) => (
                         <TableData
                             data={ele}
@@ -75,7 +75,7 @@ const VisaProfessionTable = (props: {
 
 
                    
-                </TableBody>
+                </TableBody3>
             </Table3>
 
         </div>
