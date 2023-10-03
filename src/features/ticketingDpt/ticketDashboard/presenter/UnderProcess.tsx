@@ -32,6 +32,7 @@ export default function Main(props: { onClose: any,
     props.onChange(nextData)
 }
 const handleCheckboxChange = (itemId: any,index:number) => {
+  console.log("ljlkjljoiuo")
   setSelectedCheckbox((prev)=>{
   const newData: any = [...prev];
   newData[index] = {
@@ -79,8 +80,8 @@ const onClickSubmit =async()=>{
                 <TableHeadCell3>air ticket </TableHeadCell3>
                 <TableHeadCell3>visa authorisation</TableHeadCell3>
                 <TableHeadCell3>division</TableHeadCell3>
-                <TableHeadCell3>unser process</TableHeadCell3>
-                <TableHeadCell3>typing</TableHeadCell3>
+                <TableHeadCell3>under process</TableHeadCell3>
+                <TableHeadCell3>trying</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
            <TableBody2>

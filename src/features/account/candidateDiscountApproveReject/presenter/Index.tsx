@@ -8,7 +8,6 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { VisaProfesionInterface } from "../type";
 import { deleteBlockVisa, readCandidateDiscountList, updateCandidateDiscountApproveReject } from "../repository";
 
 

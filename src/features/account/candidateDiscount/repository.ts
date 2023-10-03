@@ -1,4 +1,4 @@
-import { AddCandidateDiscountConverter, AddCandidateDiscountInterface, AddCandidateDiscountListConverter, CandidateDiscountAdapter, CandidateDiscountConverter, CandidateDiscountInterface, ServerAdapter, VisaProfesionInterface } from "./type";
+import { AddCandidateDiscountConverter, AddCandidateDiscountInterface, AddCandidateDiscountListConverter, CandidateDiscountAdapter, CandidateDiscountAdapter2, CandidateDiscountConverter, CandidateDiscountConverter2, CandidateDiscountInterface, CandidateDiscountInterface2, ServerAdapter, VisaProfesionInterface } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -25,16 +25,16 @@ export async function readCandidateDiscountList() {
     showMessage_v2({ message: response.message, status: response.code })
   }
 
-  const data = response?.data
+  const data = []
   console.log(response.data,"SESESE")
-  // if (response.data) {
-  //   const dataAdapter = response.data as CandidateDiscountAdapter[];
-  //   for (let i = 0; i < dataAdapter.length; i++) {
-  //     const element = dataAdapter[i];
-  //     data.push(CandidateDiscountConverter.toInterface(element));
-  //   }
-  // }
-  // return data as CandidateDiscountInterface[]
+  if (response.data) {
+    const dataAdapter = response.data as CandidateDiscountAdapter2[];
+    for (let i = 0; i < dataAdapter.length; i++) {
+      const element = dataAdapter[i];
+      data.push(CandidateDiscountConverter2.toInterface(element));
+    }
+  }
+  return data as CandidateDiscountInterface2[]
   return data 
 }
 

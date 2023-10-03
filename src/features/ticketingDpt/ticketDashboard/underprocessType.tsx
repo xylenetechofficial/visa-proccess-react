@@ -27,6 +27,11 @@ export interface UnderprocessInterface {
     visa_issued_date: string,
     visa_no: string,
     visa_received_date: string,
+    is_select:number,
+    ticketing_under_process:number,
+    ticketing_trying:number,
+    visa_authorisation:string,
+    divsion:string,
 }
 
 export interface UnderprocessAdapter {
@@ -58,6 +63,11 @@ export interface UnderprocessAdapter {
     visa_issued_date: string,
     visa_no: string,
     visa_received_date: string,
+    is_select:number,
+    ticketing_under_process:number,
+    ticketing_trying:number,
+    visa_authorisation:string,
+    divsion:string,
 }
 
 export class UnderprocessConverter {
@@ -91,6 +101,12 @@ export class UnderprocessConverter {
             visa_issued_date: a.visa_issued_date,
             visa_no: a.visa_no,
             visa_received_date: a.visa_received_date,
+            is_select: a.is_select,
+            ticketing_under_process:a.ticketing_under_process,
+            ticketing_trying:a.ticketing_trying,
+            visa_authorisation:a.visa_authorisation,
+            divsion:a.divsion,
+            
 
         };
         return data;
@@ -125,6 +141,11 @@ export class UnderprocessConverter {
             visa_issued_date: i.visa_issued_date,
             visa_no: i.visa_no,
             visa_received_date: i.visa_received_date,
+            is_select: i.is_select,
+            ticketing_under_process:i.ticketing_under_process,
+            ticketing_trying:i.ticketing_trying,
+            visa_authorisation:i.visa_authorisation,
+            divsion:i.divsion,
         };
         return data;
     }
@@ -139,3 +160,99 @@ export class UnderprocessConverter {
         return data_list;
     }
 }
+
+
+export interface AddUnderProcessInterface {
+    selection_list: UnderprocessInterface[];
+  }
+  
+  export interface AddUnderProcessAdapter {
+    selection_list: UnderprocessAdapter[];
+  }
+  
+  export class AddUnderprocessConverter {
+    public static toInterface(a: AddUnderProcessAdapter): AddUnderProcessInterface {
+      console.log(a,"kkkkkk")
+      const data: AddUnderProcessInterface = {
+        selection_list: a?.selection_list?.map((item) => ({
+            actual_profession: item.actual_profession,
+            agency: item.agency,
+            agent_name: item.agent_name,
+            air_line: item.air_line,
+            air_ticket: item.air_ticket,
+            amount: item.amount,
+            candidate_name: item.candidate_name,
+            company_name: item.company_name,
+            id: item.id,
+            job_order_no: item.job_order_no,
+            mofa_number: item.mofa_number,
+            passport_no: item.passport_no,
+            pp_expiry_date: item.pp_expiry_date,
+            priority: item.priority,
+            rc_name: item.rc_name,
+            required_date: item.required_date,
+            setting_visa: item.setting_visa,
+            ticket_issue_date: item.ticket_issue_date,
+            ticketing_departure_date: item.ticketing_departure_date,
+            ticketing_pnr_no: item.ticketing_pnr_no,
+            ticketing_sector_from: item.ticketing_sector_from,
+            ticketing_sector_to: item.ticketing_sector_to,
+            visa_date: item.visa_date,
+            visa_expire_date: item.visa_expire_date,
+            visa_issued_date: item.visa_issued_date,
+            visa_no: item.visa_no,
+            visa_received_date: item.visa_received_date,
+            is_select: item.is_select,
+            ticketing_under_process:item.ticketing_under_process,
+            ticketing_trying:item.ticketing_trying,
+            visa_authorisation:item.visa_authorisation,
+            divsion:item.divsion,
+
+        })),
+      };
+      return data;
+    }
+  
+    public static toAdapter(i: AddUnderProcessInterface): AddUnderProcessAdapter {
+      console.log(i,"iiiii")
+      const data: AddUnderProcessAdapter = {
+        
+        selection_list: i?.selection_list?.map((item) => ({
+            actual_profession: item.actual_profession,
+            agency: item.agency,
+            agent_name: item.agent_name,
+            air_line: item.air_line,
+            air_ticket: item.air_ticket,
+            amount: item.amount,
+            candidate_name: item.candidate_name,
+            company_name: item.company_name,
+            id: item.id,
+            job_order_no: item.job_order_no,
+            mofa_number: item.mofa_number,
+            passport_no: item.passport_no,
+            pp_expiry_date: item.pp_expiry_date,
+            priority: item.priority,
+            rc_name: item.rc_name,
+            required_date: item.required_date,
+            setting_visa: item.setting_visa,
+            ticket_issue_date: item.ticket_issue_date,
+            ticketing_departure_date: item.ticketing_departure_date,
+            ticketing_pnr_no: item.ticketing_pnr_no,
+            ticketing_sector_from: item.ticketing_sector_from,
+            ticketing_sector_to: item.ticketing_sector_to,
+            visa_date: item.visa_date,
+            visa_expire_date: item.visa_expire_date,
+            visa_issued_date: item.visa_issued_date,
+            visa_no: item.visa_no,
+            visa_received_date: item.visa_received_date,
+            is_select: item.is_select,
+            ticketing_under_process:item.ticketing_under_process,
+            ticketing_trying:item.ticketing_trying,
+            visa_authorisation:item.visa_authorisation,
+            divsion:item.divsion,
+
+        })),
+      };
+      return data;
+    }
+  }

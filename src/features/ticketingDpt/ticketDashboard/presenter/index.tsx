@@ -47,7 +47,7 @@ export default function Main() {
     useState<TicketInterface[]>([]);
 
   const [openUnderProcess, setOpenUnderProcess] =
-    useState<UnderprocessInterface[]>([]);
+    useState<UnderprocessInterface[]>([] as UnderprocessInterface[]);
 
   const [agencyInvoiceAwaiting, setAgencyInvoiceAwaiting] =
     useState<AgentInvoiceAwaitingInterface[]>([]);
@@ -140,7 +140,7 @@ export default function Main() {
       ) : (
         <UnderProcess
           onClose={() => { setModalName(""), fetchTicketDashboard() }}
-          onChange={(value) => setOpenUnderProcess(value)}
+          onChange={(value) => {setOpenUnderProcess(value),console.log(value,"AAA")}}
           openUnderProcess={openUnderProcess}
         />
       )}

@@ -6,7 +6,7 @@
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
 # @endpoint =https://5fc6-103-142-115-55.ngrok-free.app/api
-@endpoint = https://0661-59-152-58-38.ngrok-free.app/api
+@endpoint = https://visa.devdasz.com/api
 
 
 ###
@@ -161,7 +161,7 @@ content-type: application/json
 # ================      Candidate Discount      =============== #
 
 ### Fetch Candidate Discount List
-GET {{endpoint}}/account/candidate-discount-list
+GET {{endpoint}}/ticketing-dpt/tickets-dashboard/ticket-under-process-list
 
 
 ### Add Candidate Discount List

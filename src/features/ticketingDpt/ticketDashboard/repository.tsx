@@ -6,7 +6,7 @@ import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper
 import { AgentInvoiceAwaitinConverter, AgentInvoiceAwaitingAdapter, AgentInvoiceAwaitingInterface } from "./agentInvoiceAwaitingType";
 import { TypingAdapter, TypingConverter, TypingInterface } from "./tryingType";
 import { TickeDashboardAdapter2, TickeDashboardInterface2, TicketAdapter, TicketConverter, TicketDashboardAdapter, TicketDashboardConverter, TicketDashboardConverter2, TicketDashboardInterface, TicketInterface } from "./type";
-import { UnderprocessConverter, UnderprocessInterface } from "./underprocessType";
+import { AddUnderprocessConverter, UnderprocessAdapter, UnderprocessConverter, UnderprocessInterface } from "./underprocessType";
 
 
 export async function readTicketDashboardList() {
@@ -155,14 +155,14 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
     const data = []
     console.log(response.data)
     if (response.data) {
-      const dataAdapter = response.data as TickeDashboardAdapter2[];
+      const dataAdapter = response.data as UnderprocessAdapter[];
       for (let i = 0; i < dataAdapter.length; i++) {
         const element = dataAdapter[i];
-        data.push(TicketDashboardConverter2.toInterface(element));
+        data.push(UnderprocessConverter.toInterface(element));
       }
     }
   console.log("first",data)
-    return data as TickeDashboardInterface2[]
+    return data as UnderprocessInterface[]
   
   }
  
@@ -171,10 +171,11 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
   
  const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process-list";
 
- const list = UnderprocessConverter.toAdapterList(ticketDashboard);
- const payload :any={
-  selection_list:list
+//  const list = UnderprocessConverter.toAdapterList(ticketDashboard);
+ const list :any={
+  selection_list:ticketDashboard
  }
+ const payload = AddUnderprocessConverter.toAdapter(list)
  const response = await ApiHelper.post(path, payload, {
    contentType: ContentType.json,
    tokenType: AuthTokenType.JWT,
