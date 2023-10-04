@@ -178,7 +178,7 @@ const TableData = (
         setConsolidateChargeList(props.consolidateChargeList)
     }, [props.onChange])
     useEffect(() => {
-        console.log("rerender");   // Only Dev
+        console.log("rerender",localRowData);   // Only Dev
         props.onUpdate(props.index, localRowData!)
     }, [localRowData])
 
@@ -227,16 +227,16 @@ const TableData = (
 
             <TableCell3 >
                 <MultiSelectCheckbox
-                    onChange={(value) => {
-                        const { name_list, total } = cal_consolidate_charge(consolidateChargeList, value)
-                        setLocalRowData({
-                            ...localRowData,
-                            consolidate_charges_id: value,
-                            consodilate_charges: total.toString(),
-                            consodilate_charges_name: name_list
-                        })
+                    onChange={(value) => {                        
+                            const { name_list, total } = cal_consolidate_charge(consolidateChargeList, value)
+                            setLocalRowData({
+                                ...localRowData,
+                                consolidate_charges_id: value,
+                                consodilate_charges: total.toString(),
+                                consodilate_charges_name: name_list
+                            })
                     }}
-                    value={localRowData.consolidate_charges_id}
+                    value={localRowData.consolidate_charges_id??[]}
                     option={selectOptionConveter({ options: consolidateChargeList ?? [], options_struct: { name: "name", value: "id" } })}
                 />
                 {localRowData.consodilate_charges}
