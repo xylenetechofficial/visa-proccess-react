@@ -4,6 +4,8 @@ import {
   Mofa_Entry_Candidate_Adapter,
   Mofa_Entry_Candidate_Interface,
   Mofa_Entry_Converter,
+  PartyCodeAdapter,
+  PartyCodeConverter,
 } from "./type";
 import {
   ApiHelper,
@@ -54,8 +56,8 @@ export async function readMofaEntryPartyCodeList(status: string) {
     showMessage_v2({ message: response.message, status: response.code });
   }
 
-  return MofaPaymentConverter.toInterfaceList(
-    response.data as MofaPaymentAdapter[]
+  return PartyCodeConverter.toInterfaceList(
+    response.data as PartyCodeAdapter[]
   );
 }
 

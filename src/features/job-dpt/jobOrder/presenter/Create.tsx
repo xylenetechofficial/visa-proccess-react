@@ -76,7 +76,7 @@ export default function Main(props: {
     const [OperationManagerist, setOperationManagerist] = useState<UserInterface[]>([])
     const fetchOperationManagerist = async () => {
         const data = await readOperationManagerist()
-        console.log(data);
+        console.log("readOperationManagerist:", data);
         setOperationManagerist(data)
     }
 
@@ -247,7 +247,7 @@ export default function Main(props: {
                                 <CustomSelectComponent
                                     required
                                     value={jobOrder.operationManagerId}
-                                    options={selectOptionConveter({ options: OPManagerList, options_struct: { name: "name", value: "id" } })}
+                                    options={selectOptionConveter({ options: OperationManagerist, options_struct: { name: "name", value: "id" } })}
                                     onChange={(value) => setJobOrder({ ...jobOrder, operationManagerId: value })}
                                     label="Operation Manager"
                                 />

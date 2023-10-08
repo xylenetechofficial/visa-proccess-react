@@ -333,7 +333,7 @@ export default function Main(props: {
                 </UpdateContentBox>
 
 
-                {jobOrder.momFileUrl ? <>
+                {/* {jobOrder.momFileUrl ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" Mom File :" />
                         <BodyText1>
@@ -342,6 +342,12 @@ export default function Main(props: {
                         </BodyText1>
 
                     </UpdateContentBox>
+                </> : ""} */}
+                {jobOrder.momFileUrl ? <>
+                    <FileOpenPopup
+                        label="File 5"
+                        url={jobOrder.momFileUrl}
+                    />
                 </> : ""}
 
                 {/* select interview mode */}

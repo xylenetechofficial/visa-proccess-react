@@ -46,7 +46,10 @@ export interface JobOrderInterface {
   file4_url?: string;
   file5_url?: string;
 
-  actual_profession_count?:number
+  actual_profession_count?: number;
+
+  momFile?: File;
+  momFileUrl?: string;
 }
 
 export interface JobOrderAdapter {
@@ -90,7 +93,10 @@ export interface JobOrderAdapter {
   file4_url?: string;
   file5_url?: string;
 
-  actual_profession_count?:number
+  actual_profession_count?: number;
+
+  mom_file?: File;
+  mom_file_url?: string;
 }
 export class JobOrderConverter {
   // private i: AgentInterface
@@ -153,7 +159,9 @@ export class JobOrderConverter {
       file4_url: a.file4_url,
       file5_url: a.file5_url,
 
-      actual_profession_count:a.actual_profession_count
+      actual_profession_count: a.actual_profession_count,
+
+      momFileUrl: a.mom_file_url,
     };
     return data;
   }
@@ -220,7 +228,10 @@ export class JobOrderConverter {
       file4: i.file4,
       file5: i.file5,
 
-      actual_profession_count:i.actual_profession_count
+      actual_profession_count: i.actual_profession_count,
+
+      mom_file: i.momFile,
+      mom_file_url: i.momFileUrl,
     };
     return data;
   }

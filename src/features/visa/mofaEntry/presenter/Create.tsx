@@ -1,7 +1,7 @@
 import { createMofaEntry, readMofaEntryCandiateList, readMofaEntryPartyCodeList } from "../repository";
 import { useEffect, useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
-import { MofaPaymentAdapter, MofaPaymentInterface, Mofa_Entry_Candidate_Interface } from "../type";
+import { MofaPaymentAdapter, MofaPaymentInterface, Mofa_Entry_Candidate_Interface, PartyCodeInterface } from "../type";
 
 import CandidateTable from "./CandidateTable";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
@@ -36,8 +36,9 @@ export default function Main(props: {
         props.onClose()
     }
 
-    const [partyCodeList, setPartyCodeList] = useState<MofaPaymentInterface[]>([])
+    const [partyCodeList, setPartyCodeList] = useState<PartyCodeInterface[]>([])
     const [partyCode, setPartyCode] = useState(0)
+    const [countryTypeID, setCountryTypeID] = useState(0)
 
     const fetchPartyCodeList = async () => {
         const data = await readMofaEntryPartyCodeList("no");
@@ -78,6 +79,12 @@ export default function Main(props: {
                 <SubHeading1 text="PARTY CODE: " />
                 <CustomSelectComponentUnlabeled
                     onChange={(value) => {
+                        for (let i = 0; i < partyCodeList.length; i++) {
+                            const element = partyCodeList[i];
+                            if (parseInt(value) == element.id)
+                                setCountryTypeID(element.type_id)
+
+                        }
                         setPartyCode(parseInt(value))
                         fetchMofaEntryCandiateList(parseInt(value))
                     }}
@@ -87,6 +94,7 @@ export default function Main(props: {
             </UpdateContentBox>
 
             <CandidateTable
+                countryTypeID={countryTypeID}
                 candidateList={candidateList}
                 onChange={(ele) => setCandidateList(ele)}
             />

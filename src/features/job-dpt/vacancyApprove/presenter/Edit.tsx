@@ -305,7 +305,7 @@ export default function Main(props: {
                     </div>
                 </UpdateContentBox>
 
-                <UpdateContentBox>
+                {/* <UpdateContentBox>
                     <SubHeading1 text=" Mom File:" />
                     <div className="">
                         <FileInputUnlabel
@@ -313,7 +313,13 @@ export default function Main(props: {
                             url={jobOrder.momFileUrl}
                             handleFileChange={(file) => setJobOrder({ ...jobOrder, momFile: file })} />
                     </div>
-                </UpdateContentBox>
+                </UpdateContentBox> */}
+                {jobOrder.momFileUrl ? <>
+                    <FileOpenPopup
+                        label="File 5"
+                        url={jobOrder.momFileUrl}
+                    />
+                </> : ""}
 
                 {/* select interview mode */}
 

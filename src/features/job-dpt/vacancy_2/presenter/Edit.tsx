@@ -18,7 +18,7 @@ import { convertDateFormat } from "../../../../utils/function";
 import FinalActualProfessionTable from "./FinalActualProfessionTable";
 import SpecialInstructionTable from "./SpecialInstructionTable";
 import { showMessage_v2 } from "../../../../utils/alert";
-import { FileOpenPopup } from "../../../../componenets/Input";
+import { FileInput, FileInputUnlabel, FileOpenPopup } from "../../../../componenets/Input";
 
 
 
@@ -235,10 +235,15 @@ export default function Main(props: {
                 </UpdateContentBox>
                 {/* select interview mode */}
 
+
+                <center>
+
+                    <FileInput
+                        label="Mom File:"
+                        url={jobOrder.momFileUrl}
+                        handleFileChange={(file) => setJobOrder({ ...jobOrder, momFile: file })} />
+                </center>
             </div>
-
-
-
 
 
             <Heading6 text="Final Actual Profession Table " />

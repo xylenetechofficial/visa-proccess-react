@@ -255,3 +255,70 @@ export class MofaPaymentConverter {
     return data_list;
   }
 }
+
+// party code
+export interface PartyCodeInterface {
+  id?: number;
+  name: string;
+  type_id: number;
+}
+
+export interface PartyCodeAdapter {
+  id?: number;
+  name: string;
+  type_id: number;
+}
+
+export class PartyCodeConverter {
+  /**
+   * toInterface
+   */
+  public static toInterface(i: PartyCodeAdapter) {
+    const data: PartyCodeInterface = {
+      id: i.id,
+      name: i.name,
+      type_id: i.type_id,
+    };
+
+    return data;
+  }
+
+  /**
+   * to interface list
+   */
+  public static toInterfaceList(i_list: PartyCodeAdapter[]) {
+    const data_list: PartyCodeInterface[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toInterface(element));
+    }
+
+    return data_list;
+  }
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: PartyCodeInterface) {
+    const data: PartyCodeAdapter = {
+      id: i.id,
+      name: i.name,
+      type_id: i.type_id,
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter list
+   */
+  public static toAdapterList(i_list: PartyCodeInterface[]) {
+    const data_list: PartyCodeAdapter[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toAdapter(element));
+    }
+
+    return data_list;
+  }
+}

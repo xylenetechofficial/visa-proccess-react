@@ -34,13 +34,19 @@ const initValue: Mofa_Entry_Candidate_Interface = {
 }
 
 const CandidateTable = (props: {
+    countryTypeID: number,
     candidateList: Mofa_Entry_Candidate_Interface[],
     onChange: (ele: Mofa_Entry_Candidate_Interface[]) => void,
 
 }) => {
 
-    const [onChange, setonChange] = useState<string>("")
+    const [onChange, setOnChange] = useState<string>("")
+    const [countryTypeID, setCountryTypeID] = useState(0)
 
+
+    useEffect(() => {
+        setCountryTypeID(props.countryTypeID)
+    }, [props.countryTypeID])
 
     function onUpdateRow(index: number, rowData: Mofa_Entry_Candidate_Interface) {
         const nextData: Mofa_Entry_Candidate_Interface[] = props.candidateList.map((e, i) => {
@@ -54,7 +60,9 @@ const CandidateTable = (props: {
         });
         props.onChange(nextData)
     }
-    const tableHeadings = [
+
+    // type 0 heading
+    const tableHeadings_for_non_ksa = [
         ["SR. NO."],
         ["CANDIDATE NAME"],
         ["PASSPORT NO"],
@@ -64,12 +72,11 @@ const CandidateTable = (props: {
         ["RS"],
         ["RM"],
         ["RC"],
-        ["VISA PROFESSION"],
         ["SELECT"],
-        ["MOFA NUMBER"],
-        ["PP/COPY"],
         ["visa issue date"],
         ["visa issue date on pp"],
+        ["VISA PROFESSION"],
+        ["PP/COPY"],
         ["PP ISSUED DATE"],
         ["PP EXPIRY DATE"],
         ["PLACE OF ISSUE"],
@@ -78,11 +85,38 @@ const CandidateTable = (props: {
         ["ADDRESS"],
         ["RELIGION"],
         ["PAYMENT FROM"],
-        ["REJECT"],
-
-
     ];
-    const tableHeadingsComponent = tableHeadings.map((e) => (
+    const tableHeadings_for_non_ksa_Component = tableHeadings_for_non_ksa.map((e) => (
+        <TableHeadCell3  > {e[0]}</TableHeadCell3>
+    ));
+
+    // type 1 heading
+    const tableHeadings_for_ksa = [
+        ["SR. NO."],
+        ["CANDIDATE NAME"],
+        ["PASSPORT NO"],
+        ["ACTUAL PROFESSION"],
+        ["DIVISION"],
+        ["AGENT"],
+        ["RS"],
+        ["RM"],
+        ["RC"],
+        ["SELECT"],
+        ["MOFA NUMBER"],
+        ["VISA PROFESSION"],
+        ["PP/COPY"],
+        ["PP ISSUED DATE"],
+        ["PP EXPIRY DATE"],
+        ["PLACE OF ISSUE"],
+        ["DATE OF BIRTH"],
+        ["PLACE OF BIRTH"],
+        ["ADDRESS"],
+        ["RELIGION"],
+        ["PAYMENT FROM"],
+
+        // ["REJECT"],
+    ];
+    const tableHeadings_for_ksa_Component_for_1 = tableHeadings_for_ksa.map((e) => (
         <TableHeadCell3  > {e[0]}</TableHeadCell3>
     ));
     return (
@@ -91,12 +125,13 @@ const CandidateTable = (props: {
             <Table3  >
                 <TableHead3 >
                     <TableHeadRow3  >
-                        {tableHeadingsComponent}
+                        {countryTypeID == 1 ? tableHeadings_for_ksa_Component_for_1 : tableHeadings_for_non_ksa_Component}
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody3>
-                    {props.candidateList && props.candidateList.map((ele, index) => (
+                    {props.candidateList.map((ele, index) => (
                         <TableData
+                            countryTypeID={countryTypeID}
                             data={ele}
                             index={index}
                             onChange={onChange}
@@ -124,6 +159,7 @@ export default CandidateTable
 
 const TableData = (
     props: {
+        countryTypeID: number;
         index: number;
         data: Mofa_Entry_Candidate_Interface;
         onUpdate: (index: number, rowData: Mofa_Entry_Candidate_Interface) => void;
@@ -131,6 +167,12 @@ const TableData = (
     }
 
 ) => {
+    const [countryTypeID, setCountryTypeID] = useState(0)
+
+
+    useEffect(() => {
+        setCountryTypeID(props.countryTypeID)
+    }, [props.countryTypeID])
 
     const [localRowData, setLocalRowData] = useState<Mofa_Entry_Candidate_Interface>(initValue)
     useEffect(() => {
@@ -168,7 +210,6 @@ const TableData = (
             <TableCell3 > {localRowData.rs_name}</TableCell3>
             <TableCell3 > {localRowData.rm_name}</TableCell3>
             <TableCell3 > {localRowData.rc_name}</TableCell3>
-            <TableCell3 > {localRowData.visa_profession}</TableCell3>
             <TableCell3 >
                 {localRowData.select_status == '' ?
                     <CustomSingleCheckBox
@@ -176,11 +217,32 @@ const TableData = (
                         value={localRowData.checked ? true : false}
                     /> : <b style={{ color: "#ff5757" }}>{localRowData.select_status}</b>}
             </TableCell3>
-            <TableCell3 >
-                <UnlabeledInput
-                    value={localRowData.mofa_number}
-                    onchange={(value) => setLocalRowData({ ...localRowData, mofa_number: value })}
-                /></TableCell3>
+            {countryTypeID == 1 ? <>
+                {/* IF KSA */}
+                <TableCell3 >
+                    <UnlabeledInput
+                        value={localRowData.mofa_number}
+                        onchange={(value) => setLocalRowData({ ...localRowData, mofa_number: value })}
+                    /></TableCell3>
+            </> : <>
+                {/* IF NON KSA */}
+                <TableCell3 >
+                    <DateInput
+                        id='jbvh6dsd5r'
+                        value={localRowData.visa_issue_date}
+                        onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
+                    />
+                </TableCell3>
+
+                <TableCell3 >
+                    <DateInput
+                        id='jbvh6ad5r'
+                        value={localRowData.visa_received_date}
+                        onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
+                    />
+                </TableCell3>
+            </>}
+            <TableCell3 > {localRowData.visa_profession}</TableCell3>
             <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.pp_copy}
@@ -190,22 +252,6 @@ const TableData = (
                         { name: "COPY", value: "COPY" },
                         // { name: "RAISE INVOICE", value: "RAISE INVOICE" }
                     ]} /></TableCell3>
-
-            <TableCell3 >
-                <DateInput
-                    id='jbvh6dsd5r'
-                    value={localRowData.visa_issue_date}
-                    onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
-                />
-            </TableCell3>
-
-            <TableCell3 >
-                <DateInput
-                    id='jbvh6ad5r'
-                    value={localRowData.visa_received_date}
-                    onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
-                />
-            </TableCell3>
 
             <TableCell3 >
                 <DateInput

@@ -25,6 +25,7 @@ import { JobOrderInterface } from "../type";
 import { ActualProfessionInterface, EdocInterface, SpecialInstructionInterface } from "../../Extra/type";
 import EdocTable from "./EdocTable";
 import { convertDateFormat } from "../../../../utils/function";
+import { FileInputUnlabel } from "../../../../componenets/Input";
 
 function FindUniqueActualProfessionAndsetToEDOC(data: EdocInterface[], actualProfesionList: ActualProfessionInterface[], jobOrder: JobOrderInterface) {
 
@@ -306,13 +307,22 @@ export default function Main(props: {
                 </UpdateContentBox>
 
 
-                {jobOrder.momFileUrl ? <>
+                {/* {jobOrder.momFileUrl ? <>
                     <UpdateContentBox>
                         <SubHeading1 text=" Mom File :" />
                         <a href={jobOrder.momFileUrl} target="_blank" rel="noopener noreferrer">View Uploaded File</a>
 
                     </UpdateContentBox>
-                </> : ""}
+                </> : ""} */}
+                <UpdateContentBox>
+                    <SubHeading1 text=" Mom File:" />
+                    <div className="">
+                        <FileInputUnlabel
+                            required
+                            url={jobOrder.momFileUrl}
+                            handleFileChange={(file) => setJobOrder({ ...jobOrder, momFile: file })} />
+                    </div>
+                </UpdateContentBox>
 
                 {/* select interview mode */}
 

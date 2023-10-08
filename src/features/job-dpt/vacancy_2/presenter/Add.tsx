@@ -18,7 +18,7 @@ import { ActualProfessionInterface } from "../../Extra/type";
 import { convertDateFormat } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
 import { generate_final_actual_profession } from "../../Extra/function";
-import { FileInput, FileOpenPopup } from "../../../../componenets/Input";
+import { FileInput, FileInputUnlabel, FileOpenPopup } from "../../../../componenets/Input";
 
 
 
@@ -51,6 +51,7 @@ export default function Main(props: {
         interviewModeId: 0,
         master_sector_ids: [],
         differed_sector_ids: [],
+
 
     }
     const [jobOrder, setJobOrder] = useState(initValue)
@@ -213,7 +214,6 @@ export default function Main(props: {
         data.actualProfesionList?.forEach(element => {
             console.log(`AP: ${element.actual_profession} Sector: ${element.sector}`);   // Only Dev
         });
-        // console.log(data.actualProfesionList);   // Only Dev
         setJobOrder(data)
 
         setActualProfesionList_old(data.actualProfesionList ?? [])
@@ -357,6 +357,22 @@ export default function Main(props: {
                     </div>
                 </UpdateContentBox>
                 {/* select interview mode */}
+
+                {/* <UpdateContentBox>
+                    <SubHeading1 text=" Mom File:" />
+                    <div className="">
+                        <FileInputUnlabel
+                            required
+                            url={jobOrder.momFileUrl}
+                            handleFileChange={(file) => setJobOrder({ ...jobOrder, momFile: file })} />
+                    </div>
+                </UpdateContentBox> */}
+                
+                <FileInput
+                    handleFileChange={(file) => setJobOrder({ ...jobOrder, momFile: file })}
+                    label="Mom File: "
+                    url={jobOrder.momFileUrl}
+                />
 
             </div>
 

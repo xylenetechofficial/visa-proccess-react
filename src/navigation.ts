@@ -65,7 +65,7 @@ export const navigations: NavigationInterface[] = [
       // { name: 'Asign To Operation Manager', icon: 'pageview', path: '/job-dpt/asign-to-op-manager' },
     ]
   }, {
-    name: "Visa",
+    name: "Visa Dpt",
     icon: "payment",
     children: [
 
