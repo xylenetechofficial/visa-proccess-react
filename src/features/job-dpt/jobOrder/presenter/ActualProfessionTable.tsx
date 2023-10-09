@@ -17,6 +17,8 @@ import { ConsolidateChargeInterface } from '../../../masters/consolidateCharge/t
 import jsConvert from 'js-convert-case';
 import MultiSelectCheckbox from '../../../../componenets/CustomComponents';
 import { cal_consolidate_charge } from '../../Extra/function';
+import { readInterviewSectorList } from '../../../masters/interviewSector/repository';
+import { InterviewSectorInterface } from '../../../masters/interviewSector/type';
 
 
 const ActualProfessionTable = (props: {
@@ -24,10 +26,20 @@ const ActualProfessionTable = (props: {
     jobOrder: JobOrderInterface,
     list?: ActualProfessionInterface[],
     onChange: (ele: ActualProfessionInterface[]) => void,
-
+    mode: string
 }) => {
     const [actualProfessionList, setActualProfesionList] = useState<ActualProfessionInterface[]>([])
     const [onChange, setonChange] = useState<string>("")
+
+    const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
+    const fetchInterviewSectorList = async () => {
+        const data = await readInterviewSectorList();
+        setInterviewSectorList(data)
+    }
+
+    useEffect(() => {
+        fetchInterviewSectorList()
+    }, [])
 
     const onClickAddNewRow = () => {
         setActualProfesionList([...actualProfessionList, {
@@ -81,11 +93,13 @@ const ActualProfessionTable = (props: {
                         {[
                             'Sr No.',
                             'Actual Profession',
+                            'Sector',
+                            'Sector Charge',
                             'QUANTITY',
                             'SERVICE CHARGES',
                             'PARTIAL CHARGES',
-                            'AGENT COMMISSION',
                             'Consolidate Charge',
+                            'AGENT COMMISSION',
                             'AIR TICKET',
                             'IS INVOICE',
                             'INVOICE SERVICE CHARGES',
@@ -107,6 +121,8 @@ const ActualProfessionTable = (props: {
                             onChange={onChange}
                             onClickRemove={onClickRemoveRow}
                             onUpdate={onUpdateRow}
+                            interviewSectorList={interviewSectorList}
+                            mode={props.mode}
                         />
 
                     ))}
@@ -137,6 +153,8 @@ const TableData = (
         onUpdate: (index: number, rowData: ActualProfessionInterface) => void;
         onClickRemove: (index: number) => void;
         onChange: string
+        interviewSectorList: InterviewSectorInterface[]
+        mode: string
     }
 
 ) => {
@@ -178,7 +196,7 @@ const TableData = (
         setConsolidateChargeList(props.consolidateChargeList)
     }, [props.onChange])
     useEffect(() => {
-        console.log("rerender",localRowData);   // Only Dev
+        console.log("rerender", localRowData);   // Only Dev
         props.onUpdate(props.index, localRowData!)
     }, [localRowData])
 
@@ -187,9 +205,34 @@ const TableData = (
         <TableRow3 key={props.index}>
             <TableCell3 >{props.index + 1}</TableCell3>
             <TableCell3 >
+                {props.mode == "create" ? <>
+                    <UnlabeledInput
+                        value={localRowData.actual_profession}
+                        onchange={(value) => setLocalRowData({ ...localRowData, actual_profession: value })}
+                    />
+                </> : <>
+                    {localRowData.actual_profession}
+                </>}
+            </TableCell3>
+            <TableCell3 >
+                {props.mode == "create" ? <>
+                    <div style={{ width: "138px" }}>
+                        <CustomSelectComponent
+                            value={localRowData.sector}
+                            onChange={(value: any) => setLocalRowData({ ...localRowData, sector: parseInt(value) })}
+                            options={selectOptionConveter({ options: props.interviewSectorList, options_struct: { name: "name", value: "id" } })}
+                        />
+                    </div>
+                </> : <>
+                    {props.interviewSectorList.map(e => localRowData.sector == e.id ? e.name : "")}
+                </>}
+            </TableCell3>
+            <TableCell3 >
+                {/* {props.data.sector_charge} */}
                 <UnlabeledInput
-                    value={localRowData.actual_profession}
-                    onchange={(value) => setLocalRowData({ ...localRowData, actual_profession: value })}
+                    type='number'
+                    value={localRowData.sector_charge}
+                    onchange={(value) => setLocalRowData({ ...localRowData, sector_charge: parseInt(value) })}
                 />
             </TableCell3>
             <TableCell3 >
@@ -216,6 +259,24 @@ const TableData = (
                     onchange={(value) => setLocalRowData({ ...localRowData, partial_charges: parseInt(value) })}
                 />
             </TableCell3>
+
+            <TableCell3 >
+                <MultiSelectCheckbox
+                    onChange={(value) => {
+                        const { name_list, total } = cal_consolidate_charge(consolidateChargeList, value)
+                        setLocalRowData({
+                            ...localRowData,
+                            consolidate_charges_id: value,
+                            consodilate_charges: total.toString(),
+                            consodilate_charges_name: name_list
+                        })
+                    }}
+                    value={localRowData.consolidate_charges_id ?? []}
+                    option={selectOptionConveter({ options: consolidateChargeList ?? [], options_struct: { name: "name", value: "id" } })}
+                />
+                {localRowData.consodilate_charges}
+            </TableCell3>
+
             <TableCell3 >
                 {/* {props.data.agent_commission} */}
                 <UnlabeledInput
@@ -224,24 +285,6 @@ const TableData = (
                     onchange={(value) => setLocalRowData({ ...localRowData, agent_commission: parseInt(value) })}
                 />
             </TableCell3>
-
-            <TableCell3 >
-                <MultiSelectCheckbox
-                    onChange={(value) => {                        
-                            const { name_list, total } = cal_consolidate_charge(consolidateChargeList, value)
-                            setLocalRowData({
-                                ...localRowData,
-                                consolidate_charges_id: value,
-                                consodilate_charges: total.toString(),
-                                consodilate_charges_name: name_list
-                            })
-                    }}
-                    value={localRowData.consolidate_charges_id??[]}
-                    option={selectOptionConveter({ options: consolidateChargeList ?? [], options_struct: { name: "name", value: "id" } })}
-                />
-                {localRowData.consodilate_charges}
-            </TableCell3>
-
             <TableCell3 >
                 {/* {props.data.air_ticket} */}
 

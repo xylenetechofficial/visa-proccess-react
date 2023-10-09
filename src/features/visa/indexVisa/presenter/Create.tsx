@@ -91,6 +91,7 @@ export default function Main(props: {
         setIndexVisa(initValue)
         setVisaAllocationList([])
         props.fetchIndexVisaList()
+        props.onClose()
     }
 
     const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])

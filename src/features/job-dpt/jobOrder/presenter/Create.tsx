@@ -330,6 +330,7 @@ export default function Main(props: {
                 <>  <ActualProfessionTable
                     consolidateChargeList={props.consolidateChargeList}
                     jobOrder={jobOrder}
+                    mode="create"
                     onChange={(value) => setJobOrder({ ...jobOrder, acttualProfesionList: value })}
                 />
                 </>

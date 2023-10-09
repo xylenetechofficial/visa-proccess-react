@@ -239,6 +239,7 @@ export default function Main(props: {
                     consolidateChargeList={props.consolidateChargeList}
                     jobOrder={jobOrder}
                     onChange={(value) => setJobOrder({ ...jobOrder, acttualProfesionList: value })}
+                    mode="edit"
                 /> : ""}
         </FullScreenModal>
     )

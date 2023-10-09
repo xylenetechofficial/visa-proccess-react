@@ -215,11 +215,13 @@ const TableData = (
                 />
             </TableCell3> */}
             <TableCell3 >
-                <CustomSelectComponentUnlabeled
+                {props.interViewSectorList.map(e => localRowData.sector == e.id ? e.name : "")}
+
+                {/* <CustomSelectComponentUnlabeled
                     options={selectOptionConveter({ options: props.interViewSectorList, options_struct: { name: "name", value: "id" } })}
                     value={localRowData.sector}
                     onChange={(value) => setLocalRowData({ ...localRowData, sector: parseInt(value) })}
-                />
+                /> */}
             </TableCell3>
             <TableCell3 >
                 <UnlabeledInput
