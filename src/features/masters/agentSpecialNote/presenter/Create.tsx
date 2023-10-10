@@ -33,6 +33,7 @@ export default function Main(props: { onClose: any, fetchAgentSpecialNoteList: a
         setAgentSpecialNote(initialValue)
 
         props.fetchAgentSpecialNoteList()
+        props.onClose()
     }
 
     return (

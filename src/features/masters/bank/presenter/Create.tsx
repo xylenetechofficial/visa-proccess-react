@@ -21,6 +21,7 @@ export default function Main(props: { onClose: any, fetchBankList: any, visaAuth
         setName('')
 
         props.fetchBankList()
+        props.onClose()
     }
 
     return (

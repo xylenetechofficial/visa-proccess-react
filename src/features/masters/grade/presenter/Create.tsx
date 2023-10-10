@@ -22,6 +22,7 @@ export default function Main(props: { onClose: any, fetchGradeList: any }) {
         setName('')
 
         props.fetchGradeList()
+        props.onClose()
     }
 
     return (

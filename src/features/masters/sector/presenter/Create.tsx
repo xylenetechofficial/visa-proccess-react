@@ -52,6 +52,7 @@ export default function Main(props: { onClose: any, fetchSectorList: any }) {
         setSector(initValue)
 
         props.fetchSectorList()
+        props.onClose()
     }
 
 

@@ -82,6 +82,7 @@ export default function Main(props: { onClose: any, fetchUserList: any }) {
         setName('')
 
         props.fetchUserList()
+        props.onClose()
     }
 
     return (

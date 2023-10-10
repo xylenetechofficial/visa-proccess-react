@@ -17,6 +17,7 @@ export default function Main(props: { onClose: any, fetchVendorList: any }) {
         await createVendor({name: name,})
         setName('')
         props.fetchVendorList()
+        props.onClose()
     }
 
     return (

@@ -24,6 +24,7 @@ export default function Main(props: { onClose: any, fetchVisaTypeList: any }) {
 
         setVisaType(initValue)
         props.fetchVisaTypeList()
+        props.onClose()
     }
 
     return (

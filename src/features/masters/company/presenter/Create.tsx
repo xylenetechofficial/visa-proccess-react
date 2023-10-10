@@ -29,6 +29,7 @@ export default function Main(props: { onClose: any, fetchCompanyList: any, count
         setCompany(initValue)
 
         props.fetchCompanyList()
+        props.onClose()
     }
 
 

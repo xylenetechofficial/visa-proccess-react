@@ -20,6 +20,7 @@ export default function Main(props: { onClose: any, fetchInterviewSectorList: an
         setName('')
 
         props.fetchInterviewSectorList()
+        props.onClose()
     }
 
     return (

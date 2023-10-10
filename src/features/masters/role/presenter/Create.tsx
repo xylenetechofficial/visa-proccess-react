@@ -82,6 +82,7 @@ export default function Main(props: { onClose: any, fetchCountryList: any }) {
         setName('')
 
         props.fetchCountryList()
+        props.onClose()
     }
 
     return (

@@ -47,6 +47,7 @@ export default function Main(props: { onClose: any, fetchAgentList: any }) {
         setAgent(initValue)
 
         props.fetchAgentList()
+        props.onClose()
     }
 
 

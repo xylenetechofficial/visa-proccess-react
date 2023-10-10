@@ -39,6 +39,7 @@ export default function Main(props: { onClose: any, fetchMofaPaymentList: any })
         set_narration('')
 
         props.fetchMofaPaymentList()
+        props.onClose()
     }
 
     return (

@@ -23,6 +23,7 @@ export default function Main(props: { onClose: any, fetchInterviewModeList: any 
         setName('')
 
         props.fetchInterviewModeList()
+        props.onClose()
     }
 
     return (

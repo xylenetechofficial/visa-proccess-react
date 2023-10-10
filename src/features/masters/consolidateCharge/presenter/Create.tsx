@@ -22,6 +22,7 @@ export default function Main(props: { onClose: any, fetchConsolidateChargeList: 
         setName('')
 
         props.fetchConsolidateChargeList()
+        props.onClose()
     }
 
     return (

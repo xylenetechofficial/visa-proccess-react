@@ -26,6 +26,7 @@ export default function Main(props: { onClose: any, fetchAgencyList: any }) {
         setName('')
 
         props.fetchAgencyList()
+        props.onClose()
     }
 
     return (

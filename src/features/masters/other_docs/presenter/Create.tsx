@@ -21,6 +21,7 @@ export default function Main(props: { onClose: any, fetchOtherDocsList: any }) {
         setName('')
 
         props.fetchOtherDocsList()
+        props.onClose()
     }
 
     return (

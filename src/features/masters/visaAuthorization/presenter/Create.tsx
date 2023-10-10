@@ -79,6 +79,7 @@ export default function Main(props: { onClose: any, fetchVisaAuthorisationList: 
         setName('')
 
         props.fetchVisaAuthorisationList()
+        props.onClose()
     }
 
     return (
