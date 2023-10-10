@@ -13,6 +13,7 @@ import {
 import { TickeDashboardInterface2 } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 import { BlueButton } from "../../../../componenets/CustomButton";
+import { SpanHeading } from "../../../../componenets/CoustomHeader";
 
 export default function Main(props: {
   TicketDashboardList: TickeDashboardInterface2[];
@@ -40,49 +41,44 @@ export default function Main(props: {
               <TableRow3 key={index}>
                 <TableCell3> {ticket.sector}</TableCell3>
                 <TableCell3>
-                  {" "}
-                  <span
-                    className="text-red-600 cursor-pointer px-10"
-                    onClick={() => {
+                 <SpanHeading 
+                  onClick={() => {
                       props.TicketToBeBooked(ticket);
-                    }}
-                  >
-                    {ticket.ticket_to_be_booked}
-                  </span>
+                    }}>
+                 {ticket.ticket_to_be_booked}
+                 </SpanHeading>
+                 
                 </TableCell3>
                 <TableCell3>
                   {" "}
-                  <span
-                    className="text-red-600 cursor-pointer px-10"
+                  <SpanHeading
                     onClick={() => {
                       props.underProcess(ticket);
                     }}
                   >
                     {ticket.ticket_under_process}
-                  </span>
+                  </SpanHeading>
                 </TableCell3>
                 <TableCell3>
                   {" "}
-                  <span
-                    className="text-red-600 cursor-pointer px-10"
+                  <SpanHeading
                     onClick={() => {
                       props.tryingFunction(ticket);
                     }}
                   >
                     {ticket.ticket_trying}
-                  </span>
+                  </SpanHeading>
                 </TableCell3>
                 <TableCell3>
                 
                 
-                  <span
-                    className="text-red-600 cursor-pointer px-10"
+                  <SpanHeading
                     onClick={() => {
                       props.AgencyInvoiceAwaiting(ticket);
                     }}
                   >
                     {ticket.agency_invoice_awaiting}
-                  </span>
+                  </SpanHeading>
                 </TableCell3>
               </TableRow3>
             ))}

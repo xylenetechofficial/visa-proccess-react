@@ -33,24 +33,24 @@ function CustomSidebarButton(props: { navigation: NavigationInterface, currentDe
 
 
 function CustomSidebarbuttonMultiLevel(props: { navigation: NavigationInterface, currentDept: string, changeCurrentDept: (value: string) => void }) {
-    // const [showChildren, setShowChildren] = useState(false)
+    const [rotateClass, setRotateClass] = useState(false)
     const classStyleNonselect = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-black hover:bg-[#EEEEEE] hover:text-[#414141]";
     const classStyleSelected = "flex items-center w-full p-2 transition duration-75 rounded-sm group  text-black bg-[#EEEEEE] text-[#414141]"
     return (<li>
         <button onClick={() => {
             // setShowChildren(!showChildren)
+            setRotateClass(!rotateClass);
             if (props.currentDept == props.navigation.name) {
                 props.changeCurrentDept('')
             } else {
                 props.changeCurrentDept(props.navigation.name)
-
             }
 
         }} type="button" className={props.currentDept == props.navigation.name ? classStyleSelected : classStyleNonselect} aria-controls={props.navigation.name} data-collapse-toggle={props.navigation.name}>
             {/* <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-100 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clipRule="evenodd"></path></svg> */}
             <Icon>{props.navigation.icon}</Icon>
             <span className="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>{props.navigation.name}</span>
-            <svg sidebar-toggle-item className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+           <svg sidebar-toggle-item className={`w-6 h-6  ${!rotateClass ? '-rotate-90' : '' }`} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
         </button>
         {props.navigation.children?.length && props.currentDept == props.navigation.name ? <ul id={props.navigation.name} className="   py-2 space-y-2 mt-[-2] bg-[#f8f8f8]">
             {props.navigation.children.map((ele) => (
