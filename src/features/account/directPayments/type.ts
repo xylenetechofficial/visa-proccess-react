@@ -13,6 +13,7 @@ export interface DirectPaymentInterface {
   table_data_list: DirectInterface[],
 
   bulk_payment_list: BUlkAmountInterface[]
+  all_bulk_payment_list: BUlkAmountInterface[]
 
 }
 export interface DirectPaymentAdapter {
@@ -31,6 +32,7 @@ export interface DirectPaymentAdapter {
   table_data_list: DirectInterface[],
 
   bulk_payment_list: BUlkAmountInterface[]
+  all_bulk_payment_list: BUlkAmountInterface[]
 
 }
 
@@ -251,7 +253,8 @@ export class DirectPaymentConverter {
       amount_available_for_adjustment: a.amount_available_for_adjustment,
       table_data_list: a.table_data_list.map(item => ({ ...item })),
 
-      bulk_payment_list: a.bulk_payment_list.map(item => ({ ...item }))
+      bulk_payment_list: a.bulk_payment_list.map(item => ({ ...item })),
+      all_bulk_payment_list: a.all_bulk_payment_list,
     };
     return data;
   }
@@ -275,7 +278,8 @@ export class DirectPaymentConverter {
       amount_available_for_adjustment: i.amount_available_for_adjustment,
       table_data_list: i.table_data_list.map(item => ({ ...item })),
 
-      bulk_payment_list: i.bulk_payment_list.map(item => ({ ...item }))
+      bulk_payment_list: i.bulk_payment_list.map(item => ({ ...item })),
+      all_bulk_payment_list: i.all_bulk_payment_list,
     };
     return data;
   }

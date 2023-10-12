@@ -56,7 +56,7 @@ export default function Main(props: {
     const [molWokPermitCancel, setMolWokPermitCancel] = useState<AccountDashboardInterface2>(
         {
             "candidate_id": props.currentElement.id,
-            "client_invoice": '',
+            "client_invoice": 'no',
             "penalty_amount": 0,
             "mistake_by": ''
         })

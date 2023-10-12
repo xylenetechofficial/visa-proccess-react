@@ -1,8 +1,8 @@
-import  {  useEffect, useState } from "react";
-import {  TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
+import { useEffect, useState } from "react";
+import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import {
   SubHeading1,
-  
+
   UpdateContentBox,
 } from "../../../../componenets/CoustomHeader";
 import { GreenButton } from "../../../../componenets/CustomButton";
@@ -16,12 +16,12 @@ import { CandidateDiscountApproveRejectInterface } from "../../candidateDiscount
 import { showMessage_v2 } from "../../../../utils/alert";
 const CandidatePayment = (props: {
   AgentPaymentList: any,
-  fetchAgentPaymentList: (name:string, value:any)=>void
-  AgentID:any
+  fetchAgentPaymentList: (name: string, value: any) => void
+  AgentID: any
 }) => {
 
   const initValue: CandidateDiscountApproveRejectInterface = {
-    candidate_id: 1,
+    candidate_id: 0,
     agent_id: props?.AgentID,
     amount: 0,
     remarks: '',
@@ -29,36 +29,41 @@ const CandidatePayment = (props: {
 
   const [CandidatePayment, setCandidatePayment] = useState(initValue);
   const handleClick = async (CandidatePayment: CandidateDiscountApproveRejectInterface) => {
-    await createCandidateDiscountApprovalReject(CandidatePayment);
+    const flg = await createCandidateDiscountApprovalReject(CandidatePayment);
+    
+    if (!flg) return;
+
     handleReset();
     console.log(props.AgentID);
-     props.fetchAgentPaymentList('agent_id',props.AgentID);
+    props.fetchAgentPaymentList('agent_id', props.AgentID);
   }
-  console.log(props.AgentID,"console.log(props.AgentID);");
+  console.log(props.AgentID, "console.log(props.AgentID);");
   const handleReset = () => {
     setCandidatePayment({
-      candidate_id: 1,
+      candidate_id: 0,
       agent_id: props.AgentID,
       amount: 0,
       remarks: '',
 
     })
   }
-  useEffect(()=>{
-    setCandidatePayment((prev)=>{return {
-      ...prev,
-      agent_id:props.AgentID
-    }})
-  },[props.AgentID])
-  const checkBalancefromDropDown= (currentBalance:number, id:number)=>{
-    console.log(currentBalance,id,"kkk")
-    if(id){
-      const filterId = props.AgentPaymentList.table_data_list.filter((item :any) => item.id === id);
-    if(currentBalance > filterId[0].balance_amount ){
-      
-      showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
-    }
-      
+  useEffect(() => {
+    setCandidatePayment((prev) => {
+      return {
+        ...prev,
+        agent_id: props.AgentID
+      }
+    })
+  }, [props.AgentID])
+  const checkBalancefromDropDown = (currentBalance: number, id: number) => {
+    console.log(currentBalance, id, "kkk")
+    if (id) {
+      const filterId = props.AgentPaymentList.table_data_list.filter((item: any) => item.id === id);
+      if (currentBalance > filterId[0].balance_amount) {
+
+        showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+      }
+
     }
   }
   return (
@@ -71,7 +76,7 @@ const CandidatePayment = (props: {
           <SubHeading1 text="candidate  :" />
 
           <CustomSelectComponentUnlabeled
-            value={""}
+            value={CandidatePayment.candidate_id}
             onChange={(value) => {
               setCandidatePayment({ ...CandidatePayment, candidate_id: value })
 
@@ -88,7 +93,7 @@ const CandidatePayment = (props: {
         <UpdateContentBox>
           <SubHeading1 text=" Amount :" />
           <UnlabeledInput
-          type="number"
+            type="number"
             value={CandidatePayment.amount}
             onchange={(value) => {
               const numberRegex = /[0-9]+$/;

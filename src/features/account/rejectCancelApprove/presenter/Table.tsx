@@ -104,7 +104,7 @@ const RejectCancelApproveTable = (props: {
               <TableCell3>{item?.consulate_setting_charges}</TableCell3>
               <TableCell3>{item?.reason}</TableCell3>
               <TableCell3>{item?.rc_name}</TableCell3>
-              <TableCell3>{item?.dev}</TableCell3>
+              <TableCell3>{item?.division}</TableCell3>
               <TableCell3>{item?.visa_authorization}</TableCell3>
               <TableCell3>{item?.sector_charges}</TableCell3>
               <TableCell3>{item?.partial_charges}</TableCell3>

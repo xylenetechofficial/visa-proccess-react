@@ -44,7 +44,8 @@ export default function Main() {
     amount_available_for_adjustment: 0,
     table_data_list: [],
 
-    bulk_payment_list: []
+    bulk_payment_list: [],
+    all_bulk_payment_list: [],
   };
 
   const [AgentPayment, setAgentPayment] = useState(initValue);

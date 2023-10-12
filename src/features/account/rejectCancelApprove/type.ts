@@ -23,6 +23,10 @@ export interface RejectCancelApproveInterface {
   consolidated_charges_names: string;
   mofa_cancel_id: number;
 
+  reason?: string;
+  rc_name?: string;
+  division?: string;
+  is_invoice?: string;
   ccp_cancel_type?: string;
 }
 // 'block_visa' => 'required|array',
@@ -54,6 +58,10 @@ export interface RejectCancelApproveAdapter {
   consolidated_charges_names: string;
   mofa_cancel_id: number;
 
+  reason?: string;
+  rc_name?: string;
+  division?: string;
+  is_invoice?: string;
   ccp_cancel_type?: string;
 }
 
@@ -140,6 +148,10 @@ export class RejectCancelApproveConverter {
       consolidated_charges_names: a.consolidated_charges_names,
       mofa_cancel_id: a.mofa_cancel_id,
 
+      reason: a.reason,
+      rc_name: a.rc_name,
+      division: a.division,
+      is_invoice: a.is_invoice,
       ccp_cancel_type: a.ccp_cancel_type,
     };
     return data;

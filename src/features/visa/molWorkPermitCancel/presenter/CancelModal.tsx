@@ -16,7 +16,7 @@ export default function Main(props: {
     const [molWorkPermit, setmolWorkPermit] = useState<MolWorkPermitCancelInterface2>(
         {
             "candidate_id": props.currentData.id,
-            "client_invoice": '',
+            "client_invoice": 'no',
             "penalty_amount": 0,
             "mistake_by": ''
         })

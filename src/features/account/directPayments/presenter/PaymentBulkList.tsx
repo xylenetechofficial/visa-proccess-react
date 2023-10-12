@@ -31,7 +31,7 @@ const PaymentBulkList = (props:
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody3>
-                    {props?.AgentPaymentList?.bulk_payment_list?.map((ele :any, index:any)=>(
+                    {props?.AgentPaymentList?.all_bulk_payment_list?.map((ele :any, index:any)=>(
                          <TableRow3 key={index}>
                         
                         <TableCell3 width={10}>{convertDateFormat(ele.created_at)}</TableCell3>

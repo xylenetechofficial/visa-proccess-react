@@ -22,7 +22,7 @@ const CandidatePayment = (props: {
 }) => {
 
   const initValue: CandidatePaymentInterface = {
-    candidate_id: 1,
+    candidate_id: 0,
     agent_id: 0,
     amount: 0,
     remarks: '',
@@ -43,7 +43,7 @@ const CandidatePayment = (props: {
   }
   const handleReset = () => {
     setCandidatePayment({
-      candidate_id: CandidatePayment.candidate_id,
+      candidate_id: 0,
       agent_id: CandidatePayment.agent_id,
       amount: 0,
       remarks: '',
@@ -72,8 +72,8 @@ const CandidatePayment = (props: {
 
           <CustomSelectComponentUnlabeled
 
-            // value={CandidatePayment.candidate_id}
-            value={""}
+            value={CandidatePayment.candidate_id}
+            // value={""}
             onChange={(value) => {
               setCandidatePayment({ ...CandidatePayment, candidate_id: parseInt(value) })
 
