@@ -16,6 +16,8 @@ import {
 import { TicketAgencyInvoicesInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 import { useState } from "react";
+import { PaginationBack, PaginationContainer, PaginationCurrent, PaginationNext } from "../../../../componenets/Pagination";
+
 
 export default function Main(props: {
   TicketAgencyInvoicesList: TicketAgencyInvoicesInterface[];
@@ -63,7 +65,7 @@ export default function Main(props: {
   }
 
   // Pagination start demo design
-  console.log(props.TicketAgencyInvoicesList, "Test");
+  // console.log(props.TicketAgencyInvoicesList, "Test");
   const [currentPage, setCurrentPage] = useState(1);
   const recordPerPage = 5;
   const lastIndex = currentPage * recordPerPage;
@@ -153,48 +155,19 @@ export default function Main(props: {
         </Table3>
       </div>
 
-      <nav aria-label="Page navigation example" className="flex py-2 pb-8">
-        <span className="p-2 h-10 mr-10 text-center leading-tight text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span> Total Records {10}</span>
-        </span>
-        <ul className="inline-flex -space-x-px text-base h-10 ">
-          <li>
-            <a
-              href="#"
-              onClick={function () {
-                changePrevious();
-              }}
-              className="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              Previous
-            </a>
-          </li>
+      <PaginationContainer >
+      {currentPage >= 2 ? (
+          <PaginationBack onClick={changePrevious}>Back</PaginationBack>
+        ) : null}
+        {
+        numbers.map((current,i)=> (<PaginationCurrent onClick={()=>changeCurrent(current)} key={i}>{current}</PaginationCurrent>) )
+      }
+        <PaginationNext onClick={changeNext}  >Next</PaginationNext>
+      </PaginationContainer>
 
-          {numbers.map((current, i) => (
-            <li key={i}>
-              <a
-                href="#"
-                onClick={() => changeCurrent(current)}
-                className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
-                  currentPage === current ? "bg-blue-900" : "bg-white"
-                }`}
-              >
-                {current}
-              </a>
-            </li>
-          ))}
-
-          <li>
-            <a
-              href="#"
-              onClick={changeNext}
-              className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
     </>
+
+  
+
   );
 }
