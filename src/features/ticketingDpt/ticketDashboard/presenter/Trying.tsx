@@ -52,7 +52,7 @@ const onClickSubmit =async()=>{
     <FullScreenModal
       buttonName=""
       handleClick={onClickAdd}
-      title="Under Process"
+      title="Trying"
       onClose={props.onClose}
     >
       <div className="overflow-auto">

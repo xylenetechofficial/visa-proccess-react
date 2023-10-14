@@ -46,10 +46,11 @@ export default function Main(props: {
            <TableCell3>{item.company_name}</TableCell3>
            <TableCell3>{item.passport_no}</TableCell3>
            <TableCell3>{item.agent_name}</TableCell3>
+           <TableCell3>{item.rc_name}</TableCell3>
            <TableCell3>{item.payment}</TableCell3>
            <TableCell3>{item.given_to}</TableCell3>
            <TableCell3>{item.departure_date}</TableCell3>
-           <TableCell3>{item.ticket_charges}</TableCell3>
+           <TableCell3>{item.ticketing_reissue_charge}</TableCell3>
            <TableCell3>{item.ticketing_previous_reissue_charge}</TableCell3>
             <TableCell3>
              <Checkbox
