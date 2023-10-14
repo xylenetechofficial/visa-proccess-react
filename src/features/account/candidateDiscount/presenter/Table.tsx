@@ -114,6 +114,7 @@ const CandidateDiscountTable = (props: {
               <TableCell3> {item?.discount_given}</TableCell3>
               <TableCell3>
                 <Checkbox onChange={(e) => {
+                
                   if (e.target.checked) {
                     // setDiscount((prev: any) => {
                     //   const newArray: any = [...prev];
@@ -127,6 +128,7 @@ const CandidateDiscountTable = (props: {
                       newArray[index].discount = props.discountAndRemark?.discount;
                       newArray[index].discount_remarks = props.discountAndRemark?.discount_remark;
                       return newArray;
+                    
                     })
                       // setList((prev:any) => {
                       //   const newArray :any= [...prev]; 
@@ -148,9 +150,10 @@ const CandidateDiscountTable = (props: {
                     });
                   }
                   else {
+                  
                     setDiscount((prev) => {
                       const newArray: any = [...prev];
-                      newArray[index].sas = e.target.checked;
+                      newArray[index] = e.target.checked;
                       return newArray;
                     });
                     // setList((prev:any) => {

@@ -82,6 +82,7 @@ export default function Main() {
     fetchCandidateDiscountList();
 
   }, []);
+  
   const handleClick = async (status: any) => {
     const newArray: any = { ...data }
     console.log(newArray, "PPPP")
