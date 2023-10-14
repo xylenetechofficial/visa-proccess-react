@@ -62,33 +62,37 @@ const onClickSubmit =async()=>{
           <TableHead3>
             <TableHeadRow3>
                 <TableHeadCell3>sr.no</TableHeadCell3>
-                <TableHeadCell3>setting visa</TableHeadCell3>
                 <TableHeadCell3>job order no</TableHeadCell3>
                 <TableHeadCell3>company name</TableHeadCell3>
                 <TableHeadCell3>candidate name</TableHeadCell3>
                 <TableHeadCell3>pp no.</TableHeadCell3>
-                <TableHeadCell3>agent profession</TableHeadCell3>
+                <TableHeadCell3>sector from</TableHeadCell3>
+                <TableHeadCell3>sector to</TableHeadCell3>
+                <TableHeadCell3>required date</TableHeadCell3>
+                <TableHeadCell3>priority</TableHeadCell3>
+                <TableHeadCell3>air line</TableHeadCell3>
+                <TableHeadCell3>ticket issue date </TableHeadCell3>
+                <TableHeadCell3>PNR No</TableHeadCell3>
+                <TableHeadCell3>departure date</TableHeadCell3>
+                <TableHeadCell3>agency</TableHeadCell3>
+                <TableHeadCell3>amount</TableHeadCell3>
                 <TableHeadCell3>mufa no.</TableHeadCell3>
                 <TableHeadCell3>agent</TableHeadCell3>
                 <TableHeadCell3>rc name</TableHeadCell3>
                 <TableHeadCell3>visa received date</TableHeadCell3>
                 <TableHeadCell3>visa expire date</TableHeadCell3>
-                <TableHeadCell3>sector from</TableHeadCell3>
-                <TableHeadCell3>sector to</TableHeadCell3>
-                <TableHeadCell3>required date</TableHeadCell3>
-                <TableHeadCell3>priority</TableHeadCell3>
-                <TableHeadCell3>air ticket </TableHeadCell3>
-                <TableHeadCell3>visa authorisation</TableHeadCell3>
-                <TableHeadCell3>division</TableHeadCell3>
-                <TableHeadCell3>under process</TableHeadCell3>
-                <TableHeadCell3>trying</TableHeadCell3>
+                <TableHeadCell3>visa no</TableHeadCell3>
+                <TableHeadCell3>visa date</TableHeadCell3>
+                <TableHeadCell3>pp expire date</TableHeadCell3>
+                <TableHeadCell3>visa issue date</TableHeadCell3>
+                <TableHeadCell3>reverse</TableHeadCell3>
+
             </TableHeadRow3>
           </TableHead3>
            <TableBody3>
             {props.openUnderProcess.map((item :any, index:any) => (
               <TableRow3 key={index}>
                 <TableCell3>{index + 1}</TableCell3>
-                <TableCell3>{item.setting_visa} </TableCell3>
                 <TableCell3>{item.job_order_no} </TableCell3>
                 <TableCell3>{item.company_name} </TableCell3>
                 <TableCell3>{item.candidate_name} </TableCell3>
@@ -110,34 +114,7 @@ const onClickSubmit =async()=>{
                 <TableCell3> {item.air_ticket} </TableCell3>
                 <TableCell3> {item.visa_authorisation} </TableCell3>
                 <TableCell3>{item.division} </TableCell3>
-                <TableCell3>
-                  <Checkbox
-                  checked={selectedCheckbox[index]?.isChecked === `${item.id}under`}
-                    onChange={(e) =>{
-                      onUpdateRow(index, {
-                        ...item,
-                        ticketing_under_process: e.target.checked ? 1 : 0,
-                      })
-                      handleCheckboxChange(`${item.id}under`,index)
-                    }
-                    }
-                  />{" "}
-                </TableCell3>
-                <TableCell3>
-                  <Checkbox
-                    onChange={(e) =>{
-                      onUpdateRow(index, {
-                        ...item,
-                        ticketing_trying: e.target.checked ? 1 : 0,
-                      })
-                      handleCheckboxChange(`${item.id}typing`,index)
-                    }
-
-                    }
-                    checked={selectedCheckbox[index]?.isChecked === `${item.id}typing`}
- 
-                  />
-                </TableCell3>
+               
               </TableRow3>
             ))}
           </TableBody3> 
