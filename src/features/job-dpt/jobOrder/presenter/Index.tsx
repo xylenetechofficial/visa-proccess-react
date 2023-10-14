@@ -40,7 +40,7 @@ export default function Main() {
             page: 1,
             page_count: 1,
             item_count: 0,
-            limit: 20,
+            sno_base: 0,
         }
     });
 
@@ -140,7 +140,7 @@ export default function Main() {
         fetchCountryList();
     }, []);
 
-   
+
 
     return (
         <div>
@@ -174,7 +174,7 @@ export default function Main() {
 
             {/*  jobOrder stable */}
             <JobOrderTable
-                snoBase={(additionalData.pagination.page-1) * additionalData.pagination.limit}
+                snoBase={additionalData.pagination.sno_base}
                 jobOrderList={dataFiltered}
                 onClickEdit={onClickEdit}
                 onClickDelete={onClickDelete}

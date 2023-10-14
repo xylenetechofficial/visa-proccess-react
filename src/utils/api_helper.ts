@@ -331,7 +331,8 @@ export interface AdditionalDataInterface {
     page: number;
     page_count: number;
     item_count: number;
-    limit: number;
+    limit?: number;
+    sno_base: number;
   };
 }
 
