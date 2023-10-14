@@ -16,8 +16,6 @@ import {
 import { TicketAgencyInvoicesInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 import { useState } from "react";
-import { PaginationBack, PaginationContainer, PaginationCurrent, PaginationNext } from "../../../../componenets/Pagination";
-
 
 export default function Main(props: {
   TicketAgencyInvoicesList: TicketAgencyInvoicesInterface[];
@@ -64,32 +62,6 @@ export default function Main(props: {
     props.onChange(nextData);
   }
 
-  // Pagination start demo design
-  // console.log(props.TicketAgencyInvoicesList, "Test");
-  const [currentPage, setCurrentPage] = useState(1);
-  const recordPerPage = 5;
-  const lastIndex = currentPage * recordPerPage;
-  const firstIndex = lastIndex - recordPerPage;
-  const record = props.TicketAgencyInvoicesList.slice(firstIndex, lastIndex);
-  const nPage = Math.ceil(
-    props.TicketAgencyInvoicesList.length / recordPerPage
-  );
-  const numbers = [...Array(nPage + 1).keys()].slice(1);
-
-  const changePrevious = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-  const changeCurrent = (id) => {
-    setCurrentPage(id);
-  };
-  const changeNext = () => {
-    if (currentPage !== nPage) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
   return (
     <>
       <div className="overflow-auto">
@@ -102,7 +74,7 @@ export default function Main(props: {
             </TableHeadRow3>
           </TableHead3>
           <TableBody3>
-            {record.map((item, index) => (
+            {props.TicketAgencyInvoicesList.map((item, index) => (
               <TableRow3>
                 <TableCell3>{item.id}</TableCell3>
                 <TableCell3>{item.party_code} </TableCell3>
@@ -155,16 +127,7 @@ export default function Main(props: {
         </Table3>
       </div>
 
-      <PaginationContainer >
-      {currentPage >= 2 ? (
-          <PaginationBack onClick={changePrevious}>Back</PaginationBack>
-        ) : null}
-        {
-        numbers.map((current,i)=> (<PaginationCurrent onClick={()=>changeCurrent(current)} key={i}>{current}</PaginationCurrent>) )
-      }
-        <PaginationNext onClick={changeNext}  >Next</PaginationNext>
-      </PaginationContainer>
-
+     
     </>
 
   

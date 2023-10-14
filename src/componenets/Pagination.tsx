@@ -1,26 +1,6 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AdditionalDataInterface } from "../utils/api_helper";
 
-interface ParentComponentProps {
-  children: ReactNode;
-  width?: number;
-}
-interface ParentComponent2Props {
-  children: ReactNode;
-  width?: number;
-  class: string
-  onClick: (value: any) => void;
-}
-
-export const PaginationContainer = ({ children }: ParentComponentProps) => {
-  return (
-    <nav aria-label="Page navigation example" className="flex py-2 pb-8">
-      {/* <span className="p-2 h-10 mr-10 text-center leading-tight text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"> */}
-      {children}
-      {/* </span> */}
-    </nav>
-  );
-};
 
 // export const PaginationContainerV2 = (props: { additionalData: AdditionalDataInterface }) => {
 //   // Pagination start demo design
@@ -48,47 +28,6 @@ export const PaginationContainer = ({ children }: ParentComponentProps) => {
 //   );
 // };
 
-export function PaginationBack({ children, onClick }: ParentComponent2Props) {
-  return (
-    <div>
-      <span
-        onClick={onClick}
-        className="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-      >
-        {children}
-      </span>
-    </div>
-  );
-}
-
-export function PaginationNext({ children, onClick }: ParentComponent2Props) {
-  return (
-    <div>
-      <span
-        onClick={onClick}
-        className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-      >
-        {children}
-      </span>
-    </div>
-  );
-}
-
-
-export function PaginationCurrent({ children, onClick }: ParentComponent2Props) {
-
-  return (
-    <div>
-      <span
-        onClick={onClick}
-        className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-      >
-        {children}
-      </span>
-    </div>
-
-  );
-}
 
 // const Pagination = (props:{ onClick:any }) => {
 //   return (
@@ -200,13 +139,8 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
           First
         </button>}
 
-      {/* <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-        Previous
-      </button> */}
       {renderPageNumbers()}
-      {/* <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === page_count}>
-        Next
-      </button> */}
+   
       {currentPage === page_count ? "" :
         <button onClick={() => handlePageChange(page_count)} className={lastButton}>
           Last

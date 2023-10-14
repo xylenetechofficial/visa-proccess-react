@@ -20,12 +20,7 @@ import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
 import { readConsolidateChargeList } from "../../../masters/consolidateCharge/repository";
 
-import Pagination, {
-    PaginationBack,
-    PaginationContainer,
-    PaginationCurrent,
-    PaginationNext,
-} from "../../../../componenets/Pagination";
+import Pagination from "../../../../componenets/Pagination";
 
 import { ConsolidateChargeInterface } from "../../../masters/consolidateCharge/type";
 import { AdditionalDataInterface } from "../../../../utils/api_helper";
@@ -145,28 +140,7 @@ export default function Main() {
         fetchCountryList();
     }, []);
 
-    // Pagination start demo design
-    const [currentPage, setCurrentPage] = useState(1);
-    const recordPerPage = 5;
-    const lastIndex = currentPage * recordPerPage;
-    const firstIndex = lastIndex - recordPerPage;
-    const record = jobOrderList.slice(firstIndex, lastIndex);
-    const nPage = Math.ceil(jobOrderList.length / recordPerPage);
-    const numbers = [...Array(nPage + 1).keys()].slice(1);
-
-    const changePrevious = () => {
-        if (currentPage !== 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-    const changeCurrent = (id: any) => {
-        setCurrentPage(id);
-    };
-    const changeNext = () => {
-        if (currentPage !== nPage) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
+   
 
     return (
         <div>
@@ -201,8 +175,7 @@ export default function Main() {
             {/*  jobOrder stable */}
             <JobOrderTable
                 snoBase={(additionalData.pagination.page-1) * additionalData.pagination.limit}
-                // jobOrderList={dataFiltered}
-                jobOrderList={record}
+                jobOrderList={dataFiltered}
                 onClickEdit={onClickEdit}
                 onClickDelete={onClickDelete}
                 companyList={companyList}
