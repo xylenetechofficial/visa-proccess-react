@@ -34,7 +34,8 @@ export default function Main() {
     return (
         <div>
 
-            <CustomNavbarV3 pageName="Immigration Done PP Release" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Immigration Done PP Release" searchFunction={(query) => setSearchQuery(query)}
+            refresh={()=>{fetchImmigrationDoneList()}} />
 
 
             <ImmigrationDOnePPReleaseTable

@@ -48,7 +48,7 @@ export default function Main(props: {
         interviewModeId: 0,
         interviewSectorId: 0,
 
-
+        actualProfesionList: [],
     }
     const [jobOrder, setJobOrder] = useState(initValue)
 
@@ -57,6 +57,8 @@ export default function Main(props: {
 
     async function onClickAdd() {
 
+        console.log(jobOrder.actualProfesionList);   // Only Dev
+        // return;
         // call create
         const flag = await createJobOrder(jobOrder)
 
@@ -159,7 +161,7 @@ export default function Main(props: {
                             required
                             value={jobOrder.companyId}
                             options={selectOptionConveter({ options: props.companyList, options_struct: { name: "name", value: "id" } })}
-                            onChange={(value) => setJobOrder({ ...jobOrder, companyId: parseInt(value) })}
+                            onChange={(value) => setJobOrder({ ...jobOrder, companyId: parseInt(value), MOL: 0, workPermit: 0 })}
                             label="Company"
                         />
                         {/* client country */}
@@ -331,7 +333,7 @@ export default function Main(props: {
                     consolidateChargeList={props.consolidateChargeList}
                     jobOrder={jobOrder}
                     mode="create"
-                    onChange={(value) => setJobOrder({ ...jobOrder, acttualProfesionList: value })}
+                    onChange={(value) => setJobOrder({ ...jobOrder, actualProfesionList: value })}
                 />
                 </>
                 : ""}

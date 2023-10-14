@@ -3,9 +3,9 @@ import {
   BulkPaymentConverter,
   MofaPaymentAdapter,
   MofaPaymentConverter,
-  Mofa_Entry_Candidate_Adapter,
-  Mofa_Entry_Candidate_Interface,
-  Mofa_Entry_Converter,
+  AgentReturnPaymentAdapter,
+  AgentReturnPaymentInterface,
+  AgentReturnPaymentConverter,
 } from "./type";
 import {
   ApiHelper,
@@ -14,7 +14,7 @@ import {
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readMofaEntryCandiateList(
+export async function readAgentReturnPaymentList(
   status: string,
   partyCode?: number
 ) {
@@ -33,9 +33,9 @@ export async function readMofaEntryCandiateList(
     showMessage_v2({ message: response.message, status: response.code });
   }
 
-  const data: Mofa_Entry_Candidate_Interface[] =
-    Mofa_Entry_Converter.toInterfaceList(
-      response.data as Mofa_Entry_Candidate_Adapter[]
+  const data: AgentReturnPaymentInterface[] =
+    AgentReturnPaymentConverter.toInterfaceList(
+      response.data as AgentReturnPaymentAdapter[]
     );
 
   return data;
@@ -84,14 +84,18 @@ export async function createReturnPayment(data: any) {
     tokenType: AuthTokenType.JWT,
   });
   showMessage_v2({ message: response.message, status: response.code });
-  return response;
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
 }
 
-export async function UpdateMofaEntry(
+export async function updateAgentReturnPayment(
   id: number,
-  candidateEle: Mofa_Entry_Candidate_Interface
+  candidateEle: AgentReturnPaymentInterface
 ) {
-  const payload = Mofa_Entry_Converter.toAdapter(candidateEle);
+  const payload = AgentReturnPaymentConverter.toAdapter(candidateEle);
 
   const path = "/account/agent-return-payment/" + id;
   const response = await ApiHelper.patch(path, payload, {
@@ -100,4 +104,16 @@ export async function UpdateMofaEntry(
   });
   showMessage_v2({ message: response.message, status: response.code });
   return response;
+}
+
+
+export async function deleteAgentReturnPayment(id: number) {
+
+  const path = "/account/agent-return-payment/" + id;
+  const response = await ApiHelper.delete(path, {
+    tokenType: AuthTokenType.JWT
+  })
+
+  showMessage_v2({ message: response.message, status: response.code })
+
 }

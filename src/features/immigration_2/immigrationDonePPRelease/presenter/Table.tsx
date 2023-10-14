@@ -87,7 +87,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
-          {props.RcPPRecieved.map(( item, index) => {
+          {props.RcPPRecieved.map((item, index) => {
             let GivenToList_local: any = [];
 
             console.log(item.passport_no + "  " + item.local_given_to);   // Only Dev
@@ -119,7 +119,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
               </TableCell3>
 
               <TableCell3>
-                {item.local_given_to == "Given To Cancelation" ? item.local_given_to : <>
+                {/* {item.local_given_to == "Given To Cancelation" ? item.local_given_to : <>
                   <CustomSelectComponentUnlabeled
                     value={item.given_to}
                     onChange={(value: any) => {
@@ -127,7 +127,15 @@ const ImmigrationDOnePPReleaseTable = (props: {
                     }}
                     options={GivenToList_local}
                   />
-                </>}
+                </>} */}
+                <CustomSelectComponentUnlabeled
+                  label={item.local_given_to}
+                  value={item.given_to}
+                  onChange={(value: any) => {
+                    onUpdateRow(index, { ...item, given_to: value })
+                  }}
+                  options={GivenToList_local}
+                />
                 {/* <CustomSelectComponentUnlabeled
                   value={item.given_to}
                   onChange={(value: any) => {

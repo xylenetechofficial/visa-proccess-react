@@ -69,7 +69,10 @@ export default function Main() {
     return (
         <div>
 
-            <CustomNavbarV3 pageName="Account Candidates List" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Account Candidates List" searchFunction={(query) => setSearchQuery(query)}
+            refresh={()=>{
+                fetchAccoundCandidates()
+            }} />
            
 
             <AccountCandidatesListTable

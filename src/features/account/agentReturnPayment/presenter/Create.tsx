@@ -14,7 +14,7 @@ import { showMessage_v2 } from "../../../../utils/alert";
 
 export default function Main(props: {
     onClose: any,
-    fetchMofaEntryCandiateList: any
+    fetchAgentReturnPaymentList: any
 }) {
 
     async function onClickAdd() {
@@ -32,8 +32,10 @@ export default function Main(props: {
         }
 
         if (amount_to_be_deduct > 0)
-            return showMessage_v2({ message: "no", status: 400 });
+            return showMessage_v2({ message: "Not Enough", status: 400 });
 
+        console.log(newArray);   // Only Dev
+        // return
         // call create
         const res = await createReturnPayment({
             agent_id: agent,
@@ -42,7 +44,11 @@ export default function Main(props: {
             bulk_payment_id_list: newArray,
         })
 
-        // props.onClose()
+        if (!res)
+            return;
+
+        props.fetchAgentReturnPaymentList()
+        props.onClose()
     }
 
     const [agentList, setAgentList] = useState<AgentInterface[]>([])

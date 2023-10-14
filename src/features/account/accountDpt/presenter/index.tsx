@@ -9,33 +9,35 @@ export default function Main() {
     const [searchQuery, setSearchQuery] = useState("")
     const [modal, setModal] = useState('')
     const [paymentReceivedList, setPaymentReceivedList] = useState<PaymentReceivedInterface[]>([])
-    const fetchList = async()=>{
-        const res :any=await readPaymentReceivedList();
-        if(res){
+    const fetchList = async () => {
+        const res: any = await readPaymentReceivedList();
+        if (res) {
             setPaymentReceivedList(res)
         }
     }
-    const [editPaymentList, setEditPaymentList]= useState<any>([])
-    const fetchEditPaymentList= async(ele:PaymentReceivedInterface)=>{
+    const [editPaymentList, setEditPaymentList] = useState<any>([])
+    const fetchEditPaymentList = async (ele: PaymentReceivedInterface) => {
         console.log("first");
-     const res  = await   readEditPaymentReceivedList(ele)
-     if(res){
-        setEditPaymentList(res)
-     }
+        const res = await readEditPaymentReceivedList(ele)
+        if (res) {
+            setEditPaymentList(res)
+        }
     }
-    useEffect(()=>{
+    useEffect(() => {
         fetchList()
-    },[])
+    }, [])
     return (
         <div>
 
-            <CustomNavbarV3 pageName="AGENT PAYMENTS RECEIVED" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="AGENT PAYMENTS RECEIVED" searchFunction={(query) => setSearchQuery(query)}
+                refresh={() => { fetchList() }}
+            />
             <AgentPaymentReceivedDetailTable
                 paymentReceivedList={paymentReceivedList}
-                onClickEdit={(value) => {setModal('edit'),fetchEditPaymentList(value)}}
+                onClickEdit={(value) => { setModal('edit'), fetchEditPaymentList(value) }}
             />
             {modal === "edit" ? <EditModal
-            editPaymentList={editPaymentList}
+                editPaymentList={editPaymentList}
                 setModal={(value) => setModal(value)}
             /> : ''}
 

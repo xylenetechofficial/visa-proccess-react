@@ -77,7 +77,7 @@ const ActualProfessionTable = (props: {
         setActualProfesionList(nextData)
     }
     useEffect(() => {
-        setActualProfesionList(props.jobOrder.acttualProfesionList ?? [])
+        setActualProfesionList(props.jobOrder.actualProfesionList ?? [])
     }, [])
 
     useEffect(() => {

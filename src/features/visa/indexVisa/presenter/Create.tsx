@@ -68,10 +68,10 @@ export default function Main(props: {
 
         // const visaAllocationListAdapter:VisaAllocationAdapter[]=VisaAllocationConverter.toAdapterList(visaAllocationList)
         const visa_profession_len = indexVisa.visaProfessionList?.length ?? 0
-        if (visa_profession_len < 1) {
-            showMessage_v2({ message: "Visa Profession Required", status: 404 });
-            return
-        }
+        // if (visa_profession_len < 1) {
+        //     showMessage_v2({ message: "Visa Profession Required", status: 404 });
+        //     return
+        // }
 
         for (let i = 0; i < visa_profession_len; i++) {
             if (indexVisa.visaProfessionList[i].visa_profession.trim() == "") {

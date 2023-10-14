@@ -108,7 +108,7 @@ export default function Main() {
     if (data) {
       setAccountDashboardList(data);
     }
-    setAccountDashboardList(data);
+    // setAccountDashboardList(data);
   };
   useEffect(() => {
     fetchAccountDashboardList();

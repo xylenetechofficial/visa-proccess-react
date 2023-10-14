@@ -20,8 +20,9 @@ export interface CandidateDiscountInterface {
   rm: number,
   rc: number,
   visa_accountable: number,
-  visaProfessionList?:VisaProfesionInterface[]
+  visaProfessionList?:VisaProfesionInterface[],
 
+  isChecked?:any
 }
 // 'block_visa' => 'required|array',
 // 'visa_profession_list' => 'required|array'

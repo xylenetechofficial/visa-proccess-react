@@ -1,7 +1,9 @@
 import './scrollbar.css'
 import { useRef, useEffect, useState } from 'react';
 import PropTypes from "prop-types";
-import { FaRegBell, FaUsers } from "react-icons/fa";
+import { FaRegBell, FaUsers, } from "react-icons/fa";
+import { MdRefresh } from "react-icons/md";
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUserAuth } from '../features/context/UserAuthContext';
@@ -51,7 +53,7 @@ const MultiSelectCheckbox = (props: {
                 )
             })} */}
             <FormGroup sx={{ m: 1, minWidth: 150, width: "80%" }}>
-                {props.option.map((option:any) => (
+                {props.option.map((option: any) => (
                     <FormControlLabel
                         key={option.value}
                         control={
@@ -63,15 +65,15 @@ const MultiSelectCheckbox = (props: {
                                     console.log(event.target.checked);
                                     console.log(props.value)
                                     if (event.target.checked) {
-                                      const arr = [...props.value, value];
-                                      props.onChange(arr);
+                                        const arr = [...props.value, value];
+                                        props.onChange(arr);
                                     } else {
-                                      const arr = props.value.filter((v:any) => v != value);
-                                
-                                      props.onChange(arr);
+                                        const arr = props.value.filter((v: any) => v != value);
+
+                                        props.onChange(arr);
 
                                     }
-                                  }}
+                                }}
                                 value={option.value}
                             />
                         }
@@ -146,7 +148,7 @@ function CustomSearchBar() {
 
 
 
-export function NavbarResponsiveFeatures(props: { searchFunction: (ele: string) => void }) {
+export function NavbarResponsiveFeatures(props: { searchFunction: (ele: string) => void, refresh?: () => void }) {
     // ! becarefull
     const { authUser, authLogOut } = useUserAuth();
     const navigate = useNavigate();
@@ -246,6 +248,16 @@ export function NavbarResponsiveFeatures(props: { searchFunction: (ele: string) 
                 <div className="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white border-2 border-white rounded-full bg-[#E10000] top-1 right-1 dark:border-gray-900"></div>
             </button>
         </li>
+        {props.refresh ?
+            <li className='mb-3 md:mb-0'>
+                <button type="button"
+                    onClick={props.refresh}
+                    className="relative inline-flex items-center p-2 mb-2 mr-2 text-sm font-medium text-center rounded-lg text-navbar-text hover:bg-highlight focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+                    <MdRefresh className="w-8 h-8" />
+                </button>
+            </li>
+            : ""}
+
         <li className='mb-3 md:mb-0 '>
             <div className=''>
                 <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -327,7 +339,7 @@ export function CustomNavbarV2() {
         </div>
     </nav>);
 }
-export function CustomNavbarV3(props: { pageName: string, searchFunction: (ele: string) => void }) {
+export function CustomNavbarV3(props: { pageName: string, searchFunction: (ele: string) => void, refresh?: () => void }) {
 
     return (<nav className="mb-3 -mx-2 shadow-navbar md:-mx-6 bg-main-bg dark:bg-gray-800 dark:border-gray-700">
         <div className="px-3 py-2 lg:px-5 lg:pl-3">
@@ -381,7 +393,7 @@ export function CustomNavbarV3(props: { pageName: string, searchFunction: (ele: 
                     <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                 </button>
                 <div className="hidden w-full mx-4 grow md:block md:w-auto" id="navbar-default">
-                    <NavbarResponsiveFeatures searchFunction={props.searchFunction} />
+                    <NavbarResponsiveFeatures refresh={props.refresh} searchFunction={props.searchFunction} />
                 </div>
 
             </div>

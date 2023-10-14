@@ -39,7 +39,7 @@ export default function Main(props: {
         companyId: 0,
         division: "",
         departureSectorId: 0,
-
+        actualProfesionList: [],
     }
     const [jobOrder, setJobOrder] = useState(initValue)
 
@@ -238,7 +238,7 @@ export default function Main(props: {
                 <ActualProfessionTable
                     consolidateChargeList={props.consolidateChargeList}
                     jobOrder={jobOrder}
-                    onChange={(value) => setJobOrder({ ...jobOrder, acttualProfesionList: value })}
+                    onChange={(value) => setJobOrder({ ...jobOrder, actualProfesionList: value })}
                     mode="edit"
                 /> : ""}
         </FullScreenModal>

@@ -92,6 +92,10 @@ console.log(payload,"aa")
   })
   showMessage_v2({ message: response.message, status: response.code })
 
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
 }
 export async function updateBlockVisa(blockVisa: CandidateDiscountApproveRejectInterface) {
   const payload = blockVisa;

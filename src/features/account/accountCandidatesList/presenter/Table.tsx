@@ -9,11 +9,11 @@ import {
   TableRow3,
 
 } from "../../../../componenets/Table";
-import { Checkbox } from "@mui/material";
-import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+// import { Checkbox } from "@mui/material";
+// import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
+// import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
 import { useState } from "react";
-import { convertDateFormat } from "../../../../utils/function";
+// import { convertDateFormat } from "../../../../utils/function";
 import { AccountCandidateInterface } from "../type";
 import { RedButton } from "../../../../componenets/CustomButton";
 
@@ -34,30 +34,32 @@ const AccountCandidatesListTable = (props: {
       <Table3>
         <TableHead3>
           <TableHeadRow3>
-            <TableHeadCell3> Sr No.</TableHeadCell3>
-            <TableHeadCell3> CANDIDATE NO.</TableHeadCell3>
-            <TableHeadCell3> PARTY CODE </TableHeadCell3>
-            <TableHeadCell3> COMPANY NAME</TableHeadCell3>
-            <TableHeadCell3> CANDIDATE NAME</TableHeadCell3>
-            <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
-            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
-            <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
-            <TableHeadCell3> AGENT</TableHeadCell3>
-            <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3>
-            <TableHeadCell3> PROCESS CHARGES </TableHeadCell3>
-            <TableHeadCell3> DOCUMENT CHARGES</TableHeadCell3>
-            <TableHeadCell3> OTHER CHARGES </TableHeadCell3>
-            <TableHeadCell3> SECTOR CHARGES</TableHeadCell3>
-            <TableHeadCell3> PARTIAL CHARGES </TableHeadCell3>
-            <TableHeadCell3> SERVICE CHARGES </TableHeadCell3>
-            <TableHeadCell3> CONSULATE SETTING CHARGES</TableHeadCell3>
-            <TableHeadCell3> CANCEL CHARGES </TableHeadCell3>
-            <TableHeadCell3> FLIGHT TICKET AMOUNT </TableHeadCell3>
-            <TableHeadCell3> TICKET CHARGES </TableHeadCell3>
-            <TableHeadCell3> EXTRA SERVICE CHARGES </TableHeadCell3>
-            <TableHeadCell3> AIR TICKET </TableHeadCell3>
-            <TableHeadCell3> IS DEPLOYED </TableHeadCell3>
-            <TableHeadCell3> CANCEL </TableHeadCell3>
+            {[
+              "Sr No.",
+              "CANDIDATE NO.",
+              "PARTY CODE ",
+              "COMPANY NAME",
+              "CANDIDATE NAME",
+              "PASSPORT NO.",
+              "ACTUAL PROFESSION ",
+              "VISA PROFESSION ",
+              "AGENT",
+              "VISA RECIEVED DATE ",
+              "PROCESS CHARGES ",
+              "DOCUMENT CHARGES",
+              "OTHER CHARGES ",
+              "SECTOR CHARGES",
+              "PARTIAL CHARGES ",
+              "SERVICE CHARGES ",
+              "CONSULATE SETTING CHARGES",
+              "CANCEL CHARGES ",
+              "FLIGHT TICKET AMOUNT ",
+              "TICKET CHARGES ",
+              "EXTRA SERVICE CHARGES ",
+              "AIR TICKET ",
+              "IS DEPLOYED ",
+              "CANCEL ",
+            ].map((ele) => <TableHeadCell3>{ele}</TableHeadCell3>)}
 
           </TableHeadRow3>
         </TableHead3>

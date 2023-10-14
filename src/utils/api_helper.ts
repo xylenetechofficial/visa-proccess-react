@@ -323,6 +323,16 @@ export interface ResponseInterface {
   code: number;
   message: string;
   data?: unknown;
+  additional_data?: AdditionalDataInterface;
+}
+
+export interface AdditionalDataInterface {
+  pagination: {
+    page: number;
+    page_count: number;
+    item_count: number;
+    limit: number;
+  };
 }
 
 interface CacheData {

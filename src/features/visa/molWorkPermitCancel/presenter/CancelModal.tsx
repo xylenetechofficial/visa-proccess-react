@@ -102,7 +102,9 @@ export default function Main(props: {
                         </UpdateContentBox>
                         <UpdateContentBox>
                             <SubHeading1 text="CLIENT INVOICE  :" />
-                            <CustomRadioButton value={molWorkPermit.client_invoice}
+                            <CustomRadioButton 
+                            inlined
+                            value={molWorkPermit.client_invoice}
                                 onChange={(value) => {
                                     if (value == "yes")
                                         setmolWorkPermit({ ...molWorkPermit, client_invoice: value, mistake_by: "", penalty_amount: 0 })

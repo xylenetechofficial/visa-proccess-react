@@ -160,7 +160,9 @@ export default function Main(props: {
                     </UpdateContentBox>
                     <UpdateContentBox>
                         <SubHeading1 text="Client invoice   :" />
-                        <CustomRadioButton value={candidateCancelData.client_invoice}
+                        <CustomRadioButton 
+                        inlined
+                        value={candidateCancelData.client_invoice}
                             onChange={(value) => {
                                 if (value == "yes")
                                     setCandidateCancelData({ ...candidateCancelData, client_invoice: value, mistake_by: "", penalty_amount: 0 })

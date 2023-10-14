@@ -151,7 +151,13 @@ export default function Main(props: {
 
         setJobOrder({ ...jobOrder, approve: "yes" })
 
-        const newJobOrder = { ...jobOrder, approve: "yes" }
+        const newJobOrder = {
+            ...jobOrder,
+            approve: "yes",
+            actualProfesionList:actualProfesionList,
+            specialInstructionList: specialInstructionList,
+            EdocList: EdocList
+        } as JobOrderInterface
         console.log(newJobOrder)
         // call create
         await updateJobOrder(props.currentElement.id ?? 0, newJobOrder)
@@ -167,7 +173,13 @@ export default function Main(props: {
 
         setJobOrder({ ...jobOrder, approve: "reject" })
 
-        const newJobOrder = { ...jobOrder, approve: "reject" }
+        const newJobOrder = {
+            ...jobOrder,
+            approve: "reject",
+            actualProfesionList:actualProfesionList,
+            specialInstructionList: specialInstructionList,
+            EdocList: EdocList
+        } as JobOrderInterface
         console.log(newJobOrder)
         // call create
         await updateJobOrder(props.currentElement.id ?? 0, newJobOrder)

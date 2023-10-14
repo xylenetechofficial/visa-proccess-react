@@ -5,6 +5,7 @@ import { UnlabeledInput } from "../../../../componenets/Input";
 import { useState } from "react";
 import { PaymentReceivedInterface } from "../type";
 import { updateAgentPaymentReceivedDetail } from "../repository";
+import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props:{
     setModalName:(value:boolean)=>void,
@@ -80,7 +81,7 @@ return (
 
                 <UpdateContentBox>
                     <SubHeading1 text="Date  :" />
-                    <SubHeading1 text={props.currentData.date} />
+                    <SubHeading1 text={convertDateFormat(props.currentData.date)} />
                 </UpdateContentBox>
 
                 <UpdateContentBox>

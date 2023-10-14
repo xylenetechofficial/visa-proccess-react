@@ -46,7 +46,7 @@ function Main() {
             <Route path='/delhi-other-daily-payments/*' element={<DelhiOtherDailyPayments />}></Route>
             <Route path='/account-candidate-list/*' element={<AccountCandidateList />}></Route>
             <Route path='/service-charges/*' element={<AccountServices />}></Route>
-            <Route path='/Account-dpt/*' element={<AccountDpt />}></Route>
+            <Route path='/account-dpt/*' element={<AccountDpt />}></Route>
             <Route path='/agent-return-payment/*' element={<AgentReturnPayment />}></Route>
             <Route path='/manage-agent-payment-return/*' element={<ManageAgentPaymentReturn />}></Route>
         

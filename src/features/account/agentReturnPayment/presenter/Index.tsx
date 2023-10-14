@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import CreateModal from './Create'
-// import EditModal from './Edit'
+import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { MofaPaymentInterface, Mofa_Entry_Candidate_Interface } from "../type";
-import { readMofaEntryCandiateList, readMofaPaymentList } from "../repository";
+import { MofaPaymentInterface, AgentReturnPaymentInterface } from "../type";
+import { readAgentReturnPaymentList, readMofaPaymentList } from "../repository";
 import Table from "./Table";
 import { GreenButton } from "../../../../componenets/CustomButton";
 // import { Heading6 } from "../../../../componenets/CoustomHeader";
@@ -18,47 +18,32 @@ const CardHeader = styled(Box)(() => ({
     alignItems: "center",
     justifyContent: "space-between",
 }));
-const initValue: Mofa_Entry_Candidate_Interface = {
+const initValue: AgentReturnPaymentInterface = {
     id: 0,
-    name: "",
-    passport_no: "",
-    actual_profession: "",
-    division: "",
-    agent_name: "",
-    rs_name: "",
-    rm_name: "",
-    rc_name: "",
-    visa_profession: "",
-    mofa_number: "",
-    pp_copy: "",
-    pp_issued_date: "",
-    pp_expiry_date: "",
-    place_of_issue: "",
-    date_of_birth: "",
-    place_of_birth: "",
-    address: "",
-    religion: "",
-    payment_from: "",
-    select_status: "",
-    visa_issue_date: "",
-    visa_received_date: "",
+    agent_id: 0,
+    agent_name: '',
+    amount: 0,
+    description: '',
+    created_at: '',
 }
 export default function Main() {
-    const [CandidateList, setCandidateList] = useState<Mofa_Entry_Candidate_Interface[]>([])
-    const [currentElement, setCurrentElement] = useState<Mofa_Entry_Candidate_Interface>(initValue)
+    const [CandidateList, setCandidateList] = useState<AgentReturnPaymentInterface[]>([])
+    const [currentElement, setCurrentElement] = useState<AgentReturnPaymentInterface>(initValue)
 
     const [modalName, setModalName] = useState('')
 
     const [searchQuery, setSearchQuery] = useState("")
 
-    const filterData = (query: string, data: Mofa_Entry_Candidate_Interface[]) => {
-        if (!query) {
-            return data;
-        } else {
-            return data.filter((d) =>
-                d.name.toLowerCase().includes(query.toLowerCase())
-            );
-        }
+    const filterData = (query: string, data: AgentReturnPaymentInterface[]) => {
+        // if (!query) {
+        // return data;
+        // } else {
+        // return data.filter((d) =>
+        //     d.name.toLowerCase().includes(query.toLowerCase())
+        // );
+        // }
+        return data;
+
     };
     const dataFiltered = filterData(searchQuery, CandidateList);
 
@@ -67,38 +52,29 @@ export default function Main() {
 
     }
 
-    const onClickEdit = (ele: Mofa_Entry_Candidate_Interface) => {
+    const onClickEdit = (ele: AgentReturnPaymentInterface) => {
         setCurrentElement(ele)
         setModalName('edit');
     }
 
-    const onClickAdd = async (ele: Mofa_Entry_Candidate_Interface) => {
+    const onClickAdd = async (ele: AgentReturnPaymentInterface) => {
         setCurrentElement(ele);
         setModalName('add');
     }
-
+    
     // useEffect(() => {
     // }, [editIndexVisa, modalName])
 
 
 
-    const fetchMofaEntryCandiateList = async () => {
-        const data = await readMofaEntryCandiateList("yes");
+    const fetchAgentReturnPaymentList = async () => {
+        const data = await readAgentReturnPaymentList("yes");
         console.log(data);
         setCandidateList(data)
     }
 
-    const [mofaPaymentList, setMofaPaymentList] = useState<MofaPaymentInterface[]>([])
-    const fetchMofaPaymentList = async () => {
-        const data = await readMofaPaymentList();
-        // console.log(data);
-        setMofaPaymentList(data)
-    }
-
     useEffect(() => {
-
-        // fetchMofaPaymentList()
-        // fetchMofaEntryCandiateList()
+        fetchAgentReturnPaymentList()
     }, [])
 
 
@@ -106,7 +82,10 @@ export default function Main() {
     return (
 
         <div >
-            <CustomNavbarV3 pageName="Manage Agent Payment Return" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Manage Agent Payment Return" searchFunction={(query) => setSearchQuery(query)}
+                refresh={() => {
+                    fetchAgentReturnPaymentList()
+                }} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -117,6 +96,7 @@ export default function Main() {
                 candidateList={CandidateList}
                 onClickAdd={onClickAdd}
                 onClickEdit={onClickEdit}
+                fetchAgentReturnPaymentList={fetchAgentReturnPaymentList}
             />
 
             {/* <!-- Modal --> */}
@@ -125,23 +105,23 @@ export default function Main() {
             {modalName !== "add" ? "" :
                 <CreateModal
                     onClose={() => {
-                        fetchMofaEntryCandiateList()
+                        fetchAgentReturnPaymentList()
                         setModalName("")
                     }}
-                    fetchMofaEntryCandiateList={fetchMofaEntryCandiateList}
+                    fetchAgentReturnPaymentList={fetchAgentReturnPaymentList}
                 />}
 
             {/* Edit */}
             {modalName !== "edit" ? "" :
                 <>
-                    {/* <EditModal
+                    <EditModal
                     currentElement={currentElement}
                     onClose={() => {
-                        fetchMofaEntryCandiateList()
+                        fetchAgentReturnPaymentList()
                         setModalName("")
                     }}
-                    fetchMofaEntryCandiateList={fetchMofaEntryCandiateList}
-                /> */}
+                    fetchAgentReturnPaymentList={fetchAgentReturnPaymentList}
+                />
                 </>
             }
         </div>

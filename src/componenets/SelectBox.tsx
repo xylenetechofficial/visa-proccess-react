@@ -21,6 +21,10 @@ export const selectOptionConveter = (props: {
 
 
 export function CustomSelectComponent(props: {
+    style?: {
+        height?: string;
+        width?: string;
+    }
     label?: string,
     required?: boolean,
     value?: any,
@@ -36,27 +40,33 @@ export function CustomSelectComponent(props: {
 
     // console.log(props.value)
     return (
-        <FormControl fullWidth size="small">
-            <InputLabel id="demo-simple-select-label">{props.label} {props.required ? "*" : ""}</InputLabel>
-            <Select
-                required={props.required ? true : false}
-                sx={{ width: "100%" }}
-                label={props.label}
-                value={props.value}
-                onChange={handleChange}
-            >
-                {/* <MenuItem value={props.default ?? ""}>None</MenuItem> */}
-                {props.options.map((option) => (
-                    <MenuItem value={option.value}>{option.name}</MenuItem>
+        <div style={props.style}>
+            <FormControl fullWidth size="small">
+                <InputLabel id="demo-simple-select-label">{props.label} {props.required ? "*" : ""}</InputLabel>
+                <Select
+                    required={props.required ? true : false}
+                    sx={{ width: "100%" }}
+                    label={props.label}
+                    value={props.value}
+                    onChange={handleChange}
+                >
+                    {/* <MenuItem value={props.default ?? ""}>None</MenuItem> */}
+                    {props.options.map((option) => (
+                        <MenuItem value={option.value}>{option.name}</MenuItem>
 
-                ))}
+                    ))}
 
-            </Select>
-        </FormControl>
+                </Select>
+            </FormControl>
+        </div>
     );
 }
 export function CustomSelectComponentUnlabeled(props: {
-
+    style?: {
+        height?: string;
+        width?: string;
+    }
+    label?: string;
     required?: boolean,
     value?: any,
     options: { name: string, value: any }[]
@@ -64,18 +74,30 @@ export function CustomSelectComponentUnlabeled(props: {
 }) {
 
     return (
-        <select
-            onChange={(event) => {
-                props.onChange(event.target.value)
-            }}
-            id="countries" className="bg-white border max-w-[300px] min-w-[130px] border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option  > --select-- </option>
+        <div style={props.style}>
+            <select
+                onChange={(event) => {
+                    props.onChange(event.target.value)
+                }}
+                id="countries" className="bg-white border max-w-[300px] min-w-[130px] border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                {props.label ? <>
+                    <option selected>
+                        {props.label}
+                    </option>
+                    <option>
+                    </option>
+                </> :
+                    <option>
+                        --select--
+                    </option>}
+                {/* <option  > {props.label ? props.label : "--select--"} </option> */}
 
-            {props.options.map((element) => (
-                <option value={element.value} selected={element.value == props.value} >{element.name}</option>
-            ))}
+                {props.options.map((element) => (
+                    <option value={element.value} selected={element.value == props.value} >{element.name}</option>
+                ))}
 
-        </select>
+            </select>
+        </div>
     );
 }
 

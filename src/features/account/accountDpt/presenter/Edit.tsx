@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { RedButton } from "../../../../componenets/CustomButton"
 import { FullScreenModal } from "../../../../componenets/Modal"
-import { Table3, TableBody2, TableCell, TableHeadRed, TableHeadCell, TableHeadRow, TableRow } from "../../../../componenets/Table"
+import { Table3, TableBody3, TableCell3, TableHeadRed, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import AgentPaymentModal from './AgentPaymentReceivedDetails';
 import { PaymentReceivedInterface } from "../type";
+import { convertDateFormat } from "../../../../utils/function";
 export default function Main(props: {
   setModal: (value: string) => void,
   editPaymentList: PaymentReceivedInterface[]
@@ -25,29 +26,29 @@ export default function Main(props: {
       <div className=" grid grid-cols-1 py-3  gap-2 shadow overflow-scroll">
         <Table3>
           <TableHeadRed>
-            <TableHeadRow>
-              <TableHeadCell> Sr No.</TableHeadCell>
-              <TableHeadCell> CANDIDATE NAME</TableHeadCell>
-              <TableHeadCell> PASSPORT NO.</TableHeadCell>
-              <TableHeadCell> AGENT NAME</TableHeadCell>
-              <TableHeadCell> AMOUNT RECEIVED</TableHeadCell>
-              <TableHeadCell> DATE </TableHeadCell>
-              <TableHeadCell> EDIT</TableHeadCell>
-            </TableHeadRow>
+            <TableHeadRow3>
+              <TableHeadCell3> Sr No.</TableHeadCell3>
+              <TableHeadCell3> CANDIDATE NAME</TableHeadCell3>
+              <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
+              <TableHeadCell3> AGENT NAME</TableHeadCell3>
+              <TableHeadCell3> AMOUNT RECEIVED</TableHeadCell3>
+              <TableHeadCell3> DATE </TableHeadCell3>
+              <TableHeadCell3> EDIT</TableHeadCell3>
+            </TableHeadRow3>
           </TableHeadRed>
-          <TableBody2>
+          <TableBody3>
             {props.editPaymentList.map((item, index) => (
-              <TableRow>
-                <TableCell>{index + 1} </TableCell>
-                <TableCell> {item.name}</TableCell>
-                <TableCell>{item.passport_no} </TableCell>
-                <TableCell> {item.agent_name}</TableCell>
-                <TableCell>{item.amount_received} </TableCell>
-                <TableCell>{item.received} </TableCell>
-                <TableCell> <RedButton text="Edit" onClick={() => { onClickEdit(), setCurrentData(item) }} /></TableCell>
-              </TableRow>
+              <TableRow3>
+                <TableCell3>{index + 1} </TableCell3>
+                <TableCell3> {item.name}</TableCell3>
+                <TableCell3>{item.passport_no} </TableCell3>
+                <TableCell3> {item.agent_name}</TableCell3>
+                <TableCell3>{item.amount_received} </TableCell3>
+                <TableCell3>{convertDateFormat(item.date)} </TableCell3>
+                <TableCell3> <RedButton text="Edit" onClick={() => { onClickEdit(), setCurrentData(item) }} /></TableCell3>
+              </TableRow3>
             ))}
-          </TableBody2>
+          </TableBody3>
         </Table3>
         {editModal ? <AgentPaymentModal currentData={currentData} setModalName={(value) => setEditModal(value)} /> : ''}
       </div>

@@ -110,7 +110,9 @@ export default function Main() {
     return (
 
         <div >
-            <CustomNavbarV3 pageName="Job Order Approve" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Job Order Approve" searchFunction={(query) => setSearchQuery(query)} refresh={()=>{
+                fetchJobOrderList()
+            }}/>
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

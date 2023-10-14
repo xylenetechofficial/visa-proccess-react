@@ -1,5 +1,5 @@
 import { json } from "react-router-dom";
-import { ActualProfessionInterface } from "../Extra/type";
+import { ActualProfessionConverter, ActualProfessionInterface } from "../Extra/type";
 
 export interface JobOrderInterface {
   id?: number;
@@ -17,7 +17,7 @@ export interface JobOrderInterface {
   division: string;
   departureSectorId: number;
   jobOrderNumber?: string;
-  acttualProfesionList?: ActualProfessionInterface[];
+  actualProfesionList: ActualProfessionInterface[];
   operationManagerId?: number;
   recruitmentManagerId?: number;
   interviewModeId?: number;
@@ -55,7 +55,7 @@ export interface JobOrderAdapter {
   division: string;
   departure_sector: number;
   job_order_no?: string;
-  actual_profession_list?: string;
+  actual_profession_list: string;
   operation_manager?: number;
   recruitment_manager?: number;
   rs?: number;
@@ -100,7 +100,9 @@ export class JobOrderConverter {
       division: a.division,
       departureSectorId: a.departure_sector,
       jobOrderNumber: a.job_order_no,
-      acttualProfesionList: JSON.parse(a.actual_profession_list ?? "[]"),
+      actualProfesionList: ActualProfessionConverter.toInterfaceList(
+        JSON.parse(a.actual_profession_list ?? "[]")
+      ),
       operationManagerId: a.operation_manager,
       recruitmentManagerId: a.recruitment_manager,
       rcId: a.rc,
@@ -159,7 +161,9 @@ export class JobOrderConverter {
       company_name: i.company_name,
       division: i.division,
       departure_sector: i.departureSectorId,
-      actual_profession_list: JSON.stringify(i.acttualProfesionList),
+      actual_profession_list: JSON.stringify(
+        ActualProfessionConverter.toAdapterList(i.actualProfesionList ?? [])
+      ),
       operation_manager: i.operationManagerId,
       recruitment_manager: i.recruitmentManagerId,
       rc: i.rcId,

@@ -260,7 +260,9 @@ export default function Main(props: {
             </UpdateContentBox>
             <UpdateContentBox>
                 <SubHeading1 text="Client invoice   :" />
-                <CustomRadioButton value={molWokPermitCancel.client_invoice}
+                <CustomRadioButton 
+                inlined 
+                value={molWokPermitCancel.client_invoice}
                     onChange={(value) => {
                         if (value == "yes")
                             setMolWokPermitCancel({ ...molWokPermitCancel, client_invoice: value, mistake_by: "", penalty_amount: 0 })

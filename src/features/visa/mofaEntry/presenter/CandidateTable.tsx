@@ -223,14 +223,16 @@ const TableData = (
                     <UnlabeledInput
                         value={localRowData.mofa_number}
                         onchange={(value) => setLocalRowData({ ...localRowData, mofa_number: value })}
-                    /></TableCell3>
+                    />
+                </TableCell3>
+                <TableCell3 > {localRowData.visa_profession}</TableCell3>
             </> : <>
                 {/* IF NON KSA */}
                 <TableCell3 >
                     <DateInput
                         id='jbvh6dsd5r'
                         value={localRowData.visa_issue_date}
-                        onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
+                        onChange={(value) => setLocalRowData({ ...localRowData, visa_issue_date: value })}
                     />
                 </TableCell3>
 
@@ -238,11 +240,17 @@ const TableData = (
                     <DateInput
                         id='jbvh6ad5r'
                         value={localRowData.visa_received_date}
-                        onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
+                        onChange={(value) => setLocalRowData({ ...localRowData, visa_received_date: value })}
+                    />
+                </TableCell3>
+                <TableCell3 >
+                    <UnlabeledInput
+                        value={localRowData.visa_profession}
+                        onchange={(value) => setLocalRowData({ ...localRowData, visa_profession: value })}
                     />
                 </TableCell3>
             </>}
-            <TableCell3 > {localRowData.visa_profession}</TableCell3>
+            
             <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.pp_copy}

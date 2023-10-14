@@ -1,33 +1,28 @@
-
 export interface CandidateDiscountApproveRejectInterface {
-
-  candidate_id:number,
-  agent_id:number,
-  amount:number,
-  remarks:string
-
+  discount_id?: number;
+  candidate_id: number;
+  agent_id: number;
+  amount: number;
+  remarks: string;
 }
 // 'block_visa' => 'required|array',
 // 'visa_profession_list' => 'required|array'
 
-export interface ServerAdapter{
-  block_visa: CandidateDiscountApproveRejectAdapter,
-  visa_profession_list: VisaProfesionAdapter[]
+export interface ServerAdapter {
+  block_visa: CandidateDiscountApproveRejectAdapter;
+  visa_profession_list: VisaProfesionAdapter[];
 }
 
 // block_visa
 export interface CandidateDiscountApproveRejectAdapter {
-  candidate_id:number,
-  agent_id:number,
-  amount:number,
-  remarks:string
-
-
-
+  candidate_id: number;
+  agent_id: number;
+  amount: number;
+  remarks: string;
 }
 
 export interface VisaProfesionInterface {
-  id?:number;
+  id?: number;
   block_visa_id: number;
   visa_profession: string;
   arabic_visa_category: string;
@@ -35,7 +30,7 @@ export interface VisaProfesionInterface {
 }
 
 export interface VisaProfesionAdapter {
-  id?:number;
+  id?: number;
   block_visa_id: number;
   visa_profession: string;
   arabic_visa_category: string;
@@ -51,13 +46,10 @@ export class CandidateDiscountApproveRejectConverter {
    */
   public static toInterface(a: CandidateDiscountApproveRejectAdapter) {
     const data: CandidateDiscountApproveRejectInterface = {
-   
-
-      candidate_id:a.candidate_id,
-      agent_id:a.agent_id,
-      amount:a.amount,
-      remarks:a.remarks
-
+      candidate_id: a.candidate_id,
+      agent_id: a.agent_id,
+      amount: a.amount,
+      remarks: a.remarks,
     };
     return data;
   }
@@ -72,9 +64,8 @@ export class CandidateDiscountApproveRejectConverter {
       candidate_id: i.candidate_id,
       agent_id: i.agent_id,
       amount: i.amount,
-      remarks: i.remarks
+      remarks: i.remarks,
     };
     return data;
   }
 }
-

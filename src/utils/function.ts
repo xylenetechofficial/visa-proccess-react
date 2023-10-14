@@ -9,7 +9,7 @@ export function getFileName(path: string) {
   return path.split("\\").pop()!.split("/").pop();
 }
 
-export function convertDateFormat(dateString: string) {
+export function convertDateFormat(dateString?: string) {
   if (!dateString || dateString.trim() == "") return "";
   const months = [
     "Jan",
