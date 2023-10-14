@@ -193,8 +193,8 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
   }
 
   return (
-    <div className="pagination">
-      <span>Total Items: {item_count}</span>
+    <div className="pagination inline-flex -space-x-px text-base h-10 my-5">
+      <span className="flex items-center justify-center px-3 h-10 ml-0 mr-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-lg text-lg font-bold">Total Items: {item_count}</span>
       {currentPage === 1 ? "" :
         <button onClick={() => handlePageChange(1)} className={firstButton}>
           First
