@@ -105,3 +105,78 @@ export class TicketReIssueApprovedConverter {
       return data_list;
     }
   }
+
+
+  
+export interface TicketReIssueApprovedListInterface {
+
+  selection_list: TicketReIssueApprovedInterface[],
+  
+}
+
+export interface TicketReIssueApprovedListAdapter {
+
+  selection_list: TicketReIssueApprovedAdapter[],
+  
+}
+
+
+export class TicketReIssueApprovedListConverter {
+  // private i: AddCandidateInvoiceNumberInterface
+  // private a: AddPenaltyAfterDeploymentAdapter
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: TicketReIssueApprovedListAdapter) {
+    const data: TicketReIssueApprovedListInterface = {
+      selection_list: a?.selection_list?.map((item) => ({       
+        "id":item.id ,
+        "company_name":item.company_name ,
+        "candidate_name":item.candidate_name ,
+        "passport_no":item.passport_no ,
+        "agent_name":item.agent_name ,
+        "rc_name":item.rc_name ,
+        "payment":item.payment ,
+        "given_to":item.given_to ,
+        "departure_date":item.departure_date ,
+        "ticket_charges":item.ticket_charges ,
+        "ticketing_previous_reissue_charge":item.ticketing_previous_reissue_charge ,
+        "ticketing_reissue_charge":item.ticketing_reissue_charge ,
+        "ticketing_mistake_by":item.ticketing_mistake_by ,
+        "is_select":item.is_select
+      })),
+  
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: TicketReIssueApprovedListInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: TicketReIssueApprovedListAdapter = {
+
+      selection_list: i?.selection_list?.map((item) => ({    
+        "id":item.id ,
+        "company_name":item.company_name ,
+        "candidate_name":item.candidate_name ,
+        "passport_no":item.passport_no ,
+        "agent_name":item.agent_name ,
+        "rc_name":item.rc_name ,
+        "payment":item.payment ,
+        "given_to":item.given_to ,
+        "departure_date":item.departure_date ,
+        "ticket_charges":item.ticket_charges ,
+        "ticketing_previous_reissue_charge":item.ticketing_previous_reissue_charge ,
+        "ticketing_reissue_charge":item.ticketing_reissue_charge ,
+        "ticketing_mistake_by":item.ticketing_mistake_by ,
+        "is_select":item.is_select
+    })),
+      
+    };
+    return data;
+  }
+}

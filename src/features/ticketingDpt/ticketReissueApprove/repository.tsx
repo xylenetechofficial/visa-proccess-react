@@ -1,6 +1,6 @@
 import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import { TicketReIssueApprovedAdapter, TicketReIssueApprovedConverter, TicketReIssueApprovedInterface } from "./type";
+import { TicketReIssueApprovedAdapter, TicketReIssueApprovedConverter, TicketReIssueApprovedInterface, TicketReIssueApprovedListConverter, TicketReIssueApprovedListInterface } from "./type";
 
 
 export async function readTicketReIssueApprovedList() {
@@ -32,10 +32,10 @@ export async function readTicketReIssueApprovedList() {
 
 export async function createTicketReIssueApprovedList(TicketBookingRequest:TicketReIssueApprovedInterface[]) {
     const path = "/ticketing-dpt/ticket-reissue-approve-list";
-  const list :any ={
+  const list :TicketReIssueApprovedListInterface ={
     selection_list:TicketBookingRequest
   }
-    const payload = TicketReIssueApprovedConverter.toAdapterList(TicketBookingRequest);
+    const payload = TicketReIssueApprovedListConverter.toAdapter(list);
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT
