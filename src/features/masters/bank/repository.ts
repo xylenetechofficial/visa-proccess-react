@@ -1,8 +1,8 @@
 import { BankAdapter, BankInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readBankList(refresh = false) {
+export async function readBankList(refresh = false, page_number?: number) {
 
 
   const path = "/masters/bank-list";
@@ -11,6 +11,9 @@ export async function readBankList(refresh = false) {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
+    queryParameters: {
+      page: page_number ?? 1,
+    },
   });
 
   if (response.code != 200) {
@@ -26,7 +29,11 @@ export async function readBankList(refresh = false) {
       visaAuthorisation: element.visa_authorisation,
     });
   }
-  return data as BankInterface[];
+  return {
+    data: data as BankInterface[],
+    additional_data: response.additional_data as AdditionalDataInterface,
+  }
+  
 }
 
 export async function createBank(bank: BankInterface) {

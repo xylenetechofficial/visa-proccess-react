@@ -5,7 +5,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 
 
-const VisaTypeTable = (props: { visaTypeList: VisaTypeInterface[], onClickEdit: any, onClickDelete: any }) => {
+const VisaTypeTable = (props: {snoBase:number, visaTypeList: VisaTypeInterface[], onClickEdit: any, onClickDelete: any }) => {
     return (
         <div className='overflow-auto' style={{width:"100%"}}>
 
@@ -26,7 +26,7 @@ const VisaTypeTable = (props: { visaTypeList: VisaTypeInterface[], onClickEdit: 
                     {props.visaTypeList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                          <TableCell3>{index + props.snoBase +1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.mofa_fee}</TableCell3>
                             <TableCell3 > {ele.visa_fee}</TableCell3>

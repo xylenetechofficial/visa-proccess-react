@@ -1,108 +1,152 @@
 import { useEffect, useState } from "react";
-import CreateModal from './Create'
-import EditModal from './Edit'
+import CreateModal from "./Create";
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import ConsolidateChargeTable from "./ConsolidateChargeTable";
 import { confirmationMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { ConsolidateChargeInterface } from "../type";
-import { deleteConsolidateCharge, readConsolidateChargeList } from "../repository";
+import {
+  deleteConsolidateCharge,
+  readConsolidateChargeList,
+} from "../repository";
+import Pagination from "../../../../componenets/Pagination";
+import { AdditionalDataInterface } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
+  display: "flex",
+  flexWrap: "wrap",
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Main() {
-    const [consolidateChargeList, setConsolidateChargeList] = useState<ConsolidateChargeInterface[]>([])
+  const [consolidateChargeList, setConsolidateChargeList] = useState<
+    ConsolidateChargeInterface[]
+  >([]);
 
-    const [editConsolidateCharge, setEditConsolidateCharge] = useState<ConsolidateChargeInterface>({} as ConsolidateChargeInterface)
-
-    const [modalName, setModalName] = useState('')
-
-    const [searchQuery, setSearchQuery] = useState("")
-
-    const filterData = (query: string, data: ConsolidateChargeInterface[]) => {
-        if (!query) {
-            return data;
-        } else {
-            return data.filter((d) =>
-                d.name.toLowerCase().includes(query.toLowerCase())
-            );
-        }
-    };
-    const dataFiltered = filterData(searchQuery, consolidateChargeList);
-
-    const onClickCreate = () => {
-        setModalName('create');
-
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
     }
+  );
 
-    const onClickEdit = (consolidateCharge: ConsolidateChargeInterface) => {
-        setEditConsolidateCharge(consolidateCharge)
-        console.log("onClickEdit");   // Only Dev
-        console.log(consolidateCharge);   // Only Dev
-        setModalName('edit')
+  const [editConsolidateCharge, setEditConsolidateCharge] =
+    useState<ConsolidateChargeInterface>({} as ConsolidateChargeInterface);
+
+  const [modalName, setModalName] = useState("");
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filterData = (query: string, data: ConsolidateChargeInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.name.toLowerCase().includes(query.toLowerCase())
+      );
     }
+  };
+  const dataFiltered = filterData(searchQuery, consolidateChargeList);
 
-    const onClickDelete = async (consolidateCharge: ConsolidateChargeInterface) => {
-        const flag = await confirmationMessage("Do you really want to delete?")
-        if (flag && consolidateCharge.id) {
-            await deleteConsolidateCharge(consolidateCharge.id);
-            fetchConsolidateChargeList()
-        }
+  const onClickCreate = () => {
+    setModalName("create");
+  };
+
+  const onClickEdit = (consolidateCharge: ConsolidateChargeInterface) => {
+    setEditConsolidateCharge(consolidateCharge);
+    console.log("onClickEdit"); // Only Dev
+    console.log(consolidateCharge); // Only Dev
+    setModalName("edit");
+  };
+
+  const onClickDelete = async (
+    consolidateCharge: ConsolidateChargeInterface
+  ) => {
+    const flag = await confirmationMessage("Do you really want to delete?");
+    if (flag && consolidateCharge.id) {
+      await deleteConsolidateCharge(consolidateCharge.id);
+      fetchConsolidateChargeList();
     }
+  };
 
-    // useEffect(() => {
-    // }, [editConsolidateCharge, modalName])
+  // useEffect(() => {
+  // }, [editConsolidateCharge, modalName])
 
-    const fetchConsolidateChargeList = async () => {
-        setConsolidateChargeList(await readConsolidateChargeList(true))
-    }
-    useEffect(() => {
+  const fetchConsolidateChargeList = async (page?: number) => {
+    const res = await readConsolidateChargeList(true, page);
+    setConsolidateChargeList(res.data);
+  };
+  useEffect(() => {
+    fetchConsolidateChargeList();
+  }, []);
 
-        fetchConsolidateChargeList()
+  return (
+    <div>
+      <CustomNavbarV3
+        pageName="Consolidate Charge"
+        searchFunction={(query) => setSearchQuery(query)}
+      />
 
-    }, [])
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
+        <GreenButton
+          text={"Add +"}
+          onClick={() => {
+            setModalName("create");
+          }}
+        />
+      </CardHeader>
 
+      {/*  consolidateCharge stable */}
+      <ConsolidateChargeTable
+        snoBase={additionalData.pagination.sno_base}
+        consolidateChargeList={dataFiltered}
+        onClickEdit={onClickEdit}
+        onClickDelete={onClickDelete}
+      />
 
-    return (
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          fetchConsolidateChargeList(e);
+        }}
+      />
 
-        <div >
-            <CustomNavbarV3 pageName="Consolidate Charge" searchFunction={(query) => setSearchQuery(query)} />
+      {/* <!-- Modal --> */}
 
-            <CardHeader>
+      {/* Create */}
+      {modalName !== "create" ? (
+        ""
+      ) : (
+        <CreateModal
+          onClose={() => setModalName("")}
+          fetchConsolidateChargeList={fetchConsolidateChargeList}
+        />
+      )}
 
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-                <GreenButton text={"Add +"} onClick={() => {
-                    setModalName("create")
-                }} />
-
-            </CardHeader>
-
-
-            {/*  consolidateCharge stable */}
-            <ConsolidateChargeTable
-                consolidateChargeList={dataFiltered}
-                onClickEdit={onClickEdit}
-                onClickDelete={onClickDelete}
-            />
-
-            {/* <!-- Modal --> */}
-
-            {/* Create */}
-            {modalName !== "create" ? "" : <CreateModal onClose={() => setModalName("")} fetchConsolidateChargeList={fetchConsolidateChargeList} />}
-
-            {/* Edit */}
-            {modalName !== "edit" ? "" : <EditModal consolidateCharge={editConsolidateCharge} onClose={() => setModalName("")} fetchConsolidateChargeList={fetchConsolidateChargeList}
-            />}
-        </div>
-    )
+      {/* Edit */}
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal
+          consolidateCharge={editConsolidateCharge}
+          onClose={() => setModalName("")}
+          fetchConsolidateChargeList={fetchConsolidateChargeList}
+        />
+      )}
+    </div>
+  );
 }

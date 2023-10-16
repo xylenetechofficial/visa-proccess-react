@@ -7,7 +7,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 
 
-const CompanyTable = (props: { companyList: CompanyInterface[], onClickEdit: any, onClickDelete: any, countryList: CountryInterface[] }) => {
+const CompanyTable = (props: { companyList: CompanyInterface[], onClickEdit: any, onClickDelete: any, countryList: CountryInterface[] , snoBase:number}) => {
 
     console.log(props.companyList)
     return (
@@ -32,7 +32,7 @@ const CompanyTable = (props: { companyList: CompanyInterface[], onClickEdit: any
                     {props.companyList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                             <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.code}</TableCell3>
                             <TableCell3 > {

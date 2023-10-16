@@ -7,7 +7,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 
 
-const CountryTable = (props: { countryList: CountryInterface[], onClickEdit: any, onClickDelete: any }) => {
+const CountryTable = (props: { countryList: CountryInterface[], onClickEdit: any, onClickDelete: any, snoBase:number }) => {
     return (
         <div className='overflow-auto'>
        
@@ -24,7 +24,7 @@ const CountryTable = (props: { countryList: CountryInterface[], onClickEdit: any
                         {props.countryList.map((ele, index) => (
 
                             <TableRow3 key={index}>
-                                <TableCell3>{index + 1}</TableCell3>
+                                <TableCell3>{index +props.snoBase + 1}</TableCell3>
                                 <TableCell3 > {ele.name}</TableCell3>
                                 <TableCell3 >
 

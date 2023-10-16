@@ -10,6 +10,8 @@ import { CustomButton, CustomButton2, CustomNavbarV3 } from "../../../../compone
 import { FaFilter } from "react-icons/fa";
 import { InterviewModeInterface } from "../type";
 import { deleteInterviewMode, readInterviewModeList } from "../repository";
+import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -21,6 +23,16 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
     const [interviewModeList, setInterviewModeList] = useState<InterviewModeInterface[]>([])
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+        {
+          pagination: {
+            page: 1,
+            page_count: 1,
+            item_count: 0,
+            sno_base: 0,
+          },
+        }
+      );
 
     const [editInterviewMode, setEditInterviewMode] = useState<InterviewModeInterface>({} as InterviewModeInterface)
 
@@ -62,8 +74,10 @@ export default function Main() {
     // useEffect(() => {
     // }, [editInterviewMode, modalName])
 
-    const fetchInterviewModeList = async () => {
-        setInterviewModeList(await readInterviewModeList(true))
+    const fetchInterviewModeList = async (page?:number) => {
+        const res = await readInterviewModeList(true, page)
+        setInterviewModeList(res.data)
+        setAdditionalData(res.additional_data)
     }
     useEffect(() => {
 
@@ -91,10 +105,18 @@ export default function Main() {
 
             {/*  interviewMode stable */}
             <InterviewModeTable
+            snoBase={additionalData.pagination.sno_base}
                 interviewModeList={dataFiltered}
                 onClickEdit={onClickEdit}
                 onClickDelete={onClickDelete}
             />
+            
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+            fetchInterviewModeList(e);
+        }}
+      />
 
             {/* <!-- Modal --> */}
 

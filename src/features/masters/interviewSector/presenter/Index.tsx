@@ -10,6 +10,8 @@ import { CustomButton, CustomButton2, CustomNavbarV3 } from "../../../../compone
 import { FaFilter } from "react-icons/fa";
 import { InterviewSectorInterface } from "../type";
 import { deleteInterviewSector, readInterviewSectorList } from "../repository";
+import Pagination from "../../../../componenets/Pagination";
+import { AdditionalDataInterface } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -21,6 +23,17 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
     const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([])
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+        {
+          pagination: {
+            page: 1,
+            page_count: 1,
+            item_count: 0,
+            sno_base: 0,
+          },
+        }
+      );
+
 
     const [editInterviewSector, setEditInterviewSector] = useState<InterviewSectorInterface>({} as InterviewSectorInterface)
 
@@ -62,8 +75,10 @@ export default function Main() {
     // useEffect(() => {
     // }, [editInterviewSector, modalName])
 
-    const fetchInterviewSectorList = async () => {
-        setInterviewSectorList(await readInterviewSectorList(true))
+    const fetchInterviewSectorList = async (page?:number) => {
+        const res = await readInterviewSectorList(true , page)
+        setInterviewSectorList(res.data)
+        setAdditionalData(res.additional_data)
     }
     useEffect(() => {
 
@@ -93,11 +108,19 @@ export default function Main() {
 
             {/*  interviewSector stable */}
             <InterviewSectorTable
+            snoBase={additionalData.pagination.sno_base}
                 interviewSectorList={dataFiltered}
                 onClickEdit={onClickEdit}
                 onClickDelete={onClickDelete}
             />
 
+            
+<Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+            fetchInterviewSectorList(e);
+        }}
+      />
             {/* <!-- Modal --> */}
 
             {/* Create */}

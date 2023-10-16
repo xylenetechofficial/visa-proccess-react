@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AgentAdapter, AgentConverter, AgentInterface } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
@@ -10,7 +11,7 @@ import { endpoint } from "../../../constant";
 import { showMessage_v2 } from "../../../utils/alert";
 import { string } from "prop-types";
 
-export async function readAgentList(refresh = false, filter_for = "") {
+export async function readAgentList(refresh = false, filter_for = "", page_number?: number) {
   const path = "/masters/agent-list";
 
   const response = await ApiHelper.get(path, {
@@ -19,6 +20,7 @@ export async function readAgentList(refresh = false, filter_for = "") {
     cacheTime: refresh ? 0 : 1,
     queryParameters: {
       filter_for: filter_for,
+      page: page_number ?? 1,
     },
   });
 
@@ -36,7 +38,10 @@ export async function readAgentList(refresh = false, filter_for = "") {
     }
   }
 
-  return data;
+  return {
+    data: data,
+  additional_data: response.additional_data as AdditionalDataInterface,
+  }
 }
 
 export async function createAgent(agent: AgentInterface) {

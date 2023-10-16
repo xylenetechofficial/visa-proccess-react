@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, Ta
 
 
 
-const OtherDocsTable = (props: { otherDocsList: OtherDocsInterface[], onClickEdit: any, onClickDelete: any }) => {
+const OtherDocsTable = (props: { snoBase:number, otherDocsList: OtherDocsInterface[], onClickEdit: any, onClickDelete: any }) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
            
@@ -23,7 +23,7 @@ const OtherDocsTable = (props: { otherDocsList: OtherDocsInterface[], onClickEdi
                         {props.otherDocsList.map((ele, index) => (
 
                             <TableRow key={index}>
-                                <TableCell >{index + 1}</TableCell>
+                        <TableCell>{index + props.snoBase +1}</TableCell>
                                 <TableCell > {ele.name}</TableCell>
                                 <TableCell >
 

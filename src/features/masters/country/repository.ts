@@ -1,8 +1,8 @@
 import { CountryInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readCountryList(refresh = false) {
+export async function readCountryList(refresh = false ,page_number?: number) {
 
 
   const path = "/masters/country-list";
@@ -11,12 +11,18 @@ export async function readCountryList(refresh = false) {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
+    queryParameters: {
+      page: page_number ?? 1,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
-  return response.data as CountryInterface[];
+  return {
+    data: response.data as CountryInterface[],
+    additional_data: response.additional_data as AdditionalDataInterface,
+  } 
 }
 
 export async function createCountry(

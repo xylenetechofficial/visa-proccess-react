@@ -8,7 +8,7 @@ import {  Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadR
 
 
 
-const AgentTable = (props: { agentList: AgentInterface[], onClickEdit: any, onClickDelete: any }) => {
+const AgentTable = (props: { agentList: AgentInterface[], onClickEdit: any, onClickDelete: any, snoBase:number; }) => {
     const [sectorList, setSectorList] = useState<SectorInterface[]>()
 
     const fetchSectorList = async () => {
@@ -42,7 +42,7 @@ const AgentTable = (props: { agentList: AgentInterface[], onClickEdit: any, onCl
                     {props.agentList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.isDocumentRegistration==1 ? "Yes" : "No"}</TableCell3>
                             <TableCell3 > {sectorList?.map((e) => e.id == ele.location ? e.name : "")}</TableCell3>

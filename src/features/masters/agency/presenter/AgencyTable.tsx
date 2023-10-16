@@ -8,7 +8,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 
 
-const AgencyTable = (props: { agencyList: AgencyInterface[], onClickEdit: any, onClickDelete: any }) => {
+const AgencyTable = (props: { agencyList: AgencyInterface[], onClickEdit: any, onClickDelete: any , snoBase:number;}) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
 
@@ -25,7 +25,8 @@ const AgencyTable = (props: { agencyList: AgencyInterface[], onClickEdit: any, o
                         {props.agencyList.map((ele, index) => (
 
                             <TableRow3 key={index}>
-                                <TableCell3 >{index + 1}</TableCell3>
+                                {/* <TableCell3 >{index + 1}</TableCell3> */}
+                                <TableCell3 >{index + props.snoBase+1}</TableCell3>
                                 <TableCell3 > {ele.name}</TableCell3>
                                 <TableCell3 >
 

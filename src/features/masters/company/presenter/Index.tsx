@@ -12,6 +12,8 @@ import { CountryInterface } from "../../country/type";
 import { readCountryList } from "../../country/repository";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
+import Pagination from "../../../../componenets/Pagination";
+import { AdditionalDataInterface } from "../../../../utils/api_helper";
 
 const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -24,6 +26,17 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
     const [CompanyList, setCompanyList] = useState<CompanyInterface[]>([])
+
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+        {
+          pagination: {
+            page: 1,
+            page_count: 1,
+            item_count: 0,
+            sno_base: 0,
+          },
+        }
+      );
 
     const [editCompany, setEditCompany] = useState<CompanyInterface>({} as CompanyInterface)
 
@@ -45,7 +58,8 @@ export default function Main() {
     const [countryList, setCountryList] = useState<CountryInterface[]>([])
 
     const fetchCountryList = async () => {
-        setCountryList(await readCountryList())
+        const res = await readCountryList()
+        setCountryList(res.data)
 
     }
 
@@ -72,8 +86,11 @@ export default function Main() {
     // useEffect(() => {
     // }, [editCompany, modalName])
 
-    const fetchCompanyList = async () => {
-        setCompanyList(await readCompanyList(true))
+    const fetchCompanyList = async (page?:number) => {
+       const res = await readCompanyList(true, page)
+        setCompanyList(res.data);
+        setAdditionalData(res.additional_data)
+
     }
     useEffect(() => {
 
@@ -100,11 +117,16 @@ export default function Main() {
 
             {/*  Company stable */}
             <CompanyTable
+             snoBase={additionalData.pagination.sno_base}
                 companyList={dataFiltered}
                 onClickEdit={onClickEdit}
                 onClickDelete={onClickDelete}
                 countryList={countryList}
             />
+
+            <Pagination data={additionalData} onPageChange={(e)=>{
+                fetchCompanyList(e)
+            }} />
 
             {/* <!-- Modal --> */}
 

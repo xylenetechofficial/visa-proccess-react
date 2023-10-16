@@ -6,7 +6,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 
-const AgentSpecialNoteTable = (props: { agentSpecialNoteList: AgentSpecialNoteInterface[], onClickEdit: any, onClickDelete: any, agentList: AgentInterface[] }) => {
+const AgentSpecialNoteTable = (props: { agentSpecialNoteList: AgentSpecialNoteInterface[], onClickEdit: any, onClickDelete: any, agentList: AgentInterface[] , snoBase:number}) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
         
@@ -25,7 +25,7 @@ const AgentSpecialNoteTable = (props: { agentSpecialNoteList: AgentSpecialNoteIn
                         {props.agentSpecialNoteList.map((ele, index) => (
 
                             <TableRow3 key={index}>
-                                <TableCell3 >{index + 1}</TableCell3>
+                                <TableCell3 >{index + props.snoBase+1}</TableCell3>
                                 <TableCell3 > {props.agentList.map((e) => ele.agent == e.id ? e.name : "")}</TableCell3>
                                 <TableCell3 > {convertDateFormat(ele.date)}</TableCell3>
                                 <TableCell3 > {ele.note}</TableCell3>

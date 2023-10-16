@@ -6,11 +6,12 @@ import { readCountryList } from '../../country/repository';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 
 
-const SectorTable = (props: { sectorList: SectorInterface[], onClickEdit: any, onClickDelete: any }) => {
+const SectorTable = (props: { snoBase:number, sectorList: SectorInterface[], onClickEdit: any, onClickDelete: any }) => {
     const [countryList, setCountryList] = useState<CountryInterface[]>()
 
     const fetchCountryList = async () => {
-        setCountryList(await readCountryList())
+        const res = await readCountryList()
+        setCountryList(res.data)
 
     }
 
@@ -41,7 +42,7 @@ const SectorTable = (props: { sectorList: SectorInterface[], onClickEdit: any, o
                     {props.sectorList.map((ele, index) => (
 
                         <TableRow key={index}>
-                            <TableCell >{index + 1}</TableCell>
+                           <TableCell>{index + props.snoBase +1}</TableCell>
                             <TableCell > {ele.name}</TableCell>
                             <TableCell > {
                                 countryList?.map((e) => e.id == ele.country ? e.name : "")

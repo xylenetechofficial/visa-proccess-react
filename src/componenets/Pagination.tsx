@@ -82,7 +82,7 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
   const firstButton = "flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
   const lastButton = "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
   const othersButton = "flex items-center justify-center px-4 h-10 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-  const currentButton = "flex items-center justify-center px-4 h-10 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white bg-red-700"
+  const currentButton = "flex items-center justify-center px-4 h-10 text-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white bg-blue-500"
 
   const { page, page_count, item_count } = props.data.pagination ?? {
     page: 1,
@@ -134,14 +134,14 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
   return (
     <div className="pagination inline-flex -space-x-px text-base h-10 my-5">
       <span className="flex items-center justify-center px-3 h-10 ml-0 mr-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-lg text-lg font-bold">Total Items: {item_count}</span>
-      {currentPage === 1 ? "" :
+      {currentPage == 1 ? "" :
         <button onClick={() => handlePageChange(1)} className={firstButton}>
           First
         </button>}
 
       {renderPageNumbers()}
    
-      {currentPage === page_count ? "" :
+      {currentPage == page_count ? "" :
         <button onClick={() => handlePageChange(page_count)} className={lastButton}>
           Last
         </button>}

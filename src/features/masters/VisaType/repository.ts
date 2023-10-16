@@ -1,24 +1,33 @@
 import { VisaTypeAdapter, VisaTypeConverter, VisaTypeInterface } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readVisaTypeList(refresh = false) {
+export async function readVisaTypeList(refresh = false, page_number?: number) {
   const path = "/masters/visa-type-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
+    queryParameters: {
+      page: page_number ?? 1,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
-  return VisaTypeConverter.toInterfaceList(response.data as VisaTypeAdapter[]);
+  return {
+    data: VisaTypeConverter.toInterfaceList(response.data as VisaTypeAdapter[]),
+    additional_data: response.additional_data as AdditionalDataInterface,
+}
+
+
 }
 
 export async function createVisaType(visaType: VisaTypeInterface) {

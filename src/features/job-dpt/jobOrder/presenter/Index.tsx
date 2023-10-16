@@ -86,25 +86,25 @@ export default function Main() {
     // }, [editJobOrder, modalName])
     const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
     const fetchSectorList = async () => {
-        const data = await readSectorList();
-        if (data) {
-            setSectorList(data);
+        const res = await readSectorList();
+        if (res.data) {
+            setSectorList(res.data);
         }
     };
 
     const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
     const fetchcomapanyList = async () => {
-        const data = await readCompanyList();
-        if (data) {
-            setCompanyList(data);
+        const res = await readCompanyList();
+        if (res.data) {
+            setCompanyList(res.data);
         }
     };
 
     const [countryList, setCountryList] = useState<CountryInterface[]>([]);
     const fetchCountryList = async () => {
-        const data = await readCountryList();
-        if (data) {
-            setCountryList(data);
+        const res = await readCountryList();
+        if (res.data) {
+            setCountryList(res.data);
         }
     };
 
@@ -120,16 +120,17 @@ export default function Main() {
         const res = await readJobOrderList(page);
         // console.log(res.data);
         setJobOrderList(res.data);
-        console.log(res.additional_data);   // Only Dev
+        // console.log(res.additional_data);   // Only Dev
         setAdditionalData(res.additional_data);
+
     };
 
     const [consolidateChargeList, setConsolidateChargeList] = useState<
         ConsolidateChargeInterface[]
     >([]);
     const fetchConsolidateCharges = async () => {
-        const data = await readConsolidateChargeList();
-        setConsolidateChargeList(data);
+        const res = await readConsolidateChargeList();
+        setConsolidateChargeList(res.data);
     };
 
     useEffect(() => {

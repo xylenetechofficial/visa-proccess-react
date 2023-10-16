@@ -1,8 +1,8 @@
 import { OtherDocsInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readOtherDocsList(refresh = false) {
+export async function readOtherDocsList(refresh = false ,page_number?: number) {
 
 
   const path = "/masters/other-docs-list";
@@ -11,12 +11,18 @@ export async function readOtherDocsList(refresh = false) {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
+    queryParameters: {
+      page: page_number ?? 1,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
-  return response.data as OtherDocsInterface[];
+  return {
+    data :response.data as OtherDocsInterface[],
+    additional_data: response.additional_data as AdditionalDataInterface,
+  }
 }
 
 export async function createOtherDocs(otherDocs: OtherDocsInterface) {
