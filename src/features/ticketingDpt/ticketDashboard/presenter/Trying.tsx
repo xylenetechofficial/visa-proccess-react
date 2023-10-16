@@ -3,9 +3,10 @@ import  { FullScreenModal } from "../../../../componenets/Modal";
 import { Table3, TableBody2, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { updateTrying } from "../repository";
 import { TypingInterface } from "../tryingType";
+import { UnlabeledInput } from "../../../../componenets/Input";
 
 export default function Main(props: { onClose: any,
   tryingList:TypingInterface[] ,
@@ -42,8 +43,8 @@ const handleCheckboxChange = (itemId: any,index:number) => {
 };
 
  
-const onClickSubmit =async()=>{
-  const update = await updateTrying(props.tryingList)
+const onClickSubmit =async(item :TypingInterface)=>{
+  const update = await updateTrying(item)
   if(update){
     props.onClose();
   }
@@ -74,6 +75,7 @@ const onClickSubmit =async()=>{
                 <TableHeadCell3>departure date</TableHeadCell3>
                 <TableHeadCell3>agency</TableHeadCell3>
                 <TableHeadCell3>amount</TableHeadCell3>
+                <TableHeadCell3>actual profession</TableHeadCell3>
                 <TableHeadCell3>mufa no.</TableHeadCell3>
                 <TableHeadCell3>agent</TableHeadCell3>
                 <TableHeadCell3>rc name</TableHeadCell3>
@@ -88,38 +90,40 @@ const onClickSubmit =async()=>{
             </TableHeadRow3>
           </TableHead3>
            <TableBody3>
-            {props.tryingList.map((item :any, index:any) => (
+            {props.tryingList.map((item , index) => (
               <TableRow3>
                 <TableCell3>{index + 1}</TableCell3>
-                <TableCell3>{item.setting_visa} </TableCell3>
                 <TableCell3>{item.job_order_no} </TableCell3>
                 <TableCell3>{item.company_name} </TableCell3>
                 <TableCell3>{item.candidate_name} </TableCell3>
                 <TableCell3>{item.passport_no} </TableCell3>
-                <TableCell3>{item.actual_profession} </TableCell3>
-                <TableCell3>{item.mofa_number} </TableCell3>
-                <TableCell3>{item.agent_name} </TableCell3>
-                <TableCell3>{item.rc_name} </TableCell3>
-                <TableCell3>
-                  {convertDateFormat(item.visa_received_date)}{" "}
-                </TableCell3>
-                <TableCell3>
-                  {convertDateFormat(item.visa_expire_date)}{" "}
-                </TableCell3>
                 <TableCell3>{item.ticketing_sector_from} </TableCell3>
                 <TableCell3>{item.ticketing_sector_to} </TableCell3>
                 <TableCell3>{convertDateFormat(item.required_date)} </TableCell3>
                 <TableCell3>{item.priority} </TableCell3>
-                <TableCell3> {item.air_ticket} </TableCell3>
-                <TableCell3> {item.visa_authorisation} </TableCell3>
-                <TableCell3>{item.division} </TableCell3>
-              
+                <TableCell3> <UnlabeledInput value={item.air_line} onchange={(value) => onUpdateRow(index, { ...item, air_line: value })} /> </TableCell3>
+                <TableCell3> <UnlabeledInput value={item.ticket_issue_date} onchange={(value) => onUpdateRow(index, { ...item, ticket_issue_date: value })} /> </TableCell3>
+                <TableCell3><UnlabeledInput value={item.passport_no} onchange={(value) => onUpdateRow(index, { ...item, passport_no: value })} /> </TableCell3>
+                <TableCell3><UnlabeledInput value={item.ticketing_departure_date} onchange={(value) => onUpdateRow(index, { ...item, ticketing_departure_date: value })} /> </TableCell3>
+                <TableCell3><UnlabeledInput type="number" value={item.agency} onchange={(value) => onUpdateRow(index, { ...item, agency: parseInt(value) })} /> </TableCell3>
+                <TableCell3><UnlabeledInput type="number" value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
+                <TableCell3>{item.actual_profession}</TableCell3>
+                <TableCell3>{item.mofa_number}</TableCell3>
+                <TableCell3>{item.agency}</TableCell3>
+                <TableCell3>{item.rc_name}</TableCell3>
+                <TableCell3>{item.visa_received_date}</TableCell3>
+                <TableCell3>{item.visa_expire_date}</TableCell3>
+                <TableCell3>{item.visa_no}</TableCell3>
+                <TableCell3>{item.visa_date}</TableCell3>
+                <TableCell3>{item.pp_expiry_date}</TableCell3>
+                <TableCell3>{item.visa_issued_date}</TableCell3>
+                <TableCell3><RedButton text="Reverse" onClick={() => onClickSubmit(item)} /></TableCell3>
               </TableRow3>
             ))}
           </TableBody3> 
         </Table3>
       </div>
-      <GreenButton text="Submit" onClick={()=>onClickSubmit()} />
+      {/* <GreenButton text="Submit" onClick={()=>onClickSubmit()} /> */}
     </FullScreenModal>
   );
 }

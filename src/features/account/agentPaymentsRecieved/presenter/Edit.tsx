@@ -1,20 +1,12 @@
-import { createAccountDashboard, readAccountDashboard, updateAccountDashboard } from "../repository";
+import {  readAccountDashboard, updateAccountDashboard } from "../repository";
 import { useEffect, useState } from "react";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, FileInput, StandardInput, UnlabeledInput } from "../../../../componenets/Input";
+import {  UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface, CandidateRejectInterface } from "../type";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
+import {  AgentPaymentReceivedInterface, CandidateRejectInterface } from "../type";
 import { CountryInterface } from "../../../masters/country/type";
-import ActualProfessionTable from "./VisaProfessionTable";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
-import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
-import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
-import VisaProfessionTable from "./VisaProfessionTable";
-import { RejectCancelApproveSingleAdapter } from "../../rejectCancelApprove/type";
 import { Box } from "@mui/material";
 import { GreenButton } from "../../../../componenets/CustomButton";
 
@@ -23,78 +15,16 @@ export default function Main(props: {
     onClose: () => void,
     fetchAccountDashboardList: () => void,
     currentElement: AgentPaymentReceivedInterface,
-    sectorList: SectorInterface[],
-    companyList: CompanyInterface[],
-    countryList: CountryInterface[],
+    
 }) {
-    console.log(props.currentElement, "ALLLLLLLLL")
-    // const initValue: AccountDashboardInterface = {
-    const initValue: any = {
-        id: 0,
-        arabic_sponsor_name: "",
-        company: 0,
-        country: 0,
-        division: "",
-        index_date: "",
-        om: 0,
-        quantity: 0,
-        rc: 0,
-        rm: 0,
-        sponsor_id: "",
-        visa_accountable: 0,
-        visa_authorization: 0,
-        visa_number: "",
-        visa_date_arabic: "",
-        visa_expiry_date: "",
-        visa_fee: 0,
-        visa_issued_date: "",
-        visa_submission: "",
-    }
-
-    const [accountDashboard, setAccountDashboard] = useState(initValue)
+    
     const [agentPaymentReceivedList, setagentPaymentReceivedList] = useState<CandidateRejectInterface>(
         {
             client_invoice: '',
             penalty_amount: 0,
             mistake_by: '',
-        })
-    // const [agentPaymentReceivedList, setagentPaymentReceivedList] = useState<any>({})
-
-
-
-    async function onClickAdd() {
-
-        // call create
-        // const newArray: any = { ...agentPaymentReceivedList, agentPaymentReceivedList: agentPaymentReceivedList }
-        const newArray: any = { ...agentPaymentReceivedList }
-        console.log(newArray, "AAAAAAA")
-        const flag = await updateAccountDashboard(props.currentElement.id ?? 0, newArray)
-
-
-        setAccountDashboard(initValue)
-        props.fetchAccountDashboardList()
-    }
-    // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
-    const [visaAuhorisationList, setvisaAuhorisationList] = useState<any>([])
-    const fetchvisaAuhorisationList = async () => {
-        const data = await readVisaAuthorisationList();
-        if (data) {
-            setvisaAuhorisationList(data);
-        }
-    }
-    const fetchAccountDashboard = async () => {
-        const data: any = await readAccountDashboard(props.currentElement.id ?? 0);
-        if (data) {
-            setAccountDashboard(data);
-            setagentPaymentReceivedList(data.agentPaymentReceivedList ?? [])
-        }
-    }
-    useEffect(() => {
-        // fetchvisaAuhorisationList();
-        // fetchAccountDashboard()
-        // setAccountDashboard(props.currentElement)
-        // setagentPaymentReceivedList(props.currentElement.agentPaymentReceivedList??[])
-    }, [])
+        })  
+   
     const style = {
         position: 'absolute',
         top: '50%',
@@ -109,12 +39,7 @@ export default function Main(props: {
     };
     return (
 
-        // <FullScreenModal
-        //     buttonName="submit"
-        //     handleClick={onClickAdd}
-        //     title="Candidate Reject"
-        //     onClose={props.onClose}
-        // >
+       
 
         <Box sx={style}>
             <button
@@ -169,6 +94,6 @@ export default function Main(props: {
 
 
 
-        // </FullScreenModal>
+        
     )
 }

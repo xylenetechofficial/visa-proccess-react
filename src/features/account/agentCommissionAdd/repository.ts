@@ -2,21 +2,10 @@ import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInt
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-// get visa - dpt / block - visa - list => GetAccountDashboardList
-// post visa - dpt / block - visa => PostAccountDashboard
-// get visa - dpt / block - visa / { id } => GetAccountDashboard
-// patch visa - dpt / block - visa / { id } => PatchAccountDashboard
-// delete visa - dpt / block - visa / { id } => DeleteAccountDashboard
-
-// //  ------------   Block Visa Profession   ------------ \\
-// delete visa - dpt / block - visa - profession / { id } => DeleteAccountDashboardProfessio
-
 
 
 export async function readAccountDashboardList() {
-  // const path = "/visa-dpt/block-visa-list";
   const path = "/account/account-dashboard-list";
-
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,

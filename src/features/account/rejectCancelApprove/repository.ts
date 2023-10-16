@@ -1,16 +1,6 @@
-import { EditRejectCancelApproveInterface, RejectCancelApproveAdapter, RejectCancelApproveConverter, RejectCancelApproveInterface} from "./type";
+import {  RejectCancelApproveAdapter, RejectCancelApproveConverter, RejectCancelApproveInterface} from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
-
-// get visa - dpt / block - visa - list => GetRejectCancelApproveList
-// post visa - dpt / block - visa => PostRejectCancelApprove
-// get visa - dpt / block - visa / { id } => GetRejectCancelApprove
-// patch visa - dpt / block - visa / { id } => PatchRejectCancelApprove
-// delete visa - dpt / block - visa / { id } => DeleteRejectCancelApprove
-
-// //  ------------   Block Visa Profession   ------------ \\
-// delete visa - dpt / block - visa - profession / { id } => DeleteRejectCancelApproveProfessio
-
 
 
 export async function readRejectCancelApproveList() {
@@ -39,45 +29,6 @@ export async function readRejectCancelApproveList() {
 }
 
 
-
-export async function readRejectCancelApprove(id: number) {
-
-  const path = "/visa-dpt/block-visa/" + id;
-
-  const response = await ApiHelper.get(path, {
-    contentType: ContentType.json,
-    tokenType: AuthTokenType.JWT,
-  });
-
-  if (response.code != 200) {
-    showMessage_v2({ message: response.message, status: response.code })
-  }
-
-  return RejectCancelApproveConverter.toInterface(response.data as RejectCancelApproveAdapter)
-}
-
-
-
-
-export async function createRejectCancelApprove(RejectCancelApprove: RejectCancelApproveInterface) {
-  console.log(RejectCancelApprove)
-  const path = "/visa-dpt/block-visa"
-
-  const payload = RejectCancelApproveConverter.toAdapter(RejectCancelApprove);
-
-  console.log(payload)
-  const response = await ApiHelper.post(path, payload, {
-    contentType: ContentType.json,
-    tokenType: AuthTokenType.JWT
-  })
-  showMessage_v2({ message: response.message, status: response.code })
-
-  if (response.code > 199 && response.code < 300) {
-    return true;
-  }
-  return false;
-}
-
 export async function updateRejectCancelApprove(status:number, RejectCancelApprove: any) {
 
   // const payload = editRejectCancelApproveConverter.toAdapter(RejectCancelApprove);
@@ -93,17 +44,6 @@ export async function updateRejectCancelApprove(status:number, RejectCancelAppro
     return true;
   }
   return false;
-
-}
-
-export async function deleteRejectCancelApprove(id: number) {
-
-  const path = "/visa-dpt/block-visa/" + id
-  const response = await ApiHelper.delete(path, {
-    tokenType: AuthTokenType.JWT
-  })
-
-  showMessage_v2({ message: response.message, status: response.code })
 
 }
 

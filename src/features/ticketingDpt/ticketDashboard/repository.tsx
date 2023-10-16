@@ -167,19 +167,12 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
   }
  
 
-  export async function updateUnderProcess(ticketDashboard:UnderprocessInterface[]){
+  export async function updateUnderProcess(ticketDashboard:UnderprocessInterface){
   
- const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process-list";
-
-//  const list = UnderprocessConverter.toAdapterList(ticketDashboard);
- const list :any={
-  selection_list:ticketDashboard
- }
- const payload = AddUnderprocessConverter.toAdapter(list)
- const response = await ApiHelper.post(path, payload, {
-   contentType: ContentType.json,
-   tokenType: AuthTokenType.JWT,
- });
+ const path = "ticketing-dpt/tickets-dashboard/ticket-under-process/"+ticketDashboard.id;
+  const response = await ApiHelper.delete(path, {
+  tokenType: AuthTokenType.JWT
+})
  showMessage_v2({ message: response.message, status: response.code });
  if (response.code > 199 && response.code < 300) {
    return true;
@@ -267,18 +260,12 @@ export async function createTicketDashboard(TicketDashboard:TickeDashboardInterf
   }
  
 
-  export async function updateTrying(ticketDashboard:TypingInterface[]){
+  export async function updateTrying(item:TypingInterface){
    
-    const path = "/ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list";
-
-    const list = TypingConverter.toAdapterList(ticketDashboard);
-    const payload :any={
-     selection_list:list
-    }
-    const response = await ApiHelper.post(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT,
-    });
+    const path = `ticketing-dpt/tickets-dashboard/ticket-trying/${item.id}`;   
+    const response = await ApiHelper.delete(path, {
+      tokenType: AuthTokenType.JWT
+    })
     showMessage_v2({ message: response.message, status: response.code });
     if (response.code > 199 && response.code < 300) {
       return true;

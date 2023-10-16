@@ -1,33 +1,15 @@
-import { createAccountDashboard,  } from "../repository";
-import { useEffect, useState } from "react";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, FileInput, StandardInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
-import { SectorInterface } from "../../../masters/sector/type";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
-import { CountryInterface } from "../../../masters/country/type";
-import ActualProfessionTable from "./VisaProfessionTable";
+import {  useState } from "react";
+import { TextAreaInput } from "../../../../componenets/Input";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
-import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
-import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
-import VisaProfessionTable from "./VisaProfessionTable";
-import { RejectCancelApproveSingleAdapter } from "../../rejectCancelApprove/type";
 import { Box } from "@mui/material";
 import { GreenButton } from "../../../../componenets/CustomButton";
 
 
 export default function Main(props: {
     onClose: () => void,
-    // fetchAccountDashboardList: () => void,
-    currentElement: any,
+     currentElement: any,
 
-}) {
-    console.log(props.currentElement, "ALLLLLLLLL")
-    // const initValue: AccountDashboardInterface = {}
-   
-
+}) { 
     
     const [agentPaymentReceivedList, setagentPaymentReceivedList] = useState<any>(
         {
@@ -35,7 +17,6 @@ export default function Main(props: {
             penalty_amount: 0,
             mistake_by: '',
         })
-  
   
     const style = {
         position: 'absolute',

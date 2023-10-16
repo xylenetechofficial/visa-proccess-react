@@ -1,7 +1,5 @@
-import { RejectCancelApproveInterface } from "../type";
-import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 import {
- 
+
   Table3,
   TableBody3,
   TableCell3,
@@ -14,48 +12,58 @@ import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { Checkbox } from "@mui/material";
+import { EditRejectCancelApproveInterface, RejectCancelApproveInterface } from "../type";
 import { useState } from "react";
+
 
 const RejectCancelApproveTable = (props: {
   // RejectCancelApproveList: RejectCancelApproveInterface[];
-  RejectCancelApproveList: any;
-  onClickEdit: any;
-  onClickDelete: any;
-  sectorList: SectorInterface[];
-  companyList: CompanyInterface[];
-  countryList: CountryInterface[];
-  setEditRejectCancelApprove: any;
+  RejectCancelApproveList: RejectCancelApproveInterface[];
+  // onChange: (value:EditRejectCancelApproveInterface[])=>void;
   editRejectCancelApprove: any
 }) => {
-  console.log(props.RejectCancelApproveList, "AAAAAAAAAAAA")
-
-  const handleCheckBoxa = (item: any) => {
-    console.log(item)
-    props.setEditRejectCancelApprove((prev: any) => {
-      return {
-        ...prev
-      }
-    })
-  }
-
-  const handleCheckBox = (item: any) => {
-    // console.log(item);
-
-    props.setEditRejectCancelApprove((prev: any) => {
+const [dataa, setDataa]=useState<EditRejectCancelApproveInterface[]>([])
+  const handleCheckBox = (e:any, item: RejectCancelApproveInterface) => {
+    // props.setEditRejectCancelApprove((prev: any) => {
       // Iterate through the selection_list and find the item with the given id
       // const newData= [...prev]
-      return {
-        ...prev,
-        selection_list: [{
-          id: item.id,
-          mofa_cancel_id: item.mofa_cancel_id,
-          status: 1
-        }
-        ]
-      }
-    });
-    console.log(props.editRejectCancelApprove)
-  }
+      // return {
+        
+      //    [
+      //     ...prev,
+      //     {
+      //     id: item.id,
+      //     mofa_cancel_id: item.mofa_cancel_id,
+      //     status: 1
+      //   }
+      //   ]
+      // }
+if(e.target.checked){
+  const  obj:any ={
+    id:item.id,
+    mofa_cancel_id:item.mofa_cancel_id,
+    status:item.status
+  };
+  setDataa([...dataa, obj])
+}
+   
+      // props.onChange(obj)
+  };
+
+  console.log(dataa,"SSs")
+  const data = [{
+    id: 1,
+    mofa_cancel_id: " item.mofa_cancel_id",
+    status: 1
+  },{
+    id: 2,
+    mofa_cancel_id: " item.mofa_cancel_id",
+    status: 1
+  },{
+    id: 3,
+    mofa_cancel_id: " item.mofa_cancel_id",
+    status: 1
+  }];
   return (
     <div className="overflow-auto">
 
@@ -88,7 +96,7 @@ const RejectCancelApproveTable = (props: {
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
-          {props.RejectCancelApproveList?.map((item: any, index: any) => (
+          {data?.map((item: any, index: any) => (
 
             <TableRow3 key={index}>
               <TableCell3>{index + 1}</TableCell3>
@@ -111,7 +119,7 @@ const RejectCancelApproveTable = (props: {
               <TableCell3>{item?.service_charges} ( {item?.ccp_cancel_type} )</TableCell3>
               <TableCell3>{item?.air_ticket}</TableCell3>
               <TableCell3>{item?.is_invoice}</TableCell3>
-              <TableCell3><Checkbox onClick={() => handleCheckBox(item)} /></TableCell3>
+              <TableCell3><Checkbox onClick={(e:any) => handleCheckBox(e,item)} /></TableCell3>
             </TableRow3>
           ))}
         </TableBody3>

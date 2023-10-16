@@ -22,17 +22,14 @@ export interface RejectCancelApproveInterface {
   consolidated_charges: number;
   consolidated_charges_names: string;
   mofa_cancel_id: number;
-
+  status:number,
   reason?: string;
   rc_name?: string;
   division?: string;
   is_invoice?: string;
   ccp_cancel_type?: string;
 }
-// 'block_visa' => 'required|array',
-// 'visa_profession_list' => 'required|array'
 
-// block_visa
 export interface RejectCancelApproveAdapter {
   id?: number;
   party_code: number;
@@ -57,7 +54,7 @@ export interface RejectCancelApproveAdapter {
   consolidated_charges: number;
   consolidated_charges_names: string;
   mofa_cancel_id: number;
-
+  status:number,
   reason?: string;
   rc_name?: string;
   division?: string;
@@ -65,56 +62,6 @@ export interface RejectCancelApproveAdapter {
   ccp_cancel_type?: string;
 }
 
-export interface RejectCancelApproveSingleInterface {
-  id?: number;
-  client_invoice: string;
-  visa_profession: string;
-  arabic_visa_category: string;
-  quantity: number;
-}
-
-export interface RejectCancelApproveSingleAdapter {
-  id?: number;
-  client_invoice: string;
-  visa_profession: string;
-  arabic_visa_category: string;
-  quantity: number;
-}
-
-export class RejectCancelApproveSingleConverter {
-  // private i: RejectCancelApproveSingleInterface
-  // private a: RejectCancelApproveSingleAdapter
-
-  /**
-   * toInterface
-   */
-
-  public static toInterface(a: RejectCancelApproveSingleAdapter) {
-    const data: RejectCancelApproveSingleInterface = {
-      id: a?.id,
-      client_invoice: a?.client_invoice,
-      visa_profession: a?.visa_profession,
-      arabic_visa_category: a?.arabic_visa_category,
-      quantity: a?.quantity,
-    };
-    return data;
-  }
-  /**
-   * toAdapter
-   */
-  public static toAdapter(i: RejectCancelApproveSingleInterface) {
-    console.log("i"); // Only Dev
-    console.log(i); // Only Dev
-    const data: RejectCancelApproveSingleAdapter = {
-      id: i.id,
-      client_invoice: i.client_invoice,
-      visa_profession: i.visa_profession,
-      arabic_visa_category: i.arabic_visa_category,
-      quantity: i.quantity,
-    };
-    return data;
-  }
-}
 export class RejectCancelApproveConverter {
   // private i: AgentInterface
   // private a: AgentAdapter
@@ -147,7 +94,7 @@ export class RejectCancelApproveConverter {
       consolidated_charges: a.consolidated_charges,
       consolidated_charges_names: a.consolidated_charges_names,
       mofa_cancel_id: a.mofa_cancel_id,
-
+      status:a.status,
       reason: a.reason,
       rc_name: a.rc_name,
       division: a.division,
@@ -187,6 +134,7 @@ export class RejectCancelApproveConverter {
       consolidated_charges: i.consolidated_charges,
       consolidated_charges_names: i.consolidated_charges_names,
       mofa_cancel_id: i.mofa_cancel_id,
+      status:i.status,
       ccp_cancel_type: i.ccp_cancel_type,
     };
     return data;
@@ -203,19 +151,69 @@ export interface EditRejectCancelApproveAdapter {
   mofa_cancel_id: number;
   status: number;
 }
+// export class EditRejectCancelApproveConverter {
+//   // private i: EditRejectCancelApproveInterface
+//   // private a: RejectCancelApproveSingleAdapter
+
+//   /**
+//    * toInterface
+//    */
+
+//   public static toInterface(a: EditRejectCancelApproveAdapter) {
+//     const data: EditRejectCancelApproveInterface = {
+//       id: a.id,
+//       mofa_cancel_id: a.mofa_cancel_id,
+//       status: a.status,
+//     };
+//     return data;
+//   }
+// }
+
+
+export interface EditRejectCancelApproveListInterface {
+
+  selection_list: EditRejectCancelApproveInterface[],
+  
+}
+
+export interface EditRejectCancelApproveListAdapter {
+
+  selection_list: EditRejectCancelApproveAdapter[],
+  
+}
+
+
 export class EditRejectCancelApproveConverter {
-  // private i: EditRejectCancelApproveInterface
-  // private a: RejectCancelApproveSingleAdapter
+  // private i: AddCandidateInvoiceNumberInterface
+  // private a: AddPenaltyAfterDeploymentAdapter
 
   /**
    * toInterface
    */
+  public static toInterface(a: EditRejectCancelApproveListAdapter) {
+    const data: EditRejectCancelApproveListInterface = {
+      selection_list: a?.selection_list?.map((item) => ({       
+        "id":item.id ,
+        "mofa_cancel_id": item.mofa_cancel_id,
+        "status": item.status
+      })),
+  
+    };
+    return data;
+  }
 
-  public static toInterface(a: EditRejectCancelApproveAdapter) {
-    const data: EditRejectCancelApproveInterface = {
-      id: a.id,
-      mofa_cancel_id: a.mofa_cancel_id,
-      status: a.status,
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: EditRejectCancelApproveListInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: EditRejectCancelApproveListAdapter = {
+      selection_list: i?.selection_list?.map((item) => ({       
+        "id":item.id ,
+        "mofa_cancel_id": item.mofa_cancel_id,
+        "status": item.status
+      })), 
     };
     return data;
   }
