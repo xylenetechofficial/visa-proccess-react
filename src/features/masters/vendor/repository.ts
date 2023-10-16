@@ -1,18 +1,22 @@
 import { VendorInterface } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readVendorList(refresh = false) {
+export async function readVendorList(refresh = false ,page_number?: number) {
   const path = "/masters/vendor-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
+    queryParameters: {
+      page: page_number ?? 1,
+    },
   });
 
 
@@ -20,7 +24,12 @@ export async function readVendorList(refresh = false) {
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
-  return response.data as VendorInterface[];
+
+  return {
+    data: response.data as VendorInterface[],
+    additional_data: response.additional_data as AdditionalDataInterface,
+}
+ 
 }
 
 export async function createVendor(vendor: VendorInterface) {

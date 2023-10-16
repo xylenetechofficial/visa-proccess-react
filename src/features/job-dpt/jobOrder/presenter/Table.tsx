@@ -87,6 +87,7 @@ const JobOrderTable = (props: {
 
                         <TableRow3 key={index}>
                             <TableCell3 >{index + props.snoBase+1}</TableCell3>
+                            
                             <TableCell3 > {ele.jobOrderNumber}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.date)}</TableCell3>
                             <TableCell3 > {ele.company_name ?? ""}</TableCell3>

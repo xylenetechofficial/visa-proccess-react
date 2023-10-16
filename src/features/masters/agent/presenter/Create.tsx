@@ -24,7 +24,8 @@ export default function Main(props: { onClose: any, fetchAgentList: any }) {
     const [sectorList, setSectorList] = useState<SectorInterface[]>([])
 
     const fetchSectorList = async () => {
-        setSectorList(await readSectorList())
+        const res = await readSectorList()
+        setSectorList(res.data)
         // let options=[];
         // sectorList.map
     }

@@ -5,7 +5,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 
 
-const GradeTable = (props: { gradeList: GradeInterface[], onClickEdit: any, onClickDelete: any }) => {
+const GradeTable = (props: { gradeList: GradeInterface[], onClickEdit: any, onClickDelete: any, snoBase:number }) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
       
@@ -23,7 +23,7 @@ const GradeTable = (props: { gradeList: GradeInterface[], onClickEdit: any, onCl
                         {props.gradeList.map((ele, index) => (
 
                             <TableRow3 key={index}>
-                                <TableCell3 >{index + 1}</TableCell3>
+                                <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                                 <TableCell3 > {ele.name}</TableCell3>
                                 <TableCell3 > {ele.point}</TableCell3>
                                 <TableCell3 >

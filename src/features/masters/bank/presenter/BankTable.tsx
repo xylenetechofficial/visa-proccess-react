@@ -7,7 +7,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 
 
-const BankTable = (props: { bankList: BankInterface[], onClickEdit: any, onClickDelete: any, visaAuthorisationList: VisaAuthorisationInterface[] }) => {
+const BankTable = (props: { bankList: BankInterface[], onClickEdit: any, onClickDelete: any, visaAuthorisationList: VisaAuthorisationInterface[], snoBase:number }) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             <Table3>
@@ -24,7 +24,7 @@ const BankTable = (props: { bankList: BankInterface[], onClickEdit: any, onClick
                     {props.bankList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                         <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {
                                 props.visaAuthorisationList?.map((e) => e.id == ele.visaAuthorisation ? e.name : "")

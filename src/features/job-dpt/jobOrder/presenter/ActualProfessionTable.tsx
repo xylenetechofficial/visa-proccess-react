@@ -33,8 +33,8 @@ const ActualProfessionTable = (props: {
 
     const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
     const fetchInterviewSectorList = async () => {
-        const data = await readInterviewSectorList();
-        setInterviewSectorList(data)
+        const res = await readInterviewSectorList();
+        setInterviewSectorList(res.data)
     }
 
     useEffect(() => {

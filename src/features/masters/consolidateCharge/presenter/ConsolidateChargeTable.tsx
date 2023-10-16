@@ -6,7 +6,7 @@ import { Table3, TableBody3, TableCell3,TableHead3, TableHeadCell3, TableHeadRow
 
 
 
-const ConsolidateChargeTable = (props: { consolidateChargeList: ConsolidateChargeInterface[], onClickEdit: any, onClickDelete: any }) => {
+const ConsolidateChargeTable = (props: { consolidateChargeList: ConsolidateChargeInterface[], onClickEdit: any, onClickDelete: any, snoBase:number }) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
 
@@ -24,7 +24,7 @@ const ConsolidateChargeTable = (props: { consolidateChargeList: ConsolidateCharg
                     {props.consolidateChargeList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.charge}</TableCell3>
                             <TableCell3 >

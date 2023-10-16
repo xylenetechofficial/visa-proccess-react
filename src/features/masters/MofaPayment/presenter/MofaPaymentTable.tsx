@@ -6,7 +6,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 
-const MofaPaymentTable = (props: { mofaPaymentList: MofaPaymentInterface[], onClickEdit: any, onClickDelete: any }) => {
+const MofaPaymentTable = (props: { mofaPaymentList: MofaPaymentInterface[], onClickEdit: any, onClickDelete: any, snoBase:number }) => {
     return (
         <div className='overflow-auto'>
 
@@ -26,7 +26,7 @@ const MofaPaymentTable = (props: { mofaPaymentList: MofaPaymentInterface[], onCl
                     {props.mofaPaymentList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3>{index + props.snoBase +1}</TableCell3>
                             <TableCell3 > {ele.visa_authorisation_name ?? ""}</TableCell3>
                             <TableCell3 > {ele.payment}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.date)}</TableCell3>

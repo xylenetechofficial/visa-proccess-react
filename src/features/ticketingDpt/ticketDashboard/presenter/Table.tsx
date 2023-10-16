@@ -1,5 +1,3 @@
-import { Checkbox } from "flowbite-react";
-import { CustomCheckBox } from "../../../../componenets/Checkbox";
 import { CustomSelectComponent } from "../../../../componenets/SelectBox";
 import {
   Table3,
@@ -11,27 +9,29 @@ import {
   TableRow3,
 } from "../../../../componenets/Table";
 import { TickeDashboardInterface2 } from "../type";
-import { convertDateFormat } from "../../../../utils/function";
-import { BlueButton } from "../../../../componenets/CustomButton";
+
 
 export default function Main(props: {
   TicketDashboardList: TickeDashboardInterface2[];
   // onChange: (value: TicketDashboardInterface[]) => void;
-  TicketToBeBooked:(value:any)=>void,
-  underProcess:(value:any)=>void,
-  AgencyInvoiceAwaiting:(value:any)=>void,
-  tryingFunction:(value:any)=>void
+  TicketToBeBooked: (value: any) => void;
+  underProcess: (value: any) => void;
+  AgencyInvoiceAwaiting: (value: any) => void;
+  tryingFunction: (value: any) => void;
 }) {
   return (
     <>
-      <div className="overflow-auto py-6 w-3/4">
+      <div className="overflow-auto">
         <Table3>
           <TableHead3>
             <TableHeadRow3>
               <TableHeadCell3>Sector</TableHeadCell3>
               <TableHeadCell3>ticket to be booked</TableHeadCell3>
-              <TableHeadCell3>under process</TableHeadCell3>
-              <TableHeadCell3>trying</TableHeadCell3>
+              <div className="w-auto">
+                <h5 className="border border-b-black text-center font-bold text-xs py-2">under booking</h5>
+                <TableHeadCell3>under process</TableHeadCell3>
+                <TableHeadCell3>trying</TableHeadCell3>
+              </div>
               <TableHeadCell3>agency invoice awaiting</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
@@ -50,31 +50,33 @@ export default function Main(props: {
                     {ticket.ticket_to_be_booked}
                   </span>
                 </TableCell3>
+                <div>
+                  <TableCell3>
+                    {" "}
+                    <span
+                      className="text-red-600 cursor-pointer px-10"
+                      onClick={() => {
+                        props.underProcess(ticket);
+                      }}
+                    >
+                      {ticket.ticket_under_process}
+                    </span>
+                  </TableCell3>
+
+                  <TableCell3>
+                    {" "}
+                    <span
+                      className="text-red-600 cursor-pointer px-10"
+                      onClick={() => {
+                        props.tryingFunction(ticket);
+                      }}
+                    >
+                      {ticket.ticket_trying}
+                    </span>
+                  </TableCell3>
+                </div>
+
                 <TableCell3>
-                  {" "}
-                  <span
-                    className="text-red-600 cursor-pointer px-10"
-                    onClick={() => {
-                      props.underProcess(ticket);
-                    }}
-                  >
-                    {ticket.ticket_under_process}
-                  </span>
-                </TableCell3>
-                <TableCell3>
-                  {" "}
-                  <span
-                    className="text-red-600 cursor-pointer px-10"
-                    onClick={() => {
-                      props.tryingFunction(ticket);
-                    }}
-                  >
-                    {ticket.ticket_trying}
-                  </span>
-                </TableCell3>
-                <TableCell3>
-                
-                
                   <span
                     className="text-red-600 cursor-pointer px-10"
                     onClick={() => {
@@ -86,6 +88,7 @@ export default function Main(props: {
                 </TableCell3>
               </TableRow3>
             ))}
+
           </TableBody3>
         </Table3>
       </div>

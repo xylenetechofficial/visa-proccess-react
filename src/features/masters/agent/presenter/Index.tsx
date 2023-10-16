@@ -1,107 +1,146 @@
 import { useEffect, useState } from "react";
 import { deleteAgent, readAgentList } from "../repository";
 import { AgentInterface } from "../type";
-import CreateModal from './Create'
-import EditModal from './Edit'
+import CreateModal from "./Create";
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import AgentTable from "./AgentTable";
 import { confirmationMessage, showMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
+import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 
 const CardHeader = styled(Box)(() => ({
-    display: "flex",
+  display: "flex",
 
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Main() {
-    const [agentList, setAgentList] = useState<AgentInterface[]>([])
-
-    const [editAgent, setEditAgent] = useState<AgentInterface>({} as AgentInterface)
-
-    const [modalName, setModalName] = useState('')
-
-    const [searchQuery, setSearchQuery] = useState("")
-    const filterData = (query: string, data: AgentInterface[]) => {
-        if (!query) {
-            return data;
-        } else {
-            return data.filter((d) =>
-                d.name.toLowerCase().includes(query.toLowerCase())
-            );
-        }
-    };
-    const dataFiltered = filterData(searchQuery, agentList);
-
-    const onClickEdit = (agent: AgentInterface) => {
-        setEditAgent(agent)
-        console.log("onClickEdit");   // Only Dev
-        console.log(agent);   // Only Dev
-        setModalName('edit')
+  const [agentList, setAgentList] = useState<AgentInterface[]>([]);
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
     }
+  );
 
-    const onClickDelete = async (agent: AgentInterface) => {
-        const flag = await confirmationMessage("Do you really want to delete?")
-        if (flag && agent.id) {
-            const res = await deleteAgent(agent.id);
-            showMessage(res.message)
-            fetchAgentList()
-        }
+  const [editAgent, setEditAgent] = useState<AgentInterface>(
+    {} as AgentInterface
+  );
+
+  const [modalName, setModalName] = useState("");
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const filterData = (query: string, data: AgentInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.name.toLowerCase().includes(query.toLowerCase())
+      );
     }
+  };
+  const dataFiltered = filterData(searchQuery, agentList);
 
-    // useEffect(() => {
-    // }, [editAgent, modalName])
+  const onClickEdit = (agent: AgentInterface) => {
+    setEditAgent(agent);
+    console.log("onClickEdit"); // Only Dev
+    console.log(agent); // Only Dev
+    setModalName("edit");
+  };
 
-    const fetchAgentList = async () => {
-        const data = await readAgentList(true);
-        filterData("", agentList)
-        setAgentList(data)
+  const onClickDelete = async (agent: AgentInterface) => {
+    const flag = await confirmationMessage("Do you really want to delete?");
+    if (flag && agent.id) {
+      const res = await deleteAgent(agent.id);
+      showMessage(res.message);
+      fetchAgentList();
     }
-    useEffect(() => {
+  };
 
-        fetchAgentList()
+  // useEffect(() => {
+  // }, [editAgent, modalName])
 
-    }, [])
+  const fetchAgentList = async (page?: number) => {
+    const data = await readAgentList(true, "", page);
+    filterData("", agentList);
+    setAgentList(data.data);
+    setAdditionalData(data.additional_data);
+  };
 
+  useEffect(() => {
+    fetchAgentList();
+  }, []);
 
+  return (
+    <div>
+      <CustomNavbarV3
+        pageName="Agent"
+        searchFunction={(query) => setSearchQuery(query)}
+      />
 
-    return (
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        <div >
-            <CustomNavbarV3 pageName="Agent" searchFunction={(query) => setSearchQuery(query)} />
+        <GreenButton
+          text={"Add +"}
+          onClick={() => {
+            setModalName("create");
+          }}
+        />
+      </CardHeader>
 
-            <CardHeader>
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+      {/*  agent stable */}
+      <AgentTable
+        snoBase={additionalData.pagination.sno_base}
+        agentList={dataFiltered}
+        onClickEdit={onClickEdit}
+        onClickDelete={onClickDelete}
+      />
 
-                <GreenButton text={"Add +"} onClick={() => {
-                    setModalName("create")
-                }} />
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchAgentList(e);
+        }}
+      />
 
-            </CardHeader>
+      {/* <!-- Modal --> */}
 
+      {/* Create */}
+      {modalName !== "create" ? (
+        ""
+      ) : (
+        <CreateModal
+          onClose={() => setModalName("")}
+          fetchAgentList={fetchAgentList}
+        />
+      )}
 
-            {/*  agent stable */}
-            <AgentTable
-                agentList={dataFiltered}
-                onClickEdit={onClickEdit}
-                onClickDelete={onClickDelete}
-            />
-
-            {/* <!-- Modal --> */}
-
-            {/* Create */}
-            {modalName !== "create" ? "" :
-                <CreateModal onClose={() => setModalName("")} fetchAgentList={fetchAgentList} />}
-
-
-            {/* Edit */}
-            {modalName !== "edit" ? "" : <EditModal agent={editAgent} onClose={() => setModalName("")} fetchAgentList={fetchAgentList}
-            />}
-        </div>
-    )
+      {/* Edit */}
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal
+          agent={editAgent}
+          onClose={() => setModalName("")}
+          fetchAgentList={fetchAgentList}
+        />
+      )}
+    </div>
+  );
 }
