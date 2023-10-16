@@ -4,6 +4,7 @@ import {
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -21,10 +22,12 @@ export async function readJobOrderList(page_number?: number) {
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
-  return {
-    data: JobOrderConverter.toInterfaceList(response.data as JobOrderAdapter[]),
-    additional_data: response.additional_data as AdditionalDataInterface,
-  };
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
+  return JobOrderConverter.toInterfaceList(response.data as JobOrderAdapter[]);
 }
 export async function readJobOrder(id: number) {
   const path = "/job-dpt/v2/job-order/" + id;

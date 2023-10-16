@@ -12,7 +12,7 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { GradeInterface } from "../type";
 import { deleteGrade, readGradeList } from "../repository";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -79,8 +79,9 @@ export default function Main() {
 
   const fetchGradeList = async (page?: number) => {
     const res = await readGradeList(true, page);
-    setGradeList(res.data);
-    setAdditionalData(res.additional_data);
+    setGradeList(res);
+  setAdditionalData(await PaginationManager.getData());
+
   };
   useEffect(() => {
     fetchGradeList();

@@ -4,6 +4,7 @@ import {
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -22,24 +23,26 @@ export async function readSectorList(refresh = false, page_number?: number) {
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
-  return {
-    data: response.data as SectorInterface[],
-    additional_data: response.additional_data as AdditionalDataInterface,
-  }
 
+    await PaginationManager.setData(
+      response.additional_data as AdditionalDataInterface
+    );
+  
+
+  return response.data as SectorInterface[];
 }
 
 export async function createSector(sector: SectorInterface) {
   const path = "/masters/sector";
 
-  const payload =sector;
+  const payload = sector;
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
   });
 
   showMessage_v2({ message: response.message, status: response.code });
-  return response
+  return response;
 }
 
 export async function updateSector(id: number, sector: SectorInterface) {
@@ -53,8 +56,7 @@ export async function updateSector(id: number, sector: SectorInterface) {
     tokenType: AuthTokenType.JWT,
   });
   showMessage_v2({ message: response.message, status: response.code });
-  return response
-
+  return response;
 }
 
 export async function deleteSector(id: number) {

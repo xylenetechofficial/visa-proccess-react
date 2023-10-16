@@ -5,6 +5,7 @@ import {
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
   ResponseInterface,
 } from "../../../utils/api_helper";
 import { endpoint } from "../../../constant";
@@ -42,10 +43,12 @@ export async function readAgentList(
     }
   }
 
-  return {
-    data: data,
-    additional_data: response.additional_data as AdditionalDataInterface,
-  };
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+ 
+  return data
+ 
 }
 
 export async function createAgent(agent: AgentInterface) {

@@ -16,7 +16,7 @@ import {
   readConsolidateChargeList,
 } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -86,7 +86,9 @@ export default function Main() {
 
   const fetchConsolidateChargeList = async (page?: number) => {
     const res = await readConsolidateChargeList(true, page);
-    setConsolidateChargeList(res.data);
+    setConsolidateChargeList(res);
+  setAdditionalData(await PaginationManager.getData());
+
   };
   useEffect(() => {
     fetchConsolidateChargeList();

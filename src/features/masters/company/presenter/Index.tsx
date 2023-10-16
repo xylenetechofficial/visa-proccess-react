@@ -13,7 +13,7 @@ import { readCountryList } from "../../country/repository";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 
 const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -59,7 +59,7 @@ export default function Main() {
 
     const fetchCountryList = async () => {
         const res = await readCountryList()
-        setCountryList(res.data)
+        setCountryList(res)
 
     }
 
@@ -88,8 +88,8 @@ export default function Main() {
 
     const fetchCompanyList = async (page?:number) => {
        const res = await readCompanyList(true, page)
-        setCompanyList(res.data);
-        setAdditionalData(res.additional_data)
+        setCompanyList(res);
+  setAdditionalData(await PaginationManager.getData());
 
     }
     useEffect(() => {

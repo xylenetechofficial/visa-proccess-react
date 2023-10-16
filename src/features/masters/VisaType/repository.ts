@@ -4,6 +4,7 @@ import {
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -22,10 +23,11 @@ export async function readVisaTypeList(refresh = false, page_number?: number) {
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
-  return {
-    data: VisaTypeConverter.toInterfaceList(response.data as VisaTypeAdapter[]),
-    additional_data: response.additional_data as AdditionalDataInterface,
-}
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+  return VisaTypeConverter.toInterfaceList(response.data as VisaTypeAdapter[]);
 
 
 }

@@ -14,7 +14,10 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 
 const CardHeader = styled(Box)(() => ({
@@ -81,13 +84,15 @@ export default function Main() {
 
   const fetchCountryList = async () => {
     const res = await readCountryList();
-    setCountryList(res.data);
+    setCountryList(res);
   };
 
   const fetchSectorList = async (page?: number) => {
     const res = await readSectorList(true, page);
     console.log("read sector"); // Only Dev
-    setSectorList(res.data);
+    setSectorList(res);
+
+    setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
     fetchSectorList();

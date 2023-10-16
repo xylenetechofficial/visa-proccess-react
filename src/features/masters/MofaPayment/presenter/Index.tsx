@@ -12,7 +12,7 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { MofaPaymentInterface } from "../type";
 import { deleteMofaPayment, readMofaPaymentList } from "../repository";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -82,8 +82,9 @@ export default function Main() {
 
   const fetchMofaPaymentList = async (page?:number) => {
     const res = await readMofaPaymentList(true , page)
-    setMofaPaymentList(res.data);
-    setAdditionalData(res.additional_data)
+    setMofaPaymentList(res);
+    setAdditionalData(await PaginationManager.getData());
+
   };
   useEffect(() => {
     fetchMofaPaymentList();

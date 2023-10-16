@@ -1,5 +1,5 @@
 import { InterviewModeAdapter, InterviewModeInterface } from "./type";
-import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 export async function readInterviewModeList(refresh = false ,page_number?: number) {
@@ -30,10 +30,12 @@ export async function readInterviewModeList(refresh = false ,page_number?: numbe
     });
   }
 
-  return {
-    data: response.data as InterviewModeInterface[],
-    additional_data: response.additional_data as AdditionalDataInterface,
-}
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
+  return  response.data as InterviewModeInterface[];
+
 
 }
 

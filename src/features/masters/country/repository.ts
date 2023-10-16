@@ -1,5 +1,5 @@
 import { CountryInterface } from "./type";
-import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 export async function readCountryList(refresh = false ,page_number?: number) {
@@ -19,10 +19,12 @@ export async function readCountryList(refresh = false ,page_number?: number) {
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
-  return {
-    data: response.data as CountryInterface[],
-    additional_data: response.additional_data as AdditionalDataInterface,
-  } 
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
+  return response.data as CountryInterface[];
 }
 
 export async function createCountry(

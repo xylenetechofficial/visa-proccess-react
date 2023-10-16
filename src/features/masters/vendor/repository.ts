@@ -4,6 +4,7 @@ import {
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -25,10 +26,11 @@ export async function readVendorList(refresh = false ,page_number?: number) {
     showMessage_v2({ message: response.message, status: response.code });
   }
 
-  return {
-    data: response.data as VendorInterface[],
-    additional_data: response.additional_data as AdditionalDataInterface,
-}
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
+  return  response.data as VendorInterface[];
  
 }
 

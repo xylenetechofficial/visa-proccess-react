@@ -25,7 +25,7 @@ export default function Main(props: { onClose: any, fetchAgentList: any }) {
 
     const fetchSectorList = async () => {
         const res = await readSectorList()
-        setSectorList(res.data)
+        setSectorList(res)
         // let options=[];
         // sectorList.map
     }

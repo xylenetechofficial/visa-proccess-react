@@ -102,14 +102,14 @@ export default function Main(props: {
 
     const [interviewModeList, setInterviewModeList] = useState<InterviewModeInterface[]>([])
     const fetchInterviewMode = async () => {
-        const res = await readInterviewModeList();
-        setInterviewModeList(res.data)
+        const data = await readInterviewModeList();
+        setInterviewModeList(data)
     }
 
     const [interviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([])
     const fetchInterviewSector = async () => {
-        const res = await readInterviewSectorList();
-        setInterviewSectorList(res.data)
+        const data = await readInterviewSectorList();
+        setInterviewSectorList(data)
     }
     useEffect(() => {
         fetchBDEList()

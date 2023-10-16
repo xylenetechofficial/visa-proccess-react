@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { endpoint } from "../constant";
 import { GenerateLog } from "./logger";
+import { json } from "react-router-dom";
 
 export class ApiHelper {
   /**
@@ -387,5 +388,35 @@ class UrlCacheManager {
     };
 
     this.ls.setItem(this.url, JSON.stringify(this.data));
+  }
+}
+
+export class PaginationManager {
+  private url = "";
+  static data: AdditionalDataInterface = {
+    pagination: {
+      page: 0,
+      page_count: 0,
+      item_count: 0,
+      limit: 0,
+      sno_base: 0,
+    },
+  };
+  static ls = localStorage;
+
+  static async getData() {
+    let data = this.ls.getItem("additional_data") ?? "";
+    console.log("additional_data: ", data);
+    if (data == "") return this.data;
+
+    return JSON.parse(data) as AdditionalDataInterface;
+  }
+
+  /**
+   * @param pagination any type
+   */
+  static async setData(additional_data: AdditionalDataInterface) {
+    console.log("Savig additional_data: ", additional_data);
+    this.ls.setItem("additional_data", JSON.stringify(additional_data));
   }
 }

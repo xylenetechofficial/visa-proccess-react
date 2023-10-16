@@ -12,7 +12,7 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 
 const CardHeader = styled(Box)(() => ({
@@ -77,8 +77,8 @@ export default function Main() {
   const fetchAgentList = async (page?: number) => {
     const data = await readAgentList(true, "", page);
     filterData("", agentList);
-    setAgentList(data.data);
-    setAdditionalData(data.additional_data);
+    setAgentList(data);
+    setAdditionalData(await PaginationManager.getData());
   };
 
   useEffect(() => {

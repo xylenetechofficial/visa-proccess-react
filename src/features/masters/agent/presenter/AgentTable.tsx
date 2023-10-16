@@ -13,7 +13,7 @@ const AgentTable = (props: { agentList: AgentInterface[], onClickEdit: any, onCl
 
     const fetchSectorList = async () => {
      const res = await readSectorList()
-        setSectorList(res.data)
+        setSectorList(res)
 
     }
 

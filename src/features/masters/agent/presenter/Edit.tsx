@@ -31,7 +31,7 @@ export default function Main(props: { agent: AgentInterface, onClose: any, fetch
 
     const fetchSectorList = async () => {
         const res = await readSectorList()
-        setSectorList(res.data)
+        setSectorList(res)
     }
     useEffect(() => {
         fetchSectorList()

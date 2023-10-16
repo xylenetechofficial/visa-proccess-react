@@ -29,7 +29,7 @@ import {
 } from "../repository";
 import { AgentInterface } from "../../agent/type";
 import { readAgentList } from "../../agent/repository";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -76,7 +76,7 @@ export default function Main() {
 
   const fetchAgentList = async () => {
     const res = await readAgentList();
-    setAgentList(res.data);
+    setAgentList(res);
   };
   useEffect(() => {
     fetchAgentList();
@@ -105,8 +105,9 @@ export default function Main() {
 
   const fetchAgentSpecialNoteList = async (page?: number) => {
     const res = await readAgentSpecialNoteList(true, page);
-    setAgentSpecialNoteList(res.data);
-    setAdditionalData(res.additional_data);
+    setAgentSpecialNoteList(res);
+    setAdditionalData(await PaginationManager.getData());
+
   };
   useEffect(() => {
     fetchAgentSpecialNoteList();

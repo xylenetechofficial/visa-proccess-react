@@ -15,7 +15,7 @@ import { deleteBank, readBankList } from "../repository";
 import { readVisaAuthorisationList } from "../../visaAuthorization/repository";
 import { VisaAuthorisationInterface } from "../../visaAuthorization/type";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -50,7 +50,7 @@ export default function Main() {
 
   const fetchVisaAuthorisationList = async () => {
     const res = await readVisaAuthorisationList()
-    setVisaAuthorisationList(res.data);
+    setVisaAuthorisationList(res);
   };
 
   useEffect(() => {
@@ -92,8 +92,9 @@ export default function Main() {
 
   const fetchBankList = async (page?: number) => {
     const res = await readBankList(true, page);
-    setBankList(res.data);
-    setAdditionalData(res.additional_data)
+    setBankList(res);
+  setAdditionalData(await PaginationManager.getData());
+
   };
   useEffect(() => {
     fetchBankList();

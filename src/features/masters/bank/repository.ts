@@ -1,5 +1,5 @@
 import { BankAdapter, BankInterface } from "./type";
-import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 export async function readBankList(refresh = false, page_number?: number) {
@@ -29,10 +29,11 @@ export async function readBankList(refresh = false, page_number?: number) {
       visaAuthorisation: element.visa_authorisation,
     });
   }
-  return {
-    data: data as BankInterface[],
-    additional_data: response.additional_data as AdditionalDataInterface,
-  }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+  return  data as BankInterface[];
   
 }
 

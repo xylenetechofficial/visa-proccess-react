@@ -13,7 +13,7 @@ import { FaFilter } from "react-icons/fa";
 import { VisaTypeInterface } from "../type";
 import { deleteVisaType, readVisaTypeList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -79,8 +79,9 @@ export default function Main() {
 
   const fetchVisaTypeList = async (page?: number) => {
     const res = await readVisaTypeList(true, page);
-    setVisaTypeList(res.data);
-    setAdditionalData(res.additional_data);
+    setVisaTypeList(res);
+    setAdditionalData(await PaginationManager.getData());
+
   };
   useEffect(() => {
     fetchVisaTypeList();

@@ -4,6 +4,7 @@ import {
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -22,11 +23,11 @@ export async function readMofaPaymentList(refresh = false ,page_number?: number)
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
-  return {
-    data: response.data as MofaPaymentInterface[],
-    additional_data: response.additional_data as AdditionalDataInterface,
-}
+  return  response.data as MofaPaymentInterface[];
  
 }
 

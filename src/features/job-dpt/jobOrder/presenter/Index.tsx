@@ -6,8 +6,8 @@ import JobOrderTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import {
-    CustomButton2,
-    CustomNavbarV3,
+  CustomButton2,
+  CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { JobOrderInterface } from "../type";
@@ -23,143 +23,143 @@ import { readConsolidateChargeList } from "../../../masters/consolidateCharge/re
 import Pagination from "../../../../componenets/Pagination";
 
 import { ConsolidateChargeInterface } from "../../../masters/consolidateCharge/type";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
+  display: "flex",
+  flexWrap: "wrap",
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Main() {
-    const [jobOrderList, setJobOrderList] = useState<JobOrderInterface[]>([]);
-    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>({
-        pagination: {
-            page: 1,
-            page_count: 1,
-            item_count: 0,
-            sno_base: 0,
-        }
-    });
+  const [jobOrderList, setJobOrderList] = useState<JobOrderInterface[]>([]);
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
 
-    const [editJobOrder, setEditJobOrder] = useState<JobOrderInterface>(
-        {} as JobOrderInterface
-    );
+  const [editJobOrder, setEditJobOrder] = useState<JobOrderInterface>(
+    {} as JobOrderInterface
+  );
 
-    const [modalName, setModalName] = useState("");
+  const [modalName, setModalName] = useState("");
 
-    const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-    const filterData = (query: string, data: JobOrderInterface[]) => {
-        if (!query) {
-            return data;
-        } else {
-            return data.filter((d) =>
-                d.date.toLowerCase().includes(query.toLowerCase())
-            );
-        }
-    };
-    const dataFiltered = filterData(searchQuery, jobOrderList);
+  const filterData = (query: string, data: JobOrderInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.date.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+  };
+  const dataFiltered = filterData(searchQuery, jobOrderList);
 
-    const onClickCreate = () => {
-        setModalName("create");
-    };
+  const onClickCreate = () => {
+    setModalName("create");
+  };
 
-    const onClickEdit = (jobOrder: JobOrderInterface) => {
-        setEditJobOrder(jobOrder);
-        console.log("onClickEdit"); // Only Dev
-        console.log(jobOrder); // Only Dev
-        setModalName("edit");
-    };
+  const onClickEdit = (jobOrder: JobOrderInterface) => {
+    setEditJobOrder(jobOrder);
+    console.log("onClickEdit"); // Only Dev
+    console.log(jobOrder); // Only Dev
+    setModalName("edit");
+  };
 
-    const onClickDelete = async (jobOrder: JobOrderInterface) => {
-        const flag = await confirmationMessage("Do you really want to delete?");
-        if (flag && jobOrder.id) {
-            await deleteJobOrder(jobOrder.id);
-            fetchJobOrderList();
-        }
-    };
+  const onClickDelete = async (jobOrder: JobOrderInterface) => {
+    const flag = await confirmationMessage("Do you really want to delete?");
+    if (flag && jobOrder.id) {
+      await deleteJobOrder(jobOrder.id);
+      fetchJobOrderList();
+    }
+  };
 
-    // useEffect(() => {
-    // }, [editJobOrder, modalName])
-    const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
-    const fetchSectorList = async () => {
-        const res = await readSectorList();
-        if (res.data) {
-            setSectorList(res.data);
-        }
-    };
+  // useEffect(() => {
+  // }, [editJobOrder, modalName])
+  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
+  const fetchSectorList = async () => {
+    const data = await readSectorList();
+    if (data) {
+      setSectorList(data);
+    }
+  };
 
-    const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
-    const fetchcomapanyList = async () => {
-        const res = await readCompanyList();
-        if (res.data) {
-            setCompanyList(res.data);
-        }
-    };
+  const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
+  const fetchcomapanyList = async () => {
+    const data = await readCompanyList();
+    if (data) {
+      setCompanyList(data);
+    }
+  };
 
-    const [countryList, setCountryList] = useState<CountryInterface[]>([]);
-    const fetchCountryList = async () => {
-        const res = await readCountryList();
-        if (res.data) {
-            setCountryList(res.data);
-        }
-    };
+  const [countryList, setCountryList] = useState<CountryInterface[]>([]);
+  const fetchCountryList = async () => {
+    const data = await readCountryList();
+    if (data) {
+      setCountryList(data);
+    }
+  };
 
-    // const [BDEList, setBDEList] = useState<CountryInterface[]>([])
-    // const fetchCountryList = async () => {
-    //     const data = await readCompanyList();
-    //     if(data){
-    //         setCompanyList(data);
-    //     }
-    // }
+  // const [BDEList, setBDEList] = useState<CountryInterface[]>([])
+  // const fetchCountryList = async () => {
+  //     const data = await readCompanyList();
+  //     if(data){
+  //         setCompanyList(data);
+  //     }
+  // }
 
-    const fetchJobOrderList = async (page?: number) => {
-        const res = await readJobOrderList(page);
-        // console.log(res.data);
-        setJobOrderList(res.data);
-        // console.log(res.additional_data);   // Only Dev
-        setAdditionalData(res.additional_data);
+  const fetchJobOrderList = async (page?: number) => {
+    const res = await readJobOrderList(page);
+    setJobOrderList(res);
+    setAdditionalData(await PaginationManager.getData());
+  };
 
-    };
+  const [consolidateChargeList, setConsolidateChargeList] = useState<
+    ConsolidateChargeInterface[]
+  >([]);
+  const fetchConsolidateCharges = async () => {
+    const res = await readConsolidateChargeList();
+    setConsolidateChargeList(res);
+  };
 
-    const [consolidateChargeList, setConsolidateChargeList] = useState<
-        ConsolidateChargeInterface[]
-    >([]);
-    const fetchConsolidateCharges = async () => {
-        const res = await readConsolidateChargeList();
-        setConsolidateChargeList(res.data);
-    };
+  useEffect(() => {
+    fetchConsolidateCharges();
+    fetchJobOrderList();
+    fetchSectorList();
+    fetchcomapanyList();
+    fetchCountryList();
+  }, []);
 
-    useEffect(() => {
-        fetchConsolidateCharges();
-        fetchJobOrderList();
-        fetchSectorList();
-        fetchcomapanyList();
-        fetchCountryList();
-    }, []);
+  return (
+    <div>
+      <CustomNavbarV3
+        pageName="Job Order"
+        searchFunction={(query) => setSearchQuery(query)}
+      />
 
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-
-    return (
-        <div>
-            <CustomNavbarV3
-                pageName="Job Order"
-                searchFunction={(query) => setSearchQuery(query)}
-            />
-
-            <CardHeader>
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-                <GreenButton
-                    text={"Add +"}
-                    onClick={() => {
-                        setModalName("create");
-                    }}
-                />
-                {/* <Button
+        <GreenButton
+          text={"Add +"}
+          onClick={() => {
+            setModalName("create");
+          }}
+        />
+        {/* <Button
                     variant="contained"
                     color="success"
                     onClick={() => {
@@ -168,28 +168,31 @@ export default function Main() {
                 >
                     Add JobOrder +
                 </Button> */}
-                {/* <IconButton>
+        {/* <IconButton>
                     <Icon color="primary">refresh</Icon>
                 </IconButton> */}
-            </CardHeader>
+      </CardHeader>
 
-            {/*  jobOrder stable */}
-            <JobOrderTable
-                snoBase={additionalData.pagination.sno_base}
-                jobOrderList={dataFiltered}
-                onClickEdit={onClickEdit}
-                onClickDelete={onClickDelete}
-                companyList={companyList}
-                countryList={countryList}
-                sectorList={sectorList}
-            />
+      {/*  jobOrder stable */}
+      <JobOrderTable
+        snoBase={additionalData.pagination.sno_base}
+        jobOrderList={dataFiltered}
+        onClickEdit={onClickEdit}
+        onClickDelete={onClickDelete}
+        companyList={companyList}
+        countryList={countryList}
+        sectorList={sectorList}
+      />
 
-            <Pagination data={additionalData} onPageChange={(e) => {
-                console.log(e);   // Only Dev
-                fetchJobOrderList(e)
-            }} />
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchJobOrderList(e);
+        }}
+      />
 
-            {/* <PaginationContainer>
+      {/* <PaginationContainer>
                 {currentPage >= 2 ? (
                     <PaginationBack onClick={changePrevious}>Back</PaginationBack>
                 ) : null}
@@ -201,36 +204,36 @@ export default function Main() {
                 <PaginationNext onClick={changeNext}>Next</PaginationNext>
             </PaginationContainer> */}
 
-            {/* <!-- Modal --> */}
+      {/* <!-- Modal --> */}
 
-            {/* Create */}
-            {modalName !== "create" ? (
-                ""
-            ) : (
-                <CreateModal
-                    onClose={() => setModalName("")}
-                    fetchJobOrderList={fetchJobOrderList}
-                    companyList={companyList}
-                    countryList={countryList}
-                    sectorList={sectorList}
-                    consolidateChargeList={consolidateChargeList}
-                />
-            )}
+      {/* Create */}
+      {modalName !== "create" ? (
+        ""
+      ) : (
+        <CreateModal
+          onClose={() => setModalName("")}
+          fetchJobOrderList={fetchJobOrderList}
+          companyList={companyList}
+          countryList={countryList}
+          sectorList={sectorList}
+          consolidateChargeList={consolidateChargeList}
+        />
+      )}
 
-            {/* Edit */}
-            {modalName !== "edit" ? (
-                ""
-            ) : (
-                <EditModal
-                    consolidateChargeList={consolidateChargeList}
-                    currentElement={editJobOrder}
-                    onClose={() => setModalName("")}
-                    fetchJobOrderList={fetchJobOrderList}
-                    companyList={companyList}
-                    countryList={countryList}
-                    sectorList={sectorList}
-                />
-            )}
-        </div>
-    );
+      {/* Edit */}
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal
+          consolidateChargeList={consolidateChargeList}
+          currentElement={editJobOrder}
+          onClose={() => setModalName("")}
+          fetchJobOrderList={fetchJobOrderList}
+          companyList={companyList}
+          countryList={countryList}
+          sectorList={sectorList}
+        />
+      )}
+    </div>
+  );
 }

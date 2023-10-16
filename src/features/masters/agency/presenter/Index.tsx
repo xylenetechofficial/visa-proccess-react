@@ -13,7 +13,7 @@ import { FaFilter } from "react-icons/fa";
 import { AgencyInterface } from "../type";
 import { deleteAgency, readAgencyList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -80,11 +80,9 @@ export default function Main() {
 
   const fetchAgencyList = async (page?: number) => {
     const res = await readAgencyList(true,  page);
-    setAgencyList(res.data);
-    setAdditionalData(res.additional_data);
-    console.log(res.additional_data, "Amit");   // Only Dev
-    // console.log(res.data, "Amit");   // Only Dev
-    // filterData("", res);
+    setAgencyList(res);
+    setAdditionalData(await PaginationManager.getData());
+    filterData("", res);
   };
 
   useEffect(() => {

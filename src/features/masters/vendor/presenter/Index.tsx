@@ -13,7 +13,7 @@ import { FaFilter } from "react-icons/fa";
 import { VendorInterface } from "../type";
 import { deleteAgency, readVendorList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -82,9 +82,10 @@ export default function Main() {
 
   const fetchVendorList = async (page?:number) => {
     const res = await readVendorList(true, page);
-    setVendorList(res.data);
-    filterData("", res.data);
-    setAdditionalData(res.additional_data)
+    setVendorList(res)
+    filterData("", res);
+    setAdditionalData(await PaginationManager.getData());
+
   };
 
   useEffect(() => {

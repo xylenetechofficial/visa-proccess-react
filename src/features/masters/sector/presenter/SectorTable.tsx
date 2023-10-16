@@ -11,7 +11,7 @@ const SectorTable = (props: { snoBase:number, sectorList: SectorInterface[], onC
 
     const fetchCountryList = async () => {
         const res = await readCountryList()
-        setCountryList(res.data)
+        setCountryList(res)
 
     }
 

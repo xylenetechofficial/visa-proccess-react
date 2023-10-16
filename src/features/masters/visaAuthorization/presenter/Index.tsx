@@ -27,7 +27,7 @@ import {
   deleteVisaAuthorisation,
   readVisaAuthorisationList,
 } from "../repository";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -97,7 +97,9 @@ export default function Main() {
 
   const fetchVisaAuthorisationList = async (page?:number) => {
     const res = await readVisaAuthorisationList(true,page)
-    setVisaAuthorisationList(res.data);
+    setVisaAuthorisationList(res);
+  setAdditionalData(await PaginationManager.getData());
+
   };
   useEffect(() => {
     fetchVisaAuthorisationList();

@@ -11,7 +11,7 @@ import { FaFilter } from "react-icons/fa";
 import { InterviewSectorInterface } from "../type";
 import { deleteInterviewSector, readInterviewSectorList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -77,8 +77,8 @@ export default function Main() {
 
     const fetchInterviewSectorList = async (page?:number) => {
         const res = await readInterviewSectorList(true , page)
-        setInterviewSectorList(res.data)
-        setAdditionalData(res.additional_data)
+        setInterviewSectorList(res)
+  setAdditionalData(await PaginationManager.getData());
     }
     useEffect(() => {
 
