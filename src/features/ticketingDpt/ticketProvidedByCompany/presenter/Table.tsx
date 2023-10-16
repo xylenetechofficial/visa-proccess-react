@@ -58,7 +58,7 @@ export default function Main(props: {
                             <TableCell3>{item.party_code} </TableCell3>
                             <TableCell3> {item.company_name}</TableCell3>
                             <TableCell3>{item.candidate_name} </TableCell3>
-                            <TableCell3>{item.pp_no} </TableCell3>
+                            <TableCell3>{item.passport_no} </TableCell3>
                             <TableCell3>{item.actual_profession} </TableCell3>
                             <TableCell3>{item.visa_profession} </TableCell3>
                             <TableCell3> {item.agent} </TableCell3>
