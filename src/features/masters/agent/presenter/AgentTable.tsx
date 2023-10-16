@@ -12,7 +12,8 @@ const AgentTable = (props: { agentList: AgentInterface[], onClickEdit: any, onCl
     const [sectorList, setSectorList] = useState<SectorInterface[]>()
 
     const fetchSectorList = async () => {
-        setSectorList(await readSectorList())
+     const res = await readSectorList()
+        setSectorList(res.data)
 
     }
 

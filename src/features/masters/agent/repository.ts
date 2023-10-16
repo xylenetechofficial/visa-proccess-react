@@ -11,7 +11,11 @@ import { endpoint } from "../../../constant";
 import { showMessage_v2 } from "../../../utils/alert";
 import { string } from "prop-types";
 
-export async function readAgentList(refresh = false, filter_for = "", page_number?: number) {
+export async function readAgentList(
+  refresh = false,
+  filter_for = "",
+  page_number?: number
+) {
   const path = "/masters/agent-list";
 
   const response = await ApiHelper.get(path, {
@@ -40,8 +44,8 @@ export async function readAgentList(refresh = false, filter_for = "", page_numbe
 
   return {
     data: data,
-  additional_data: response.additional_data as AdditionalDataInterface,
-  }
+    additional_data: response.additional_data as AdditionalDataInterface,
+  };
 }
 
 export async function createAgent(agent: AgentInterface) {
