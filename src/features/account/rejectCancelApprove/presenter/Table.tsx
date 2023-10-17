@@ -1,5 +1,4 @@
 import {
-
   Table3,
   TableBody3,
   TableCell3,
@@ -8,65 +7,31 @@ import {
   TableHeadRow3,
   TableRow3,
 } from "../../../../componenets/Table";
-import { SectorInterface } from "../../../masters/sector/type";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CountryInterface } from "../../../masters/country/type";
 import { Checkbox } from "@mui/material";
-import { EditRejectCancelApproveInterface, RejectCancelApproveInterface } from "../type";
-import { useState } from "react";
+import {  RejectCancelApproveInterface } from "../type";
+
 
 
 const RejectCancelApproveTable = (props: {
-  // RejectCancelApproveList: RejectCancelApproveInterface[];
   RejectCancelApproveList: RejectCancelApproveInterface[];
-  // onChange: (value:EditRejectCancelApproveInterface[])=>void;
-  editRejectCancelApprove: any
+  onChange: (value:RejectCancelApproveInterface[])=>void;
 }) => {
-const [dataa, setDataa]=useState<EditRejectCancelApproveInterface[]>([])
-  const handleCheckBox = (e:any, item: RejectCancelApproveInterface) => {
-    // props.setEditRejectCancelApprove((prev: any) => {
-      // Iterate through the selection_list and find the item with the given id
-      // const newData= [...prev]
-      // return {
-        
-      //    [
-      //     ...prev,
-      //     {
-      //     id: item.id,
-      //     mofa_cancel_id: item.mofa_cancel_id,
-      //     status: 1
-      //   }
-      //   ]
-      // }
-if(e.target.checked){
-  const  obj:any ={
-    id:item.id,
-    mofa_cancel_id:item.mofa_cancel_id,
-    status:item.status
-  };
-  setDataa([...dataa, obj])
-}
-   
-      // props.onChange(obj)
-  };
 
-  console.log(dataa,"SSs")
-  const data = [{
-    id: 1,
-    mofa_cancel_id: " item.mofa_cancel_id",
-    status: 1
-  },{
-    id: 2,
-    mofa_cancel_id: " item.mofa_cancel_id",
-    status: 1
-  },{
-    id: 3,
-    mofa_cancel_id: " item.mofa_cancel_id",
-    status: 1
-  }];
+  function onUpdateRow(index: number, rowData: RejectCancelApproveInterface) {
+    const nextData :RejectCancelApproveInterface []= props.RejectCancelApproveList.map((e, i) => {
+      if (i === index) {
+        // Increment the clicked counter
+        return rowData;
+      } else {
+        // The rest haven't changed
+        return e;
+      }
+    });
+    props.onChange(nextData); 
+  }
+  
   return (
     <div className="overflow-auto">
-
       <Table3>
         <TableHead3>
           <TableHeadRow3>
@@ -90,36 +55,35 @@ if(e.target.checked){
             <TableHeadCell3> SERVICES CHARGES</TableHeadCell3>
             <TableHeadCell3> AIR TICKET</TableHeadCell3>
             <TableHeadCell3> IS INVIOCE</TableHeadCell3>
-            {/* <TableHeadCell3> TICKET CHARGES </TableHeadCell3> */}
-            <TableHeadCell3>
-              Check box</TableHeadCell3>
+            <TableHeadCell3> Check box</TableHeadCell3>
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
-          {data?.map((item: any, index: any) => (
-
+          {props.RejectCancelApproveList.map((item, index) => (
             <TableRow3 key={index}>
               <TableCell3>{index + 1}</TableCell3>
-              <TableCell3>{item?.party_code}</TableCell3>
-              <TableCell3>{item?.company_name}</TableCell3>
-              <TableCell3>{item?.name}</TableCell3>
-              <TableCell3>{item?.actual_profession}</TableCell3>
-              <TableCell3>{item?.passport_no}</TableCell3>
-              <TableCell3>{item?.agent_name}</TableCell3>
-              <TableCell3>{item?.visa_received_date}</TableCell3>
-              <TableCell3>{item?.consolidated_charges}</TableCell3>
-              <TableCell3>{item?.document_charges}</TableCell3>
-              <TableCell3>{item?.consulate_setting_charges}</TableCell3>
-              <TableCell3>{item?.reason}</TableCell3>
-              <TableCell3>{item?.rc_name}</TableCell3>
-              <TableCell3>{item?.division}</TableCell3>
-              <TableCell3>{item?.visa_authorization}</TableCell3>
-              <TableCell3>{item?.sector_charges}</TableCell3>
-              <TableCell3>{item?.partial_charges}</TableCell3>
-              <TableCell3>{item?.service_charges} ( {item?.ccp_cancel_type} )</TableCell3>
-              <TableCell3>{item?.air_ticket}</TableCell3>
-              <TableCell3>{item?.is_invoice}</TableCell3>
-              <TableCell3><Checkbox onClick={(e:any) => handleCheckBox(e,item)} /></TableCell3>
+              <TableCell3>{item.party_code}</TableCell3>
+              <TableCell3>{item.company_name}</TableCell3>
+              <TableCell3>{item.name}</TableCell3>
+              <TableCell3>{item.actual_profession}</TableCell3>
+              <TableCell3>{item.passport_no}</TableCell3>
+              <TableCell3>{item.agent_name}</TableCell3>
+              <TableCell3>{item.visa_received_date}</TableCell3>
+              <TableCell3>{item.consolidated_charges}</TableCell3>
+              <TableCell3>{item.document_charges}</TableCell3>
+              <TableCell3>{item.consulate_setting_charges}</TableCell3>
+              <TableCell3>{item.reason}</TableCell3>
+              <TableCell3>{item.rc_name}</TableCell3>
+              <TableCell3>{item.division}</TableCell3>
+              <TableCell3>{item.visa_authorization}</TableCell3>
+              <TableCell3>{item.sector_charges}</TableCell3>
+              <TableCell3>{item.partial_charges}</TableCell3>
+              <TableCell3>{item.service_charges} ( {item.ccp_cancel_type} )</TableCell3>
+              <TableCell3>{item.air_ticket}</TableCell3>
+              <TableCell3>{item.is_invoice}</TableCell3>
+              <TableCell3><Checkbox onClick={(e:any) =>
+                 {onUpdateRow(index, {...item, is_checked : e.target.checked ? 1:0})}} />
+                 </TableCell3>
             </TableRow3>
           ))}
         </TableBody3>

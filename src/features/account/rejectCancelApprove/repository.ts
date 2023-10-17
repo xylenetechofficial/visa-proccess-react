@@ -1,4 +1,4 @@
-import {  RejectCancelApproveAdapter, RejectCancelApproveConverter, RejectCancelApproveInterface} from "./type";
+import {  RejectCancelApproveAdapter, RejectCancelApproveConverter, RejectCancelApproveInterface, RejectCancelApproveListConverter, RejectCancelApproveListInterface} from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -29,11 +29,13 @@ export async function readRejectCancelApproveList() {
 }
 
 
-export async function updateRejectCancelApprove(status:number, RejectCancelApprove: any) {
+export async function updateRejectCancelApprove(status:number, RejectCancelApprove: RejectCancelApproveInterface[]) {
 
-  // const payload = editRejectCancelApproveConverter.toAdapter(RejectCancelApprove);
-  const payload = RejectCancelApprove
-  payload.selection_list[0].status=status;
+  const list :RejectCancelApproveListInterface= {selection_list:RejectCancelApprove}
+  const payload = RejectCancelApproveListConverter.toAdapter(list);
+  console.log(payload,"payload")
+  // const payload = RejectCancelApprove
+  // payload.selection_list[0].status=status;
   const path = "/account/reject-cancel-approve-list" 
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,

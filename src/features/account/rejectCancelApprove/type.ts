@@ -22,6 +22,7 @@ export interface RejectCancelApproveInterface {
   consolidated_charges: number;
   consolidated_charges_names: string;
   mofa_cancel_id: number;
+  is_checked:number,
   status:number,
   reason?: string;
   rc_name?: string;
@@ -54,6 +55,7 @@ export interface RejectCancelApproveAdapter {
   consolidated_charges: number;
   consolidated_charges_names: string;
   mofa_cancel_id: number;
+  is_checked:number,
   status:number,
   reason?: string;
   rc_name?: string;
@@ -94,6 +96,7 @@ export class RejectCancelApproveConverter {
       consolidated_charges: a.consolidated_charges,
       consolidated_charges_names: a.consolidated_charges_names,
       mofa_cancel_id: a.mofa_cancel_id,
+      is_checked:a.is_checked,
       status:a.status,
       reason: a.reason,
       rc_name: a.rc_name,
@@ -134,23 +137,24 @@ export class RejectCancelApproveConverter {
       consolidated_charges: i.consolidated_charges,
       consolidated_charges_names: i.consolidated_charges_names,
       mofa_cancel_id: i.mofa_cancel_id,
+      is_checked:i.is_checked,
       status:i.status,
       ccp_cancel_type: i.ccp_cancel_type,
     };
     return data;
   }
 }
-export interface EditRejectCancelApproveInterface {
-  id: number;
-  mofa_cancel_id: number;
-  status: number;
-}
+// export interface EditRejectCancelApproveInterface {
+//   id: number;
+//   mofa_cancel_id: number;
+//   status: number;
+// }
 
-export interface EditRejectCancelApproveAdapter {
-  id: number;
-  mofa_cancel_id: number;
-  status: number;
-}
+// export interface EditRejectCancelApproveAdapter {
+//   id: number;
+//   mofa_cancel_id: number;
+//   status: number;
+// }
 // export class EditRejectCancelApproveConverter {
 //   // private i: EditRejectCancelApproveInterface
 //   // private a: RejectCancelApproveSingleAdapter
@@ -170,32 +174,59 @@ export interface EditRejectCancelApproveAdapter {
 // }
 
 
-export interface EditRejectCancelApproveListInterface {
+export interface RejectCancelApproveListInterface {
 
-  selection_list: EditRejectCancelApproveInterface[],
+  selection_list: RejectCancelApproveInterface[],
   
 }
 
-export interface EditRejectCancelApproveListAdapter {
+export interface RejectCancelApproveListAdapter {
 
-  selection_list: EditRejectCancelApproveAdapter[],
+  selection_list: RejectCancelApproveAdapter[],
   
 }
 
 
-export class EditRejectCancelApproveConverter {
+export class RejectCancelApproveListConverter {
   // private i: AddCandidateInvoiceNumberInterface
   // private a: AddPenaltyAfterDeploymentAdapter
 
   /**
    * toInterface
    */
-  public static toInterface(a: EditRejectCancelApproveListAdapter) {
-    const data: EditRejectCancelApproveListInterface = {
+  public static toInterface(a: RejectCancelApproveListAdapter) {
+    const data: RejectCancelApproveListInterface = {
       selection_list: a?.selection_list?.map((item) => ({       
-        "id":item.id ,
-        "mofa_cancel_id": item.mofa_cancel_id,
-        "status": item.status
+        id: item.id,
+        party_code: item.party_code,
+        company_name: item.company_name,
+        name: item.name,
+        passport_no: item.passport_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent_name: item.agent_name,
+        visa_received_date: item.visa_received_date,
+        visa_authorization: item.visa_authorization,
+        air_ticket: item.air_ticket,
+        service_charges: item.service_charges,
+        other_charges: item.other_charges,
+        document_charges: item.document_charges,
+        consulate_setting_charges: item.consulate_setting_charges,
+        partial_charges: item.partial_charges,
+        sector_charges: item.sector_charges,
+        ticket_charges: item.ticket_charges,
+        attestation_charges: item.attestation_charges,
+        extra_service_tax: item.extra_service_tax,
+        consolidated_charges: item.consolidated_charges,
+        consolidated_charges_names: item.consolidated_charges_names,
+        mofa_cancel_id: item.mofa_cancel_id,
+        is_checked:item.is_checked,
+        status:item.status,
+        reason: item.reason,
+        rc_name: item.rc_name,
+        division: item.division,
+        is_invoice: item.is_invoice,
+        ccp_cancel_type: item.ccp_cancel_type,
       })),
   
     };
@@ -205,14 +236,41 @@ export class EditRejectCancelApproveConverter {
   /**
    * toAdapter
    */
-  public static toAdapter(i: EditRejectCancelApproveListInterface) {
+  public static toAdapter(i: RejectCancelApproveListInterface) {
     console.log("i"); // Only Dev
     console.log(i); // Only Dev
-    const data: EditRejectCancelApproveListAdapter = {
+    const data: RejectCancelApproveListAdapter = {
       selection_list: i?.selection_list?.map((item) => ({       
-        "id":item.id ,
-        "mofa_cancel_id": item.mofa_cancel_id,
-        "status": item.status
+        id: item.id,
+        party_code: item.party_code,
+        company_name: item.company_name,
+        name: item.name,
+        passport_no: item.passport_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent_name: item.agent_name,
+        visa_received_date: item.visa_received_date,
+        visa_authorization: item.visa_authorization,
+        air_ticket: item.air_ticket,
+        service_charges: item.service_charges,
+        other_charges: item.other_charges,
+        document_charges: item.document_charges,
+        consulate_setting_charges: item.consulate_setting_charges,
+        partial_charges: item.partial_charges,
+        sector_charges: item.sector_charges,
+        ticket_charges: item.ticket_charges,
+        attestation_charges: item.attestation_charges,
+        extra_service_tax: item.extra_service_tax,
+        consolidated_charges: item.consolidated_charges,
+        consolidated_charges_names: item.consolidated_charges_names,
+        mofa_cancel_id: item.mofa_cancel_id,
+        is_checked:item.is_checked,
+        status:item.status,
+        reason: item.reason,
+        rc_name: item.rc_name,
+        division: item.division,
+        is_invoice: item.is_invoice,
+        ccp_cancel_type: item.ccp_cancel_type,
       })), 
     };
     return data;

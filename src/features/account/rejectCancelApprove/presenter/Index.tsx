@@ -4,7 +4,7 @@ import RejectCancelApproveTable from "./Table";
 import {  RedButton, YellowButton } from "../../../../componenets/CustomButton";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import {  EditRejectCancelApproveInterface, RejectCancelApproveInterface } from "../type";
+import {   RejectCancelApproveInterface } from "../type";
 import {  readRejectCancelApproveList, updateRejectCancelApprove } from "../repository";
 
 const CardHeader = styled(Box)(() => ({
@@ -19,18 +19,7 @@ const CardHeader = styled(Box)(() => ({
 export default function Main() {
 
     
-    const [editRejectCancelApprove, setEditRejectCancelApprove] = useState<[EditRejectCancelApproveInterface[]]>(
-    //     {
-    //     "selection_list":[
-    //         {
-    //             "id":0,
-    //             "mofa_cancel_id":0,
-    //             "status":0
-    //         }
-    //     ]
-    // }
-    );
-    const [btnClicked,setBtnClicked]=useState('')
+     const [btnClicked,setBtnClicked]=useState('')
 
     const [RejectCancelApproveList, setRejectCancelApproveList] = useState<RejectCancelApproveInterface[]>([])
 
@@ -38,19 +27,22 @@ export default function Main() {
 
     const fetchRejectCancelApproveList = async () => {
         const data = await readRejectCancelApproveList();
-        console.log(data, "kkkkkllllll");
+        
         if (data) {
             setRejectCancelApproveList(data);
 
         }
 
     }
-    const updateRejectCancelApproveList= async(id:number, item:any)=>{
-        console.log(item,"ITEM", id)
-        // const res :any = await updateRejectCancelApprove(id, item);
-        // if(res){
-        //     fetchRejectCancelApproveList();   
-        // }
+    const updateRejectCancelApproveList= async(id:number, item:RejectCancelApproveInterface[])=>{
+        
+        const list :RejectCancelApproveInterface[] = item.filter((ele)=> ele.is_checked !== undefined || null)
+        list.map((ele)=> {return  ele.status= id })
+        
+        const res :any = await updateRejectCancelApprove(id, list);
+        if(res){
+            fetchRejectCancelApproveList();   
+        }
     }
     useEffect(() => {
 
@@ -71,23 +63,18 @@ export default function Main() {
             {/*  RejectCancelApprove stable */}
             <RejectCancelApproveTable
                 RejectCancelApproveList={RejectCancelApproveList}
-                // setEditRejectCancelApprove={(value)=>setEditRejectCancelApprove(value)}
-                // onChange={(value)=>setEditRejectCancelApprove({...editRejectCancelApprove,value})}
-                editRejectCancelApprove={editRejectCancelApprove}
+                onChange={(value)=>setRejectCancelApproveList(value)}
+                
             />
             <YellowButton text={"Reject"} onClick={() => {
-                // setModalName("create")
-                setBtnClicked("Reject")
-                updateRejectCancelApproveList(1,editRejectCancelApprove)
+                // setBtnClicked("Reject")
+                updateRejectCancelApproveList(1,RejectCancelApproveList)
             }} />
             <RedButton text={"Cancel / Approve"} onClick={() => {
-                setBtnClicked("Cancel / Approve")
-                updateRejectCancelApproveList(2,editRejectCancelApprove)
+                // setBtnClicked("Cancel / Approve")
+                updateRejectCancelApproveList(2,RejectCancelApproveList)
             }} />
-           {/* <GreenButton text={"Mofa 15 Days"} onClick={() => {
-            setBtnClicked("Mofa 15 Days")
-              updateRejectCancelApproveList(0,editRejectCancelApprove)
-            }} /> */}
+          
         </div>
     )
 }

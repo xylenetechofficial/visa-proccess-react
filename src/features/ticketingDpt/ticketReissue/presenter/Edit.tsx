@@ -98,7 +98,7 @@ export default function Main(props: { onClose: () => void, reIssue: TicketIssueI
 
 
           <div className="grid grid-cols-2 shadow-sm">
-            <GreenButton text="Submit" onClick={() => { handleSubmit()}} />
+            <GreenButton text="Submit" onClick={() => { handleSubmit(),props.onClose()}} />
             <RedButton
               text="cancel"
               onClick={() => {
