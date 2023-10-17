@@ -20,6 +20,7 @@ export default function Main(props: {
         newArray.push(props.agencyInvoiceAwaiting[i])
       }
     }
+    console.log(newArray)
     // call create
     const res = await addAgencyInvoiceAwaitingList(newArray)
 
@@ -44,7 +45,7 @@ export default function Main(props: {
 
   return (
     <FullScreenModal
-      buttonName=""
+      buttonName="submit"
       handleClick={onClickAdd}
       title="Agency Invoice Awaiting"
       onClose={props.onClose}
