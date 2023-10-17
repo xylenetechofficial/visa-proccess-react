@@ -138,8 +138,8 @@ const onClickSubmit =async()=>{
             ))}
           </TableBody3>
         </Table3>
-        <GreenButton text="Submit" onClick={()=>onClickSubmit()} />
       </div>
+        <GreenButton text="Submit" onClick={()=>onClickSubmit()} />
     </FullScreenModal>
   );
 }

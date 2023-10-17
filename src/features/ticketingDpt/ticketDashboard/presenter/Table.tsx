@@ -106,11 +106,49 @@ export default function Main(props: {
                       </TableCell3>
                     </TableRow3>
                     <TableRow3 key={"dcbsdhc"}>
-                      <TableCell3>Total</TableCell3>
-                      <TableCell3>{extraData.total_ticket_to_be_booked}</TableCell3>
-                      <TableCell3>{extraData.total_ticket_under_process}</TableCell3>
-                      <TableCell3>{extraData.total_ticket_trying}</TableCell3>
-                      <TableCell3>{extraData.total_agency_invoice_awaiting}</TableCell3>
+                      <TableCell3>
+                        <span
+                          className="text-red-600 cursor-pointer font-extrabold"
+                        >
+                       Total
+                        </span>
+                      </TableCell3>
+                      <TableCell3>
+                        <span
+                          className="text-red-600 cursor-pointer px-10 font-extrabold"
+                        >
+                         {extraData.total_ticket_to_be_booked}
+                        </span>
+                      </TableCell3>
+                     <div>
+
+                     <TableCell3>
+                        <span
+                          className="text-red-600 cursor-pointer px-10 font-extrabold"
+                        >
+                     {extraData.total_ticket_under_process}
+                        </span>
+                      </TableCell3>
+
+                      <TableCell3>
+                        <span
+                          className="text-red-600 cursor-pointer px-10 font-extrabold"
+                        >
+                     {extraData.total_ticket_trying}
+                        </span>
+                      </TableCell3>
+             
+                    
+                     </div>
+
+                     <TableCell3>
+                        <span
+                          className="text-red-600 cursor-pointer px-10 font-extrabold"
+                        >
+                     {extraData.total_agency_invoice_awaiting}
+                        </span>
+                      </TableCell3>
+                   
                     </TableRow3>
                   </>)
               
