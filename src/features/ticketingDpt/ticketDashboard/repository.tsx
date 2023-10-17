@@ -245,6 +245,18 @@ export async function readTrying(ticketDashboard: any) {
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
+  const data = []
+    console.log(response.data)
+    if (response.data) {
+      const dataAdapter = response.data as TypingAdapter[];
+      for (let i = 0; i < dataAdapter.length; i++) {
+        const element = dataAdapter[i];
+        data.push(TypingConverter.toInterface(element));
+      }
+    }
+    console.log("first", data)
+    return data as TypingInterface[]
+  
 }
 
 //   export async function updateTryingReverse(item:TypingInterface){
