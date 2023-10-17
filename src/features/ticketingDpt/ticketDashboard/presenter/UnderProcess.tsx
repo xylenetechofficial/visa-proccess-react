@@ -115,8 +115,8 @@ export default function Main(props: {
                 <Checkbox onChange={(value) => onUpdateRow(index, { ...item, is_cheked: value.target.checked ? true : false })} />
                 <TableCell3> <UnlabeledInput value={item.air_line} onchange={(value) => onUpdateRow(index, { ...item, air_line: value })} /> </TableCell3>
                 <TableCell3> <DateInput value={item.ticket_issue_date} id="cacas" onChange={(value) => onUpdateRow(index, { ...item, ticket_issue_date: value })} /> </TableCell3>
-                <TableCell3><UnlabeledInput value={item.passport_no} onchange={(value) => onUpdateRow(index, { ...item, passport_no: value })} /> </TableCell3>
-                <TableCell3><UnlabeledInput value={item.ticketing_departure_date} onchange={(value) => onUpdateRow(index, { ...item, ticketing_departure_date: value })} /> </TableCell3>
+                <TableCell3><UnlabeledInput value={item.ticketing_pnr_no} onchange={(value) => onUpdateRow(index, { ...item, ticketing_pnr_no: value })} /> </TableCell3>
+                <TableCell3><DateInput value={item.ticketing_departure_date} id="cakjsc" onChange={(value) => onUpdateRow(index, { ...item, ticketing_departure_date: value })} /> </TableCell3>
                 <TableCell3><UnlabeledInput type="number" value={item.agency} onchange={(value) => onUpdateRow(index, { ...item, agency: parseInt(value) })} /> </TableCell3>
                 <TableCell3><UnlabeledInput type="number" value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
                 <TableCell3>{item.actual_profession}</TableCell3>

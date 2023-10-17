@@ -5,29 +5,43 @@ import { TicketDashboardInterface } from "../type";
 import { AgentInvoiceAwaitingInterface } from "../agentInvoiceAwaitingType";
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
+import { addAgencyInvoiceAwaitingList } from "../repository";
 
-export default function Main(props: { 
-  onClose: any, 
-  onChange:(value:AgentInvoiceAwaitingInterface[])=>void,
-  agencyInvoiceAwaiting:AgentInvoiceAwaitingInterface[] }) {
-  const onClickAdd = () => {
-    alert("Amit");
+export default function Main(props: {
+  onClose: any,
+  onChange: (value: AgentInvoiceAwaitingInterface[]) => void,
+  agencyInvoiceAwaiting: AgentInvoiceAwaitingInterface[]
+}) {
+  const onClickAdd = async () => {
+    const newArray = []
+    for (let i = 0; i < props.agencyInvoiceAwaiting.length; i++) {
+      if (props.agencyInvoiceAwaiting[i].checked) {
+        newArray.push(props.agencyInvoiceAwaiting[i])
+      }
+    }
+    // call create
+    const res = await addAgencyInvoiceAwaitingList(newArray)
+
+    if (!res) {
+      return;
+    }
+    props.onClose()
   };
 
   function onUpdateRow(index: number, rowData: AgentInvoiceAwaitingInterface) {
     const nextData = props.agencyInvoiceAwaiting.map((e, i) => {
-        if (i === index) {
-            // Increment the clicked counter
-            return rowData;
-        } else {
-            // The rest haven't changed
-            return e;
-        }
+      if (i === index) {
+        // Increment the clicked counter
+        return rowData;
+      } else {
+        // The rest haven't changed
+        return e;
+      }
     });
     props.onChange(nextData)
-}
- 
+  }
+
   return (
     <FullScreenModal
       buttonName=""
@@ -39,33 +53,34 @@ export default function Main(props: {
         <Table3>
           <TableHead3>
             <TableHeadRow3>
-                <TableHeadCell3>sr.no</TableHeadCell3>
-                <TableHeadCell3>party code</TableHeadCell3>
-                <TableHeadCell3>company name</TableHeadCell3>
-                <TableHeadCell3>candidate name</TableHeadCell3>
-                <TableHeadCell3>pp no.</TableHeadCell3>
-                <TableHeadCell3>actual profession</TableHeadCell3>
-                <TableHeadCell3>visa profession</TableHeadCell3>
-                <TableHeadCell3>agent</TableHeadCell3>
-                <TableHeadCell3>rc name</TableHeadCell3>
-                <TableHeadCell3>visa received date</TableHeadCell3>
-                <TableHeadCell3>visa expire date</TableHeadCell3>
-                <TableHeadCell3>sector from</TableHeadCell3>
-                <TableHeadCell3>sector to</TableHeadCell3>
-                <TableHeadCell3>required date</TableHeadCell3>
-                <TableHeadCell3>priority</TableHeadCell3>
-                <TableHeadCell3>air ticket </TableHeadCell3>
-                <TableHeadCell3>air line</TableHeadCell3>
-                <TableHeadCell3>ticket issue date</TableHeadCell3>
-                <TableHeadCell3>pnr no.</TableHeadCell3>
-                <TableHeadCell3>departure date</TableHeadCell3>
-                <TableHeadCell3>agency</TableHeadCell3>
-                <TableHeadCell3>amount</TableHeadCell3>
-                <TableHeadCell3>invoice no</TableHeadCell3>
-                <TableHeadCell3>invoice date</TableHeadCell3>
+              {["Sno",
+                "party code",
+                "company name",
+                "candidate name",
+                "pp no.",
+                "actual profession",
+                "visa profession",
+                "agent",
+                "rc name",
+                "visa received date",
+                "visa expire date",
+                "sector from",
+                "sector to",
+                "required date",
+                "priority",
+                "air ticket ",
+                "air line",
+                "ticket issue date",
+                "pnr no.",
+                "departure date",
+                "agency",
+                "amount",
+                "select",
+                "invoice no",
+                "invoice date",].map(e => <TableHeadCell3>{e}</TableHeadCell3>)}
             </TableHeadRow3>
           </TableHead3>
-           <TableBody3>
+          <TableBody3>
             {props.agencyInvoiceAwaiting.map((item, index) => (
               <TableRow3>
                 <TableCell3>{index + 1}</TableCell3>
@@ -94,12 +109,13 @@ export default function Main(props: {
                 <TableCell3>{item.ticketing_departure_date} </TableCell3>
                 <TableCell3>{item.agency} </TableCell3>
                 <TableCell3>{item.amount} </TableCell3>
-                <TableCell3><UnlabeledInput value={item.ticketing_invoice_no} onchange={(value)=>onUpdateRow(index,{...item,ticketing_invoice_no:value})} /></TableCell3>
-                <TableCell3>{item.ticketing_invoice_date} </TableCell3>
-                
+                <Checkbox onChange={(value) => onUpdateRow(index, { ...item, checked: value.target.checked ? true : false })} />
+                <TableCell3><UnlabeledInput value={item.ticketing_invoice_no} onchange={(value) => onUpdateRow(index, { ...item, ticketing_invoice_no: value })} /></TableCell3>
+                <TableCell3><DateInput id="sdbvhs" value={item.ticketing_invoice_date} onChange={(value) => onUpdateRow(index, { ...item, ticketing_invoice_date: value })} /></TableCell3>
+
               </TableRow3>
             ))}
-          </TableBody3> 
+          </TableBody3>
         </Table3>
       </div>
     </FullScreenModal>
