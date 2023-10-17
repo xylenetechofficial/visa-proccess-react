@@ -5,7 +5,7 @@ import { TicketInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
-import { updateUnderProcess, updateUnderProcessList } from "../repository";
+import {  updateUnderProcessList, updateUnderProcessReverse } from "../repository";
 import { UnderprocessInterface } from "../underprocessType";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 
@@ -46,8 +46,9 @@ export default function Main(props: {
   };
 
 
-  const onClickReverse = async (item: UnderprocessInterface) => {
-    const update = await updateUnderProcess(item)
+
+  const onClickReverse = async (item :UnderprocessInterface) => {
+    const update = await updateUnderProcessReverse(item)
     if (update) {
       props.onClose();
     }

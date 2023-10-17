@@ -4,7 +4,7 @@ import { Table3, TableBody2, TableBody3, TableCell3, TableHead3, TableHeadCell3,
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
-import { updateTrying } from "../repository";
+import {  updateTryingList, updateTryingReverse } from "../repository";
 import { TypingInterface } from "../tryingType";
 import { UnlabeledInput } from "../../../../componenets/Input";
 
@@ -43,8 +43,14 @@ const handleCheckboxChange = (itemId: any,index:number) => {
 };
 
  
-const onClickSubmit =async(item :TypingInterface)=>{
-  const update = await updateTrying(item)
+const onClickReverse =async(item :TypingInterface)=>{
+  const update = await updateTryingReverse(item)
+  if(update){
+    props.onClose();
+  }
+}
+const onClickSubmit =async()=>{
+  const update = await updateTryingList(props.tryingList)
   if(update){
     props.onClose();
   }
@@ -117,13 +123,13 @@ const onClickSubmit =async(item :TypingInterface)=>{
                 <TableCell3>{item.visa_date}</TableCell3>
                 <TableCell3>{item.pp_expiry_date}</TableCell3>
                 <TableCell3>{item.visa_issued_date}</TableCell3>
-                <TableCell3><RedButton text="Reverse" onClick={() => onClickSubmit(item)} /></TableCell3>
+                <TableCell3><RedButton text="Reverse" onClick={() => onClickReverse(item)} /></TableCell3>
               </TableRow3>
             ))}
           </TableBody3> 
         </Table3>
       </div>
-      {/* <GreenButton text="Submit" onClick={()=>onClickSubmit()} /> */}
+      <GreenButton text="Submit" onClick={()=>onClickSubmit()} />
     </FullScreenModal>
   );
 }
