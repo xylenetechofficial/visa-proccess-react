@@ -5,9 +5,9 @@ import { TicketInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
-import { updateUnderProcess } from "../repository";
+import { updateUnderProcess, updateUnderProcessList } from "../repository";
 import { UnderprocessInterface } from "../underprocessType";
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 
 export default function Main(props: {
   onClose: any,
@@ -46,8 +46,14 @@ export default function Main(props: {
   };
 
 
-  const onClickSubmit = async (item:UnderprocessInterface) => {
+  const onClickReverse = async (item: UnderprocessInterface) => {
     const update = await updateUnderProcess(item)
+    if (update) {
+      props.onClose();
+    }
+  }
+  const onClickSubmit = async () => {
+    const update = await updateUnderProcessList(props.openUnderProcess)
     if (update) {
       props.onClose();
     }
@@ -72,6 +78,7 @@ export default function Main(props: {
               <TableHeadCell3>sector to</TableHeadCell3>
               <TableHeadCell3>required date</TableHeadCell3>
               <TableHeadCell3>priority</TableHeadCell3>
+              <TableHeadCell3>select</TableHeadCell3>
               <TableHeadCell3>air line</TableHeadCell3>
               <TableHeadCell3>ticket issue date </TableHeadCell3>
               <TableHeadCell3>PNR No</TableHeadCell3>
@@ -104,8 +111,9 @@ export default function Main(props: {
                 <TableCell3>{item.ticketing_sector_to} </TableCell3>
                 <TableCell3>{convertDateFormat(item.required_date)} </TableCell3>
                 <TableCell3>{item.priority} </TableCell3>
+                <Checkbox onChange={(value) => onUpdateRow(index, { ...item, is_cheked: value.target.checked ? true : false })} />
                 <TableCell3> <UnlabeledInput value={item.air_line} onchange={(value) => onUpdateRow(index, { ...item, air_line: value })} /> </TableCell3>
-                <TableCell3> <UnlabeledInput value={item.ticket_issue_date} onchange={(value) => onUpdateRow(index, { ...item, ticket_issue_date: value })} /> </TableCell3>
+                <TableCell3> <DateInput value={item.ticket_issue_date} id="cacas" onChange={(value) => onUpdateRow(index, { ...item, ticket_issue_date: value })} /> </TableCell3>
                 <TableCell3><UnlabeledInput value={item.passport_no} onchange={(value) => onUpdateRow(index, { ...item, passport_no: value })} /> </TableCell3>
                 <TableCell3><UnlabeledInput value={item.ticketing_departure_date} onchange={(value) => onUpdateRow(index, { ...item, ticketing_departure_date: value })} /> </TableCell3>
                 <TableCell3><UnlabeledInput type="number" value={item.agency} onchange={(value) => onUpdateRow(index, { ...item, agency: parseInt(value) })} /> </TableCell3>
@@ -120,13 +128,13 @@ export default function Main(props: {
                 <TableCell3>{item.visa_date}</TableCell3>
                 <TableCell3>{item.pp_expiry_date}</TableCell3>
                 <TableCell3>{item.visa_issued_date}</TableCell3>
-                <TableCell3><RedButton text="Reverse" onClick={() => onClickSubmit(item)} /></TableCell3>
+                <TableCell3><RedButton text="Reverse" onClick={() => onClickReverse(item)} /></TableCell3>
               </TableRow3>
             ))}
           </TableBody3>
         </Table3>
       </div>
-      {/* <GreenButton text="Submit" onClick={() => onClickSubmit()} /> */}
+      <GreenButton text="Submit" onClick={() => onClickSubmit()} />
     </FullScreenModal>
   );
 }

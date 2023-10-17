@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CustomSelectComponent } from "../../../../componenets/SelectBox";
 import {
   Table3,
@@ -19,6 +20,14 @@ export default function Main(props: {
   AgencyInvoiceAwaiting: (value: any) => void;
   tryingFunction: (value: any) => void;
 }) {
+
+  const extraData = {
+    total_ticket_to_be_booked: 0,
+    total_ticket_under_process: 0,
+    total_ticket_trying: 0,
+    total_agency_invoice_awaiting: 0,
+  }
+
   return (
     <>
       <div className="overflow-auto">
@@ -36,58 +45,128 @@ export default function Main(props: {
             </TableHeadRow3>
           </TableHead3>
           <TableBody3>
-            {props.TicketDashboardList.map((ticket, index) => (
-              <TableRow3 key={index}>
-                <TableCell3> {ticket.sector}</TableCell3>
+            {props.TicketDashboardList.map((ticket, index) => {
+
+              extraData.total_ticket_to_be_booked = extraData.total_ticket_to_be_booked + ticket.ticket_to_be_booked
+              extraData.total_ticket_trying = extraData.total_ticket_trying + ticket.ticket_trying
+              extraData.total_ticket_under_process = extraData.total_ticket_under_process + ticket.ticket_under_process
+              extraData.total_agency_invoice_awaiting = extraData.total_agency_invoice_awaiting + ticket.agency_invoice_awaiting
+
+              if ((props.TicketDashboardList.length - 1) <= index)
+                return (
+                  <>
+                    <TableRow3 key={index}>
+                      <TableCell3> {ticket.sector}</TableCell3>
+                      <TableCell3>
+                        {" "}
+                        <span
+                          className="text-red-600 cursor-pointer px-10"
+                          onClick={() => {
+                            props.TicketToBeBooked(ticket);
+                          }}
+                        >
+                          {ticket.ticket_to_be_booked}
+                        </span>
+                      </TableCell3>
+                      <div>
+                        <TableCell3>
+                          {" "}
+                          <span
+                            className="text-red-600 cursor-pointer px-10"
+                            onClick={() => {
+                              props.underProcess(ticket);
+                            }}
+                          >
+                            {ticket.ticket_under_process}
+                          </span>
+                        </TableCell3>
+
+                        <TableCell3>
+                          {" "}
+                          <span
+                            className="text-red-600 cursor-pointer px-10"
+                            onClick={() => {
+                              props.tryingFunction(ticket);
+                            }}
+                          >
+                            {ticket.ticket_trying}
+                          </span>
+                        </TableCell3>
+                      </div>
+
+                      <TableCell3>
+                        <span
+                          className="text-red-600 cursor-pointer px-10"
+                          onClick={() => {
+                            props.AgencyInvoiceAwaiting(ticket);
+                          }}
+                        >
+                          {ticket.agency_invoice_awaiting}
+                        </span>
+                      </TableCell3>
+                    </TableRow3>
+                    <TableRow3 key={"dcbsdhc"}>
+                      <TableCell3>Total</TableCell3>
+                      <TableCell3>{extraData.total_ticket_to_be_booked}</TableCell3>
+                      <TableCell3>{extraData.total_ticket_under_process}</TableCell3>
+                      <TableCell3>{extraData.total_ticket_trying}</TableCell3>
+                      <TableCell3>{extraData.total_agency_invoice_awaiting}</TableCell3>
+                    </TableRow3>
+                  </>)
+              
+              else  return (
+            <TableRow3 key={index}>
+              <TableCell3> {ticket.sector}</TableCell3>
+              <TableCell3>
+                {" "}
+                <span
+                  className="text-red-600 cursor-pointer px-10"
+                  onClick={() => {
+                    props.TicketToBeBooked(ticket);
+                  }}
+                >
+                  {ticket.ticket_to_be_booked}
+                </span>
+              </TableCell3>
+              <div>
                 <TableCell3>
                   {" "}
                   <span
                     className="text-red-600 cursor-pointer px-10"
                     onClick={() => {
-                      props.TicketToBeBooked(ticket);
+                      props.underProcess(ticket);
                     }}
                   >
-                    {ticket.ticket_to_be_booked}
+                    {ticket.ticket_under_process}
                   </span>
                 </TableCell3>
-                <div>
-                  <TableCell3>
-                    {" "}
-                    <span
-                      className="text-red-600 cursor-pointer px-10"
-                      onClick={() => {
-                        props.underProcess(ticket);
-                      }}
-                    >
-                      {ticket.ticket_under_process}
-                    </span>
-                  </TableCell3>
-
-                  <TableCell3>
-                    {" "}
-                    <span
-                      className="text-red-600 cursor-pointer px-10"
-                      onClick={() => {
-                        props.tryingFunction(ticket);
-                      }}
-                    >
-                      {ticket.ticket_trying}
-                    </span>
-                  </TableCell3>
-                </div>
 
                 <TableCell3>
+                  {" "}
                   <span
                     className="text-red-600 cursor-pointer px-10"
                     onClick={() => {
-                      props.AgencyInvoiceAwaiting(ticket);
+                      props.tryingFunction(ticket);
                     }}
                   >
-                    {ticket.agency_invoice_awaiting}
+                    {ticket.ticket_trying}
                   </span>
                 </TableCell3>
-              </TableRow3>
-            ))}
+              </div>
+
+              <TableCell3>
+                <span
+                  className="text-red-600 cursor-pointer px-10"
+                  onClick={() => {
+                    props.AgencyInvoiceAwaiting(ticket);
+                  }}
+                >
+                  {ticket.agency_invoice_awaiting}
+                </span>
+              </TableCell3>
+            </TableRow3>
+            )
+            })}
 
           </TableBody3>
         </Table3>

@@ -29,7 +29,7 @@ export default function Main() {
   const [searchQuery, setSearchQuery] = useState("");
   const [TicketDashboardList, setTicketDashboardList] = useState<TickeDashboardInterface2[]>([]);
 
-  console.log(TicketDashboardList, "Amit")
+  // console.log(TicketDashboardList, "Amit")
   async function fetchTicketDashboard() {
     const data = await readTicketDashboardList();
     if (data) {
@@ -111,6 +111,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Ticket Dashboard"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={() => fetchTicketDashboard()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -140,7 +141,7 @@ export default function Main() {
       ) : (
         <UnderProcess
           onClose={() => { setModalName(""), fetchTicketDashboard() }}
-          onChange={(value) => {setOpenUnderProcess(value),console.log(value,"AAA")}}
+          onChange={(value) => { setOpenUnderProcess(value), console.log(value, "AAA") }}
           openUnderProcess={openUnderProcess}
         />
       )}

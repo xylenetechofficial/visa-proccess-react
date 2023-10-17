@@ -54,6 +54,9 @@ export default function Main() {
             <CustomNavbarV3
                 pageName="RM Advance Booking"
                 searchFunction={(query) => setSearchQuery(query)}
+                refresh={()=>{
+                    fetchRMAdvanceBooking()
+                }}
             />
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

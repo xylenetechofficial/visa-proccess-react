@@ -53,6 +53,7 @@ export default function Main() {
             <CustomNavbarV3
                 pageName="Ticket Provided by Company"
                 searchFunction={(query) => setSearchQuery(query)}
+                refresh={()=>fetchTicketProvidedByCompany()}
             />
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

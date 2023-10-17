@@ -32,6 +32,8 @@ export interface UnderprocessInterface {
     ticketing_trying:number,
     visa_authorisation:string,
     divsion:string,
+
+    is_cheked?:boolean
 }
 
 export interface UnderprocessAdapter {

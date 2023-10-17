@@ -108,8 +108,8 @@ const onClickSubmit =async()=>{
                 <TableCell3>{item.division} </TableCell3>
                 <TableCell3>
                   <Checkbox
-                  //  value={"unser"}
-                   checked={selectedCheckbox[index]?.isChecked === `${item.id}unser`}
+                  //  value={"under"}
+                   checked={selectedCheckbox[index]?.isChecked === `${item.id}under`}
  
                     onChange={(e) =>{
                       onUpdateRow(index, {

@@ -59,7 +59,11 @@ export default function Main() {
     return (
         <div className='h-screen'>
 
-            <CustomNavbarV3 pageName="Immigration Dashboard" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Immigration Dashboard" searchFunction={(query) => setSearchQuery(query)} 
+            refresh={()=>{
+                fetchImmigrationList()
+            }}
+            />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
