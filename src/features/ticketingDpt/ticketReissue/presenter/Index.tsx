@@ -46,6 +46,7 @@ export default function Main() {
             <CustomNavbarV3
                 pageName="Ticket Reissue"
                 searchFunction={(query) => setSearchQuery(query)}
+                refresh={()=>fetchTicketissue()}
             />
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

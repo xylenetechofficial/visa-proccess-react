@@ -40,13 +40,14 @@ export default function Main() {
     fetchTicketProvidedByCompany();
   }, []);
 
- 
+
 
   return (
     <>
       <CustomNavbarV3
         pageName="Ticket Agency - Invoices"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={() => fetchTicketProvidedByCompany()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -56,7 +57,7 @@ export default function Main() {
         onChange={(value) => setTicketAgencyInvoicesList(value)}
       />
 
-    
+
 
       <GreenButton
         text="Submit"

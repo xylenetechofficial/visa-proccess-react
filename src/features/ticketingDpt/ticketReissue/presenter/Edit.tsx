@@ -25,9 +25,12 @@ const style = {
   p: 4,
 };
 
-export default function Main(props: { onClose: () => void, reIssue: TicketIssueInterface , setReIssue:(value:any)=>void}) {
-  const handleSubmit =async()=>{
+export default function Main(props: { onClose: () => void, reIssue: TicketIssueInterface, setReIssue: (value: any) => void }) {
+  const handleSubmit = async () => {
     const res = await createTicketIssueList(props.reIssue)
+
+    if (res)
+      props.onClose()
   }
   return (
     <>
@@ -82,8 +85,8 @@ export default function Main(props: { onClose: () => void, reIssue: TicketIssueI
             <SubHeading1 text="mistake by :" />
 
             <CustomSelectComponent
-            onChange={(value) =>{props.setReIssue({...props.reIssue, ticketing_mistake_by:value})}}
-            options={[{name:"Refund",value:"refund"},{name:"No Refund",value:"no-refund"},{name:"Name Changes",value:"namechanges"},{name:"Void",value:"void"},{name:"Re-Issue",value:"reissue"}]}
+              onChange={(value) => { props.setReIssue({ ...props.reIssue, ticketing_mistake_by: value }) }}
+              options={[{ name: "Refund", value: "refund" }, { name: "No Refund", value: "no-refund" }, { name: "Name Changes", value: "namechanges" }, { name: "Void", value: "void" }, { name: "Re-Issue", value: "reissue" }]}
               value={props.reIssue.ticketing_mistake_by} />
           </UpdateContentBox>
           <UpdateContentBox>
@@ -91,14 +94,14 @@ export default function Main(props: { onClose: () => void, reIssue: TicketIssueI
             {/* name Input */}
             <StandardInput
               value={props.reIssue.ticketing_reissue_charge}
-              onChangeValue={(e: string) => {props.setReIssue({...props.reIssue,ticketing_reissue_charge:e})}}
+              onChangeValue={(e: string) => { props.setReIssue({ ...props.reIssue, ticketing_reissue_charge: e }) }}
               label="amount"
             />
           </UpdateContentBox>
 
 
           <div className="grid grid-cols-2 shadow-sm">
-            <GreenButton text="Submit" onClick={() => { handleSubmit(),props.onClose()}} />
+            <GreenButton text="Submit" onClick={() => { handleSubmit(), props.onClose() }} />
             <RedButton
               text="cancel"
               onClick={() => {
