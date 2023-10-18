@@ -53,9 +53,7 @@ export async function createAgentCommission(id:number,AgentCommission: number) {
   const path = "/account/agent-commission-add/"+id
 
   const payload = AgentCommissionConverter.toAdapter({agent_commission:AgentCommission});
-  // const payload = {agent_commission:AgentCommission}
-
-  console.log(payload,AgentCommission,"agent_commissionagent_commission")
+ 
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT

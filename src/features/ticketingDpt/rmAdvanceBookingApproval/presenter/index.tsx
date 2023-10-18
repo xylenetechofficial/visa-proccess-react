@@ -5,7 +5,7 @@ import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { RMAdvanceBookingApprovalInterface } from '../type';
 import { createRMAdvanceBookingApproval, readRMAdvanceBookingApprovalList } from '../repository';
-import { GreenButton } from '../../../../componenets/CustomButton';
+
 export default function Main() {
 
     const CardHeader = styled(Box)(() => ({
@@ -52,7 +52,7 @@ export default function Main() {
             <RMAdvanceBookingAproval
                 RMAdvanceBookingApprovalList={RMAdvanceBookingApprovalList}
                 onChange={(value) => setRMAdvanceBookingApprovalList(value)} onClickCreate={onClickCreate} />
-            {/* <GreenButton onClick={()=>onClickCreate(RMAdvanceBookingApprovalList[0])} /> */}
+        
         </>
     )
 }

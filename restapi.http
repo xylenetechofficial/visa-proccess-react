@@ -6,7 +6,7 @@
 # @endpoint = {{protocal}}://{{hostname}}/api
 # @endpoint = http://localhost/api
 # @endpoint =https://5fc6-103-142-115-55.ngrok-free.app/api
-@endpoint = https://6ddc-45-248-56-159.ngrok-free.app/api
+@endpoint = http://visa.devdasz.com/api
 
 
 ###
@@ -387,8 +387,7 @@ GET {{endpoint}}/account/agent-payment/receive-payment-list
 # ================      Agent Commission Add      =============== #
 
 ### Read Advance Payment List
-GET {{endpoint}}/account/agent-commission-add?passport_no
-#N4948559
+GET {{endpoint}}/account/agent-commission-add?passport_no=N4948559
 
 
 ### Add Candidate Payment

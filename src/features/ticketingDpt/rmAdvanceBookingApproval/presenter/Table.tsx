@@ -1,13 +1,10 @@
-import { CustomCheckBox } from "../../../../componenets/Checkbox"
 import { RedButton } from "../../../../componenets/CustomButton";
-import { UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
 import { Table3, TableBody2, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { convertDateFormat } from "../../../../utils/function";
 import { RMAdvanceBookingApprovalInterface } from "../type";
 
 export default function Main(props:{
-    onClickCreate:any
+    onClickCreate:(value:RMAdvanceBookingApprovalInterface)=>void
     RMAdvanceBookingApprovalList:RMAdvanceBookingApprovalInterface[],
     onChange:(value:RMAdvanceBookingApprovalInterface[])=>void
 }) {

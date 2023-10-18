@@ -1,146 +1,128 @@
 import React, { useState } from "react";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface } from "../type";
-import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
-import {
-  Table,
-  Table2,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHead2,
-  TableHeadCell,
-  TableHeadCell2,
-  TableHeadRow,
-  TableHeadRow2,
-  TableRow,
-} from "../../../../componenets/Table";
+import {  AgentPaymentReceivedInterface } from "../type";
 import { SubHeading1, SubHeadingSpan, SubHeadingSpan1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomButton2 } from "../../../../componenets/CustomComponents";
 import { UnlabeledInput } from "../../../../componenets/Input";
 
 
-const AccountDashboardTable = (props: {
+const AgentCommissionTable = (props: {
   accountDashboardList: any,
-  setCountryList: any,
+  setAgentPaymentReceived: any,
   setPassportNo: any
   onClickAdd: any;
   setModalName: any
-  countryList: any
+  agentPaymentReceived: AgentPaymentReceivedInterface
 }) => {
-console.log(props.countryList,"countryList")
-  const [agentCommission, setAgentCommission] = useState<number>(props?.countryList?.agent_commission);
-
-  // const hasKeyName = props?.countryList?.some((item :any) => item.hasKeyName("name"));
+  const [agentCommission, setAgentCommission] = useState<number>(props.agentPaymentReceived.agent_commission);
   return (
     <>
       <div className="overflow-auto">
-        {props?.countryList ? (
+        {props.agentPaymentReceived ? (
           <>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Candidate Name :" />
-                <SubHeadingSpan text={props?.countryList?.name} />
+                <SubHeadingSpan text={props.agentPaymentReceived.name} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Passport No :" />
-                <SubHeadingSpan text={props.countryList?.passport_no} />
+                <SubHeadingSpan text={props.agentPaymentReceived.passport_no} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Party Code :" />
-                <SubHeadingSpan1 textNum={props?.countryList?.party_code } />
+                <SubHeadingSpan1 textNum={props?.agentPaymentReceived.party_code } />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Company Name :" />
-                <SubHeadingSpan text={props?.countryList?.company_name} />
+                <SubHeadingSpan text={props?.agentPaymentReceived.company_name} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Actual Profession :" />
-                <SubHeadingSpan text={props?.countryList?.actual_profession} />
+                <SubHeadingSpan text={props.agentPaymentReceived.actual_profession} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Visa Profession :" />
-                <SubHeadingSpan text={props?.countryList?.visa_profession} />
+                <SubHeadingSpan text={props.agentPaymentReceived.visa_profession} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Agent Name :" />
-                <SubHeadingSpan text={props.countryList?.agent_name} />
+                <SubHeadingSpan text={props.agentPaymentReceived.agent_name} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Visa Received Date :" />
-                <SubHeadingSpan text={props?.countryList?.visa_received_date} />
+                <SubHeadingSpan text={props.agentPaymentReceived.visa_received_date} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Visa Authorization :" />
-                <SubHeadingSpan text={props?.countryList?.visa_authorization} />
+                <SubHeadingSpan text={props.agentPaymentReceived.visa_authorization} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Document Charges :" />
-                <SubHeadingSpan1 textNum={props?.countryList?.document_charges} />
+                <SubHeadingSpan1 textNum={props.agentPaymentReceived.document_charges} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Service Charges :" />
-                <SubHeadingSpan text={props?.countryList?.service_charges} />
+                <SubHeadingSpan text={props.agentPaymentReceived.service_charges} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Partial Charges :" />
-                <SubHeadingSpan text={props?.countryList?.partial_charges} />
+                <SubHeadingSpan text={props.agentPaymentReceived.partial_charges} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text="Sector Charges:" />
-                <SubHeadingSpan text={props?.countryList?.sector_charges} />
+                <SubHeadingSpan text={props.agentPaymentReceived.sector_charges} />
               </UpdateContentBox>
             </div>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Ticket Charges :" />
-                <SubHeadingSpan text={props?.countryList?.ticket_charges} />
+                <SubHeadingSpan text={props.agentPaymentReceived.ticket_charges} />
               </UpdateContentBox>
             </div>
             <div className="mt-2"></div>
             <UpdateContentBox>
               <SubHeading1 text=" Amount Received :" />
-              <SubHeadingSpan text={props?.countryList?.received} />
+              <SubHeadingSpan text={props.agentPaymentReceived.received} />
             </UpdateContentBox>
             <div className="mt-2"></div>
             <UpdateContentBox>
               <SubHeading1 text=" Balance Amount :" />
-              <SubHeadingSpan1 textNum={props?.countryList?.balance_amount} />
+              <SubHeadingSpan1 textNum={props.agentPaymentReceived.balance_amount} />
             </UpdateContentBox>
             <div className="mt-2">
               <UpdateContentBox>
                 <SubHeading1 text=" Agent Commission :" />
-                <UnlabeledInput type="number" value={props?.countryList?.agent_commission} onchange={(value) => { setAgentCommission(parseInt(value)); props.setCountryList({ ...props.countryList, agent_commission: parseInt(value) }); console.log(agentCommission) }} />
+                <UnlabeledInput type="number" value={props.agentPaymentReceived.agent_commission} onchange={(value) => { setAgentCommission(parseInt(value)); props.setAgentPaymentReceived({ ...props.agentPaymentReceived, agent_commission: parseInt(value) }); console.log(agentCommission) }} />
               </UpdateContentBox>
             </div>
 
             <div className="grid grid-cols-2  place-items-center p-2">
-              <CustomButton2 buttonText="Submit" onClick={() => { props.onClickAdd(props.countryList?.agent_id, agentCommission); props.setModalName("") }} />
-              <CustomButton2 buttonText="Cancel" onClick={() => {  props.setModalName(""), props.setPassportNo(""), props.setCountryList({}) }} />
+              <CustomButton2 buttonText="Submit" onClick={() => { props.onClickAdd(props.agentPaymentReceived.agent_id, agentCommission); props.setModalName("") }} />
+              <CustomButton2 buttonText="Cancel" onClick={() => {  props.setModalName(""), props.setPassportNo(""), props.setAgentPaymentReceived({}) }} />
             </div>
           </>
         ) :
@@ -156,4 +138,4 @@ console.log(props.countryList,"countryList")
   );
 };
 
-export default AccountDashboardTable;
+export default AgentCommissionTable;
