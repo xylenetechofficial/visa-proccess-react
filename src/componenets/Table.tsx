@@ -13,7 +13,7 @@ interface ParentComponent2Props {
 export const Table = ({ children }: ParentComponentProps) => {
     return (
 
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border">
             {children}
         </table>
     )
@@ -55,6 +55,15 @@ export const TableHead3 = ({ children }: ParentComponentProps) => {
         </thead>
     );
 }
+
+export const TableHead3New = ({ children }: ParentComponentProps) => {
+    return (
+        <thead className="text-xs text-gray-700 uppercase bg-[#F1F2F6] dark:bg-gray-700 dark:text-gray-400 border-b">
+            {children}
+        </thead>
+    );
+}
+
 export const TableHeadRed = ({ children }: ParentComponentProps) => {
     return (
         <thead className="text-xs text-white uppercase bg-[#e61111] dark:bg-red-700 dark:text-gray-400">
@@ -85,7 +94,15 @@ export const TableHeadRow3 = ({ children }: ParentComponentProps) => {
 }
 export const TableHeadCell = ({ children }: ParentComponentProps) => {
     return (
-        <th scope="col" className="px-6 py-2 last:text-end">
+        <th scope="col" className="px-6 py-3 border-x-2">
+            {children}
+        </th>
+    )
+}
+
+export const TableHeadCellNew = ({ children }: ParentComponentProps) => {
+    return (
+        <th scope="col" className="px-6 py-3">
             {children}
         </th>
     )
@@ -285,6 +302,41 @@ export function TableCell3({ children, width }: ParentComponentProps) {
     );
 }
 
+
+export const TableHeadNew = ({ children }: ParentComponentProps) => {
+
+    return (
+        <th scope="row"
+        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-x-2">
+            {children}
+        </th>
+    )
+}
+
+
+export function TableCellNew({ children }: ParentComponentProps) {
+    return (
+        <td className="px-6 py-4 cursor-pointer">
+                {children}     
+        </td>
+    );
+}
+
+export function TableCellNew2({ children }: ParentComponentProps) {
+    return (
+        <td className="px-6 py-4 border-x-2 cursor-pointer ">
+                {children}     
+        </td>
+    );
+}
+
+export function TableCellNew3({ children }: ParentComponentProps) {
+    return (
+        <td className="px-6 py-4 border-x-2">
+                {children}     
+        </td>
+    );
+}
 
 <section>
 
