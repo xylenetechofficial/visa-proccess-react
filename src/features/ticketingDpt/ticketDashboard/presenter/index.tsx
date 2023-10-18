@@ -17,6 +17,8 @@ import AgencyInvoiceAwaitingTable from "./AgencyInvoiceAwaiting";
 import { TypingInterface } from "../tryingType";
 import { AgentInvoiceAwaitingInterface } from "../agentInvoiceAwaitingType";
 import { UnderprocessInterface } from "../underprocessType";
+import { AgencyInterface } from "../../../masters/agency/type";
+import { readAgencyList } from "../../../masters/agency/repository";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -101,9 +103,15 @@ export default function Main() {
       setTrying(res)
     }
   };
-
+  const [agencyList, setAgencyList] = useState<AgencyInterface[]>([]);
+  const fetchAgencyList = async (page?: number) => {
+    const res = await readAgencyList(true,  page);
+    setAgencyList(res);
+  };
+  
   useEffect(() => {
     fetchTicketDashboard();
+    fetchAgencyList();
   }, []);
 
   return (
@@ -143,6 +151,7 @@ export default function Main() {
           onClose={() => { setModalName(""), fetchTicketDashboard() }}
           onChange={(value) => { setOpenUnderProcess(value), console.log(value, "AAA") }}
           openUnderProcess={openUnderProcess}
+          agencyList={agencyList}
         />
       )}
 
@@ -163,6 +172,7 @@ export default function Main() {
           onClose={() => { setModalName(""), fetchTicketDashboard() }}
           tryingList={tryingList}
           onChange={(value) => setTrying(value)}
+          agencyList={agencyList}
         />
       )}
       {/* <GreenButton text='Submit' onClick={()=>onClickCreate(TicketDashboardList)} /> */}

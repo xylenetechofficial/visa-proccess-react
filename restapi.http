@@ -387,7 +387,8 @@ GET {{endpoint}}/account/agent-payment/receive-payment-list
 # ================      Agent Commission Add      =============== #
 
 ### Read Advance Payment List
-GET {{endpoint}}/account/agent-commission-add?passport_no=N4948559
+GET {{endpoint}}/account/agent-commission-add?passport_no
+#N4948559
 
 
 ### Add Candidate Payment

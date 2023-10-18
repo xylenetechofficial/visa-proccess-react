@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
-import { Table3, TableBody2, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
-import { TicketInterface } from "../type";
+import { Table3,TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
 import { Checkbox } from "@mui/material";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import {  updateUnderProcessList, updateUnderProcessReverse } from "../repository";
 import { UnderprocessInterface } from "../underprocessType";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
+import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
+import { AgencyInterface } from "../../../masters/agency/type";
 
 export default function Main(props: {
-  onClose: any,
+  onClose: ()=>void,
   openUnderProcess: UnderprocessInterface[],
   onChange: (value: UnderprocessInterface[]) => void,
-
+  agencyList:AgencyInterface[]
 
 }) {
-  const [selectedCheckbox, setSelectedCheckbox] = useState([{ isChecked: "" }]);
+
+  // const [selectedCheckbox, setSelectedCheckbox] = useState([{ isChecked: "" }]);
   const onClickAdd = () => {
-    alert("Amit");
+    // alert("Amit");
   };
 
   function onUpdateRow(index: number, rowData: UnderprocessInterface) {
@@ -33,17 +35,17 @@ export default function Main(props: {
     });
     props.onChange(nextData)
   }
-  const handleCheckboxChange = (itemId: any, index: number) => {
-    console.log("ljlkjljoiuo")
-    setSelectedCheckbox((prev) => {
-      const newData: any = [...prev];
-      newData[index] = {
-        ...newData[index],
-        isChecked: itemId,
-      };
-      return newData;
-    })
-  };
+  // const handleCheckboxChange = (itemId: any, index: number) => {
+  //   console.log("ljlkjljoiuo")
+  //   setSelectedCheckbox((prev) => {
+  //     const newData: any = [...prev];
+  //     newData[index] = {
+  //       ...newData[index],
+  //       isChecked: itemId,
+  //     };
+  //     return newData;
+  //   })
+  // };
 
 
 
@@ -121,14 +123,14 @@ export default function Main(props: {
                 <TableCell3><UnlabeledInput type="number" value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
                 <TableCell3>{item.actual_profession}</TableCell3>
                 <TableCell3>{item.mofa_number}</TableCell3>
-                <TableCell3>{item.agency}</TableCell3>
+                <TableCell3><CustomSelectComponent  value={item.agency} onChange={(value) => onUpdateRow(index, {...item, agency:value})} options={selectOptionConveter({options: props.agencyList , options_struct :{name:"name" , value:"id"}})}/>{item.agency}</TableCell3>
                 <TableCell3>{item.rc_name}</TableCell3>
-                <TableCell3>{item.visa_received_date}</TableCell3>
-                <TableCell3>{item.visa_expire_date}</TableCell3>
+                <TableCell3>{convertDateFormat(item.visa_received_date)}</TableCell3>
+                <TableCell3>{convertDateFormat(item.visa_expire_date)}</TableCell3>
                 <TableCell3>{item.visa_no}</TableCell3>
-                <TableCell3>{item.visa_date}</TableCell3>
-                <TableCell3>{item.pp_expiry_date}</TableCell3>
-                <TableCell3>{item.visa_issued_date}</TableCell3>
+                <TableCell3>{convertDateFormat(item.visa_date)}</TableCell3>
+                <TableCell3>{convertDateFormat(item.pp_expiry_date)}</TableCell3>
+                <TableCell3>{convertDateFormat(item.visa_issued_date)}</TableCell3>
                 <TableCell3><RedButton text="Reverse" onClick={() => onClickReverse(item)} /></TableCell3>
               </TableRow3>
             ))}
