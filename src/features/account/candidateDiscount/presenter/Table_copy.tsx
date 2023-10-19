@@ -230,6 +230,7 @@ const CandidateDiscountTable = (props: {
                   value={"Error Discount"}
                   checked={selectedCheckbox[index]?.isChecked === `${item.id}no`}
                   onChange={(value) => {
+                    console.log(value,"VALUE")
                     handleCheckboxChange(`${item.id}no`,index)
                     onUpdateRow(index, {...item , discount_type:value.target.checked ? "Error Discount":"",})
                     setList((prev: any) => {

@@ -46,7 +46,7 @@ const CandidateDiscountTable = (props: {
     });
     props.onChange(nextData)
 }
-  console.log("lll", list, props.data)
+  // console.log("lll", list, props.data)
   return (
     <div className="overflow-auto">
 
@@ -259,14 +259,15 @@ const CandidateDiscountTable = (props: {
                   checked={selectedCheckbox[index]?.isChecked === `${item.id}no`}
 
                   //  option={[{name:"Normal Discount",value:"Normal Discount"},{name:"Error Discount", value:"Error Discount"}]}
-                  onChange={(value) => {
+                  onChange={(e) => {
+                    console.log(e,"VALUE")
                     handleCheckboxChange(`${item.id}no`,index)
-                    onUpdateRow(index, {...item , discount_type:value.target.checked ? "Error Discount":"",})
+                    onUpdateRow(index, {...item , discount_type:e.target.checked ? "Error Discountkjlkl":"",})
                     setList((prev: any) => {
                       const newArray: any = [...prev];
                       newArray[index] = {
                         ...newArray[index],
-                        discount_type: value.target.checked ? "Error Discount":"",
+                        discount_type: e.target.checked ? "Error Discount":"",
                       };
                       return newArray;
                     });
@@ -298,19 +299,11 @@ const CandidateDiscountTable = (props: {
                         selection_list: list,
                       };
                     });
-                    props.setCandidateDiscountList((prev: any) => {
-                      const newArray = [...prev];
-                      newArray[index] = {
-                        ...newArray[index],
-                        discount_type: value,
-                      };
-                      return newArray;
-                    });
                     props.setData((prev: any) => {
                       const newData = [...prev];
                       newData[index] = {
                         ...newData[index],
-                        discount_type: value.target.checked ? "Error Discount":"",
+                        discount_type: e.target.checked ? "Error Discount":"",
                         
                       };
                       return newData;
