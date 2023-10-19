@@ -1,30 +1,30 @@
 export interface FullIndexInterface{
   id?:number
-  job_order_no:string
-  index_date:string
-  company_name:string
-  party_code:string
-  quantity:string
-  used_qty:number
-  dead_visa_qty:string
-  expired_visa_qty:number
-  cancelled_qty:number
-  balance_qty:number
-  visa_issue_date:string
-  visa_expiry_date:string
-  country:string
-  visa_date_arabic:string
-  visa_number:string	
-  visa_fee:string
-  visa_authorization:string
-  visa_submission:string
-  sponsor_id:string
-  aravic_sponsor_name:string	
-  division:string
-  number_of_days_left_for_visa_expiry:string
-  mofa_done:string
-  pp_submission:string
-  visa_cancel:number
+  job_order_no: string
+  index_date: string
+  company_name: string
+  party_code: number
+  quantity: number
+  used_qty: number
+  dead_visa_qty: number
+  expired_visa_qty: number
+  cancelled_qty: number
+  balance_qty: number
+  visa_issue_date: string
+  visa_expiry_date: string
+  country: number
+  visa_date_arabic: string
+  visa_number: string
+  visa_fee: number
+  visa_authorization: number
+  visa_submission: string
+  sponsor_id: string
+  aravic_sponsor_name: string
+  division: string
+  number_of_days_left_for_visa_expiry: number
+  mofa_done: number
+  pp_submission: number
+  visa_cancel: number
                                                                                    
 }
 
@@ -32,31 +32,31 @@ export interface FullIndexInterface{
 
 export interface FullIndexAdapter{
   id?:number
-  job_order_no:string
-  index_date:string
-  company_name:string
-  party_code:string
-  quantity:string
-  used_qty:number
-  dead_visa_qty:string
-  expired_visa_qty:number
-  cancelled_qty:number
-  balance_qty:number
-  visa_issue_date:string
-  visa_expiry_date:string
-  country:string
-  visa_date_arabic:string
-  visa_number:string	
-  visa_fee:string
-  visa_authorization:string
-  visa_submission:string
-  sponsor_id:string
-  aravic_sponsor_name:string	
-  division:string
-  number_of_days_left_for_visa_expiry:string
-  mofa_done:string
-  pp_submission:string
-  visa_cancel:number
+  job_order_no: string
+  index_date: string
+  company_name: string
+  party_code: number
+  quantity: number
+  used_qty: number
+  dead_visa_qty: number
+  expired_visa_qty: number
+  cancelled_qty: number
+  balance_qty: number
+  visa_issue_date: string
+  visa_expiry_date: string
+  country: number
+  visa_date_arabic: string
+  visa_number: string
+  visa_fee: number
+  visa_authorization: number
+  visa_submission: string
+  sponsor_id: string
+  aravic_sponsor_name: string
+  division: string
+  number_of_days_left_for_visa_expiry: number
+  mofa_done: number
+  pp_submission: number
+  visa_cancel: number
                                                                                    
 }
 

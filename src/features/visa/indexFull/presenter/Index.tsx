@@ -10,6 +10,8 @@ import ViewVisaProEdit from "./ViewVisaEdit";
 import ViewVisaProTable from "./View";
 import EditVisaProTable from "./Edit";
 import { FaFilter } from "react-icons/fa";
+import { FullIndexInterface } from "../type/IndexVisa";
+import { readFullIndexList } from "../repository";
 // import { GreenButton } from "../../../../componenets/CustomButton";
 
 export default function Main() {
@@ -26,9 +28,13 @@ export default function Main() {
 
   const [modalName, setModalName] = useState("");
 
-  const [indexFullList, setIndexFullList] = useState<[]>([]);
+  const [indexFullList, setIndexFullList] = useState<FullIndexInterface[]>([]);
+  const [currentFullIndex, setCurrentFullIndex] = useState<FullIndexInterface>(
+    {} as FullIndexInterface
+  );
   const [editProVisaList, setEditProVisaList] = useState<[]>([]);
   const [visaProEditList, setVisaProEditList] = useState<[]>([]);
+ 
 
   const onClickEditProVisa = () => {
     console.log("onClickEdit"); // Only Dev
@@ -40,8 +46,9 @@ export default function Main() {
     setModalName("Visa Edit");
   };
 
-  const onClickProView = () => {
-    console.log("onClickEdit"); // Only Dev
+  const onClickProView = (fullIndex: FullIndexInterface) => {
+    setCurrentFullIndex(fullIndex);
+    console.log("on Click view"); // Only Dev
     setModalName("View Visa Prof");
   };
 
@@ -49,6 +56,17 @@ export default function Main() {
     console.log("onClickEdit"); // Only Dev
     setModalName("Edit");
   };
+
+  const fetchIndexVisaList = async () => {
+    const data = await readFullIndexList();
+    console.log(data);
+    setIndexFullList(data);
+  };
+
+
+  useEffect(() => {
+    fetchIndexVisaList();
+  }, []);
 
   return (
     <>
@@ -91,14 +109,16 @@ export default function Main() {
       {modalName !== "View Visa Prof" ? (
         ""
       ) : (
-        <ViewVisaProTable onClose={() => setModalName("")} />
+        <ViewVisaProTable onClose={() => setModalName("")}
+        currentFullIndex={currentFullIndex}
+        />
       )}
 
-      {modalName !== "View Visa Prof" ? (
+      {/* {modalName !== "View Visa Prof" ? (
         ""
       ) : (
         <ViewVisaProTable onClose={() => setModalName("")} />
-      )}
+      )} */}
 
       {modalName !== "Edit" ? (
         ""

@@ -1669,3 +1669,10 @@ post ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list
 ### Read RC Candidates List List
 GET {{endpoint}}/ticketing-dpt/ticket-reissue-list
 
+### Read Full Index List
+GET {{endpoint}}/visa-dpt/full-index-list
+
+
+### Read Full Index Visa Profession List
+GET {{endpoint}}/visa-dpt/full-index/visa-profession-list?party_code=79
+
