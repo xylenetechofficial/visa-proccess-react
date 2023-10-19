@@ -9,6 +9,7 @@ import { FaFilter } from "react-icons/fa";
 import {  CandidateDiscountInterface,  } from "../type";
 import { deleteCandidateDiscount, readCandidateDiscountList, updateCandidateDiscount } from "../repository";
 import CandidateDiscountTable from "./Table";
+// import CandidateDiscountTable from "./Table_copy";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { TextAreaInput } from "../../../../componenets/Input";
 
@@ -27,26 +28,26 @@ export default function Main() {
     {} as CandidateDiscountInterface
   );
 
-  const [modalName, setModalName] = useState("");
+  // const [modalName, setModalName] = useState("");
     const [data, setData]= useState([])
-  const onClickCreate = () => {
-    setModalName("create");
-  };
+  // const onClickCreate = () => {
+  //   setModalName("create");
+  // };
 
-  const onClickEdit = (CandidateDiscount: CandidateDiscountInterface) => {
-    setEditCandidateDiscount(CandidateDiscount);
-    console.log("onClickEdit"); // Only Dev
-    console.log(CandidateDiscount); // Only Dev
-    setModalName("edit");
-  };
+  // const onClickEdit = (CandidateDiscount: CandidateDiscountInterface) => {
+  //   setEditCandidateDiscount(CandidateDiscount);
+  //   console.log("onClickEdit"); // Only Dev
+  //   console.log(CandidateDiscount); // Only Dev
+  //   setModalName("edit");
+  // };
 
-  const onClickDelete = async (CandidateDiscount: CandidateDiscountInterface) => {
-    const flag = await confirmationMessage("Do you really want to delete?");
-    if (flag && CandidateDiscount.id) {
-      await deleteCandidateDiscount(CandidateDiscount.id);
-      fetchCandidateDiscountList();
-    }
-  };
+  // const onClickDelete = async (CandidateDiscount: CandidateDiscountInterface) => {
+  //   const flag = await confirmationMessage("Do you really want to delete?");
+  //   if (flag && CandidateDiscount.id) {
+  //     await deleteCandidateDiscount(CandidateDiscount.id);
+  //     fetchCandidateDiscountList();
+  //   }
+  // };
 
   
   const [CandidateDiscountList, setCandidateDiscountList] = useState<CandidateDiscountInterface[]>([]);
@@ -67,17 +68,13 @@ export default function Main() {
 const [discountAndRemark, setDiscountAndRemark] =useState({
   discount:'',discount_remark:''
 })
-// const [discountList, setDiscountList]= useState<AddCandidateDiscountInterface[]>({})
 const [discountList, setDiscountList]= useState({
   selection_list:[],
 })
 
-// console.log(discountList,"dd")
   const fetchCandidateDiscountList = async () => {
     const data :any= await readCandidateDiscountList();
-    // console.log(data,"k");
     if (data) {
-      // console.log(data,"ka");
       setCandidateDiscountList(data);
     }
     

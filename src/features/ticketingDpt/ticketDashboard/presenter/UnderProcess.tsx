@@ -7,7 +7,7 @@ import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import {  updateUnderProcessList, updateUnderProcessReverse } from "../repository";
 import { UnderprocessInterface } from "../underprocessType";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
+import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { AgencyInterface } from "../../../masters/agency/type";
 
 export default function Main(props: {
@@ -123,7 +123,7 @@ export default function Main(props: {
                 <TableCell3><UnlabeledInput type="number" value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
                 <TableCell3>{item.actual_profession}</TableCell3>
                 <TableCell3>{item.mofa_number}</TableCell3>
-                <TableCell3><CustomSelectComponent  value={item.agency} onChange={(value) => onUpdateRow(index, {...item, agency:value})} options={selectOptionConveter({options: props.agencyList , options_struct :{name:"name" , value:"id"}})}/>{item.agency}</TableCell3>
+                <TableCell3><CustomSelectComponentUnlabeled  value={item.agency} onChange={(value) => onUpdateRow(index, {...item, agency:value})} options={selectOptionConveter({options: props.agencyList , options_struct :{name:"name" , value:"id"}})}/>{item.agency}</TableCell3>
                 <TableCell3>{item.rc_name}</TableCell3>
                 <TableCell3>{convertDateFormat(item.visa_received_date)}</TableCell3>
                 <TableCell3>{convertDateFormat(item.visa_expire_date)}</TableCell3>
