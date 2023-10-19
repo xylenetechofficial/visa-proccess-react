@@ -114,11 +114,12 @@ export default function Main(props: {
                 <TableCell3> <DateInput id="cacas" value={item.ticket_issue_date} onChange={(value) => onUpdateRow(index, { ...item, ticket_issue_date: value })} /> </TableCell3>
                 <TableCell3><UnlabeledInput value={item.passport_no} onchange={(value) => onUpdateRow(index, { ...item, passport_no: value })} /> </TableCell3>
                 <TableCell3><DateInput value={item.ticketing_departure_date} id='tc' onChange={(value) => onUpdateRow(index, { ...item, ticketing_departure_date: value })} /> </TableCell3>
-                <TableCell3><UnlabeledInput type="number" value={item.agency} onchange={(value) => onUpdateRow(index, { ...item, agency: parseInt(value) })} /> </TableCell3>
+                <TableCell3><CustomSelectComponentUnlabeled value={item.agency} onChange={(value) => onUpdateRow(index, {...item, agency:value})} options={selectOptionConveter({options: props.agencyList , options_struct :{name:"name" , value:"id"}})}/>
+                </TableCell3>
                 <TableCell3><UnlabeledInput type="number" value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
                 <TableCell3>{item.actual_profession}</TableCell3>
                 <TableCell3>{item.mofa_number}</TableCell3>
-                <TableCell3><CustomSelectComponentUnlabeled value={item.agency} onChange={(value) => onUpdateRow(index, {...item, agency:value})} options={selectOptionConveter({options: props.agencyList , options_struct :{name:"name" , value:"id"}})}/></TableCell3>
+                <TableCell3>{item.agent_name} </TableCell3>
                 <TableCell3>{item.rc_name}</TableCell3>
                 <TableCell3>{convertDateFormat(item.visa_received_date)}</TableCell3>
                 <TableCell3>{convertDateFormat(item.visa_expire_date)}</TableCell3>

@@ -8,24 +8,19 @@ import {
 } from "../../../../componenets/Table";
 
 const DegreeAttestationTable = () => {
+  const HeaderList  = ['sn. no','candidate name','p.p no', 'actual position ',
+   'agent name','rc name', 'company','amout payable to vendor', 'amount receivale',
+    'vendor name', 'for visa process','for degree cancelation charge']
   return (
     <div className="overflow-auto">
       <Table3>
         <TableHead3>
           <TableHeadRow3>
-            <TableHeadCell3>sn. no</TableHeadCell3>
-            <TableHeadCell3>candidate name</TableHeadCell3>
-            <TableHeadCell3>p.p no</TableHeadCell3>
-            <TableHeadCell3>actual position </TableHeadCell3>
-            <TableHeadCell3>agent name</TableHeadCell3>
-            <TableHeadCell3>rc name</TableHeadCell3>
-            <TableHeadCell3>company</TableHeadCell3>
-            <TableHeadCell3>amout payable to vendor</TableHeadCell3>
-            <TableHeadCell3>amount receivale</TableHeadCell3>
-            <TableHeadCell3>vendor name</TableHeadCell3>
-            <TableHeadCell3>for visa process</TableHeadCell3>
-            <TableHeadCell3>for degree cancelation charge</TableHeadCell3>
-          </TableHeadRow3>     
+            {HeaderList.map((ele:string)=> 
+            <TableHeadCell3>{ele}</TableHeadCell3>
+            )}
+            
+          </TableHeadRow3>
         </TableHead3>
       </Table3>
     </div>

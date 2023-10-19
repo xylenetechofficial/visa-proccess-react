@@ -127,7 +127,7 @@ const AgentPaymentTable = (props: {
                     //     selection_list: newArray,
                     //   };
                     // }); console.log(list, index, props.data);
-                    onUpdateRow(index, { ...item, discount_id: e.target.checked ? item.id : '' })
+                    onUpdateRow(index, { ...item, discount_id: e.target.checked ? item.discount_id : '' })
                   }}
                 />
 

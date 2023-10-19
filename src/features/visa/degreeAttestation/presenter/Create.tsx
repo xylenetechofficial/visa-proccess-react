@@ -3,7 +3,7 @@ import { FullScreenModal } from "../../../../componenets/Modal";
 import DegreeAttestationList from "./DegreAttestationList";
 
 export default function Main(props: {
-    onClose: any, 
+    onClose: any,
     // fetchBlockVisaList: any,
     // sectorList: SectorInterface[],
     // companyList: CompanyInterface[],
@@ -14,19 +14,19 @@ export default function Main(props: {
     async function onClickAdd() {
         return
     }
-    return(
-<FullScreenModal 
-buttonName="Add"
-handleClick={onClickAdd}
-title="Add Degree Attestation"
-onClose={props.onClose}
->
+    return (
+        <FullScreenModal
+            buttonName="Add"
+            handleClick={onClickAdd}
+            title="Add Degree Attestation"
+            onClose={props.onClose}
+        >
 
-<DegreeAttestationList
+            <DegreeAttestationList
                 degreAttestationList={degreAttestationList}
                 onChange={(value) => setDegreAttestationList(value)}
             />
 
-</FullScreenModal>
+        </FullScreenModal>
     )
 }
