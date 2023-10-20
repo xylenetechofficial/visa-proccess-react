@@ -1,23 +1,48 @@
-import { BlueButton } from "../../../../componenets/CustomButton";
+import { useEffect, useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
-import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
+import {
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
+} from "../../../../componenets/Table";
+import { readVisaProfessionList } from "../repository";
+import { ActiveIndexInterface } from "../type/IndexVisa";
+import { VisaProfessionInterface } from "../type/VisaProfession";
 
+export default function Main(props: {
+  currentActiveIndex: ActiveIndexInterface;
+  onClose: any;
+}) {
 
+  const [visaProfessionList, setVisaProfessionList] = useState<VisaProfessionInterface[]>([]);
 
-export default function Main(props: { onClose: any, }){
-    const onClickAdd = () =>{
-
+  const fetchVisaProfessionList = async () => {
+    const data = await readVisaProfessionList(props.currentActiveIndex.party_code);
+    console.log(data, "visaProfessionList",props.currentActiveIndex.party_code);
+    if (data) {
+      setVisaProfessionList(data);
     }
-    return(
-        <>
-         <FullScreenModal
+  };
+  useEffect(() => {
+    fetchVisaProfessionList();
+  }, []);
+
+  const onClickAdd = () => {
+    return ""
+  };
+  return (
+    <>
+      <FullScreenModal
         buttonName=""
         handleClick={onClickAdd}
         title="Index Visa Professions View"
         onClose={props.onClose}
       >
-
-<div className="overflow-auto">
+        <div className="overflow-auto">
           <Table3>
             <TableHead3>
               <TableHeadRow3>
@@ -38,29 +63,28 @@ export default function Main(props: { onClose: any, }){
               </TableHeadRow3>
             </TableHead3>
             <TableBody3>
-              <TableRow3>
-                <TableCell3>1</TableCell3>
-                <TableCell3>index date</TableCell3>
-                <TableCell3>company name</TableCell3>
-                <TableCell3>party code </TableCell3>
-                <TableCell3>visa profession</TableCell3>
-                <TableCell3>aravic visa category</TableCell3>
-                <TableCell3>visa quantity</TableCell3>
-                <TableCell3>visa used</TableCell3>
-                <TableCell3>dead visa qty</TableCell3>
-                <TableCell3>visa balance</TableCell3>
-                <TableCell3>mofa done</TableCell3>
-                <TableCell3>pp submission</TableCell3>
-                <TableCell3>rejected</TableCell3>
-                <TableCell3>cancelled</TableCell3>
-              
+              {visaProfessionList.map((visaProList, index)=>(
+                <TableRow3>
+                <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{visaProList.index_date}</TableCell3>
+                <TableCell3>{visaProList.company_name}</TableCell3>
+                <TableCell3>{visaProList.party_code}</TableCell3>
+                <TableCell3>{visaProList.visa_profession}</TableCell3>
+                <TableCell3>{visaProList.aravic_visa_category}</TableCell3>
+                <TableCell3>{visaProList.visa_quantity}</TableCell3>
+                <TableCell3>{visaProList.visa_used}</TableCell3>
+                <TableCell3>{visaProList.dead_visa_qty}</TableCell3>
+                <TableCell3>{visaProList.visa_balance}</TableCell3>
+                <TableCell3>{visaProList.mofa_done}</TableCell3>
+                <TableCell3>{visaProList.pp_submission}</TableCell3>
+                <TableCell3>{visaProList.rejected}</TableCell3>
+                <TableCell3>{visaProList.canceled}</TableCell3>
               </TableRow3>
+              ))}
             </TableBody3>
           </Table3>
         </div>
-
       </FullScreenModal>
-        
-        </>
-    )
+    </>
+  );
 }

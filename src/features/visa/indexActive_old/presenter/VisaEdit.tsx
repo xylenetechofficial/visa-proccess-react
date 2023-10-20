@@ -10,14 +10,13 @@ import {
   TableRow3,
 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
-import { VisaProfessionEditInterface } from "../type2";
+import { VisaProfessionEditInterface } from "../type";
 
 export default function Main(props: {
   onClose: any;
   editProVisaList: VisaProfessionEditInterface[];
   onClickVisaProEdit: (value:VisaProfessionEditInterface)=>void
 }) {
-  console.log(props.editProVisaList,"SS")
   const onClickAdd = () => {console.log(props.editProVisaList,"SS")}; 
   return (
     <>
@@ -49,8 +48,8 @@ export default function Main(props: {
               </TableHeadRow3>
             </TableHead3>
             <TableBody3>
-              <TableRow3>
-                {props.editProVisaList.map((ele, index)=>
+            <TableRow3>
+            {props.editProVisaList.map((ele, index)=>
                 (
                   <>
                <TableCell3>{index + 1}</TableCell3>
@@ -78,7 +77,7 @@ export default function Main(props: {
                 </TableCell3>
                 </>
                 ))}
-              </TableRow3>
+            </TableRow3>
             </TableBody3>
           </Table3>
         </div>

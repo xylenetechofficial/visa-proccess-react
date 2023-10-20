@@ -1,36 +1,42 @@
-import {
-  SubHeading1,
-  UpdateContentBox,
-} from "../../../../componenets/CoustomHeader";
+import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
+import ModalContent from "../../../../componenets/Modal";
 import { Box } from "@mui/material";
-import { VisaProfessionEditInterface } from "../type2";
+import { CustomSelectComponent } from "../../../../componenets/SelectBox";
+import { VisaProfessionEditInterface } from "../type";
 import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
-  border: "2px solid #fff",
-  boxShadow: 24,
-  borderRadius: 2,
-  p: 4,
-};
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    bgcolor: "background.paper",
+    border: "2px solid #fff",
+    boxShadow: 24,
+    borderRadius: 2,
+    p: 4,
+  };
 
-export default function Main(props: {
-  onClose: () => void;
-  onClickUpdateVisaProEdit: () => void;
-  visaProEditList: VisaProfessionEditInterface;
-  setVisaProEditList: (value: VisaProfessionEditInterface) => void;
-}) {
-  return (
-    <>
-      <Box sx={style}>
+
+
+
+
+export default function Main(props:{
+  onClose: ()=>void;
+  onClickUpdateVisaProEdit:()=>void,
+   visaProEditList: VisaProfessionEditInterface ,
+    setVisaProEditList:(value:VisaProfessionEditInterface)=>void
+  
+  }){
+
+  
+    return(
+        <>
+        <Box sx={style}>
         <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">
-          Dead Visa Quantity
+        Index Visa Professions EDIT
         </h3>
         <button
           type="button"
@@ -62,14 +68,17 @@ export default function Main(props: {
           <UpdateContentBox>
             <SubHeading1 text="company name :" />
             <SubHeading1 text={props.visaProEditList.company_name} />
+           
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="Party Code:" />
             <SubHeading1 text={props.visaProEditList.party_code} />
+           
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="Available Visa QTY In Index :" />
             <SubHeading1 text={String(props.visaProEditList.visa_quantity)} />
+           
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="Available Visa Profession Qty in Block visa :" />
@@ -81,53 +90,32 @@ export default function Main(props: {
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="ARBIC visa category :" />
-            {props.visaProEditList.aravic_visa_category}
+            <UnlabeledInput placeholder="ARBIC visa category"
+             value={props.visaProEditList.aravic_visa_category} 
+             onchange={(value)=> props.setVisaProEditList({...props.visaProEditList, aravic_visa_category:value})} />
             {/* name Input */}
+           
           </UpdateContentBox>
 
           <UpdateContentBox>
-            <SubHeading1 text="Visa Quantity: " />
+            <SubHeading1 text="Visa Quantity:" />
             <UnlabeledInput value={props.visaProEditList.visa_quantity} type="number" onchange={(value)=>props.setVisaProEditList({...props.visaProEditList, visa_quantity:parseInt(value)})}/>
             {/* name Input */}
+           
           </UpdateContentBox>
 
-          <div className="flex items-center">
-            <div>
-              <SubHeading1 text="Dead Visa Quantity remark:" />
-            </div>
-            <div className="flex items-center gap-1">
-              <UnlabeledInput
-                type="number"
-                value={props.visaProEditList.dead_visa_qty}
-                onchange={(value) =>
-                  props.setVisaProEditList({
-                    ...props.visaProEditList,
-                    dead_visa_qty: parseInt(value),
-                  })
-                }
-              />
-              <TextAreaInput
-                id="remark"
-                value={props.visaProEditList.remarks}
-                onChange={(value) =>
-                  props.setVisaProEditList({
-                    ...props.visaProEditList,
-                    remarks: value,
-                  })
-                }
-              />
-            </div>
-
+          <UpdateContentBox>
+            <SubHeading1 text="Dead Visa Quantity remark :" />
+            <UnlabeledInput type="number" value={props.visaProEditList.dead_visa_qty} onchange={(value)=> props.setVisaProEditList({...props.visaProEditList, dead_visa_qty:parseInt(value)})} />
+            <TextAreaInput id="remark" value={props.visaProEditList.remarks} onChange={(value)=>props.setVisaProEditList({...props.visaProEditList, remarks:value})}/>
             {/* name Input */}
-          </div>
+           
+          </UpdateContentBox>
+
 
           <div className="grid grid-cols-2 shadow-sm">
             <GreenButton
-              text="Submit"
-              onClick={() => {
-                props.onClickUpdateVisaProEdit();
-              }}
-            />
+               text="Submit" onClick={() => {props.onClickUpdateVisaProEdit()}} />
             <RedButton
               text="cancel"
               onClick={() => {
@@ -135,8 +123,11 @@ export default function Main(props: {
               }}
             />
           </div>
+
+
         </div>
       </Box>
-    </>
-  );
+        </>
+    )
 }
+

@@ -5,18 +5,19 @@ import {
   TableHead3,
   TableHeadCell3,
   TableHeadRow3,
-  TableRow,
   TableRow3,
 } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
-import { ActiveIndexInterface } from "../type/IndexVisa";
-import { ActiveIndexListInterface } from "../type2";
+import { Checkbox } from "flowbite-react";
+import { FullIndexListInterface } from "../type";
+// import { TicketReissueInterface } from "../type";
 
 export default function Main(props: {
-  indexActiveList: any[];
+  indexFullList: any[];
   onClickEditProVisa: (value : any)=>void
-  onClickProView: (ActiveIndex: ActiveIndexInterface) => void;
-  onClickVisaEdit: (value: ActiveIndexListInterface)=>void
+  onClickProView: (fullIndex: FullIndexListInterface) => void;
+  onClickVisaEdit: (value: FullIndexListInterface)=>void
+
 }) {
 
   return (
@@ -33,11 +34,10 @@ export default function Main(props: {
               <TableHeadCell3>quantity</TableHeadCell3>
               <TableHeadCell3>used qty</TableHeadCell3>
               <TableHeadCell3>dead visa qty</TableHeadCell3>
-              <TableHeadCell3>expired visa qty</TableHeadCell3>
               <TableHeadCell3>cancelled qty</TableHeadCell3>
               <TableHeadCell3>balance qty</TableHeadCell3>
               <TableHeadCell3>visa issue date</TableHeadCell3>
-              <TableHeadCell3>visa expiry date</TableHeadCell3>
+              <TableHeadCell3>visa expiry date</TableHeadCell3>      
               <TableHeadCell3>country</TableHeadCell3>
               <TableHeadCell3>visa date (arabic)</TableHeadCell3>
               <TableHeadCell3>visa number</TableHeadCell3>
@@ -47,9 +47,7 @@ export default function Main(props: {
               <TableHeadCell3>sponsor id</TableHeadCell3>
               <TableHeadCell3>aravic sponsor name</TableHeadCell3>
               <TableHeadCell3>division </TableHeadCell3>
-              <TableHeadCell3>
-                number of days left for visa expiry
-              </TableHeadCell3>
+              <TableHeadCell3>number of days left for visa expiry</TableHeadCell3>
               <TableHeadCell3>mofa done</TableHeadCell3>
               <TableHeadCell3>pp submission</TableHeadCell3>
               <TableHeadCell3>visa cancel</TableHeadCell3>
@@ -60,7 +58,7 @@ export default function Main(props: {
           </TableHead3>
 
           <TableBody3>
-            {props.indexActiveList.map((indexList, index) => (
+            {props.indexFullList.map((indexList, index) => (
               <TableRow3 key={index}>
                 <TableCell3>{index + 1}</TableCell3>
                 <TableCell3>{indexList.job_order_no}</TableCell3>

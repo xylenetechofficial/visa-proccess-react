@@ -1,48 +1,51 @@
-export interface ActiveIndexInterface{
+export interface VisaProfessionInterface{
     id?:number
-    index_date:string
-    company_name:string
-    party_code:string
-    visa_profession:string
-    aravic_visa_category:string
-    visa_quantity:number
-    visa_used:string
-    dead_visa_qty:number
-    visa_balance:number
-    mofa_done:string
-    pp_submission:string
+    index_date: string
+    company_name: string
+    party_code: string
+    visa_profession: string
+    aravic_visa_category: string
+    visa_quantity: number
+    visa_used: number
+    dead_visa_qty: number
+    visa_balance: number
+    mofa_done: number
+    pp_submission: number
+    rejected: number
+    canceled: number   
                                                              
 }
 
 // adapter
 
-export interface ActiveIndexAdapter{
+export interface VisaProfessionAdapter{
     id?:number
-    index_date:string
-    company_name:string
-    party_code:string
-    visa_profession:string
-    aravic_visa_category:string
-    visa_quantity:number
-    visa_used:string
-    dead_visa_qty:number
-    visa_balance:number
-    mofa_done:string
-    pp_submission:string
-                                                                                   
+    index_date: string
+    company_name: string
+    party_code: string
+    visa_profession: string
+    aravic_visa_category: string
+    visa_quantity: number
+    visa_used: number
+    dead_visa_qty: number
+    visa_balance: number
+    mofa_done: number
+    pp_submission: number
+    rejected: number
+    canceled: number                                                       
 }
 
 // converter class
 
-export class ActiveIndexConverter {
-    // private i: ActiveIndexInterface
-    // private a: ActiveIndexAdapter
+export class VisaProfessionConverter {
+    // private i: VisaProfessionInterface
+    // private a: VisaProfessionAdapter
   
     /**
      * toInterface
      */
-    public static toInterface(a: ActiveIndexAdapter) {
-      const data: ActiveIndexInterface = {
+    public static toInterface(a: VisaProfessionAdapter) {
+      const data: VisaProfessionInterface = {
         id:a.id,
         index_date:a.index_date,
         company_name:a.company_name,
@@ -55,6 +58,8 @@ export class ActiveIndexConverter {
         visa_balance:a.visa_balance,
         mofa_done:a.mofa_done,
         pp_submission:a.pp_submission,
+        rejected: a.rejected,
+        canceled: a.canceled,  
       };
       return data;
     }
@@ -62,10 +67,10 @@ export class ActiveIndexConverter {
     /**
      * toAdapter
      */
-    public static toAdapter(i: ActiveIndexInterface) {
+    public static toAdapter(i: VisaProfessionInterface) {
       console.log("i"); // Only Dev
       console.log(i); // Only Dev
-      const data:ActiveIndexAdapter = {
+      const data:VisaProfessionAdapter = {
         id:i.id,
         index_date:i.index_date,
         company_name:i.company_name,
@@ -78,6 +83,8 @@ export class ActiveIndexConverter {
         visa_balance:i.visa_balance,
         mofa_done:i.mofa_done,
         pp_submission:i.pp_submission,
+        rejected: i.rejected,
+        canceled: i.canceled, 
       };
       return data;
     }

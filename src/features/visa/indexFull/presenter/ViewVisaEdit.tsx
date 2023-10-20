@@ -81,16 +81,7 @@ export default function Main(props: {
           </UpdateContentBox>
           <UpdateContentBox>
             <SubHeading1 text="ARBIC visa category :" />
-            <UnlabeledInput
-              placeholder="ARBIC visa category"
-              value={props.visaProEditList.aravic_visa_category}
-              onchange={(value) =>
-                props.setVisaProEditList({
-                  ...props.visaProEditList,
-                  aravic_visa_category: value,
-                })
-              }
-            />
+            {props.visaProEditList.aravic_visa_category}
             {/* name Input */}
           </UpdateContentBox>
 
