@@ -87,6 +87,8 @@ export const navigations: NavigationInterface[] = [
        { name: 'Degree Attestation', icon: 'pageview', path: '/visa/degree-attestation' },
        { name: 'Index Active', icon: 'pageview', path: '/visa/index-active' },
        { name: 'Index Full', icon: 'pageview', path: '/visa/index-full' },
+       { name: 'Consulate Charges', icon: 'pageview', path: '/visa/consulate-charges' },
+       { name: 'Document Charges', icon: 'pageview', path: '/visa/document-charges' },
     ]
   },
   {
@@ -134,8 +136,8 @@ export const navigations: NavigationInterface[] = [
       { name: 'Account Candidate List', icon: 'preview', path:'/account/account-candidate-list'},
       {name:"Service Charges", icon:"preview" , path:'/account/service-charges/'},
       {name:"Agent Payment Received", icon:"preview" , path:'/account/account-dpt/'},
-      {name:"Manage Agent Payment Return", icon:"preview" , path:'/account/agent-return-payment/'}
-      // {name:"Manage Agent Payment Return", icon:"preview" , path:'/account/manage-agent-payment-return/'}
+      {name:"Manage Agent Payment Return", icon:"preview" , path:'/account/agent-return-payment/'},
+      {name:"Penalty Charges", icon:"preview" , path:'/account/penalty-charges/'}
     ]
   },
   {

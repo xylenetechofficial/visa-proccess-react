@@ -22,6 +22,8 @@ import AccountServices from './accountServices/Router';
 import AccountDpt from './accountDpt/Router';
 import AgentReturnPayment from './agentReturnPayment/Router';
 import ManageAgentPaymentReturn from './manageAgentPaymentReturn/Router';
+import PenaltyCharges from './penaltyCharges/Router';
+
 
 
 
@@ -49,6 +51,7 @@ function Main() {
             <Route path='/account-dpt/*' element={<AccountDpt />}></Route>
             <Route path='/agent-return-payment/*' element={<AgentReturnPayment />}></Route>
             <Route path='/manage-agent-payment-return/*' element={<ManageAgentPaymentReturn />}></Route>
+            <Route path='/penalty-charges/*' element={<PenaltyCharges />}></Route>
         
         </Routes>
 

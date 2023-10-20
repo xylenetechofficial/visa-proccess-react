@@ -1,8 +1,8 @@
 // lib
-import { lazy, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom'
+// import { lazy, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom'
 
-import { UserAuthContextProvider, useUserAuth } from '../context/UserAuthContext';
+// import { UserAuthContextProvider, useUserAuth } from '../context/UserAuthContext';
 
 // import InterviewSchedulePeriod from './interviewSchedulePeriod/Router';
 // import InterviewSchedule from './interviewSchedule/Router';
@@ -24,6 +24,8 @@ import DubaiDataEntry from "./dubaiDataEntry/Router"
 import DegreeAttestation from "./degreeAttestation/Router"
 import IndexActive from "./indexActive/Router"
 import IndexFull from "./indexFull/Router"
+import ConsuleteCharges from "./consulateCharges/Router"
+import DocumentCharges from "./documentCharges/Router"
 
 
 
@@ -51,6 +53,9 @@ function Main() {
             <Route path='/degree-attestation/*' element={<DegreeAttestation />}></Route>
             <Route path='/index-active/*' element={<IndexActive />}></Route>
             <Route path='/index-full/*' element={<IndexFull />}></Route>
+            <Route path='/consulate-charges/*' element={<ConsuleteCharges />}></Route>
+            <Route path='/document-charges/*' element={<DocumentCharges />}></Route>
+
         </Routes>
 
 
