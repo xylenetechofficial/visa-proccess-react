@@ -1,5 +1,5 @@
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
+
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { FullScreenModal } from "../../../../componenets/Modal";
 import { FullIndexListInterface } from "../type2";
@@ -77,7 +77,7 @@ export default function Main(props: {
 
           <UpdateContentBox>
             <SubHeading1 text="visa issue date :" />
-            <UnlabeledInput value={props.editindexFullList.visa_issue_date} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_issue_date:value})} />
+            <UnlabeledInput type="date" value={props.editindexFullList.visa_issue_date} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_issue_date:value})} />
             {/* name Input */}
            
           </UpdateContentBox>
@@ -115,7 +115,7 @@ export default function Main(props: {
 
           <UpdateContentBox>
             <SubHeading1 text="visa expiry date :" />
-            <UnlabeledInput value={props.editindexFullList.visa_expiry_date} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_expiry_date:value})} />
+            <UnlabeledInput type="date" value={props.editindexFullList.visa_expiry_date} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_expiry_date:value})} />
             {/* name Input */}
            
           </UpdateContentBox>
