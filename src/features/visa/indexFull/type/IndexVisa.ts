@@ -17,6 +17,7 @@ export interface FullIndexInterface{
   visa_number: string
   visa_fee: number
   visa_authorization: number
+  visa_authorization_name?: string
   visa_submission: string
   sponsor_id: string
   aravic_sponsor_name: string
@@ -49,6 +50,7 @@ export interface FullIndexAdapter{
   visa_number: string
   visa_fee: number
   visa_authorization: number
+  visa_authorization_name?: string
   visa_submission: string
   sponsor_id: string
   aravic_sponsor_name: string
@@ -89,6 +91,7 @@ export class FullIndexConverter {
         visa_number:a.visa_number,
         visa_fee:a.visa_fee,
         visa_authorization:a.visa_authorization,
+        visa_authorization_name:a.visa_authorization_name,
         visa_submission:a.visa_submission,
         sponsor_id:a.sponsor_id,
         aravic_sponsor_name:a.aravic_sponsor_name,
@@ -126,6 +129,7 @@ export class FullIndexConverter {
         visa_number:i.visa_number,
         visa_fee:i.visa_fee,
         visa_authorization:i.visa_authorization,
+        visa_authorization_name:i.visa_authorization_name,
         visa_submission:i.visa_submission,
         sponsor_id:i.sponsor_id,
         aravic_sponsor_name:i.aravic_sponsor_name,

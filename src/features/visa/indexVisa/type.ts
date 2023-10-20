@@ -10,6 +10,7 @@ export interface IndexVisaInterface {
   company: number;
   country: number;
   quantity: number;
+  block_visa_id: number;
   visa_date_arabic: string;
   visa_number: string;
   visa_fee: number;
@@ -65,6 +66,7 @@ export interface IndexVisaAdapter {
   company: number;
   country: number;
   quantity: number;
+  block_visa_id: number;
   visa_date_arabic: string;
   visa_number: string;
   visa_fee: number;
@@ -108,6 +110,7 @@ export class IndexVisaConverter {
       company: a.company,
       country: a.country,
       quantity: a.quantity,
+      block_visa_id: a.block_visa_id,
       visa_date_arabic: a.visa_date_arabic,
       visa_number: a.visa_number,
       visa_fee: a.visa_fee,
@@ -130,7 +133,7 @@ export class IndexVisaConverter {
       company_name: a.company_name,
       country_name: a.country_name,
       visa_authorization_name: a.visa_authorization_name,
-      days: a.days
+      days: a.days,
     };
     return data;
   }
@@ -150,6 +153,7 @@ export class IndexVisaConverter {
       company: i.company,
       country: i.country,
       quantity: i.quantity,
+      block_visa_id: i.block_visa_id,
       visa_date_arabic: i.visa_date_arabic,
       visa_number: i.visa_number,
       visa_fee: i.visa_fee,
@@ -172,7 +176,7 @@ export class IndexVisaConverter {
       company_name: i.company_name,
       country_name: i.country_name,
       visa_authorization_name: i.visa_authorization_name,
-      days: i.days
+      days: i.days,
     };
     return data;
   }
@@ -248,10 +252,10 @@ export const selectConverForBlockVisa = (
     for (let j = 0; j < companyList.length; j++) {
       console.log(
         "blockVisList: " +
-        blockVisList[i].company +
-        " = " +
-        "companyList: " +
-        companyList[j].id
+          blockVisList[i].company +
+          " = " +
+          "companyList: " +
+          companyList[j].id
       );
       if (blockVisList[i].company == companyList[j].id) {
         companyName = companyList[j].name;

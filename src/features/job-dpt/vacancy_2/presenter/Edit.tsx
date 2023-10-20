@@ -79,6 +79,11 @@ export default function Main(props: {
                 showMessage_v2({ message: "Actual Profession Empty", status: 404 });
                 return
             }
+
+            if (actual_profession_list[i].air_ticket?.trim() == "") {
+                showMessage_v2({ message: "Air Ticket Empty", status: 404 });
+                return
+            }
         }
 
         await updateJobOrder(props.currentElement.id ?? 0, jobOrder)

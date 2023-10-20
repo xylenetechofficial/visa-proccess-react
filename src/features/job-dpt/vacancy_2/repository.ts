@@ -39,6 +39,23 @@ export async function readJobOrder(id: number) {
   return JobOrderConverter.toInterface(response.data as JobOrderAdapter);
 }
 
+export async function addJobOrder(id: number, jobOrder: JobOrderInterface) {
+  const payload = JobOrderConverter.toAdapter(jobOrder);
+  console.log(payload);
+  // return
+  const path = "/job-dpt/v3/vacancy/" + id + "/add";
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.form,
+    tokenType: AuthTokenType.JWT,
+  });
+  showMessage_v2({ message: response.message, status: response.code });
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
+}
+
 export async function updateJobOrder(id: number, jobOrder: JobOrderInterface) {
   const payload = JobOrderConverter.toAdapter(jobOrder);
   console.log(payload);

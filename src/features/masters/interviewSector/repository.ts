@@ -12,7 +12,7 @@ export async function readInterviewSectorList(refresh = false ,page_number?: num
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
     queryParameters: {
-      page: page_number ?? 1,
+      page: page_number ?? 0,
     },
   });
 

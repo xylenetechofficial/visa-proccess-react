@@ -12,7 +12,7 @@ export async function readOtherDocsList(refresh = false ,page_number?: number) {
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
     queryParameters: {
-      page: page_number ?? 1,
+      page: page_number ?? 0,
     },
   });
 

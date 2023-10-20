@@ -5,7 +5,7 @@ import { SectorInterface } from "../../../masters/sector/type";
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
-import { readJobOrder, updateJobOrder } from "../repository";
+import { addJobOrder, readJobOrder, updateJobOrder } from "../repository";
 import ActualProfessionTable from "./ActualProfessionTable";
 import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
 import SelectSectorSection from "./SelectSectorSection";
@@ -17,7 +17,7 @@ import { ActualProfessionInterface } from "../../Extra/type";
 // import { filter_unique_sector, generate_final_actual_profession_v2 } from "../../Extra/function";
 import { convertDateFormat } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
-import { generate_final_actual_profession } from "../../Extra/function";
+// import { generate_final_actual_profession } from "../../Extra/function";
 import { FileInput, FileInputUnlabel, FileOpenPopup } from "../../../../componenets/Input";
 
 
@@ -191,9 +191,9 @@ export default function Main(props: {
 
         if (!data)
             return
-        // console.log('onClickAdd');   // Only Dev
+        console.log(data);   // Only Dev
         // return
-        const flag = await updateJobOrder(props.currentElement.id ?? 0, data)
+        const flag = await addJobOrder(props.currentElement.id ?? 0, data)
 
         if (flag) {
             // props.fetchJobOrderList()

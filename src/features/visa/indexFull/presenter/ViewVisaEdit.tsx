@@ -34,7 +34,7 @@ export default function Main(props: {
         <>
         <Box sx={style}>
         <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">
-          TICKET STATUS CHARGES
+          Dead Visa Quantity
         </h3>
         <button
           type="button"
@@ -97,7 +97,7 @@ export default function Main(props: {
           </UpdateContentBox>
 
           <UpdateContentBox>
-            <SubHeading1 text="Visa Quantity:" />
+            <SubHeading1 text="Visa Quantity: " />
             <UnlabeledInput value={props.visaProEditList.visa_quantity} type="number" onchange={(value)=>props.setVisaProEditList({...props.visaProEditList, visa_quantity:parseInt(value)})}/>
             {/* name Input */}
            

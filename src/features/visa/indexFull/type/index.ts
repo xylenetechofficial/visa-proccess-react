@@ -1,3 +1,2 @@
-import * as indexVisa from './IndexVisa'
-import * as visaProfession from './VisaProfession'
-
+export * from "./IndexVisa";
+export * from "./VisaProfession";
