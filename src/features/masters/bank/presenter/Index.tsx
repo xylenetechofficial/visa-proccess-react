@@ -97,7 +97,7 @@ export default function Main() {
 
   };
   useEffect(() => {
-    fetchBankList();
+    fetchBankList(additionalData.pagination.page);
   }, []);
 
   return (

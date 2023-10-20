@@ -82,7 +82,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    fetchAgentList();
+    fetchAgentList(additionalData.pagination.page);
   }, []);
 
   return (

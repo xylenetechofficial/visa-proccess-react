@@ -45,7 +45,7 @@ export default function Main() {
 
   }
   useEffect(() => {
-    fetch_list()
+    fetch_list(additionalData.pagination.page)
   }, [])
 
   return (

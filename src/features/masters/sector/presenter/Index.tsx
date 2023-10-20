@@ -95,7 +95,7 @@ export default function Main() {
     setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
-    fetchSectorList();
+    fetchSectorList(additionalData.pagination.page);
     fetchCountryList();
   }, []);
 

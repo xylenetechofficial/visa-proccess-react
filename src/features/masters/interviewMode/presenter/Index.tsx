@@ -99,7 +99,7 @@ export default function Main() {
     setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
-    fetchInterviewModeList();
+    fetchInterviewModeList(additionalData.pagination.page);
   }, []);
 
   return (

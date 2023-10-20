@@ -137,7 +137,7 @@ export default function Main() {
 
   useEffect(() => {
     fetchConsolidateCharges();
-    fetchJobOrderList();
+    fetchJobOrderList(additionalData.pagination.page);
     fetchSectorList();
     fetchcomapanyList();
     fetchCountryList();

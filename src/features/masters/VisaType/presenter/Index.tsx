@@ -84,7 +84,7 @@ export default function Main() {
 
   };
   useEffect(() => {
-    fetchVisaTypeList();
+    fetchVisaTypeList(additionalData.pagination.page);
   }, []);
 
   return (

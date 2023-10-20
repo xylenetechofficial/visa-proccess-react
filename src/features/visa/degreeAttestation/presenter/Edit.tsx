@@ -68,7 +68,7 @@ export default function Main(props: {
     }
 
     useEffect(() => {
-        fetch_list()
+        fetch_list(additionalData.pagination.page)
 
         fetchAgentList()
         fetchRecruitCoordinatorList()

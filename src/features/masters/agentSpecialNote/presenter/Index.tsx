@@ -110,7 +110,7 @@ export default function Main() {
 
   };
   useEffect(() => {
-    fetchAgentSpecialNoteList();
+    fetchAgentSpecialNoteList(additionalData.pagination.page);
   }, []);
 
   return (

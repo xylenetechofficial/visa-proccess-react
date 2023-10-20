@@ -84,7 +84,7 @@ export default function Main() {
 
   };
   useEffect(() => {
-    fetchGradeList();
+    fetchGradeList(additionalData.pagination.page);
   }, []);
 
   return (

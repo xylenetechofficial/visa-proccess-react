@@ -91,7 +91,7 @@ export default function Main() {
 
   };
   useEffect(() => {
-    fetchConsolidateChargeList();
+    fetchConsolidateChargeList(additionalData.pagination.page);
   }, []);
 
   return (

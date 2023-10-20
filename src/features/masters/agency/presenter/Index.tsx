@@ -86,7 +86,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    fetchAgencyList();
+    fetchAgencyList(additionalData.pagination.page);
   }, []);
 
   return (

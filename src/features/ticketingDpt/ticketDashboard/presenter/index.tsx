@@ -104,8 +104,8 @@ export default function Main() {
     }
   };
   const [agencyList, setAgencyList] = useState<AgencyInterface[]>([]);
-  const fetchAgencyList = async (page?: number) => {
-    const res = await readAgencyList(true,  page);
+  const fetchAgencyList = async () => {
+    const res = await readAgencyList();
     setAgencyList(res);
   };
   
