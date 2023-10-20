@@ -17,6 +17,8 @@ export interface FullIndexListInterface {
     "visa_number": string,
     "visa_fee": number,
     "visa_authorization": number,
+    "visa_authorization_name": string,
+    visa_accountable: number;
     "visa_submission": string,
     "sponsor_id": string,
     "aravic_sponsor_name": string,
@@ -25,7 +27,7 @@ export interface FullIndexListInterface {
     "mofa_done": number,
     "pp_submission": number,
     "visa_cancel": number,
-    
+
 }
 
 export interface FullIndexListAdapter {
@@ -47,6 +49,8 @@ export interface FullIndexListAdapter {
     "visa_number": string,
     "visa_fee": number,
     "visa_authorization": number,
+    "visa_authorization_name": string,
+    visa_accountable: number;
     "visa_submission": string,
     "sponsor_id": string,
     "aravic_sponsor_name": string,
@@ -83,6 +87,8 @@ export class FullIndexListConverter {
             "visa_number": a.visa_number,
             "visa_fee": a.visa_fee,
             "visa_authorization": a.visa_authorization,
+            "visa_authorization_name": a.visa_authorization_name,
+            visa_accountable: a.visa_accountable,
             "visa_submission": a.visa_submission,
             "sponsor_id": a.sponsor_id,
             "aravic_sponsor_name": a.aravic_sponsor_name,
@@ -120,6 +126,8 @@ export class FullIndexListConverter {
             "visa_number": i.visa_number,
             "visa_fee": i.visa_fee,
             "visa_authorization": i.visa_authorization,
+            "visa_authorization_name": i.visa_authorization_name,
+            visa_accountable: i.visa_accountable,
             "visa_submission": i.visa_submission,
             "sponsor_id": i.sponsor_id,
             "aravic_sponsor_name": i.aravic_sponsor_name,
@@ -239,7 +247,7 @@ export interface VisaProfessionEditInterface {
     visa_profession: string,
     visa_quantity: number,
     visa_used: number,
-    remarks:string
+    remarks: string
 }
 export interface VisaProfessionEditAdapter {
     aravic_visa_category: string,
@@ -256,7 +264,7 @@ export interface VisaProfessionEditAdapter {
     visa_profession: string,
     visa_quantity: number,
     visa_used: number,
-    remarks:string
+    remarks: string
 }
 
 export class VisaProfessionEditConverter {
@@ -282,7 +290,7 @@ export class VisaProfessionEditConverter {
             visa_profession: a.visa_profession,
             visa_quantity: a.visa_quantity,
             visa_used: a.visa_used,
-            remarks:a.remarks
+            remarks: a.remarks
         };
         return data;
     }
@@ -308,7 +316,7 @@ export class VisaProfessionEditConverter {
             visa_profession: i.visa_profession,
             visa_quantity: i.visa_quantity,
             visa_used: i.visa_used,
-            remarks:i.remarks
+            remarks: i.remarks
         };
         return data;
     }

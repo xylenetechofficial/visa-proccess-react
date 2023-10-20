@@ -36,20 +36,20 @@ export default function Main() {
   );
   const [editProVisaList, setEditProVisaList] = useState<[]>([]);
   const [visaProEditList, setVisaProEditList] = useState<VisaProfessionEditInterface>({} as VisaProfessionEditInterface);
- 
 
-  const onClickEditProVisa = async(item:any) => {
+
+  const onClickEditProVisa = async (item: any) => {
     console.log("onClickEdit"); // Only Dev
     setModalName("Visa Prof. Edit");
-    console.log(item,"IT")
-    const res :any = await readVisaProEditList(item.party_code)
-    if(res){
+    console.log(item, "IT")
+    const res: any = await readVisaProEditList(item.party_code)
+    if (res) {
       setEditProVisaList(res)
     }
   };
 
-  const onClickVisaProEdit = (item:VisaProfessionEditInterface) => {
-    console.log("onClickEdit",item); // Only Dev
+  const onClickVisaProEdit = (item: VisaProfessionEditInterface) => {
+    console.log("onClickEdit", item); // Only Dev
     setModalName("Visa Edit");
     setVisaProEditList(item)
   };
@@ -60,7 +60,7 @@ export default function Main() {
     setModalName("View Visa Prof");
   };
 
-  const onClickVisaEdit = (item:FullIndexListInterface) => {
+  const onClickVisaEdit = (item: FullIndexListInterface) => {
     console.log("onClickEdit"); // Only Dev
     setModalName("Edit");
     setEditIndexFullList(item)
@@ -72,16 +72,17 @@ export default function Main() {
     setIndexFullList(data);
   };
 
-  const onClickUpdateVisaProEdit =async ()=>{
+  const onClickUpdateVisaProEdit = async () => {
     console.log("onClickUpdateVisaProEdit"); // Only Dev
-    const res :any = await updateVisaProEdit(visaProEditList)
-    if(res){
+    const res: any = await updateVisaProEdit(visaProEditList)
+    if (res) {
       fetchIndexVisaList();
       setModalName('')
     }
   }
-  const onClickUpdatEditIndexFullList =async ()=>{
+  const onClickUpdatEditIndexFullList = async () => {
     const res = await updateEditedSingleIndexFullItem(editindexFullList)
+    fetchIndexVisaList()
   }
 
   useEffect(() => {
@@ -93,7 +94,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Index Full"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>fetchIndexVisaList()}
+        refresh={() => fetchIndexVisaList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -101,9 +102,9 @@ export default function Main() {
 
       <IndexFullTable
         indexFullList={indexFullList}
-        onClickEditProVisa={(value :any)=>onClickEditProVisa(value)}
+        onClickEditProVisa={(value: any) => onClickEditProVisa(value)}
         onClickProView={onClickProView}
-        onClickVisaEdit={(value)=>onClickVisaEdit(value)}
+        onClickVisaEdit={(value) => onClickVisaEdit(value)}
       />
 
       {/* Modal  */}
@@ -114,7 +115,7 @@ export default function Main() {
         <EditProVisa
           editProVisaList={editProVisaList}
           onClose={() => setModalName("")}
-          onClickVisaProEdit={(value)=>onClickVisaProEdit(value)}
+          onClickVisaProEdit={(value) => onClickVisaProEdit(value)}
         />
       )}
 
@@ -133,7 +134,7 @@ export default function Main() {
         ""
       ) : (
         <ViewVisaProTable onClose={() => setModalName("")}
-        currentFullIndex={currentFullIndex}
+          currentFullIndex={currentFullIndex}
         />
       )}
 
@@ -146,11 +147,11 @@ export default function Main() {
       {modalName !== "Edit" ? (
         ""
       ) : (
-        <EditVisaProTable 
-        onClose={() => setModalName("")} 
-        editindexFullList={editindexFullList} 
-        setEditIndexFullList={setEditIndexFullList}
-        onClickUpdatEditIndexFullList={onClickUpdatEditIndexFullList}/>
+        <EditVisaProTable
+          onClose={() => setModalName("")}
+          editindexFullList={editindexFullList}
+          setEditIndexFullList={setEditIndexFullList}
+          onClickUpdatEditIndexFullList={onClickUpdatEditIndexFullList} />
       )}
 
       {/* <div className="flex justify-end items-center mt-3">

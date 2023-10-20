@@ -557,6 +557,7 @@ export default function Main(props: {
                     <SubHeading1 text="Visa Accountable :" />
 
                     <CustomRadioButton
+                        inlined
                         value={indexVisa.visa_accountable}
                         onChange={(value) => setIndexVisa({ ...indexVisa, visa_accountable: value })}
                         option={[
