@@ -10,8 +10,6 @@ import ViewVisaProEdit from "./ViewVisaEdit";
 import ViewVisaProTable from "./View";
 import EditVisaProTable from "./Edit";
 import { FaFilter } from "react-icons/fa";
-import { FullIndexListInterface, VisaProfessionEditInterface } from "../type";
-import { readFullIndexList, readVisaProEditList, updateEditedSingleIndexFullItem, updateVisaProEdit } from "../repository";
 // import { GreenButton } from "../../../../componenets/CustomButton";
 
 export default function Main() {
@@ -28,16 +26,13 @@ export default function Main() {
 
   const [modalName, setModalName] = useState("");
 
-  const [indexFullList, setIndexFullList] = useState<FullIndexListInterface[]>([]);
-  const [editindexFullList, setEditIndexFullList] = useState<FullIndexListInterface>({} as FullIndexListInterface);
+  const [indexFullList, setIndexFullList] = useState<[]>([]);
   const [editProVisaList, setEditProVisaList] = useState<[]>([]);
-  const [visaProEditList, setVisaProEditList] = useState<VisaProfessionEditInterface>({} as VisaProfessionEditInterface);
+  const [visaProEditList, setVisaProEditList] = useState<[]>([]);
 
-  const onClickEditProVisa =async (item:any) => {
+  const onClickEditProVisa = () => {
     console.log("onClickEdit"); // Only Dev
     setModalName("Visa Prof. Edit");
-    console.log(item,"IT")
-   
   };
 
   const onClickVisaProEdit = () => {
@@ -45,13 +40,9 @@ export default function Main() {
     setModalName("Visa Edit");
   };
 
-  const onClickProView = async (item:any) => {
+  const onClickProView = () => {
     console.log("onClickEdit"); // Only Dev
     setModalName("View Visa Prof");
-    const res :any = await readVisaProEditList(item.party_code)
-    if(res){
-      setEditProVisaList(res)
-    }
   };
 
   const onClickVisaEdit = () => {
@@ -59,28 +50,6 @@ export default function Main() {
     setModalName("Edit");
   };
 
-  
-  const fetchIndexVisaList = async () => {
-    const data = await readFullIndexList();
-    console.log(data);
-    setIndexFullList(data);
-  };
-
-  const onClickUpdateVisaProEdit =async ()=>{
-    console.log("onClickUpdateVisaProEdit"); // Only Dev
-    const res :any = await updateVisaProEdit(visaProEditList)
-    if(res){
-      fetchIndexVisaList();
-      setModalName('')
-    }
-  }
-  const onClickUpdatEditIndexFullList =async ()=>{
-    const res = await updateEditedSingleIndexFullItem(editindexFullList)
-  }
-
-  useEffect(() => {
-    fetchIndexVisaList();
-  }, []);
   return (
     <>
       <CustomNavbarV3
@@ -116,9 +85,6 @@ export default function Main() {
         <ViewVisaProEdit
           visaProEditList={visaProEditList}
           onClose={() => setModalName("")}
-          onClickUpdateVisaProEdit={onClickUpdateVisaProEdit}
-          setVisaProEditList={setVisaProEditList}
-        
         />
       )}
 
@@ -137,11 +103,7 @@ export default function Main() {
       {modalName !== "Edit" ? (
         ""
       ) : (
-        <EditVisaProTable 
-         onClose={() => setModalName("")} 
-        editindexFullList={editindexFullList} 
-        setEditIndexFullList={setEditIndexFullList}
-        onClickUpdatEditIndexFullList={onClickUpdatEditIndexFullList}/>
+        <EditVisaProTable onClose={() => setModalName("")} />
       )}
 
       {/* <div className="flex justify-end items-center mt-3">

@@ -9,16 +9,17 @@ import {
 } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
 import { Checkbox } from "flowbite-react";
+import { FullIndexListInterface } from "../type";
 // import { TicketReissueInterface } from "../type";
 
 export default function Main(props: {
   indexFullList: any[];
-  onClickEditProVisa: any,
-  onClickProView:any,
-  onClickVisaEdit:any
+  onClickEditProVisa: (value : any)=>void
+  onClickProView: (fullIndex: FullIndexListInterface) => void;
+  onClickVisaEdit: (value: FullIndexListInterface)=>void
+
 }) {
 
-  const onChange = () => {};
   return (
     <>
       <div className="overflow-auto">
@@ -57,59 +58,64 @@ export default function Main(props: {
           </TableHead3>
 
           <TableBody3>
-            <TableRow3>
-              <TableCell3>1</TableCell3>
-              <TableCell3>job order no </TableCell3>
-              <TableCell3>index date</TableCell3>
-              <TableCell3>company name</TableCell3>
-              <TableCell3>party code </TableCell3>
-              <TableCell3>quantity</TableCell3>
-              <TableCell3>used qty</TableCell3>
-              <TableCell3>dead visa qty</TableCell3>
-              <TableCell3>cancelled qty</TableCell3>
-              <TableCell3>balance qty</TableCell3>
-              <TableCell3>visa issue date</TableCell3>
-              <TableCell3>visa expiry date</TableCell3>      
-              <TableCell3>country</TableCell3>
-              <TableCell3>visa date (arabic)</TableCell3>
-              <TableCell3>visa number</TableCell3>
-              <TableCell3>visa fee</TableCell3>
-              <TableCell3>visa authorization</TableCell3>
-              <TableCell3>visa submission</TableCell3>
-              <TableCell3>sponsor id</TableCell3>
-              <TableCell3>aravic sponsor name</TableCell3>
-              <TableCell3>division </TableCell3>
-              <TableCell3>number of days left for visa expiry</TableCell3>
-              <TableCell3>mofa done</TableCell3>
-              <TableCell3>pp submission</TableCell3>
-              <TableCell3>visa cancel</TableCell3>
-              <TableCell3>
-              <BlueButton
-                  text={"View Visa Prof."}
-                  onClick={() => {
-                    props.onClickProView();
-                  }}
-                />
-              </TableCell3>
-              <TableCell3>
-              <BlueButton
-                  text={"Visa Prof. Edit"}
-                  onClick={() => {
-                    props.onClickEditProVisa();
-                  }}
-                />
+            {props.indexFullList.map((indexList, index) => (
+              <TableRow3 key={index}>
+                <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{indexList.job_order_no}</TableCell3>
+                <TableCell3>{indexList.index_date}</TableCell3>
+                <TableCell3>{indexList.company_name}</TableCell3>
+                <TableCell3>{indexList.party_code}</TableCell3>
+                <TableCell3>{indexList.quantity}</TableCell3>
+                <TableCell3>{indexList.used_qty}</TableCell3>
+                <TableCell3>{indexList.dead_visa_qty}</TableCell3>
+                <TableCell3>{indexList.expired_visa_qty}</TableCell3>
+                <TableCell3>{indexList.cancelled_qty}</TableCell3>
+                <TableCell3>{indexList.balance_qty}</TableCell3>
+                <TableCell3>{indexList.visa_issue_date}</TableCell3>
+                <TableCell3>{indexList.visa_expiry_date}</TableCell3>
+                <TableCell3>{indexList.country}</TableCell3>
+                <TableCell3>{indexList.visa_date_arabic}</TableCell3>
+                <TableCell3>{indexList.visa_number}</TableCell3>
+                <TableCell3>{indexList.visa_fee}</TableCell3>
+                <TableCell3>{indexList.visa_authorization}</TableCell3>
+                <TableCell3>{indexList.visa_submission}</TableCell3>
+                <TableCell3>{indexList.sponsor_id}</TableCell3>
 
-              </TableCell3>
-              <TableCell3>
-              <BlueButton
-                  text={"Edit"}
-                  onClick={() => {
-                    props.onClickVisaEdit();
-                  }}
-                />
-              </TableCell3>
-              
-            </TableRow3>
+                <TableCell3>{indexList.aravic_sponsor_name}</TableCell3>
+                <TableCell3>{indexList.division}</TableCell3>
+                <TableCell3>
+                  {indexList.number_of_days_left_for_visa_expiry}
+                </TableCell3>
+                <TableCell3>{indexList.mofa_done}</TableCell3>
+                <TableCell3>{indexList.pp_submission}</TableCell3>
+                <TableCell3>{indexList.visa_cancel}</TableCell3>
+
+                <TableCell3>
+                  <BlueButton
+                    text={"View Visa Prof."}
+                    onClick={() => {
+                      props.onClickProView(indexList);
+                    }}
+                  />
+                </TableCell3>
+                <TableCell3>
+                  <BlueButton
+                    text={"Visa Prof. Edit"}
+                    onClick={() => {
+                      props.onClickEditProVisa(indexList);
+                    }}
+                  />
+                </TableCell3>
+                <TableCell3>
+                  <BlueButton
+                    text={"Edit"}
+                    onClick={() => {
+                      props.onClickVisaEdit(indexList);
+                    }}
+                  />
+                </TableCell3>
+              </TableRow3>
+            ))}
           </TableBody3>
         </Table3>
       </div>

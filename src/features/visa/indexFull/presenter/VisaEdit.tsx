@@ -9,13 +9,16 @@ import {
   TableHeadRow3,
   TableRow3,
 } from "../../../../componenets/Table";
+import { convertDateFormat } from "../../../../utils/function";
+import { VisaProfessionEditInterface } from "../type2";
 
 export default function Main(props: {
   onClose: any;
-  editProVisaList: any;
-  onClickVisaProEdit: any;
+  editProVisaList: VisaProfessionEditInterface[];
+  onClickVisaProEdit: (value:VisaProfessionEditInterface)=>void
 }) {
-  const onClickAdd = () => {};
+  console.log(props.editProVisaList,"SS")
+  const onClickAdd = () => {console.log(props.editProVisaList,"SS")}; 
   return (
     <>
       <FullScreenModal
@@ -47,28 +50,34 @@ export default function Main(props: {
             </TableHead3>
             <TableBody3>
               <TableRow3>
-                <TableCell3>1</TableCell3>
-                <TableCell3>index date</TableCell3>
-                <TableCell3>company name</TableCell3>
-                <TableCell3>party code </TableCell3>
-                <TableCell3>visa profession</TableCell3>
-                <TableCell3>aravic visa category</TableCell3>
-                <TableCell3>visa quantity</TableCell3>
-                <TableCell3>visa used</TableCell3>
-                <TableCell3>dead visa qty</TableCell3>
-                <TableCell3>visa balance</TableCell3>
-                <TableCell3>mofa done</TableCell3>
-                <TableCell3>pp submission</TableCell3>
-                <TableCell3>rejected</TableCell3>
-                <TableCell3>cancelled</TableCell3>
+                {props.editProVisaList.map((ele, index)=>
+                (
+                  <>
+               <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{convertDateFormat(ele.index_date)}</TableCell3>
+                <TableCell3>{ele.company_name}</TableCell3>
+                <TableCell3>{ele.party_code} </TableCell3>
+                <TableCell3>{ele.visa_profession}</TableCell3>
+                <TableCell3>{ele.aravic_visa_category}</TableCell3>
+                <TableCell3>{ele.visa_quantity}</TableCell3>
+                <TableCell3>{ele.visa_used}</TableCell3>
+                <TableCell3>{ele.dead_visa_qty}</TableCell3>
+                <TableCell3>{ele.visa_balance}</TableCell3>
+                <TableCell3>{ele.mofa_done}</TableCell3>
+                <TableCell3>{ele.pp_submission}</TableCell3>
+                <TableCell3>{ele.rejected}</TableCell3>
+                <TableCell3>{ele.canceled}</TableCell3> 
                 <TableCell3>
+
                   <BlueButton
                     text={"Visa Edit"}
                     onClick={() => {
-                      props.onClickVisaProEdit();
+                      props.onClickVisaProEdit(ele);
                     }}
                   />
                 </TableCell3>
+                </>
+                ))}
               </TableRow3>
             </TableBody3>
           </Table3>

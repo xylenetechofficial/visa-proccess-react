@@ -10,7 +10,7 @@
 
 
 ###
-GET {{endpoint}}/visa-dpt/mofa-entry-list
+GET {{endpoint}}/visa-dpt/full-index/visa-profession-list?party_code=2
 ?status=sjgfs
 
 

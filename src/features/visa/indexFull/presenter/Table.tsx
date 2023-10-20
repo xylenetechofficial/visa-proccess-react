@@ -10,12 +10,13 @@ import {
 } from "../../../../componenets/Table";
 import { BlueButton } from "../../../../componenets/CustomButton";
 import { FullIndexInterface } from "../type/IndexVisa";
+import { FullIndexListInterface } from "../type2";
 
 export default function Main(props: {
   indexFullList: any[];
-  onClickEditProVisa: any;
+  onClickEditProVisa: (value : any)=>void
   onClickProView: (fullIndex: FullIndexInterface) => void;
-  onClickVisaEdit: any;
+  onClickVisaEdit: (value: FullIndexListInterface)=>void
 }) {
 
   return (
@@ -103,7 +104,7 @@ export default function Main(props: {
                   <BlueButton
                     text={"Visa Prof. Edit"}
                     onClick={() => {
-                      props.onClickEditProVisa();
+                      props.onClickEditProVisa(indexList);
                     }}
                   />
                 </TableCell3>
@@ -111,7 +112,7 @@ export default function Main(props: {
                   <BlueButton
                     text={"Edit"}
                     onClick={() => {
-                      props.onClickVisaEdit();
+                      props.onClickVisaEdit(indexList);
                     }}
                   />
                 </TableCell3>

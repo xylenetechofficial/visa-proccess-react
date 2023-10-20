@@ -11,7 +11,8 @@ import ViewVisaProTable from "./View";
 import EditVisaProTable from "./Edit";
 import { FaFilter } from "react-icons/fa";
 import { FullIndexInterface } from "../type/IndexVisa";
-import { readFullIndexList } from "../repository";
+import { readFullIndexList, readVisaProEditList, updateEditedSingleIndexFullItem, updateVisaProEdit } from "../repository";
+import { FullIndexListInterface, VisaProfessionEditInterface } from "../type2";
 // import { GreenButton } from "../../../../componenets/CustomButton";
 
 export default function Main() {
@@ -28,22 +29,29 @@ export default function Main() {
 
   const [modalName, setModalName] = useState("");
 
-  const [indexFullList, setIndexFullList] = useState<FullIndexInterface[]>([]);
+  const [indexFullList, setIndexFullList] = useState<FullIndexListInterface[]>([]);
+  const [editindexFullList, setEditIndexFullList] = useState<FullIndexListInterface>({} as FullIndexListInterface);
   const [currentFullIndex, setCurrentFullIndex] = useState<FullIndexInterface>(
     {} as FullIndexInterface
   );
   const [editProVisaList, setEditProVisaList] = useState<[]>([]);
-  const [visaProEditList, setVisaProEditList] = useState<[]>([]);
+  const [visaProEditList, setVisaProEditList] = useState<VisaProfessionEditInterface>({} as VisaProfessionEditInterface);
  
 
-  const onClickEditProVisa = () => {
+  const onClickEditProVisa = async(item:any) => {
     console.log("onClickEdit"); // Only Dev
     setModalName("Visa Prof. Edit");
+    console.log(item,"IT")
+    const res :any = await readVisaProEditList(item.party_code)
+    if(res){
+      setEditProVisaList(res)
+    }
   };
 
-  const onClickVisaProEdit = () => {
-    console.log("onClickEdit"); // Only Dev
+  const onClickVisaProEdit = (item:VisaProfessionEditInterface) => {
+    console.log("onClickEdit",item); // Only Dev
     setModalName("Visa Edit");
+    setVisaProEditList(item)
   };
 
   const onClickProView = (fullIndex: FullIndexInterface) => {
@@ -52,9 +60,10 @@ export default function Main() {
     setModalName("View Visa Prof");
   };
 
-  const onClickVisaEdit = () => {
+  const onClickVisaEdit = (item:FullIndexListInterface) => {
     console.log("onClickEdit"); // Only Dev
     setModalName("Edit");
+    setEditIndexFullList(item)
   };
 
   const fetchIndexVisaList = async () => {
@@ -63,6 +72,17 @@ export default function Main() {
     setIndexFullList(data);
   };
 
+  const onClickUpdateVisaProEdit =async ()=>{
+    console.log("onClickUpdateVisaProEdit"); // Only Dev
+    const res :any = await updateVisaProEdit(visaProEditList)
+    if(res){
+      fetchIndexVisaList();
+      setModalName('')
+    }
+  }
+  const onClickUpdatEditIndexFullList =async ()=>{
+    const res = await updateEditedSingleIndexFullItem(editindexFullList)
+  }
 
   useEffect(() => {
     fetchIndexVisaList();
@@ -80,9 +100,9 @@ export default function Main() {
 
       <IndexFullTable
         indexFullList={indexFullList}
-        onClickEditProVisa={onClickEditProVisa}
+        onClickEditProVisa={(value :any)=>onClickEditProVisa(value)}
         onClickProView={onClickProView}
-        onClickVisaEdit={onClickVisaEdit}
+        onClickVisaEdit={(value)=>onClickVisaEdit(value)}
       />
 
       {/* Modal  */}
@@ -93,7 +113,7 @@ export default function Main() {
         <EditProVisa
           editProVisaList={editProVisaList}
           onClose={() => setModalName("")}
-          onClickVisaProEdit={onClickVisaProEdit}
+          onClickVisaProEdit={(value)=>onClickVisaProEdit(value)}
         />
       )}
 
@@ -103,6 +123,8 @@ export default function Main() {
         <ViewVisaProEdit
           visaProEditList={visaProEditList}
           onClose={() => setModalName("")}
+          onClickUpdateVisaProEdit={onClickUpdateVisaProEdit}
+          setVisaProEditList={setVisaProEditList}
         />
       )}
 
@@ -123,7 +145,11 @@ export default function Main() {
       {modalName !== "Edit" ? (
         ""
       ) : (
-        <EditVisaProTable onClose={() => setModalName("")} />
+        <EditVisaProTable 
+        onClose={() => setModalName("")} 
+        editindexFullList={editindexFullList} 
+        setEditIndexFullList={setEditIndexFullList}
+        onClickUpdatEditIndexFullList={onClickUpdatEditIndexFullList}/>
       )}
 
       {/* <div className="flex justify-end items-center mt-3">

@@ -25,7 +25,7 @@ export interface FullIndexListInterface {
     "mofa_done": number,
     "pp_submission": number,
     "visa_cancel": number,
-
+    
 }
 
 export interface FullIndexListAdapter {
@@ -239,7 +239,7 @@ export interface VisaProfessionEditInterface {
     visa_profession: string,
     visa_quantity: number,
     visa_used: number,
-    remarks: string
+    remarks:string
 }
 export interface VisaProfessionEditAdapter {
     aravic_visa_category: string,
@@ -256,7 +256,7 @@ export interface VisaProfessionEditAdapter {
     visa_profession: string,
     visa_quantity: number,
     visa_used: number,
-    remarks: string
+    remarks:string
 }
 
 export class VisaProfessionEditConverter {
@@ -282,7 +282,7 @@ export class VisaProfessionEditConverter {
             visa_profession: a.visa_profession,
             visa_quantity: a.visa_quantity,
             visa_used: a.visa_used,
-            remarks: a.remarks
+            remarks:a.remarks
         };
         return data;
     }
@@ -308,7 +308,7 @@ export class VisaProfessionEditConverter {
             visa_profession: i.visa_profession,
             visa_quantity: i.visa_quantity,
             visa_used: i.visa_used,
-            remarks: i.remarks
+            remarks:i.remarks
         };
         return data;
     }
