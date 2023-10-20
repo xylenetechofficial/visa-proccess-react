@@ -395,7 +395,7 @@ export class PaginationManager {
   private url = "";
   static data: AdditionalDataInterface = {
     pagination: {
-      page: 0,
+      page: 1,
       page_count: 0,
       item_count: 0,
       limit: 0,
@@ -405,7 +405,7 @@ export class PaginationManager {
   static ls = localStorage;
 
   static async getData() {
-    let data = this.ls.getItem("additional_data") ?? "";
+    const data = this.ls.getItem("additional_data") ?? "";
     console.log("additional_data: ", data);
     if (data == "") return this.data;
 
