@@ -8,7 +8,7 @@ import { GreenButton } from "../../../../componenets/CustomButton";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { SelectionInterface } from "../type";
-import {  deleteSelection, readSelectionList } from "../repository";
+import { deleteSelection, readSelectionList } from "../repository";
 import { SectorInterface } from "../../../masters/sector/type";
 import { readSectorList } from "../../../masters/sector/repository";
 import { readCompanyList } from "../../../masters/company/repository";
@@ -44,7 +44,7 @@ export default function Main() {
     };
     const dataFiltered = filterData(searchQuery, selectionList);
 
-   
+
 
     const onClickEdit = (selection: SelectionInterface) => {
         setEditSelection(selection)
@@ -87,7 +87,7 @@ export default function Main() {
         }
     }
 
-   
+
 
     const fetchSelectionList = async () => {
         const data = await readSelectionList();
@@ -108,7 +108,10 @@ export default function Main() {
     return (
 
         <div >
-            <CustomNavbarV3 pageName="Selection" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Selection"
+                searchFunction={(query) => setSearchQuery(query)}
+                refresh={() => fetchSelectionList()}
+            />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -137,9 +140,9 @@ export default function Main() {
                 selectionList={dataFiltered}
                 onClickEdit={onClickEdit}
                 onClickDelete={onClickDelete}
-                // companyList={companyList}
-                // countryList={countryList}
-                // sectorList={sectorList}
+            // companyList={companyList}
+            // countryList={countryList}
+            // sectorList={sectorList}
             />
 
             {/* <!-- Modal --> */}

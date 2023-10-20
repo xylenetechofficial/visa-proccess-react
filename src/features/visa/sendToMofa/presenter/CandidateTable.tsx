@@ -162,7 +162,7 @@ const TableData = (
                                         {
                                             ...localRowData,
                                             PartyCode_VisaProfession: localRowData.party_code_list[i].name,
-                                            visaProfession: localRowData.party_code_list[i].visa_profession,
+                                            visaProfession: localRowData.party_code_list[i].visa_profession ?? "",
                                             partyCode: localRowData.party_code_list[i].party_code
                                         })
 
@@ -172,7 +172,7 @@ const TableData = (
 
                     }}
                     options={selectOptionConveter({ options: localRowData.party_code_list ?? [], options_struct: { name: "name", value: "name" } })}
-                value={localRowData.PartyCode_VisaProfession}
+                    value={localRowData.PartyCode_VisaProfession}
                 />
             </TableCell3>
             <TableCell3 >

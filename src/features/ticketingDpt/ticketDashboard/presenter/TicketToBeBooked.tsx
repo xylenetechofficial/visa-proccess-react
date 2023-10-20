@@ -8,44 +8,46 @@ import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { updateTicketToBeBookedList } from "../repository";
 
-export default function Main(props: { onClose: any,
-   TicketDashboardList:any ,
-   onChange:(value:TicketInterface[])=>void,
-   openTicketToBeBooked:TicketInterface[]}) {
+export default function Main(props: {
+  onClose: any,
+  TicketDashboardList: any,
+  onChange: (value: TicketInterface[]) => void,
+  openTicketToBeBooked: TicketInterface[]
+}) {
   const onClickAdd = () => {
     alert("Amit");
   };
-  
-  const [selectedCheckbox, setSelectedCheckbox] = useState([{isChecked:""}]);
+
+  const [selectedCheckbox, setSelectedCheckbox] = useState([{ isChecked: "" }]);
   function onUpdateRow(index: number, rowData: TicketInterface) {
     const nextData = props.openTicketToBeBooked.map((e, i) => {
-        if (i === index) {
-            // Increment the clicked counter
-            return rowData;
-        } else {
-            // The rest haven't changed
-            return e;
-        }
+      if (i === index) {
+        // Increment the clicked counter
+        return rowData;
+      } else {
+        // The rest haven't changed
+        return e;
+      }
     });
     props.onChange(nextData)
-}
-
-const handleCheckboxChange = (itemId: any,index:number) => {
-  setSelectedCheckbox((prev)=>{
-  const newData: any = [...prev];
-  newData[index] = {
-    ...newData[index],
-    isChecked: itemId,
-      };
-  return newData;
-})
-};
-const onClickSubmit =async()=>{
-  const update = await updateTicketToBeBookedList(props.openTicketToBeBooked)
-  if(update){
-    props.onClose();
   }
-}
+
+  const handleCheckboxChange = (itemId: any, index: number) => {
+    setSelectedCheckbox((prev) => {
+      const newData: any = [...prev];
+      newData[index] = {
+        ...newData[index],
+        isChecked: itemId,
+      };
+      return newData;
+    })
+  };
+  const onClickSubmit = async () => {
+    const update = await updateTicketToBeBookedList(props.openTicketToBeBooked)
+    if (update) {
+      props.onClose();
+    }
+  }
   return (
     <FullScreenModal
       buttonName=""
@@ -57,27 +59,27 @@ const onClickSubmit =async()=>{
         <Table3>
           <TableHead3>
             <TableHeadRow3>
-                <TableHeadCell3>sr.no</TableHeadCell3>
-                <TableHeadCell3>setting visa</TableHeadCell3>
-                <TableHeadCell3>job order no</TableHeadCell3>
-                <TableHeadCell3>company name</TableHeadCell3>
-                <TableHeadCell3>candidate name</TableHeadCell3>
-                <TableHeadCell3>pp no.</TableHeadCell3>
-                <TableHeadCell3>agent profession</TableHeadCell3>
-                <TableHeadCell3>mufa no.</TableHeadCell3>
-                <TableHeadCell3>agent</TableHeadCell3>
-                <TableHeadCell3>rc name</TableHeadCell3>
-                <TableHeadCell3>visa received date</TableHeadCell3>
-                <TableHeadCell3>visa expire date</TableHeadCell3>
-                <TableHeadCell3>sector from</TableHeadCell3>
-                <TableHeadCell3>sector to</TableHeadCell3>
-                <TableHeadCell3>required date</TableHeadCell3>
-                <TableHeadCell3>priority</TableHeadCell3>
-                <TableHeadCell3>air ticket </TableHeadCell3>
-                <TableHeadCell3>visa authorisation</TableHeadCell3>
-                <TableHeadCell3>division</TableHeadCell3>
-                <TableHeadCell3>under process</TableHeadCell3>
-                <TableHeadCell3>Trying</TableHeadCell3>
+              <TableHeadCell3>sr.no</TableHeadCell3>
+              <TableHeadCell3>setting visa</TableHeadCell3>
+              <TableHeadCell3>job order no</TableHeadCell3>
+              <TableHeadCell3>company name</TableHeadCell3>
+              <TableHeadCell3>candidate name</TableHeadCell3>
+              <TableHeadCell3>pp no.</TableHeadCell3>
+              <TableHeadCell3>agent profession</TableHeadCell3>
+              <TableHeadCell3>mufa no.</TableHeadCell3>
+              <TableHeadCell3>agent</TableHeadCell3>
+              <TableHeadCell3>rc name</TableHeadCell3>
+              <TableHeadCell3>visa received date</TableHeadCell3>
+              <TableHeadCell3>visa expire date</TableHeadCell3>
+              <TableHeadCell3>sector from</TableHeadCell3>
+              <TableHeadCell3>sector to</TableHeadCell3>
+              <TableHeadCell3>required date</TableHeadCell3>
+              <TableHeadCell3>priority</TableHeadCell3>
+              <TableHeadCell3>air ticket </TableHeadCell3>
+              <TableHeadCell3>visa authorisation</TableHeadCell3>
+              <TableHeadCell3>division</TableHeadCell3>
+              <TableHeadCell3>under process</TableHeadCell3>
+              <TableHeadCell3>Trying</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
           <TableBody3>
@@ -108,28 +110,33 @@ const onClickSubmit =async()=>{
                 <TableCell3>{item.division} </TableCell3>
                 <TableCell3>
                   <Checkbox
-                  //  value={"under"}
-                   checked={selectedCheckbox[index]?.isChecked === `${item.id}under`}
- 
-                    onChange={(e) =>{
+                    //  value={"under"}
+                    checked={selectedCheckbox[index]?.isChecked === `${item.id}under`}
+
+                    onChange={(e) => {
                       onUpdateRow(index, {
                         ...item,
-                        ticketing_under_process: e.target.checked ? 1 :0,
+                        ticketing_under_process: e.target.checked ? 1 : 0,
+                        ticketing_trying: e.target.checked ? 0 : 1,
                       })
-                      handleCheckboxChange(`${item.id}under`,index)
+                      handleCheckboxChange(`${item.id}under`, index)
                     }
-                      
+
                     }
                   />{" "}
                 </TableCell3>
                 <TableCell3>
                   <Checkbox
-                  // value={"typing"}
-                  checked={selectedCheckbox[index]?.isChecked === `${item.id}typing`}
- 
-                    onChange={(e) =>{
-                      onUpdateRow(index, {...item , ticketing_trying:e.target.checked ? 1:0,})
-                        handleCheckboxChange(`${item.id}typing`,index)
+                    // value={"typing"}
+                    checked={selectedCheckbox[index]?.isChecked === `${item.id}typing`}
+
+                    onChange={(e) => {
+                      onUpdateRow(index, {
+                        ...item,
+                        ticketing_under_process: e.target.checked ? 0 : 1,
+                        ticketing_trying: e.target.checked ? 1 : 0,
+                      })
+                      handleCheckboxChange(`${item.id}typing`, index)
                     }
                     }
                   />
@@ -139,7 +146,7 @@ const onClickSubmit =async()=>{
           </TableBody3>
         </Table3>
       </div>
-        <GreenButton text="Submit" onClick={()=>onClickSubmit()} />
+      <GreenButton text="Submit" onClick={() => onClickSubmit()} />
     </FullScreenModal>
   );
 }

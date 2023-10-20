@@ -12,7 +12,7 @@ export async function readInterviewModeList(refresh = false ,page_number?: numbe
     tokenType: AuthTokenType.JWT,
     cacheTime: refresh ? 0 : 1,
     queryParameters: {
-      page: page_number ?? 1,
+      page: page_number ?? 0,
     },
   });
   if (response.code != 200) {

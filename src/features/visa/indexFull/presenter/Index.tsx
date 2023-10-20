@@ -93,6 +93,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Index Full"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchIndexVisaList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

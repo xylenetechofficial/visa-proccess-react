@@ -25,7 +25,7 @@ export async function readAgentList(
     cacheTime: refresh ? 0 : 1,
     queryParameters: {
       filter_for: filter_for,
-      page: page_number ?? 1,
+      page: page_number ?? 0,
     },
   });
 

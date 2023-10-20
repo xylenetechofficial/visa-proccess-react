@@ -42,6 +42,7 @@ export default function Main(props: {
         index_date: "",
         om: 0,
         quantity: 0,
+        block_visa_id: 0,
         rc: 0,
         rm: 0,
         sponsor_id: "",
@@ -127,6 +128,7 @@ export default function Main(props: {
                     setBlockVisa(blockVisaList[i])
                     setIndexVisa({
                         ...indexVisa,
+                        block_visa_id: blockVisaList[i].id ?? 0,
                         visa_number: blockVisaList[i].visa_number,
                         visa_date_arabic: blockVisaList[i].visa_date_arabic,
                         visa_expiry_date: blockVisaList[i].visa_expiry_date,
@@ -159,6 +161,7 @@ export default function Main(props: {
                 if (blockVisaList[i].id == selectedBlockVisa) {
                     setIndexVisa({
                         ...indexVisa,
+                        block_visa_id: 0,
                         visa_number: "",
                         visa_date_arabic: "",
                         visa_expiry_date: "",
