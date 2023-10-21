@@ -67,6 +67,18 @@ export interface DocumentChargesInterface{
         };
         return data;
       }
+
+      public static toInterfaceList(a_list: DocumentChargesAdapter[]) {
+        const data_list: DocumentChargesInterface[] = [];
+    
+        for (let i = 0; i < a_list.length; i++) {
+          const element = a_list[i];
+          data_list.push(this.toInterface(element));
+        }
+    
+        return data_list;
+      }
+
     
       /**
        * toAdapter
@@ -92,6 +104,17 @@ export interface DocumentChargesInterface{
          
         };
         return data;
+      }
+
+      public static toAdapterList(i_list: DocumentChargesInterface[]) {
+        const data_list: DocumentChargesAdapter[] = [];
+    
+        for (let i = 0; i < i_list.length; i++) {
+          const element = i_list[i];
+          data_list.push(this.toAdapter(element));
+        }
+    
+        return data_list;
       }
     }
     

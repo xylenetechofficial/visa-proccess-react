@@ -67,6 +67,17 @@ export interface ConsulateChargesInterface{
         };
         return data;
       }
+
+      public static toInterfaceList(a_list: ConsulateChargesAdapter[]) {
+        const data_list: ConsulateChargesInterface[] = [];
+    
+        for (let i = 0; i < a_list.length; i++) {
+          const element = a_list[i];
+          data_list.push(this.toInterface(element));
+        }
+    
+        return data_list;
+      }
     
       /**
        * toAdapter
@@ -93,5 +104,17 @@ export interface ConsulateChargesInterface{
         };
         return data;
       }
+
+      public static toAdapterList(i_list: ConsulateChargesInterface[]) {
+        const data_list: ConsulateChargesAdapter[] = [];
+    
+        for (let i = 0; i < i_list.length; i++) {
+          const element = i_list[i];
+          data_list.push(this.toAdapter(element));
+        }
+    
+        return data_list;
+      }
+
     }
     
