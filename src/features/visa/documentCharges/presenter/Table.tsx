@@ -8,7 +8,7 @@ const DocumentChargesTable = () =>{
         <TableHead3>
           <TableHeadRow3>
           <TableHeadCell3>sn. no</TableHeadCell3>
-            <TableHeadCell3>candidate no.</TableHeadCell3>
+            <TableHeadCell3>candidate name</TableHeadCell3>
             <TableHeadCell3>party code </TableHeadCell3>
             <TableHeadCell3>company name</TableHeadCell3>
             <TableHeadCell3>passport no. </TableHeadCell3>
