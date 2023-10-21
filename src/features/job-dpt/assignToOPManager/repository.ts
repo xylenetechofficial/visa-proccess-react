@@ -1,19 +1,29 @@
 import { JobOrderAdapter, JobOrderConverter, JobOrderInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readAssignToOpsMgrList() {
+export async function readAssignToOpsMgrList(page_number?: number) {
   const path = "/job-dpt/assign-to-ops-mgr-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
+
   });
 
   
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
+
   return JobOrderConverter.toInterfaceList(response.data as JobOrderAdapter[]);
 }
 
