@@ -14,6 +14,8 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
+import Pagination from "../../../../componenets/Pagination";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -25,6 +27,17 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
     const [jobOrderList, setJobOrderList] = useState<JobOrderInterface[]>([])
+
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+        {
+          pagination: {
+            page: 1,
+            page_count: 1,
+            item_count: 0,
+            sno_base: 0,
+          },
+        }
+      );
 
     const [editJobOrder, setEditJobOrder] = useState<JobOrderInterface>({} as JobOrderInterface)
 
@@ -91,14 +104,15 @@ export default function Main() {
     //     }
     // }
 
-    const fetchJobOrderList = async () => {
-        const data = await readJobOrderList();
+    const fetchJobOrderList = async (page?:number) => {
+        const data = await readJobOrderList(page);
         console.log(data);
         setJobOrderList(data)
+        setAdditionalData(await PaginationManager.getData());
     }
     useEffect(() => {
 
-        fetchJobOrderList()
+        fetchJobOrderList(additionalData.pagination.page)
         fetchSectorList()
         fetchcomapanyList()
         fetchCountryList()
@@ -136,12 +150,21 @@ export default function Main() {
 
             {/*  jobOrder stable */}
             <JobOrderTable
+            snoBase={additionalData.pagination.sno_base}
                 jobOrderList={dataFiltered}
                 onClickEdit={onClickEdit}
                 companyList={companyList}
                 countryList={countryList}
                 sectorList={sectorList}
             />
+
+<Pagination
+ data={additionalData}
+ onPageChange={(e) => {
+   console.log(e); // Only Dev
+   fetchJobOrderList(e);
+ }}
+/>
 
             {/* <!-- Modal --> */}
 

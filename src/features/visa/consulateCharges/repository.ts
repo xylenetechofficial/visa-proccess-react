@@ -1,18 +1,26 @@
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { ConsulateChargesAdapter, ConsulateChargesConverter, ConsulateChargesInterface} from "./type";
 
-export async function readConsulateChargesList() {
+export async function readConsulateChargesList(page_number?: number) {
     const path = "/visa-dpt/consulate-charges-list";
   
     const response = await ApiHelper.get(path, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT,
+      queryParameters: {
+        page: page_number ?? 0,
+      },
     });
   
     if (response.code != 200) {
       showMessage_v2({ message: response.message, status: response.code })
     }
+
+       
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
      
     return ConsulateChargesConverter.toInterfaceList(response.data as ConsulateChargesAdapter[])
   }

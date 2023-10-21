@@ -10,6 +10,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const SelectionTable = (props: {
+    snoBase:number,
     selectionList: SelectionInterface[],
     onClickEdit: any,
     onClickDelete: any
@@ -84,7 +85,7 @@ const SelectionTable = (props: {
                     {props.selectionList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell3> */}
                             <TableCell3 > {ele.company_name??""}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>

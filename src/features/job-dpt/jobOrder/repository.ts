@@ -15,7 +15,7 @@ export async function readJobOrderList(page_number?: number) {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      page: page_number ?? 1,
+      page: page_number ?? 0,
     },
   });
 

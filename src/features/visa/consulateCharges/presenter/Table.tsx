@@ -10,6 +10,7 @@ import {
 import { ConsulateChargesInterface } from "../type";
 
 const ConsulateChargesTable = (props: {
+  snoBase:number,
   consulateChargesList: ConsulateChargesInterface[],
  
 }) => {
@@ -39,7 +40,7 @@ const ConsulateChargesTable = (props: {
         {
               props.consulateChargesList.map((ChargesList, index)=>(
                 <TableRow3>  
-                <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{index +props.snoBase + 1}</TableCell3>
                 <TableCell3>{ChargesList.candidate_name}</TableCell3>
                 <TableCell3>{ChargesList.party_code}</TableCell3>
                 <TableCell3>{ChargesList.company_name}</TableCell3>

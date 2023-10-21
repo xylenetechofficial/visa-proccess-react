@@ -15,6 +15,8 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -26,6 +28,18 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
     const [selectionList, setSelectionList] = useState<SelectionInterface[]>([])
+
+    
+ const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
 
     const [editSelection, setEditSelection] = useState<SelectionInterface>({} as SelectionInterface)
 
@@ -89,14 +103,15 @@ export default function Main() {
 
    
 
-    const fetchSelectionList = async () => {
-        const data = await readSelectionList();
+    const fetchSelectionList = async (page?:number) => {
+        const data = await readSelectionList(page);
         console.log(data);
         setSelectionList(data)
+        setAdditionalData(await PaginationManager.getData());
     }
     useEffect(() => {
 
-        fetchSelectionList()
+        fetchSelectionList(additionalData.pagination.page)
         fetchSectorList()
         fetchcomapanyList()
         fetchCountryList()
@@ -134,6 +149,7 @@ export default function Main() {
 
             {/*  selection stable */}
             <SelectionTable
+            snoBase={additionalData.pagination.sno_base}
                 selectionList={dataFiltered}
                 onClickEdit={onClickEdit}
                 onClickDelete={onClickDelete}
@@ -142,6 +158,13 @@ export default function Main() {
                 sectorList={sectorList}
             />
 
+<Pagination
+ data={additionalData}
+ onPageChange={(e) => {
+   console.log(e); // Only Dev
+   fetchSelectionList(e);
+ }}
+/>
             {/* <!-- Modal --> */}
 
             {/* Create */}

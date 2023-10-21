@@ -6,24 +6,32 @@ import {
   SelectionJobOrderConverter,
 } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
-import { JobOrderAdapter, JobOrderConverter, JobOrderInterface } from "../jobOrder/type";
 
-export async function readSelectionList() {
+export async function readSelectionList(page_number?: number) {
   const path = "/job-dpt/selection-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return SelectionConverter.toInterfaceList(response.data as SelectionAdapter[]);
 }
 

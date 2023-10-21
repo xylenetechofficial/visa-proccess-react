@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 
 const ProjectStatusKSATable = (props: {
+    snoBase:number,
     projectStatusKSAList: ProjectStatusKSAInterface[],
     handleksaStatus: (index: number, value: string) => void
     handleCheckBox: (index: number, value: boolean) => void
@@ -56,7 +57,7 @@ const ProjectStatusKSATable = (props: {
                     {projectStatusKSAList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.sector_name}</TableCell3>
                             <TableCell3 > {ele.job_order_no}</TableCell3>
                             <TableCell3 > {ele.company_name}</TableCell3>
