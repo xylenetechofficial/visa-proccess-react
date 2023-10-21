@@ -1,9 +1,4 @@
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
-<<<<<<< Updated upstream
-
-
-const DocumentChargesTable = () =>{
-=======
 import { DocumentChargesInterface } from "../type";
 
 
@@ -11,7 +6,6 @@ const DocumentChargesTable = (props: {
   documentChargesList: DocumentChargesInterface[],
  
 }) =>{
->>>>>>> Stashed changes
     return(
       <div className="overflow-auto">
       <Table3>
@@ -25,13 +19,9 @@ const DocumentChargesTable = (props: {
             <TableHeadCell3>actual profession</TableHeadCell3>
             <TableHeadCell3>visa profession</TableHeadCell3>
             <TableHeadCell3>agent</TableHeadCell3>
-            <TableHeadCell3>mufa number</TableHeadCell3>
+            <TableHeadCell3>mofa number</TableHeadCell3>
             <TableHeadCell3>visa authorization</TableHeadCell3>
-<<<<<<< Updated upstream
-            <TableHeadCell3>division</TableHeadCell3>
-=======
             {/* <TableHeadCell3>division</TableHeadCell3> */}
->>>>>>> Stashed changes
             <TableHeadCell3>visa submission </TableHeadCell3>
             <TableHeadCell3>visa fee</TableHeadCell3>
             <TableHeadCell3>document charges</TableHeadCell3>
@@ -39,24 +29,6 @@ const DocumentChargesTable = (props: {
         </TableHead3>
 
         <TableBody3>
-<<<<<<< Updated upstream
-          <TableRow3>
-            <TableCell3>{1}</TableCell3>
-            <TableCell3>candidate no.</TableCell3>
-            <TableCell3>party code </TableCell3>
-            <TableCell3>company name</TableCell3>
-            <TableCell3>passport no. </TableCell3>
-            <TableCell3>actual profession</TableCell3>
-            <TableCell3>visa profession</TableCell3>
-            <TableCell3>agent</TableCell3>
-            <TableCell3>mufa number</TableCell3>
-            <TableCell3>visa authorization</TableCell3>
-            <TableCell3>division</TableCell3>
-            <TableCell3>visa submission </TableCell3>
-            <TableCell3>visa fee</TableCell3>
-            <TableCell3>document charges</TableCell3>
-          </TableRow3>
-=======
           {
             props.documentChargesList.map((ChargesList, index)=>(
               <TableRow3>
@@ -78,7 +50,6 @@ const DocumentChargesTable = (props: {
             ))
           }
          
->>>>>>> Stashed changes
         </TableBody3>
       </Table3>
     </div>

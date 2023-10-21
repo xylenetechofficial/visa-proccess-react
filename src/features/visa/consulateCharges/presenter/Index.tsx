@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
 import { CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import ConsulateChargesTable from "./Table";
-<<<<<<< Updated upstream
-=======
 import { ConsulateChargesInterface } from "../type";
 import { readConsulateChargesList } from "../repository";
->>>>>>> Stashed changes
 
 
 export default function Main() {
 
-<<<<<<< Updated upstream
-    const [searchQuery, setSearchQuery] = useState("");
-
-=======
     const [consulateChargesList, setConsulateChargesList] = useState<ConsulateChargesInterface[]>([])
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -29,7 +22,6 @@ export default function Main() {
     }, [])
 
 
->>>>>>> Stashed changes
     return(
         <>
         <CustomNavbarV3
@@ -37,13 +29,9 @@ export default function Main() {
         searchFunction={(query) => setSearchQuery(query)}  
       />
 
-<<<<<<< Updated upstream
-<ConsulateChargesTable />
-=======
 <ConsulateChargesTable
 consulateChargesList={consulateChargesList}
 />
->>>>>>> Stashed changes
         
         </>
     )

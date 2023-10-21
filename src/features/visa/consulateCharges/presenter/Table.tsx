@@ -7,17 +7,12 @@ import {
   TableHeadRow3,
   TableRow3,
 } from "../../../../componenets/Table";
-<<<<<<< Updated upstream
-
-const ConsulateChargesTable = () => {
-=======
 import { ConsulateChargesInterface } from "../type";
 
 const ConsulateChargesTable = (props: {
   consulateChargesList: ConsulateChargesInterface[],
  
 }) => {
->>>>>>> Stashed changes
   return (
     <div className="overflow-auto">
       <Table3>
@@ -31,11 +26,7 @@ const ConsulateChargesTable = (props: {
             <TableHeadCell3>actual profession</TableHeadCell3>
             <TableHeadCell3>visa profession</TableHeadCell3>
             <TableHeadCell3>agent</TableHeadCell3>
-<<<<<<< Updated upstream
-            <TableHeadCell3>mufa number</TableHeadCell3>
-=======
             <TableHeadCell3>mofa number</TableHeadCell3>
->>>>>>> Stashed changes
             <TableHeadCell3>visa authorization</TableHeadCell3>
             <TableHeadCell3>division</TableHeadCell3>
             <TableHeadCell3>visa submission </TableHeadCell3>
@@ -45,24 +36,6 @@ const ConsulateChargesTable = (props: {
         </TableHead3>
 
         <TableBody3>
-<<<<<<< Updated upstream
-          <TableRow3>
-            <TableCell3>{1}</TableCell3>
-            <TableCell3>candidate no.</TableCell3>
-            <TableCell3>party code </TableCell3>
-            <TableCell3>company name</TableCell3>
-            <TableCell3>passport no. </TableCell3>
-            <TableCell3>actual profession</TableCell3>
-            <TableCell3>visa profession</TableCell3>
-            <TableCell3>agent</TableCell3>
-            <TableCell3>mufa number</TableCell3>
-            <TableCell3>visa authorization</TableCell3>
-            <TableCell3>division</TableCell3>
-            <TableCell3>visa submission </TableCell3>
-            <TableCell3>visa fee</TableCell3>
-            <TableCell3>consulate setting charges</TableCell3>
-          </TableRow3>
-=======
         {
               props.consulateChargesList.map((ChargesList, index)=>(
                 <TableRow3>  
@@ -84,7 +57,6 @@ const ConsulateChargesTable = (props: {
               ))
             }
          
->>>>>>> Stashed changes
         </TableBody3>
       </Table3>
     </div>
