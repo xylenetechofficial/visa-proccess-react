@@ -1676,3 +1676,11 @@ GET {{endpoint}}/visa-dpt/full-index-list
 ### Read Full Index Visa Profession List
 GET {{endpoint}}/visa-dpt/full-index/visa-profession-list?party_code=79
 
+
+
+### Read Document Charges List
+GET {{endpoint}}/visa-dpt/document-charges-list
+
+### Read Consulate Charges List
+GET {{endpoint}}/visa-dpt/consulate-charges-list
+
