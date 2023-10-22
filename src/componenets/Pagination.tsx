@@ -84,16 +84,20 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
   const othersButton = "flex items-center justify-center px-4 h-10 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
   const currentButton = "flex items-center justify-center px-4 h-10 text-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white bg-blue-500"
 
-  const { page, page_count, item_count } = props.data.pagination ?? {
-    page: 1,
-    page_count: 1,
-    item_count: 1,
-  };
+  // const { page, page_count, item_count } = props.data.pagination ?? {
+  //   page: 1,
+  //   page_count: 1,
+  //   item_count: 1,
+  // };
   const [currentPage, setCurrentPage] = useState(1)
+  const [page_count, setPage_count] = useState(1)
+  const [item_count, setItem_count] = useState(1)
 
   useEffect(() => {
     setCurrentPage(props.data.pagination.page)
-  }, [props.data])
+    setPage_count(props.data.pagination.page_count)
+    setItem_count(props.data.pagination.item_count)
+  }, [props.data.pagination])
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= page_count) {
@@ -103,9 +107,12 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
 
   function renderPageNumbers() {
     const pageNumbers = [];
-    const maxVisiblePages = 3;
+    const maxVisiblePages = 10;
 
-    for (let i = Math.max(1, currentPage - maxVisiblePages); i <= Math.min(page_count, currentPage + maxVisiblePages); i++) {
+    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(page_count, startPage + maxVisiblePages - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
       let tempButton: any = "";
       if (currentPage == i) {
         tempButton = <button
@@ -140,7 +147,7 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
         </button>}
 
       {renderPageNumbers()}
-   
+
       {currentPage == page_count ? "" :
         <button onClick={() => handlePageChange(page_count)} className={lastButton}>
           Last

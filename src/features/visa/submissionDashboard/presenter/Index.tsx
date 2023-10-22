@@ -61,9 +61,9 @@ const initValue: SubmissionDashboardInterface = {
     consulate_charges: 0,
 
     remarks: "",
-    is_without:0,
+    is_without: 0,
 
-reject:0
+    reject: 0
 
 }
 export default function Main() {
@@ -94,8 +94,8 @@ export default function Main() {
 
     const UpdateSubmissionDashboardDataList = async () => {
         const newArray = []
-        for(let i=0;i<submissionDashboardDataList.length;i++){
-            if(submissionDashboardDataList[i].checked){
+        for (let i = 0; i < submissionDashboardDataList.length; i++) {
+            if (submissionDashboardDataList[i].checked) {
                 newArray.push(submissionDashboardDataList[i])
             }
         }
@@ -116,7 +116,9 @@ export default function Main() {
     return (
 
         <div >
-            <CustomNavbarV3 pageName="Submission Dashboard" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Submission Dashboard"
+                searchFunction={(query) => setSearchQuery(query)}
+                refresh={() => fetchSubmisionDashboardDataList()} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

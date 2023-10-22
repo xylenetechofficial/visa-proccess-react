@@ -104,7 +104,7 @@ const AgentPaymentTable = (props: {
               <TableCell3> {ele.training_charges}</TableCell3>
               <TableCell3> {ele.other_charges}</TableCell3>
               <TableCell3> {ele.document_charges}</TableCell3>
-              <TableCell3> {ele.service_charges}</TableCell3>
+              <TableCell3> {ele.service_charges} ({ele.service_charge_note})</TableCell3>
               <TableCell3> {ele.partial_charges}</TableCell3>
               <TableCell3> {ele.sector_charges}</TableCell3>
               <TableCell3> {ele.consulate_setting_charges}</TableCell3>
