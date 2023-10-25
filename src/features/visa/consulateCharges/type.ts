@@ -12,7 +12,7 @@ export interface ConsulateChargesInterface {
   division: string;
   visa_submission: string;
   visa_fee: number;
-  consulate_setting_charges: number;
+  consulate_setting_charges: string;
 }
 
 // adapter
@@ -31,7 +31,7 @@ export interface ConsulateChargesAdapter {
   division: string;
   visa_submission: string;
   visa_fee: number;
-  consulate_setting_charges: number;
+  consulate_setting_charges: string;
 }
 
 // converter class

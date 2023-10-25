@@ -6,13 +6,15 @@ import {
   MofaPaymentConverter,
 } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readMofaEntryList({ status = "", companyId = 0 }) {
+export async function readMofaEntryList({ status = "", companyId = 0 } ,page_number?: number) {
   const path = "/without-job-order/mofa-entry-list";
 
   const query_parameter = {
@@ -22,12 +24,20 @@ export async function readMofaEntryList({ status = "", companyId = 0 }) {
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
-    queryParameters: query_parameter,
+    // queryParameters: query_parameter,
+    queryParameters: {
+      query_parameter:query_parameter,
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   const data: MofaEntryInterface[] = [];
 

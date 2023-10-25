@@ -1,13 +1,16 @@
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { IndexEwakalaAdapter, IndexEwakalaConverter, IndexEwakalaInterface } from "./type";
 
-export async function readIndexEwakalaList() {
+export async function readIndexEwakalaList(page_number?: number) {
     const path = "/immigration-dpt/index-for-ewakala-list";
   
     const response = await ApiHelper.get(path, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT,
+      queryParameters: {
+        page: page_number ?? 0,
+      },
     });
   
     if (response.code != 200) {
@@ -23,6 +26,9 @@ export async function readIndexEwakalaList() {
         data.push(IndexEwakalaConverter.toInterface(element));
       }
     }
+    await PaginationManager.setData(
+      response.additional_data as AdditionalDataInterface
+    );
   
     return data as IndexEwakalaInterface[]
   }

@@ -11,7 +11,7 @@ export interface DocumentChargesInterface {
   visa_authorization: string;
   visa_submission: string;
   visa_fee: number;
-  document_charges: number;
+  document_charges: string;
 }
 
 // adapter
@@ -29,7 +29,7 @@ export interface DocumentChargesAdapter {
   visa_authorization: string;
   visa_submission: string;
   visa_fee: number;
-  document_charges: number;
+  document_charges: string;
 }
 
 // converter class

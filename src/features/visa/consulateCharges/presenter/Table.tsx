@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import {
   Table3,
   TableBody3,
@@ -10,10 +12,27 @@ import {
 import { ConsulateChargesInterface } from "../type";
 
 const ConsulateChargesTable = (props: {
-  snoBase:number,
+  
   consulateChargesList: ConsulateChargesInterface[],
+  onChange: (value: ConsulateChargesInterface[]) => void,
  
 }) => {
+
+  function onUpdateRow(index: number, rowData: ConsulateChargesInterface) {
+    
+    const nextData = props.consulateChargesList.map((e, i) => {
+        if (i === index) {
+            // Increment the clicked counter
+            return rowData;
+        } else {
+            // The rest haven't changed
+            return e;
+        }
+    });
+    props.onChange(nextData)
+}
+  
+
   return (
     <div className="overflow-auto">
       <Table3>
@@ -38,22 +57,31 @@ const ConsulateChargesTable = (props: {
 
         <TableBody3>
         {
-              props.consulateChargesList.map((ChargesList, index)=>(
+              props.consulateChargesList.map((consulateCharge, index)=>(
                 <TableRow3>  
-                <TableCell3>{index +props.snoBase + 1}</TableCell3>
-                <TableCell3>{ChargesList.candidate_name}</TableCell3>
-                <TableCell3>{ChargesList.party_code}</TableCell3>
-                <TableCell3>{ChargesList.company_name}</TableCell3>
-                <TableCell3>{ChargesList.passport_no}</TableCell3>
-                <TableCell3>{ChargesList.actual_profession}</TableCell3>
-                <TableCell3>{ChargesList.visa_profession}</TableCell3>
-                <TableCell3>{ChargesList.agent}</TableCell3>
-                <TableCell3>{ChargesList.mofa_number}</TableCell3>
-                <TableCell3>{ChargesList.visa_authorization}</TableCell3>
-                <TableCell3>{ChargesList.division}</TableCell3>
-                <TableCell3>{ChargesList.visa_submission}</TableCell3>
-                <TableCell3>{ChargesList.visa_fee}</TableCell3>
-                <TableCell3>{ChargesList.consulate_setting_charges}</TableCell3>
+                <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{consulateCharge.candidate_name}</TableCell3>
+                <TableCell3>{consulateCharge.party_code}</TableCell3>
+                <TableCell3>{consulateCharge.company_name}</TableCell3>
+                <TableCell3>{consulateCharge.passport_no}</TableCell3>
+                <TableCell3>{consulateCharge.actual_profession}</TableCell3>
+                <TableCell3>{consulateCharge.visa_profession}</TableCell3>
+                <TableCell3>{consulateCharge.agent}</TableCell3>
+                <TableCell3>{consulateCharge.mofa_number}</TableCell3>
+                <TableCell3>{consulateCharge.visa_authorization}</TableCell3>
+                <TableCell3>{consulateCharge.division}</TableCell3>
+                <TableCell3>{consulateCharge.visa_submission}</TableCell3>
+                <TableCell3>{consulateCharge.visa_fee}</TableCell3>
+
+                <TableCell3>      
+                  {/* {consulateCharge.consulate_setting_charges} */}
+                  <UnlabeledInput onchange={(value) => {
+                                    onUpdateRow(index, { ...consulateCharge,
+                                      consulate_setting_charges: value })
+                                }}
+                                    value={consulateCharge.consulate_setting_charges} />
+                  
+                  </TableCell3>
               </TableRow3>
               ))
             }

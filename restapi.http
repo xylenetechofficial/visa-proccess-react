@@ -1684,3 +1684,5 @@ GET {{endpoint}}/visa-dpt/document-charges-list
 ### Read Consulate Charges List
 GET {{endpoint}}/visa-dpt/consulate-charges-list
 
+### Read Penalty Charges List
+GET {{endpoint}}/account/penalty-charges-list

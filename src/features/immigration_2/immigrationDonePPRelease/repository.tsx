@@ -1,22 +1,31 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { ImmigrationCDonePPReleaseConverter, ImmigrationDonePPReleaseAdapter, ImmigrationDonePPReleaseInterface } from "./type";
 
 
 // get immigration - list => readImmigrationList
 
-export async function readImmigrationDonePPReleaseList() {
+export async function readImmigrationDonePPReleaseList(page_number?: number) {
   const path = "/immigration-dpt/immigration-done-pp-release-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
+    
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   return ImmigrationCDonePPReleaseConverter.toInterfaceList(response.data as ImmigrationDonePPReleaseAdapter[])
 }
 

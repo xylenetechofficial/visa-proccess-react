@@ -1,22 +1,29 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { ImmigrationAdapter, ImmigrationConverter, ImmigrationInterface } from "./type";
 
 
 // get immigration - list => readImmigrationList
 
-export async function readImmigrationList() {
+export async function readImmigrationList(page_number?: number) {
   const path = "/immigration-dpt/immigration-dashboard-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return ImmigrationConverter.toInterfaceList(response.data as ImmigrationAdapter[])
 }

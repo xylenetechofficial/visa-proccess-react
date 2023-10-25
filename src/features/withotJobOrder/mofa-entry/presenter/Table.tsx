@@ -16,6 +16,7 @@ const MofaEntryTable = (props: {
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
+    snoBase:number,
 }) => {
     return (
         <div className='overflow-auto'>
@@ -88,7 +89,7 @@ const MofaEntryTable = (props: {
                     {props.mofaEntryList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell3> */}
                             <TableCell3 > {ele.company_name}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>

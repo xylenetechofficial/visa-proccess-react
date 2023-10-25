@@ -6,6 +6,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 export default function MofaPaymentTable(props: {
     mofaPaymentList: MofaPaymentInterface[],
+  
 }) {
     return (
         <div className='overflow-auto'>

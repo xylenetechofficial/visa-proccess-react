@@ -18,12 +18,14 @@ export async function readDocumentChargesList() {
   }
   
 
-  export async function createDocumentCharges(documentCharges: DocumentChargesInterface) {
-    console.log(documentCharges)
+  export async function createDocumentCharges(data_list: DocumentChargesInterface[]) {
+    console.log(data_list)
     const path = "/visa-dpt/document-charges-list"
   
-    const payload = DocumentChargesConverter.toAdapter(documentCharges);
-  
+ 
+    const payload = {
+      selection_list: DocumentChargesConverter.toAdapterList(data_list)
+    }
     console.log(payload)
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,

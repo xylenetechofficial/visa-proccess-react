@@ -8,9 +8,11 @@ import {
     TableHeadRow3,
     TableRow3,
   } from "../../../../componenets/Table";
+import { PenaltyChargesInterface } from "../type";
   
   const PenaltyChargesTable = (props:{
-    onClickEdit:any,
+    onClickEdit:(value: PenaltyChargesInterface)=>void,
+    penaltyChargesList:PenaltyChargesInterface[],
 
   }) => {
     return (
@@ -42,35 +44,36 @@ import {
           </TableHead3>
   
           <TableBody3>
-            <TableRow3>
-              <TableCell3>{1}</TableCell3>
-              <TableCell3>party code </TableCell3>
-              <TableCell3>company name</TableCell3>
-              <TableCell3>candidate nane</TableCell3>
-              <TableCell3>passport no. </TableCell3>
-              <TableCell3>actual profession</TableCell3>
-              <TableCell3>visa profession</TableCell3>
-              <TableCell3>agent</TableCell3>
-              <TableCell3>visa recieved date</TableCell3>
-              <TableCell3>process charges</TableCell3>
-              <TableCell3>training charges</TableCell3>
-              <TableCell3>sector charges</TableCell3>
-              <TableCell3>partial charges</TableCell3>
-              <TableCell3>consulate setting charges</TableCell3>
+            {props.penaltyChargesList.map((penaltyCharges, index) =>
+             <TableRow3 key={index}>
+             <TableCell3>{index + 1}</TableCell3>
+             <TableCell3>{penaltyCharges.party_code} </TableCell3>
+             <TableCell3>{penaltyCharges.company_name}</TableCell3>
+             <TableCell3>{penaltyCharges.candidate_name}</TableCell3>
+             <TableCell3>{penaltyCharges.passport_no} </TableCell3>
+             <TableCell3>{penaltyCharges.actual_profession}</TableCell3>
+             <TableCell3>{penaltyCharges.visa_profession}</TableCell3>
+             <TableCell3>{penaltyCharges.agent}</TableCell3>
+             <TableCell3>{penaltyCharges.visa_recieved_date}</TableCell3>
+             <TableCell3>{penaltyCharges.process_charges}</TableCell3>
+             <TableCell3>{penaltyCharges.training_charges}</TableCell3>
+             <TableCell3>{penaltyCharges.sector_charges}</TableCell3>
+             <TableCell3>{penaltyCharges.partial_charges}</TableCell3>
+             <TableCell3>{penaltyCharges.consulate_setting_charges}</TableCell3>
+             <TableCell3>{penaltyCharges.client_invoice}</TableCell3>
+             <TableCell3>{penaltyCharges.penalty_charges}</TableCell3>
 
-              <TableCell3>client invoice</TableCell3>
-
-              <TableCell3>penalty charges</TableCell3>
-
-              <TableCell3>
-              <BlueButton
-                    text={"Edit"}
-                    onClick={() => {
-                      props.onClickEdit();
-                    }}
-                  />
-              </TableCell3>
-            </TableRow3>
+             <TableCell3>
+             <BlueButton
+                   text={"Edit"}
+                   onClick={() => {
+                     props.onClickEdit(penaltyCharges);
+                   }}
+                 />
+             </TableCell3>
+           </TableRow3>
+           )}
+          
           </TableBody3>
         </Table3>
       </div>

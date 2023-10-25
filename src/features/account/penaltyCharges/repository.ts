@@ -1,9 +1,9 @@
 import { showMessage_v2 } from "../../../utils/alert";
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
-import { ConsulateChargesAdapter, ConsulateChargesConverter, ConsulateChargesInterface} from "./type";
+import { PenaltyChargesAdapter, PenaltyChargesConverter, PenaltyChargesInterface } from "./type";
 
-export async function readConsulateChargesList(page_number?: number) {
-    const path = "/visa-dpt/consulate-charges-list";
+export async function readPenaltyChargesList(page_number?: number) {
+    const path = "/account/penalty-charges-list";
   
     const response = await ApiHelper.get(path, {
       contentType: ContentType.json,
@@ -22,17 +22,17 @@ export async function readConsulateChargesList(page_number?: number) {
     response.additional_data as AdditionalDataInterface
   );
      
-    return ConsulateChargesConverter.toInterfaceList(response.data as ConsulateChargesAdapter[])
+    return PenaltyChargesConverter.toInterfaceList(response.data as PenaltyChargesAdapter[])
   }
-  
 
-  export async function createConsulateCharges(data_list: ConsulateChargesInterface[]) {
+
+
+  export async function updatePenaltyChargesItem(data_list: PenaltyChargesInterface) {
     console.log(data_list)
-    const path = "/visa-dpt/consulate-charges-list"
+    const path = "/account/penalty-charges/"
 
-    const payload = {
-      selection_list: ConsulateChargesConverter.toAdapterList(data_list)
-    }
+    const payload =  PenaltyChargesConverter.toAdapter(data_list)
+    
   
     console.log(payload)
     const response = await ApiHelper.post(path, payload, {
@@ -41,8 +41,6 @@ export async function readConsulateChargesList(page_number?: number) {
     })
     showMessage_v2({ message: response.message, status: response.code })
   
-    if (response.code > 199 && response.code < 300) {
-      return true;
-    }
-    return false;
   }
+  
+

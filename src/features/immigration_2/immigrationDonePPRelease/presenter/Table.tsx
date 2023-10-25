@@ -17,7 +17,7 @@ import { GivenToList, GivenToList_only_passprt, GivenToList_without_RC } from ".
 import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 
 const ImmigrationDOnePPReleaseTable = (props: {
-
+  snoBase:number,
   RcPPRecieved: ImmigrationDonePPReleaseInterface[];
   setRcRcPPRecieved: any
   onChange: (value: ImmigrationDonePPReleaseInterface[]) => void,
@@ -102,7 +102,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
 
             return (<TableRow3>
 
-              <TableCell3>{index + 1} </TableCell3>
+<TableCell3>{index + props.snoBase +1}</TableCell3>
               <TableCell3>{item.name} </TableCell3>
               <TableCell3>{item.passport_no} </TableCell3>
               <TableCell3>{item.company_name} </TableCell3>

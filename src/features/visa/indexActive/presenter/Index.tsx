@@ -31,6 +31,7 @@ export default function Main() {
 
   const [indexActiveList, setIndexActiveList] = useState<ActiveIndexListInterface[]>([]);
   const [editindexActiveList, setEditIndexActiveList] = useState<ActiveIndexListInterface>({} as ActiveIndexListInterface);
+  
   const [currentActiveIndex, setCurrentActiveIndex] = useState<ActiveIndexInterface>(
     {} as ActiveIndexInterface
   );

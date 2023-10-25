@@ -14,7 +14,7 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { IndexEwakalaInterface } from "../type";
 
 const IndexForEwakalaTable = (props: {
-
+  snoBase:number,
   indexForEwakala: IndexEwakalaInterface[];
   setIndexForEwakala: any
   data: any;
@@ -43,7 +43,7 @@ const IndexForEwakalaTable = (props: {
           {props?.indexForEwakala?.map((item, index) => (
             <TableRow3 key={index}>
 
-              <TableCell3> {index + 1} </TableCell3>
+<TableCell3>{index + props.snoBase +1}</TableCell3>
               <TableCell3>{item?.party_code}</TableCell3>
               <TableCell3>{item?.company_name} </TableCell3>
               <TableCell3> {item?.received_date}</TableCell3>
