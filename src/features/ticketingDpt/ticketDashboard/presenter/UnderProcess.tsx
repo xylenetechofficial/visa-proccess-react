@@ -120,7 +120,9 @@ export default function Main(props: {
                 <TableCell3><UnlabeledInput value={item.ticketing_pnr_no} onchange={(value) => onUpdateRow(index, { ...item, ticketing_pnr_no: value })} /> </TableCell3>
                 <TableCell3><DateInput value={item.ticketing_departure_date} id="cakjsc" onChange={(value) => onUpdateRow(index, { ...item, ticketing_departure_date: value })} /> </TableCell3>
                 <TableCell3><CustomSelectComponentUnlabeled value={item.agency} onChange={(value) => onUpdateRow(index, {...item, agency:value})} options={selectOptionConveter({options: props.agencyList , options_struct :{name:"name" , value:"id"}})}/></TableCell3>
-                <TableCell3><UnlabeledInput type="number" value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
+                <TableCell3><UnlabeledInput 
+// type="number"
+                     value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
                 <TableCell3>{item.actual_profession}</TableCell3>
                 <TableCell3>{item.mofa_number}</TableCell3>
                 <TableCell3>value={item.agent_name} </TableCell3>

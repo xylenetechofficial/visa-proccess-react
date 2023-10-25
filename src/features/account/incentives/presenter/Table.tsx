@@ -89,7 +89,9 @@ const AccountDashboardTable = (props: {
                 onUpdateRow(index,{...ele, id:ele.id})
               }}/></TableCell3>
               <TableCell3> <UnlabeledInput 
-              type="number"
+              
+// type="number"
+                    
               // value={incentivesData[index]?.manager_incentive} onchange={(value) => {
               value={props?.accountDashboardList[index]?.manager_incentive} onchange={(value) => {
                 console.log("first"),
@@ -122,7 +124,9 @@ const AccountDashboardTable = (props: {
               });
               
               }} /></TableCell3>
-              <TableCell3><UnlabeledInput type="number" value={props.accountDashboardList[index]?.staff_incentive} onchange={(value) => {
+              <TableCell3><UnlabeledInput 
+// type="number"
+                     value={props.accountDashboardList[index]?.staff_incentive} onchange={(value) => {
                 onUpdateRow(index,{...ele, staff_incentive:value})
                   setincentivesData((prev: any) => {
 

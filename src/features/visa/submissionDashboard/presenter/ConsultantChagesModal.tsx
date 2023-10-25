@@ -60,7 +60,9 @@ export default function Main(props: {
                     <SubHeading1 text=" Document Charges :" />
                     <UnlabeledInput
                         value={element.consulate_charges}
-                        type="number"
+                        
+// type="number"
+                    
                         onchange={(value) => setElement({ ...element, consulate_charges: parseInt(value) })}
                     />
                 </UpdateContentBox>

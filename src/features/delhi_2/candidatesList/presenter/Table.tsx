@@ -86,7 +86,9 @@ const Main = (props: {
               <TableCell3>{item.service_tax_received}</TableCell3>
 
               <TableCell3>
-                <UnlabeledInput type="number"
+                <UnlabeledInput 
+// type="number"
+                    
                   onchange={(value) => {
                     onUpdateRow(index, { ...item, dad_amount: parseInt(value) })
                   }}

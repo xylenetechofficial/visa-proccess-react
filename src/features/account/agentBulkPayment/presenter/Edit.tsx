@@ -122,7 +122,9 @@ export default function Main(props: {
                     <UpdateContentBox>
                         <SubHeading1 text=" Amount :" />
                         <UnlabeledInput
-                            type="number"
+                            
+// type="number"
+                    
                             value={data.amount}
                             onchange={(value) => 
                                 // setAgentBulkPayment({ ...agentBulkPayment, amount: parseInt(value) })

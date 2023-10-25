@@ -45,7 +45,9 @@ export default function Main(props: { onClose: any, fetchConsolidateChargeList: 
             <StandardInput
                 label="Charge"
                 value={charge}
-                type="number"
+                
+// type="number"
+                    
                 onChangeValue={(value: string) => {
                     setCharge(parseInt(value));
                 }}

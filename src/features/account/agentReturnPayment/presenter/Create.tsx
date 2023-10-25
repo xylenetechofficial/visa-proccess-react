@@ -97,7 +97,9 @@ export default function Main(props: {
             </UpdateContentBox>
             <UpdateContentBox>
                 <SubHeading1 text="Amount :" />
-                <UnlabeledInput type="number" value={totalAmount} onchange={(value) =>
+                <UnlabeledInput 
+// type="number"
+                     value={totalAmount} onchange={(value) =>
                     setTotalAmount(parseInt(value))
                 } />
             </UpdateContentBox>

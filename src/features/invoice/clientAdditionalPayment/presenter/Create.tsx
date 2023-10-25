@@ -124,7 +124,9 @@ export default function Main(props: {
 
                     <SubHeading1 text="AMOUNT RECEIVED (INR)  :" />
                     <UnlabeledInput
-                        type="number"
+                        
+// type="number"
+                    
                         value={accountDashboard.amount}
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, amount: parseInt(value) })}
                     />

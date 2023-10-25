@@ -72,7 +72,9 @@ const ClientInvoiceAddTable = (props: {
               <TableCell3> {ele.rc}</TableCell3>
               <TableCell3> {ele.other_charges}
                 <UnlabeledInput
-                  type="number"
+                  
+// type="number"
+                    
                   // value={props.data[index]?.amount}
                   value={ele.other_charges}
                   onchange={(value) => {
@@ -124,7 +126,9 @@ const ClientInvoiceAddTable = (props: {
               </TableCell3>
               <TableCell3> {ele.service_charges}
                 <UnlabeledInput
-                  type="number"
+                  
+// type="number"
+                    
                   // value={props.data[index]?.amount}
                   value={ele.other_charges}
                   onchange={(value) => {

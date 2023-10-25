@@ -93,7 +93,9 @@ const CandidatePayment = (props: {
         <UpdateContentBox>
           <SubHeading1 text=" Amount :" />
           <UnlabeledInput
-            type="number"
+            
+// type="number"
+                    
             value={CandidatePayment.amount}
             onchange={(value) => {
               const numberRegex = /[0-9]+$/;

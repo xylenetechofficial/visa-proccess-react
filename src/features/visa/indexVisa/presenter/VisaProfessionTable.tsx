@@ -146,7 +146,9 @@ const TableData = (
             <TableCell >
                 {/* {props.data.quantity} */}
                 <UnlabeledInput
-                    type="number"
+                    
+// type="number"
+                    
                     value={localRowData.quantity}
                     onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
                 />

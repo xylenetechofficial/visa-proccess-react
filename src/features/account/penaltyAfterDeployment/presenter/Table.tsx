@@ -153,7 +153,9 @@ const AccountDashboardTable = (props: {
                       onUpdateRow(index, { ...ele, id: ele.id })
                     console.log(penaltyData, "ss")
                   }} />  </TableCell3>
-                <TableCell3> <UnlabeledInput type="number" value={ele?.penalty_after_departure}
+                <TableCell3> <UnlabeledInput 
+// type="number"
+                     value={ele?.penalty_after_departure}
                   onchange={(value) => {
                     console.log(value, penaltyData, props.data);
                     setPenaltyData((prev: any) => {

@@ -86,7 +86,9 @@ return (
 
                 <UpdateContentBox>
                     <SubHeading1 text="Payment Received   :" />
-                    <UnlabeledInput placeholder="Enter payment received amount" type="number" value={paymentValue} onchange={(value)=>setPaymentValue(parseInt(value))}/>
+                    <UnlabeledInput placeholder="Enter payment received amount" 
+// type="number"
+                     value={paymentValue} onchange={(value)=>setPaymentValue(parseInt(value))}/>
                 </UpdateContentBox>
           
                 <div className=" flex justify-center">

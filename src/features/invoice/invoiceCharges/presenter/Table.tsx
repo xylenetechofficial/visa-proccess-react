@@ -67,7 +67,9 @@ const ClientInvoiceAddTable = (props: {
               <TableCell3> {ele.rc_name}</TableCell3>
               <TableCell3>
                 <UnlabeledInput
-                  type="number"
+                  
+// type="number"
+                    
                   value={ele.other_charges}
                   onchange={(value) => {
                      if (value) {
@@ -95,7 +97,9 @@ const ClientInvoiceAddTable = (props: {
               </TableCell3>
               <TableCell3> 
                 <UnlabeledInput
-                  type="number"
+                  
+// type="number"
+                    
                   value={ele.service_charges}
                   onchange={(value) => {
                      if (value) {
@@ -121,7 +125,9 @@ const ClientInvoiceAddTable = (props: {
                   }
                   } />
               </TableCell3>
-              <TableCell3><UnlabeledInput type="number"
+              <TableCell3><UnlabeledInput 
+// type="number"
+                    
               value={ele?.ticket_charges}
               onchange={(value)=>{
                 if(value){
@@ -145,7 +151,9 @@ const ClientInvoiceAddTable = (props: {
               }}
               />
               </TableCell3>
-              <TableCell3><UnlabeledInput type="number" value={ele?.total_charges} onchange={(value)=>{
+              <TableCell3><UnlabeledInput 
+// type="number"
+                     value={ele?.total_charges} onchange={(value)=>{
                 if(value){
                   onUpdateRow(index, {...ele, total_charges:parseInt(value)})
                 }

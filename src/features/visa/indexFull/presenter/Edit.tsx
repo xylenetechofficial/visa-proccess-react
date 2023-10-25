@@ -88,7 +88,9 @@ export default function Main(props: {
 
         <UpdateContentBox>
           <SubHeading1 text="visa fee :" />
-          <UnlabeledInput type="number" value={props.editindexFullList.visa_fee} onchange={(value) => props.setEditIndexFullList({ ...props.editindexFullList, visa_fee: parseInt(value) })} />
+          <UnlabeledInput 
+// type="number"
+                     value={props.editindexFullList.visa_fee} onchange={(value) => props.setEditIndexFullList({ ...props.editindexFullList, visa_fee: parseInt(value) })} />
           {/* name Input */}
 
         </UpdateContentBox>

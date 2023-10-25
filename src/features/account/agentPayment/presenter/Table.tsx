@@ -122,7 +122,9 @@ const AgentPaymentTable = (props: {
               <TableCell3> {ele.balance_amount}</TableCell3>
               <TableCell3>
                 <UnlabeledInput
-                  type="number"
+                  
+// type="number"
+                    
                   value={props.data[index]?.amount}
                   onchange={(value) => {
                     checkBalance(props.data[index]?.amount, ele.balance_amount)

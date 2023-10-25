@@ -111,7 +111,9 @@ export default function Main(props: {
             <StandardInput
                 label="No of person"
                 required
-                type="number"
+                
+// type="number"
+                    
                 value={interviewSchedule.noOfPerson}
                 onChangeValue={
                     (value: string) =>

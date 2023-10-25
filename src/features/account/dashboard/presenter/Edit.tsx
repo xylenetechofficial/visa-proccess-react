@@ -182,7 +182,9 @@ export default function Main(props: {
         //         {visaProfessionList.client_invoice == "yes" ? <></> : <>
         //             <UpdateContentBox>
         //                 <SubHeading1 text="Penalty Amount   :" />
-        //                 <UnlabeledInput type="number" value={visaProfessionList.penalty_amount} onchange={(value) =>
+        //                 <UnlabeledInput 
+// type="number"
+                    //  value={visaProfessionList.penalty_amount} onchange={(value) =>
         //                     handleInputChange(value)
         //                     // setVisaProfessionList({ ...visaProfessionList, account_dashboard_penalty_amount: Number(value) })
         //                 } />
@@ -279,7 +281,9 @@ export default function Main(props: {
             {molWokPermitCancel.client_invoice == "yes" ? <></> : <>
                 <UpdateContentBox>
                     <SubHeading1 text="Penalty Amount   :" />
-                    <UnlabeledInput type="number" value={molWokPermitCancel.penalty_amount} onchange={(value) =>
+                    <UnlabeledInput 
+// type="number"
+                     value={molWokPermitCancel.penalty_amount} onchange={(value) =>
                         // handleInputChange(value)
                         setMolWokPermitCancel({ ...molWokPermitCancel, penalty_amount: Number(value) })
                     } />

@@ -226,7 +226,9 @@ const TableData = (props: {
       <TableCell3>
         <UnlabeledInput
           value={localRowData.amout_payable_to_vendor}
-          type="number"
+          
+// type="number"
+                    
           onchange={(value) =>
             setLocalRowData({ ...localRowData, amout_payable_to_vendor: parseInt(value) })
           }
@@ -236,7 +238,9 @@ const TableData = (props: {
       <TableCell3>
         <UnlabeledInput
           value={localRowData.amount_receivaled}
-          type="number"
+          
+// type="number"
+                    
           onchange={(value) =>
             setLocalRowData({ ...localRowData, amount_receivaled: parseInt(value) })
           }

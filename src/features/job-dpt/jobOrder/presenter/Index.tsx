@@ -86,7 +86,7 @@ export default function Main() {
       fetchJobOrderList();
     }
   };
-
+    
   // useEffect(() => {
   // }, [editJobOrder, modalName])
   const [sectorList, setSectorList] = useState<SectorInterface[]>([]);

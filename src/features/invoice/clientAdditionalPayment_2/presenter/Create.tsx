@@ -120,7 +120,9 @@ export default function Main(props: {
 
                     <SubHeading1 text="AMOUNT(INR) :" />
                     <UnlabeledInput
-                        type="number"
+                        
+// type="number"
+                    
                         value={payment.amount}
                         onchange={(value) => setPayment({ ...payment, amount: parseInt(value) })}
                     />

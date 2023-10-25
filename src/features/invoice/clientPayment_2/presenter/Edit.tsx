@@ -110,7 +110,9 @@ export default function Main(props: {
                                 <TableCell3>{index + 1}</TableCell3>
                                 <TableCell3>
                                     <UnlabeledInput
-                                        type="number"
+                                        
+// type="number"
+                    
                                         value={item.amount}
                                         onchange={(value) => {
                                             updateListData({

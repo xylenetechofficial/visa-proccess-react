@@ -72,7 +72,9 @@ console.log("first")
 
           <UpdateContentBox>
             <SubHeading1 text="visa fee :" />
-            <UnlabeledInput type="number" value={props.editindexFullList.visa_fee} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_fee:parseInt(value)})} />
+            <UnlabeledInput 
+// type="number"
+                     value={props.editindexFullList.visa_fee} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_fee:parseInt(value)})} />
             {/* name Input */}
            
           </UpdateContentBox>
@@ -87,7 +89,9 @@ console.log("first")
 
           <UpdateContentBox>
             <SubHeading1 text="visa authorization :" />
-            <UnlabeledInput type="number" value={props.editindexFullList.visa_authorization} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_authorization:parseInt(value)})} />
+            <UnlabeledInput 
+// type="number"
+                     value={props.editindexFullList.visa_authorization} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList, visa_authorization:parseInt(value)})} />
             {/* name Input */}
            
           </UpdateContentBox>
@@ -131,7 +135,9 @@ console.log("first")
 
           <UpdateContentBox>
             <SubHeading1 text="visa accountable :" />
-            <UnlabeledInput type="number" value={props.editindexFullList.visa_authorization} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList,visa_authorization :parseInt(value)})} />
+            <UnlabeledInput 
+// type="number"
+                     value={props.editindexFullList.visa_authorization} onchange={(value)=> props.setEditIndexFullList({...props.editindexFullList,visa_authorization :parseInt(value)})} />
             {/* name Input */}
            
           </UpdateContentBox>         

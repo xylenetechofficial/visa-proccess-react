@@ -175,11 +175,14 @@ export default function Main(props: {
                                 { name: "No", value: "no" },
 
                             ]} />
+
                     </UpdateContentBox>
                     {candidateCancelData.client_invoice == "yes" ? <></> : <>
                         <UpdateContentBox>
                             <SubHeading1 text="Penalty Amount   :" />
-                            <UnlabeledInput type="number" value={candidateCancelData.penalty_amount} onchange={(value) =>
+                            <UnlabeledInput 
+// type="number"
+                     value={candidateCancelData.penalty_amount} onchange={(value) =>
                                 // handleInputChange(value)
                                 setCandidateCancelData({ ...candidateCancelData, penalty_amount: Number(value) })
                             } />

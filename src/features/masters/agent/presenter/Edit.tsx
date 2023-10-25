@@ -101,7 +101,9 @@ export default function Main(props: { agent: AgentInterface, onClose: any, fetch
             {/* Service Tax */}
             {/* <StandardInput
             label="Service Tax"
-            type="number"
+            
+// type="number"
+                    
             value={agent.serviceTax}
             onChangeValue={(value: string) => {
                 setAgent({ ...agent, serviceTax:parseInt(value)  })

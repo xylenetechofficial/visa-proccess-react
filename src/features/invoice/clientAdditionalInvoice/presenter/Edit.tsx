@@ -148,7 +148,9 @@ console.log(props.immigrationData,"aaaaaaaaaaa")
                 <UpdateContentBox>
                     <SubHeading1 text=" INVOICE AMOUNT :" />
                     <UnlabeledInput
-                    type="number"
+                    
+// type="number"
+                    
                         value={accountDashboard[0].invoice_amount}
                         onchange={(value) =>{
                             //  setAccountDashboard({ ...accountDashboard, invoice_amount: value })

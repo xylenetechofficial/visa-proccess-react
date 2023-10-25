@@ -69,7 +69,9 @@ export default function Main(props: { onClose: any, fetchMofaPaymentList: any })
             {/* mofaPayment Input */}
             <StandardInput
                 label="Payment"
-                type="number"
+                
+// type="number"
+                    
                 value={payment}
                 onChangeValue={(value: string) => {
                     set_payment(parseInt(value));

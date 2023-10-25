@@ -53,7 +53,9 @@ export default function Main(props: { grade: GradeInterface, onClose: any, fetch
         {/* grade Input */}
         <StandardInput
             label="Point"
-            type="number"
+            
+// type="number"
+                    
             value={point}
             onChangeValue={(value: string) => {
                 setPoint(parseInt(value));

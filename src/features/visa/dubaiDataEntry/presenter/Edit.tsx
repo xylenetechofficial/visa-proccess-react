@@ -70,7 +70,9 @@ export default function Main(props: {
                     <SubHeading1 text=" Document Charges :" />
                     <UnlabeledInput
                         value={element.documentCharges}
-                        type="number"
+                        
+// type="number"
+                    
                         onchange={(value) => setElement({ ...element, documentCharges: parseInt(value) })}
                     />
                 </UpdateContentBox>
