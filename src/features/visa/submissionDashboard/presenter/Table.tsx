@@ -1,6 +1,6 @@
 import { SubmissionDashboardInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
-import {  Table3,   TableBody3, TableCell3,   TableHead3,  TableHeadCell3,  TableHeadRow3,  TableRow3, TableRow3_green, TableRow3_orange } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3, TableRow3_green, TableRow3_orange } from '../../../../componenets/Table';
 import { useEffect, useState } from 'react';
 import { DateInput, TextAreaInput, UnlabeledInput } from '../../../../componenets/Input';
 
@@ -138,6 +138,10 @@ const Table = (props: {
     const OnClickSubmit = async (ele: SubmissionDashboardInterface) => {
         // update api call
         const data = await updateSubmissionDashboardDataOne(ele)
+
+        if (!data)
+            return
+
         window.location.reload()
         // props.fetchSubmisionDashboardDataList()
     }

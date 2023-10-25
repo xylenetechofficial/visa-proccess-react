@@ -9,13 +9,14 @@ import {
 } from "../../../../componenets/Table";
 import { Checkbox } from "flowbite-react";
 import { TicketReIssueApprovedInterface } from "../type";
+import { UnlabeledInput } from "../../../../componenets/Input";
 
 export default function Main(props: {
-  
+
   ticketReissueApproveList: TicketReIssueApprovedInterface[];
-  setTicketReissueApproveList:(value :TicketReIssueApprovedInterface[])=>void
+  setTicketReissueApproveList: (value: TicketReIssueApprovedInterface[]) => void
 }) {
- 
+
 
   return (
     <>
@@ -34,34 +35,45 @@ export default function Main(props: {
               <TableHeadCell3>departure date</TableHeadCell3>
               <TableHeadCell3>ticket charges</TableHeadCell3>
               <TableHeadCell3>previous re-issue charges</TableHeadCell3>
+              <TableHeadCell3>New re-issue charges</TableHeadCell3>
               <TableHeadCell3>select</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
 
           <TableBody3>
-            {props.ticketReissueApproveList.map((item,index)=>
-           <TableRow3 key={index}>
-           <TableCell3>{index+1}</TableCell3>
-           <TableCell3>{item.candidate_name}</TableCell3>
-           <TableCell3>{item.company_name}</TableCell3>
-           <TableCell3>{item.passport_no}</TableCell3>
-           <TableCell3>{item.agent_name}</TableCell3>
-           <TableCell3>{item.rc_name}</TableCell3>
-           <TableCell3>{item.payment}</TableCell3>
-           <TableCell3>{item.given_to}</TableCell3>
-           <TableCell3>{item.departure_date}</TableCell3>
-           <TableCell3>{item.ticketing_reissue_charge}</TableCell3>
-           <TableCell3>{item.ticketing_previous_reissue_charge}</TableCell3>
-            <TableCell3>
-             <Checkbox
-              onChange={(e) => {
-                const updatedTicketReissueApproveList = [...props.ticketReissueApproveList]; 
-                updatedTicketReissueApproveList[index].is_select =e.target.checked ? 1:0; 
-                props.setTicketReissueApproveList(updatedTicketReissueApproveList);
-              }}/>
-           </TableCell3>
-         </TableRow3>
-           )}   
+            {props.ticketReissueApproveList.map((item, index) =>
+              <TableRow3 key={index}>
+                <TableCell3>{index + 1}</TableCell3>
+                <TableCell3>{item.candidate_name}</TableCell3>
+                <TableCell3>{item.company_name}</TableCell3>
+                <TableCell3>{item.passport_no}</TableCell3>
+                <TableCell3>{item.agent_name}</TableCell3>
+                <TableCell3>{item.rc_name}</TableCell3>
+                <TableCell3>{item.payment}</TableCell3>
+                <TableCell3>{item.given_to}</TableCell3>
+                <TableCell3>{item.departure_date}</TableCell3>
+                <TableCell3>{item.ticket_charges}</TableCell3>
+                <TableCell3>{item.ticketing_previous_reissue_charge}</TableCell3>
+                <TableCell3>
+                  <UnlabeledInput
+                    value={item.ticketing_reissue_charge}
+                    onchange={(e) => {
+                      const updatedTicketReissueApproveList = [...props.ticketReissueApproveList];
+                      updatedTicketReissueApproveList[index].ticketing_reissue_charge = parseInt(e);
+                      props.setTicketReissueApproveList(updatedTicketReissueApproveList);
+                    }}
+                  />
+                </TableCell3>
+                <TableCell3>
+                  <Checkbox
+                    onChange={(e) => {
+                      const updatedTicketReissueApproveList = [...props.ticketReissueApproveList];
+                      updatedTicketReissueApproveList[index].is_select = e.target.checked ? 1 : 0;
+                      props.setTicketReissueApproveList(updatedTicketReissueApproveList);
+                    }} />
+                </TableCell3>
+              </TableRow3>
+            )}
           </TableBody3>
         </Table3>
       </div>

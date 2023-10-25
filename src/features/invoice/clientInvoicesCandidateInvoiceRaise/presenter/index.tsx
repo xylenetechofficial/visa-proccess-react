@@ -48,6 +48,7 @@ const onClickAdd= async(candidateInvoiceRaise:any)=>{
       <CustomNavbarV3
         pageName="Candidates Invoice Raise"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchCandidatesInvoiceRaiseList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

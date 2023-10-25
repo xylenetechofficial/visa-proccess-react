@@ -100,8 +100,11 @@ export default function Main() {
             }
         }
         const data = await updateSubmissionDashboardData(newArray)
+        if (!data)
+            return
+
         window.location.reload()
-        fetchSubmisionDashboardDataList()
+        // fetchSubmisionDashboardDataList()
 
     }
     useEffect(() => {

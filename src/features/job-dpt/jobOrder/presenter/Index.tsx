@@ -122,7 +122,7 @@ export default function Main() {
   // }
 
   const fetchJobOrderList = async (page?: number) => {
-    const res = await readJobOrderList(page);
+    const res = await readJobOrderList(page ?? 1);
     setJobOrderList(res);
     setAdditionalData(await PaginationManager.getData());
   };
@@ -148,6 +148,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Job Order"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchJobOrderList()}
       />
 
       <CardHeader>

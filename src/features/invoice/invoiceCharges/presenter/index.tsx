@@ -47,6 +47,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName=" Invoice Charges"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchCandidateNumbersList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
