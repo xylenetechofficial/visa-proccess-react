@@ -2,12 +2,13 @@ import React from 'react'
 import { CustomNavbarV2, CustomNavbarV3, MainContent } from './CustomComponents'
 import {navigations} from "../navigation"
 import { CustomSideBar } from './Sidebar'
-function Layout(props: { children: any }) {
+import { NavigationInterface } from './model'
+function Layout(props: { children: any ,navigations:NavigationInterface[]}) {
     return (
         <div>
             {/* <CustomNavbarV2></CustomNavbarV2> */}
 
-            <CustomSideBar navigation={navigations}></CustomSideBar>
+            <CustomSideBar navigation={props.navigations}></CustomSideBar>
 
             <MainContent>
                 {props.children}

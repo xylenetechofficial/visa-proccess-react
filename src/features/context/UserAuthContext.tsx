@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { AgentInterface, UserInterface } from "./Model";
 import { SetJwtToken, getJwtToken } from "../../utils/function";
 import { JwtRestApi } from "./Repository";
+import { NavigationAdapter, NavigationHelper, NavigationInterface } from "../../componenets/model";
 
 // create user context
 const userAuthContext = createContext<any>(null);
@@ -12,6 +13,7 @@ export function UserAuthContextProvider(props: { children: any }) {
     const [user, setUser] = useState<UserInterface>();
     const [loading, setLoading] = useState(true);
     const [agent, setAgent] = useState<AgentInterface>();
+    const [navigations, setNavigations] = useState<NavigationInterface[]>([])
     // functions
     // add user to context
     async function addUser(value: any) {
@@ -27,6 +29,11 @@ export function UserAuthContextProvider(props: { children: any }) {
 
     async function addAgent(value: any) {
         setAgent(value);
+        setLoading(false)
+    }
+
+    async function addUI(value: any) {
+        setNavigations(value);
         setLoading(false)
     }
 
@@ -58,17 +65,19 @@ export function UserAuthContextProvider(props: { children: any }) {
         fetchUser();
     }, []);
 
-    return (<userAuthContext.Provider value={{ addUser, removeUser, user , addAgent , agent}}>{!loading && props.children}</userAuthContext.Provider>);
+    return (<userAuthContext.Provider value={{ addUser, removeUser, user, addAgent, agent, addUI, navigations }}>{!loading && props.children}</userAuthContext.Provider>);
 }
 
 export function useUserAuth() {
-    const { addUser, removeUser, user ,addAgent, agent } = useContext(userAuthContext);
+    const { addUser, removeUser, user, addAgent, agent, addUI, navigations } = useContext(userAuthContext);
 
     return Object.freeze({
         authLogIn: (user: UserInterface) => addUser(user),
         authLogOut: () => removeUser(),
         authUser: user as UserInterface,
         authAgentAdd: (user: UserInterface) => addAgent(user),
-        authAgent:agent as AgentInterface,
+        authAgent: agent as AgentInterface,
+        authAddNavigation: (list: NavigationAdapter[]) => addUI(list),
+        authNavigation: new NavigationHelper(navigations),
     });
 }

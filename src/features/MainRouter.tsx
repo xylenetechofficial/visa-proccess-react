@@ -19,7 +19,10 @@ import Delhi from './delhi_2/Router'
 import TicketingDpt from './ticketingDpt/Router'
 
 import { UserAuthContextProvider, useUserAuth } from './context/UserAuthContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+// import { getpermission_ui } from './repository';
+// import { NavigationInterface } from '../componenets/model';
+// import { navigations } from '../navigation';
 
 
 
@@ -42,7 +45,7 @@ function Main() {
 export default Main;
 
 function Others() {
-    const { authUser } = useUserAuth();
+    const { authUser, authNavigation } = useUserAuth();
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -54,7 +57,7 @@ function Others() {
     return (
         <>
             {authUser ?
-                <><Layout>
+                <><Layout navigations={authNavigation.getNavigationSideMenu()}>
                     <Routes>
                         {/* dashboard all route */}
                         <Route path='/user/*' element={<User />}></Route>
@@ -72,7 +75,7 @@ function Others() {
                         <Route path='/immigration/*' element={<Immigration />}></Route>
                         <Route path='/delhi/*' element={<Delhi />}></Route>
                         <Route path='/ticketing-dpt/*' element={<TicketingDpt />}></Route>
-                    
+
                     </Routes>
                 </Layout></>
                 : ""}

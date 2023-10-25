@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 // import { FaDocker } from "react-icons/fa";
 import { Icon } from '@mui/material';
 import visaIcon from '../assets/VisaIcon.png'
-import { navigations } from '../navigation';
+import { NavigationInterface } from './model';
+// import { navigations } from '../navigation';
 /**
  * Custom Sidebar Button
  * 
