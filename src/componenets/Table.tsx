@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 interface ParentComponentProps {
     children: ReactNode;
     width?: number;
+    color?:string;
 }
 interface ParentComponent2Props {
     children: ReactNode;
@@ -204,9 +205,17 @@ export function TableRow2({ children }: ParentComponentProps) {
 
     );
 }
-export function TableRow3({ children }: ParentComponentProps) {
+export function TableRow3({ children , color}: ParentComponentProps) {
+    let colour='bg-white';
+    if(color === 'red'){
+        colour='bg-red-700 text-white'
+    }
+    else if(color === 'yellow'){
+        colour='bg-yellow-300 text-white'
+    }
+
     return (
-        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <tr className={` ${colour} border-b dark:bg-gray-800 dark:border-gray-700`}>
             {children}
             {/* <td className="px-6 py-4 last:text-end">
                 Product name
