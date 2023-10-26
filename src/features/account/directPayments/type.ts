@@ -80,6 +80,7 @@ export interface DirectInterface {
   payment_date: string,
   is_without:number,
   total_advance_payment:number,
+  color_code:string,
   candidate_dropdown_name: string 
 }
 

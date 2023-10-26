@@ -91,7 +91,7 @@ const AgentPaymentTable = (props: {
         </TableHead3>
         <TableBody3>
           {props.AgentPaymentList?.table_data_list?.map((ele: any, index: any) => (
-            <TableRow3 key={index + 1} color="red">
+            <TableRow3 key={index + 1} color={ele.color_code}>
 
               <TableCell3> {index + 1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>

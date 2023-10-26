@@ -222,6 +222,7 @@ export interface AgentPaymentTableInterface {
   amount: number;
   attestation_charges: number;
   balance_amount: number;
+  color_code:string,
   candidate_dropdown_name: string;
   company_name: string;
   consolidated_charges: number;
