@@ -20,9 +20,7 @@ import TicketingDpt from './ticketingDpt/Router'
 
 import { UserAuthContextProvider, useUserAuth } from './context/UserAuthContext';
 import { useEffect, useState } from 'react';
-// import { getpermission_ui } from './repository';
-// import { NavigationInterface } from '../componenets/model';
-// import { navigations } from '../navigation';
+import { NavigationInterface } from '../componenets/model';
 
 
 
@@ -45,19 +43,22 @@ function Main() {
 export default Main;
 
 function Others() {
-    const { authUser, authNavigation } = useUserAuth();
+    const { authUser, authNavigationList } = useUserAuth();
+    const [navigations, setNavigations] = useState<NavigationInterface[]>([])
+
     const navigate = useNavigate()
 
     useEffect(() => {
         if (!authUser) {
             navigate("")
         }
+        setNavigations(authNavigationList)
     }, [authUser])
 
     return (
         <>
             {authUser ?
-                <><Layout navigations={authNavigation.getNavigationSideMenu()}>
+                <><Layout navigations={navigations}>
                     <Routes>
                         {/* dashboard all route */}
                         <Route path='/user/*' element={<User />}></Route>

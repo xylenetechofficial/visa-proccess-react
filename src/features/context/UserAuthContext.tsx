@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AgentInterface, UserInterface } from "./Model";
 import { SetJwtToken, getJwtToken } from "../../utils/function";
-import { JwtRestApi } from "./Repository";
-import { NavigationAdapter, NavigationHelper, NavigationInterface } from "../../componenets/model";
+import { JwtRestApi, getpermission_ui } from "./Repository";
+import { NavigationAdapter, PermissionHelper, NavigationInterface, PermissionNavigationInterface } from "../../componenets/model";
+import { navigations as NAV } from '../../navigation';
 
 // create user context
 const userAuthContext = createContext<any>(null);
@@ -13,7 +14,9 @@ export function UserAuthContextProvider(props: { children: any }) {
     const [user, setUser] = useState<UserInterface>();
     const [loading, setLoading] = useState(true);
     const [agent, setAgent] = useState<AgentInterface>();
-    const [navigations, setNavigations] = useState<NavigationInterface[]>([])
+    const [permissionList, setPermissionList] = useState<any[]>([])
+    const [navigationList, setNavigationList] = useState<any[]>([])
+
     // functions
     // add user to context
     async function addUser(value: any) {
@@ -32,8 +35,9 @@ export function UserAuthContextProvider(props: { children: any }) {
         setLoading(false)
     }
 
-    async function addUI(value: any) {
-        setNavigations(value);
+    async function addPermissionNavigation(data: PermissionNavigationInterface) {
+        setPermissionList(data.permission_list)
+        setNavigationList(data.navigation_list)
         setLoading(false)
     }
 
@@ -44,13 +48,22 @@ export function UserAuthContextProvider(props: { children: any }) {
         //     user_name: "admin user"
         // }
         // setUser(u)
+        
 
         try {
-            const jwtToken = getJwtToken();
-            const userData = await JwtRestApi({ JwtToken: jwtToken })
+            // const jwtToken = getJwtToken();
+            const userData = await JwtRestApi()
             if (userData) {
                 setUser(userData)
             }
+
+            const permissionListNavigationData = await getpermission_ui()
+            if (permissionListNavigationData) {
+                setPermissionList(permissionListNavigationData.permission_list)
+                // setNavigationList(permissionListNavigationData.navigation_list)
+                setNavigationList(NAV)
+            }
+
             setLoading(false)
 
         } catch (error) {
@@ -58,18 +71,16 @@ export function UserAuthContextProvider(props: { children: any }) {
             setLoading(false)
         }
     }
-
-
     useEffect(() => {
         console.log("Hi, Congratulation! you are inside the useeffect of userAuthContext.")
         fetchUser();
     }, []);
 
-    return (<userAuthContext.Provider value={{ addUser, removeUser, user, addAgent, agent, addUI, navigations }}>{!loading && props.children}</userAuthContext.Provider>);
+    return (<userAuthContext.Provider value={{ addUser, removeUser, user, addAgent, agent, addPermissionNavigation, permissionList, navigationList }}>{!loading && props.children}</userAuthContext.Provider>);
 }
 
 export function useUserAuth() {
-    const { addUser, removeUser, user, addAgent, agent, addUI, navigations } = useContext(userAuthContext);
+    const { addUser, removeUser, user, addAgent, agent, addPermissionNavigation, permissionList, navigationList } = useContext(userAuthContext);
 
     return Object.freeze({
         authLogIn: (user: UserInterface) => addUser(user),
@@ -77,7 +88,8 @@ export function useUserAuth() {
         authUser: user as UserInterface,
         authAgentAdd: (user: UserInterface) => addAgent(user),
         authAgent: agent as AgentInterface,
-        authAddNavigation: (list: NavigationAdapter[]) => addUI(list),
-        authNavigation: new NavigationHelper(navigations),
+        authAddPermissionNavigation: (data: PermissionNavigationInterface) => addPermissionNavigation(data),
+        authPermissionList: new PermissionHelper(permissionList),
+        authNavigationList: navigationList
     });
 }

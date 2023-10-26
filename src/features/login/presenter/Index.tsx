@@ -2,13 +2,14 @@ import visaIcon from '../../../assets/VisaIcon.png'
 import OfficeImage from '../../../assets/Office work _Outline.svg'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { GetUser, LogIn, getpermission_ui } from '../repository'
+import { GetUser, LogIn } from '../repository'
 import { useUserAuth } from '../../context/UserAuthContext'
 import { SetJwtToken } from '../../../utils/function'
 import { navigations } from '../../../navigation'
+import { getpermission_ui } from '../../context/Repository'
 export default function Login() {
   const navigate = useNavigate()
-  const { authUser, authLogIn, authAddNavigation } = useUserAuth();
+  const { authUser, authLogIn, authAddPermissionNavigation } = useUserAuth();
 
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
@@ -27,11 +28,11 @@ export default function Login() {
     SetJwtToken(loginData.token)
 
     const userData = await GetUser()
-    const navigationData = await getpermission_ui()
+    const permissionListNavigationData = await getpermission_ui()
+
     if (userData) {
       await authLogIn(userData)
-      // await authAddNavigation(navigationData)
-      await authAddNavigation(navigations)
+      await authAddPermissionNavigation(permissionListNavigationData)
       
       navigate("/dashboard")
     }
