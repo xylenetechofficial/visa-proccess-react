@@ -1,17 +1,18 @@
 import { JobOrderInterface } from '../type'
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table3,  TableBody3, TableCell3, TableHead3, TableHeadCell3,  TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { SectorInterface } from '../../../masters/sector/type';
 import { CompanyInterface } from '../../../masters/company/type';
 import { CountryInterface } from '../../../masters/country/type';
 // import { BDEList } from '../../db/user';
 import { convertDateFormat } from '../../../../utils/function';
+import { useUserAuth } from '../../../context/UserAuthContext';
 
 
 
 
 const JobOrderTable = (props: {
-    snoBase:number;
+    snoBase: number;
     jobOrderList: JobOrderInterface[],
     onClickEdit: any,
     onClickDelete: any
@@ -19,55 +20,9 @@ const JobOrderTable = (props: {
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
 }) => {
+    const { authPermissionList } = useUserAuth()
     return (
         <div className='overflow-auto'>
-            {/* <Table  >
-                <TableHead >
-                    <TableHeadRow  >
-                        <TableHeadCell  > Sr No.</TableHeadCell>
-                        <TableHeadCell > Job Order Number</TableHeadCell>
-                        <TableHeadCell > Date</TableHeadCell>
-                        <TableHeadCell > Company</TableHeadCell>
-                        <TableHeadCell > Country</TableHeadCell>
-                        <TableHeadCell > BDE</TableHeadCell>
-                        <TableHeadCell > Sector</TableHeadCell>
-                        <TableHeadCell > Action</TableHeadCell>
-
-                    </TableHeadRow>
-                </TableHead>
-                <TableBody>
-                    {props.jobOrderList.map((ele, index) => (
-
-                        <TableRow key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
-                            <TableCell3 > {ele.jobOrderNumber}</TableCell3>
-                            <TableCell3 > {ele.date}</TableCell3>
-                            <TableCell3 > {ele.company_name ?? ""}</TableCell3>
-                            <TableCell3 > {ele.client_country_name ?? ""}</TableCell3>
-                            <TableCell3 > {BDEList.map((user) => user.id == ele.BDEName ? user.name : "")}</TableCell3>
-                            <TableCell3 > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell3>
-                            <TableCell3 >
-
-                        
-                        <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
-                                    props.onClickEdit(ele)
-                                }} />
-
-                                <RedButton text={"Delete"} preIcon='delete' onClick={() => {
-                                    props.onClickDelete(ele)
-                                }} />
-                       
-
-                            </TableCell3>
-                        </TableRow>
-                    ))}
-
-
-
-                </TableBody>
-            </Table> */}
-
-
             <Table3  >
                 <TableHead3 >
                     <TableHeadRow3  >
@@ -86,8 +41,8 @@ const JobOrderTable = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + props.snoBase+1}</TableCell3>
-                            
+                            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
+
                             <TableCell3 > {ele.jobOrderNumber}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.date)}</TableCell3>
                             <TableCell3 > {ele.company_name ?? ""}</TableCell3>
@@ -97,14 +52,15 @@ const JobOrderTable = (props: {
                             <TableCell3 > {props.sectorList.map((sector) => sector.id == ele.sectorId ? sector.name : "")}</TableCell3>
                             <TableCell3 >
 
+                                {authPermissionList.url_has('update') ?
+                                    <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
+                                        props.onClickEdit(ele)
+                                    }} /> : ""}
 
-                                <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
-                                    props.onClickEdit(ele)
-                                }} />
-
-                                <RedButton text={"Delete"} preIcon='delete' onClick={() => {
-                                    props.onClickDelete(ele)
-                                }} />
+                                {authPermissionList.url_has('delete') ?
+                                    <RedButton text={"Delete"} preIcon='delete' onClick={() => {
+                                        props.onClickDelete(ele)
+                                    }} /> : ""}
 
 
                             </TableCell3>

@@ -27,6 +27,7 @@ import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -37,6 +38,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth()
   const [jobOrderList, setJobOrderList] = useState<JobOrderInterface[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -86,7 +88,7 @@ export default function Main() {
       fetchJobOrderList();
     }
   };
-    
+
   // useEffect(() => {
   // }, [editJobOrder, modalName])
   const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
@@ -148,18 +150,22 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Job Order"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>fetchJobOrderList()}
+        refresh={() => fetchJobOrderList()}
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        <GreenButton
+        {authPermissionList.has('job-dpt/job-order', 'create') ? "YES" : "NO"}
+        {authPermissionList.url_has('create') ? "YES" : "NO"}
+
+        {authPermissionList.url_has('create') ? <GreenButton
           text={"Add +"}
           onClick={() => {
             setModalName("create");
           }}
-        />
+        /> : ""}
+
         {/* <Button
                     variant="contained"
                     color="success"

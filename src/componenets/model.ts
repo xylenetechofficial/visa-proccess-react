@@ -23,9 +23,45 @@ export interface NavigationAdapter {
 export class PermissionHelper {
   navigation_list: NavigationInterface[] = [];
   raw_navigation_list: NavigationAdapter[] = [];
+  permission_list: PermissionInterface[] = [];
+  path_name = "";
 
   constructor(list: any) {
-    this.raw_navigation_list = list;
+    // this.raw_navigation_list = list;
+    this.permission_list = list;
+    this.path_name = window.location.pathname;
+    this.path_name=this.path_name.replace(/^\//, '')
+    console.log("URL: ", this.path_name); // Only Dev
+  }
+
+  has(page: string, permission: string): boolean {
+    for (let i = 0; i < this.permission_list.length; i++) {
+      if (this.permission_list[i].page != page) continue;
+
+      const permissions = this.permission_list[i].ui;
+      for (let j = 0; j < permissions.length; j++) {
+        if (permissions[j] != permission) continue;
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  url_has(permission: string): boolean {
+    for (let i = 0; i < this.permission_list.length; i++) {
+      if (this.permission_list[i].page != this.path_name) continue;
+
+      const permissions = this.permission_list[i].ui;
+      for (let j = 0; j < permissions.length; j++) {
+        if (permissions[j] != permission) continue;
+
+        return true;
+      }
+    }
+
+    return false;
   }
 
   async getNavigationSideMenu() {
