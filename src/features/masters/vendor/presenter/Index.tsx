@@ -80,8 +80,8 @@ export default function Main() {
   // useEffect(() => {
   // }, [editAgency, modalName])
 
-  const fetchVendorList = async (page?:number) => {
-    const res = await readVendorList(true, page);
+  const fetchVendorList = async (page?: number) => {
+    const res = await readVendorList(true, page ?? 1);
     setVendorList(res)
     filterData("", res);
     setAdditionalData(await PaginationManager.getData());
@@ -109,7 +109,7 @@ export default function Main() {
 
       {/*  agency stable */}
       <VendorTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         vendorList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}

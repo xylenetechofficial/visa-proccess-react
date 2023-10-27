@@ -23,8 +23,8 @@ export const navigations: any[] = [
       { name: 'Consolidate Charge', icon: 'pageview', path: '/masters/consolidate-charge' },
       { name: 'Visa Authorisation', icon: 'pageview', path: '/masters/visa-authorisation' },
 
-      // { name: 'User', icon: 'pageview', path: '/masters/user' },
-      // { name: 'Role', icon: 'pageview', path: '/masters/role' },
+      { name: 'User', icon: 'pageview', path: '/masters/user' },
+      { name: 'Role', icon: 'pageview', path: '/masters/role' },
     ]
   },
   {

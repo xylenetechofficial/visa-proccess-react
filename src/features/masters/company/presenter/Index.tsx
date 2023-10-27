@@ -87,7 +87,7 @@ export default function Main() {
     // }, [editCompany, modalName])
 
     const fetchCompanyList = async (page?:number) => {
-       const res = await readCompanyList(true, page)
+       const res = await readCompanyList(true, page ?? 1)
         setCompanyList(res);
   setAdditionalData(await PaginationManager.getData());
 

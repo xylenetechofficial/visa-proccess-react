@@ -78,7 +78,7 @@ export default function Main() {
   // }, [editGrade, modalName])
 
   const fetchGradeList = async (page?: number) => {
-    const res = await readGradeList(true, page);
+    const res = await readGradeList(true, page ?? 1);
     setGradeList(res);
   setAdditionalData(await PaginationManager.getData());
 
