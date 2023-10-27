@@ -96,15 +96,18 @@ const CandidatePayment = (props: {
             
 // type="number"
                     
-            value={CandidatePayment.amount}
+            value={CandidatePayment.amount < 1 ? "" : CandidatePayment.amount}
             onchange={(value) => {
-              const numberRegex = /[0-9]+$/;
-
-
-              if (numberRegex.test(value) || value === '') {
-
+              if (value == "")
+              value = '0'
                 setCandidatePayment({ ...CandidatePayment, amount: parseInt(value) })
-              }
+              // const numberRegex = /[0-9]+$/;
+
+
+              // if (numberRegex.test(value) || value === '') {
+
+              //   setCandidatePayment({ ...CandidatePayment, amount: parseInt(value) })
+              // }
               checkBalancefromDropDown(CandidatePayment.amount, CandidatePayment.candidate_id)
             }
 

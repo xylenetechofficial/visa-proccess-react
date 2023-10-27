@@ -5,11 +5,11 @@ import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { createAgentPaymentAdd } from "../repository";
 
-const AgentBulkPayment = (props:   { 
-    fetchAgentPaymentList:(name:string, value:any)=>void
-    AgentID:any
-    setAgentID:any
-  }) => {
+const AgentBulkPayment = (props: {
+  fetchAgentPaymentList: (name: string, value: any) => void
+  AgentID: any
+  setAgentID: any
+}) => {
 
   const initValue: AgentPaymentAddInterface = {
 
@@ -19,12 +19,12 @@ const AgentBulkPayment = (props:   {
   };
 
   const [agentPayment, setagentPayment] = useState(initValue);
-  
+
   const handleClick = async (agentPayment: any) => {
     await createAgentPaymentAdd(agentPayment)
-    console.log(agentPayment,"agent_id")
+    console.log(agentPayment, "agent_id")
     handleReset();
-     props.fetchAgentPaymentList('agent_id',props.AgentID);
+    props.fetchAgentPaymentList('agent_id', props.AgentID);
   }
   const handleReset = () => {
     setagentPayment({
@@ -33,13 +33,15 @@ const AgentBulkPayment = (props:   {
       description: '',
     })
   }
-  useEffect(()=>{
-    setagentPayment((prev)=>{return {
-      ...prev,
-      agent_id:props.AgentID
-    }})
-  },[props.AgentID])
-  
+  useEffect(() => {
+    setagentPayment((prev) => {
+      return {
+        ...prev,
+        agent_id: props.AgentID
+      }
+    })
+  }, [props.AgentID])
+
   return (
     <div className=" shadow-slate-500 rounded-lg shadow-md justify-center">
       <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
@@ -56,15 +58,19 @@ const AgentBulkPayment = (props:   {
         <UpdateContentBox>
           <SubHeading1 text=" Amount :" />
           <UnlabeledInput
-          
-// type="number"
-                    
-            value={agentPayment.amount}
+
+            // type="number"
+
+            value={agentPayment.amount < 1 ? "" : agentPayment.amount}
             onchange={(value) => {
-              const numberRegex = /[0-9]+$/;
-              if (numberRegex.test(value) || value === '') {
-                setagentPayment({ ...agentPayment, amount: parseInt(value) })
-              }
+              if (value == "")
+                value = '0'
+
+              setagentPayment({ ...agentPayment, amount: parseInt(value) })
+              // const numberRegex = /[0-9]+$/;
+              // if (numberRegex.test(value) || value === '') {
+              //   setagentPayment({ ...agentPayment, amount: parseInt(value) })
+              // }
             }
             }
           />
