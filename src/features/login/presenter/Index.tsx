@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react'
 import { GetUser, LogIn } from '../repository'
 import { useUserAuth } from '../../context/UserAuthContext'
 import { SetJwtToken } from '../../../utils/function'
+import { navigations } from '../../../navigation'
+import { getpermission_ui } from '../../context/Repository'
 export default function Login() {
   const navigate = useNavigate()
-  const { authUser, authLogIn } = useUserAuth();
+  const { authUser, authLogIn, authAddPermissionNavigation } = useUserAuth();
 
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
@@ -26,8 +28,12 @@ export default function Login() {
     SetJwtToken(loginData.token)
 
     const userData = await GetUser()
+    const permissionListNavigationData = await getpermission_ui()
+
     if (userData) {
       await authLogIn(userData)
+      await authAddPermissionNavigation(permissionListNavigationData)
+      
       navigate("/dashboard")
     }
   }

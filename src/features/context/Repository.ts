@@ -1,18 +1,9 @@
-// import axios from '../../axiosFile'
-// import { ResponseInterface } from "../../model";
-// import { getAdminApiKey } from "../../utils/utils";
-// import { AxiosHeaders } from "axios";
-
+import { PermissionNavigationInterface } from "../../componenets/model";
+import { showMessage_v2 } from "../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../utils/api_helper";
 import { UserInterface } from "./Model";
 
-// // export function getAuthRoles() {
-// //     let data = authRoles as AuthRolesInterface
-
-// //     return data;
-// // }
-
-export const JwtRestApi = async (props: { JwtToken: any }) => {
+export const JwtRestApi = async () => {
   const path = "/user";
 
   const response = await ApiHelper.get(path, {
@@ -26,3 +17,17 @@ export const JwtRestApi = async (props: { JwtToken: any }) => {
 
   return response.data as UserInterface;
 };
+
+export async function getpermission_ui() {
+  const path = "/permission-ui";
+
+  const response = await ApiHelper.get(path, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT,
+  });
+
+  if (response.code != 200) {
+    showMessage_v2({ message: response.message, status: response.code });
+  }
+  return response.data as PermissionNavigationInterface;
+}

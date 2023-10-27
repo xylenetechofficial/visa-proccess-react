@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom';
 // import { FaDocker } from "react-icons/fa";
 import { Icon } from '@mui/material';
 import visaIcon from '../assets/VisaIcon.png'
-import { navigations } from '../navigation';
+import { NavigationInterface } from './model';
+import { getNanoID } from '../utils/function';
+// import { navigations } from '../navigation';
 /**
  * Custom Sidebar Button
  * 
@@ -126,16 +128,16 @@ export function CustomSideBar(props: { navigation: NavigationInterface[] }) {
 
     const sidebarToggle = (<button data-drawer-target="logo-sidebar" onClick={() => {
         const target = document.getElementById("logo-sidebar");
-      if(target)
-        if (target.classList.contains("-translate-x-full")) {
-            // console.log("Found class -- removing it");
-            target.classList.remove("-translate-x-full")
+        if (target)
+            if (target.classList.contains("-translate-x-full")) {
+                // console.log("Found class -- removing it");
+                target.classList.remove("-translate-x-full")
 
-        } else {
-            // console.log("unable to find class -- adding it");
-            target.classList.add("-translate-x-full")
+            } else {
+                // console.log("unable to find class -- adding it");
+                target.classList.add("-translate-x-full")
 
-        }
+            }
     }} data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" className="absolute inline-flex items-center p-2 text-sm text-gray-500 rounded-lg right-1 top-1 md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
         <span className="sr-only" >Close sidebar</span>
         <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -167,31 +169,31 @@ export function CustomSideBar(props: { navigation: NavigationInterface[] }) {
         <div className="h-full px-3 pb-4 overflow-y-auto bg-main-bg dark:bg-gray-800">
             <p className='text-sm ml-3 my-5 text-[#919191]'>Menu</p>
             <ul className="space-y-2 font-medium">
-                {localNavigations.map((ele) => (
-                    <>
-                        {ele.children?.length ?
-                            <CustomSidebarbuttonMultiLevel
-                                currentDept={currentDept}
-                                navigation={ele}
-                                changeCurrentDept={(value) => setCurrentDept(value)}
-                            />
-                            :
-                            <CustomSidebarButton
-                                navigation={ele}
-                                currentDept={currentDept}
-                                changeCurrentDept={(value) => setCurrentDept(value)}
-                            />
-                        }
-                    </>
-
-                ))}
+                {localNavigations.map((ele) => {
+                    if (ele.children?.length) {
+                        return <CustomSidebarbuttonMultiLevel
+                            key={getNanoID()}
+                            currentDept={currentDept}
+                            navigation={ele}
+                            changeCurrentDept={(value) => setCurrentDept(value)}
+                        />
+                    } else {
+                        return <CustomSidebarButton
+                            key={getNanoID()}
+                            navigation={ele}
+                            currentDept={currentDept}
+                            changeCurrentDept={(value) => setCurrentDept(value)}
+                        />
+                    }
+                }
+                )}
                 <div className='h-[250px]'>
 
                 </div>
 
 
             </ul>
-        </div>)
+        </div >)
 
     return (
 

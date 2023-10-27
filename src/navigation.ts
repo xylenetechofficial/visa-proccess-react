@@ -1,4 +1,6 @@
-export const navigations: NavigationInterface[] = [
+import { NavigationInterface } from "./componenets/model";
+
+export const navigations: any[] = [
   { name: 'Dashboard', path: '/dashboard', icon: '' },
   {
     name: 'Masters',

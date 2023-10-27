@@ -19,7 +19,8 @@ import Delhi from './delhi_2/Router'
 import TicketingDpt from './ticketingDpt/Router'
 
 import { UserAuthContextProvider, useUserAuth } from './context/UserAuthContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { NavigationInterface } from '../componenets/model';
 
 
 
@@ -42,19 +43,22 @@ function Main() {
 export default Main;
 
 function Others() {
-    const { authUser } = useUserAuth();
+    const { authUser, authNavigationList } = useUserAuth();
+    const [navigations, setNavigations] = useState<NavigationInterface[]>([])
+
     const navigate = useNavigate()
 
     useEffect(() => {
         if (!authUser) {
             navigate("")
         }
+        setNavigations(authNavigationList)
     }, [authUser])
 
     return (
         <>
             {authUser ?
-                <><Layout>
+                <><Layout navigations={navigations}>
                     <Routes>
                         {/* dashboard all route */}
                         <Route path='/user/*' element={<User />}></Route>
@@ -72,7 +76,7 @@ function Others() {
                         <Route path='/immigration/*' element={<Immigration />}></Route>
                         <Route path='/delhi/*' element={<Delhi />}></Route>
                         <Route path='/ticketing-dpt/*' element={<TicketingDpt />}></Route>
-                    
+
                     </Routes>
                 </Layout></>
                 : ""}
