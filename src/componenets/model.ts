@@ -1,3 +1,5 @@
+import { BYPASS, appEnv } from "../constant";
+
 export interface PermissionInterface {
   page: string;
   ui: string[];
@@ -25,16 +27,21 @@ export class PermissionHelper {
   raw_navigation_list: NavigationAdapter[] = [];
   permission_list: PermissionInterface[] = [];
   path_name = "";
+  is_dev = true;
 
   constructor(list: any) {
+    this.is_dev = BYPASS;
     // this.raw_navigation_list = list;
     this.permission_list = list;
     this.path_name = window.location.pathname;
-    this.path_name=this.path_name.replace(/^\//, '')
+    this.path_name = this.path_name.replace(/^\//, "");
     console.log("URL: ", this.path_name); // Only Dev
   }
 
   has(page: string, permission: string): boolean {
+    // TODO: remove in production mode
+    if (this.is_dev) return true;
+
     for (let i = 0; i < this.permission_list.length; i++) {
       if (this.permission_list[i].page != page) continue;
 
@@ -50,6 +57,9 @@ export class PermissionHelper {
   }
 
   url_has(permission: string): boolean {
+    // TODO: remove in production mode
+    if (this.is_dev) return true;
+
     for (let i = 0; i < this.permission_list.length; i++) {
       if (this.permission_list[i].page != this.path_name) continue;
 

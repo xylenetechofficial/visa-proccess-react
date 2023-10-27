@@ -1,27 +1,32 @@
-import { useEffect, useState } from "react";
-import { Box, styled } from "@mui/material";
+import styled from "@emotion/styled";
+import { Box } from "@mui/material";
+import { useState, useEffect } from "react";
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
+import { CustomNavbarV3, CustomButton2 } from "../../../../componenets/CustomComponents";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import { FaFilter } from "react-icons/fa";
-import ClientAdditionalInvoiceTable from "./Table";
-import {
-  CustomButton2,
-  CustomNavbarV3,
-} from "../../../../componenets/CustomComponents";
-import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
-import ImmigrationDOnePPReleaseTable from "./Table";
-import {
-  createImmigrationDonePPRelease,
-  readImmigrationDonePPReleaseList,
-} from "../repository";
-import {
-  AdditionalDataInterface,
-  PaginationManager,
-} from "../../../../utils/api_helper";
+
+import EditModal from './edit';
+import CreateModal from './add';
 import Pagination from "../../../../componenets/Pagination";
+import { ImmigrationDonePPReleaseInterface } from "../type";
+import { readImmigrationDonePPReleaseList } from "../repository";
+import ImmigrationDOnePPReleaseTable from "./Table";
+import { useUserAuth } from "../../../context/UserAuthContext";
+const CardHeader = styled(Box)(() => ({
+  display: "flex",
+
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
+}));
 
 export default function Main() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [data, setData] = useState("");
+  const { authPermissionList } = useUserAuth()
 
+  const [modalName, setModalName] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -33,46 +38,54 @@ export default function Main() {
     }
   );
 
-  const [RcPPRecieved, setRcRcPPRecieved] = useState([]);
+
+  const [immigrationDonePPReleaseList, setImmigrationDonePPReleaseList] = useState<ImmigrationDonePPReleaseInterface[]>([]);
+
   const fetchImmigrationDoneList = async (page?: number) => {
-    const data: any = await readImmigrationDonePPReleaseList(page);
-    setRcRcPPRecieved(data);
+    const data = await readImmigrationDonePPReleaseList({
+      page: page ?? 1,
+      status: "yes"
+    });
+    setImmigrationDonePPReleaseList(data);
     setAdditionalData(await PaginationManager.getData());
   };
 
-  const createImmigrationDonePPReleaseList = async (item: any) => {
-    const data: any = await createImmigrationDonePPRelease(item);
-
-    fetchImmigrationDoneList();
-  };
   useEffect(() => {
     fetchImmigrationDoneList(additionalData.pagination.page);
   }, []);
+
   return (
     <div>
       <CustomNavbarV3
         pageName="Immigration Done PP Release"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={() => {
-          fetchImmigrationDoneList();
-        }}
+        refresh={() => fetchImmigrationDoneList(additionalData.pagination.page)}
       />
 
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+
+        <div>
+          {authPermissionList.url_has('create') ? <GreenButton
+            text={"Add"}
+            onClick={() => {
+              setModalName("add");
+            }}
+          /> : ""}
+          {authPermissionList.url_has('update') ? <BlueButton
+            text={"Edit"}
+            onClick={() => {
+              setModalName("edit");
+            }}
+          /> : ""}
+        </div>
+      </CardHeader>
+      {/*  agent stable */}
       <ImmigrationDOnePPReleaseTable
         snoBase={additionalData.pagination.sno_base}
-        RcPPRecieved={RcPPRecieved}
-        setRcRcPPRecieved={setRcRcPPRecieved}
-        onChange={(value: any) => setRcRcPPRecieved(value)}
-        data={data}
-        setData={setData}
+        RcPPRecieved_list={immigrationDonePPReleaseList}
+        onChange={(list) => setImmigrationDonePPReleaseList(list)}
       />
-      <BlueButton
-        text="Submit"
-        onClick={() => {
-          createImmigrationDonePPReleaseList(RcPPRecieved);
-        }}
-      />
-<br /><br />
 
       <Pagination
         data={additionalData}
@@ -81,6 +94,32 @@ export default function Main() {
           fetchImmigrationDoneList(e);
         }}
       />
+
+      {/* <!-- Modal --> */}
+
+      {/* Create */}
+      {modalName !== "add" ? (
+        ""
+      ) : (
+        <CreateModal
+          onClose={() => {
+            setModalName("")
+            fetchImmigrationDoneList()
+          }}
+        />
+      )}
+
+      {/* Edit */}
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal
+          onClose={() => {
+            setModalName("")
+            fetchImmigrationDoneList()
+          }}
+        />
+      )}
     </div>
   );
 }

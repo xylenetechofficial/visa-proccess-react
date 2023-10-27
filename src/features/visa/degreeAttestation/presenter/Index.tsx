@@ -4,7 +4,7 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import DegreeAttestationTable from "./Table";
-import { GreenButton, YellowButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton, YellowButton } from "../../../../componenets/CustomButton";
 import { Box, styled } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 import CreateModal from "./Create";
@@ -13,6 +13,7 @@ import { DegreeAttestationInterface } from "../type/DegreeAttestation";
 import { readDegreeAttestationList } from "../repository";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -24,6 +25,8 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth()
+
   const [searchQuery, setSearchQuery] = useState("");
   const [modalName, setModalName] = useState("");
   const [degreAttestationList, setDegreAttestationList] = useState<DegreeAttestationInterface[]>([])
@@ -59,19 +62,18 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         <div>
-
-          <GreenButton
-            text={"ADD"}
+          {authPermissionList.url_has('create') ? <GreenButton
+            text={"Add"}
             onClick={() => {
-              setModalName("create");
+              setModalName("add");
             }}
-          />
-          <YellowButton
-            text={"EDIT"}
+          /> : ""}
+          {authPermissionList.url_has('update') ? <BlueButton
+            text={"Edit"}
             onClick={() => {
               setModalName("edit");
             }}
-          />
+          /> : ""}
         </div>
       </CardHeader>
 

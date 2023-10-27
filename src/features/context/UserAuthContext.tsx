@@ -48,7 +48,7 @@ export function UserAuthContextProvider(props: { children: any }) {
         //     user_name: "admin user"
         // }
         // setUser(u)
-        
+
 
         try {
             // const jwtToken = getJwtToken();
@@ -58,11 +58,11 @@ export function UserAuthContextProvider(props: { children: any }) {
             }
 
             const permissionListNavigationData = await getpermission_ui()
-            if (permissionListNavigationData) {
-                setPermissionList(permissionListNavigationData.permission_list)
-                // setNavigationList(permissionListNavigationData.navigation_list)
-                setNavigationList(NAV)
-            }
+            // if (permissionListNavigationData) {
+            setPermissionList(permissionListNavigationData.permission_list ?? [])
+            // setNavigationList(permissionListNavigationData.navigation_list ?? [])
+            setNavigationList(NAV)
+            // }
 
             setLoading(false)
 

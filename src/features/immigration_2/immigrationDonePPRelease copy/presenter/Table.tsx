@@ -15,17 +15,21 @@ import { ImmigrationDonePPReleaseInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { GivenToList, GivenToList_only_passprt, GivenToList_without_RC } from "../../../db";
 import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
-import { convertDateFormat } from "../../../../utils/function";
 
 const ImmigrationDOnePPReleaseTable = (props: {
-  snoBase: number,
-  RcPPRecieved_list: ImmigrationDonePPReleaseInterface[];
+  snoBase:number,
+  RcPPRecieved: ImmigrationDonePPReleaseInterface[];
+  setRcRcPPRecieved: any
   onChange: (value: ImmigrationDonePPReleaseInterface[]) => void,
-  actionType?: string
+  data: any;
+  setData: any;
 }) => {
 
+  const [date, setDate] = useState<any>([])
+  console.log(props.data)
+
   function onUpdateRow(index: number, rowData: ImmigrationDonePPReleaseInterface) {
-    const nextData = props.RcPPRecieved_list.map((e, i) => {
+    const nextData = props.RcPPRecieved.map((e, i) => {
       if (i === index) {
         // Increment the clicked counter
         return rowData;
@@ -36,6 +40,10 @@ const ImmigrationDOnePPReleaseTable = (props: {
     });
     props.onChange(nextData)
   }
+
+  // useEffect(()=>{
+
+  // },[])
 
   return (
     <div className="overflow-auto">
@@ -79,21 +87,22 @@ const ImmigrationDOnePPReleaseTable = (props: {
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
-          {props.RcPPRecieved_list.map((item, index) => {
+          {props.RcPPRecieved.map((item, index) => {
             let GivenToList_local: any = [];
 
             console.log(item.passport_no + "  " + item.local_given_to);   // Only Dev
 
             if (item.local_given_to == "Given To RC") {
               GivenToList_local = GivenToList_only_passprt
-            } else if (item.payment == "Received") {
+            } else if (item.balance_amount < 1) {
               GivenToList_local = GivenToList
             } else {
               GivenToList_local = GivenToList_without_RC
             }
 
             return (<TableRow3>
-              <TableCell3>{index + props.snoBase + 1}</TableCell3>
+
+<TableCell3>{index + props.snoBase +1}</TableCell3>
               <TableCell3>{item.name} </TableCell3>
               <TableCell3>{item.passport_no} </TableCell3>
               <TableCell3>{item.company_name} </TableCell3>
@@ -102,18 +111,15 @@ const ImmigrationDOnePPReleaseTable = (props: {
               <TableCell3>{item.payment} </TableCell3>
               {/* <TableCell3>{item.service_tax_received} </TableCell3> */}
               <TableCell3>{item.is_invoice} </TableCell3>
+              <TableCell3 >
+                <CustomSingleCheckBox
+                  onChange={(value) => onUpdateRow(index, { ...item, checked: value })}
+                  value={item.checked ? true : false}
+                />
+              </TableCell3>
 
-
-              {props.actionType == 'add' || props.actionType == 'edit' ? <>
-                <TableCell3 >
-                  <CustomSingleCheckBox
-                    onChange={(value) => onUpdateRow(index, { ...item, checked: value })}
-                    value={item.checked ? true : false}
-                  />
-                </TableCell3>
-
-                <TableCell3>
-                  {/* {item.local_given_to == "Given To Cancelation" ? item.local_given_to : <>
+              <TableCell3>
+                {/* {item.local_given_to == "Given To Cancelation" ? item.local_given_to : <>
                   <CustomSelectComponentUnlabeled
                     value={item.given_to}
                     onChange={(value: any) => {
@@ -122,32 +128,28 @@ const ImmigrationDOnePPReleaseTable = (props: {
                     options={GivenToList_local}
                   />
                 </>} */}
-                  <CustomSelectComponentUnlabeled
-                    label={item.local_given_to}
-                    value={item.given_to}
-                    onChange={(value: any) => {
-                      onUpdateRow(index, { ...item, given_to: value })
-                    }}
-                    options={GivenToList_local}
-                  />
-                  {/* <CustomSelectComponentUnlabeled
+                <CustomSelectComponentUnlabeled
+                  label={item.local_given_to}
+                  value={item.given_to}
+                  onChange={(value: any) => {
+                    onUpdateRow(index, { ...item, given_to: value })
+                  }}
+                  options={GivenToList_local}
+                />
+                {/* <CustomSelectComponentUnlabeled
                   value={item.given_to}
                   onChange={(value: any) => {
                     onUpdateRow(index, { ...item, given_to: value })
                   }}
                   options={GivenToList_local}
                 /> */}
-                </TableCell3>
-                <TableCell3>
-                  <UnlabeledInput type="date" onchange={(value) => {
-                    onUpdateRow(index, { ...item, given_date: value })
-                  }}
-                    value={item?.given_date} />
-                </TableCell3>
-              </> : <>
-                <TableCell3>{item.given_to} </TableCell3>
-                <TableCell3>{convertDateFormat(item.given_date)} </TableCell3>
-              </>}
+              </TableCell3>
+              <TableCell3>
+                <UnlabeledInput type="date" onchange={(value) => {
+                  onUpdateRow(index, { ...item, given_date: value })
+                }}
+                  value={item?.given_date} />
+              </TableCell3>
 
               <TableCell3>{item.division} </TableCell3>
               <TableCell3>{item.visa_authorization_name} </TableCell3>

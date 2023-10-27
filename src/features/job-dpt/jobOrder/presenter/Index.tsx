@@ -156,8 +156,8 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        {authPermissionList.has('job-dpt/job-order', 'create') ? "YES" : "NO"}
-        {authPermissionList.url_has('create') ? "YES" : "NO"}
+        {/* {authPermissionList.has('job-dpt/job-order', 'create') ? "YES" : "NO"}
+        {authPermissionList.url_has('create') ? "YES" : "NO"} */}
 
         {authPermissionList.url_has('create') ? <GreenButton
           text={"Add +"}
