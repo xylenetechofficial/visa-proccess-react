@@ -180,7 +180,7 @@ export default function Main(props: {
                     <UpdateContentBox>
                         <SubHeading1 text="AMOUNT :" />
                         <UnlabeledInput 
-// type="number"
+type="number"
                      disabled={true} value={props.currentElement.dad_amount} onchange={()=>console.log("first")} />
                     </UpdateContentBox>
                 </div>

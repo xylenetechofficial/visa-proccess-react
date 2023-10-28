@@ -91,7 +91,7 @@ export default function Main(props: {
                     <SubHeading1 text=" INVOICE AMOUNT :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         value={accountDashboard.invoice_amount}
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, invoice_amount: parseInt(value) })}

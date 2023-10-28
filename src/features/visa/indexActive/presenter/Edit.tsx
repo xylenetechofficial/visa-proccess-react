@@ -89,7 +89,7 @@ export default function Main(props: {
         <UpdateContentBox>
           <SubHeading1 text="visa fee :" />
           <UnlabeledInput 
-// type="number"
+type="number"
                      value={props.editindexActiveList.visa_fee} onchange={(value) => props.setEditIndexActiveList({ ...props.editindexActiveList, visa_fee: parseInt(value) })} />
           {/* name Input */}
 

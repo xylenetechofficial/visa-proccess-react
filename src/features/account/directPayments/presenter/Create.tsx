@@ -96,7 +96,7 @@ export default function Main(props: {
                     <SubHeading1 text="Advance Amount :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         value={candidateAdvancePayment.amount}
                         onchange={(value) => setCandidateAdvancePayment({ ...candidateAdvancePayment, amount: parseInt(value) })}

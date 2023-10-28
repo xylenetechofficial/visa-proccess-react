@@ -53,7 +53,7 @@ export default function Main(props: { consolidateCharge: ConsolidateChargeInterf
                 label="Charge"
                 value={charge}
                 
-// type="number"
+type="number"
                     
                 onChangeValue={(value: string) => {
                     setCharge(parseInt(value));

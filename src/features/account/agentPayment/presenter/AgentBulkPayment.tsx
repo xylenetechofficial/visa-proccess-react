@@ -59,13 +59,10 @@ const AgentBulkPayment = (props: {
           <SubHeading1 text=" Amount :" />
           <UnlabeledInput
 
-            // type="number"
+            type="number"
 
-            value={agentPayment.amount < 1 ? "" : agentPayment.amount}
+            value={agentPayment.amount}
             onchange={(value) => {
-              if (value == "")
-                value = '0'
-
               setagentPayment({ ...agentPayment, amount: parseInt(value) })
               // const numberRegex = /[0-9]+$/;
               // if (numberRegex.test(value) || value === '') {

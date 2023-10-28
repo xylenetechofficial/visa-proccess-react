@@ -117,7 +117,7 @@ const AgentCommissionTable = (props: {
               <UpdateContentBox>
                 <SubHeading1 text=" Agent Commission :" />
                 <UnlabeledInput 
-// type="number"
+type="number"
                      value={props.agentPaymentReceived.agent_commission} onchange={(value) => { setAgentCommission(parseInt(value)); props.setAgentPaymentReceived({ ...props.agentPaymentReceived, agent_commission: parseInt(value) }); console.log(agentCommission) }} />
               </UpdateContentBox>
             </div>

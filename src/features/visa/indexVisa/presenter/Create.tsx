@@ -386,7 +386,7 @@ export default function Main(props: {
                     <SubHeading1 text="Quantity  :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         value={indexVisa.quantity}
                         onchange={(value) => setIndexVisa({ ...indexVisa, quantity: parseInt(value) })}
@@ -422,7 +422,7 @@ export default function Main(props: {
                         <SubHeading1 text="Visa fee :" />
                         <UnlabeledInput
                             
-// type="number"
+type="number"
                     
                             value={indexVisa.visa_fee}
                             onchange={(value) => setIndexVisa({ ...indexVisa, visa_fee: parseInt(value) })}

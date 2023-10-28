@@ -83,7 +83,7 @@ console.log(props.clientSuspence,"clientSuspence")
                     <SubHeading1 text="AMOUNT RECEIVED (INR)  :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         value={accountDashboard.amount_received}
                         onchange={(value) => setAccountDashboard({ ...accountDashboard, amount_received: parseInt(value) })}

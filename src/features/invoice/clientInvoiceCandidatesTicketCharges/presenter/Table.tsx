@@ -75,7 +75,7 @@ const ClientInvoiceCandidatesTicketChargesTable = (props: {
               <TableCell3>
                 <UnlabeledInput
                   
-// type="number"
+type="number"
                     
                   // value={props.data[index]?.amount}
                   value={ele?.ticket_charges}

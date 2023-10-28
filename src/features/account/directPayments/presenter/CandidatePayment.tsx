@@ -92,7 +92,7 @@ const CandidatePayment = (props: {
           <SubHeading1 text=" Amount :" />
           <UnlabeledInput
             
-// type="number"
+type="number"
                     
             value={CandidatePayment.amount}
             onchange={(value) => {

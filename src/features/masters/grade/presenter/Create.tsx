@@ -48,7 +48,7 @@ export default function Main(props: { onClose: any, fetchGradeList: any }) {
             <StandardInput
                 label="Point"
                 
-// type="number"
+type="number"
                     
                 value={point}
                 onChangeValue={(value: string) => {

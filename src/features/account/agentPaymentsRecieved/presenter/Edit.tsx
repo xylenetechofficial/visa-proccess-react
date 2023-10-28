@@ -78,7 +78,7 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text="Payment Received   :" />
                     <UnlabeledInput 
-// type="number"
+type="number"
                      value={agentPaymentReceivedList.penalty_amount} onchange={(value) => {
                         // handleInputChange(value)
                         setagentPaymentReceivedList({ ...agentPaymentReceivedList, penalty_amount: parseInt(value) })

@@ -282,7 +282,7 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text="Penalty Amount   :" />
                     <UnlabeledInput 
-// type="number"
+type="number"
                      value={molWokPermitCancel.penalty_amount} onchange={(value) =>
                         // handleInputChange(value)
                         setMolWokPermitCancel({ ...molWokPermitCancel, penalty_amount: Number(value) })

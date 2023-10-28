@@ -206,7 +206,7 @@ export default function Main(props: {
                     <SubHeading1 text="HA (SR) :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         disabled={selectionListEle.ha_or_ta_provided ? true : false}
                         value={selectionListEle.ha}
@@ -218,7 +218,7 @@ export default function Main(props: {
                     <SubHeading1 text="TA (SR) :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         disabled={selectionListEle.ha_or_ta_provided ? true : false}
                         value={selectionListEle.ta}
@@ -238,7 +238,7 @@ export default function Main(props: {
                     <SubHeading1 text="FA  :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         disabled={selectionListEle.fa_provided ? true : false}
                         value={selectionListEle.fa}
@@ -250,7 +250,7 @@ export default function Main(props: {
                     <SubHeading1 text="ALLOWANCE  :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         value={selectionListEle.other_allowance}
                         onchange={(value) => setSelectionListEle({ ...selectionListEle, other_allowance: parseInt(value) })}
@@ -270,7 +270,7 @@ export default function Main(props: {
                     <SubHeading1 text="AGE  :" />
                     <UnlabeledInput
                         
-// type="number"
+type="number"
                     
                         value={selectionListEle.age}
                         onchange={(value) => setSelectionListEle({ ...selectionListEle, age: parseInt(value) })}

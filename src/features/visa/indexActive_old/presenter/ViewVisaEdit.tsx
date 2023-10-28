@@ -100,7 +100,7 @@ export default function Main(props:{
           <UpdateContentBox>
             <SubHeading1 text="Visa Quantity:" />
             <UnlabeledInput value={props.visaProEditList.visa_quantity} 
-// type="number"
+type="number"
                      onchange={(value)=>props.setVisaProEditList({...props.visaProEditList, visa_quantity:parseInt(value)})}/>
             {/* name Input */}
            
@@ -109,7 +109,7 @@ export default function Main(props:{
           <UpdateContentBox>
             <SubHeading1 text="Dead Visa Quantity remark :" />
             <UnlabeledInput 
-// type="number"
+type="number"
                      value={props.visaProEditList.dead_visa_qty} onchange={(value)=> props.setVisaProEditList({...props.visaProEditList, dead_visa_qty:parseInt(value)})} />
             <TextAreaInput id="remark" value={props.visaProEditList.remarks} onChange={(value)=>props.setVisaProEditList({...props.visaProEditList, remarks:value})}/>
             {/* name Input */}

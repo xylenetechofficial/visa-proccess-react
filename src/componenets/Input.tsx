@@ -123,11 +123,25 @@ export function UnlabeledInput(props: { placeholder?: string, type?: string, val
 
     const [value, setState] = React.useState(props.value);
     function handleClick(event: any) {
-        setState(event.target.value);
-        props.onchange(event.target.value)
+
+        let value = event.target.value
+        if (props.type == "number") {
+            if (value == "")
+                value = '0'
+        }
+        setState(value);
+        props.onchange(value)
     }
-    return (<input type={props.type} disabled={props.disabled}
-        className="min-w-[130px] max-w-[300px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleClick} placeholder={props.placeholder} value={props.value} ></input>)
+    return (<input
+        // type={props.type}
+        disabled={props.disabled}
+        className="min-w-[130px] max-w-[300px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        onChange={handleClick}
+        placeholder={props.placeholder}
+        // value={props.type == "number" ? props.value < 1 ? "" : props.value : props.value}
+        value={props.type == "number" && props.value < 1 ? "" : props.value}
+    >
+    </input>)
 }
 
 

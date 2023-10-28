@@ -71,7 +71,7 @@ export default function Main(props: {
                     <UnlabeledInput
                         value={element.documentCharges}
                         
-// type="number"
+type="number"
                     
                         onchange={(value) => setElement({ ...element, documentCharges: parseInt(value) })}
                     />
