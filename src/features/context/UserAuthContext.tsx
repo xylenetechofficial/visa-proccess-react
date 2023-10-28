@@ -4,6 +4,7 @@ import { SetJwtToken, getJwtToken } from "../../utils/function";
 import { JwtRestApi, getpermission_ui } from "./Repository";
 import { NavigationAdapter, PermissionHelper, NavigationInterface, PermissionNavigationInterface } from "../../componenets/model";
 import { navigations as NAV } from '../../navigation';
+import { BYPASS } from "../../constant";
 
 // create user context
 const userAuthContext = createContext<any>(null);
@@ -60,8 +61,10 @@ export function UserAuthContextProvider(props: { children: any }) {
             const permissionListNavigationData = await getpermission_ui()
             // if (permissionListNavigationData) {
             setPermissionList(permissionListNavigationData.permission_list ?? [])
-            // setNavigationList(permissionListNavigationData.navigation_list ?? [])
-            setNavigationList(NAV)
+            if (BYPASS)
+                setNavigationList(NAV)
+            else
+                setNavigationList(permissionListNavigationData.navigation_list ?? [])
             // }
 
             setLoading(false)

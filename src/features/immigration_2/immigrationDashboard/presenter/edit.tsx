@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
-import { readImmigrationDonePPReleaseList, createImmigrationDonePPRelease } from "../repository";
-import ImmigrationDOnePPReleaseTable from "./Table";
-import { ImmigrationDonePPReleaseInterface } from "../type";
+import { readImmigrationList, updateImmigrationList } from "../repository";
+import ImmigrationTable from "./Table";
+import { ImmigrationInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 
 export default function Main(props: {
     onClose: any,
 }) {
 
-    const [immigrationDonePPReleaseList, setImmigrationDonePPReleaseList] = useState<ImmigrationDonePPReleaseInterface[]>([]);
+    const [immigrationList, setImmigrationList] = useState<ImmigrationInterface[]>([]);
     const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
         {
             pagination: {
@@ -23,11 +23,11 @@ export default function Main(props: {
     );
 
     const fetchImmigrationDoneList = async (page?: number) => {
-        const data: any = await readImmigrationDonePPReleaseList({
+        const data: any = await readImmigrationList({
             page: page ?? 1,
-            status: "no"
-          });
-        setImmigrationDonePPReleaseList(data);
+            status: "yes"
+        });
+        setImmigrationList(data);
         setAdditionalData(await PaginationManager.getData());
     };
     useEffect(() => {
@@ -38,10 +38,10 @@ export default function Main(props: {
     const onClickSubmit = async () => {
         const newArray = []
 
-        for (let i = 0; i < immigrationDonePPReleaseList.length; i++) {
-            if (immigrationDonePPReleaseList[i].checked) newArray.push(immigrationDonePPReleaseList[i])
+        for (let i = 0; i < immigrationList.length; i++) {
+            if (immigrationList[i].checked) newArray.push(immigrationList[i])
         }
-        const update = await createImmigrationDonePPRelease(newArray)
+        const update = await updateImmigrationList(newArray)
         if (update) {
             // props.onClose();
             fetchImmigrationDoneList()
@@ -52,15 +52,15 @@ export default function Main(props: {
         <FullScreenModal
             buttonName="submit"
             handleClick={onClickSubmit}
-            title="Add"
+            title="Edit"
             onClose={props.onClose}
         >
             <div className="overflow-auto">
-                <ImmigrationDOnePPReleaseTable
+                <ImmigrationTable
                     snoBase={additionalData.pagination.sno_base}
-                    RcPPRecieved_list={immigrationDonePPReleaseList}
-                    onChange={(list) => setImmigrationDonePPReleaseList(list)}
-                    actionType="add"
+                    list={immigrationList}
+                    actionType="edit"
+                    onChange={(list) => setImmigrationList(list)}
                 />
                 <Pagination
                     data={additionalData}

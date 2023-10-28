@@ -5,7 +5,7 @@ import { Box, styled } from "@mui/material";
 import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { MolForwardedTovisaDepartmentDataInterface } from "../type";
-import { readMolForwardedTovisaDept,  updateMolWorkPermitCancelData } from "../repository";
+import { readMolForwardedTovisaDept, updateMolWorkPermitCancelData } from "../repository";
 import Table from "./Table";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import CancelModal from './CancelModal';
@@ -24,7 +24,7 @@ export default function Main() {
     const [modalName, setModalName] = useState('')
 
     const [searchQuery, setSearchQuery] = useState("")
-    const [currentData, setCurrentData]=useState<any>({})
+    const [currentData, setCurrentData] = useState<any>({})
     const filterData = (query: string, data: MolForwardedTovisaDepartmentDataInterface[]) => {
         if (!query) {
             return data;
@@ -45,8 +45,8 @@ export default function Main() {
 
     // useEffect(() => {
     // }, [editIndexVisa, modalName])
-    const onClickSubmit =async () => {
-            const res=await  updateMolWorkPermitCancelData(MolWorkPermitList)
+    const onClickSubmit = async () => {
+        const res = await updateMolWorkPermitCancelData(MolWorkPermitList)
     }
 
 
@@ -67,7 +67,7 @@ export default function Main() {
     return (
 
         <div >
-            <CustomNavbarV3 pageName="Mol /Work Permit Cancel" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="Mol /Work Permit Cancel" searchFunction={(query) => setSearchQuery(query)} refresh={() => fetchMolForwardedToDepartment()} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -78,10 +78,10 @@ export default function Main() {
             <Table
                 MolWorkPermitList={MolWorkPermitList}
                 onChange={(value) => setMolWorkPermitList(value)}
-                setModalName={(value)=> setModalName(value)}
+                setModalName={(value) => setModalName(value)}
                 setCurrentData={setCurrentData}
             />
-            {modalName === 'cancel' ? <CancelModal currentData={currentData} setModalName={(value)=> setModalName(value)} />:''}
+            {modalName === 'cancel' ? <CancelModal currentData={currentData} setModalName={(value) => setModalName(value)} /> : ''}
             <GreenButton onClick={onClickSubmit} text="Submit" />
 
 

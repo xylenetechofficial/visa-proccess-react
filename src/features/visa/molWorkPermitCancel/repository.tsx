@@ -1,4 +1,4 @@
-import { MolForwardedTovisaDepartmentDataAdapter, MolForwardedTovisaDepartmentDataConverter, MolForwardedTovisaDepartmentDataInterface } from "./type";
+import { MolForwardedTovisaDepartmentDataAdapter, MolForwardedTovisaDepartmentDataConverter, MolForwardedTovisaDepartmentDataInterface, MolWorkPermitCancelConverter2, MolWorkPermitCancelInterface2 } from "./type";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -42,3 +42,15 @@ export async function updateMolWorkPermitCancelData(candidateList: MolForwardedT
   return response
 }
 
+export async function addMolWorkPermitCancel(data: MolWorkPermitCancelInterface2) {
+
+  const payload = MolWorkPermitCancelConverter2.toAdapter(data)
+
+  const path = "/visa-dpt/mol-work-permit-cancel"
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+  return response
+}
