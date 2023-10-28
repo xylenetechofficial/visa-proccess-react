@@ -12,6 +12,8 @@ export const navigations: any[] = [
       { name: 'Company', icon: 'pageview', path: '/masters/company' },
       { name: 'Country', icon: 'pageview', path: '/masters/country' },
       { name: 'Agency', icon: 'pageview', path: '/masters/agency' },
+      { name: 'New User', icon: 'pageview', path: '/masters/newUser' },
+      { name: 'Permission', icon: 'pageview', path: '/masters/permission' },
       { name: 'Bank', icon: 'pageview', path: '/masters/bank' },
       { name: 'Sector', icon: 'pageview', path: '/masters/sector' },
       { name: 'Interview Sector', icon: 'pageview', path: '/masters/interview-sector' },

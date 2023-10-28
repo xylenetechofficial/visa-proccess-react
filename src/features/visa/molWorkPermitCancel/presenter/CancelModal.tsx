@@ -119,7 +119,7 @@ export default function Main(props: {
 
                             <UpdateContentBox>
                                 <SubHeading1 text="PENALTY AMOUNT  :" />
-                                <UnlabeledInput value={molWorkPermit.penalty_amount} onchange={(value) => setmolWorkPermit({ ...molWorkPermit, penalty_amount: parseInt(value) })} />
+                                <UnlabeledInput type='number' value={molWorkPermit.penalty_amount} onchange={(value) => setmolWorkPermit({ ...molWorkPermit, penalty_amount: parseInt(value) })} />
                             </UpdateContentBox>
                             <UpdateContentBox>
                                 <SubHeading1 text="MISTAKE BY  :" />

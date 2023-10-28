@@ -11,6 +11,8 @@ import User from './user/Router';
 import Role from './role/Router';
 import Sector from "./sector/Router"
 import Agency from './agency/Router';
+import NewUser from './newUser/Router';
+import Permission from './permissionGroup/Router';
 import OtherDocs from './other_docs/Router';
 import InterviewSector from './interviewSector/Router';
 import VisaAuthorisation from './visaAuthorization/Router';
@@ -42,6 +44,8 @@ function Main() {
             <Route path='/role/*' element={<Role />}></Route>
             <Route path='/sector/*' element={<Sector />}></Route>
             <Route path='/agency/*' element={<Agency />}></Route>
+            <Route path='/newUser/*' element={<NewUser />}></Route>
+            <Route path='/permission/*' element={<Permission />}></Route>
             <Route path='/other-docs/*' element={<OtherDocs />}></Route>
             <Route path='/interview-sector/*' element={<InterviewSector />}></Route>
             <Route path='/visa-authorisation/*' element={<VisaAuthorisation />}></Route>
