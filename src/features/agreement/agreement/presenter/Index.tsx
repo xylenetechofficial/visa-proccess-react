@@ -16,6 +16,7 @@ import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
 import AgreementTable from "./Table";
+import { AdditionalDataInterface } from "../../../../utils/api_helper";
 const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -30,6 +31,17 @@ export default function Main() {
     // const [editBlockVisa, setEditBlockVisa] = useState<BlockVisaInterface>({} as BlockVisaInterface)
 
     const [modalName, setModalName] = useState('')
+
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+        {
+          pagination: {
+            page: 1,
+            page_count: 1,
+            item_count: 0,
+            sno_base: 0,
+          },
+        }
+      );
 
     const onClickCreate = () => {
         setModalName('create');

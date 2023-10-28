@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import CreateModal from './Create'
-import EditModal from './Edit'
+import CreateModal from "./Create";
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import TicketIssueTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
-import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { TicketIssueInterface } from "../type";
 import { deleteTicketIssue, readTicketIssueList } from "../repository";
@@ -16,140 +19,170 @@ import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/
 import { readInterviewSchedulePeriodList } from "../../interviewSchedulePeriod/repository";
 import { SectorInterface } from "../../../masters/sector/type";
 import { readSectorList } from "../../../masters/sector/repository";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
+  display: "flex",
+  flexWrap: "wrap",
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Main() {
-    const [ticketIssueList, setTicketIssueList] = useState<TicketIssueInterface[]>([])
+  const [ticketIssueList, setTicketIssueList] = useState<
+    TicketIssueInterface[]
+  >([]);
 
-    const [editTicketIssue, setEditTicketIssue] = useState<TicketIssueInterface>({} as TicketIssueInterface)
+  const [editTicketIssue, setEditTicketIssue] = useState<TicketIssueInterface>(
+    {} as TicketIssueInterface
+  );
 
-    const [modalName, setModalName] = useState('')
+  const [modalName, setModalName] = useState("");
 
-    const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
-
-    const filterData = (query: string, data: TicketIssueInterface[]) => {
-        if (!query) {
-            return data;
-        } else {
-            return data.filter((d) =>
-                d.date.toLowerCase().includes(query.toLowerCase())
-            );
-        }
-    };
-    const dataFiltered = filterData(searchQuery, ticketIssueList);
-
-    
-
-
-
-
-    const onClickEdit = (interviewSchedule: TicketIssueInterface) => {
-        setEditTicketIssue(interviewSchedule)
-        console.log("onClickEdit");   // Only Dev
-        console.log(interviewSchedule);   // Only Dev
-        setModalName('edit')
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
     }
+  );
 
-    const onClickDelete = async (interviewSchedule: TicketIssueInterface) => {
-        const flag = await confirmationMessage("Do you really want to delete?")
-        if (flag && interviewSchedule.id) {
-            await deleteTicketIssue(interviewSchedule.id);
-            fetchTicketIssueList()
-        }
+  const filterData = (query: string, data: TicketIssueInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.date.toLowerCase().includes(query.toLowerCase())
+      );
     }
+  };
+  const dataFiltered = filterData(searchQuery, ticketIssueList);
 
-    // useEffect(() => {
-    // }, [editTicketIssue, modalName])
+  const onClickEdit = (interviewSchedule: TicketIssueInterface) => {
+    setEditTicketIssue(interviewSchedule);
+    console.log("onClickEdit"); // Only Dev
+    console.log(interviewSchedule); // Only Dev
+    setModalName("edit");
+  };
 
-    const fetchTicketIssueList = async () => {
-        const data = await readTicketIssueList()
-        setTicketIssueList(data)
-        filterData("", data)
+  const onClickDelete = async (interviewSchedule: TicketIssueInterface) => {
+    const flag = await confirmationMessage("Do you really want to delete?");
+    if (flag && interviewSchedule.id) {
+      await deleteTicketIssue(interviewSchedule.id);
+      fetchTicketIssueList();
     }
-    const [companyList, setCompanyList] = useState<CompanyInterface[]>([])
+  };
 
-    const fetchCompanyList = async () => {
-        const data = await readCompanyList();
-        setCompanyList(data)
-    }
+  // useEffect(() => {
+  // }, [editTicketIssue, modalName])
 
+  const fetchTicketIssueList = async (page?: number) => {
+    const data = await readTicketIssueList(page ?? 1);
+    setTicketIssueList(data);
+    filterData("", data);
+    setAdditionalData(await PaginationManager.getData());
+  };
+  const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
 
-    const [interviewschedulePeriodList, setInterviewschedulePeriodList] = useState<InterviewSchedulePeriodInterface[]>([])
-    const fetchTicketIssuePeriodList = async () => {
-        const data = await readInterviewSchedulePeriodList();
-        setInterviewschedulePeriodList(data);
-    }
+  const fetchCompanyList = async () => {
+    const data = await readCompanyList();
+    setCompanyList(data);
+  };
 
-    const [sectorList, setSectorList] = useState<SectorInterface[]>([])
+  const [interviewschedulePeriodList, setInterviewschedulePeriodList] =
+    useState<InterviewSchedulePeriodInterface[]>([]);
+  const fetchTicketIssuePeriodList = async () => {
+    const data = await readInterviewSchedulePeriodList();
+    setInterviewschedulePeriodList(data);
+  };
 
-    const fetchSectorList = async () => {
-        const data = await readSectorList();
-        setSectorList(data)
-    }
-    useEffect(() => {
-        fetchTicketIssuePeriodList()
-        fetchTicketIssueList()
-        fetchCompanyList()
-        fetchSectorList()
-    }, [])
+  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
 
+  const fetchSectorList = async () => {
+    const data = await readSectorList();
+    setSectorList(data);
+  };
+  useEffect(() => {
+    fetchTicketIssuePeriodList();
+    fetchTicketIssueList(additionalData.pagination.page);
+    fetchCompanyList();
+    fetchSectorList();
+  }, []);
 
+  return (
+    <div>
+      <CustomNavbarV3
+        pageName="Ticket Issue"
+        searchFunction={(value) => setSearchQuery(value)}
+      />
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-    return (
+        {/* Add */}
+        <GreenButton
+          text={"Add +"}
+          onClick={() => {
+            setModalName("create");
+          }}
+        />
+      </CardHeader>
 
-        <div >
-            <CustomNavbarV3 pageName="Ticket Issue" searchFunction={(value)=>setSearchQuery(value)} />
-            <CardHeader>
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+      {/*  interviewSchedule stable */}
+      <TicketIssueTable
+       snoBase={additionalData.pagination.sno_base}
+        companyList={companyList}
+        interviewScheduleList={dataFiltered}
+        onClickEdit={onClickEdit}
+        onClickDelete={onClickDelete}
+        InterviewSchedulePeriodList={interviewschedulePeriodList}
+        sectorList={sectorList}
+      />
 
-                {/* Add */}
-                <GreenButton text={"Add +"} onClick={() => {
-                    setModalName("create")
-                }} />
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchTicketIssueList(e);
+        }}
+      />
+      {/* <!-- Modal --> */}
 
-            </CardHeader>
+      {/* Create */}
+      {modalName !== "create" ? (
+        ""
+      ) : (
+        <CreateModal
+          companyList={companyList}
+          onClose={() => setModalName("")}
+          fetchTicketIssueList={fetchTicketIssueList}
+          interviewSchedulePeriodList={interviewschedulePeriodList}
+          sectorList={sectorList}
+        />
+      )}
 
-
-            {/*  interviewSchedule stable */}
-            <TicketIssueTable
-                companyList={companyList}
-                interviewScheduleList={dataFiltered}
-                onClickEdit={onClickEdit}
-                onClickDelete={onClickDelete}
-                InterviewSchedulePeriodList={interviewschedulePeriodList}
-                sectorList={sectorList}
-            />
-
-            {/* <!-- Modal --> */}
-
-            {/* Create */}
-            {modalName !== "create" ? "" :
-                <CreateModal
-                    companyList={companyList}
-                    onClose={() => setModalName("")}
-                    fetchTicketIssueList={fetchTicketIssueList}
-                    interviewSchedulePeriodList={interviewschedulePeriodList}
-                    sectorList={sectorList}
-                />}
-
-            {/* Edit */}
-            {modalName !== "edit" ? "" :
-                <EditModal
-                    companyList={companyList}
-                    currentElement={editTicketIssue}
-                    onClose={() => setModalName("")}
-                    fetchTicketIssueList={fetchTicketIssueList}
-                    TicketIssuePeriodList={interviewschedulePeriodList}
-                    sectorList={sectorList}
-                />}
-        </div>
-    )
+      {/* Edit */}
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal
+          companyList={companyList}
+          currentElement={editTicketIssue}
+          onClose={() => setModalName("")}
+          fetchTicketIssueList={fetchTicketIssueList}
+          TicketIssuePeriodList={interviewschedulePeriodList}
+          sectorList={sectorList}
+        />
+      )}
+    </div>
+  );
 }

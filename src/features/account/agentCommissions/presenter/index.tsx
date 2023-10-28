@@ -9,7 +9,11 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface, BulkPaymentInterface } from "../type";
+import {
+  AccountDashboardInterface,
+  AgentPaymentReceivedInterface,
+  BulkPaymentInterface,
+} from "../type";
 import {
   createBulkPayment,
   createCashPayment,
@@ -17,7 +21,8 @@ import {
   readAccountDashboardList,
   readAgentPaymentReceivedList,
 } from "../repository";
-
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -29,44 +34,49 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-
-
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
 
   const [editAccountDashboard, setAccountDashboard] =
     useState<AccountDashboardInterface>({} as AccountDashboardInterface);
 
   const [modalName, setModalName] = useState("");
-  const [agentPaymentReceivedList,setAgentPaymentReceivedList]= useState([])
-  const onClickEdit = (modaltype: string, accountDashboard: AccountDashboardInterface) => {
-    console.log(accountDashboard, "CCCCCC", modaltype)
+  const [agentPaymentReceivedList, setAgentPaymentReceivedList] = useState([]);
+  const onClickEdit = (
+    modaltype: string,
+    accountDashboard: AccountDashboardInterface
+  ) => {
+    console.log(accountDashboard, "CCCCCC", modaltype);
     setAccountDashboard(accountDashboard);
     console.log("onClickEdit", modaltype); // Only Dev
     console.log(accountDashboard, modaltype); // Only Dev
     setModalName(modaltype);
   };
 
-
-
   const onAddBulkPayment = async (bulkPayment: BulkPaymentInterface) => {
     console.log("first", bulkPayment);
-    await createBulkPayment(bulkPayment)
-
-  }
+    await createBulkPayment(bulkPayment);
+  };
   const onAddCashPayment = async (bulkPayment: BulkPaymentInterface) => {
     console.log("first", bulkPayment);
-    await createCashPayment(bulkPayment)
+    await createCashPayment(bulkPayment);
+  };
 
-  }
-
-  const onAmountReceived =async (id:number)=>{
-    const data :any=await readAgentPaymentReceivedList(id)
-    console.log(data)
-    if(data){
-      setAgentPaymentReceivedList(data)
+  const onAmountReceived = async (id: number) => {
+    const data: any = await readAgentPaymentReceivedList(id);
+    console.log(data);
+    if (data) {
+      setAgentPaymentReceivedList(data);
     }
-  }
-
-  
+  };
 
   const [accountDashboardList, setAccountDashboardList] = useState<
     AccountDashboardInterface[]
@@ -86,17 +96,17 @@ export default function Main() {
   };
   const dataFiltered = filterData(searchQuery, accountDashboardList);
 
-  const fetchAccountDashboardList = async () => {
-    const data = await readAccountDashboardList();
+  const fetchAccountDashboardList = async (page?: number) => {
+    const data = await readAccountDashboardList(page ?? 1);
 
     if (data) {
       setAccountDashboardList(data);
     }
+    setAdditionalData(await PaginationManager.getData());
     // setAccountDashboardList(data);
   };
   useEffect(() => {
-    fetchAccountDashboardList();
-    
+    fetchAccountDashboardList(additionalData.pagination.page);
   }, []);
 
   return (
@@ -107,63 +117,68 @@ export default function Main() {
       />
 
       <CardHeader>
-
-
-
-
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-
       </CardHeader>
-
 
       {/*  AccountDashboard stable */}
       <AccountDashboardTable
         accountDashboardList={dataFiltered}
         onClickEdit={onClickEdit}
         onAmountReceived={onAmountReceived}
+        snoBase={additionalData.pagination.sno_base}
+      />
+
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchAccountDashboardList(e);
+        }}
       />
 
       {/* <!-- Modal --> */}
       {/*  Payment details  */}
-      {modalName !== "paymentdetails" ? "" :
-        <Modal open={true}
+      {modalName !== "paymentdetails" ? (
+        ""
+      ) : (
+        <Modal
+          open={true}
           onClose={() => setModalName("")}
           aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
+          aria-describedby="modal-modal-description"
+        >
           <PaymentDetail
             currentElement={editAccountDashboard}
             agentPaymentReceivedList={agentPaymentReceivedList}
             onClose={() => {
-              setModalName(""), console.log(
-                modalName, "SSSSSSSSS"
-              )
+              setModalName(""), console.log(modalName, "SSSSSSSSS");
             }}
             fetchAccountDashboardList={fetchAccountDashboardList}
-          
           />
-        </Modal>}
-    
+        </Modal>
+      )}
 
       {/* Agent Commission */}
-      {modalName !== "agentcommission" ? "" :
-        <Modal open={true}
+      {modalName !== "agentcommission" ? (
+        ""
+      ) : (
+        <Modal
+          open={true}
           onClose={() => setModalName("")}
           aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
+          aria-describedby="modal-modal-description"
+        >
           <EditModal
             currentElement={editAccountDashboard}
             onClose={() => {
-              setModalName(""), console.log(
-                modalName, "SSSSSSSSS"
-              )
+              setModalName(""), console.log(modalName, "SSSSSSSSS");
             }}
             fetchAccountDashboardList={fetchAccountDashboardList}
             onAddBulkPayment={onAddBulkPayment}
             onAddCashPayment={onAddCashPayment}
           />
         </Modal>
-      }
+      )}
       {/* <div className="mt-4">
         <CustomButton2 buttonText="Submit" onClick={() => console.log("sd")} />
       </div> */}

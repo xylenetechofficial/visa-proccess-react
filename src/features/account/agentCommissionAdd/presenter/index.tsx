@@ -8,6 +8,7 @@ import { createAgentCommission } from "../repository";
 import { SubHeading2 } from "../../../../componenets/CoustomHeader";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { readAccount } from "../../agentCommissions/repository";
+import { AdditionalDataInterface } from "../../../../utils/api_helper";
 
 
 const CardHeader = styled(Box)(() => ({
@@ -23,6 +24,16 @@ export default function Main(
 
 ) {
 
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
 
   const [passportNo, setPassportNo] = useState<any>("")
 

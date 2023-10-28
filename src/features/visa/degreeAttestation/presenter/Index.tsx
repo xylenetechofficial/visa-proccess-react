@@ -4,14 +4,21 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import DegreeAttestationTable from "./Table";
-import { BlueButton, GreenButton, YellowButton } from "../../../../componenets/CustomButton";
+import {
+  BlueButton,
+  GreenButton,
+  YellowButton,
+} from "../../../../componenets/CustomButton";
 import { Box, styled } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
 import { DegreeAttestationInterface } from "../type/DegreeAttestation";
 import { readDegreeAttestationList } from "../repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { useUserAuth } from "../../../context/UserAuthContext";
 
@@ -25,11 +32,13 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  const { authPermissionList } = useUserAuth()
+  const { authPermissionList } = useUserAuth();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [modalName, setModalName] = useState("");
-  const [degreAttestationList, setDegreAttestationList] = useState<DegreeAttestationInterface[]>([])
+  const [degreAttestationList, setDegreAttestationList] = useState<
+    DegreeAttestationInterface[]
+  >([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -42,17 +51,16 @@ export default function Main() {
   );
 
   const fetch_list = async (page?: number) => {
-    const res = await readDegreeAttestationList({ page_number: page })
+    const res = await readDegreeAttestationList({ page_number: page ?? 1 });
     setDegreAttestationList(res);
     setAdditionalData(await PaginationManager.getData());
-
-  }
+  };
   useEffect(() => {
-    fetch_list(additionalData.pagination.page)
-  }, [])
+    fetch_list(additionalData.pagination.page);
+  }, []);
 
   return (
-    <>
+    <div className="h-screen">
       <CustomNavbarV3
         pageName="Degree Attestation"
         searchFunction={(query) => setSearchQuery(query)}
@@ -62,41 +70,64 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         <div>
-          {authPermissionList.url_has('create') ? <GreenButton
-            text={"Add"}
-            onClick={() => {
-              setModalName("add");
-            }}
-          /> : ""}
-          {authPermissionList.url_has('update') ? <BlueButton
-            text={"Edit"}
-            onClick={() => {
-              setModalName("edit");
-            }}
-          /> : ""}
+          {authPermissionList.url_has("create") ? (
+            <GreenButton
+              text={"Add"}
+              onClick={() => {
+                setModalName("add");
+              }}
+            />
+          ) : (
+            ""
+          )}
+          {authPermissionList.url_has("update") ? (
+            <BlueButton
+              text={"Edit"}
+              onClick={() => {
+                setModalName("edit");
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </CardHeader>
 
-      <DegreeAttestationTable degreAttestationList={degreAttestationList} fetch_list={fetch_list} />
+      <DegreeAttestationTable
+      snoBase={additionalData.pagination.sno_base}
+        degreAttestationList={degreAttestationList}
+        fetch_list={fetch_list}
+      />
 
       {/* <Pagination data={additionalData} onPageChange={(e) => { fetch_list(e) }} /> */}
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetch_list(e);
+        }}
+      />
 
       {modalName !== "create" ? (
         ""
       ) : (
-        <CreateModal onClose={() => {
-          fetch_list()
-          setModalName("")
-        }} />
+        <CreateModal
+          onClose={() => {
+            fetch_list();
+            setModalName("");
+          }}
+        />
       )}
       {modalName !== "edit" ? (
         ""
       ) : (
-        <EditModal onClose={() => {
-          fetch_list()
-          setModalName("")
-        }} />
+        <EditModal
+          onClose={() => {
+            fetch_list();
+            setModalName("");
+          }}
+        />
       )}
-    </>
+    </div>
   );
 }

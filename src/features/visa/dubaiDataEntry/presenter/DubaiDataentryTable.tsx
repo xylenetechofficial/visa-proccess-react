@@ -17,6 +17,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const DubaiDataEntryTable = (props: {
+    snoBase:number,
     dubaiDataEntryList: DubaiDataEntryInterface[],
     onChange: (ele: DubaiDataEntryInterface[]) => void,
     fetchDubaiDataEntryList: () => void
@@ -123,6 +124,7 @@ const DubaiDataEntryTable = (props: {
                 <TableBody3>
                     {props.dubaiDataEntryList && props.dubaiDataEntryList.map((ele, index) => (
                         <TableData
+                        snoBase={index}
                             data={ele}
                             index={index}
                             onChange={onChange}
@@ -158,6 +160,7 @@ export default DubaiDataEntryTable
 
 const TableData = (
     props: {
+        snoBase:number
         index: number;
         data: DubaiDataEntryInterface;
         // onClickEdit: any;

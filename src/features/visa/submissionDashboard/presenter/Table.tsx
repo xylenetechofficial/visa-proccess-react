@@ -62,6 +62,7 @@ const initValue: SubmissionDashboardInterface = {
 }
 
 const Table = (props: {
+    snoBase:number,
     submissionDashboardDataList: SubmissionDashboardInterface[],
     onChange: (ele: SubmissionDashboardInterface[]) => void,
     fetchSubmisionDashboardDataList: () => void

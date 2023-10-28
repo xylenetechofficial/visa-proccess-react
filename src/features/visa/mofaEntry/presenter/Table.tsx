@@ -7,6 +7,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const Table = (props: {
+    snoBase:number,
     candidateList: Mofa_Entry_Candidate_Interface[],
     onClickAdd: (ele: Mofa_Entry_Candidate_Interface) => void,
     onClickEdit: (ele: Mofa_Entry_Candidate_Interface) => void,
@@ -59,7 +60,7 @@ const Table = (props: {
                     {props.candidateList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.company_name}</TableCell3>
                             <TableCell3 > {ele.party_code}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>

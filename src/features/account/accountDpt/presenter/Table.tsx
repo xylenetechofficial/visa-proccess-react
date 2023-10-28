@@ -1,4 +1,3 @@
-
 import {
   Table3,
   TableBody3,
@@ -13,16 +12,13 @@ import { RedButton } from "../../../../componenets/CustomButton";
 import { PaymentReceivedInterface } from "../type";
 
 const AccountCandidatesListTable = (props: {
-
+  snoBase: number;
   paymentReceivedList: PaymentReceivedInterface[];
-  
-  onClickEdit: (value: any) => void
-}) => {
 
-  
+  onClickEdit: (value: any) => void;
+}) => {
   return (
     <div className="overflow-auto">
-
       <Table3>
         <TableHeadRed>
           <TableHeadRow3>
@@ -46,15 +42,12 @@ const AccountCandidatesListTable = (props: {
             <TableHeadCell3> EXTRA SERVICE CHARGES </TableHeadCell3>
             <TableHeadCell3> AMOUNT RECEIVED </TableHeadCell3>
             <TableHeadCell3> EDIT </TableHeadCell3>
-
-
           </TableHeadRow3>
         </TableHeadRed>
         <TableBody3>
           {props.paymentReceivedList.map((item: any, index: any) => (
             <TableRow3>
-
-              <TableCell3>{index + 1} </TableCell3>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.party_code} </TableCell3>
               <TableCell3> {item.company_name} </TableCell3>
               <TableCell3> {item.name}</TableCell3>
@@ -73,19 +66,17 @@ const AccountCandidatesListTable = (props: {
               <TableCell3>{item.sector_charges} </TableCell3>
               <TableCell3>{item.extra_service_tax} </TableCell3>
               <TableCell3>{item.amount_received} </TableCell3>
-              <TableCell3> <RedButton text="Edit" onClick={() => props.onClickEdit(item)} /></TableCell3>
-
-
-
+              <TableCell3>
+                {" "}
+                <RedButton
+                  text="Edit"
+                  onClick={() => props.onClickEdit(item)}
+                />
+              </TableCell3>
             </TableRow3>
-
           ))}
-
-
-
         </TableBody3>
       </Table3>
-
     </div>
   );
 };

@@ -14,6 +14,7 @@ import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 import { addDegreeAttestationCancel, addDegreeAttestationForward } from "../repository";
 
 const DegreeAttestationTable = (props: {
+  snoBase:number,
   degreAttestationList: DegreeAttestationInterface[]
   fetch_list: any
 }) => {
@@ -52,7 +53,7 @@ const DegreeAttestationTable = (props: {
         <TableBody3>
           {props.degreAttestationList.map((ele: DegreeAttestationInterface, index: any) => (
             <TableRow3 key={index}>
-              <TableCell3>{index + 1}</TableCell3>
+              <TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3>{ele.candidate_name}</TableCell3>
               <TableCell3>{ele.passport_no}</TableCell3>
               <TableCell3>{ele.actual_position}</TableCell3>

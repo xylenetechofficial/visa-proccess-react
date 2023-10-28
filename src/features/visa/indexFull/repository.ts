@@ -1,14 +1,17 @@
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import { FullIndexListAdapter, FullIndexListConverter, FullIndexListInterface, VisaProfessionAdapter, VisaProfessionEditAdapter, VisaProfessionEditConverter, VisaProfessionEditInterface, VisaProfessionInterface } from "./type2";
 import { VisaProfessionConverter } from "./type/VisaProfession";
 
-export async function readFullIndexList() {
+export async function readFullIndexList(page_number?: number) {
   const path = "/visa-dpt/full-index-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
@@ -24,6 +27,11 @@ export async function readFullIndexList() {
       data.push(FullIndexListConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   return data as FullIndexListInterface[]
 }
 

@@ -5,6 +5,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 
 const AccountDashboardTable = (props: {
+  snoBase:number,
   accountDashboardList: AgentPaymentReceivedInterface[];
   onClickEdit: any;
 }) => {
@@ -40,7 +41,7 @@ const AccountDashboardTable = (props: {
          <TableBody3>
           {props.accountDashboardList.map((ele, index) => (
             <TableRow3 key={index}>
-              <TableCell3>{index + 1}</TableCell3>
+            <TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
               <TableCell3>
               {ele.company_name}

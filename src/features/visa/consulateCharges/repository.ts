@@ -10,6 +10,7 @@ export async function readConsulateChargesList(page_number?: number) {
       tokenType: AuthTokenType.JWT,
       queryParameters: {
         page: page_number ?? 0,
+        
       },
     });
   

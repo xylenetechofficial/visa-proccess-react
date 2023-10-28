@@ -1,5 +1,5 @@
 import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 // get visa - dpt / block - visa - list => GetAccountDashboardList
@@ -13,13 +13,16 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readAccountDashboardList() {
+export async function readAccountDashboardList(page_number?: number) {
   // const path = "/visa-dpt/block-visa-list";
   const path = "/account/agent-commission/receive-payment-list?bulk_payment_id=0&candidate_id=1";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
@@ -37,6 +40,11 @@ export async function readAccountDashboardList() {
       data.push(element);
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   // return data as AccountDashboardInterface[]
   return data as any[]
 }

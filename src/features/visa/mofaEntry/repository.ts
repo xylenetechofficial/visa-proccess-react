@@ -8,15 +8,19 @@ import {
   PartyCodeConverter,
 } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 export async function readMofaEntryCandiateList(
   status: string,
-  partyCode?: number
+  partyCode?: number,
+  page_number?: number
+  
 ) {
   const path = "/visa-dpt/mofa-entry-list";
 
@@ -26,6 +30,7 @@ export async function readMofaEntryCandiateList(
     queryParameters: {
       status: status ?? "",
       party_code: partyCode ?? 0,
+      page: page_number ?? 0,
     },
   });
 
@@ -37,6 +42,10 @@ export async function readMofaEntryCandiateList(
     Mofa_Entry_Converter.toInterfaceList(
       response.data as Mofa_Entry_Candidate_Adapter[]
     );
+       
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data;
 }

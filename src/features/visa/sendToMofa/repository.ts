@@ -1,17 +1,18 @@
 import { SendToMofa_JobOrderAdapter, SendToMofa_JobOrderConverter, SendToMofa_JobOrderInterface, } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 
 
 
-export async function readSendToMofaJobOrder(status:string) {
+export async function readSendToMofaJobOrder(status:string, page_number?: number) {
   const path = "/visa-dpt/send-to-mofa-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
+      page: page_number ?? 0,
       status: status ?? ""
     }
   });
@@ -21,6 +22,10 @@ export async function readSendToMofaJobOrder(status:string) {
   }
 
   const data: SendToMofa_JobOrderInterface[] = SendToMofa_JobOrderConverter.toInterfaceList(response.data as SendToMofa_JobOrderAdapter[])
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data
 }

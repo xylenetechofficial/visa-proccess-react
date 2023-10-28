@@ -1,8 +1,8 @@
 import { TicketIssueAdapter, TicketIssueConverter, TicketIssueInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readTicketIssueList() {
+export async function readTicketIssueList(page_number?: number) {
 
 
   const path = "/domestic-ticket/ticket-issue-list";
@@ -10,6 +10,9 @@ export async function readTicketIssueList() {
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
 
@@ -27,6 +30,10 @@ export async function readTicketIssueList() {
        data.push(TicketIssueConverter.toInterface(element));
      }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as TicketIssueInterface[];
 

@@ -2,89 +2,109 @@ import { useEffect, useState } from "react";
 // import CreateModal from './Create'
 // import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
-import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 
-import { ReadMolRecievedData,  updateMolReceivedData } from "../repository";
+import { ReadMolRecievedData, updateMolReceivedData } from "../repository";
 import Table from "./Table";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { MolReceivedInterface } from "../type";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
+  display: "flex",
+  flexWrap: "wrap",
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Main() {
-    const [JobOrderList, setJobOrderList] = useState<MolReceivedInterface[]>([])
+  const [JobOrderList, setJobOrderList] = useState<MolReceivedInterface[]>([]);
 
-    const [modalName, setModalName] = useState('')
+  const [modalName, setModalName] = useState("");
 
-    const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
-    const filterData = (query: string, data: MolReceivedInterface[]) => {
-        if (!query) {
-            return data;
-        } else {
-            return data.filter((d) =>
-                d.name.toLowerCase().includes(query.toLowerCase())
-            );
-        }
-    };
-    const dataFiltered = filterData(searchQuery, JobOrderList);
-
-    const onClickCreate = () => {
-        setModalName('create');
-
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
     }
+  );
 
-
-
-    // useEffect(() => {
-    // }, [editIndexVisa, modalName])
-    const onClickSubmit =async () => {
-            const res=await  updateMolReceivedData(JobOrderList)
-            fetchMofaRecievedData()
-    
-        }
-
-
-    const fetchMofaRecievedData = async () => {
-        const data = await ReadMolRecievedData();
-        console.log(data);
-        setJobOrderList(data)
+  const filterData = (query: string, data: MolReceivedInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.name.toLowerCase().includes(query.toLowerCase())
+      );
     }
-    useEffect(() => {
+  };
+  const dataFiltered = filterData(searchQuery, JobOrderList);
 
-        fetchMofaRecievedData()
+  const onClickCreate = () => {
+    setModalName("create");
+  };
 
+  // useEffect(() => {
+  // }, [editIndexVisa, modalName])
+  const onClickSubmit = async () => {
+    const res = await updateMolReceivedData(JobOrderList);
+    fetchMofaRecievedData();
+  };
 
-    }, [])
+  const fetchMofaRecievedData = async (page?: number) => {
+    const data = await ReadMolRecievedData(page ?? 1);
+    console.log(data);
+    setJobOrderList(data);
+    setAdditionalData(await PaginationManager.getData());
+  };
+  useEffect(() => {
+    fetchMofaRecievedData(additionalData.pagination.page);
+  }, []);
 
+  return (
+    <div>
+      <CustomNavbarV3
+        pageName="Work permit received from company"
+        searchFunction={(query) => setSearchQuery(query)}
+      />
 
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+      </CardHeader>
 
-    return (
+      {/*  indexVisa stable */}
+      <Table
+      snoBase={additionalData.pagination.sno_base}
+        jobOrderList={JobOrderList}
+        onChange={(value) => setJobOrderList(value)}
+      />
+      <br />
+      <GreenButton onClick={onClickSubmit} text="Submit" />
+      <br />
+      <br />
 
-        <div >
-            <CustomNavbarV3 pageName="Work permit received from company" searchFunction={(query) => setSearchQuery(query)} />
-
-            <CardHeader>
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-            </CardHeader>
-
-
-            {/*  indexVisa stable */}
-            <Table
-                jobOrderList={JobOrderList}
-                onChange={(value) => setJobOrderList(value)}
-
-            />
-            <GreenButton onClick={onClickSubmit} text="Submit" />
-
-
-        </div>
-    )
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchMofaRecievedData(e);
+        }}
+      />
+    </div>
+  );
 }

@@ -11,8 +11,21 @@ import ViewVisaProTable from "./View";
 import EditVisaProTable from "./Edit";
 import { FaFilter } from "react-icons/fa";
 import { ActiveIndexInterface } from "../type/IndexVisa";
-import { readActiveIndexList, readVisaProEditList, updateEditedSingleIndexActiveItem, updateVisaProEdit } from "../repository";
-import { ActiveIndexListInterface, VisaProfessionEditInterface } from "../type2";
+import {
+  readActiveIndexList,
+  readVisaProEditList,
+  updateEditedSingleIndexActiveItem,
+  updateVisaProEdit,
+} from "../repository";
+import {
+  ActiveIndexListInterface,
+  VisaProfessionEditInterface,
+} from "../type2";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 // import { GreenButton } from "../../../../componenets/CustomButton";
 
 export default function Main() {
@@ -27,32 +40,45 @@ export default function Main() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
+
   const [modalName, setModalName] = useState("");
 
-  const [indexActiveList, setIndexActiveList] = useState<ActiveIndexListInterface[]>([]);
-  const [editindexActiveList, setEditIndexActiveList] = useState<ActiveIndexListInterface>({} as ActiveIndexListInterface);
-  
-  const [currentActiveIndex, setCurrentActiveIndex] = useState<ActiveIndexInterface>(
-    {} as ActiveIndexInterface
-  );
-  const [editProVisaList, setEditProVisaList] = useState<[]>([]);
-  const [visaProEditList, setVisaProEditList] = useState<VisaProfessionEditInterface>({} as VisaProfessionEditInterface);
+  const [indexActiveList, setIndexActiveList] = useState<
+    ActiveIndexListInterface[]
+  >([]);
+  const [editindexActiveList, setEditIndexActiveList] =
+    useState<ActiveIndexListInterface>({} as ActiveIndexListInterface);
 
+  const [currentActiveIndex, setCurrentActiveIndex] =
+    useState<ActiveIndexInterface>({} as ActiveIndexInterface);
+  const [editProVisaList, setEditProVisaList] = useState<[]>([]);
+  const [visaProEditList, setVisaProEditList] =
+    useState<VisaProfessionEditInterface>({} as VisaProfessionEditInterface);
 
   const onClickEditProVisa = async (item: any) => {
     console.log("onClickEdit"); // Only Dev
     setModalName("Visa Prof. Edit");
-    console.log(item, "IT")
-    const res: any = await readVisaProEditList(item.party_code)
+    console.log(item, "IT");
+    const res: any = await readVisaProEditList(item.party_code);
     if (res) {
-      setEditProVisaList(res)
+      setEditProVisaList(res);
     }
   };
 
   const onClickVisaProEdit = (item: VisaProfessionEditInterface) => {
     console.log("onClickEdit", item); // Only Dev
     setModalName("Visa Edit");
-    setVisaProEditList(item)
+    setVisaProEditList(item);
   };
 
   const onClickProView = (ActiveIndex: ActiveIndexInterface) => {
@@ -64,30 +90,31 @@ export default function Main() {
   const onClickVisaEdit = (item: ActiveIndexListInterface) => {
     console.log("onClickEdit"); // Only Dev
     setModalName("Edit");
-    setEditIndexActiveList(item)
+    setEditIndexActiveList(item);
   };
 
-  const fetchIndexVisaList = async () => {
-    const data = await readActiveIndexList();
+  const fetchIndexVisaList = async (page?: number) => {
+    const data = await readActiveIndexList(page ?? 1);
     console.log(data);
     setIndexActiveList(data);
+    setAdditionalData(await PaginationManager.getData());
   };
 
   const onClickUpdateVisaProEdit = async () => {
     console.log("onClickUpdateVisaProEdit"); // Only Dev
-    const res: any = await updateVisaProEdit(visaProEditList)
+    const res: any = await updateVisaProEdit(visaProEditList);
     if (res) {
       fetchIndexVisaList();
-      setModalName('')
+      setModalName("");
     }
-  }
+  };
   const onClickUpdatEditIndexActiveList = async () => {
-    const res = await updateEditedSingleIndexActiveItem(editindexActiveList)
-    fetchIndexVisaList()
-  }
+    const res = await updateEditedSingleIndexActiveItem(editindexActiveList);
+    fetchIndexVisaList();
+  };
 
   useEffect(() => {
-    fetchIndexVisaList();
+    fetchIndexVisaList(additionalData.pagination.page);
   }, []);
 
   return (
@@ -102,10 +129,19 @@ export default function Main() {
       </CardHeader>
 
       <IndexActiveTable
+        snoBase={additionalData.pagination.sno_base}
         indexActiveList={indexActiveList}
         onClickEditProVisa={(value: any) => onClickEditProVisa(value)}
         onClickProView={onClickProView}
         onClickVisaEdit={(value) => onClickVisaEdit(value)}
+      />
+
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchIndexVisaList(e);
+        }}
       />
 
       {/* Modal  */}
@@ -134,7 +170,8 @@ export default function Main() {
       {modalName !== "View Visa Prof" ? (
         ""
       ) : (
-        <ViewVisaProTable onClose={() => setModalName("")}
+        <ViewVisaProTable
+          onClose={() => setModalName("")}
           currentActiveIndex={currentActiveIndex}
         />
       )}
@@ -152,7 +189,8 @@ export default function Main() {
           onClose={() => setModalName("")}
           editindexActiveList={editindexActiveList}
           setEditIndexActiveList={setEditIndexActiveList}
-          onClickUpdatEditIndexActiveList={onClickUpdatEditIndexActiveList} />
+          onClickUpdatEditIndexActiveList={onClickUpdatEditIndexActiveList}
+        />
       )}
 
       {/* <div className="flex justify-end items-center mt-3">

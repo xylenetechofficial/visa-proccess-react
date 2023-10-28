@@ -1,8 +1,8 @@
 import { InterviewSchedulePeriodAdapter, InterviewSchedulePeriodConverter, InterviewSchedulePeriodInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readInterviewSchedulePeriodList() {
+export async function readInterviewSchedulePeriodList(page_number?: number) {
 
 
   const path = "/domestic-ticket/interview-schedule-period-list";
@@ -10,6 +10,9 @@ export async function readInterviewSchedulePeriodList() {
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
 
@@ -27,6 +30,11 @@ export async function readInterviewSchedulePeriodList() {
        data.push(InterviewSchedulePeriodConverter.toInterface(element));
      }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+ 
 
   return data as InterviewSchedulePeriodInterface[];
 

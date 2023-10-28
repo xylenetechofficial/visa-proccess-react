@@ -7,6 +7,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const Table = (props: {
+    snoBase:number,
     jobOrderList: SendToMofa_JobOrderInterface[],
     onClickAdd: (ele: SendToMofa_JobOrderInterface) => void,
     onClickEdit: (ele: SendToMofa_JobOrderInterface) => void,
@@ -46,7 +47,7 @@ const Table = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.jobOrderNo}</TableCell3>
                             <TableCell3 > {ele.company}</TableCell3>
                             <TableCell3 > {ele.candidateName}</TableCell3>

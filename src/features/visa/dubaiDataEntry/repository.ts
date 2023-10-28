@@ -1,16 +1,19 @@
 import { DubaiDataEntryAdapter, DubaiDataEntryConverter, DubaiDataEntryInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 
 
 
-export async function readDubaiDataEntryList() {
+export async function readDubaiDataEntryList(page_number?: number) {
   const path = "/visa-dpt/dubai-data-entry-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
@@ -23,6 +26,10 @@ export async function readDubaiDataEntryList() {
     const dataAdapter = response.data as DubaiDataEntryAdapter[];
     data = DubaiDataEntryConverter.toInterfaceList(dataAdapter)
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return data as DubaiDataEntryInterface[]
 }
 

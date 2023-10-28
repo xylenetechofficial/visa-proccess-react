@@ -8,6 +8,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const Table = (props: {
+    snoBase:number,
     MolWorkPermitList: any,
     onChange: (value: MolForwardedTovisaDepartmentDataInterface[]) => void,
     setModalName:(value:string)=>void
@@ -76,7 +77,7 @@ const Table = (props: {
                     {props.MolWorkPermitList.map((ele:any, index:any) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                          <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.passportNo}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.ppIssueDate)}</TableCell3>

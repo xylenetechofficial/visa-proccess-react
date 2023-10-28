@@ -1,11 +1,11 @@
 
 
 import { showMessage_v2 } from "../../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../../utils/api_helper";
 import { AddServiceChargesInterFace, AddServiceConverter, ServiceChargesConverter, ServiceChargesInterface } from "./type";
 
 
-export async function readServiceChargesList() {
+export async function readServiceChargesList(page_number?: number) {
 
 //   const payload = ServiceChargesByIDConverter.toAdapter(AgentBy);
   const path = `/account/service-charge-list`;
@@ -13,8 +13,16 @@ export async function readServiceChargesList() {
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
    
   });
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+ 
+
 console.log(response)
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })

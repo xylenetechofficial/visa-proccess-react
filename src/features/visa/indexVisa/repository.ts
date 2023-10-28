@@ -7,9 +7,11 @@ import {
   JobOrderQuantity,
 } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import {
@@ -29,12 +31,15 @@ import {
 
 // visa-dpt/index-visa/job-order-quantity/{job_order_id}
 
-export async function readIndexVisaList() {
+export async function readIndexVisaList(page_number?: number) {
   const path = "/visa-dpt/index-visa-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
@@ -50,6 +55,11 @@ export async function readIndexVisaList() {
       data.push(IndexVisaConverter.toInterface(element));
     }
   }
+
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return data as IndexVisaInterface[];
 }
 

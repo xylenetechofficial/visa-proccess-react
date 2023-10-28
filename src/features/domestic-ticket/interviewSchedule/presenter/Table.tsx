@@ -14,6 +14,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 const InterviewScheduleTable = (props:
     {
+        snoBase:number,
         companyList: CompanyInterface[],
         interviewScheduleList: InterviewScheduleInterface[],
         onClickEdit: any, onClickDelete: any,
@@ -59,7 +60,7 @@ const InterviewScheduleTable = (props:
                         return (
 
                             <TableRow3 key={index}>
-                                <TableCell3 >{index + 1}</TableCell3>
+                               <TableCell3 >{index + props.snoBase+1}</TableCell3>
                                 <TableCell3 > {companyName}</TableCell3>
                                 <TableCell3>{convertDateFormat(ele.date)}</TableCell3>
                                 <TableCell3>{props.sectorList.map((e) => e.id == ele.sectorId ? e.name : "")}</TableCell3>

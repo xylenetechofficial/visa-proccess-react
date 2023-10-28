@@ -1,5 +1,5 @@
 import { AgentPaymentAddConverter, AgentPaymentAddInterface, AgentPaymentAdapter, AgentPaymentConverter, AgentPaymentInterface, BulkPaymentInterface, AddAgentPaymentInterface , AddSelectionAgentPaymentAdapter, AddAgentPaymentConverter, AgentPaymentByIDInterface, AgentPaymentByIDConverter} from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";
 
@@ -14,7 +14,7 @@ import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveReject
 
 
 // ! EMG
-export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface) {
+export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface,page_number?: number) {
 
   const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
   const path = `/account/agent-payment-list`;
@@ -24,9 +24,11 @@ export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface) {
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       agent_id: AgentBy.agent_id ?? 0,
-      passport_no: AgentBy.passport_no ?? ""
+      passport_no: AgentBy.passport_no ?? "",
+      page: page_number ?? 0,
     }
   });
+
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
@@ -52,6 +54,11 @@ if (response.data) {
     data.push(AgentPaymentConverter.toInterface(element));
   }
 }
+
+await PaginationManager.setData(
+  response.additional_data as AdditionalDataInterface
+);
+
 return dataAdapter as AgentPaymentAdapter[]
 }
 

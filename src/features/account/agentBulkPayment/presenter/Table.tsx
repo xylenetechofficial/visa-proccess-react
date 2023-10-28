@@ -8,6 +8,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 
 const AccountDashboardTable = (props: {
   // accountDashboardList: AgentPaymentReceivedInterface[];
+  snoBase:number,
   accountDashboardList: any[];
   onClickEdit: any;
   onClickDelete: any;
@@ -31,7 +32,7 @@ const AccountDashboardTable = (props: {
          <TableBody3>
           {props.accountDashboardList.map((ele, index) => (
             <TableRow3 key={index}>
-              <TableCell3>{index +1}</TableCell3>
+             <TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele?.agent_name}</TableCell3>
               <TableCell3>
              { convertDateFormat(ele.created_at)}</TableCell3>

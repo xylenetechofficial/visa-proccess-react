@@ -1,11 +1,11 @@
 
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { PaymentReceivedInterface, PaymentReceivedAdapter, PaymentReceivedConverter } from "./type";
 
 
-export async function readPaymentReceivedList() {
+export async function readPaymentReceivedList(page_number?: number) {
 
 //   const payload = ServiceChargesByIDConverter.toAdapter(AgentBy);
   const path = `/account/receive-payment-candidate-list`;
@@ -13,6 +13,9 @@ export async function readPaymentReceivedList() {
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
    
   });
 console.log(response)
@@ -30,6 +33,11 @@ if (response.data) {
     data.push(PaymentReceivedConverter.toInterface(element));
   }
 }
+
+await PaginationManager.setData(
+  response.additional_data as AdditionalDataInterface
+);
+
 return dataAdapter as PaymentReceivedAdapter[]
 }
 

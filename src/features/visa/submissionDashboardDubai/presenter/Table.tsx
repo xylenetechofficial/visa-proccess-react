@@ -9,6 +9,7 @@ import { CountryInterface } from '../../../masters/country/type';
 
 
 const Table = (props: {
+    snoBase:number,
     jobOrderList: Submission_Dash_JobOrderInterface[],
     onClickAdd: (ele: Submission_Dash_JobOrderInterface) => void,
     onClickEdit: (ele: Submission_Dash_JobOrderInterface) => void,
@@ -40,7 +41,7 @@ const Table = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.jobOrderNo}</TableCell3>
                             <TableCell3 width={150} > {ele.company}</TableCell3>
                             <TableCell3 > {ele.division}</TableCell3>

@@ -4,9 +4,11 @@ import {
   DegreeAttestationInterface,
 } from "./type/DegreeAttestation";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
@@ -21,13 +23,17 @@ export async function readDegreeAttestationList(props: {
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       page: props.page_number ?? 0,
-      // status: props.page_number ?? 0,
+      status: props.page_number ?? 0,
     },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return DegreeAttestationConverter.toInterfaceList(
     response.data as DegreeAttestationAdapter[]

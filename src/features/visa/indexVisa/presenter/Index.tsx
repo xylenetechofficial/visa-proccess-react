@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import CreateModal from './Create'
+import CreateModal from "./Create";
 // import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import IndexVisaTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
 import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
-import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { IndexVisaInterface } from "../type";
 import { deleteIndexVisa, readIndexVisaList } from "../repository";
@@ -15,123 +18,143 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
+  display: "flex",
+  flexWrap: "wrap",
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Main() {
-    const [indexVisaList, setIndexVisaList] = useState<IndexVisaInterface[]>([])
-
-    const [editIndexVisa, setEditIndexVisa] = useState<IndexVisaInterface>({} as IndexVisaInterface)
-
-    const [modalName, setModalName] = useState('')
-
-    const [searchQuery, setSearchQuery] = useState("")
-
-    const filterData = (query: string, data: IndexVisaInterface[]) => {
-        if (!query) {
-            return data;
-        } else {
-            return data.filter((d) =>
-                d.index_date.toLowerCase().includes(query.toLowerCase())
-            );
-        }
-    };
-    const dataFiltered = filterData(searchQuery, indexVisaList);
-
-    const onClickCreate = () => {
-        setModalName('create');
-
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
     }
+  );
 
-    const onClickEdit = (indexVisa: IndexVisaInterface) => {
-        setEditIndexVisa(indexVisa)
-        console.log("onClickEdit");   // Only Dev
-        console.log(indexVisa);   // Only Dev
-        setModalName('edit')
+  const [indexVisaList, setIndexVisaList] = useState<IndexVisaInterface[]>([]);
+
+  const [editIndexVisa, setEditIndexVisa] = useState<IndexVisaInterface>(
+    {} as IndexVisaInterface
+  );
+
+  const [modalName, setModalName] = useState("");
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filterData = (query: string, data: IndexVisaInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.index_date.toLowerCase().includes(query.toLowerCase())
+      );
     }
+  };
+  const dataFiltered = filterData(searchQuery, indexVisaList);
 
-    const onClickDelete = async (indexVisa: IndexVisaInterface) => {
-        const flag = await confirmationMessage("Do you really want to delete?")
-        if (flag && indexVisa.id) {
-            await deleteIndexVisa(indexVisa.id);
-            fetchIndexVisaList()
-        }
+  const onClickCreate = () => {
+    setModalName("create");
+  };
+
+  const onClickEdit = (indexVisa: IndexVisaInterface) => {
+    setEditIndexVisa(indexVisa);
+    console.log("onClickEdit"); // Only Dev
+    console.log(indexVisa); // Only Dev
+    setModalName("edit");
+  };
+
+  const onClickDelete = async (indexVisa: IndexVisaInterface) => {
+    const flag = await confirmationMessage("Do you really want to delete?");
+    if (flag && indexVisa.id) {
+      await deleteIndexVisa(indexVisa.id);
+      fetchIndexVisaList();
     }
+  };
 
-    // useEffect(() => {
-    // }, [editIndexVisa, modalName])
-    const [sectorList, setSectorList] = useState<SectorInterface[]>([])
-    const fetchSectorList = async () => {
-        const data = await readSectorList();
-        if (data) {
-            setSectorList(data);
-        }
+  // useEffect(() => {
+  // }, [editIndexVisa, modalName])
+  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
+  const fetchSectorList = async () => {
+    const data = await readSectorList();
+    if (data) {
+      setSectorList(data);
     }
+  };
 
-    const [companyList, setCompanyList] = useState<CompanyInterface[]>([])
-    const fetchcomapanyList = async () => {
-        const data = await readCompanyList();
-        if (data) {
-            setCompanyList(data);
-        }
+  const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
+  const fetchcomapanyList = async () => {
+    const data = await readCompanyList();
+    if (data) {
+      setCompanyList(data);
     }
+  };
 
-    const [countryList, setCountryList] = useState<CountryInterface[]>([])
-    const fetchCountryList = async () => {
-        const data = await readCountryList();
-        if (data) {
-            setCountryList(data);
-        }
+  const [countryList, setCountryList] = useState<CountryInterface[]>([]);
+  const fetchCountryList = async () => {
+    const data = await readCountryList();
+    if (data) {
+      setCountryList(data);
     }
+  };
 
-    // const [BDEList, setBDEList] = useState<CountryInterface[]>([])
-    // const fetchCountryList = async () => {
-    //     const data = await readCompanyList();
-    //     if(data){
-    //         setCompanyList(data);
-    //     }
-    // }
+  // const [BDEList, setBDEList] = useState<CountryInterface[]>([])
+  // const fetchCountryList = async () => {
+  //     const data = await readCompanyList();
+  //     if(data){
+  //         setCompanyList(data);
+  //     }
+  // }
 
-    const fetchIndexVisaList = async () => {
-        const data = await readIndexVisaList();
-        console.log(data);
-        setIndexVisaList(data)
-    }
-    useEffect(() => {
+  const fetchIndexVisaList = async (page?: number) => {
+    const data = await readIndexVisaList(page ?? 1);
+    console.log(data);
+    setIndexVisaList(data);
+    setAdditionalData(await PaginationManager.getData());
+  };
+  useEffect(() => {
+    fetchIndexVisaList(additionalData.pagination.page);
+    fetchSectorList();
+    fetchcomapanyList();
+    fetchCountryList();
+  }, []);
 
-        fetchIndexVisaList()
-        fetchSectorList()
-        fetchcomapanyList()
-        fetchCountryList()
+  return (
+    <div>
+      <CustomNavbarV3
+        pageName="Index Visa"
+        searchFunction={(query) => setSearchQuery(query)}
+      />
 
-    }, [])
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-
-
-    return (
-
-        <div >
-            <CustomNavbarV3 pageName="Index Visa" searchFunction={(query) => setSearchQuery(query)} />
-
-            <CardHeader>
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-               <a href="index-visa/cancel-party-code" target="_blank" rel="noopener noreferrer">
-                 <BlueButton
-                    key={"mfbvjhdb"}
-                    text="View Cancel Party Code"
-                />
-                </a>
-                <GreenButton text={"Add +"} onClick={() => {
-                    setModalName("create")
-                }} />
-                {/* <Button
+        <a
+          href="index-visa/cancel-party-code"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <BlueButton key={"mfbvjhdb"} text="View Cancel Party Code" />
+        </a>
+        <GreenButton
+          text={"Add +"}
+          onClick={() => {
+            setModalName("create");
+          }}
+        />
+        {/* <Button
                     variant="contained"
                     color="success"
                     onClick={() => {
@@ -140,36 +163,47 @@ export default function Main() {
                 >
                     Add IndexVisa +
                 </Button> */}
-                {/* <IconButton>
+        {/* <IconButton>
                     <Icon color="primary">refresh</Icon>
                 </IconButton> */}
-            </CardHeader>
+      </CardHeader>
 
+      {/*  indexVisa stable */}
+      <IndexVisaTable
+      snoBase={additionalData.pagination.sno_base}
+        indexVisaList={dataFiltered}
+        onClickEdit={onClickEdit}
+        onClickDelete={onClickDelete}
+        companyList={companyList}
+        countryList={countryList}
+        sectorList={sectorList}
+      />
 
-            {/*  indexVisa stable */}
-            <IndexVisaTable
-                indexVisaList={dataFiltered}
-                onClickEdit={onClickEdit}
-                onClickDelete={onClickDelete}
-                companyList={companyList}
-                countryList={countryList}
-                sectorList={sectorList}
-            />
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchIndexVisaList(e);
+        }}
+      />
 
-            {/* <!-- Modal --> */}
+      {/* <!-- Modal --> */}
 
-            {/* Create */}
-            {modalName !== "create" ? "" :
-                <CreateModal
-                    onClose={() => setModalName("")}
-                    fetchIndexVisaList={fetchIndexVisaList}
-                    companyList={companyList}
-                    countryList={countryList}
-                    sectorList={sectorList}
-                />}
+      {/* Create */}
+      {modalName !== "create" ? (
+        ""
+      ) : (
+        <CreateModal
+          onClose={() => setModalName("")}
+          fetchIndexVisaList={fetchIndexVisaList}
+          companyList={companyList}
+          countryList={countryList}
+          sectorList={sectorList}
+        />
+      )}
 
-            {/* Edit */}
-            {/* {modalName !== "edit" ? "" :
+      {/* Edit */}
+      {/* {modalName !== "edit" ? "" :
                 <EditModal
                     currentElement={editIndexVisa}
                     onClose={() => setModalName("")}
@@ -178,6 +212,6 @@ export default function Main() {
                     countryList={countryList}
                     sectorList={sectorList}
                 />} */}
-        </div>
-    )
+    </div>
+  );
 }

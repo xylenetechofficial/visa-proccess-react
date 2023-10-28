@@ -1,23 +1,32 @@
 import { Submission_Dash_CandidateAdapter, Submission_Dash_CandidateConverter, Submission_Dash_CandidateInterface, Submission_Dash_JobOrderAdapter, Submission_Dash_JobOrderConverter, Submission_Dash_JobOrderInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 
 
 
-export async function readSourcingCollectionDashboardJobOrder() {
+export async function readSourcingCollectionDashboardJobOrder(page_number?: number) {
   const path = "/visa-dpt/submission-dashboard-dubai-index-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
+
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
 
   const data: Submission_Dash_JobOrderInterface[] = Submission_Dash_JobOrderConverter.toInterfaceList(response.data as Submission_Dash_JobOrderAdapter[])
+
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data
 }

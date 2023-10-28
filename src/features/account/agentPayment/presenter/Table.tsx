@@ -1,4 +1,3 @@
-
 import {
   Table3,
   TableBody3,
@@ -7,49 +6,57 @@ import {
   TableHeadCell3,
   TableHeadRow3,
   TableRow3,
-
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeledv2, selectOptionConveter, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+import {
+  CustomSelectComponentUnlabeledv2,
+  selectOptionConveter,
+  selectOptionConveterv2,
+} from "../../../../componenets/SelectBox";
 import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
 
 const AgentPaymentTable = (props: {
+  snoBase: number;
   // AgentPaymentList: AgentPaymentInterface[];
   AgentPaymentList: any;
-  setAgentPaymentList: any
+  setAgentPaymentList: any;
   data: any;
   setData: any;
-  setModalName: any
-  fetchPaymentDetail: (type: string, id: number) => any
+  setModalName: any;
+  fetchPaymentDetail: (type: string, id: number) => any;
 }) => {
-
-  const [date, setDate] = useState<any>([])
-  console.log(props.data)
+  const [date, setDate] = useState<any>([]);
+  console.log(props.data);
   const checkBalance = (currentBalance: any, balance_amount: any) => {
-    console.log(currentBalance, balance_amount, "Oooo")
+    console.log(currentBalance, balance_amount, "Oooo");
     if (currentBalance > balance_amount) {
-
-      showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+      showMessage_v2({
+        message: "You cannot enter greater than balance amount",
+        status: 401,
+      });
     }
-  }
+  };
 
   const checkBalancefromDropDown = (currentBalance: number, id: number) => {
-    console.log(currentBalance, id, "kkk")
+    console.log(currentBalance, id, "kkk");
     if (id) {
-      const filterId = props.AgentPaymentList.bulk_payment_list.filter((item: any) => item.id === id);
+      const filterId = props.AgentPaymentList.bulk_payment_list.filter(
+        (item: any) => item.id === id
+      );
       if (currentBalance > filterId[0].available_amount) {
-        console.log("first")
-        showMessage_v2({ message: "You cannot enter greater than balance amount", status: 401 })
+        console.log("first");
+        showMessage_v2({
+          message: "You cannot enter greater than balance amount",
+          status: 401,
+        });
       }
-
     }
-  }
+  };
   return (
     <div className="overflow-auto">
-
       <Table3>
         <TableHead3>
           <TableHeadRow3>
@@ -90,136 +97,150 @@ const AgentPaymentTable = (props: {
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
-          {props.AgentPaymentList?.table_data_list?.map((ele: any, index: any) => (
-            <TableRow3 key={index + 1} color={ele.color_code}>
+          {props.AgentPaymentList?.table_data_list?.map(
+            (ele: any, index: any) => (
+              <TableRow3 key={index + 1} color={ele.color_code}>
+                <TableCell3>{index + props.snoBase + 1}</TableCell3>
+                <TableCell3> {ele.party_code}</TableCell3>
+                <TableCell3> {ele.company_name}</TableCell3>
+                <TableCell3> {ele.name}</TableCell3>
+                <TableCell3>{ele.passport_no}</TableCell3>
+                <TableCell3>{ele.actual_profession}</TableCell3>
+                <TableCell3>{ele.visa_profession}</TableCell3>
+                <TableCell3> {ele.agent_name}</TableCell3>
+                <TableCell3>
+                  {" "}
+                  {convertDateFormat(ele.visa_received_date)}
+                </TableCell3>
+                <TableCell3> {ele.visa_authorization}</TableCell3>
+                <TableCell3> {ele.photo_charges}</TableCell3>
+                <TableCell3> {ele.training_charges}</TableCell3>
+                <TableCell3> {ele.other_charges}</TableCell3>
+                <TableCell3> {ele.document_charges}</TableCell3>
+                <TableCell3>
+                  {" "}
+                  {ele.service_charges} ({ele.service_charge_note})
+                </TableCell3>
+                <TableCell3> {ele.partial_charges}</TableCell3>
+                <TableCell3> {ele.sector_charges}</TableCell3>
+                <TableCell3> {ele.consulate_setting_charges}</TableCell3>
+                <TableCell3> {ele?.ticket_charges}</TableCell3>
+                <TableCell3> {ele.attestation_charges}</TableCell3>
+                <TableCell3> {ele.consolidated_charges}</TableCell3>
+                <TableCell3> {ele.penalty_after_deployment}</TableCell3>
+                <TableCell3> {ele.extra_service_tax}</TableCell3>
+                <TableCell3> {ele.agent_commission}</TableCell3>
+                <TableCell3> {ele.discount_amount}</TableCell3>
+                <TableCell3>
+                  {" "}
+                  <p
+                    className="text-red-500 cursor-pointer "
+                    onClick={() => {
+                      props.fetchPaymentDetail("candidate_id", ele),
+                        props.setModalName("viewpaymentdetailfromcandidaite");
+                    }}
+                  >
+                    {ele.received}{" "}
+                  </p>
+                </TableCell3>
+                <TableCell3> {ele.balance_amount}</TableCell3>
+                <TableCell3>
+                  <UnlabeledInput
+                    type="number"
+                    value={props.data[index]?.amount}
+                    onchange={(value) => {
+                      checkBalance(
+                        props.data[index]?.amount,
+                        ele.balance_amount
+                      );
+                      props.setData((prev: any) => {
+                        const newData = [...prev];
+                        newData[index] = {
+                          ...newData[index],
+                          amount: parseInt(value),
+                          id: ele.id,
+                        };
+                        return newData;
+                      });
+                    }}
+                  />
+                </TableCell3>
+                <TableCell3>
+                  <CustomSelectComponentUnlabeledv2
+                    // value={ele.candidate_id}
+                    value={props?.data[index]?.bulk_payment_id}
+                    options={selectOptionConveter({
+                      options: props?.AgentPaymentList?.bulk_payment_list,
+                      options_struct: { name: "name", value: "id" },
+                    })}
+                    onChange={(value) => {
+                      props.setData((prev: any) => {
+                        const newData = [...prev];
+                        newData[index] = {
+                          ...newData[index],
+                          bulk_payment_id: parseInt(value),
+                        };
+                        return newData;
+                      });
 
-              <TableCell3> {index + 1}</TableCell3>
-              <TableCell3> {ele.party_code}</TableCell3>
-              <TableCell3> {ele.company_name}</TableCell3>
-              <TableCell3> {ele.name}</TableCell3>
-              <TableCell3>{ele.passport_no}</TableCell3>
-              <TableCell3>{ele.actual_profession}</TableCell3>
-              <TableCell3>{ele.visa_profession}</TableCell3>
-              <TableCell3> {ele.agent_name}</TableCell3>
-              <TableCell3> {convertDateFormat(ele.visa_received_date)}</TableCell3>
-              <TableCell3> {ele.visa_authorization}</TableCell3>
-              <TableCell3> {ele.photo_charges}</TableCell3>
-              <TableCell3> {ele.training_charges}</TableCell3>
-              <TableCell3> {ele.other_charges}</TableCell3>
-              <TableCell3> {ele.document_charges}</TableCell3>
-              <TableCell3> {ele.service_charges} ({ele.service_charge_note})</TableCell3>
-              <TableCell3> {ele.partial_charges}</TableCell3>
-              <TableCell3> {ele.sector_charges}</TableCell3>
-              <TableCell3> {ele.consulate_setting_charges}</TableCell3>
-              <TableCell3> {ele?.ticket_charges}</TableCell3>
-              <TableCell3> {ele.attestation_charges}</TableCell3>
-              <TableCell3> {ele.consolidated_charges}</TableCell3>
-              <TableCell3> {ele.penalty_after_deployment}</TableCell3>
-              <TableCell3> {ele.extra_service_tax}</TableCell3>
-              <TableCell3> {ele.agent_commission}</TableCell3>
-              <TableCell3> {ele.discount_amount}</TableCell3>
-              <TableCell3> <p className="text-red-500 cursor-pointer " onClick={() => { props.fetchPaymentDetail('candidate_id', ele), props.setModalName('viewpaymentdetailfromcandidaite') }}>{ele.received}  </p></TableCell3>
-              <TableCell3> {ele.balance_amount}</TableCell3>
-              <TableCell3>
-                <UnlabeledInput
-                  
-type="number"
-                    
-                  value={props.data[index]?.amount}
-                  onchange={(value) => {
-                    checkBalance(props.data[index]?.amount, ele.balance_amount)
-                    props.setData((prev: any) => {
-                      const newData = [...prev];
-                      newData[index] = {
-                        ...newData[index],
-                        amount: parseInt(value),
-                        id: ele.id
-                      };
-                      return newData;
-                    });
+                      checkBalancefromDropDown(
+                        props.data[index]?.amount,
+                        props.data[index].bulk_payment_id
+                      );
+                    }}
+                  />
+                </TableCell3>
 
-                  }}
-                />
-              </TableCell3>
-              <TableCell3>
+                <TableCell3>
+                  <Checkbox
+                    value={ele.payment_date}
+                    onChange={(e) => {
+                      props.setData((prev: any) => {
+                        const newData = [...prev];
+                        newData[index] = {
+                          ...newData[index],
+                          advance: e.target.checked ? 1 : 0,
+                          payment_date: convertDateFormat(String(new Date())),
+                        };
+                        return newData;
+                      });
 
+                      setDate([...date, convertDateFormat(String(new Date()))]);
+                    }}
+                  />
+                </TableCell3>
+                <TableCell3>
+                  <DateInput
+                    id="date"
+                    value={ele.payment_date}
+                    onChange={(value) => {
+                      props.setAgentPaymentList((prev: any) => {
+                        const newData = { ...prev };
+                        newData.table_data_list[index] = {
+                          ...newData.table_data_list[index],
+                          payment_date: value,
+                        };
 
-                <CustomSelectComponentUnlabeledv2
-                  // value={ele.candidate_id}
-                  value={props?.data[index]?.bulk_payment_id}
-                  options={selectOptionConveter({
-                    options: props?.AgentPaymentList?.bulk_payment_list,
-                    options_struct: { name: "name", value: "id" },
-                  })}
-                  onChange={(value) => {
-
-                    props.setData((prev: any) => {
-                      const newData = [...prev];
-                      newData[index] = {
-                        ...newData[index],
-                        bulk_payment_id: parseInt(value)
-                      };
-                      return newData;
-                    });
-
-                    checkBalancefromDropDown(props.data[index]?.amount, props.data[index].bulk_payment_id)
-                  }
-                  } />
-
-              </TableCell3>
-
-              <TableCell3>
-                <Checkbox value={ele.payment_date} onChange={(e) => {
-                  props.setData((prev: any) => {
-                    const newData = [...prev];
-                    newData[index] = {
-                      ...newData[index],
-                      advance: e.target.checked ? 1 : 0,
-                      payment_date: convertDateFormat(String(new Date()))
-                    };
-                    return newData;
-                  });
-
-                  setDate([...date,
-                  convertDateFormat(String(new Date()))
-                  ]
-                  )
-                }} />
-              </TableCell3>
-              <TableCell3>
-
-                <DateInput id="date"
-
-                  value={ele.payment_date}
-                  onChange={(value) => {
-                    props.setAgentPaymentList((prev: any) => {
-                      const newData = { ...prev };
-                      newData.table_data_list[index] = {
-                        ...newData.table_data_list[index],
-                        payment_date: value
-                      };
-
-                      return newData;
-                    });
-                    props.setData((prev: any) => {
-                      const newData = [...prev];
-                      newData[index] = {
-                        ...newData[index],
-                        payment_date: convertDateFormat(String(new Date(value)))
-                      };
-                      return newData;
-                    });
-                  }} />
-
-              </TableCell3>
-
-            </TableRow3>
-          ))
-          }
-
+                        return newData;
+                      });
+                      props.setData((prev: any) => {
+                        const newData = [...prev];
+                        newData[index] = {
+                          ...newData[index],
+                          payment_date: convertDateFormat(
+                            String(new Date(value))
+                          ),
+                        };
+                        return newData;
+                      });
+                    }}
+                  />
+                </TableCell3>
+              </TableRow3>
+            )
+          )}
         </TableBody3>
       </Table3>
-
     </div>
   );
 };

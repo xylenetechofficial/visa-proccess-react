@@ -4,6 +4,7 @@ import { DocumentChargesInterface } from "../type";
 
 
 const DocumentChargesTable = (props: {
+  snoBase:number,
   documentChargesList: DocumentChargesInterface[],
   onChange: (value: DocumentChargesInterface[]) => void,
 }) =>{
@@ -47,7 +48,7 @@ const DocumentChargesTable = (props: {
           {
             props.documentChargesList.map((documentCharge, index)=>(
               <TableRow3>
-              <TableCell3>{index + 1}</TableCell3>
+          <TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3>{documentCharge.candidate_name}</TableCell3>
               <TableCell3>{documentCharge.party_code}</TableCell3>
               <TableCell3>{documentCharge.company_name}</TableCell3>

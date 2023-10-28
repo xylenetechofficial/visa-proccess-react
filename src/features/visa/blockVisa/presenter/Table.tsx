@@ -10,6 +10,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const BlockVisaTable = (props: {
+    snoBase:number,
     blockVisaList: BlockVisaInterface[],
     onClickEdit: any,
     onClickDelete: any
@@ -90,7 +91,7 @@ const BlockVisaTable = (props: {
                     {props.blockVisaList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.id}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.index_date)}</TableCell3>
                             {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company ? company.name : "")}</TableCell3> */}

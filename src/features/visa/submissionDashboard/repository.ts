@@ -1,16 +1,19 @@
 import {  SubmissionDashboardAdapter, SubmissionDashboardConverter, SubmissionDashboardInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 
 
 
-export async function readSubmissionDashboardData() {
+export async function readSubmissionDashboardData(page_number?: number) {
   const path = "/visa-dpt/submission-dashboard-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
@@ -23,6 +26,11 @@ export async function readSubmissionDashboardData() {
     const dataAdapter = response.data as SubmissionDashboardAdapter[];
     data = SubmissionDashboardConverter.toInterfaceList(dataAdapter)
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   return data as SubmissionDashboardInterface[]
 }
 

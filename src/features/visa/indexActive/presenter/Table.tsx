@@ -13,6 +13,7 @@ import { ActiveIndexInterface } from "../type/IndexVisa";
 import { ActiveIndexListInterface } from "../type2";
 
 export default function Main(props: {
+  snoBase:number,
   indexActiveList: any[];
   onClickEditProVisa: (value : any)=>void
   onClickProView: (ActiveIndex: ActiveIndexInterface) => void;
@@ -62,7 +63,7 @@ export default function Main(props: {
           <TableBody3>
             {props.indexActiveList.map((indexList, index) => (
               <TableRow3 key={index}>
-                <TableCell3>{index + 1}</TableCell3>
+               <TableCell3 >{index + props.snoBase+1}</TableCell3>
                 <TableCell3>{indexList.job_order_no}</TableCell3>
                 <TableCell3>{indexList.index_date}</TableCell3>
                 <TableCell3>{indexList.company_name}</TableCell3>

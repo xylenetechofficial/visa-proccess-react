@@ -1,8 +1,8 @@
 import { InterviewScheduleAdapter, InterviewScheduleConverter, InterviewScheduleInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readInterviewScheduleList() {
+export async function readInterviewScheduleList(page_number?: number) {
 
 
   const path = "/domestic-ticket/interview-schedule-list";
@@ -10,6 +10,9 @@ export async function readInterviewScheduleList() {
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
 
@@ -27,6 +30,10 @@ export async function readInterviewScheduleList() {
        data.push(InterviewScheduleConverter.toInterface(element));
      }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as InterviewScheduleInterface[];
 

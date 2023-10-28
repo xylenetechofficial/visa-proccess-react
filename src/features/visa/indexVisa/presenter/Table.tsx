@@ -10,6 +10,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const IndexVisaTable = (props: {
+    snoBase:number,
     indexVisaList: IndexVisaInterface[],
     onClickEdit: any,
     onClickDelete: any
@@ -47,7 +48,7 @@ const IndexVisaTable = (props: {
                     {props.indexVisaList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.jobOrderNo}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.index_date)}</TableCell3>
                             {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company ? company.name : "")}</TableCell3> */}

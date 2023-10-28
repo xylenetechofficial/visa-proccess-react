@@ -9,6 +9,7 @@ import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
 
 
 const Table = (props: {
+    snoBase:number,
     jobOrderList: VisaReceivedInterface[],
     onChange: (value: VisaReceivedInterface[]) => void
 }) => {
@@ -71,7 +72,7 @@ const Table = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                          <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.candidateNo}</TableCell3>
                             <TableCell3 > {ele.partyCode}</TableCell3>
                             <TableCell3 > {ele.companyName}</TableCell3>

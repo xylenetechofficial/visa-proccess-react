@@ -1,21 +1,28 @@
 import { Src_Col_Dash_CandidateAdapter, Src_Col_Dash_CandidateConverter, Src_Col_Dash_CandidateInterface, Src_Col_Dash_JobOrderAdapter, Src_Col_Dash_JobOrderConverter, Src_Col_Dash_JobOrderInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 
 
 
-export async function readSourcingCollectionDashboardJobOrder() {
+export async function readSourcingCollectionDashboardJobOrder(page_number?: number) {
   const path = "/visa-dpt/sourcing-dashboard-index-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   const data: Src_Col_Dash_JobOrderInterface[] = Src_Col_Dash_JobOrderConverter.toInterfaceList(response.data as Src_Col_Dash_JobOrderAdapter[])
 

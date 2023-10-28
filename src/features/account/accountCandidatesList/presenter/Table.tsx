@@ -1,4 +1,3 @@
-
 import {
   Table3,
   TableBody3,
@@ -7,7 +6,6 @@ import {
   TableHeadCell3,
   TableHeadRow3,
   TableRow3,
-
 } from "../../../../componenets/Table";
 // import { Checkbox } from "@mui/material";
 // import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
@@ -18,19 +16,17 @@ import { AccountCandidateInterface } from "../type";
 import { RedButton } from "../../../../componenets/CustomButton";
 
 const AccountCandidatesListTable = (props: {
-
+  snoBase: number;
   candidatesList: AccountCandidateInterface[];
-  setCandidatesList: any
+  setCandidatesList: any;
   data: any;
   setData: any;
-  onClickEdit: (value: any) => void
+  onClickEdit: (value: any) => void;
 }) => {
-
-  const [date, setDate] = useState<any>([])
-  console.log(props.data)
+  const [date, setDate] = useState<any>([]);
+  console.log(props.data);
   return (
     <div className="overflow-auto">
-
       <Table3>
         <TableHead3>
           <TableHeadRow3>
@@ -59,15 +55,15 @@ const AccountCandidatesListTable = (props: {
               "AIR TICKET ",
               "IS DEPLOYED ",
               "CANCEL ",
-            ].map((ele) => <TableHeadCell3>{ele}</TableHeadCell3>)}
-
+            ].map((ele) => (
+              <TableHeadCell3>{ele}</TableHeadCell3>
+            ))}
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
           {props.candidatesList?.map((item, index) => (
             <TableRow3>
-
-              <TableCell3>{index + 1} </TableCell3>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.id} </TableCell3>
               <TableCell3>{item.party_code} </TableCell3>
               <TableCell3> {item.company_name} </TableCell3>
@@ -91,22 +87,21 @@ const AccountCandidatesListTable = (props: {
               <TableCell3>{item.air_ticket} </TableCell3>
               <TableCell3>{item.is_deployed} </TableCell3>
               <TableCell3>
-                {item.given_to == "Given To Cancelation" ? <>
-                  <RedButton text="Cancel" onClick={() => props.onClickEdit(item)} />
-                </> : <></>}
+                {item.given_to == "Given To Cancelation" ? (
+                  <>
+                    <RedButton
+                      text="Cancel"
+                      onClick={() => props.onClickEdit(item)}
+                    />
+                  </>
+                ) : (
+                  <></>
+                )}
               </TableCell3>
-
-
-
             </TableRow3>
-
           ))}
-
-
-
         </TableBody3>
       </Table3>
-
     </div>
   );
 };

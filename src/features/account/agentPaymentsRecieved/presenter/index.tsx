@@ -9,7 +9,10 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface } from "../type";
+import {
+  AccountDashboardInterface,
+  AgentPaymentReceivedInterface,
+} from "../type";
 import {
   deleteAccountDashboard,
   readAccountDashboardList,
@@ -20,7 +23,11 @@ import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 import { readCountryList } from "../../../masters/country/repository";
-
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -32,26 +39,31 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-
-
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
 
   const [editAccountDashboard, setAccountDashboard] =
-    useState<AgentPaymentReceivedInterface>({} as AgentPaymentReceivedInterface);
+    useState<AgentPaymentReceivedInterface>(
+      {} as AgentPaymentReceivedInterface
+    );
 
   const [modalName, setModalName] = useState("");
 
-
   const onClickEdit = (accountDashboard: AgentPaymentReceivedInterface) => {
-    console.log(accountDashboard, "CCCCCC")
+    console.log(accountDashboard, "CCCCCC");
     setAccountDashboard(accountDashboard);
     console.log("onClickEdit"); // Only Dev
     console.log(accountDashboard); // Only Dev
     setModalName("edit");
   };
-
- 
-
-
 
   const [accountDashboardList, setAccountDashboardList] = useState<
     AccountDashboardInterface[]
@@ -59,7 +71,6 @@ export default function Main() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  
   const filterData = (query: string, data: any) => {
     if (!query) {
       return data;
@@ -71,16 +82,17 @@ export default function Main() {
   };
   const dataFiltered = filterData(searchQuery, accountDashboardList);
 
-  const fetchAccountDashboardList = async () => {
-    const data = await readAccountDashboardList();
+  const fetchAccountDashboardList = async (page?: number) => {
+    const data = await readAccountDashboardList(page ?? 1);
 
     if (data) {
       setAccountDashboardList(data);
     }
     // setAccountDashboardList(data);
+    setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
-    fetchAccountDashboardList();
+    fetchAccountDashboardList(additionalData.pagination.page);
   }, []);
 
   return (
@@ -91,43 +103,45 @@ export default function Main() {
       />
 
       <CardHeader>
-
-
-
-
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-
       </CardHeader>
-
 
       {/*  AccountDashboard stable */}
       <AccountDashboardTable
         accountDashboardList={dataFiltered}
         onClickEdit={onClickEdit}
+        snoBase={additionalData.pagination.sno_base}
+      />
+
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchAccountDashboardList(e);
+        }}
       />
 
       {/* <!-- Modal --> */}
 
-
       {/* Edit */}
-      {modalName !== "edit" ? "" :
-        <Modal open={true}
-
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <Modal
+          open={true}
           onClose={() => setModalName("")}
           aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
+          aria-describedby="modal-modal-description"
+        >
           <EditModal
             currentElement={editAccountDashboard}
             onClose={() => {
-              setModalName(""), console.log(
-                modalName, "SSSSSSSSS"
-              )
+              setModalName(""), console.log(modalName, "SSSSSSSSS");
             }}
             fetchAccountDashboardList={fetchAccountDashboardList}
           />
-        </Modal>}
-
+        </Modal>
+      )}
     </div>
   );
 }

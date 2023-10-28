@@ -1,5 +1,5 @@
 import { BlockVisaAdapter, BlockVisaConverter, BlockVisaInterface, ServerAdapter, VisaProfesionInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 // get visa - dpt / block - visa - list => GetBlockVisaList
@@ -13,12 +13,15 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readBlockVisaList() {
+export async function readBlockVisaList(page_number?: number) {
   const path = "/visa-dpt/block-visa-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
@@ -34,6 +37,10 @@ export async function readBlockVisaList() {
       data.push(BlockVisaConverter.toInterface(element));
     }
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   return data as BlockVisaInterface[]
 }
 

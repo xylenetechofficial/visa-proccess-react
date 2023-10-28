@@ -1,5 +1,5 @@
 import { AgreementAdapter,  AgreementInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 // get visa - dpt / block - visa - list => GetAgreementList
@@ -40,18 +40,25 @@ export async function readAgreementList() {
 
 
 
-export async function readAgreement(id: number) {
+export async function readAgreement(id: number, page_number?: number) {
 
   const path = "/visa-dpt/block-visa/" + id;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   // return AgreementConverter.toInterface(response.data as AgreementAdapter)
   return response.data as AgreementInterface

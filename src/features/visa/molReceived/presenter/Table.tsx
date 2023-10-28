@@ -10,6 +10,7 @@ import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
 
 
 const Table = (props: {
+    snoBase:number,
     jobOrderList: MolReceivedInterface[],
     onChange: (value: MolReceivedInterface[]) => void
    
@@ -77,7 +78,7 @@ const Table = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.passportNo}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.ppIssueDate)}</TableCell3>
