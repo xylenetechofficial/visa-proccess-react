@@ -89,7 +89,7 @@ export default function Main() {
   // }, [editOtherDocs, modalName])
 
   const fetchOtherDocsList = async (page?:number) => {
-    const res = await readOtherDocsList(true, page)
+    const res = await readOtherDocsList(true, page ?? 1)
     setOtherDocsList(res);
   setAdditionalData(await PaginationManager.getData());
   };

@@ -139,7 +139,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
                 /> */}
                 </TableCell3>
                 <TableCell3>
-                  <UnlabeledInput type="date" onchange={(value) => {
+                  <DateInput id="fdsd6g" onChange={(value) => {
                     onUpdateRow(index, { ...item, given_date: value })
                   }}
                     value={item?.given_date} />

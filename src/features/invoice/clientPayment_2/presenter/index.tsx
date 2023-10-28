@@ -42,7 +42,9 @@ export default function Main() {
     return (
         <div className='h-screen'>
 
-            <CustomNavbarV3 pageName="CLIENT   PAYMENT " searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="CLIENT   PAYMENT "
+                refresh={() => fetchClientPaymentList()}
+                searchFunction={(query) => setSearchQuery(query)} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -54,17 +56,17 @@ export default function Main() {
                     setClientPayment(value)
                     setModal('candidate_list')
                 }}
-                
+
                 onClickPaymentList={(value) => {
                     setClientPayment(value)
                     setModal('payment_list')
                 }}
-                
+
                 onClickAdjust={(value) => {
                     setClientPayment(value)
                     setModal('adjust')
                 }}
-                
+
                 onClickAdd={(value) => {
                     setClientPayment(value)
                     setModal('add')

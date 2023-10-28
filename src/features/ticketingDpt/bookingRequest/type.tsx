@@ -12,7 +12,7 @@ export interface BookingRequestInterface {
   visa_received_date: string,
   visa_expiry_date: string,
   is_invoice: string,
-  raise_invoice:string,
+  raise_invoice: string,
   air_ticket: string,
   division: string,
   emigration_required: string,
@@ -22,6 +22,7 @@ export interface BookingRequestInterface {
   require_date: string,
   priority: string,
   sector_charges: string
+  waive_off_sector_charges: number
 
   check?: string
 }
@@ -42,7 +43,7 @@ export interface BookingRequestAdapter {
   visa_received_date: string,
   visa_expiry_date: string,
   is_invoice: string,
-  raise_invoice:string,
+  raise_invoice: string,
   air_ticket: string,
   division: string,
   emigration_required: string,
@@ -52,6 +53,7 @@ export interface BookingRequestAdapter {
   require_date: string,
   priority: string,
   sector_charges: string
+  waive_off_sector_charges: number
 }
 
 export class BookingRequestConverter {
@@ -77,7 +79,7 @@ export class BookingRequestConverter {
       visa_received_date: a.visa_received_date,
       visa_expiry_date: a.visa_expiry_date,
       is_invoice: a.is_invoice,
-      raise_invoice:a.raise_invoice,
+      raise_invoice: a.raise_invoice,
       air_ticket: a.air_ticket,
       division: a.division,
       emigration_required: a.emigration_required,
@@ -87,6 +89,7 @@ export class BookingRequestConverter {
       require_date: a.require_date,
       priority: a.priority,
       sector_charges: a.sector_charges,
+      waive_off_sector_charges: a.waive_off_sector_charges
     };
     return data;
   }
@@ -110,7 +113,7 @@ export class BookingRequestConverter {
       visa_received_date: i.visa_received_date,
       visa_expiry_date: i.visa_expiry_date,
       is_invoice: i.is_invoice,
-      raise_invoice:i.raise_invoice,
+      raise_invoice: i.raise_invoice,
       air_ticket: i.air_ticket,
       division: i.division,
       emigration_required: i.emigration_required,
@@ -120,6 +123,7 @@ export class BookingRequestConverter {
       require_date: i.require_date,
       priority: i.priority,
       sector_charges: i.sector_charges,
+      waive_off_sector_charges: i.waive_off_sector_charges
     };
     return data;
   }
@@ -135,13 +139,13 @@ export class BookingRequestConverter {
 export interface AddBookingRequestInterface {
 
   selection_list: BookingRequestInterface[],
-  
+
 }
 
 export interface AddBookingRequestAdapter {
 
   selection_list: BookingRequestInterface[],
-  
+
 }
 
 
@@ -156,30 +160,31 @@ export class AddBookingRequestConverter {
     const data: AddBookingRequestInterface = {
       selection_list: a?.selection_list?.map((item) => ({
         id: item.id,
-      party_code: item.party_code,
-      company_name: item.company_name,
-      candidate_name: item.candidate_name,
-      pp_no: item.pp_no,
-      actual_profession: item.actual_profession,
-      visa_profession: item.visa_profession,
-      agent: item.agent,
-      rc_name: item.rc_name,
-      visa_received_date: item.visa_received_date,
-      visa_expiry_date: item.visa_expiry_date,
-      is_invoice: item.is_invoice,
-      raise_invoice:item.raise_invoice,
-      air_ticket: item.air_ticket,
-      division: item.division,
-      emigration_required: item.emigration_required,
-      emigration_done: item.emigration_done,
-      sector_from: item.sector_from,
-      sector_to: item.sector_to,
-      require_date: item.require_date,
-      priority: item.priority,
-      sector_charges: item.sector_charges,
-    
+        party_code: item.party_code,
+        company_name: item.company_name,
+        candidate_name: item.candidate_name,
+        pp_no: item.pp_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent: item.agent,
+        rc_name: item.rc_name,
+        visa_received_date: item.visa_received_date,
+        visa_expiry_date: item.visa_expiry_date,
+        is_invoice: item.is_invoice,
+        raise_invoice: item.raise_invoice,
+        air_ticket: item.air_ticket,
+        division: item.division,
+        emigration_required: item.emigration_required,
+        emigration_done: item.emigration_done,
+        sector_from: item.sector_from,
+        sector_to: item.sector_to,
+        require_date: item.require_date,
+        priority: item.priority,
+        sector_charges: item.sector_charges,
+        waive_off_sector_charges: item.waive_off_sector_charges
+
       })),
-  
+
     };
     return data;
   }
@@ -194,32 +199,33 @@ export class AddBookingRequestConverter {
 
       selection_list: i?.selection_list?.map((item) => ({
         id: item.id,
-      party_code: item.party_code,
-      company_name: item.company_name,
-      candidate_name: item.candidate_name,
-      pp_no: item.pp_no,
-      actual_profession: item.actual_profession,
-      visa_profession: item.visa_profession,
-      agent: item.agent,
-      rc_name: item.rc_name,
-      visa_received_date: item.visa_received_date,
-      visa_expiry_date: item.visa_expiry_date,
-      is_invoice: item.is_invoice,
-      raise_invoice:item.raise_invoice,
-      air_ticket: item.air_ticket,
-      division: item.division,
-      emigration_required: item.emigration_required,
-      emigration_done: item.emigration_done,
-      sector_from: item.sector_from,
-      sector_to: item.sector_to,
-      require_date: item.require_date,
-      priority: item.priority,
-      sector_charges: item.sector_charges,
+        party_code: item.party_code,
+        company_name: item.company_name,
+        candidate_name: item.candidate_name,
+        pp_no: item.pp_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent: item.agent,
+        rc_name: item.rc_name,
+        visa_received_date: item.visa_received_date,
+        visa_expiry_date: item.visa_expiry_date,
+        is_invoice: item.is_invoice,
+        raise_invoice: item.raise_invoice,
+        air_ticket: item.air_ticket,
+        division: item.division,
+        emigration_required: item.emigration_required,
+        emigration_done: item.emigration_done,
+        sector_from: item.sector_from,
+        sector_to: item.sector_to,
+        require_date: item.require_date,
+        priority: item.priority,
+        sector_charges: item.sector_charges,
 
-      
-    
-    })),
-      
+        waive_off_sector_charges: item.waive_off_sector_charges
+
+
+      })),
+
     };
     return data;
   }

@@ -119,6 +119,10 @@ export const StandardInput = (props: { value: any, onChangeValue: any, label?: s
 
 }
 
+function isNumeric(value: any) {
+    return !isNaN(value);
+}
+
 export function UnlabeledInput(props: { placeholder?: string, type?: string, value: any, onchange: (ele: string) => void, disabled?: boolean }) {
 
     const [value, setState] = React.useState(props.value);
@@ -128,7 +132,11 @@ export function UnlabeledInput(props: { placeholder?: string, type?: string, val
         if (props.type == "number") {
             if (value == "")
                 value = '0'
+
+            if (!isNumeric(value)) return
         }
+
+
         setState(value);
         props.onchange(value)
     }

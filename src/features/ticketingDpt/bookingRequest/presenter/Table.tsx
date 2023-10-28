@@ -45,7 +45,9 @@ export default function Main(props: {
                         {props.ticketBookingRequestList.map((item, index) => {
 
                             let check_in = true;
-                            if (check_in && item.raise_invoice == "BY AGENCY" && parseInt(item.sector_charges) == 0) {
+                            if (item.waive_off_sector_charges) {
+                                check_in = true;
+                            } else if (check_in && item.raise_invoice == "BY AGENCY" && parseInt(item.sector_charges) == 0) {
                                 check_in = false;
                                 onUpdateRow(index, { ...item, sector_from: '1' })
                             }

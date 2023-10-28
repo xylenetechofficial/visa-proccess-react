@@ -1,3 +1,8 @@
+export interface PermissionIndexInterface {
+  id?: number;
+  name: string;
+}
+
 export interface PermissionGroupInterface {
   name: string;
   page_list: PageInterface[];

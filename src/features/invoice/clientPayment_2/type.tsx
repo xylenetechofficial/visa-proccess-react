@@ -12,6 +12,7 @@ export interface ClientPaymentInterface {
   balance_payment: number
   suspense_amount: string
   bank_name: string
+  invoice_service_charges_currency?: string
 }
 
 export interface ClientPaymentAdapter {
@@ -27,6 +28,7 @@ export interface ClientPaymentAdapter {
   balance_payment: number
   suspense_amount: string
   bank_name: string
+  invoice_service_charges_currency?: string
 }
 
 export class ClientPaymentConverter {
@@ -50,6 +52,7 @@ export class ClientPaymentConverter {
       balance_payment: i.balance_payment,
       suspense_amount: i.suspense_amount,
       bank_name: i.bank_name,
+      invoice_service_charges_currency: i.invoice_service_charges_currency
     }
     return data;
   }
@@ -82,6 +85,7 @@ export class ClientPaymentConverter {
       balance_payment: i.balance_payment,
       suspense_amount: i.suspense_amount,
       bank_name: i.bank_name,
+      invoice_service_charges_currency: i.invoice_service_charges_currency
     };
     return data;
   }

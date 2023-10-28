@@ -16,7 +16,7 @@ import { ImmigrationInterface } from "../type";
 // import { GivenToList, GivenToList_only_passprt, GivenToList_without_RC } from "../../../db";
 import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 import { convertDateFormat } from "../../../../utils/function";
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { RedButton } from "../../../../componenets/CustomButton";
 
 const ImmigrationTable = (props: {
@@ -80,7 +80,13 @@ const ImmigrationTable = (props: {
       <Table3>
         <TableHead3>
           <TableHeadRow3>
-            {HEADERLIST.map((item) => (<TableHeadCell3> {item}</TableHeadCell3>))}
+            {HEADERLIST.map((item) => {
+              if (props.actionType == "read") {
+                // add & edit oparation
+                if (item == "SELECT") return
+              }
+              return (<TableHeadCell3> {item}</TableHeadCell3>)
+            })}
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
@@ -91,17 +97,9 @@ const ImmigrationTable = (props: {
               <TableCell3>{item.company_name}</TableCell3>
               <TableCell3>{item.name}</TableCell3>
               <TableCell3>{item.passport_no}</TableCell3>
-              <TableCell3>
-                <CustomSingleCheckBox
-                  onChange={(value) => {
-                    onUpdateRow(index, { ...item, checked: value })
-                  }}
-                  value={item.checked ? true : false}
-                />
-              </TableCell3>
 
               {props.actionType == "read" ? <>
-              {/* incase read oparation */}
+                {/* incase read oparation */}
                 <TableCell3>
                   {item.immigration_required}
                 </TableCell3>
@@ -113,7 +111,16 @@ const ImmigrationTable = (props: {
                   {item.immigration_received_date}
                 </TableCell3>
               </> : <>
-              {/* add & edit oparation */}
+                {/* add & edit oparation */}
+                <TableCell3>
+                  <CustomSingleCheckBox
+                    onChange={(value) => {
+                      onUpdateRow(index, { ...item, checked: value })
+                    }}
+                    value={item.checked ? true : false}
+                  />
+                </TableCell3>
+
                 <TableCell3>
                   <CustomCheckBox
                     value={item.immigration_required}
@@ -126,13 +133,13 @@ const ImmigrationTable = (props: {
                     option={[{ name: "Yes", value: "yes" }, { name: "No", value: "no" }]} /></TableCell3>
 
                 <TableCell3>
-                  <UnlabeledInput type="date" onchange={(value) => {
+                  <DateInput id="kfvhkd" onChange={(value) => {
                     onUpdateRow(index, { ...item, immigration_submission_date: value })
                   }}
                     value={item.immigration_submission_date} />
                 </TableCell3>
                 <TableCell3>
-                  <UnlabeledInput type="date" onchange={(value) => {
+                  <DateInput id="kfvhgfdkd" onChange={(value) => {
                     onUpdateRow(index, { ...item, immigration_received_date: value })
                   }}
                     value={item.immigration_received_date} />
@@ -162,7 +169,7 @@ const ImmigrationTable = (props: {
               <TableCell3>{convertDateFormat(item.visa_received_date)}</TableCell3>
               <TableCell3>{convertDateFormat(item.visa_expire_date)}</TableCell3>
               <TableCell3>{item.mol_number}</TableCell3>
-              <TableCell3><RedButton text={"Reject"} onClick={() =>props.onClickReject? props.onClickReject(item):""} /></TableCell3>
+              <TableCell3><RedButton text={"Reject"} onClick={() => props.onClickReject ? props.onClickReject(item) : ""} /></TableCell3>
             </TableRow3>
           ))}
 

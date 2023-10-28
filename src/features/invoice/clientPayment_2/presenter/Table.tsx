@@ -53,7 +53,7 @@ const fetchClientPaymentListPaymentAddTable = (props: {
                             <TableCell3>{convertDateFormat(item.invoice_date)}</TableCell3>
 
                             <TableCell3>{item.other_charges}</TableCell3>
-                            <TableCell3>{item.service_charges}</TableCell3>
+                            <TableCell3>{item.service_charges} - {item.invoice_service_charges_currency} </TableCell3>
                             <TableCell3>{item.ticket_charges}</TableCell3>
                             <TableCell3>{item.total_charges}</TableCell3>
 

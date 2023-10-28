@@ -95,10 +95,10 @@ export default function Main() {
   // useEffect(() => {
   // }, [editVisaAuthorisation, modalName])
 
-  const fetchVisaAuthorisationList = async (page?:number) => {
-    const res = await readVisaAuthorisationList(true,page)
+  const fetchVisaAuthorisationList = async (page?: number) => {
+    const res = await readVisaAuthorisationList(true, page ?? 1)
     setVisaAuthorisationList(res);
-  setAdditionalData(await PaginationManager.getData());
+    setAdditionalData(await PaginationManager.getData());
 
   };
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function Main() {
 
       {/*  visaAuthorisation stable */}
       <VisaAuthorisationTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         visaAuthorisationList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}

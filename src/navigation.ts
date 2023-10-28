@@ -27,6 +27,8 @@ export const navigations: any[] = [
 
       { name: 'User', icon: 'pageview', path: '/masters/user' },
       { name: 'Role', icon: 'pageview', path: '/masters/role' },
+      // { name: 'Permission Group', icon: 'pageview', path: '/masters/permission-group' },
+      
     ]
   },
   {
