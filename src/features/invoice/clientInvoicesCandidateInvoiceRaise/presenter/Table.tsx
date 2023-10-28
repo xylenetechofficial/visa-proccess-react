@@ -87,12 +87,12 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
               <TableCell3> {ele.service_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
               <TableCell3> {ele.ticket_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
               <TableCell3> <UnlabeledInput 
-// type="number"
+type="number"
                      value={ele.total_charges} onchange={(value) =>
                 onUpdateRow(index, { ...ele, total_charges: parseInt(value) })} /></TableCell3>
               <TableCell3>
                 <UnlabeledInput
-                  // type="number"
+                  type="number"
                   value={ele?.invoice_number}
                   onchange={(value) => {
                     if (value) {

@@ -76,7 +76,7 @@ export default function Main() {
     // }, [editInterviewSector, modalName])
 
     const fetchInterviewSectorList = async (page?:number) => {
-        const res = await readInterviewSectorList(true , page)
+        const res = await readInterviewSectorList(true , page ?? 1)
         setInterviewSectorList(res)
   setAdditionalData(await PaginationManager.getData());
     }

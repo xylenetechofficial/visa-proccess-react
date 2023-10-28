@@ -78,7 +78,7 @@ export default function Main() {
   // }, [editCountry, modalName])
 
   const fetchCountryList = async (page?: number) => {
-    const res = await readCountryList(true, page);
+    const res = await readCountryList(true, page ?? 1);
     setCountryList(res);
   setAdditionalData(await PaginationManager.getData());
   };

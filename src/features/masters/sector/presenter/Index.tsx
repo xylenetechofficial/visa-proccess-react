@@ -88,7 +88,7 @@ export default function Main() {
   };
 
   const fetchSectorList = async (page?: number) => {
-    const res = await readSectorList(true, page);
+    const res = await readSectorList(true, page ?? 1);
     console.log("read sector"); // Only Dev
     setSectorList(res);
 

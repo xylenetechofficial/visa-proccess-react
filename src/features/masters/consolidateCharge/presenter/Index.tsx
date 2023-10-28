@@ -85,7 +85,7 @@ export default function Main() {
   // }, [editConsolidateCharge, modalName])
 
   const fetchConsolidateChargeList = async (page?: number) => {
-    const res = await readConsolidateChargeList(true, page);
+    const res = await readConsolidateChargeList(true, page ?? 1);
     setConsolidateChargeList(res);
   setAdditionalData(await PaginationManager.getData());
 

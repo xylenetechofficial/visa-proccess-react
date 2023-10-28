@@ -120,7 +120,7 @@ const AgentPaymentTable = (props: {
               <TableCell3>
                 <UnlabeledInput
                 
-// type="number"
+type="number"
                     
                   value={props.data[index]?.amount}
                   onchange={(value) => {

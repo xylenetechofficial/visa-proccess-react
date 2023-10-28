@@ -81,7 +81,7 @@ export default function Main() {
   // }, [editMofaPayment, modalName])
 
   const fetchMofaPaymentList = async (page?:number) => {
-    const res = await readMofaPaymentList(true , page)
+    const res = await readMofaPaymentList(true , page ?? 1)
     setMofaPaymentList(res);
     setAdditionalData(await PaginationManager.getData());
 

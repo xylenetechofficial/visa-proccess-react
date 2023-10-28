@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
-import { readImmigrationDonePPReleaseList, updateImmigrationDonePPReleaseList } from "../repository";
+import { readImmigrationDonePPReleaseList, createImmigrationDonePPRelease } from "../repository";
 import ImmigrationDOnePPReleaseTable from "./Table";
 import { ImmigrationDonePPReleaseInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
@@ -41,7 +41,7 @@ export default function Main(props: {
         for (let i = 0; i < immigrationDonePPReleaseList.length; i++) {
             if (immigrationDonePPReleaseList[i].checked) newArray.push(immigrationDonePPReleaseList[i])
         }
-        const update = await updateImmigrationDonePPReleaseList(newArray)
+        const update = await createImmigrationDonePPRelease(newArray)
         if (update) {
             // props.onClose();
             fetchImmigrationDoneList()

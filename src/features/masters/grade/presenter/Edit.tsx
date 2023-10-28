@@ -54,7 +54,7 @@ export default function Main(props: { grade: GradeInterface, onClose: any, fetch
         <StandardInput
             label="Point"
             
-// type="number"
+type="number"
                     
             value={point}
             onChangeValue={(value: string) => {

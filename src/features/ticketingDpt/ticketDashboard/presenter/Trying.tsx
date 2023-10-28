@@ -117,7 +117,7 @@ export default function Main(props: {
                 <TableCell3><CustomSelectComponentUnlabeled value={item.agency} onChange={(value) => onUpdateRow(index, {...item, agency:value})} options={selectOptionConveter({options: props.agencyList , options_struct :{name:"name" , value:"id"}})}/>
                 </TableCell3>
                 <TableCell3><UnlabeledInput 
-// type="number"
+type="number"
                      value={item.amount} onchange={(value) => onUpdateRow(index, { ...item, amount: parseInt(value) })} /> </TableCell3>
                 <TableCell3>{item.actual_profession}</TableCell3>
                 <TableCell3>{item.mofa_number}</TableCell3>

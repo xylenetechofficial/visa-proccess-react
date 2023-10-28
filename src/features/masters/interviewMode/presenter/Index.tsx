@@ -94,7 +94,7 @@ export default function Main() {
   // }, [editInterviewMode, modalName])
 
   const fetchInterviewModeList = async (page?: number) => {
-    const res = await readInterviewModeList(true, page);
+    const res = await readInterviewModeList(true, page ?? 1);
     setInterviewModeList(res);
     setAdditionalData(await PaginationManager.getData());
   };

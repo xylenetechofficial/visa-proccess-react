@@ -76,7 +76,7 @@ export default function Main(props: { mofaPayment: MofaPaymentInterface, onClose
             <StandardInput
                 label="Payment"
                 
-// type="number"
+type="number"
                     
                 value={payment}
                 onChangeValue={(value: string) => {

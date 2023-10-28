@@ -6,14 +6,18 @@ import { ImmigrationAdapter, ImmigrationConverter, ImmigrationInterface } from "
 
 // get immigration - list => readImmigrationList
 
-export async function readImmigrationList(page_number?: number) {
+export async function readImmigrationList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/immigration-dpt/immigration-dashboard-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      page: page_number ?? 0,
+      page: query.page ?? 0,
+      status: query.status ?? "",
     },
   });
 
@@ -70,6 +74,25 @@ export async function updateImmigration(id: number, data: ImmigrationInterface) 
   return false;
 }
 
+export async function updateImmigrationList(data: ImmigrationInterface[]) {
+  const path = "/immigration-dpt/immigration-dashboard-list";
+
+  const payload = {
+    selection_list: ImmigrationConverter.toAdapterList(data)
+  };
+
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+
+  showMessage_v2({ message: response.message, status: response.code })
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
+}
 
 
 

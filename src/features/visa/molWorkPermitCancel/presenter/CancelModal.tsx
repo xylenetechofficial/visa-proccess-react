@@ -6,7 +6,7 @@ import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
 import { CustomRadioButton } from '../../../../componenets/RadioButton';
 import { MolForwardedTovisaDepartmentDataInterface, MolWorkPermitCancelInterface2 } from '../type';
-import { updateMolWorkPermitCancelData } from '../repository';
+import { addMolWorkPermitCancel, updateMolWorkPermitCancelData } from '../repository';
 
 export default function Main(props: {
     setModalName: (value: string) => void,
@@ -44,10 +44,10 @@ export default function Main(props: {
 
         // call create
         // const newArray: any = { ...visaProfessionList, visaProfessionList: visaProfessionList }
-        const newArray: any = { ...molWorkPermit }
-        // newArray.candidate_id =props.currentElement.id
-        console.log(newArray, "AAAAAAA")
-        const flag = await updateMolWorkPermitCancelData(newArray)
+        // const newArray: any = { ...molWorkPermit }
+        // // newArray.candidate_id =props.currentElement.id
+        // console.log(newArray, "AAAAAAA")
+        const flag = await addMolWorkPermitCancel(molWorkPermit)
         props.setModalName('')
     }
     return (

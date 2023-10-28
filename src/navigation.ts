@@ -25,8 +25,8 @@ export const navigations: any[] = [
       { name: 'Consolidate Charge', icon: 'pageview', path: '/masters/consolidate-charge' },
       { name: 'Visa Authorisation', icon: 'pageview', path: '/masters/visa-authorisation' },
 
-      // { name: 'User', icon: 'pageview', path: '/masters/user' },
-      // { name: 'Role', icon: 'pageview', path: '/masters/role' },
+      { name: 'User', icon: 'pageview', path: '/masters/user' },
+      { name: 'Role', icon: 'pageview', path: '/masters/role' },
     ]
   },
   {
@@ -136,7 +136,7 @@ export const navigations: any[] = [
       { name: 'Penalty After Deployment', icon: 'pageview', path: '/account/penalty-after-deployment' },
       { name: 'Agent Bulk Payments', icon: 'pageview', path: '/account/agent-bulk-payment' },
       { name: 'Incentives', icon: 'pageview', path: '/account/incentives' },
-      { name: 'Delhi/Other Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
+      { name: 'delhi-accountOther Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
       { name: 'Account Candidate List', icon: 'preview', path:'/account/account-candidate-list'},
       {name:"Service Charges", icon:"preview" , path:'/account/service-charges/'},
       {name:"Agent Payment Received", icon:"preview" , path:'/account/account-dpt/'},
@@ -179,9 +179,9 @@ export const navigations: any[] = [
     name: 'Delhi Account',
     icon: 'account_circle',
     children: [
-      { name: 'Candidates List', icon: 'pageview', path: '/delhi/candidates-list' },
-      { name: 'RC - Candidates List', icon: 'pageview', path: '/delhi/RC-candidates-list' },
-      // { name: 'RC - PP Received', icon: 'pageview', path: '/delhi/RC-pp-received' },
+      { name: 'Candidates List', icon: 'pageview', path: '/delhi-account/candidates-list' },
+      { name: 'RC - Candidates List', icon: 'pageview', path: '/delhi-account/RC-candidates-list' },
+      // { name: 'RC - PP Received', icon: 'pageview', path: '/delhi-account/RC-pp-received' },
 
     ]
   },

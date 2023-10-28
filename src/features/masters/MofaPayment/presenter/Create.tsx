@@ -70,7 +70,7 @@ export default function Main(props: { onClose: any, fetchMofaPaymentList: any })
             <StandardInput
                 label="Payment"
                 
-// type="number"
+type="number"
                     
                 value={payment}
                 onChangeValue={(value: string) => {

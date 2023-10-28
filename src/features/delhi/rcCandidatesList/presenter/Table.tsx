@@ -56,7 +56,7 @@ const RcCandidatesListTable = (props: {
             <TableCell>
               <UnlabeledInput
                 
-// type="number"
+type="number"
                     
                 value
                 onchange={(value) => {

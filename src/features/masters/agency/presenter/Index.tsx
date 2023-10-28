@@ -79,7 +79,7 @@ export default function Main() {
   // }, [editAgency, modalName])
 
   const fetchAgencyList = async (page?: number) => {
-    const res = await readAgencyList(true,  page);
+    const res = await readAgencyList(true,  page ?? 1);
     setAgencyList(res);
     setAdditionalData(await PaginationManager.getData());
     filterData("", res);

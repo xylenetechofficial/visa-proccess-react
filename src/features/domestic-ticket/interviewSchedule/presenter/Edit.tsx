@@ -112,7 +112,7 @@ export default function Main(props: {
                 label="No of person"
                 required
                 
-// type="number"
+type="number"
                     
                 value={interviewSchedule.noOfPerson}
                 onChangeValue={

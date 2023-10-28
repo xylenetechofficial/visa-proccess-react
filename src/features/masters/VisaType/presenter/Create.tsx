@@ -50,7 +50,7 @@ export default function Main(props: { onClose: any, fetchVisaTypeList: any }) {
             <StandardInput
                 label="Mofa Fees"
                 
-// type="number"
+type="number"
                     
                 value={visaType.mofa_fee}
                 onChangeValue={(value: string) => {
@@ -61,7 +61,7 @@ export default function Main(props: { onClose: any, fetchVisaTypeList: any }) {
             <StandardInput
                 label="Visa Fees"
                 
-// type="number"
+type="number"
                     
                 value={visaType.visa_fee}
                 onChangeValue={(value: string) => {
@@ -72,7 +72,7 @@ export default function Main(props: { onClose: any, fetchVisaTypeList: any }) {
             <StandardInput
                 label="Single Entry"
                 
-// type="number"
+type="number"
                     
                 value={visaType.visa_validity_single_entry}
                 onChangeValue={(value: string) => {
@@ -83,7 +83,7 @@ export default function Main(props: { onClose: any, fetchVisaTypeList: any }) {
             <StandardInput
                 label="Multiple Entry"
                 
-// type="number"
+type="number"
                     
                 value={visaType.visa_validity_multiple_entry}
                 onChangeValue={(value: string) => {

@@ -78,7 +78,7 @@ export default function Main() {
   // }, [editVisaType, modalName])
 
   const fetchVisaTypeList = async (page?: number) => {
-    const res = await readVisaTypeList(true, page);
+    const res = await readVisaTypeList(true, page ?? 1);
     setVisaTypeList(res);
     setAdditionalData(await PaginationManager.getData());
 

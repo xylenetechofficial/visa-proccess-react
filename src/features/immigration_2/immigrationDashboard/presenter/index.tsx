@@ -1,35 +1,33 @@
-import { useEffect, useState } from "react";
-import { Box, styled } from "@mui/material";
+import styled from "@emotion/styled";
+import { Box } from "@mui/material";
+import { useState, useEffect } from "react";
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
+import { CustomNavbarV3, CustomButton2 } from "../../../../componenets/CustomComponents";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import { FaFilter } from "react-icons/fa";
-import {
-  CustomButton2,
-  CustomNavbarV3,
-} from "../../../../componenets/CustomComponents";
-import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
-import ImmigrationTable from "./Table";
-import { ImmigrationInterface } from "../type";
-import { createImmigrationList, readImmigrationList } from "../repository";
 
-import RejectModal from "./RejectModal";
-import {
-  AdditionalDataInterface,
-  PaginationManager,
-} from "../../../../utils/api_helper";
+import EditModal from './edit';
+import CreateModal from './add';
+import RejectModal from './RejectModal';
 import Pagination from "../../../../componenets/Pagination";
-export default function Main() {
-  const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
-  }));
-  const [searchQuery, setSearchQuery] = useState("");
-  const [immigrationDataList, setImmigrationDataList] = useState<
-    ImmigrationInterface[]
-  >([]);
+import { ImmigrationInterface } from "../type";
+import { readImmigrationList } from "../repository";
+import ImmigrationTable from "./Table";
+import { useUserAuth } from "../../../context/UserAuthContext";
+const CardHeader = styled(Box)(() => ({
+  display: "flex",
 
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
+}));
+
+export default function Main() {
+  const { authPermissionList } = useUserAuth()
+
+  const [modalName, setModalName] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -41,87 +39,109 @@ export default function Main() {
     }
   );
 
-  const [modalName, setModalName] = useState("");
-  const [singleImmigration, setSingleImmigration] =
-    useState<ImmigrationInterface>({} as ImmigrationInterface);
 
-  const fetchImmigrationList = async (page?: number) => {
-    const data: any = await readImmigrationList(page);
-    setImmigrationDataList(data);
+  const [immigrationList, setImmigrationList] = useState<ImmigrationInterface[]>([]);
+
+
+  const fetchImmigrationDashboardList = async (page?: number) => {
+    const data = await readImmigrationList({
+      page: page ?? 1,
+      status: "yes"
+    });
+    setImmigrationList(data);
     setAdditionalData(await PaginationManager.getData());
   };
 
+  const [singleImmigration, setSingleImmigration] =
+  useState<ImmigrationInterface>({} as ImmigrationInterface);
   function onClickReject(item: ImmigrationInterface) {
     setSingleImmigration(item);
     setModalName("reject");
   }
-  const createImmigration = async (data_list: ImmigrationInterface[]) => {
-    const new_list = [];
-    for (let index = 0; index < data_list.length; index++) {
-      const element = data_list[index];
-      if (!element.checked) continue;
 
-      // // if immigration_required
-      // if (element.immigration_required.toLowerCase() == 'yes')
-      //     // then received_date and submission_date required
-      //     if (element.immigration_received_date == '' || element.immigration_submission_date == '')
-      //         continue
-
-      new_list.push(element);
-    }
-
-    const data: any = await createImmigrationList(new_list);
-    fetchImmigrationList();
-  };
   useEffect(() => {
-    fetchImmigrationList(additionalData.pagination.page);
+    fetchImmigrationDashboardList(additionalData.pagination.page);
   }, []);
+
   return (
-    <div className="h-screen">
+    <div>
       <CustomNavbarV3
         pageName="Immigration Dashboard"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={() => {
-          fetchImmigrationList();
-        }}
+        refresh={() => fetchImmigrationDashboardList(additionalData.pagination.page)}
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+
+        <div>
+          {authPermissionList.url_has('create') ? <GreenButton
+            text={"Add"}
+            onClick={() => {
+              setModalName("add");
+            }}
+          /> : ""}
+          {authPermissionList.url_has('update') ? <BlueButton
+            text={"Edit"}
+            onClick={() => {
+              setModalName("edit");
+            }}
+          /> : ""}
+        </div>
       </CardHeader>
+      {/*  agent stable */}
       <ImmigrationTable
         snoBase={additionalData.pagination.sno_base}
-        immigrationDataList={immigrationDataList}
-        // onClickEdit={() => console.log("first")}
+        list={immigrationList}
         onClickReject={onClickReject}
-        onChange={(value) => setImmigrationDataList(value)}
-        fetchImmigrationList={fetchImmigrationList}
+        actionType="read"
+        onChange={(list) => setImmigrationList(list)}
       />
-
-      <BlueButton
-        text="Submit"
-        onClick={() => {
-          createImmigration(immigrationDataList);
-        }}
-      />
-      <br />
-      <br />
 
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
           console.log(e); // Only Dev
-          fetchImmigrationList(e);
+          fetchImmigrationDashboardList(e);
         }}
       />
+
+      {/* <!-- Modal --> */}
+
+      {/* Create */}
+      {modalName !== "add" ? (
+        ""
+      ) : (
+        <CreateModal
+          onClose={() => {
+            setModalName("")
+            fetchImmigrationDashboardList()
+          }}
+        />
+      )}
+
+      {/* Edit */}
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal
+          onClose={() => {
+            setModalName("")
+            fetchImmigrationDashboardList()
+          }}
+        />
+      )}
+
       {/* Reject */}
       {modalName !== "reject" ? (
         ""
       ) : (
         <RejectModal
           immigration={singleImmigration}
-          onClose={() => setModalName("")}
-          fetchImmigrationList={fetchImmigrationList}
+          onClose={() => {
+            setModalName("")
+            fetchImmigrationDashboardList()
+          }}
         />
       )}
     </div>

@@ -91,7 +91,7 @@ export default function Main() {
   // }, [editBank, modalName])
 
   const fetchBankList = async (page?: number) => {
-    const res = await readBankList(true, page);
+    const res = await readBankList(true, page ?? 1);
     setBankList(res);
   setAdditionalData(await PaginationManager.getData());
 

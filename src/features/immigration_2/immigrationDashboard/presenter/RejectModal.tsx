@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { updateImmigration } from "../repository";
 import { ImmigrationInterface } from "../type";
-import { showMessage } from "../../../../utils/alert";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
-import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
+// import { showMessage } from "../../../../utils/alert";
+// import { CustomRadioButton } from "../../../../componenets/RadioButton";
+// import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import ModalContent from "../../../../componenets/Modal";
-import { StandardInput, TextAreaInput } from "../../../../componenets/Input";
+import { TextAreaInput } from "../../../../componenets/Input";
+// import { StandardInput, TextAreaInput } from "../../../../componenets/Input";
 
 
 
@@ -14,7 +15,7 @@ import { StandardInput, TextAreaInput } from "../../../../componenets/Input";
 
 
 
-export default function Main(props: { immigration: ImmigrationInterface, onClose: any, fetchImmigrationList: any }) {
+export default function Main(props: { immigration: ImmigrationInterface, onClose: any }) {
 
 
     const initValue: ImmigrationInterface = {
