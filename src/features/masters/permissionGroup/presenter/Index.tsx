@@ -12,7 +12,6 @@ import {
 import { FaFilter } from "react-icons/fa";
 import Pagination from "../../../../componenets/Pagination";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
-import { PermissionIndexInterface } from "../type";
 import { deletePermissionGroup, readPermissionGroupList } from "../repository";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -24,7 +23,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  const [agencyList, setAgencyList] = useState<PermissionIndexInterface[]>([]);
+  const [agencyList, setAgencyList] = useState<any[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>({
     pagination: {
         page: 1,
@@ -34,16 +33,16 @@ export default function Main() {
     }
 });
 
-  const [permissionGroup, setPermissionGroup] = useState<PermissionIndexInterface>(
-    {} as PermissionIndexInterface
+  const [permissionGroup, setPermissionGroup] = useState<any>(
+    {} as any
   );
 
   const [modalName, setModalName] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [dataFiltered, setDataFiltered] = useState<PermissionIndexInterface[]>([]);
-  const filterData = (query: string, data: PermissionIndexInterface[]) => {
+  const [dataFiltered, setDataFiltered] = useState<any[]>([]);
+  const filterData = (query: string, data: any[]) => {
     if (!query) {
       setDataFiltered(data);
       return;
@@ -60,14 +59,14 @@ export default function Main() {
     filterData(query, agencyList);
   };
 
-  const onClickEdit = (permission: PermissionIndexInterface) => {
+  const onClickEdit = (permission: any) => {
     setPermissionGroup(permission);
     console.log("onClickEdit"); // Only Dev
     console.log(permission); // Only Dev
     setModalName("edit");
   };
 
-  const onClickDelete = async (permission: PermissionIndexInterface) => {
+  const onClickDelete = async (permission: any) => {
     const flag = await confirmationMessage("Do you really want to delete?");
     if (flag && permission.id) {
       await deletePermissionGroup(permission.id);

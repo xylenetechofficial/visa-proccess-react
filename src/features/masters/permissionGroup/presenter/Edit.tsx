@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import {  updatePermissionGroup } from "../repository";
-import {  PermissionIndexInterface } from "../type";
 import ModalContent from "../../../../componenets/Modal";
 import { StandardInput } from "../../../../componenets/Input";
 
 
 
 
-export default function Main(props: { permission: PermissionIndexInterface, onClose: ()=>void, fetchPermissionGroupList: any }) {
+export default function Main(props: { permission: any, onClose: ()=>void, fetchPermissionGroupList: any }) {
     const [name, setName] = useState('')
     async function onClickSave() {
 
