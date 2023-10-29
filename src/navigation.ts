@@ -95,6 +95,7 @@ export const navigations: any[] = [
        { name: 'Index Full', icon: 'pageview', path: '/visa/index-full' },
        { name: 'Consulate Charges', icon: 'pageview', path: '/visa/consulate-charges' },
        { name: 'Document Charges', icon: 'pageview', path: '/visa/document-charges' },
+       { name: 'Visa Issue Date', icon: 'pageview', path: '/visa/visa-issue-date' },
     ]
   },
   {

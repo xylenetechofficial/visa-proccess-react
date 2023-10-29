@@ -26,6 +26,7 @@ import IndexActive from "./indexActive/Router"
 import IndexFull from "./indexFull/Router"
 import ConsuleteCharges from "./consulateCharges/Router"
 import DocumentCharges from "./documentCharges/Router"
+import VisaIssueDate from './visaIssueDate/Router'
 
 
 
@@ -55,6 +56,7 @@ function Main() {
             <Route path='/index-full/*' element={<IndexFull />}></Route>
             <Route path='/consulate-charges/*' element={<ConsuleteCharges />}></Route>
             <Route path='/document-charges/*' element={<DocumentCharges />}></Route>
+            <Route path='/visa-issue-date/*' element={<VisaIssueDate />}></Route>
 
         </Routes>
 
