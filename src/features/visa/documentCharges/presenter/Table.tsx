@@ -29,6 +29,7 @@ const DocumentChargesTable = (props: {
           <TableHeadRow3>
           <TableHeadCell3>sn. no</TableHeadCell3>
             <TableHeadCell3>candidate name</TableHeadCell3>
+            <TableHeadCell3>candidate no</TableHeadCell3>
             <TableHeadCell3>party code </TableHeadCell3>
             <TableHeadCell3>company name</TableHeadCell3>
             <TableHeadCell3>passport no. </TableHeadCell3>
@@ -37,7 +38,7 @@ const DocumentChargesTable = (props: {
             <TableHeadCell3>agent</TableHeadCell3>
             <TableHeadCell3>mofa number</TableHeadCell3>
             <TableHeadCell3>visa authorization</TableHeadCell3>
-            {/* <TableHeadCell3>division</TableHeadCell3> */}
+            <TableHeadCell3>division</TableHeadCell3>
             <TableHeadCell3>visa submission </TableHeadCell3>
             <TableHeadCell3>visa fee</TableHeadCell3>
             <TableHeadCell3>document charges</TableHeadCell3>
@@ -50,6 +51,7 @@ const DocumentChargesTable = (props: {
               <TableRow3>
           <TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3>{documentCharge.candidate_name}</TableCell3>
+              <TableCell3>{documentCharge.candidate_no}</TableCell3>
               <TableCell3>{documentCharge.party_code}</TableCell3>
               <TableCell3>{documentCharge.company_name}</TableCell3>
               <TableCell3>{documentCharge.passport_no}</TableCell3>
@@ -58,7 +60,7 @@ const DocumentChargesTable = (props: {
               <TableCell3>{documentCharge.agent}</TableCell3>
               <TableCell3>{documentCharge.mofa_number}</TableCell3>
               <TableCell3>{documentCharge.visa_authorization}</TableCell3>
-              {/* <TableCell3>{documentCharge.division}</TableCell3> */}
+              <TableCell3>{documentCharge.division}</TableCell3>
               <TableCell3>{documentCharge.visa_submission}</TableCell3>
               <TableCell3>{documentCharge.visa_fee}</TableCell3>
               <TableCell3>

@@ -13,6 +13,10 @@ export interface ConsulateChargesInterface {
   visa_submission: string;
   visa_fee: number;
   consulate_setting_charges: string;
+
+  visa_no:string,
+  rc_name:string,
+  pp_copy:string,
 }
 
 // adapter
@@ -32,6 +36,10 @@ export interface ConsulateChargesAdapter {
   visa_submission: string;
   visa_fee: number;
   consulate_setting_charges: string;
+
+  visa_no:string,
+  rc_name:string,
+  pp_copy:string,
 }
 
 // converter class
@@ -59,6 +67,10 @@ export class ConsulateChargesConverter {
       visa_submission: a.visa_submission,
       visa_fee: a.visa_fee,
       consulate_setting_charges: a.consulate_setting_charges,
+
+      visa_no:a.visa_no,
+      rc_name:a.rc_name,
+      pp_copy:a.pp_copy,
     };
     return data;
   }
@@ -95,6 +107,10 @@ export class ConsulateChargesConverter {
       visa_submission: i.visa_submission,
       visa_fee: i.visa_fee,
       consulate_setting_charges: i.consulate_setting_charges,
+
+      visa_no:i.visa_no,
+      rc_name:i.rc_name,
+      pp_copy:i.pp_copy,
     };
     return data;
   }

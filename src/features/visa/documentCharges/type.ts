@@ -1,6 +1,7 @@
 export interface DocumentChargesInterface {
   id?: number;
   candidate_name: string;
+  candidate_no:string;
   party_code: number;
   company_name: string;
   passport_no: string;
@@ -10,6 +11,7 @@ export interface DocumentChargesInterface {
   agent: string;
   visa_authorization: string;
   visa_submission: string;
+  division: string;
   visa_fee: number;
   document_charges: string;
 }
@@ -19,6 +21,7 @@ export interface DocumentChargesInterface {
 export interface DocumentChargesAdapter {
   id?: number;
   candidate_name: string;
+  candidate_no:string;
   party_code: number;
   company_name: string;
   passport_no: string;
@@ -28,6 +31,7 @@ export interface DocumentChargesAdapter {
   agent: string;
   visa_authorization: string;
   visa_submission: string;
+  division: string;
   visa_fee: number;
   document_charges: string;
 }
@@ -47,6 +51,8 @@ export class DocumentChargesConverter {
       party_code: a.party_code,
       company_name: a.company_name,
       candidate_name: a.candidate_name,
+      candidate_no:a.candidate_no,
+      division:a.division,
       passport_no: a.passport_no,
       actual_profession: a.actual_profession,
       visa_profession: a.visa_profession,
@@ -81,6 +87,8 @@ export class DocumentChargesConverter {
       id: i.id,
       party_code: i.party_code,
       company_name: i.company_name,
+      candidate_no:i.candidate_no,
+      division:i.division,
       candidate_name: i.candidate_name,
       passport_no: i.passport_no,
       actual_profession: i.actual_profession,

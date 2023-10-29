@@ -10,6 +10,8 @@ import {
   TableRow3,
 } from "../../../../componenets/Table";
 import { ConsulateChargesInterface } from "../type";
+import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
+import { Checkbox } from "flowbite-react";
 
 const ConsulateChargesTable = (props: {
   snoBase:number,
@@ -51,6 +53,10 @@ const ConsulateChargesTable = (props: {
             <TableHeadCell3>division</TableHeadCell3>
             <TableHeadCell3>visa submission </TableHeadCell3>
             <TableHeadCell3>visa fee</TableHeadCell3>
+            <TableHeadCell3>visa no</TableHeadCell3>
+            <TableHeadCell3>rc name</TableHeadCell3>
+            <TableHeadCell3>pp/copy</TableHeadCell3>
+            <TableHeadCell3>checkbox</TableHeadCell3>
             <TableHeadCell3>consulate setting charges</TableHeadCell3>
           </TableHeadRow3>
         </TableHead3>
@@ -72,6 +78,12 @@ const ConsulateChargesTable = (props: {
                 <TableCell3>{consulateCharge.division}</TableCell3>
                 <TableCell3>{consulateCharge.visa_submission}</TableCell3>
                 <TableCell3>{consulateCharge.visa_fee}</TableCell3>
+                <TableCell3>{consulateCharge.visa_no}</TableCell3>
+                <TableCell3>{consulateCharge.rc_name}</TableCell3>
+                <TableCell3>{consulateCharge.pp_copy}</TableCell3>
+                {/* <TableHeadCell3> <CustomSingleCheckBox />  </TableHeadCell3> */}
+              <TableHeadCell3> <Checkbox />  </TableHeadCell3>
+
 
                 <TableCell3>      
                   {/* {consulateCharge.consulate_setting_charges} */}
