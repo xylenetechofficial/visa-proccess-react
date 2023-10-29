@@ -154,14 +154,14 @@ export default function Main(props: {
 
         const newJobOrder = { ...jobOrder, om_status: "approve" }
         console.log(newJobOrder)
-        // call create
+        // // call create
         await updateJobOrder(props.currentElement.id ?? 0, newJobOrder)
 
 
-        setJobOrder(initValue)
+        // setJobOrder(initValue)
 
-        props.fetchJobOrderList()
-        props.onClose()
+        // props.fetchJobOrderList()
+        // props.onClose()
     }
 
     async function handleReject() {
@@ -364,11 +364,15 @@ export default function Main(props: {
             {actualProfesionList && actualProfesionList.length ?
                 <FinalActualProfessionTable
                     // interViewSectorList={interviewSectionList}
-                    actualProfessionList={actualProfesionList}
+                    // actualProfessionList={actualProfesionList}
+                    actualProfessionList={jobOrder.actualProfesionList ?? []}
                     jobOrder={jobOrder}
+                    // onChange={(ele) => {
+                    //     setActualProfesionList(ele)
+                    //     // setIsJobOrderUpdated(new Date().toTimeString())
+                    // }}
                     onChange={(ele) => {
-                        setActualProfesionList(ele)
-                        // setIsJobOrderUpdated(new Date().toTimeString())
+                        setJobOrder({ ...jobOrder, actualProfesionList: ele })
                     }}
                     isChanged={isactualProfessionUpdated}
                 /> : ""}
@@ -396,7 +400,10 @@ export default function Main(props: {
 
             {EdocList && EdocList.length ?
                 <EdocTable
-                    onChange={(ele) => setEdocList(ele)}
+                    // onChange={(ele) => setEdocList(ele)}
+                    onChange={(ele) => {
+                        setJobOrder({ ...jobOrder, EdocList: ele })
+                    }}
                     jobOrder={jobOrder}
                     actualProfessionList={jobOrder.actualProfesionList ?? []}
                     EDOCList={EdocList}

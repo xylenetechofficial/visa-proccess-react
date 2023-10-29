@@ -22,7 +22,7 @@ export default function Main() {
 
     const [modalName, setModalName] = useState('')
 
-    const [reIssue, setReIssue] = useState<TicketIssueInterface>({}as TicketIssueInterface)
+    const [reIssue, setReIssue] = useState<TicketIssueInterface>({} as TicketIssueInterface)
 
     const onClickEdit = (reissue: any) => {
         setReIssue(reissue)
@@ -30,23 +30,23 @@ export default function Main() {
         console.log(reissue);   // Only Dev
         setModalName('edit')
     }
-    const [ticketIssueList, setTicketIssueList]= useState<TicketIssueInterface[]>([])
-    const fetchTicketissue =async()=>{
-        const res :any= await readTicketIssueList();
-        if(res){
+    const [ticketIssueList, setTicketIssueList] = useState<TicketIssueInterface[]>([])
+    const fetchTicketissue = async () => {
+        const res: any = await readTicketIssueList();
+        if (res) {
             setTicketIssueList(res)
         }
     }
-    useEffect(()=>{
+    useEffect(() => {
         fetchTicketissue()
-    },[])
+    }, [])
 
     return (
         <>
             <CustomNavbarV3
                 pageName="Ticket Reissue"
                 searchFunction={(query) => setSearchQuery(query)}
-                refresh={()=>fetchTicketissue()}
+                refresh={() => fetchTicketissue()}
             />
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -56,7 +56,7 @@ export default function Main() {
             <TicketReissueTable
                 onClickEdit={onClickEdit}
                 ticketIssueList={ticketIssueList}
-                
+
 
             />
 
@@ -66,7 +66,10 @@ export default function Main() {
                     <EditModal
                         reIssue={reIssue}
                         setReIssue={setReIssue}
-                        onClose={() => setModalName("")}
+                        onClose={() => {
+                            setModalName("")
+                            fetchTicketissue()
+                        }}
                     />
             }
 

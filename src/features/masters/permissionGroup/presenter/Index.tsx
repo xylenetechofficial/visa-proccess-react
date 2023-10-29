@@ -27,15 +27,19 @@ export default function Main() {
   const [permissionGroupList, setPermissionGroupList] = useState<PermissionInterface[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>({
     pagination: {
-        page: 1,
-        page_count: 1,
-        item_count: 0,
-        sno_base: 0,
+      page: 1,
+      page_count: 1,
+      item_count: 0,
+      sno_base: 0,
     }
-});
+  });
 
   const [permissionGroup, setPermissionGroup] = useState<PermissionGroupInterface>(
-    {} as PermissionGroupInterface
+    {
+      id: 0,
+      name: "",
+      dpt_list: [],
+    } as PermissionGroupInterface
   );
 
   const [modalName, setModalName] = useState("");
@@ -61,7 +65,7 @@ export default function Main() {
   };
 
   const onClickEdit = async (permission: PermissionInterface) => {
-    const res :any= await  readSinglePermissionGroup(permission.id)
+    const res: any = await readSinglePermissionGroup(permission.id)
     setPermissionGroup(res);
     console.log("onClickEdit"); // Only Dev
     console.log(permission); // Only Dev
@@ -77,24 +81,24 @@ export default function Main() {
   };
 
   const fetchPermissionGroupList = async (page?: number) => {
-    const res = await readPermissionGroupList(true,  page);
+    const res = await readPermissionGroupList(true, page);
     setPermissionGroupList(res);
     setAdditionalData(await PaginationManager.getData());
     filterData("", res);
   };
 
   useEffect(() => {
-    fetchPermissionGroupList(additionalData.pagination.page);   
+    fetchPermissionGroupList(additionalData.pagination.page);
   }, []);
 
-console.log(dataFiltered,"+++",permissionGroupList)
-const onClickCreate =async()=>{
-  const res :any= await  readSinglePermissionGroup(0)
+  console.log(dataFiltered, "+++", permissionGroupList)
+  const onClickCreate = async () => {
+    const res: any = await readSinglePermissionGroup(0)
     setPermissionGroup(res);
-    console.log(res,"Only dev")
-    
-}
-    return (
+    console.log(res, "Only dev")
+
+  }
+  return (
     <div>
       <CustomNavbarV3 pageName="Permission Group" searchFunction={searchFunction} />
       <CardHeader>
@@ -133,9 +137,9 @@ const onClickCreate =async()=>{
         ""
       ) : (
         <CreateModal
-        permission={permissionGroup}
+          permission={permissionGroup}
           onClose={() => setModalName("")}
-          fetchAgencyList={fetchPermissionGroupList}
+          fetchPermissionGroupList={fetchPermissionGroupList}
         />
       )}
 

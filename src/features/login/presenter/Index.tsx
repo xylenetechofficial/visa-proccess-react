@@ -34,7 +34,9 @@ export default function Login() {
       await authLogIn(userData)
       await authAddPermissionNavigation(permissionListNavigationData)
       
-      navigate("/dashboard")
+      // navigate("/dashboard")
+      window.location.reload()
+
     }
   }
 
