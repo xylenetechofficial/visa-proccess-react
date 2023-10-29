@@ -33,17 +33,18 @@ export default function Main(props: {
             buttonName="Edit"
             handleClick={onClickAdd}
         >
-            <div className="flex  justify-center">
-
-                <StandardInput
+             <div className="w-96">
+             <StandardInput
                     label="Name"
                     value={permissionGroup.name}
                     onChangeValue={(value: string) => {
                         setPermissionGroup({ ...permissionGroup, name: value })
                     }}
                 />
+             </div>
+            <div className="w-full">
 
-                <SubHeading1 text={permissionGroup.name} />
+                {/* <SubHeading1 text={permissionGroup.name} /> */}
                 <RenderPermissions
                     departments={permissionGroup.dpt_list ?? []}
                     onUpdate={(value) => setPermissionGroup({ ...permissionGroup, dpt_list: value })}

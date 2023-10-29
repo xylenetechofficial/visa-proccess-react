@@ -75,7 +75,7 @@ export default function Main() {
   // }, [editAgent, modalName])
 
   const fetchAgentList = async (page?: number) => {
-    const data = await readAgentList(true, "", page ?? 1);
+    const data = await readAgentList(true, "", page ?? additionalData.pagination.page);
     filterData("", agentList);
     setAgentList(data);
     setAdditionalData(await PaginationManager.getData());
