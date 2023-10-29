@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
-import AgencyTable from "./AgencyTable";
+import PermissionGroupTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import {
@@ -12,7 +12,8 @@ import {
 import { FaFilter } from "react-icons/fa";
 import Pagination from "../../../../componenets/Pagination";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
-import { deletePermissionGroup, readPermissionGroupList } from "../repository";
+import { PermissionGroupInterface, PermissionInterface } from "../type";
+import { deletePermissionGroup, readPermissionGroupList, readSinglePermissionGroup } from "../repository";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -23,7 +24,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  const [agencyList, setAgencyList] = useState<any[]>([]);
+  const [permissionGroupList, setPermissionGroupList] = useState<PermissionInterface[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>({
     pagination: {
         page: 1,
@@ -33,8 +34,8 @@ export default function Main() {
     }
 });
 
-  const [permissionGroup, setPermissionGroup] = useState<any>(
-    {} as any
+  const [permissionGroup, setPermissionGroup] = useState<PermissionGroupInterface>(
+    {} as PermissionGroupInterface
   );
 
   const [modalName, setModalName] = useState("");
@@ -56,11 +57,12 @@ export default function Main() {
   };
 
   const searchFunction = async (query: string) => {
-    filterData(query, agencyList);
+    filterData(query, permissionGroupList);
   };
 
-  const onClickEdit = (permission: any) => {
-    setPermissionGroup(permission);
+  const onClickEdit = async (permission: PermissionInterface) => {
+    const res :any= await  readSinglePermissionGroup(permission.id)
+    setPermissionGroup(res);
     console.log("onClickEdit"); // Only Dev
     console.log(permission); // Only Dev
     setModalName("edit");
@@ -76,7 +78,7 @@ export default function Main() {
 
   const fetchPermissionGroupList = async (page?: number) => {
     const res = await readPermissionGroupList(true,  page);
-    setAgencyList(res);
+    setPermissionGroupList(res);
     setAdditionalData(await PaginationManager.getData());
     filterData("", res);
   };
@@ -85,11 +87,16 @@ export default function Main() {
     fetchPermissionGroupList(additionalData.pagination.page);   
   }, []);
 
-
-
+console.log(dataFiltered,"+++",permissionGroupList)
+const onClickCreate =async()=>{
+  const res :any= await  readSinglePermissionGroup(0)
+    setPermissionGroup(res);
+    console.log(res,"Only dev")
+    
+}
     return (
     <div>
-      <CustomNavbarV3 pageName="Agency" searchFunction={searchFunction} />
+      <CustomNavbarV3 pageName="Permission Group" searchFunction={searchFunction} />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
@@ -98,12 +105,13 @@ export default function Main() {
           text={"Add +"}
           onClick={() => {
             setModalName("create");
+            onClickCreate()
           }}
         />
       </CardHeader>
 
       {/*  agency stable */}
-      <AgencyTable
+      <PermissionGroupTable
         snoBase={additionalData.pagination.sno_base}
         permission={dataFiltered}
         onClickEdit={onClickEdit}
@@ -125,6 +133,7 @@ export default function Main() {
         ""
       ) : (
         <CreateModal
+        permission={permissionGroup}
           onClose={() => setModalName("")}
           fetchAgencyList={fetchPermissionGroupList}
         />

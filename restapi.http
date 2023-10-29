@@ -10,8 +10,8 @@
 
 
 ###
-GET {{endpoint}}/visa-dpt/full-index/visa-profession-list?party_code=2
-?status=sjgfs
+GET {{endpoint}}/masters/permission-group-list?id=0
+# ?status=sjgfs
 
 
 

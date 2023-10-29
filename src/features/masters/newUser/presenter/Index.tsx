@@ -128,7 +128,7 @@ export default function Main() {
 
         {/* Add */}
         <GreenButton
-          text={"Add +"}
+          text={"Addss +"}
           onClick={() => {
             setModalName("create");
           }}

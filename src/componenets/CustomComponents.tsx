@@ -509,3 +509,68 @@ function QuickNotification(props: { notification: NotificationInterface }) {
         </div>
     </div>);
 }
+
+
+export const MultiSelectCheckbox2 = (props: {
+    option: { name: string, value: any }[]
+    onChange: (value: any) => void
+    value?: any
+    inlined?: boolean
+}) => {
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        console.log("OnClicked ")
+        console.log(event.target.value)
+        if (event.target.checked) {
+            const newArray = [...props.value, value];
+            props.onChange(newArray)
+        } else {
+            const newArray = props.value.filter((v: any) => v !== value)
+            props.onChange(newArray)
+            //   setSelectedOptions();
+        }
+    };
+
+
+    // console.log(props.value)
+    // console.log(props.option)
+    return (
+        <div>
+            
+            <FormGroup sx={{ m: 1, minWidth: 150, width: "100%", display:"fle", direction:"left" }}>
+                {props.option.map((option: any) => (
+                    <FormControlLabel
+                        key={option.value}
+                        control={
+                            <Checkbox
+                                checked={props.value && props.value.includes(option.value.toString())}
+                                onChange={(event) => {
+                                    const value = event.target.value;
+                                    console.log(value);
+                                    console.log(event.target.checked);
+                                    console.log(props.value)
+                                    if (event.target.checked) {
+                                        const arr = [...props.value, value];
+                                        props.onChange(arr);
+                                    } else {
+                                        const arr = props.value.filter((v: any) => v != value);
+
+                                        props.onChange(arr);
+
+                                    }
+                                }}
+                                value={option.value}
+                            />
+                        }
+                        label={option.name}
+                    />
+                ))}
+            </FormGroup>
+
+
+        </div>
+    );
+};
+
+

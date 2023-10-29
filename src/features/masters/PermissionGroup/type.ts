@@ -1,15 +1,21 @@
 export interface PermissionGroupInterface {
+  id?: number;
+  name: string;
+  dpt_list?:PermissionDataInterface[],
+}
+
+export interface PermissionDataInterface {
   name: string;
   page_list: PageInterface[];
 }
 
-interface PageInterface {
+export interface PageInterface {
   name: string;
   permission_list: PermissionInterface[];
 }
 
-interface PermissionInterface {
+export interface PermissionInterface {
   name: string;
   check: boolean;
-  id: number;
+  id:number;
 }

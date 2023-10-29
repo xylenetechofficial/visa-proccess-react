@@ -32,7 +32,7 @@ export default function Main(props: { onClose: any, fetchAgencyList: any }) {
     return (
 
         <ModalContent
-            title="Add Agency"
+            title="Add User"
             onClose={props.onClose}
             buttonName="Add"
             handleClick={onClickAdd}
@@ -46,6 +46,34 @@ export default function Main(props: { onClose: any, fetchAgencyList: any }) {
                 setName(e)
             }}
             label="Name"
+             />
+            <StandardInput 
+            value={name}
+            onChangeValue={(e:string) => {
+                setName(e)
+            }}
+            label="User Name"
+             />
+            <StandardInput 
+            value={name}
+            onChangeValue={(e:string) => {
+                setName(e)
+            }}
+            label="Email"
+             />
+            <StandardInput 
+            value={name}
+            onChangeValue={(e:string) => {
+                setName(e)
+            }}
+            label="Permission Group"
+             />
+            <StandardInput 
+            value={name}
+            onChangeValue={(e:string) => {
+                setName(e)
+            }}
+            label="Password"
              />
            
 

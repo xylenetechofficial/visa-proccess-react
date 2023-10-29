@@ -2,14 +2,9 @@
 import { Paper, } from '@mui/material';
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
-import { PermissionIndexInterface } from '../type';
+import { PermissionInterface } from '../type';
 
-
-
-
-
-
-const AgencyTable = (props: { permission: PermissionIndexInterface[], onClickEdit: any, onClickDelete: any , snoBase:number;}) => {
+const AgencyTable = (props: { permission: PermissionInterface[], onClickEdit: any, onClickDelete: any , snoBase:number;}) => {
     return (
         <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
 
