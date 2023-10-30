@@ -100,6 +100,7 @@ const Pagination = (props: { data: AdditionalDataInterface, onPageChange: (cuure
   }, [props.data.pagination])
 
   const handlePageChange = (newPage: number) => {
+    if (currentPage == newPage) return
     if (newPage >= 1 && newPage <= page_count) {
       props.onPageChange(newPage);
     }

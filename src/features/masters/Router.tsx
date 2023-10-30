@@ -41,11 +41,11 @@ function Main() {
             <Route path='/vendor/*' element={<Vendor />}></Route>
             <Route path='/country/*' element={<Country />}></Route>
             <Route path='/user/*' element={<User />}></Route>
-            <Route path='/role/*' element={<Role />}></Route>
+            <Route path='/permission-group/*' element={<Permission />}></Route>
+            {/* <Route path='/role/*' element={<Role />}></Route> */}
             <Route path='/sector/*' element={<Sector />}></Route>
             <Route path='/agency/*' element={<Agency />}></Route>
-            <Route path='/newUser/*' element={<NewUser />}></Route>
-            <Route path='/permission/*' element={<Permission />}></Route>
+            {/* <Route path='/newUser/*' element={<NewUser />}></Route> */}
             <Route path='/other-docs/*' element={<OtherDocs />}></Route>
             <Route path='/interview-sector/*' element={<InterviewSector />}></Route>
             <Route path='/visa-authorisation/*' element={<VisaAuthorisation />}></Route>

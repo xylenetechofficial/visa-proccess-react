@@ -5,25 +5,39 @@ import { Checkbox } from "flowbite-react";
 import { PermissionGroupInterface, PermissionDataInterface, PageInterface, PermissionInterface } from "../type";
 import { RenderPermissions } from "./RenderPermissions";
 import { StandardInput } from "../../../../componenets/Input";
+import { readSinglePermissionGroup, updatePermissionGroup } from "../repository";
 
 
 export default function Main(props: {
-    fetchPermissionGroupList: any
     permission: PermissionGroupInterface,
     onClose: any,
 }) {
 
-    const [permissionGroup, setPermissionGroup] = useState<PermissionGroupInterface>({} as PermissionGroupInterface)
+    const initValue: PermissionGroupInterface = {
+        id: 0,
+        name: "",
+        dpt_list: []
+    }
+
+    const [permissionGroup, setPermissionGroup] = useState(initValue)
     async function onClickAdd() {
 
         console.log(permissionGroup);   // Only Dev
+        const res = await updatePermissionGroup(permissionGroup)
 
-        props.fetchPermissionGroupList()
-        props.onClose()
+        if (!res) {
+            setPermissionGroup(initValue)
+            props.onClose()
+        }
+    }
+
+    const fetchPermissionList = async () => {
+        const res: any = await readSinglePermissionGroup(props.permission.id ?? 0)
+        setPermissionGroup(res);
     }
 
     useEffect(() => {
-        setPermissionGroup(props.permission);
+        fetchPermissionList();
     }, []);
 
     return (

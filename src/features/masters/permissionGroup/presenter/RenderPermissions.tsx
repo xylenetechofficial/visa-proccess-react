@@ -100,7 +100,7 @@ export function RenderPermissions(props: {
                     onUpdate_department(index_department, { ...e, check: e })
                   }
                 />
-                <span className="bg-red-400 text-xs uppercase">
+                <span className="bg-grey-400 text-xs uppercase">
                   check/uncheck all
                 </span>
               </div>
@@ -125,7 +125,7 @@ export function RenderPermissions(props: {
                               })
                             }
                           />
-                          <span className="bg-red-400 text-xs uppercase">
+                          <span className="bg-grey-400 text-xs uppercase">
                             check/uncheck all
                           </span>
                         </div>

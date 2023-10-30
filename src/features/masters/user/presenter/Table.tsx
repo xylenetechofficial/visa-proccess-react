@@ -1,50 +1,71 @@
 import { UserInterface } from '../type'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, styled, tableCellClasses } from '@mui/material';
 import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { StyledTableCell, StyledTableRow, TableStyle } from '../../../../componenets/TableStyle';
+import { useState, useEffect } from "react";
+import { SectorInterface } from '../../sector/type';
+import { readSectorList } from '../../sector/repository';
+import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3, } from '../../../../componenets/Table';
 
 
 
 
+const UserTable = (props: { userList: UserInterface[], onClickEdit: any, onClickDelete: any, snoBase: number; }) => {
+    const [sectorList, setSectorList] = useState<SectorInterface[]>()
 
-const UserTable = (props: { userList: UserInterface[], onClickEdit: any, onClickDelete: any }) => {
+    const fetchSectorList = async () => {
+        const res = await readSectorList()
+        setSectorList(res)
+
+    }
+
+    useEffect(() => {
+        fetchSectorList()
+    }, [])
+
+    console.log(sectorList);
+    console.log(props.userList)
     return (
-        <div className='overflow-auto' style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <TableContainer component={Paper}>
-                <Table sx={TableStyle} >
-                    <TableHead >
-                        <TableRow style={{}} >
-                            <StyledTableCell align='left' width={100} > Sr No.</StyledTableCell>
-                            <StyledTableCell align='center' width={300}> Name</StyledTableCell>
-                            <StyledTableCell align='center' width={100}> Action</StyledTableCell>
-
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {props.userList.map((ele, index) => (
-
-                            <StyledTableRow key={index}>
-                                <StyledTableCell align='left' width={100}>{index + 1}</StyledTableCell>
-                                <StyledTableCell align='center' width={300}> {ele.name}</StyledTableCell>
-                                <StyledTableCell align='right' width={100}>
-
-                                    <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
-                                        props.onClickEdit(ele)
-                                    }} />
-
-                                    <RedButton text={"Delete"} preIcon='delete' onClick={() => {
-                                        props.onClickDelete(ele)
-                                    }} />
-
-                                </StyledTableCell>
-                            </StyledTableRow>
-                        ))}
+        <div className='overflow-auto'>
 
 
+            <Table3 >
+                <TableHead3 >
+                    <TableHeadRow3>
+                        <TableHeadCell3 > Sr No.</TableHeadCell3>
+                        <TableHeadCell3> Name</TableHeadCell3>
+                        <TableHeadCell3> Email</TableHeadCell3>
+                        <TableHeadCell3> Permission Group</TableHeadCell3>
+                        <TableHeadCell3> Role</TableHeadCell3>
+                        <TableHeadCell3 > Action </TableHeadCell3>
 
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </TableHeadRow3>
+                </TableHead3>
+                <TableBody3>
+                    {props.userList.map((ele, index) => (
+
+                        <TableRow3 key={index}>
+                            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
+                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {ele.permission_group_name}</TableCell3>
+                            <TableCell3 > {ele.user_role_name}</TableCell3>
+                            <TableCell3 >
+
+                                <BlueButton text={" EDIT"} onClick={() => {
+                                    props.onClickEdit(ele)
+                                }} />
+
+                                <RedButton text={"DELETE"} onClick={() => {
+                                    props.onClickDelete(ele)
+                                }} />
+
+                            </TableCell3>
+                        </TableRow3>
+                    ))}
+
+
+
+                </TableBody3>
+            </Table3>
         </div>
     )
 }

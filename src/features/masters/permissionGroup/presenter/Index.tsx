@@ -34,17 +34,16 @@ export default function Main() {
     }
   });
 
-  const [permissionGroup, setPermissionGroup] = useState<PermissionGroupInterface>(
-    {
-      id: 0,
-      name: "",
-      dpt_list: [],
-    } as PermissionGroupInterface
-  );
+  const initValue: PermissionGroupInterface = {
+    id: 0,
+    name: "",
+    dpt_list: []
+  }
+  const [permissionGroup, setPermissionGroup] = useState<PermissionGroupInterface>(initValue);
 
   const [modalName, setModalName] = useState("");
+  const [actionType, setActionType] = useState("");
 
-  const [searchQuery, setSearchQuery] = useState("");
 
   const [dataFiltered, setDataFiltered] = useState<any[]>([]);
   const filterData = (query: string, data: any[]) => {
@@ -64,11 +63,18 @@ export default function Main() {
     filterData(query, permissionGroupList);
   };
 
+
+  const onClickDuplicate = async (permission: PermissionInterface) => {
+    setPermissionGroup(permission);
+    setModalName("create");
+    setActionType("copy");
+  }
+
   const onClickEdit = async (permission: PermissionInterface) => {
-    const res: any = await readSinglePermissionGroup(permission.id)
-    setPermissionGroup(res);
-    console.log("onClickEdit"); // Only Dev
-    console.log(permission); // Only Dev
+    // const res: any = await readSinglePermissionGroup(permission.id)
+    setPermissionGroup(permission);
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(permission); // Only Dev
     setModalName("edit");
   };
 
@@ -81,14 +87,14 @@ export default function Main() {
   };
 
   const fetchPermissionGroupList = async (page?: number) => {
-    const res = await readPermissionGroupList(true, page);
+    const res = await readPermissionGroupList(true, page ?? additionalData.pagination.page);
     setPermissionGroupList(res);
     setAdditionalData(await PaginationManager.getData());
     filterData("", res);
   };
 
   useEffect(() => {
-    fetchPermissionGroupList(additionalData.pagination.page);
+    fetchPermissionGroupList();
   }, []);
 
   console.log(dataFiltered, "+++", permissionGroupList)
@@ -108,8 +114,9 @@ export default function Main() {
         <GreenButton
           text={"Add +"}
           onClick={() => {
+            setPermissionGroup({ ...permissionGroup, id: 0 })
             setModalName("create");
-            onClickCreate()
+            // onClickCreate()
           }}
         />
       </CardHeader>
@@ -119,6 +126,7 @@ export default function Main() {
         snoBase={additionalData.pagination.sno_base}
         permission={dataFiltered}
         onClickEdit={onClickEdit}
+        onClickDuplicate={onClickDuplicate}
         onClickDelete={onClickDelete}
       />
 
@@ -138,8 +146,12 @@ export default function Main() {
       ) : (
         <CreateModal
           permission={permissionGroup}
-          onClose={() => setModalName("")}
-          fetchPermissionGroupList={fetchPermissionGroupList}
+          onClose={() => {
+            setModalName("")
+            setActionType("")
+            fetchPermissionGroupList()
+          }}
+          actionType={actionType}
         />
       )}
 
@@ -149,8 +161,10 @@ export default function Main() {
       ) : (
         <EditModal
           permission={permissionGroup}
-          onClose={() => setModalName("")}
-          fetchPermissionGroupList={fetchPermissionGroupList}
+          onClose={() => {
+            setModalName("")
+            fetchPermissionGroupList
+          }}
         />
       )}
     </div>

@@ -1,4 +1,3 @@
-import { NavigationInterface } from "./componenets/model";
 
 export const navigations: any[] = [
   { name: 'Dashboard', path: '/dashboard', icon: '' },
@@ -12,8 +11,8 @@ export const navigations: any[] = [
       { name: 'Company', icon: 'pageview', path: '/masters/company' },
       { name: 'Country', icon: 'pageview', path: '/masters/country' },
       { name: 'Agency', icon: 'pageview', path: '/masters/agency' },
-      { name: 'New User', icon: 'pageview', path: '/masters/newUser' },
-      { name: 'Permission', icon: 'pageview', path: '/masters/permission' },
+      // { name: 'New User', icon: 'pageview', path: '/masters/newUser' },
+      // { name: 'Permission', icon: 'pageview', path: '/masters/permission' },
       { name: 'Bank', icon: 'pageview', path: '/masters/bank' },
       { name: 'Sector', icon: 'pageview', path: '/masters/sector' },
       { name: 'Interview Sector', icon: 'pageview', path: '/masters/interview-sector' },
@@ -26,8 +25,8 @@ export const navigations: any[] = [
       { name: 'Visa Authorisation', icon: 'pageview', path: '/masters/visa-authorisation' },
 
       { name: 'User', icon: 'pageview', path: '/masters/user' },
-      { name: 'Role', icon: 'pageview', path: '/masters/role' },
-      // { name: 'Permission Group', icon: 'pageview', path: '/masters/permission-group' },
+      // { name: 'Role', icon: 'pageview', path: '/masters/role' },
+      { name: 'Permission Group', icon: 'pageview', path: '/masters/permission-group' },
       
     ]
   },
