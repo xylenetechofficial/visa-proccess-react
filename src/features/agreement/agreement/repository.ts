@@ -1,54 +1,20 @@
-import { AgreementAdapter,  AgreementInterface } from "./type";
+import { AgreementConverter,  AgreementInterface } from "./type";
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-// get visa - dpt / block - visa - list => GetAgreementList
-// post visa - dpt / block - visa => PostAgreement
-// get visa - dpt / block - visa / { id } => GetAgreement
-// patch visa - dpt / block - visa / { id } => PatchAgreement
-// delete visa - dpt / block - visa / { id } => DeleteAgreement
 
-// //  ------------   Block Visa Profession   ------------ \\
-// delete visa - dpt / block - visa - profession / { id } => DeleteAgreementProfessio
-
-
-
-export async function readAgreementList() {
-  const path = "/visa-dpt/block-visa-list";
-
-  const response = await ApiHelper.get(path, {
-    contentType: ContentType.json,
-    tokenType: AuthTokenType.JWT,
-  });
-
-  if (response.code != 200) {
-    showMessage_v2({ message: response.message, status: response.code })
-  }
-
-  const data = []
-  console.log(response.data)
-  // if (response.data) {
-  //   const dataAdapter = response.data as AgreementAdapter[];
-  //   for (let i = 0; i < dataAdapter.length; i++) {
-  //     const element = dataAdapter[i];
-  //     data.push(AgreementConverter.toInterface(element));
-  //   }
-  // }
-  // return data as AgreementInterface[]
-  return response.data as AgreementInterface[]
-}
-
-
-
-export async function readAgreement(id: number, page_number?: number) {
-
-  const path = "/visa-dpt/block-visa/" + id;
+export async function readAgreementList(query: {
+  status?: string
+  page?: number
+}) {
+  const path = "/agreements/agreement-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      page: page_number ?? 0,
+      page: query.page ?? 0,
+      status: query.status ?? "",
     },
   });
 
@@ -60,19 +26,17 @@ export async function readAgreement(id: number, page_number?: number) {
     response.additional_data as AdditionalDataInterface
   );
 
-  // return AgreementConverter.toInterface(response.data as AgreementAdapter)
-  return response.data as AgreementInterface
+  return AgreementConverter.toInterfaceList(response.data as AgreementInterface[])
 }
 
 
-
-
-export async function createAgreement(Agreement: AgreementInterface) {
+export async function createAgreement(Agreement: AgreementInterface[]) {
   console.log(Agreement)
-  const path = "/visa-dpt/block-visa"
+  const path = "/agreements/agreement-list"
 
-  // const payload = AgreementConverter.toAdapter(Agreement);
-  const payload = Agreement
+  const payload = {
+    selection_list: AgreementConverter.toAdapterList(Agreement)
+  }
 
   console.log(payload)
   const response = await ApiHelper.post(path, payload, {
@@ -87,12 +51,13 @@ export async function createAgreement(Agreement: AgreementInterface) {
   return false;
 }
 
+
 export async function updateAgreement(id: number, Agreement: AgreementInterface) {
+  const path = "/agreements/agreement-list" + id
 
-  // const payload = AgreementConverter.toAdapter(Agreement);
-  const payload = Agreement;
+  const payload = AgreementConverter.toAdapter(Agreement);
+  // const payload = Agreement;
 
-  const path = "/visa-dpt/block-visa/" + id
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
@@ -101,14 +66,39 @@ export async function updateAgreement(id: number, Agreement: AgreementInterface)
 
 }
 
-export async function deleteAgreement(id: number) {
+// export async function deleteAgreement(id: number) {
 
-  const path = "/visa-dpt/block-visa/" + id
-  const response = await ApiHelper.delete(path, {
-    tokenType: AuthTokenType.JWT
-  })
+//   const path = "/visa-dpt/block-visa/" + id
+//   const response = await ApiHelper.delete(path, {
+//     tokenType: AuthTokenType.JWT
+//   })
 
-  showMessage_v2({ message: response.message, status: response.code })
+//   showMessage_v2({ message: response.message, status: response.code })
 
-}
+// }
 
+
+
+// export async function readAgreement(id: number, page_number?: number) {
+
+//   const path = "/visa-dpt/block-visa/" + id;
+
+//   const response = await ApiHelper.get(path, {
+//     contentType: ContentType.json,
+//     tokenType: AuthTokenType.JWT,
+//     queryParameters: {
+//       page: page_number ?? 0,
+//     },
+//   });
+
+//   if (response.code != 200) {
+//     showMessage_v2({ message: response.message, status: response.code })
+//   }
+
+//   await PaginationManager.setData(
+//     response.additional_data as AdditionalDataInterface
+//   );
+
+//   // return AgreementConverter.toInterface(response.data as AgreementAdapter)
+//   return response.data as AgreementInterface
+// }

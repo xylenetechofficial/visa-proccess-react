@@ -1,334 +1,137 @@
 import { useEffect, useState } from "react";
-// import CreateModal from './Create'
-// import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
-import DeployCandidateTable from "./Table";
-import { confirmationMessage } from "../../../../utils/alert";
-import { GreenButton } from "../../../../componenets/CustomButton";
-import { CustomButton2, CustomNavbarV3 } from "../../../../componenets/CustomComponents";
+
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AgreementInterface, } from "../type";
-// import { deleteBlockVisa, readBlockVisaList } from "../repository";
-import { SectorInterface } from "../../../masters/sector/type";
-import { readSectorList } from "../../../masters/sector/repository";
-import { readCompanyList } from "../../../masters/company/repository";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CountryInterface } from "../../../masters/country/type";
-import { readCountryList } from "../../../masters/country/repository";
+import { AgreementInterface } from "../type";
 import AgreementTable from "./Table";
-import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
+import { useUserAuth } from "../../../context/UserAuthContext";
+
+import CreateModal from "./Create";
+import EditModal from "./Edit";
+import { readAgreementList } from "../repository";
+import Pagination from "../../../../componenets/Pagination";
+
 const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
+  display: "flex",
+  flexWrap: "wrap",
+  paddingRight: "24px",
+  marginBottom: "18px",
+  alignItems: "center",
+  justifyContent: "space-between",
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth();
 
-    // const [editBlockVisa, setEditBlockVisa] = useState<BlockVisaInterface>({} as BlockVisaInterface)
+  const [agreementList, setAgreementList] = useState<AgreementInterface[]>([]);
 
-    const [modalName, setModalName] = useState('')
+  const [modalName, setModalName] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
-        {
-          pagination: {
-            page: 1,
-            page_count: 1,
-            item_count: 0,
-            sno_base: 0,
-          },
-        }
-      );
-
-    const onClickCreate = () => {
-        setModalName('create');
-
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
     }
+  );
 
-    // const onClickEdit = (blockVisa: BlockVisaInterface) => {
-    //     setEditBlockVisa(blockVisa)
-    //     console.log("onClickEdit");   // Only Dev
-    //     console.log(blockVisa);   // Only Dev
-    //     setModalName('edit')
-    // }
+  const fetchAgreementList = async (page?: number) => {
+    const data = await readAgreementList({
+      page: page ?? 1,
+      status: "yes",
+    });
+    setAgreementList(data);
+    setAdditionalData(await PaginationManager.getData());
+  };
 
-    // const onClickDelete = async (blockVisa: BlockVisaInterface) => {
-    //     const flag = await confirmationMessage("Do you really want to delete?")
-    //     if (flag && blockVisa.id) {
-    //         await deleteBlockVisa(blockVisa.id);
-    //         fetchBlockVisaList()
-    //     }
-    // }
+  useEffect(() => {
+    fetchAgreementList(additionalData.pagination.page);
+  }, []);
 
-    // useEffect(() => {
-    // }, [editBlockVisa, modalName])
-    // const [sectorList, setSectorList] = useState<SectorInterface[]>([])
-    // const fetchSectorList = async () => {
-    //     const data = await readSectorList();
-    //     if (data) {
-    //         setSectorList(data);
-    //     }
-    // }
+  return (
+    <div>
+      <CustomNavbarV3
+        pageName="Agreement"
+        searchFunction={(query) => setSearchQuery(query)}
+      />
 
-    // const [companyList, setCompanyList] = useState<CompanyInterface[]>([])
-    // const fetchcomapanyList = async () => {
-    //     const data = await readCompanyList();
-    //     if (data) {
-    //         setCompanyList(data);
-    //     }
-    // }
+      <CardHeader>
+        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-    // const [countryList, setCountryList] = useState<CountryInterface[]>([])
-    // const fetchCountryList = async () => {
-    //     const data = await readCountryList();
-    //     if (data) {
-    //         setCountryList(data);
-    //     }
-    // }
-
-    // const [BDEList, setBDEList] = useState<CountryInterface[]>([])
-    // const fetchCountryList = async () => {
-    //     const data = await readCompanyList();
-    //     if(data){
-    //         setCompanyList(data);
-    //     }
-    // }
-    const [agreementList, setagreementList] = useState<AgreementInterface[]>([
-        {
-            party_code: 5105,
-            company_name: "MAFESTRO PIZZA",
-            candidate_name: "MRITYUNJOY MUDI",
-            passport_no: "L7842668",
-            actual_profession: "HVAC TECHNICIANS",
-            visa_profession: "TOURS REPRESENTATIVE",
-            agent: "DIRECT",
-            rc_name: "TEJAS",
-            visa_received_date: "07 SEP 2018",
-            visa_expiry_date: "04 DEC 2018",
-            sector_from: "",
-            sector_to: "",
-            departure_date: "",
-            payment_cleared: "CLEARED",
-            reported_for_agreement: "REPORTED",
-            remarks: "MOTHER SHEELA KERALA",
-            contact_details: "9903408136"
-
-        },
-        {
-            party_code: 5105,
-            company_name: "MAFESTRO PIZZA",
-            candidate_name: "MRITYUNJOY MUDI",
-            passport_no: "L7842668",
-            actual_profession: "HVAC TECHNICIANS",
-            visa_profession: "TOURS REPRESENTATIVE",
-            agent: "DIRECT",
-            rc_name: "TEJAS",
-            visa_received_date: "07 SEP 2018",
-            visa_expiry_date: "04 DEC 2018",
-            sector_from: "",
-            sector_to: "",
-            departure_date: "",
-            payment_cleared: "CLEARED",
-            reported_for_agreement: "REPORTED",
-            remarks: "MOTHER SHEELA KERALA",
-            contact_details: "9903408136"
-
-        }, {
-            party_code: 5105,
-            company_name: "MAFESTRO PIZZA",
-            candidate_name: "MRITYUNJOY MUDI",
-            passport_no: "L7842668",
-            actual_profession: "HVAC TECHNICIANS",
-            visa_profession: "TOURS REPRESENTATIVE",
-            agent: "DIRECT",
-            rc_name: "TEJAS",
-            visa_received_date: "07 SEP 2018",
-            visa_expiry_date: "04 DEC 2018",
-            sector_from: "",
-            sector_to: "",
-            departure_date: "",
-            payment_cleared: "CLEARED",
-            reported_for_agreement: "REPORTED",
-            remarks: "MOTHER SHEELA KERALA",
-            contact_details: "9903408136"
-
-        }, {
-            party_code: 5105,
-            company_name: "MAFESTRO PIZZA",
-            candidate_name: "MRITYUNJOY MUDI",
-            passport_no: "L7842668",
-            actual_profession: "HVAC TECHNICIANS",
-            visa_profession: "TOURS REPRESENTATIVE",
-            agent: "DIRECT",
-            rc_name: "TEJAS",
-            visa_received_date: "07 SEP 2018",
-            visa_expiry_date: "04 DEC 2018",
-            sector_from: "",
-            sector_to: "",
-            departure_date: "",
-            payment_cleared: "CLEARED",
-            reported_for_agreement: "REPORTED",
-            remarks: "MOTHER SHEELA KERALA",
-            contact_details: "9903408136"
-
-        }, {
-            party_code: 5105,
-            company_name: "MAFESTRO PIZZA",
-            candidate_name: "MRITYUNJOY MUDI",
-            passport_no: "L7842668",
-            actual_profession: "HVAC TECHNICIANS",
-            visa_profession: "TOURS REPRESENTATIVE",
-            agent: "DIRECT",
-            rc_name: "TEJAS",
-            visa_received_date: "07 SEP 2018",
-            visa_expiry_date: "04 DEC 2018",
-            sector_from: "",
-            sector_to: "",
-            departure_date: "",
-            payment_cleared: "CLEARED",
-            reported_for_agreement: "REPORTED",
-            remarks: "MOTHER SHEELA KERALA",
-            contact_details: "9903408136"
-
-        }, {
-            party_code: 5105,
-            company_name: "MAFESTRO PIZZA",
-            candidate_name: "MRITYUNJOY MUDI",
-            passport_no: "L7842668",
-            actual_profession: "HVAC TECHNICIANS",
-            visa_profession: "TOURS REPRESENTATIVE",
-            agent: "DIRECT",
-            rc_name: "TEJAS",
-            visa_received_date: "07 SEP 2018",
-            visa_expiry_date: "04 DEC 2018",
-            sector_from: "",
-            sector_to: "",
-            departure_date: "",
-            payment_cleared: "CLEARED",
-            reported_for_agreement: "REPORTED",
-            remarks: "MOTHER SHEELA KERALA",
-            contact_details: "9903408136"
-
-        }, {
-            party_code: 5105,
-            company_name: "MAFESTRO PIZZA",
-            candidate_name: "MRITYUNJOY MUDI",
-            passport_no: "L7842668",
-            actual_profession: "HVAC TECHNICIANS",
-            visa_profession: "TOURS REPRESENTATIVE",
-            agent: "DIRECT",
-            rc_name: "TEJAS",
-            visa_received_date: "07 SEP 2018",
-            visa_expiry_date: "04 DEC 2018",
-            sector_from: "",
-            sector_to: "",
-            departure_date: "",
-            payment_cleared: "CLEARED",
-            reported_for_agreement: "REPORTED",
-            remarks: "MOTHER SHEELA KERALA",
-            contact_details: "9903408136"
-
-        },
-    ])
-
-    const [searchQuery, setSearchQuery] = useState("")
-
-    // const filterData = (query: string, data: BlockVisaInterface[]) => {
-    //     if (!query) {
-    //         return data;
-    //     } else {
-    //         return data.filter((d) =>
-    //             d.index_date.toLowerCase().includes(query.toLowerCase())
-    //         );
-    //     }
-    // };
-    // const dataFiltered = filterData(searchQuery, blockVisaList);
-
-    // const [visaprofession, setVisaProfessionList] = useState<VisaProfesionInterface[]>([])
-
-    // const fetchBlockVisaList = async () => {
-    //     const data = await readBlockVisaList();
-    //     console.log(data);
-    //     if(data){
-    //         setBlockVisaList(data);
-
-    //     }
-    //     setBlockVisaList(data)
-
-    // }
-    useEffect(() => {
-
-        // fetchBlockVisaList()
-        // fetchSectorList()
-        // fetchcomapanyList()
-        // fetchCountryList()
-
-    }, [])
-
-
-
-    return (
-
-        <div >
-            <CustomNavbarV3 pageName="Agreement" searchFunction={(query) => setSearchQuery(query)} />
-
-            <CardHeader>
-                <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-
-                {/* <GreenButton text={"Add +"} onClick={() => {
-                    setModalName("create")
-                }} /> */}
-                {/* <Button
-                    variant="contained"
-                    color="success"
-                    onClick={() => {
-                        setModalName("create")
-                    }}
-                >
-                    Add BlockVisa +
-                </Button> */}
-                {/* <IconButton>
-                    <Icon color="primary">refresh</Icon>
-                </IconButton> */}
-            </CardHeader>
-
-
-            {/*  blockVisa stable */}
-            <AgreementTable
-                deployCandidateList={agreementList}
-            // onClickEdit={onClickEdit}
-            // onClickDelete={onClickDelete}
-            // companyList={companyList}
-            // countryList={countryList}
-            // sectorList={sectorList}
+        <div>
+          {authPermissionList.url_has("create") ? (
+            <GreenButton
+              text={"Add"}
+              onClick={() => {
+                setModalName("create");
+              }}
             />
-
-            {/* <!-- Modal --> */}
-
-            {/* Create */}
-            {/* {modalName !== "create" ? "" :
-                <CreateModal
-                    onClose={() => setModalName("")}
-                    fetchBlockVisaList={fetchBlockVisaList}
-                    companyList={companyList}
-                    countryList={countryList}
-                    sectorList={sectorList}
-                />} */}
-
-            {/* Edit */}
-            {/* {modalName !== "edit" ? "" :
-                <EditModal
-                    currentElement={editBlockVisa}
-                    onClose={() => setModalName("")}
-                    fetchBlockVisaList={fetchBlockVisaList}
-                    companyList={companyList}
-                    countryList={countryList}
-                    sectorList={sectorList}
-                />} */}
+          ) : (
+            ""
+          )}
+          {authPermissionList.url_has("update") ? (
+            <BlueButton
+              text={"Edit"}
+              onClick={() => {
+                setModalName("edit");
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
-    )
+      </CardHeader>
+
+      {/*  blockVisa stable */}
+      <AgreementTable
+        agreementList={agreementList}
+        snoBase={additionalData.pagination.sno_base}
+        actionType="read"
+        onChange={(list) => setAgreementList(list)}
+      />
+
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchAgreementList(e);
+        }}
+      />
+
+      {/* <!-- Modal --> */}
+
+      {/* Create */}
+      {modalName !== "create" ? (
+        ""
+      ) : (
+        <CreateModal onClose={() =>{
+          setModalName("")
+          fetchAgreementList()
+        }} />
+      )}
+
+      {/* Edit */}
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal onClose={() => {
+            setModalName("")
+            fetchAgreementList()
+          }} />
+      )}
+    </div>
+  );
 }

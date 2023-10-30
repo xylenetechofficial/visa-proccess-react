@@ -1,165 +1,135 @@
 
 export interface AgreementInterface {
   id?: number
-  party_code: number,
-  company_name: string,
-  candidate_name: string,
-  passport_no:string,
-  actual_profession: string,
+  party_code: number
+  company_name: string
+  name: string
+  passport_no: string
+  actual_profession: string
   visa_profession: string
-  agent:string,
-  rc_name:string,
-  visa_received_date:string,
-  visa_expiry_date:string,
-  sector_from:string,
-  sector_to:string,
-  departure_date:string,
-  payment_cleared:string,
-  reported_for_agreement:string,
-  remarks:string,
-  contact_details:string
-
-  
+  agent_name: string
+  rc_name: string
+  visa_received_date: string
+  visa_expiry_date: any
+  sector_to:any
+  sector_from: any
+  departure_date: any
+  payment_cleared: any
+  reported_for_agreement: any
+  remarks: string
+  contact_details: any
 
 }
 
 export interface AgreementAdapter{
   id?: number
-  party_code: number,
-  company_name: string,
-  candidate_name: string,
-  passport_no:string,
-  actual_profession: string,
+  party_code: number
+  company_name: string
+  name: string
+  passport_no: string
+  actual_profession: string
   visa_profession: string
-  agent:string,
-  rc_name:string,
-  visa_received_date:string,
-  visa_expiry_date:string,
-  sector_from:string,
-  sector_to:string,
-  departure_date:string,
-  payment_cleared:string,
-  reported_for_agreement:string,
-  remarks:string,
-  contact_details:string
+  agent_name: string
+  rc_name: string
+  visa_received_date: string
+  visa_expiry_date: any
+  sector_from: any
+  sector_to:any
+  departure_date: any
+  payment_cleared: any
+  reported_for_agreement: any
+  remarks: string
+  contact_details: any
 
   
-
 }
-// 'block_visa' => 'required|array',
-// 'visa_profession_list' => 'required|array'
-
-// export interface ServerAdapter{
-//   block_visa: BlockVisaAdapter,
-//   visa_profession_list: VisaProfesionAdapter[]
-// }
-
-// // block_visa
-// export interface BlockVisaAdapter {
-//   id?: number,
-//   index_date: string,
-//   company: number,
-//   country: number,
-//   quantity: number,
-//   visa_date_arabic: string,
-//   visa_number: string,
-//   visa_fee: number,
-//   visa_issued_date: string,
-//   visa_authorization: number,
-//   visa_submission: string,
-//   arabic_sponsor_name: string,
-//   sponsor_id: string,
-//   visa_expiry_date: string
-//   division: string
-//   om: number,
-//   rm: number,
-//   rc: number,
-//   visa_accountable: number,
-//   visa_profession_list?:string
 
 
+export class AgreementConverter {
+  // private i: AgreementInterface
+  // private a: AgreementAdapter
 
-// }
+  /**
+   * toInterface
+   */
+  public static toInterface(a: AgreementAdapter) {
+    const data: AgreementInterface = {
+      id: a.id,
+      party_code:a.party_code ,
+      company_name: a.company_name,
+      name:a.name ,
+      passport_no:a.passport_no,
+      actual_profession: a.actual_profession,
+      visa_profession: a.visa_profession,
+      agent_name:a.agent_name,
+      rc_name:a.rc_name,
+      visa_received_date:a.visa_received_date,
+      visa_expiry_date:a.visa_expiry_date,
+      sector_from:a.sector_from,
+      sector_to:a.sector_to,
+      departure_date:a.departure_date,
+      payment_cleared:a.payment_cleared,
+      reported_for_agreement:a.reported_for_agreement,
+      remarks:a.remarks,
+      contact_details:a.contact_details
+     
+    };
+    return data;
+  }
 
-// export interface VisaProfesionInterface {
-//   id?:number;
-//   block_visa_id: number;
-//   visa_profession: string;
-//   arabic_visa_category: string;
-//   quantity: number;
-// }
 
-// export interface VisaProfesionAdapter {
-//   id?:number;
-//   block_visa_id: number;
-//   visa_profession: string;
-//   arabic_visa_category: string;
-//   quantity: number;
-// }
 
-// export class BlockVisaConverter {
-//   // private i: AgentInterface
-//   // private a: AgentAdapter
+  public static toInterfaceList(a_list: AgreementAdapter[]) {
+    const data_list: AgreementInterface[] = [];
 
-//   /**
-//    * toInterface
-//    */
-//   public static toInterface(a: BlockVisaAdapter) {
-//     const data: BlockVisaInterface = {
-//       id: a.id,
-//       index_date: a.index_date,
-//       company: a.company,
-//       country: a.country,
-//       quantity: a.quantity,
-//       visa_date_arabic: a.visa_date_arabic,
-//       visa_number: a.visa_number,
-//       visa_fee: a.visa_fee,
-//       visa_issued_date: a.visa_issued_date,
-//       visa_authorization: a.visa_authorization,
-//       visa_submission: a.visa_submission,
-//       arabic_sponsor_name: a.arabic_sponsor_name,
-//       sponsor_id: a.sponsor_id,
-//       visa_expiry_date: a.visa_expiry_date,
-//       division: a.division,
-//       om: a.om,
-//       rm: a.rm,
-//       rc: a.rc,
-//       visa_accountable: a.visa_accountable,
-//       visaProfessionList:JSON.parse(a.visa_profession_list??"[]")
+    for (let i = 0; i < a_list.length; i++) {
+      const element = a_list[i];
+      data_list.push(this.toInterface(element));
+    }
 
-//     };
-//     return data;
-//   }
+    return data_list;
+  }
 
   /**
    * toAdapter
    */
-  // public static toAdapter(i: BlockVisaInterface) {
-  //   console.log("i"); // Only Dev
-  //   console.log(i); // Only Dev
-  //   const data: BlockVisaAdapter = {
-  //     id: i.id,
-  //     index_date: i.index_date,
-  //     company: i.company,
-  //     country: i.country,
-  //     quantity: i.quantity,
-  //     visa_date_arabic: i.visa_date_arabic,
-  //     visa_number: i.visa_number,
-  //     visa_fee: i.visa_fee,
-  //     visa_issued_date: i.visa_issued_date,
-  //     visa_authorization: i.visa_authorization,
-  //     visa_submission: i.visa_submission,
-  //     arabic_sponsor_name: i.arabic_sponsor_name,
-  //     sponsor_id: i.sponsor_id,
-  //     visa_expiry_date: i.visa_expiry_date,
-  //     division: i.division,
-  //     om: i.om,
-  //     rm: i.rm,
-  //     rc: i.rc,
-  //     visa_accountable: i.visa_accountable,
-  //     visa_profession_list:JSON.stringify(i.visaProfessionList)
-  //   };
-  //   return data;
-  // }
-// }
+  public static toAdapter(i: AgreementInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: AgreementAdapter = {
+      id: i.id,
+      party_code:i.party_code ,
+      company_name: i.company_name,
+      name:i.name ,
+      passport_no:i.passport_no,
+      actual_profession: i.actual_profession,
+      visa_profession: i.visa_profession,
+      agent_name:i.agent_name,
+      rc_name:i.rc_name,
+      visa_received_date:i.visa_received_date,
+      visa_expiry_date:i.visa_expiry_date,
+      sector_from:i.sector_from,
+      sector_to:i.sector_to,
+      departure_date:i.departure_date,
+      payment_cleared:i.payment_cleared,
+      reported_for_agreement:i.reported_for_agreement,
+      remarks:i.remarks,
+      contact_details:i.contact_details
 
+    };
+    return data;
+  }
+
+
+
+  public static toAdapterList(i_list: AgreementInterface[]) {
+    const data_list: AgreementAdapter[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toAdapter(element));
+    }
+
+    return data_list;
+  }
+}

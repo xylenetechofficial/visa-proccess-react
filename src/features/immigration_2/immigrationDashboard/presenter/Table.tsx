@@ -39,6 +39,7 @@ const ImmigrationTable = (props: {
     });
     props.onChange(nextData)
   }
+  
 
   const HEADERLIST = [
     "SR NO.",

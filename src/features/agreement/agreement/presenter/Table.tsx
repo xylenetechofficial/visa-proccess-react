@@ -1,108 +1,144 @@
-import {  AgreementInterface } from '../type'
-import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
-import { SectorInterface } from '../../../masters/sector/type';
-import { CompanyInterface } from '../../../masters/company/type';
-import { CountryInterface } from '../../../masters/country/type';
+import { AgreementInterface } from "../type";
+import {
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
+} from "../../../../componenets/Table";
+import { TextAreaInput } from "../../../../componenets/Input";
 
-
-
-
-const AgreementTable= (props: {
-    deployCandidateList:AgreementInterface[]
-    // blockVisaList: BlockVisaInterface[],
-    // onClickEdit: any,
-    // onClickDelete: any
-    // sectorList: SectorInterface[],
-    // companyList: CompanyInterface[],
-    // countryList: CountryInterface[],
+const AgreementTable = (props: {
+  agreementList: AgreementInterface[];
+  snoBase: number;
+  onChange: (value: AgreementInterface[]) => void;
+  actionType?: string;
 }) => {
 
-    let tableHeadings = [
-        ["Sr No.", ],
-        ["PARTY CODE"],
-        ["COMPANY NAME"],
-        ["CANDIDATE NAME"],
-        ["PASSPORT NO."],
-        ["ACTUAL PROFESSION"],
-        ["VISA PROFESSION"],
-        ["AGENT"],
-        ["RC NAME"],
-        ["VISA RECEIVED DATE"],
-        ["VISA EXPIRY DATE"],
-        ["SECTOR FROM"],
-        ["SECTOR TO"],
-        ["DEPARTURE DATE"],
-        ["PAYMENT CLEARED"],
-        ["REPORTED FOR AGREEMENT"],
-        ["REMARKS"],
-        ["CONTACT DETAILS"]
-    ];
-    let tableHeadingsComponent = tableHeadings.map((e)=>(
-        <TableHeadCell3 width={100} > {e[0]}</TableHeadCell3>
-    ));
-    return (
-        <div className='overflow-auto'>
-          
+  function onUpdateRow(index: number, rowData: AgreementInterface) {
+    const nextData = props.agreementList.map((e, i) => {
+      if (i === index) {
+        // Increment the clicked counter
+        return rowData;
+      } else {
+        // The rest haven't changed
+        return e;
+      }
+    });
+    props.onChange(nextData);
+  }
+  const HEADERLIST = [
+    ["Sr No."],
+    ["PARTY CODE"],
+    ["COMPANY NAME"],
+    ["CANDIDATE NAME"],
+    ["PASSPORT NO."],
+    ["ACTUAL PROFESSION"],
+    ["VISA PROFESSION"],
+    ["AGENT"],
+    ["RC NAME"],
+    ["VISA RECEIVED DATE"],
+    ["VISA EXPIRY DATE"],
+    ["SECTOR FROM"],
+    ["SECTOR TO"],
+    ["DEPARTURE DATE"],
+    ["PAYMENT CLEARED"],
+    ["REPORTED FOR AGREEMENT"],
+    ["REMARKS"],
+    ["CONTACT DETAILS"],
+  ];
+
+  return (
+    <div className="overflow-auto">
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            {HEADERLIST.map((item) => {
+              return <TableHeadCell3> {item}</TableHeadCell3>;
+            })}
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
+          {props.agreementList.map((item, index) => (
+            <TableRow3 key={index}>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
+
+              <TableCell3>{item.party_code}</TableCell3>
+              <TableCell3>{item.company_name}</TableCell3>
+              <TableCell3>{item.name}</TableCell3>
+              <TableCell3>{item.passport_no}</TableCell3>
+              <TableCell3>{item.actual_profession}</TableCell3>
+              <TableCell3>{item.visa_profession}</TableCell3>
+              <TableCell3>{item.agent_name}</TableCell3>
+              <TableCell3>{item.rc_name}</TableCell3>
+              <TableCell3>{item.visa_received_date}</TableCell3>
+              <TableCell3>{item.visa_expiry_date}</TableCell3>
+              <TableCell3>{item.sector_from}</TableCell3>
+              <TableCell3>{item.sector_to}</TableCell3>
+              <TableCell3>{item.departure_date}</TableCell3>
+              <TableCell3>
+                {item.payment_cleared}
+              </TableCell3>
+
+              {props.actionType == "read" ? (
+                <>
+
+                  <TableCell3>
+                    {item.reported_for_agreement}
+                  </TableCell3>
+                  <TableCell3>{item.remarks}</TableCell3>
+                  <TableCell3>{item.contact_details}</TableCell3>
+                </>
+              ) : (
+                <>
+                  {/* add & edit oparation */}
 
 
-            <Table3  >
-                <TableHead3 >
-                    <TableHeadRow3  >
-                  {tableHeadingsComponent}
+                  <TableCell3>
+                    <TextAreaInput
+                      id="reported_for_agreement"
+                      placeHolder="Reported For Agreement"
+                      onChange={(value) => {
+                        onUpdateRow(index, {
+                          ...item,
+                          reported_for_agreement: value,
+                        });
+                      }}
+                      value={item.reported_for_agreement}
+                    />
+                  </TableCell3>
 
-                    </TableHeadRow3>
-                </TableHead3>
-                <TableBody3>
-                    {props.deployCandidateList.map((ele, index) => (
+                  <TableCell3>
+                    <TextAreaInput
+                      id="remarks"
+                      placeHolder="Remarks"
+                      onChange={(value) => {
+                        onUpdateRow(index, { ...item, remarks: value });
+                      }}
+                      value={item.remarks}
+                    />
+                  </TableCell3>
 
-                        <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
-                            <TableCell3 > {ele.party_code}</TableCell3>
-                            <TableCell3 > {ele.company_name}</TableCell3>
-                            <TableCell3 > {ele.candidate_name}</TableCell3>
-                            <TableCell3 > {ele.passport_no}</TableCell3>
-                            <TableCell3 > {ele.actual_profession}</TableCell3>
-                            <TableCell3 > {ele.visa_profession}</TableCell3>
-                            <TableCell3 > {ele.agent}</TableCell3>
-                            <TableCell3 > {ele.rc_name}</TableCell3>
-                            <TableCell3 > {ele.visa_received_date}</TableCell3>
-                            <TableCell3 > {ele.visa_expiry_date}</TableCell3>
-                            <TableCell3 > {ele.sector_from}</TableCell3>
-                            <TableCell3 > {ele.sector_to}</TableCell3>
-                            <TableCell3 > {ele.departure_date}</TableCell3>
-                            <TableCell3 > {ele.payment_cleared}</TableCell3>
-                            <TableCell3 > {ele.reported_for_agreement}</TableCell3>
-                            <TableCell3 > {ele.remarks}</TableCell3>
-                            <TableCell3 > {ele.contact_details}</TableCell3>
-                            {/* <TableCell2 > {props.companyList.map((company) => company.id == ele.company ? company.name : "")}</TableCell2> */}
-                           
-                            {/* <TableCell2 > {props.countryList.map((country) => country.id == ele.country ? country.name : "")}</TableCell2> */}
-                          
-                            {/* <TableCell2 >
+                  <TableCell3>
+                    <TextAreaInput
+                      id="Contact Details"
+                      placeHolder="Contact Details"
+                      onChange={(value) => {
+                        onUpdateRow(index, { ...item, contact_details: value });
+                      }}
+                      value={item.contact_details}
+                    />
+                  </TableCell3>
+                </>
+              )}
+            </TableRow3>
+          ))}
+        </TableBody3>
+      </Table3>
+    </div>
+  );
+};
 
-                        
-                        <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
-                                    props.onClickEdit(ele)
-                                }} />
-
-                                <RedButton text={"Delete"} preIcon='delete' onClick={() => {
-                                    props.onClickDelete(ele)
-                                }} />
-                       
-
-                            </TableCell2> */}
-                        </TableRow3>
-                    ))}
-
-
-
-                </TableBody3>
-            </Table3>
-
-        </div>
-    )
-}
-
-export default AgreementTable
-
+export default AgreementTable;
