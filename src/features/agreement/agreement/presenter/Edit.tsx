@@ -4,7 +4,7 @@ import { AdditionalDataInterface, PaginationManager } from "../../../../utils/ap
 import { AgreementInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 import AgreementTable from "./Table";
-import { readAgreementList, updateAgreement } from "../repository";
+import { readAgreementList, updateAgreement, updateAgreementList } from "../repository";
 
 export default function Main(props: {
     onClose: any,
@@ -42,7 +42,7 @@ export default function Main(props: {
              newArray.push(agreementList[i])
         }
 
-        const update = await updateAgreement(newArray)
+        const update = await updateAgreementList(newArray)
 
         if (update) {
             // props.onClose();

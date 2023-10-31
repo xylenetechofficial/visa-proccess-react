@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { SubHeading1 } from "../../../../componenets/CoustomHeader";
-import { Checkbox } from "flowbite-react";
+// import { SubHeading1 } from "../../../../componenets/CoustomHeader";
+// import { Checkbox } from "flowbite-react";
 import { PermissionGroupInterface, PermissionDataInterface, PageInterface, PermissionInterface } from "../type";
 import { RenderPermissions } from "./RenderPermissions";
 import { StandardInput } from "../../../../componenets/Input";

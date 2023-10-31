@@ -6,7 +6,7 @@ import { VendorInterface } from "../../../masters/vendor/type";
 import { readVendorList } from "../../../masters/vendor/repository";
 import { readRecruitCoordinatorList } from "../../../masters/user/repository";
 import { readAgentList } from "../../../masters/agent/repository";
-import { AgencyInterface } from "../../../masters/agency/type";
+// import { AgencyInterface } from "../../../masters/agency/type";
 import { UserInterface } from "../../../context/Model";
 import { AgentInterface } from "../../../masters/agent/type";
 import { CompanyInterface } from "../../../masters/company/type";

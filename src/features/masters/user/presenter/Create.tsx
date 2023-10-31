@@ -43,9 +43,9 @@ export default function Main(props: {
     return (
 
         <ModalContent
-            buttonName="Update"
+            buttonName="Create"
             handleClick={onClickSave}
-            title="Update User"
+            title="Create User"
             onClose={props.onClose}
         >
 

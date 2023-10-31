@@ -51,12 +51,12 @@ export default function Main() {
   );
 
   const fetch_list = async (page?: number) => {
-    const res = await readDegreeAttestationList({ page_number: page ?? 1 });
+    const res = await readDegreeAttestationList({ page_number: page ?? additionalData.pagination.page });
     setDegreAttestationList(res);
     setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
-    fetch_list(additionalData.pagination.page);
+    fetch_list();
   }, []);
 
   return (
@@ -94,7 +94,7 @@ export default function Main() {
       </CardHeader>
 
       <DegreeAttestationTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         degreAttestationList={degreAttestationList}
         fetch_list={fetch_list}
       />
@@ -108,7 +108,7 @@ export default function Main() {
         }}
       />
 
-      {modalName !== "create" ? (
+      {modalName !== "add" ? (
         ""
       ) : (
         <CreateModal

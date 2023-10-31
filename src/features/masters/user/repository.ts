@@ -22,6 +22,7 @@ export async function readUserList(
   if (props.page)
     queryParameters = {
       page: props.page,
+      active: props.active,
     };
   else
     queryParameters = {

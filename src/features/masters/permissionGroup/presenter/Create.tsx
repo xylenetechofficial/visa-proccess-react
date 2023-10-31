@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
 import { SubHeading1 } from "../../../../componenets/CoustomHeader";
-import { Checkbox } from "flowbite-react";
+// import { Checkbox } from "flowbite-react";
 import { PermissionGroupInterface, PermissionDataInterface, PageInterface, PermissionInterface } from "../type";
 import { RenderPermissions } from "./RenderPermissions";
 import { StandardInput } from "../../../../componenets/Input";
@@ -47,8 +47,7 @@ export default function Main(props: {
             buttonName="Create"
             handleClick={onClickAdd}
         >
-            <div className="flex  justify-center">
-
+            <div className="w-96">
                 <StandardInput
                     label="Name"
                     value={permissionGroup.name}
@@ -56,8 +55,10 @@ export default function Main(props: {
                         setPermissionGroup({ ...permissionGroup, name: value })
                     }}
                 />
+            </div>
+            <div className="w-full">
 
-                <SubHeading1 text={permissionGroup.name} />
+                {/* <SubHeading1 text={permissionGroup.name} /> */}
                 <RenderPermissions
                     departments={permissionGroup.dpt_list ?? []}
                     onUpdate={(value) => setPermissionGroup({ ...permissionGroup, dpt_list: value })}

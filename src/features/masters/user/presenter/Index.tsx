@@ -77,7 +77,7 @@ export default function Main() {
   const fetchUserList = async (page?: number) => {
     const data = await readUserList({
       user_role_id: 0,
-      active: 0,
+      active: 2,
       page: page ?? additionalData.pagination.page
     }, true);
     filterData("", userList);
