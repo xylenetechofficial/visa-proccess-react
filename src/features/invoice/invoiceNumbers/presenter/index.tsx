@@ -7,7 +7,7 @@ import {
 import CandidateInvoiceNumber from "./Table";
 import { Box,  styled } from "@mui/material";
 import { BlueButton } from "../../../../componenets/CustomButton";
-import { AddCandidateInvoiceNumberInterface } from "../type";
+import { AddCandidateInvoiceNumberInterface, ClientInvoiceNumberInterface } from "../type";
 import { createCandidatesInvoiceNumber, readCandidateInvoiceNumbersList } from "../repository";
 
 export default function Main() {
@@ -21,7 +21,7 @@ export default function Main() {
     justifyContent: "space-between",
 }));
 
-  const [candidateNumbreList, setCandidateNumberList] = useState<any>([]);
+  const [candidateNumbreList, setCandidateNumberList] = useState<ClientInvoiceNumberInterface[]>([]);
   // const [data, setData]= useState<AddCandidateInvoiceNumberInterface[]>([])
   const [data, setData]= useState<AddCandidateInvoiceNumberInterface[]>([])
   const [searchQuery, setSearchQuery] = useState('');

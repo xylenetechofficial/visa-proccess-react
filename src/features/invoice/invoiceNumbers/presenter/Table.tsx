@@ -1,7 +1,7 @@
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+import { CustomSelectComponentUnlabeledv2 } from "../../../../componenets/SelectBox";
 import { ClientInvoiceNumberInterface } from "../type";
 import { BankList } from "../../../db";
 

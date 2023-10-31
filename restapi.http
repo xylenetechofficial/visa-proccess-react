@@ -935,7 +935,7 @@ content-type: application/json
             "is_without":0,
             "invoice_number":"jhdftg",
             "invoice_date":"17-5-15",
-            "bank_id":7
+            "bank_id":2
         },
         {
             "id":6,

@@ -42,7 +42,7 @@ export default function Main() {
     return (
         <div className='h-screen'>
 
-            <CustomNavbarV3 pageName="CLIENT   PAYMENT "
+            <CustomNavbarV3 pageName="CLIENT   PAYMENT"
                 refresh={() => fetchClientPaymentList()}
                 searchFunction={(query) => setSearchQuery(query)} />
 
