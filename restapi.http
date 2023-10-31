@@ -1690,3 +1690,6 @@ GET {{endpoint}}/account/penalty-charges-list
 
 ### Read Agreement List
 GET {{endpoint}}/agreements/agreement-list
+
+### Read Agreement List
+GET {{endpoint}}/rc/deploy-candidates-list

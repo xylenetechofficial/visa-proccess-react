@@ -9,6 +9,10 @@ import {
   TableRow3,
 } from "../../../../componenets/Table";
 import { TextAreaInput } from "../../../../componenets/Input";
+import {
+  CustomSelectComponent,
+  selectOptionConveter,
+} from "../../../../componenets/SelectBox";
 
 const AgreementTable = (props: {
   agreementList: AgreementInterface[];
@@ -16,7 +20,6 @@ const AgreementTable = (props: {
   onChange: (value: AgreementInterface[]) => void;
   actionType?: string;
 }) => {
-
   function onUpdateRow(index: number, rowData: AgreementInterface) {
     const nextData = props.agreementList.map((e, i) => {
       if (i === index) {
@@ -29,6 +32,12 @@ const AgreementTable = (props: {
     });
     props.onChange(nextData);
   }
+
+  const reported_for_agreement = [
+    { id: "Reported", name: "Reported" },
+    { id: "Not Reported", name: "Not Reported" },
+  ];
+
   const HEADERLIST = [
     ["Sr No."],
     ["PARTY CODE"],
@@ -78,16 +87,11 @@ const AgreementTable = (props: {
               <TableCell3>{item.sector_from}</TableCell3>
               <TableCell3>{item.sector_to}</TableCell3>
               <TableCell3>{item.departure_date}</TableCell3>
-              <TableCell3>
-                {item.payment_cleared}
-              </TableCell3>
+              <TableCell3>{item.payment_cleared}</TableCell3>
 
               {props.actionType == "read" ? (
                 <>
-
-                  <TableCell3>
-                    {item.reported_for_agreement}
-                  </TableCell3>
+                  <TableCell3>{item.reported_for_agreement}</TableCell3>
                   <TableCell3>{item.remarks}</TableCell3>
                   <TableCell3>{item.contact_details}</TableCell3>
                 </>
@@ -95,19 +99,23 @@ const AgreementTable = (props: {
                 <>
                   {/* add & edit oparation */}
 
-
                   <TableCell3>
-                    <TextAreaInput
-                      id="reported_for_agreement"
-                      placeHolder="Reported For Agreement"
-                      onChange={(value) => {
-                        onUpdateRow(index, {
-                          ...item,
-                          reported_for_agreement: value,
-                        });
-                      }}
-                      value={item.reported_for_agreement}
-                    />
+                    <span className="w-36">
+                      <CustomSelectComponent
+                        value={item.reported_for_agreement}
+                        label="Reported For Agreement"
+                        options={selectOptionConveter({
+                          options: reported_for_agreement,
+                          options_struct: { name: "name", value: "id" },
+                        })}
+                        onChange={(value) => {
+                          onUpdateRow(index, {
+                            ...item,
+                            reported_for_agreement: value,
+                          });
+                        }}
+                      />
+                    </span>
                   </TableCell3>
 
                   <TableCell3>
