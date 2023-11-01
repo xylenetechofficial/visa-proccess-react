@@ -1,7 +1,7 @@
 // lib
 import { Routes, Route } from 'react-router-dom'
 // component
-import Home from './presenter/index';
+import Home from './presenter/Index';
 
 
 
