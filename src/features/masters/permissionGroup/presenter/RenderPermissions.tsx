@@ -110,7 +110,7 @@ export function RenderPermissions(props: {
                     (page: PageInterface, index_page: number) => (
                       <div
                         key={page.name}
-                        className="flex items-center justify-between border my-1 p-2 "
+                        className="flex items-center justify-between border my-1 p-2 bg-slate-50 shadow-md"
                       >
                         <div className="flex items-center">
                           <span className="font-bold text-sm">{page.name}</span>

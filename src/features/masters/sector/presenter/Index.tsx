@@ -88,7 +88,7 @@ export default function Main() {
   };
 
   const fetchSectorList = async (page?: number) => {
-    const res = await readSectorList(true, page ?? 1);
+    const res = await readSectorList(true, page ?? additionalData.pagination.page);
     console.log("read sector"); // Only Dev
     setSectorList(res);
 

@@ -104,7 +104,7 @@ export default function Main() {
   // }, [editAgentSpecialNote, modalName])
 
   const fetchAgentSpecialNoteList = async (page?: number) => {
-    const res = await readAgentSpecialNoteList(true, page ?? 1);
+    const res = await readAgentSpecialNoteList(true, page ?? additionalData.pagination.page);
     setAgentSpecialNoteList(res);
     setAdditionalData(await PaginationManager.getData());
 
