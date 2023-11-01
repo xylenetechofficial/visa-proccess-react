@@ -6,19 +6,20 @@ import {
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { PenaltyChargesInterface } from "../type";
 import { updatePenaltyChargesItem } from "../repository";
+import { UnlabeledInput } from "../../../../componenets/Input";
+import { CustomRadioButton } from "../../../../componenets/RadioButton";
 
 export default function Main(props: {
   onClose: () => void;
   editPenaltyCharges: PenaltyChargesInterface;
   setEditPenaltyCharges: (value: PenaltyChargesInterface) => void;
- 
 }) {
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
+    width: 700,
     bgcolor: "background.paper",
     border: "2px solid #fff",
     boxShadow: 24,
@@ -26,10 +27,9 @@ export default function Main(props: {
     p: 4,
   };
 
-
   const handleSubmit = async () => {
-    const res = await updatePenaltyChargesItem(props.editPenaltyCharges)
-  }
+    const res = await updatePenaltyChargesItem(props.editPenaltyCharges);
+  };
 
   return (
     <>
@@ -65,63 +65,53 @@ export default function Main(props: {
           </button>
           <div className="grid grid-cols-1 py-3  gap-2 shadow justify-center">
             <UpdateContentBox>
-              <SubHeading1 text="company name  :" />   
-              <SubHeading1 text={props.editPenaltyCharges.candidate_name} />
-             
+              <SubHeading1 text="company name  :" />
+              {props.editPenaltyCharges.candidate_name}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="party code : " />
-              {/* <SubHeading1 text={props.editPenaltyCharges.party_code} /> */}
-
+              {props.editPenaltyCharges.party_code}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="candidate name :" />
-              <SubHeading1 text={props.editPenaltyCharges.candidate_name} />
-
+              {props.editPenaltyCharges.candidate_name}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="passport no. :" />
-              <SubHeading1 text={props.editPenaltyCharges.passport_no} />
-
+              {props.editPenaltyCharges.passport_no}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="actual profession :" />
-              <SubHeading1 text={props.editPenaltyCharges.actual_profession} />
-
+              {props.editPenaltyCharges.actual_profession}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="visa profession :" />
-              <SubHeading1 text={props.editPenaltyCharges.visa_profession} />
-
+              {props.editPenaltyCharges.visa_profession}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="agent :" />
-              <SubHeading1 text={props.editPenaltyCharges.agent} />
-
+              {props.editPenaltyCharges.agent}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="visa recieved date :" />
-              <SubHeading1 text={props.editPenaltyCharges.visa_recieved_date} />
-
+              {props.editPenaltyCharges.visa_recieved_date}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="process charges :" />
-              <SubHeading1 text={props.editPenaltyCharges.process_charges} />
-
+              {props.editPenaltyCharges.process_charges}
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="document charges :" />
-              {/* <SubHeading1 text={props.editPenaltyCharges.document_charge} /> */}
-
+              {/* {props.editPenaltyCharges.} */}
             </UpdateContentBox>
 
             <UpdateContentBox>
@@ -130,17 +120,43 @@ export default function Main(props: {
 
             <UpdateContentBox>
               <SubHeading1 text="client invoice :" />
+              <div className="flex">
+                <CustomRadioButton
+                inlined
+                  value={props.editPenaltyCharges.client_invoice}
+                  option={[
+                    { value: 1, name: "Yes" },
+                    { value: 0, name: "No" },
+                  ]}
+                  onChange={(value) => {
+                    props.setEditPenaltyCharges({
+                      ...props.editPenaltyCharges,
+                      client_invoice: value,
+                    });
+                  }}
+                />
+              </div>
             </UpdateContentBox>
 
             <UpdateContentBox>
               <SubHeading1 text="Penalty Charges :" />
-
+              <UnlabeledInput
+                value={props.editPenaltyCharges.penalty_charges}
+                onchange={(value) =>
+                  props.setEditPenaltyCharges({
+                    ...props.editPenaltyCharges,
+                    penalty_charges: value,
+                  })
+                }
+              />
             </UpdateContentBox>
 
-            <div className="grid grid-cols-2 shadow-sm px-3">
+            <div className="flex justify-center">
               <GreenButton
                 text="Submit"
-                onClick={() => { handleSubmit(), props.onClose() }}
+                onClick={() => {
+                  handleSubmit(), props.onClose();
+                }}
               />
               <RedButton
                 text="cancel"
