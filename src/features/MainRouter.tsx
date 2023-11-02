@@ -69,7 +69,7 @@ function Others() {
                         <Route path='/job-dpt/*' element={<JobDPT />}></Route>
                         <Route path='/without-job-order/*' element={<WithOutJobOder />}></Route>
                         <Route path='/visa/*' element={<Visa />}></Route>
-                        <Route path='/RC/*' element={<RC />}></Route>
+                        <Route path='/rc/*' element={<RC />}></Route>
                         <Route path='/agreement/*' element={<Agreement />}></Route>
                         <Route path='/account/*' element={<Account />}></Route>
                         <Route path='/invoice/*' element={<Invoice />}></Route>

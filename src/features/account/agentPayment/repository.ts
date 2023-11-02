@@ -3,20 +3,9 @@ import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, Paginat
 import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";
 
-// get visa - dpt / block - visa - list => GetAgentPaymentList
-// post visa - dpt / block - visa => PostAgentPayment
-// get visa - dpt / block - visa / { id } => GetAgentPayment
-// patch visa - dpt / block - visa / { id } => PatchAgentPayment
-// delete visa - dpt / block - visa / { id } => DeleteAgentPayment
-
-// //  ------------   Block Visa Profession   ------------ \\
-// delete visa - dpt / block - visa - profession / { id } => DeleteAgentPaymentProfessio
-
-
 // ! EMG
 export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface,page_number?: number) {
 
-  const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
   const path = `/account/agent-payment-list`;
 
   const response = await ApiHelper.get(path, {
@@ -25,7 +14,7 @@ export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface,pag
     queryParameters: {
       agent_id: AgentBy.agent_id ?? 0,
       passport_no: AgentBy.passport_no ?? "",
-      page: page_number ?? 0,
+      page: page_number ?? 1,
     }
   });
 

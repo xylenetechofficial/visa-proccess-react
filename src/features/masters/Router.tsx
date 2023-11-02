@@ -48,7 +48,7 @@ function Main() {
             {/* <Route path='/newUser/*' element={<NewUser />}></Route> */}
             <Route path='/other-docs/*' element={<OtherDocs />}></Route>
             <Route path='/interview-sector/*' element={<InterviewSector />}></Route>
-            <Route path='/visa-authorisation/*' element={<VisaAuthorisation />}></Route>
+            <Route path='/visa-authorization/*' element={<VisaAuthorisation />}></Route>
             <Route path='/interview-mode/*' element={<InterviewMode />}></Route>
             <Route path='/grade/*' element={<Grade />}></Route>
             <Route path='/mofa-payment/*' element={<MofaPayment />}></Route>

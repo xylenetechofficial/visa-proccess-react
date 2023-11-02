@@ -22,7 +22,7 @@ export const navigations: any[] = [
       { name: 'Interview Mode', icon: 'pageview', path: '/masters/interview-mode' },
       { name: 'Other Docs', icon: 'pageview', path: '/masters/other-docs' },
       { name: 'Consolidate Charge', icon: 'pageview', path: '/masters/consolidate-charge' },
-      { name: 'Visa Authorisation', icon: 'pageview', path: '/masters/visa-authorisation' },
+      { name: 'Visa Authorisation', icon: 'pageview', path: '/masters/visa-authorization' },
 
       { name: 'User', icon: 'pageview', path: '/masters/user' },
       // { name: 'Role', icon: 'pageview', path: '/masters/role' },
@@ -110,7 +110,7 @@ export const navigations: any[] = [
     name: "RC",
     icon: "fact_check",
     children: [
-      { name: 'Deploy Candidates', icon: 'pageview', path: '/RC/deploy-candidates/' },
+      { name: 'Deploy Candidates', icon: 'pageview', path: '/rc/deploy-candidates/' },
   
     ]
   },
@@ -130,7 +130,7 @@ export const navigations: any[] = [
       { name: 'Reject Cancel Approve', icon: 'pageview', path: '/account/reject-cancel-approve/' },
       { name: 'Agent Payment', icon: 'pageview', path: '/account/agent-payment/' },
       { name: 'Candidate Discount', icon: 'pageview', path: '/account/candidate-discount/' },
-      { name: 'Candidate Discount Approve/Reject', icon: 'pageview', path: '/account/candidate-discount-approve/reject/' },
+      { name: 'Candidate Discount Approve/Reject', icon: 'pageview', path: '/account/candidate-discount-approve-reject/' },
       { name: 'Direct Payments', icon: 'pageview', path: '/account/direct-payments' },
       // { name: 'Agent Payments Received', icon: 'pageview', path: '/account/agent-payments-recieved' },
       { name: 'Agent Commissions', icon: 'pageview', path: '/account/agent-commissions' },
@@ -138,10 +138,11 @@ export const navigations: any[] = [
       { name: 'Penalty After Deployment', icon: 'pageview', path: '/account/penalty-after-deployment' },
       { name: 'Agent Bulk Payments', icon: 'pageview', path: '/account/agent-bulk-payment' },
       { name: 'Incentives', icon: 'pageview', path: '/account/incentives' },
+      
       { name: 'delhi-accountOther Daily Payments', icon: 'pageview', path: '/account/delhi-other-daily-payments' },
       { name: 'Account Candidate List', icon: 'preview', path:'/account/account-candidate-list'},
       {name:"Service Charges", icon:"preview" , path:'/account/service-charges/'},
-      {name:"Agent Payment Received", icon:"preview" , path:'/account/account-dpt/'},
+      {name:"Agent Payment Received", icon:"preview" , path:'/account/agent-payment-received/'},
       {name:"Manage Agent Payment Return", icon:"preview" , path:'/account/agent-return-payment/'},
       {name:"Penalty Charges", icon:"preview" , path:'/account/penalty-charges/'}
     ]
@@ -182,8 +183,8 @@ export const navigations: any[] = [
     icon: 'account_circle',
     children: [
       { name: 'Candidates List', icon: 'pageview', path: '/delhi-account/candidates-list' },
-      { name: 'RC - Candidates List', icon: 'pageview', path: '/delhi-account/RC-candidates-list' },
-      // { name: 'RC - PP Received', icon: 'pageview', path: '/delhi-account/RC-pp-received' },
+      { name: 'RC - Candidates List', icon: 'pageview', path: '/delhi-account/rc-candidates-list' },
+      // { name: 'RC - PP Received', icon: 'pageview', path: '/delhi-account/rc-pp-received' },
 
     ]
   },
@@ -194,7 +195,7 @@ export const navigations: any[] = [
       { name: 'Booking Request', icon: 'pageview', path: '/ticketing-dpt/booking-request' },
       { name: 'Ticket DashBoard', icon: 'pageview', path: '/ticketing-dpt/ticket-Dashboard' },
       { name: 'Ticket Provided By Company', icon: 'pageview', path: '/ticketing-dpt/ticket-provided-by-company' },
-      { name: 'Ticket Agency Invoice Awaiting', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoice-awaiting' },
+      // { name: 'Ticket Agency Invoice Awaiting', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoice-awaiting' },
       { name: 'Ticket Agency Invoices', icon: 'pageview', path: '/ticketing-dpt/ticket-agency-invoices' },
       // { name: 'Approve Changes Issued Tickets', icon: 'pageview', path: '/ticketing-dpt/approve-changes-issued-tickets' },
       { name: 'RM Advance Booking', icon: 'pageview', path: '/ticketing-dpt/rm-advance-booking' },

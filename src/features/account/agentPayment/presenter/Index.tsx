@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Box, styled } from "@mui/material";
 import AgentPaymentTable from "./Table";
-import { confirmationMessage } from "../../../../utils/alert";
+// import { confirmationMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import { AgentPaymentByIDInterface, AgentPaymentInterface } from "../type";
 import {
   addAgentPayment,
-  deleteAgentPayment,
+  // deleteAgentPayment,
   readAgentPaymentList,
   readPaymentDetails,
 } from "../repository";
@@ -43,22 +43,22 @@ const CardHeader2 = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  const initValue: AgentPaymentInterface = {
-    outstanding_since_2015: 0,
-    payment_against_2015: 0,
-    balance_since_2015: 0,
-    total_payment_received: 0,
-    total_balance_outstanding: 0,
-    payment_returned_to_agent: 0,
-    cancelled_candidates: 0,
-    rejected_candidates: 0,
-    flight_candidates: 0,
-    amount_available_for_adjustment: 0,
-    table_data_list: [],
+  // const initValue: AgentPaymentInterface = {
+  //   outstanding_since_2015: 0,
+  //   payment_against_2015: 0,
+  //   balance_since_2015: 0,
+  //   total_payment_received: 0,
+  //   total_balance_outstanding: 0,
+  //   payment_returned_to_agent: 0,
+  //   cancelled_candidates: 0,
+  //   rejected_candidates: 0,
+  //   flight_candidates: 0,
+  //   amount_available_for_adjustment: 0,
+  //   table_data_list: [],
 
-    bulk_payment_list: [],
-    all_bulk_payment_list: [],
-  };
+  //   bulk_payment_list: [],
+  //   all_bulk_payment_list: [],
+  // };
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -71,10 +71,10 @@ export default function Main() {
     }
   );
 
-  const [AgentPayment, setAgentPayment] = useState(initValue);
+  // const [AgentPayment, setAgentPayment] = useState(initValue);
   const [data, setData] = useState<any>([]);
-  const [editAgentPayment, setEditAgentPayment] =
-    useState<AgentPaymentInterface>({} as AgentPaymentInterface);
+  // const [editAgentPayment, setEditAgentPayment] =
+  //   useState<AgentPaymentInterface>({} as AgentPaymentInterface);
   const [passportNo, setPassportNo] = useState("");
   const [modalName, setModalName] = useState("");
   const [detailData, setDetailData] = useState<any>({});
@@ -115,27 +115,29 @@ export default function Main() {
       setPaymentDetailList(data);
     }
   };
-  const fetchAgentList = async (page?: number) => {
-    const data = await readAgentList(false, "agent_payment", page ?? 1);
+  const fetchAgentList = async () => {
+    const data = await readAgentList(false, "agent_payment");
     if (data) {
       setAgentList(data);
     }
 
-    setAdditionalData(await PaginationManager.getData());
   };
-  const fetchAgentPaymentList = async (AgentBy: AgentPaymentByIDInterface) => {
+  const fetchAgentPaymentList = async (AgentBy: AgentPaymentByIDInterface, page?: number) => {
     // ! EMG
-    const data = await readAgentPaymentList(AgentBy);
+    const data = await readAgentPaymentList(AgentBy, page ?? additionalData.pagination.page);
     console.log(data, "jj");
     if (data) {
       setAgentPaymentList(data);
+      setAdditionalData(await PaginationManager.getData());
     }
   };
   // ! EMG
 
   useEffect(() => {
-    fetchAgentList(additionalData.pagination.page);
+    fetchAgentList();
   }, []);
+
+
   const updateBulkPayment = async (data: any) => {
     console.log(data);
     const list = data.filter((item: any) => item?.id !== undefined);
@@ -235,7 +237,7 @@ export default function Main() {
         fetchPaymentDetail={(type, id) => fetchPaymentDetail(type, id)}
         snoBase={additionalData.pagination.sno_base}
       />
-     
+
       {/* <!-- Modal --> */}
       {modalName === "viewbulkpayment" ? (
         <PaymentDetailFromBulk
@@ -264,12 +266,12 @@ export default function Main() {
           console.log(data);
         }}
       />
-<br /><br />
-<Pagination
+      <br /><br />
+      <Pagination
         data={additionalData}
         onPageChange={(e) => {
           console.log(e); // Only Dev
-          fetchAgentList(e);
+          fetchAgentList();
         }}
       />
     </div>

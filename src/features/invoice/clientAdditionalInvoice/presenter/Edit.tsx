@@ -87,7 +87,8 @@ console.log(props.immigrationData,"aaaaaaaaaaa")
                                 const newData: any = [...prev];
                                 newData[0] = {
                                   ...newData[0],
-                                  company_id: accountDashboard[0]?.company_id,
+                                  company_id: value,
+                                  value
                                 //   invoice_date: accountDashboard[0]?.invoice_date,
                                   
                                 };

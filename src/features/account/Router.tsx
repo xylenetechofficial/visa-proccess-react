@@ -37,7 +37,7 @@ function Main() {
             <Route path='/reject-cancel-approve/*' element={<RejectCancelApprove />}></Route>
             <Route path='/agent-payment/*' element={<AgentPayment />}></Route>
             <Route path='/candidate-discount/*' element={<CandidateDiscount />}></Route>
-            <Route path='/candidate-discount-approve/reject/*' element={<CandidateDiscountApproveReject />}></Route>
+            <Route path='/candidate-discount-approve-reject/*' element={<CandidateDiscountApproveReject />}></Route>
             <Route path='/direct-payments/*' element={<DirectPayments />}></Route>
             <Route path='/agent-payments-recieved/*' element={<AgentPaymentsReceived />}></Route>
             <Route path='/agent-commissions/*' element={<AgentCommissions />}></Route>
@@ -48,7 +48,7 @@ function Main() {
             <Route path='/delhi-other-daily-payments/*' element={<DelhiOtherDailyPayments />}></Route>
             <Route path='/account-candidate-list/*' element={<AccountCandidateList />}></Route>
             <Route path='/service-charges/*' element={<AccountServices />}></Route>
-            <Route path='/account-dpt/*' element={<AccountDpt />}></Route>
+            <Route path='/agent-payment-received/*' element={<AccountDpt />}></Route>
             <Route path='/agent-return-payment/*' element={<AgentReturnPayment />}></Route>
             <Route path='/manage-agent-payment-return/*' element={<ManageAgentPaymentReturn />}></Route>
             <Route path='/penalty-charges/*' element={<PenaltyCharges />}></Route>

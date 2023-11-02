@@ -18,8 +18,8 @@ function Main() {
 
         <Routes>
             <Route path='/candidates-list/*' element={<CandidatesList />}></Route>
-            <Route path='/RC-candidates-list/*' element={<RCCandidatesList />}></Route>     
-            <Route path='/RC-pp-received/*' element={<RcPpRceived />}></Route>     
+            <Route path='/rc-candidates-list/*' element={<RCCandidatesList />}></Route>     
+            <Route path='/rc-pp-received/*' element={<RcPpRceived />}></Route>     
 
         </Routes>
 
