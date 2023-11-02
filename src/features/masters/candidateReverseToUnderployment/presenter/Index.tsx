@@ -7,6 +7,9 @@ import {
 import { Box, styled } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 
+import CandidateReverseToUnderployment from "./Table";
+import ReverseModal from './Reverse'
+
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -20,6 +23,11 @@ export default function Main() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [modalName, setModalName] = useState("");
+
+  const onClickReverse = () => {
+    console.log("onClickReverse"); // Only Dev
+    setModalName("Reverse");
+  };
 
   useEffect(() => {
     return;
@@ -44,9 +52,20 @@ export default function Main() {
         /> */}
       </CardHeader>
 
-      
+      <CandidateReverseToUnderployment
+      onClickReverse={onClickReverse}
+      />
 
+      {/* <!-- Modal --> */}
 
+      {/* Create */}
+      {modalName !== "Reverse" ? (
+        ""
+      ) : (
+        <ReverseModal
+          onClose={() => setModalName("")}
+        />
+      )}
     </div>
   );
 }
