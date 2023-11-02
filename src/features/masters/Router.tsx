@@ -25,6 +25,10 @@ import Bank from './bank/Router';
 import Company from './company/Router';
 import AgentSpecialNote from './agentSpecialNote/Router';
 
+import ClientLogin from './clientLogin/Router';
+import CandidateReverseToUnderployment from './candidateReverseToUnderployment/Router';
+
+
 
 
 
@@ -57,6 +61,8 @@ function Main() {
             <Route path='/bank/*' element={<Bank />}></Route>
             <Route path='/company/*' element={<Company />}></Route>
             <Route path='/agent-special-note/*' element={<AgentSpecialNote />}></Route>
+            <Route path='/client-login/*' element={<ClientLogin />}></Route>
+            <Route path='/candidate-reverse-to-underployment/*' element={<CandidateReverseToUnderployment />}></Route>
 
             {/* <Route path='/otp/*' element={<OTP />}></Route> */}
             {/* <Route path='/forgot-password/*' element={<ForgotPassword />}></Route>

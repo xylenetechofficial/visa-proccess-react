@@ -27,6 +27,10 @@ export const navigations: any[] = [
       { name: 'User', icon: 'pageview', path: '/masters/user' },
       // { name: 'Role', icon: 'pageview', path: '/masters/role' },
       { name: 'Permission Group', icon: 'pageview', path: '/masters/permission-group' },
+
+      { name: 'Client Login', icon: 'pageview', path: '/masters/client-login' },
+      { name: 'Candidate Reverse To Underployment', icon: 'pageview', path: '/masters/candidate-reverse-to-underployment'},
+
       
     ]
   },
