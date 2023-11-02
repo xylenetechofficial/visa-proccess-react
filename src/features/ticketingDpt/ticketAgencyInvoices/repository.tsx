@@ -2,16 +2,23 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { AddTicketAgencyConverter, TicketAgencyInvoicesAdapter, TicketAgencyInvoicesConverter, TicketAgencyInvoicesInterface } from "./type";
 
 
-export async function readTicketAgencyInvoicesList() {
+export async function readTicketAgencyInvoicesList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/ticketing-dpt/ticket-agency-invoice-list";
   
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -27,6 +34,9 @@ export async function readTicketAgencyInvoicesList() {
       data.push(TicketAgencyInvoicesConverter.toInterface(element));
     }
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as TicketAgencyInvoicesInterface[]
 }

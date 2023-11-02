@@ -9,6 +9,7 @@ import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props: {
+    snoBase: number;
     TicketProvidedByCompanyList: TicketProvidedByCompanyInterface[],
     sectorList:SectorInterface[],
     setTicketProvidedByCompanyData:any,
@@ -53,8 +54,8 @@ export default function Main(props: {
                 <TableBody3>
                     {props.TicketProvidedByCompanyList.map((item, index) => (
 
-                        <TableRow3>
-                            <TableCell3> {index + 1} </TableCell3>
+                        <TableRow3 key={index}>
+                          <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             <TableCell3>{item.party_code} </TableCell3>
                             <TableCell3> {item.company_name}</TableCell3>
                             <TableCell3>{item.candidate_name} </TableCell3>

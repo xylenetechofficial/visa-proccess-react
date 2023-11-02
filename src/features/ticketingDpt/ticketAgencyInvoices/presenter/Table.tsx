@@ -18,6 +18,7 @@ import { convertDateFormat } from "../../../../utils/function";
 import { useState } from "react";
 
 export default function Main(props: {
+  snoBase: number;
   TicketAgencyInvoicesList: TicketAgencyInvoicesInterface[];
   onChange: (value: TicketAgencyInvoicesInterface[]) => void;
 }) {
@@ -75,8 +76,8 @@ export default function Main(props: {
           </TableHead3>
           <TableBody3>
             {props.TicketAgencyInvoicesList.map((item, index) => (
-              <TableRow3>
-                <TableCell3>{item.id}</TableCell3>
+              <TableRow3 key={index}>
+               <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                 <TableCell3>{item.party_code} </TableCell3>
                 <TableCell3>{item.company_name} </TableCell3>
                 <TableCell3>{item.candidate_name} </TableCell3>

@@ -19,6 +19,7 @@ import { PassportReleaseRequestInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props: {
+  snoBase: number;
   PassportReleaseRequestList: PassportReleaseRequestInterface[];
   onChange: (value: PassportReleaseRequestInterface[]) => void;
 }) {
@@ -70,7 +71,7 @@ export default function Main(props: {
           <TableBody3>
             {props.PassportReleaseRequestList.map((item, index) => (
               <TableRow3>
-                <TableCell3>{index + 1}</TableCell3>
+               <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                 <TableCell3> {item.party_code} </TableCell3>
                 <TableCell3> {item.company_name} </TableCell3>
                 <TableCell3> {item.candidate_name} </TableCell3>

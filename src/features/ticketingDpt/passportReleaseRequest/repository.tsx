@@ -2,16 +2,23 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { AddPassportRequestConverter, PassportReleaseRequestAdapter, PassportReleaseRequestConverter, PassportReleaseRequestInterface } from "./type";
 
 
-export async function readPassportReleaseRequestList() {
+export async function readPassportReleaseRequestList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/ticketing-dpt/passport-release-request-list";
   
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -27,6 +34,10 @@ export async function readPassportReleaseRequestList() {
       data.push(PassportReleaseRequestConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as PassportReleaseRequestInterface[]
 }

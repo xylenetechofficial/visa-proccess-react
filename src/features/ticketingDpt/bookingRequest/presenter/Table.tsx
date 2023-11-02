@@ -10,6 +10,7 @@ import { TicketingPriorityList } from "../../../db"
 
 
 export default function Main(props: {
+    snoBase: number,
     ticketBookingRequestList: BookingRequestInterface[],
     sectorList: SectorInterface[],
     onChange: (value: BookingRequestInterface[]) => void
@@ -55,7 +56,7 @@ export default function Main(props: {
                             return (
 
                                 <TableRow3>
-                                    <TableCell3>{index + 1} </TableCell3>
+                                    <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                                     <TableCell3>{item.party_code} </TableCell3>
                                     <TableCell3>{item.company_name} </TableCell3>
                                     <TableCell3>{item.candidate_name} </TableCell3>

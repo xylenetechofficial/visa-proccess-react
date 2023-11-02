@@ -2,16 +2,23 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { AddTicketProvidedConverter, TicketProvidedByCompanyAdapter, TicketProvidedByCompanyConverter, TicketProvidedByCompanyInterface } from "./type";
 
 
-export async function readTicketProvidedByCompanyList() {
+export async function readTicketProvidedByCompanyList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/ticketing-dpt/tickets-provided-by-company-list";
   
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -27,6 +34,9 @@ export async function readTicketProvidedByCompanyList() {
       data.push(TicketProvidedByCompanyConverter.toInterface(element));
     }
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as TicketProvidedByCompanyInterface[]
 }

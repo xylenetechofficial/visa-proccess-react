@@ -1,14 +1,21 @@
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { TicketReIssueApprovedAdapter, TicketReIssueApprovedConverter, TicketReIssueApprovedInterface, TicketReIssueApprovedListConverter, TicketReIssueApprovedListInterface } from "./type";
 
 
-export async function readTicketReIssueApprovedList() {
+export async function readTicketReIssueApprovedList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/ticketing-dpt/ticket-reissue-approve-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -24,6 +31,11 @@ export async function readTicketReIssueApprovedList() {
       data.push(TicketReIssueApprovedConverter.toInterface(element));
     }
   }
+
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as TicketReIssueApprovedInterface[]
 }

@@ -43,7 +43,7 @@ export default function Main(props: {
         }
         const update = await updateImmigrationList(newArray)
         if (update) {
-            // props.onClose();
+            props.onClose();
             fetchImmigrationDoneList()
         }
     }

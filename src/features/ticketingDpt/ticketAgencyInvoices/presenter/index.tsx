@@ -13,6 +13,11 @@ import {
 } from "../repository";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { number } from "prop-types";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -26,21 +31,34 @@ export default function Main() {
   const [TicketAgencyInvoicesList, setTicketAgencyInvoicesList] = useState<
     TicketAgencyInvoicesInterface[]
   >([]);
-  async function fetchTicketProvidedByCompany() {
-    const data = await readTicketAgencyInvoicesList();
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
+
+  async function fetchTicketProvidedByCompany(page?: number) {
+    const data = await readTicketAgencyInvoicesList({
+      page: page ?? additionalData.pagination.page,
+      status: "yes",
+    });
     if (data) {
       setTicketAgencyInvoicesList(data);
     }
+    setAdditionalData(await PaginationManager.getData());
   }
   const onClickCreate = async (item: TicketAgencyInvoicesInterface[]) => {
     await createTicketAgencyInvoices(item);
   };
 
   useEffect(() => {
-    fetchTicketProvidedByCompany();
+    fetchTicketProvidedByCompany(additionalData.pagination.page);
   }, []);
-
-
 
   return (
     <>
@@ -53,15 +71,24 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
       <TicketAgencyInvoiceTable
+        snoBase={additionalData.pagination.sno_base}
         TicketAgencyInvoicesList={TicketAgencyInvoicesList}
         onChange={(value) => setTicketAgencyInvoicesList(value)}
       />
 
-
+      <br />
 
       <GreenButton
         text="Submit"
         onClick={() => onClickCreate(TicketAgencyInvoicesList)}
+      />
+      <br />
+      <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchTicketProvidedByCompany(e);
+        }}
       />
     </>
   );

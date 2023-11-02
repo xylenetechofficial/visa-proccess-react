@@ -4,6 +4,7 @@ import { convertDateFormat } from "../../../../utils/function";
 import { RMAdvanceBookingApprovalInterface } from "../type";
 
 export default function Main(props:{
+    snoBase: number;
     onClickCreate:(value:RMAdvanceBookingApprovalInterface)=>void
     RMAdvanceBookingApprovalList:RMAdvanceBookingApprovalInterface[],
     onChange:(value:RMAdvanceBookingApprovalInterface[])=>void
@@ -37,9 +38,9 @@ export default function Main(props:{
                 <TableBody2>
                     {props.RMAdvanceBookingApprovalList.map((item, index) => (
 
-                        <TableRow3>
+                        <TableRow3 key={index}>
                            
-                            <TableCell3>{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             <TableCell3> {item.party_code} </TableCell3>
                             <TableCell3> {item.company_name} </TableCell3>
                             <TableCell3> {item.candidate_name} </TableCell3>

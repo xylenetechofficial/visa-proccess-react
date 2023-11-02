@@ -2,16 +2,23 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { AddBookingRequestConverter, BookingRequestAdapter, BookingRequestConverter, BookingRequestInterface } from "./type";
 
 
-export async function readTicketBookingRequestList() {
+export async function readTicketBookingRequestList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/ticketing-dpt/booking-request-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -27,6 +34,10 @@ export async function readTicketBookingRequestList() {
       data.push(BookingRequestConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as BookingRequestInterface[]
 }

@@ -7,8 +7,9 @@ import { RMAdvanceBookingInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props:{
-    RMAdvanceBookingList:RMAdvanceBookingInterface[]
-    onChange:(value:any)=>void
+    RMAdvanceBookingList:RMAdvanceBookingInterface[],
+    onChange:(value:any)=>void,
+    snoBase: number;
 }) {
     const HEADERLIST = [
         'SR NO.', 'PARTY CODE', 'COMPANY NAME', 'CANDIDATE NAME', 'PP NO', 'ACTUAL PROFESSION', 'VISA PROFESSION', 'AGENT',  'VISA RECEIVED DATE', 'VISA AUTHORIZATION',  'GIVEN TO','PAYMENT', 'IS INVOICE ', 'ADVANCE','PAYMENT DATE'];
@@ -40,9 +41,9 @@ export default function Main(props:{
                 <TableBody2>
                     {props.RMAdvanceBookingList.map((item, index) => (
 
-                        <TableRow3>
+                        <TableRow3 key={index}>
                            
-                            <TableCell3>{index + 1}</TableCell3>
+                           <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             <TableCell3> {item.party_code} </TableCell3>
                             <TableCell3> {item.company_name} </TableCell3>
                             <TableCell3> {item.candidate_name} </TableCell3>

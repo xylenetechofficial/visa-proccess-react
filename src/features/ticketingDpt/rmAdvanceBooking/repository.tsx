@@ -2,16 +2,23 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { AddRMAdvanceConverter, RMAdvanceBookingAdapter, RMAdvanceBookingConverter, RMAdvanceBookingInterface } from "./type";
 
 
-export async function readRMAdvanceBookingList() {
+export async function readRMAdvanceBookingList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/ticketing-dpt/rm-advance-booking-list";
   
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -27,6 +34,9 @@ export async function readRMAdvanceBookingList() {
       data.push(RMAdvanceBookingConverter.toInterface(element));
     }
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as RMAdvanceBookingInterface[]
 }

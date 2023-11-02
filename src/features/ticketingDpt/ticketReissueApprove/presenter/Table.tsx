@@ -12,7 +12,7 @@ import { TicketReIssueApprovedInterface } from "../type";
 import { UnlabeledInput } from "../../../../componenets/Input";
 
 export default function Main(props: {
-
+  snoBase: number;
   ticketReissueApproveList: TicketReIssueApprovedInterface[];
   setTicketReissueApproveList: (value: TicketReIssueApprovedInterface[]) => void
 }) {
@@ -43,7 +43,7 @@ export default function Main(props: {
           <TableBody3>
             {props.ticketReissueApproveList.map((item, index) =>
               <TableRow3 key={index}>
-                <TableCell3>{index + 1}</TableCell3>
+             <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                 <TableCell3>{item.candidate_name}</TableCell3>
                 <TableCell3>{item.company_name}</TableCell3>
                 <TableCell3>{item.passport_no}</TableCell3>

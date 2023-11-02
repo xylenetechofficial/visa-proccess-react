@@ -11,7 +11,7 @@ import { BlueButton } from "../../../../componenets/CustomButton";
 import { Checkbox } from "flowbite-react";
 import { TicketIssueInterface } from "../type";
 
-export default function Main(props: {  onClickEdit: any ,ticketIssueList:TicketIssueInterface[]}) {
+export default function Main(props: { snoBase: number; onClickEdit: any ,ticketIssueList:TicketIssueInterface[]}) {
   const onChange = ()=>{
     console.log("first")
   }
@@ -42,7 +42,7 @@ export default function Main(props: {  onClickEdit: any ,ticketIssueList:TicketI
           
           
             <TableRow3 key={index}>
-              <TableCell3>{index+1}</TableCell3>
+            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{ele.candidate_name}</TableCell3>
               <TableCell3>{ele.company_name}</TableCell3>
               <TableCell3>{ele.passport_no}</TableCell3>
