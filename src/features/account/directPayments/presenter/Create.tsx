@@ -1,10 +1,10 @@
-import {  createCandidateAdvancePayment } from "../repository";
+import { createCandidateAdvancePayment } from "../repository";
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, FileInput, StandardInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
-import {  CandidateAdvancePaymentInterface } from "../type";
+import { CandidateAdvancePaymentInterface } from "../type";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
@@ -21,20 +21,21 @@ import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props: {
     onClose: any,
-    readAdvancePaymentList: any,   
-    }) {
+    readAdvancePaymentList: any,
+}) {
 
     const initValue: CandidateAdvancePaymentInterface = {
-        name:"",
-        passport_no:"",
-        amount:0,
-        received_date:"",
-        remarks:""
+        name: "",
+        passport_no: "",
+        amount: 0,
+        received_date: "",
+        remarks: ""
     }
 
+    const [onchangeCheck, setonchangeCheck] = useState("")
     const [AgentPayment, setAgentPayment] = useState(initValue)
     const [candidateAdvancePayment, setCandidateAdvancePayment] = useState(initValue)
-    
+
 
 
 
@@ -42,12 +43,13 @@ export default function Main(props: {
 
         // call create
         // const newArray = { ...AgentPayment, visaProfessionList: visaProfessionList }
-        const newArray = { ...candidateAdvancePayment}
+        const newArray = { ...candidateAdvancePayment }
         const flag = await createCandidateAdvancePayment(candidateAdvancePayment)
 
         if (!flag) {
             return;
         }
+        setonchangeCheck((new Date()).getUTCMilliseconds().toString())
         setAgentPayment(initValue)
         // setVisaProfessionList([])
         props.readAdvancePaymentList()
@@ -80,7 +82,7 @@ export default function Main(props: {
                     <SubHeading1 text="Candidate Name :" />
                     <UnlabeledInput
                         value={candidateAdvancePayment.name}
-                        onchange={(value) =>{ setCandidateAdvancePayment({ ...candidateAdvancePayment, name: value ,received_date:convertDateFormat(String(new Date))})}}
+                        onchange={(value) => { setCandidateAdvancePayment({ ...candidateAdvancePayment, name: value, received_date: convertDateFormat(String(new Date)) }) }}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -95,9 +97,9 @@ export default function Main(props: {
 
                     <SubHeading1 text="Advance Amount :" />
                     <UnlabeledInput
-                         type="number"
-                         value={candidateAdvancePayment.amount}
-                         onchange={(value) => setCandidateAdvancePayment({ ...candidateAdvancePayment, amount: parseInt(value) })}
+                        type="number"
+                        value={candidateAdvancePayment.amount}
+                        onchange={(value) => setCandidateAdvancePayment({ ...candidateAdvancePayment, amount: parseInt(value) })}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -108,15 +110,17 @@ export default function Main(props: {
                         onChange={(value) => setCandidateAdvancePayment({ ...candidateAdvancePayment, remarks: value })} />
                 </UpdateContentBox>
                 <div className="flex justify-center p-2">
-                    
 
-                        <GreenButton text="Submit" onClick={()=>{onClickAdd()}}/>
-                        <GreenButton text="Cancel" onClick={()=>{props.onClose()}}/>
-                    
+
+                    <GreenButton text="Submit" onClick={() => { onClickAdd() }} />
+                    <GreenButton text="Cancel" onClick={() => { props.onClose() }} />
+
                 </div>
 
 
-                <CandidateAdvancePaymentTable CandidateAdvancePaymentList={[candidateAdvancePayment]} onChange={() => { console.log("first") }} />
+                <CandidateAdvancePaymentTable
+                    onchangeCheck={onchangeCheck}
+                    CandidateAdvancePaymentList={[candidateAdvancePayment]} onChange={() => { console.log("first") }} />
             </div>
 
 

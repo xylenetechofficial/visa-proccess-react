@@ -9,7 +9,7 @@ import { convertDateFormat } from '../../../../utils/function';
 const CandidateAdvancePaymentTable = (props: {
     CandidateAdvancePaymentList: CandidateAdvancePaymentInterface[],
     onChange: (ele: CandidateAdvancePaymentInterface[]) => void,
-
+    onchangeCheck: string
 }) => {
 
     const [onChange, setonChange] = useState<string>("")
@@ -57,7 +57,7 @@ const CandidateAdvancePaymentTable = (props: {
     useEffect(() => {
 
         fetchAdvancePaymentList();
-    }, [])
+    }, [props.onchangeCheck])
 
     return (
         <div className='overflow-auto' style={{ justifyContent: "center" }}>
@@ -80,22 +80,22 @@ const CandidateAdvancePaymentTable = (props: {
 
                         <TableRow3 key={index}>
                             <TableCell3>
-                               {item.id}
+                                {item.id}
                             </TableCell3>
                             <TableCell3>
                                 {item.name}
                             </TableCell3>
                             <TableCell3>
-                               {item.amount}
+                                {item.passport_no}
                             </TableCell3>
                             <TableCell3>
-                               {item.passport_no}
+                                {item.amount}
                             </TableCell3>
                             <TableCell3>
-                               {convertDateFormat(item.received_date)}
+                                {convertDateFormat(item.received_date)}
                             </TableCell3>
                             <TableCell3>
-                              {item.remarks}
+                                {item.remarks}
                             </TableCell3>
                         </TableRow3>
                     ))}
