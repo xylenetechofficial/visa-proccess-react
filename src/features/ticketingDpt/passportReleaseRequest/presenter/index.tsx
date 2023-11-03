@@ -45,7 +45,7 @@ export default function Main() {
   async function fetchPassportReleaseRequest(page?: number) {
     const data = await readPassportReleaseRequestList({
       page: page ?? additionalData.pagination.page,
-      status: "yes"
+      status: "no",
     }
     );
     if (data) {

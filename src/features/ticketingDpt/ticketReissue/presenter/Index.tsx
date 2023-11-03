@@ -56,7 +56,7 @@ export default function Main() {
   const fetchTicketissue = async (page?: number) => {
     const res: any = await readTicketIssueList({
       page: page ?? additionalData.pagination.page,
-      status: "yes",
+      status: "no",
     });
     if (res) {
       setTicketIssueList(res);

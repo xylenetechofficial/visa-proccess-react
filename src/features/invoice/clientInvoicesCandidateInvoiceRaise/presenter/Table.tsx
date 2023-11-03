@@ -92,7 +92,7 @@ type="number"
                 onUpdateRow(index, { ...ele, total_charges: parseInt(value) })} /></TableCell3>
               <TableCell3>
                 <UnlabeledInput
-                  type="number"
+                  // type="number"
                   value={ele?.invoice_number}
                   onchange={(value) => {
                     if (value) {

@@ -45,7 +45,7 @@ export default function Main() {
 
   async function fetchTicketProvidedByCompany(page?:number) {
     const data = await readTicketProvidedByCompanyList( {page: page ?? additionalData.pagination.page,
-    status: "yes"
+    status: "no",
   });
     if (data) {
       setTicketProvidedByCompanyList(data);

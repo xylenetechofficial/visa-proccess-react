@@ -53,7 +53,7 @@ export default function Main() {
   const fetchTicketissue = async (page?: number) => {
     const res: any = await readTicketReIssueApprovedList({
       page: page ?? additionalData.pagination.page,
-      status: "yes",
+      status: "no",
     });
     if (res) {
       setTicketReissueApproveList(res);

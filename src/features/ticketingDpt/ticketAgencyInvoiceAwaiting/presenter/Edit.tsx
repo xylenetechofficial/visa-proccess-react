@@ -27,7 +27,7 @@ export default function Main(props: {
     const fetchTicketAgencyInvoiceAwaitingList = async (page?: number) => {
         const data = await readTicketAgencyInvoiceAwaitingList({
             page: page ?? 1,
-            status: "yes"
+            status: "no",
         });
         setTicketAgencyInvoiceAwaitingList(data);
         setAdditionalData(await PaginationManager.getData());
