@@ -50,7 +50,7 @@ export default function Main() {
   const fetchRejectCancelApproveList = async (page?: number) => {
     const data = await readRejectCancelApproveList({
       page: page ?? additionalData.pagination.page,
-      status: "yes",
+      status: "no",
     });
 
     if (data) {

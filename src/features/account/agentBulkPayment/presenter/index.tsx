@@ -109,7 +109,7 @@ export default function Main() {
   const fetchAccountDashboardList = async (page?:number) => {
     const data = await readAccountDashboardList({
       page: page ?? additionalData.pagination.page,
-      status: "yes"
+      status: "no"
     });
 
     if (data) {

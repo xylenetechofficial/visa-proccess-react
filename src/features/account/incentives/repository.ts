@@ -13,12 +13,19 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readAccountDashboardList( value:string,) {
+export async function readAccountDashboardList( value:string, query: {
+  status?: string
+  page?: number
+}) {
   const path = "/account/incentive-list?status="+ value;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
    
   });
 

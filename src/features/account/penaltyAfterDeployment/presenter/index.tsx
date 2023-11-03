@@ -84,7 +84,7 @@ export default function Main() {
     const data :PenaltyAfterDeploymentDashboardInterface[] = await readAccountDashboardList(
       {
         page: page ?? additionalData.pagination.page,
-        status: "yes"
+        status: "no"
       });
 
     if (data) {

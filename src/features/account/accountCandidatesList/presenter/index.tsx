@@ -68,7 +68,7 @@ export default function Main() {
   const fetchAccoundCandidates = async (page?: number) => {
     const data: any = await readCandidateDiscountList({
       page: page ?? additionalData.pagination.page,
-      status: "yes"
+      status: "no"
     });
     console.log(data, "ddd");
     if (data) {

@@ -5,14 +5,14 @@ import { DateInput, FileInput, StandardInput, TextAreaInput, UnlabeledInput } fr
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CandidateAdvancePaymentInterface } from "../type";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { CustomRadioButton } from "../../../../componenets/RadioButton";
-import { CountryInterface } from "../../../masters/country/type";
+// import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
+// import { CustomRadioButton } from "../../../../componenets/RadioButton";
+// import { CountryInterface } from "../../../masters/country/type";
 
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
-import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
-import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
+// import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
+// import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
+// import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
 import CandidateAdvancePaymentTable from "./CandidateAdvancePaymentTable";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { convertDateFormat } from "../../../../utils/function";
@@ -54,17 +54,17 @@ export default function Main(props: {
         // setVisaProfessionList([])
         props.readAdvancePaymentList()
     }
-    const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
-    const fetchvisaAuhorisationList = async () => {
-        const data = await readVisaAuthorisationList();
-        if (data) {
-            // setvisaAuhorisationList(data);
-        }
-    }
-    useEffect(() => {
-        fetchvisaAuhorisationList();
+    // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
+    // const fetchvisaAuhorisationList = async () => {
+    //     const data = await readVisaAuthorisationList();
+    //     if (data) {
+    //         // setvisaAuhorisationList(data);
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchvisaAuhorisationList();
 
-    }, [])
+    // }, [])
 
     return (
 

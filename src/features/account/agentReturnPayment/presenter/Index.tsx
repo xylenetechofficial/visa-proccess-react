@@ -88,7 +88,7 @@ export default function Main() {
   const fetchAgentReturnPaymentList = async (page?: number) => {
     const data = await readAgentReturnPaymentList({
       page: page ?? additionalData.pagination.page,
-      status: "yes",
+      status: "no",
     });
     console.log(data);
     setCandidateList(data);

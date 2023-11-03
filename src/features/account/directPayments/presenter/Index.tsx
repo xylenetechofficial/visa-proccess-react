@@ -180,7 +180,7 @@ export default function Main() {
   ) => {
     const data = await readDirectPaymentList(value, {
       page: page ?? additionalData.pagination.page,
-      status: "yes",
+      status: "no",
     });
     console.log(data, "jj");
     // const k= await readAgentPaymentReceivedPaymentList();
@@ -218,8 +218,8 @@ export default function Main() {
         pageName="Direct Payments"
         searchFunction={(query) => setSearchQuery(query)}
       />
-      <CardHeader2>
-        <div className="w-96 flex">
+          <CardHeader>
+        <div className="w-40">
           <CustomSelectComponent
             label="Agent"
             options={[
@@ -234,7 +234,7 @@ export default function Main() {
             }}
           />
         </div>
-        <div className="w-auto flex mb-5">
+        <div className="flex ">
           <SubHeading1 text="Passport No  :" />
           <UnlabeledInput
             value={passportNo}
@@ -243,7 +243,7 @@ export default function Main() {
                 setPassportNo(value);
             }}
           />
-          <div className="ml-5 w-96">
+          <div className="mx-2">
             <GreenButton
               text="Search"
               onClick={async () => {
@@ -253,7 +253,7 @@ export default function Main() {
             />
           </div>
         </div>
-        <div className="w-96 float-right">
+        <div className="items-end">
           <GreenButton
             text="Add Advance Payment"
             onClick={() => {
@@ -261,7 +261,7 @@ export default function Main() {
             }}
           />
         </div>
-      </CardHeader2>
+      </CardHeader>
       <HeroPage props={AgentPaymentList} />
 
       <div className="flex bg-orange-500 w-64 mb-4">

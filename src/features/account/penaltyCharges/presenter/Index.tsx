@@ -45,7 +45,7 @@ export default function Main() {
   const fetchPenaltyChargesList = async (page?: number) => {
     const data = await readPenaltyChargesList({
       page: page ?? additionalData.pagination.page,
-      status: "yes",
+      status: "no",
     });
     console.log(data);
     setPenaltyChargesList(data);

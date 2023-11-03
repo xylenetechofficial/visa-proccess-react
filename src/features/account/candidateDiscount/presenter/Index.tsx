@@ -88,7 +88,7 @@ const [discountList, setDiscountList]= useState({
   const fetchCandidateDiscountList = async (page?:number) => {
     const data :any= await readCandidateDiscountList({
       page: page ?? additionalData.pagination.page,
-      status: "yes"
+      status: "no"
     });
     if (data) {
       setCandidateDiscountList(data);

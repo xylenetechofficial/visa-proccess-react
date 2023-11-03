@@ -126,7 +126,7 @@ export default function Main() {
     // ! EMG
     const data = await readAgentPaymentList(AgentBy, {
       page: page ?? additionalData.pagination.page,
-      status: "yes"
+      status: "no"
     });
     console.log(data, "jj");
     if (data) {
