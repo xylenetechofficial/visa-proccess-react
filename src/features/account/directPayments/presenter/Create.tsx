@@ -119,6 +119,7 @@ export default function Main(props: {
 
 
                 <CandidateAdvancePaymentTable
+                
                     onchangeCheck={onchangeCheck}
                     CandidateAdvancePaymentList={[candidateAdvancePayment]} onChange={() => { console.log("first") }} />
             </div>

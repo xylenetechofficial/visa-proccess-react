@@ -1697,3 +1697,7 @@ GET {{endpoint}}/rc/deploy-candidates-list
 
 ### Read Ticket Agency Invoice Awaiting List
 GET {{endpoint}}/ticketing-dpt/ticket-agency-invoice-awaiting-list
+
+
+### Read Masters Candidate Reverse To Underployment List
+GET {{endpoint}}/masters/candidate-reverse-to-underployment-list

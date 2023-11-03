@@ -34,7 +34,11 @@ import {
 } from "../candidateDiscountApproveReject/type";
 
 export async function readDirectPaymentList(
-    AgentBy: AgentPaymentByIDInterface
+    AgentBy: AgentPaymentByIDInterface,
+    query: {
+      status?: string
+      page?: number
+    }
    
 ) {
   const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
@@ -47,6 +51,9 @@ export async function readDirectPaymentList(
     queryParameters: {
       agent_id: AgentBy.agent_id ?? 0,
       passport_no: AgentBy.passport_no ?? "",
+
+      page: query.page ?? 0,
+      status: query.status ?? "",
     },
   });
 
@@ -178,11 +185,18 @@ export async function addAdvancePayment(
 //  Add Advance Payment End
 
 //Read Advance Payment List Start
-export async function readAdvancePaymentList() {
+export async function readAdvancePaymentList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/account/direct-payment/advance-payment-list";
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code });
@@ -198,6 +212,12 @@ export async function readAdvancePaymentList() {
       data.push(AdvancePaymentConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  
+  );
+  
   return dataAdapter as AdvancePaymentAdapter[];
 }
 //Read Advance Payment List End
