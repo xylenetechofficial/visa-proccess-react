@@ -21,9 +21,11 @@ import {
   AddAgentPaymentInterface,
 } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import {
@@ -31,10 +33,13 @@ import {
   CandidateDiscountApproveRejectInterface,
 } from "../candidateDiscountApproveReject/type";
 
-export async function readDirectPaymentList(
-  AgentBy: AgentPaymentByIDInterface
+export async function readDirectPaymentList(query: {
+    AgentBy: AgentPaymentByIDInterface
+    status?: string
+    page?: number
+  }
 ) {
-  const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
+  const payload = AgentPaymentByIDConverter.toAdapter(query.AgentBy);
   // const path = `/account/direct-payment-list?${payload}`;
   const path = `/account/direct-payment-list`;
 
@@ -42,8 +47,10 @@ export async function readDirectPaymentList(
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      agent_id: AgentBy.agent_id ?? 0,
-      passport_no: AgentBy.passport_no ?? "",
+      agent_id: query.AgentBy.agent_id ?? 0,
+      passport_no: query.AgentBy.passport_no ?? "",
+      page: query.page ?? 0,
+  status: query.status ?? "",
     },
   });
 
@@ -63,6 +70,11 @@ export async function readDirectPaymentList(
       data.push(DirectPaymentConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   return dataAdapter as DirectPaymentAdapter[];
 }
 

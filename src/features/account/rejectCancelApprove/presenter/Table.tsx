@@ -13,6 +13,7 @@ import {  RejectCancelApproveInterface } from "../type";
 
 
 const RejectCancelApproveTable = (props: {
+  snoBase: number,
   RejectCancelApproveList: RejectCancelApproveInterface[];
   onChange: (value:RejectCancelApproveInterface[])=>void;
 }) => {
@@ -61,7 +62,7 @@ const RejectCancelApproveTable = (props: {
         <TableBody3>
           {props.RejectCancelApproveList.map((item, index) => (
             <TableRow3 key={index}>
-              <TableCell3>{index + 1}</TableCell3>
+             <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.party_code}</TableCell3>
               <TableCell3>{item.company_name}</TableCell3>
               <TableCell3>{item.name}</TableCell3>

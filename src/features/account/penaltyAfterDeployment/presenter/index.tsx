@@ -14,6 +14,8 @@ import {
 } from "../repository";
 import {  CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { AddSelectionPenaltyAfterDeploymentInterface, PenaltyAfterDeploymentDashboardInterface } from "../type";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 
 
 const CardHeader = styled(Box)(() => ({
@@ -29,6 +31,17 @@ export default function Main() {
   const initialState :AddSelectionPenaltyAfterDeploymentInterface ={
     selection_list:[]
   }
+
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
 
   const [editAccountDashboard, setAccountDashboard] =
     useState<any>({} as any);
@@ -67,12 +80,18 @@ export default function Main() {
   };
   const dataFiltered = filterData(searchQuery, accountDashboardList);
 
-  const fetchAccountDashboardList = async (status:string) => {
-    const data :PenaltyAfterDeploymentDashboardInterface[] = await readAccountDashboardList(status);
+  const fetchAccountDashboardList = async (page?:number) => {
+    const data :PenaltyAfterDeploymentDashboardInterface[] = await readAccountDashboardList(
+      {
+        page: page ?? additionalData.pagination.page,
+        status: "yes"
+      });
 
     if (data) {
       setAccountDashboardList(data);
     }
+    setAdditionalData(await PaginationManager.getData());
+
     // setAccountDashboardList(data);
   };
   useEffect(() => {
@@ -118,6 +137,7 @@ export default function Main() {
 
       {/*  AccountDashboard stable */}
       <AccountDashboardTable
+      snoBase={additionalData.pagination.sno_base}
         accountDashboardList={dataFiltered}
         setAccountDashboardList={setAccountDashboardList}
         onClickCreate={onClickCreate}
@@ -127,6 +147,15 @@ export default function Main() {
         fetchAccountDashboardList={fetchAccountDashboardList}
         onChange={(value)=>setData(value)}
       />
+
+      <br />
+      <Pagination
+data={additionalData}
+onPageChange={(e) => {
+  console.log(e); // Only Dev
+  fetchAccountDashboardList(e);
+}}
+/>
 
       {/* <!-- Modal --> */}
       {/* {modalName !== "paymentdetails" ? "" :

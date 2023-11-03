@@ -9,6 +9,7 @@ import { DAD_GivenToList, GivenToList } from "../../../db";
 
 
 const Main = (props: {
+  snoBase: number,
   candidateDataList: CandidateInterface[],
   onChange: (value: CandidateInterface[]) => void,
   fetchCandidateList: any
@@ -61,7 +62,7 @@ const Main = (props: {
           {props.candidateDataList.map((item, index) => (
 
             <TableRow3 key={index}>
-              <TableCell3>{index+1}</TableCell3>
+            <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.name}</TableCell3>
               <TableCell3>{item.passport_no}</TableCell3>
               <TableCell3>{item.company_name}</TableCell3>

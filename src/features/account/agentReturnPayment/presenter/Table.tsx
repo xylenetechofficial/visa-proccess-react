@@ -9,6 +9,7 @@ import { confirmationMessage } from '../../../../utils/alert';
 
 
 const Table = (props: {
+    snoBase: number,
     candidateList: AgentReturnPaymentInterface[],
     onClickAdd: (ele: AgentReturnPaymentInterface) => void,
     onClickEdit: (ele: AgentReturnPaymentInterface) => void,
@@ -53,7 +54,7 @@ const Table = (props: {
                     {props.candidateList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3 >{index + 1}</TableCell3>
+                           <TableCell3>{index + props.snoBase + 1}</TableCell3>
                             <TableCell3 > {ele.agent_name}</TableCell3>
                             <TableCell3 > {ele.amount}</TableCell3>
                             <TableCell3 > {ele.description}</TableCell3>

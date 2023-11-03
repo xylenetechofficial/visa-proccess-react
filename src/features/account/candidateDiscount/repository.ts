@@ -1,12 +1,19 @@
 import {  AddCandidateDiscountListConverter, CandidateDiscountAdapter, CandidateDiscountAdapter2, CandidateDiscountConverter, CandidateDiscountConverter2, CandidateDiscountInterface, CandidateDiscountInterface2 } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readCandidateDiscountList() {
+export async function readCandidateDiscountList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/account/candidate-discount-list";
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
   console.log(response,"r")
   if (response.code != 200) {
@@ -20,6 +27,10 @@ export async function readCandidateDiscountList() {
       data.push(CandidateDiscountConverter2.toInterface(element));
     }
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   return data as CandidateDiscountInterface2[]
   return data 
 }

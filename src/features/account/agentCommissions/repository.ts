@@ -13,7 +13,10 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readAccountDashboardList(page_number?: number) {
+export async function readAccountDashboardList(query: {
+  status?: string
+  page?: number
+}) {
   // const path = "/visa-dpt/block-visa-list";
   const path = "/account/agent-commission-list";
 
@@ -21,7 +24,8 @@ export async function readAccountDashboardList(page_number?: number) {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      page: page_number ?? 0,
+      page: query.page ?? 0,
+      status: query.status ?? "",
     },
   });
 

@@ -6,6 +6,7 @@ import { Checkbox } from "@mui/material";
 
 
 const AccountDashboardTable = (props: {
+  snoBase: number,
   accountDashboardList: DelhiOtherDailyPaymentInterface[];
   onClickEdit: any;
   modalName:any,
@@ -37,7 +38,7 @@ const AccountDashboardTable = (props: {
         <TableBody3>
           {props.accountDashboardList.map((ele, index) => (
             <TableRow3 key={index}>
-              <TableCell3>{index + 1}</TableCell3>
+             <TableCell3>{index + props.snoBase + 1}</TableCell3>
               {/* <TableCell3> {ele.id}</TableCell3> */}
               <TableCell3>{ele.candidate_name} </TableCell3>
               <TableCell3>

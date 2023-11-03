@@ -5,7 +5,10 @@ import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, Paginat
 import { AddServiceChargesInterFace, AddServiceConverter, ServiceChargesConverter, ServiceChargesInterface } from "./type";
 
 
-export async function readServiceChargesList(page_number?: number) {
+export async function readServiceChargesList(query: {
+  status?: string
+  page?: number
+}) {
 
 //   const payload = ServiceChargesByIDConverter.toAdapter(AgentBy);
   const path = `/account/service-charge-list`;
@@ -14,7 +17,8 @@ export async function readServiceChargesList(page_number?: number) {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      page: page_number ?? 0,
+      page: query.page ?? 0,
+      status: query.status ?? "",
     },
    
   });

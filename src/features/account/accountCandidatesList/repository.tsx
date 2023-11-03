@@ -5,14 +5,18 @@ import { AccountCandidateAdapter, AccountCandidateCancelConverter, AccountCandid
 
 
 
-export async function readCandidateDiscountList(page_number?: number) {
+export async function readCandidateDiscountList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/account/account-candidate-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      page: page_number ?? 0,
+      page: query.page ?? 0,
+      status: query.status ?? "",
     },
   });
   console.log(response,"r")

@@ -6,6 +6,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 const CandidateDiscountTable = (props: {
   // CandidateDiscountList: CandidateDiscountInterface[],
+  snoBase: number,
   CandidateDiscountList: any,
   setCandidateDiscountList: any
   discountAndRemark: any,
@@ -88,7 +89,7 @@ const CandidateDiscountTable = (props: {
 
           (
             <TableRow3 key={index}>
-              <TableCell3> {index +1}</TableCell3>
+             <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3> {item.party_code} </TableCell3>
               <TableCell3> {item.company_name}</TableCell3>
               <TableCell3> {item.name}</TableCell3>

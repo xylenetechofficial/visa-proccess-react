@@ -107,7 +107,10 @@ export default function Main() {
   const dataFiltered = filterData(searchQuery, accountDashboardList);
 
   const fetchAccountDashboardList = async (page?:number) => {
-    const data = await readAccountDashboardList(page?? 1);
+    const data = await readAccountDashboardList({
+      page: page ?? additionalData.pagination.page,
+      status: "yes"
+    });
 
     if (data) {
       setAccountDashboardList(data);
@@ -142,6 +145,7 @@ export default function Main() {
         setModalName={setModalName}
       snoBase={additionalData.pagination.sno_base}
       />
+<br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {

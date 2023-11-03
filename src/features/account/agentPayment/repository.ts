@@ -4,7 +4,10 @@ import { showMessage_v2 } from "../../../utils/alert";
 import { CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface } from "../candidateDiscountApproveReject/type";
 
 // ! EMG
-export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface,page_number?: number) {
+export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface,query: {
+  status?: string
+  page?: number
+}) {
 
   const path = `/account/agent-payment-list`;
 
@@ -14,7 +17,8 @@ export async function readAgentPaymentList(AgentBy:AgentPaymentByIDInterface,pag
     queryParameters: {
       agent_id: AgentBy.agent_id ?? 0,
       passport_no: AgentBy.passport_no ?? "",
-      page: page_number ?? 1,
+      page: query.page ?? 0,
+      status: query.status ?? "",
     }
   });
 

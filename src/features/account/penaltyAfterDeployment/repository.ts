@@ -1,5 +1,5 @@
 import { AddPenaltyAfterDeploymentInterface, AddSelectionPenaltyAfterDeploymentConverter, AddSelectionPenaltyAfterDeploymentInterface, PenaltyAfterDeploymentDashboardAdapter, PenaltyAfterDeploymentDashboardConverter, PenaltyAfterDeploymentDashboardInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 // get visa - dpt / block - visa - list => GetAccountDashboardList
@@ -13,14 +13,22 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readAccountDashboardList(status:string) {
+export async function readAccountDashboardList(query: {
+  status?: string
+  page?: number
+}) {
   // const path = "/visa-dpt/block-visa-list";
-  const value :string = status? status :"no"
+  const value :string = query.status? query.status :"no"
   const path = "/account/penalty-after-deployment-list?status=" + value;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
+    
   });
 
   if (response.code != 200) {
@@ -38,6 +46,10 @@ export async function readAccountDashboardList(status:string) {
       data.push(PenaltyAfterDeploymentDashboardConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return data as PenaltyAfterDeploymentDashboardInterface[]
   // return data as any
 }

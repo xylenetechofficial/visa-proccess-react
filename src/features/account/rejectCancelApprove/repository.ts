@@ -1,14 +1,22 @@
 import {  RejectCancelApproveAdapter, RejectCancelApproveConverter, RejectCancelApproveInterface, RejectCancelApproveListConverter, RejectCancelApproveListInterface} from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 
-export async function readRejectCancelApproveList() {
+export async function readRejectCancelApproveList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/account/reject-cancel-approve-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
+    
   });
 
   if (response.code != 200) {
@@ -24,6 +32,9 @@ export async function readRejectCancelApproveList() {
       data.push(RejectCancelApproveConverter.toInterface(element));
     }
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as RejectCancelApproveInterface[]
 }

@@ -8,6 +8,7 @@ import { convertDateFormat } from "../../../../utils/function";
 
 
 const AccountDashboardTable = (props: {
+  snoBase: number,
   // accountDashboardList: AgentPaymentReceivedInterface[];
   accountDashboardList: PenaltyAfterDeploymentDashboardInterface[];
   setAccountDashboardList: any;
@@ -94,7 +95,7 @@ const AccountDashboardTable = (props: {
           <TableBody3>
             {props?.accountDashboardList?.map((ele, index) => (
               <TableRow3 key={index}>
-                <TableCell3>{index + 1}</TableCell3>
+               <TableCell3>{index + props.snoBase + 1}</TableCell3>
                 <TableCell3> {ele?.id}</TableCell3>
                 <TableCell3> {ele?.name}</TableCell3>
                 <TableCell3> {ele?.passport_no}</TableCell3>

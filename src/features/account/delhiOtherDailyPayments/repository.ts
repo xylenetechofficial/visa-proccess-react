@@ -1,14 +1,21 @@
 import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface, DelhiOtherDailyPaymentAdapter, DelhiOtherDailyPaymentConverter, DelhiOtherDailyPaymentInterface } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readAccountDashboardList() {
+export async function readAccountDashboardList(query: {
+  status?: string
+  page?: number
+}) {
   // const path = "/visa-dpt/block-visa-list";
   const path = "/account/delhi-agent-payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -24,6 +31,13 @@ export async function readAccountDashboardList() {
       data.push(DelhiOtherDailyPaymentConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+
+  );
+
+
   return data as DelhiOtherDailyPaymentInterface[]
 }
 

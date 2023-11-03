@@ -124,7 +124,10 @@ export default function Main() {
   };
   const fetchAgentPaymentList = async (AgentBy: AgentPaymentByIDInterface, page?: number) => {
     // ! EMG
-    const data = await readAgentPaymentList(AgentBy, page ?? additionalData.pagination.page);
+    const data = await readAgentPaymentList(AgentBy, {
+      page: page ?? additionalData.pagination.page,
+      status: "yes"
+    });
     console.log(data, "jj");
     if (data) {
       setAgentPaymentList(data);

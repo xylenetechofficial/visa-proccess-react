@@ -8,15 +8,19 @@ import {
   AgentReturnPaymentConverter,
 } from "./type";
 import {
+  AdditionalDataInterface,
   ApiHelper,
   AuthTokenType,
   ContentType,
+  PaginationManager,
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readAgentReturnPaymentList(
-  status: string,
+export async function readAgentReturnPaymentList(query: {
   partyCode?: number
+    status?: string
+    page?: number
+  }
 ) {
   const path = "/account/agent-return-payment-list";
 
@@ -24,8 +28,9 @@ export async function readAgentReturnPaymentList(
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      status: status ?? "",
-      party_code: partyCode ?? 0,
+      page: query.page ?? 0,
+      status: query.status ?? "",
+      party_code: query.partyCode ?? 0,
     },
   });
 
@@ -36,6 +41,11 @@ export async function readAgentReturnPaymentList(
   const data: AgentReturnPaymentInterface[] =
     AgentReturnPaymentConverter.toInterfaceList(
       response.data as AgentReturnPaymentAdapter[]
+    );
+
+
+    await PaginationManager.setData(
+      response.additional_data as AdditionalDataInterface
     );
 
   return data;

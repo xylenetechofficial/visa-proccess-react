@@ -4,6 +4,7 @@ import { convertDateFormat } from "../../../../utils/function";
 
 
 const Main = (props: {
+  snoBase: number,
   pp_rc_candidateDataList: PP_RC_CandidateInterface[],
   onChange: (value: PP_RC_CandidateInterface[]) => void,
   fetchPP_RC_CandidateList: any
@@ -58,7 +59,7 @@ const Main = (props: {
           {props.pp_rc_candidateDataList.map((item, index) => (
 
             <TableRow3 key={index}>
-              <TableCell3>{index+1}</TableCell3>
+             <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.name}</TableCell3>
               <TableCell3>{item.passport_no}</TableCell3>
               <TableCell3>{item.company_name}</TableCell3>

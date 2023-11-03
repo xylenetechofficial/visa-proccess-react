@@ -1,5 +1,5 @@
 import { CandidateDiscountApproveRejectAdapter, CandidateDiscountApproveRejectConverter, CandidateDiscountApproveRejectInterface,  } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 // get visa - dpt / block - visa - list => GetBlockVisaList
@@ -13,12 +13,19 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readCandidateDiscountList() {
+export async function readCandidateDiscountList(query: {
+  status?: string
+  page?: number
+}) {
   const path = "/account/candidate-discount-approve-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -36,6 +43,11 @@ export async function readCandidateDiscountList() {
   //   }
   // }
   // return data as CandidateDiscountApproveRejectInterface[]
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
+
   return data 
 }
 

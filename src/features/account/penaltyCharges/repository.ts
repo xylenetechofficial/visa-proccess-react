@@ -2,15 +2,20 @@ import { showMessage_v2 } from "../../../utils/alert";
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { PenaltyChargesAdapter, PenaltyChargesConverter, PenaltyChargesInterface } from "./type";
 
-export async function readPenaltyChargesList(page_number?: number) {
+export async function readPenaltyChargesList(query: {
+  status?: string
+  page?: number
+}) {
     const path = "/account/penalty-charges-list";
   
     const response = await ApiHelper.get(path, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT,
       queryParameters: {
-        page: page_number ?? 0,
+        page: query.page ?? 0,
+        status: query.status ?? "",
       },
+      
     });
   
     if (response.code != 200) {

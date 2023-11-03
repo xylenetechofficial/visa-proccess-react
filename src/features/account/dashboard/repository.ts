@@ -1,5 +1,5 @@
 import { AccountDashboardAdapter, AccountDashboardConverter, AccountDashboardInterface, ServerAdapter, CandidateRejectConverter, CandidateRejectInterface, AccountDashboardInterface2, AccountDashboardConverter2 } from "./type";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
 // get visa - dpt / block - visa - list => GetAccountDashboardList
@@ -13,13 +13,22 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readAccountDashboardList() {
+export async function readAccountDashboardList(
+  query: {
+    status?: string
+    page?: number
+  }
+) {
   // const path = "/visa-dpt/block-visa-list";
   const path = "/account/account-dashboard-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: {
+      page: query.page ?? 0,
+      status: query.status ?? "",
+    },
   });
 
   if (response.code != 200) {
@@ -35,6 +44,10 @@ export async function readAccountDashboardList() {
       data.push(AccountDashboardConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return data as AccountDashboardInterface[]
 }
 

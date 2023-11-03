@@ -65,7 +65,10 @@ export default function Main() {
   }, []);
 
   const fetchServiceChargesList = async (page?: number) => {
-    const res: any = await readServiceChargesList(page ?? 1);
+    const res: any = await readServiceChargesList({
+      page: page ?? additionalData.pagination.page,
+      status: "yes"
+    });
     if (res) {
       setServiceCharges(res);
     }

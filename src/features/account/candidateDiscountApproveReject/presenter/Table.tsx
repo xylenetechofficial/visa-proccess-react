@@ -8,6 +8,7 @@ import { Checkbox } from '@mui/material';
 import { convertDateFormat } from '../../../../utils/function';
 
 const AgentPaymentTable = (props: {
+  snoBase: number,
   candidateDiscountApproveReject: CandidateDiscountApproveRejectInterface[],
   onClickEdit: any,
   onClickDelete: any
@@ -69,8 +70,8 @@ const AgentPaymentTable = (props: {
         </TableHead3>
         <TableBody3>
           {props?.candidateDiscountApproveReject?.map((item: any, index: number) => (
-            <TableRow3>
-              <TableCell3>{index + 1} </TableCell3>
+            <TableRow3 key={index}>
+             <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.party_code}  </TableCell3>
               <TableCell3>{item.company_name}</TableCell3>
               <TableCell3>{item.name} </TableCell3>

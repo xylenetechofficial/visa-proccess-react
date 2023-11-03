@@ -12,6 +12,8 @@ import CandidateDiscountTable from "./Table";
 // import CandidateDiscountTable from "./Table_copy";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { TextAreaInput } from "../../../../componenets/Input";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 
 
 const CardHeader = styled(Box)(() => ({
@@ -26,6 +28,17 @@ const CardHeader = styled(Box)(() => ({
 export default function Main() {
   const [editCandidateDiscount, setEditCandidateDiscount] = useState<CandidateDiscountInterface>(
     {} as CandidateDiscountInterface
+  );
+
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
   );
 
   // const [modalName, setModalName] = useState("");
@@ -72,15 +85,19 @@ const [discountList, setDiscountList]= useState({
   selection_list:[],
 })
 
-  const fetchCandidateDiscountList = async () => {
-    const data :any= await readCandidateDiscountList();
+  const fetchCandidateDiscountList = async (page?:number) => {
+    const data :any= await readCandidateDiscountList({
+      page: page ?? additionalData.pagination.page,
+      status: "yes"
+    });
     if (data) {
       setCandidateDiscountList(data);
     }
+    setAdditionalData(await PaginationManager.getData());
     
   };
   useEffect(() => {
-    fetchCandidateDiscountList();
+    fetchCandidateDiscountList(additionalData.pagination.page);
    
   }, []);
 const handleSubmit =async (data:any)=>{
@@ -135,6 +152,7 @@ const handleDiscountChange = (value: string) => {
 
       {/*  Candidate-discount-table */}
       <CandidateDiscountTable
+      snoBase={additionalData.pagination.sno_base}
         CandidateDiscountList={CandidateDiscountList}
         setCandidateDiscountList={setCandidateDiscountList}
         discountAndRemark={discountAndRemark}
@@ -146,6 +164,14 @@ const handleDiscountChange = (value: string) => {
         />
       <div className="mt-4">
       <CustomButton2 buttonText="Submit" onClick={()=>{handleSubmit(CandidateDiscountList)}}/>
+      <br />
+      <Pagination
+data={additionalData}
+onPageChange={(e) => {
+  console.log(e); // Only Dev
+  fetchCandidateDiscountList(e);
+}}
+/>
       </div>
     </div>
   );

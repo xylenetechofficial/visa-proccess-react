@@ -11,6 +11,8 @@ import {
 import { PenaltyChargesInterface } from "../type";
   
   const PenaltyChargesTable = (props:{
+    
+snoBase: number,
     onClickEdit:(value: PenaltyChargesInterface)=>void,
     penaltyChargesList:PenaltyChargesInterface[],
 
@@ -46,7 +48,7 @@ import { PenaltyChargesInterface } from "../type";
           <TableBody3>
             {props.penaltyChargesList.map((penaltyCharges, index) =>
              <TableRow3 key={index}>
-             <TableCell3>{index + 1}</TableCell3>
+            <TableCell3>{index + props.snoBase + 1}</TableCell3>
              <TableCell3>{penaltyCharges.party_code} </TableCell3>
              <TableCell3>{penaltyCharges.company_name}</TableCell3>
              <TableCell3>{penaltyCharges.candidate_name}</TableCell3>
