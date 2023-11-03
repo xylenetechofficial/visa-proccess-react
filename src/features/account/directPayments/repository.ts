@@ -33,13 +33,11 @@ import {
   CandidateDiscountApproveRejectInterface,
 } from "../candidateDiscountApproveReject/type";
 
-export async function readDirectPaymentList(query: {
+export async function readDirectPaymentList(
     AgentBy: AgentPaymentByIDInterface
-    status?: string
-    page?: number
-  }
+   
 ) {
-  const payload = AgentPaymentByIDConverter.toAdapter(query.AgentBy);
+  const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
   // const path = `/account/direct-payment-list?${payload}`;
   const path = `/account/direct-payment-list`;
 
@@ -47,10 +45,8 @@ export async function readDirectPaymentList(query: {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
-      agent_id: query.AgentBy.agent_id ?? 0,
-      passport_no: query.AgentBy.passport_no ?? "",
-      page: query.page ?? 0,
-  status: query.status ?? "",
+      agent_id: AgentBy.agent_id ?? 0,
+      passport_no: AgentBy.passport_no ?? "",
     },
   });
 

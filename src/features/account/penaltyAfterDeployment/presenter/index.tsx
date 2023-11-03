@@ -54,7 +54,7 @@ export default function Main() {
     const list :any = {selection_list:data}
    const datas:any = await createAccountDashboard(list);
    if(datas){
-    fetchAccountDashboardList("yes");
+    fetchAccountDashboardList();
    }
   };
 
@@ -95,7 +95,7 @@ export default function Main() {
     // setAccountDashboardList(data);
   };
   useEffect(() => {
-    fetchAccountDashboardList(status);
+    fetchAccountDashboardList(additionalData.pagination.page);
   }, [status]);
 
   return (

@@ -18,8 +18,8 @@ export async function readAccountDashboardList(query: {
   page?: number
 }) {
   // const path = "/visa-dpt/block-visa-list";
-  const value :string = query.status? query.status :"no"
-  const path = "/account/penalty-after-deployment-list?status=" + value;
+  // const value :string = query.status? query.status :"no"
+  const path = "/account/penalty-after-deployment-list?status=" + query.status;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
