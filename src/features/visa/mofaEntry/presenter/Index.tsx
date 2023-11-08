@@ -103,7 +103,7 @@ export default function Main() {
   // }, [editIndexVisa, modalName])
 
   const fetchMofaEntryCandiateList = async (page?: number) => {
-    const data = await readMofaEntryCandiateList("yes", page ?? 1);
+    const data = await readMofaEntryCandiateList("yes", 0, page ?? 1);
     console.log(data);
     setCandidateList(data);
     setAdditionalData(await PaginationManager.getData());
@@ -143,7 +143,7 @@ export default function Main() {
       <Heading6 text="Mofa entry" />
       {/*  indexVisa stable */}
       <Table
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         candidateList={CandidateList}
         onClickAdd={onClickAdd}
         onClickEdit={onClickEdit}

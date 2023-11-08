@@ -26,7 +26,17 @@ export default function Main(props: {
             }
         }
         // call create
-        const res = await createMofaEntry(newArray)
+        let countryTypeID = 0;
+        for (let i = 0; i < partyCodeList.length; i++) {
+            const element = partyCodeList[i];
+
+            if (element.id == partyCode) {
+                countryTypeID = element.type_id
+                break
+            }
+
+        }
+        const res = await createMofaEntry(newArray, countryTypeID)
 
         if (res.code != 201) {
             return;

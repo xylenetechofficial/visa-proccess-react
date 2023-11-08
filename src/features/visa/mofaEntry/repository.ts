@@ -20,7 +20,6 @@ export async function readMofaEntryCandiateList(
   status: string,
   partyCode?: number,
   page_number?: number
-  
 ) {
   const path = "/visa-dpt/mofa-entry-list";
 
@@ -42,7 +41,7 @@ export async function readMofaEntryCandiateList(
     Mofa_Entry_Converter.toInterfaceList(
       response.data as Mofa_Entry_Candidate_Adapter[]
     );
-       
+
   await PaginationManager.setData(
     response.additional_data as AdditionalDataInterface
   );
@@ -107,10 +106,12 @@ export async function readMofaPaymentList() {
 // }
 
 export async function createMofaEntry(
-  candidateList: Mofa_Entry_Candidate_Interface[]
+  candidateList: Mofa_Entry_Candidate_Interface[],
+  countryTypeID: number
 ) {
   const payload = {
     selection_list: Mofa_Entry_Converter.toAdapterList(candidateList),
+    country_type_id: countryTypeID,
   };
 
   const path = "/visa-dpt/mofa-entry-list";

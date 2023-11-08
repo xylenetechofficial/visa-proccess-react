@@ -25,7 +25,7 @@ import Bank from './bank/Router';
 import Company from './company/Router';
 import AgentSpecialNote from './agentSpecialNote/Router';
 
-import ClientLogin from './clientLogin/Router';
+import ClientLogin from './newClientLogin/Router';
 import CandidateReverseToUnderployment from './candidateReverseToUnderployment/Router';
 
 

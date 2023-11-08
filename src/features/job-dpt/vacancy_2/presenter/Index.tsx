@@ -147,7 +147,7 @@ export default function Main() {
 
       {/*  jobOrder stable */}
       <JobOrderTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickAdd={onClickAdd}
@@ -174,7 +174,10 @@ export default function Main() {
         <AddModal
           currentElement={singleJobOrder}
           setCurrentElement={(e: JobOrderInterface) => setSingleJobOrder(e)}
-          onClose={(value: string) => setModalName(value)}
+          onClose={(value: string) => {
+            setModalName(value)
+            fetchJobOrderList()
+          }}
           fetchJobOrderList={fetchJobOrderList}
           companyList={companyList}
           countryList={countryList}
@@ -190,7 +193,10 @@ export default function Main() {
         <EditModal
           currentElement={singleJobOrder}
           setCurrentElement={(e: JobOrderInterface) => setSingleJobOrder(e)}
-          onClose={() => setModalName("")}
+          onClose={() => {
+            setModalName("")
+            fetchJobOrderList()
+          }}
           fetchJobOrderList={fetchJobOrderList}
           companyList={companyList}
           countryList={countryList}
@@ -206,7 +212,10 @@ export default function Main() {
         <DeleteModal
           currentElement={singleJobOrder}
           setCurrentElement={(e: JobOrderInterface) => setSingleJobOrder(e)}
-          onClose={() => setModalName("")}
+          onClose={() => {
+            setModalName("")
+            fetchJobOrderList()
+          }}
           fetchJobOrderList={fetchJobOrderList}
           companyList={companyList}
           countryList={countryList}

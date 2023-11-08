@@ -1,7 +1,7 @@
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { RedButton } from "../../../../componenets/CustomButton";
 import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox";
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { convertDateFormat } from "../../../../utils/function";
 import { CandidateInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
@@ -105,7 +105,7 @@ type="number"
                 />
               </TableCell3>
               <TableCell3>
-                <UnlabeledInput type="date" onchange={(value) => {
+                <DateInput id="dhfkgdfj" onChange={(value) => {
                   onUpdateRow(index, { ...item, given_date: value })
                 }}
                   value={item.given_date} />
