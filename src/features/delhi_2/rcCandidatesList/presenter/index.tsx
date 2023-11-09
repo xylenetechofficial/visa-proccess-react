@@ -75,6 +75,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="RC - Candidate List"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>readRC_CandidateList({page:additionalData.pagination.page})}
       />
 
       <CardHeader>

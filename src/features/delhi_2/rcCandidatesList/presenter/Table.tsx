@@ -1,6 +1,6 @@
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox";
-import { UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { RC_CandidateInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { GivenToList } from "../../../db";
@@ -92,7 +92,7 @@ const Main = (props: {
                 </TableCell3>
 
               <TableCell3>
-                <UnlabeledInput type="date" onchange={(value) => {
+                <DateInput id="jhvh" onChange={(value) => {
                   onUpdateRow(index, { ...item, dad_pp_received_date: value })
                 }}
                   value={item.dad_pp_received_date} />

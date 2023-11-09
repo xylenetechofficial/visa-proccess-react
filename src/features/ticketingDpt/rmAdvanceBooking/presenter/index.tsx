@@ -11,12 +11,19 @@ import {
   createRMAdvanceBooking,
   readRMAdvanceBookingList,
 } from "../repository";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { GreenButton, YellowButton } from "../../../../componenets/CustomButton";
 import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+
+const filterButtonList = [
+  { name: "All", value: "all", },
+  { name: "Pending", value: "pending", },
+  { name: "ECNR", value: "no", },
+  { name: "ECR", value: "yes", },
+]
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -27,6 +34,8 @@ export default function Main() {
     justifyContent: "space-between",
   }));
   const [searchQuery, setSearchQuery] = useState("");
+  const [immigrationStatus, setImmigrationStatus] = useState("all");
+
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -42,10 +51,11 @@ export default function Main() {
   const [RMAdvanceBookingList, setRMAdvanceBookingList] = useState<
     RMAdvanceBookingInterface[]
   >([]);
-  async function fetchRMAdvanceBooking(page?: number) {
+  async function fetchRMAdvanceBooking(page?: number, query?: { immigration_status: any }) {
     const data = await readRMAdvanceBookingList({
       page: page ?? additionalData.pagination.page,
       status: "no",
+      immigration_status: query?.immigration_status ?? immigrationStatus
     });
     if (data) {
       setRMAdvanceBookingList(data);
@@ -80,9 +90,19 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+
+        <div>
+          {filterButtonList.map(ele => <YellowButton
+            text={ele.name}
+            onClick={() => {
+              setImmigrationStatus(ele.value)
+              fetchRMAdvanceBooking(additionalData.pagination.page, { immigration_status: ele.value });
+            }}
+          />)}
+        </div>
       </CardHeader>
       <RMAdvanceBooking
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         RMAdvanceBookingList={RMAdvanceBookingList}
         onChange={(value) => setRMAdvanceBookingList(value)}
       />

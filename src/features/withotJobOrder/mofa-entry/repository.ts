@@ -14,21 +14,25 @@ import {
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readMofaEntryList({ status = "", companyId = 0 } ,page_number?: number) {
+export async function readMofaEntryList(
+  { status = "", companyId = 0 },
+  page_number?: number
+) {
   const path = "/without-job-order/mofa-entry-list";
 
   const query_parameter = {
     status: status,
     company_id: companyId,
+    page: page_number ?? 1,
   };
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
-    // queryParameters: query_parameter,
-    queryParameters: {
-      query_parameter:query_parameter,
-      page: page_number ?? 0,
-    },
+    queryParameters: query_parameter,
+    // queryParameters: {
+    //   query_parameter:query_parameter,
+    //   page: page_number ?? 0,
+    // },
   });
 
   if (response.code != 200) {

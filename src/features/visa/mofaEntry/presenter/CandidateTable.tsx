@@ -29,7 +29,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
     payment_from: "",
     select_status: "",
     visa_issue_date: "",
-    visa_received_date: "",
+    visa_issue_date_on_pp: "",
 
 }
 
@@ -239,8 +239,8 @@ const TableData = (
                 <TableCell3 >
                     <DateInput
                         id='jbvh6ad5r'
-                        value={localRowData.visa_received_date}
-                        onChange={(value) => setLocalRowData({ ...localRowData, visa_received_date: value })}
+                        value={localRowData.visa_issue_date_on_pp}
+                        onChange={(value) => setLocalRowData({ ...localRowData, visa_issue_date_on_pp: value })}
                     />
                 </TableCell3>
                 <TableCell3 >

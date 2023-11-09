@@ -28,7 +28,7 @@ export interface Mofa_Entry_Candidate_Interface {
 
   select_status: string;
   visa_issue_date: string;
-  visa_received_date: string;
+  visa_issue_date_on_pp: string;
   is_ksa?: number;
 }
 
@@ -59,7 +59,7 @@ export interface Mofa_Entry_Candidate_Adapter {
   select_status: string;
 
   visa_issue_date: string;
-  visa_received_date: string;
+  visa_issue_date_on_pp: string;
   is_ksa?: number;
 }
 
@@ -99,7 +99,7 @@ export class Mofa_Entry_Converter {
       select_status: a.select_status,
 
       visa_issue_date: a.visa_issue_date,
-      visa_received_date: a.visa_received_date,
+      visa_issue_date_on_pp: a.visa_issue_date_on_pp,
 
       is_ksa: a.is_ksa,
     };
@@ -139,7 +139,7 @@ export class Mofa_Entry_Converter {
       select_status: i.select_status,
 
       visa_issue_date: i.visa_issue_date,
-      visa_received_date: i.visa_received_date,
+      visa_issue_date_on_pp: i.visa_issue_date_on_pp,
 
       is_ksa: i.is_ksa,
     };

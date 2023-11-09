@@ -1,7 +1,7 @@
 import { UpdateMofaEntry } from "../repository";
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { Mofa_Entry_Candidate_Interface} from "../type";
+import { Mofa_Entry_Candidate_Interface } from "../type";
 
 import CandidateTable from "./CandidateTable";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
@@ -13,7 +13,7 @@ import { ReligionList } from "../../../db";
 export default function Main(props: {
     onClose: any,
     currentElement: Mofa_Entry_Candidate_Interface,
-    fetchMofaEntryCandiateList:any
+    fetchMofaEntryCandiateList: any
 }) {
 
     const initValue: Mofa_Entry_Candidate_Interface = {
@@ -38,9 +38,9 @@ export default function Main(props: {
         religion: "",
         payment_from: "",
 
-        select_status:"",
- visa_issue_date:"",
- visa_received_date:"",
+        select_status: "",
+        visa_issue_date: "",
+        visa_issue_date_on_pp: "",
     }
 
     const [localRowData, setLocalRowData] = useState<Mofa_Entry_Candidate_Interface>(initValue)
@@ -48,7 +48,7 @@ export default function Main(props: {
 
     async function handleUpdate() {
         // call create
-        const res = await UpdateMofaEntry(props.currentElement.id??0,localRowData)
+        const res = await UpdateMofaEntry(props.currentElement.id ?? 0, localRowData)
         if (res.code != 201) {
             return;
         }
@@ -159,80 +159,80 @@ export default function Main(props: {
 
                     <SubHeading1 text="PP/Copy:" />
                     <CustomSelectComponentUnlabeled
-                    value={localRowData.pp_copy}
-                    onChange={(value: any) => setLocalRowData({ ...localRowData, pp_copy: value })}
-                    options={[
-                        { name: "PP", value: "PP" },
-                        { name: "COPY", value: "COPY" },
-                        // { name: "RAISE INVOICE", value: "RAISE INVOICE" }
-                    ]} />
+                        value={localRowData.pp_copy}
+                        onChange={(value: any) => setLocalRowData({ ...localRowData, pp_copy: value })}
+                        options={[
+                            { name: "PP", value: "PP" },
+                            { name: "COPY", value: "COPY" },
+                            // { name: "RAISE INVOICE", value: "RAISE INVOICE" }
+                        ]} />
 
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="PP Issue Date:" />
                     <DateInput
-                    id='jbvh6d5r'
-                    value={localRowData.pp_issued_date}
-                    onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
-                />
+                        id='jbvh6d5r'
+                        value={localRowData.pp_issued_date}
+                        onChange={(value) => setLocalRowData({ ...localRowData, pp_issued_date: value })}
+                    />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="PP Expiry Date :" />
                     <DateInput
-                    id='dkjbvh6d5r'
-                    value={localRowData.pp_expiry_date}
-                    onChange={(value) => setLocalRowData({ ...localRowData, pp_expiry_date: value })}
-                />
+                        id='dkjbvh6d5r'
+                        value={localRowData.pp_expiry_date}
+                        onChange={(value) => setLocalRowData({ ...localRowData, pp_expiry_date: value })}
+                    />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="Place Of Issue :" />
                     <UnlabeledInput
-                    value={localRowData.place_of_issue}
-                    onchange={(value) => setLocalRowData({ ...localRowData, place_of_issue: value })}
-                />
+                        value={localRowData.place_of_issue}
+                        onchange={(value) => setLocalRowData({ ...localRowData, place_of_issue: value })}
+                    />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="Date Of Birth  :" />
                     <DateInput
-                    id='dkjbvh6d5r'
-                    value={localRowData.date_of_birth}
-                    onChange={(value) => setLocalRowData({ ...localRowData, date_of_birth: value })}
-                />
+                        id='dkjbvh6d5r'
+                        value={localRowData.date_of_birth}
+                        onChange={(value) => setLocalRowData({ ...localRowData, date_of_birth: value })}
+                    />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text=" Place of birth :" />
                     <UnlabeledInput
-                    value={localRowData.place_of_birth}
-                    onchange={(value) => setLocalRowData({ ...localRowData, place_of_birth: value })}
-                />
+                        value={localRowData.place_of_birth}
+                        onchange={(value) => setLocalRowData({ ...localRowData, place_of_birth: value })}
+                    />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="Address  :" />
                     <UnlabeledInput
-                    value={localRowData.address}
-                    onchange={(value) => setLocalRowData({ ...localRowData, address: value })}
-                />
+                        value={localRowData.address}
+                        onchange={(value) => setLocalRowData({ ...localRowData, address: value })}
+                    />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="Religion  :" />
                     <CustomSelectComponentUnlabeled
-                    value={localRowData.religion}
-                    onChange={(value: any) => setLocalRowData({ ...localRowData, religion: value })}
-                    options={ReligionList} />
+                        value={localRowData.religion}
+                        onChange={(value: any) => setLocalRowData({ ...localRowData, religion: value })}
+                        options={ReligionList} />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="Payment From :" />
                     {localRowData.payment_from}
                 </UpdateContentBox>
-                
+
             </div>
             {/* <GreenButton text="Update" onClick={handleUpdate} /> */}
         </ModalContent>

@@ -75,6 +75,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Candidate List"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchCandidateList()}
       />
 
       <CardHeader>

@@ -47,7 +47,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
   select_status: "",
 
   visa_issue_date: "",
-  visa_received_date: "",
+  visa_issue_date_on_pp: "",
 };
 export default function Main() {
   const [CandidateList, setCandidateList] = useState<
