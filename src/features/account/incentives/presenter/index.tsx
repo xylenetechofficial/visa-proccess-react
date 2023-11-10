@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Box, Modal, styled } from "@mui/material";
+import { Box,  styled } from "@mui/material";
 import AccountDashboardTable from "./Table";
-// import { confirmationMessage } from "../../../../utils/alert";
-// import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomButton2,
   CustomNavbarV3,
@@ -13,12 +11,6 @@ import {
   createAccountDashboard,
   readAccountDashboardList,
 } from "../repository";
-// import { SectorInterface } from "../../../masters/sector/type";
-// import { readSectorList } from "../../../masters/sector/repository";
-// import { readCompanyList } from "../../../masters/company/repository";
-// import { CompanyInterface } from "../../../masters/company/type";
-// import { CountryInterface } from "../../../masters/country/type";
-// import { readCountryList } from "../../../masters/country/repository";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { AddIncentiveInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
@@ -48,7 +40,6 @@ export default function Main() {
     }
   );
 
-  const [modalName, setModalName] = useState("");
   const [status, setStatus] = useState("yes");
   const [data, setData] = useState<any>({ job_order_list: [] });
   const [updateIncentive, setUpdateIncentive] = useState<any>({
@@ -62,19 +53,11 @@ export default function Main() {
   });
   const [addIncentive, setIncentive] = useState<AddIncentiveInterface[]>([]);
   const onClickCreate = async (data: AddIncentiveInterface) => {
-    setModalName("create");
     console.log(data, "DDDDDDDDDDDDDDDDDDDDDD", addIncentive);
     await createAccountDashboard(addIncentive);
     await fetchAccountDashboardList(status);
   };
 
-  const onClickEdit = (modaltype: string, accountDashboard: any) => {
-    console.log(accountDashboard, "CCCCCC", modaltype);
-
-    console.log("onClickEdit", modaltype); // Only Dev
-    console.log(accountDashboard, modaltype); // Only Dev
-    setModalName(modaltype);
-  };
 
   const [accountDashboardList, setAccountDashboardList] = useState<any>([]);
 
@@ -133,7 +116,6 @@ export default function Main() {
         snoBase={additionalData.pagination.sno_base}
         accountDashboardList={accountDashboardList}
         setAccountDashboardList={setAccountDashboardList}
-        onClickEdit={onClickEdit}
         updateIncentive={updateIncentive}
         setUpdateIncentive={setUpdateIncentive}
         data={data}

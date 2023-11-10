@@ -17,8 +17,6 @@ export interface DirectPaymentInterface {
 
 }
 export interface DirectPaymentAdapter {
-
-
   outstanding_since_2015: number,
   payment_against_2015: number,
   balance_since_2015: number,
@@ -30,14 +28,12 @@ export interface DirectPaymentAdapter {
   flight_candidates: number,
   amount_available_for_adjustment: number,
   table_data_list: DirectInterface[],
-
   bulk_payment_list: BUlkAmountInterface[]
   all_bulk_payment_list: BUlkAmountInterface[]
-
 }
 
 export interface BUlkAmountInterface{
-  agent_id: string
+agent_id: string
 amount: string
 available_amount: number
 created_at:string

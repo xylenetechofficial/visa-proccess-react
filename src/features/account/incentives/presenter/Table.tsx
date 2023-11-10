@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
-  BlueButton,
   GreenButton,
-  RedButton,
 } from "../../../../componenets/CustomButton";
 import {
   Table3,
@@ -23,7 +21,7 @@ const AccountDashboardTable = (props: {
   snoBase: number;
   accountDashboardList: IncentiveInterface[];
   setAccountDashboardList: any;
-  onClickEdit: any;
+
   updateIncentive: any;
   setUpdateIncentive: any;
   data: any;
