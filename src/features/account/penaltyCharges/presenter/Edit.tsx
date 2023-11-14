@@ -125,8 +125,8 @@ export default function Main(props: {
                 inlined
                   value={props.editPenaltyCharges.client_invoice}
                   option={[
-                    { value: 1, name: "Yes" },
-                    { value: 0, name: "No" },
+                    { value: "yes", name: "Yes" },
+                    { value: "no", name: "No" },
                   ]}
                   onChange={(value) => {
                     props.setEditPenaltyCharges({

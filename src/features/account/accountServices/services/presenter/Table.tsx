@@ -18,6 +18,7 @@ import {
   selectOptionConveter,
 } from "../../../../../componenets/SelectBox";
 import { CustomSingleCheckBox } from "../../../../../componenets/Checkbox";
+import MultiSelectCheckbox, { MultiSelectCheckbox2 } from "../../../../../componenets/CustomComponents";
 
 const ServiceChargesTable = (props: {
   snoBase: number;
@@ -184,32 +185,42 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 <Checkbox
                   value={"PROVIDED BY CO."}
-                  checked={
-                    selectedCheckbox[index]?.isChecked === `${ele.id}PROVIDED`
+                  // checked={
+                  //   selectedCheckbox[index]?.isChecked === `${ele.id}PROVIDED`
+                  // }
+                  checked={ele.air_ticket === 'PROVIDED BY CO.'}
+                  onChange={(e) =>{
+                    handleCheckboxChange(`${ele.id}PROVIDED`, index),
+                    onUpdateRow(index, { ...ele, air_ticket: e.target.value })
                   }
-                  onChange={() =>
-                    handleCheckboxChange(`${ele.id}PROVIDED`, index)
-                  }
+                }
                 />
                 PROVIDED BY CO.
                 <Checkbox
                   value={"BY AGENCY"}
-                  checked={
-                    selectedCheckbox[index]?.isChecked === `${ele.id}AGENCY`
+                  // checked={
+                  //   selectedCheckbox[index]?.isChecked === `${ele.id}AGENCY`
+                  // }
+                  checked={ele.air_ticket === 'BY AGENCY'}
+                  onChange={(e) =>{
+                    handleCheckboxChange(`${ele.id}AGENCY`, index),
+                    onUpdateRow(index, { ...ele, air_ticket: e.target.value })
                   }
-                  onChange={() =>
-                    handleCheckboxChange(`${ele.id}AGENCY`, index)
-                  }
+                }
                 />{" "}
                 BY AGENCY
                 <Checkbox
-                  value={"RAISE INV"}
-                  checked={
-                    selectedCheckbox[index]?.isChecked === `${ele.id}RAISE`
-                  }
-                  onChange={() => handleCheckboxChange(`${ele.id}RAISE`, index)}
+                  value={"RAISE INVOICE"}
+                  // checked={
+                  //   selectedCheckbox[index]?.isChecked === `${ele.id}RAISE`
+                  // }
+                  checked={ele.air_ticket === 'RAISE INVOICE'}
+                  onChange={(e) =>{ handleCheckboxChange(`${ele.id}RAISE`, index), 
+                  onUpdateRow(index, { ...ele, air_ticket: e.target.value })
+                }}
                 />
-                RAISE INV
+                RAISE INVOICE 
+               
               </TableCell3>
               <TableCell3>
                 {" "}

@@ -5,7 +5,6 @@ import PenaltyChargesEdit from "./Edit";
 import { PenaltyChargesInterface } from "../type";
 import {
   readPenaltyChargesList,
-  updatePenaltyChargesItem,
 } from "../repository";
 import {
   AdditionalDataInterface,

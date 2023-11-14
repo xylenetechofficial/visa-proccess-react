@@ -538,7 +538,7 @@ export const MultiSelectCheckbox2 = (props: {
     return (
         <div>
             
-            <FormGroup sx={{ m: 1, minWidth: 150, width: "100%", display:"fle", direction:"left" }}>
+            <FormGroup sx={{ m: 1, minWidth: 150, width: "100%", display:"flex", direction:"left" }}>
                 {props.option.map((option: any) => (
                     <FormControlLabel
                         key={option.value}
