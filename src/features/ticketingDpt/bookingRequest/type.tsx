@@ -21,8 +21,8 @@ export interface BookingRequestInterface {
   sector_to: string,
   require_date: string,
   priority: string,
-  sector_charges: string
-  waive_off_sector_charges: number
+  sector_charges: number,
+  waive_off_sector_charges: string
 
   check?: string
 }
@@ -52,8 +52,8 @@ export interface BookingRequestAdapter {
   sector_to: string,
   require_date: string,
   priority: string,
-  sector_charges: string
-  waive_off_sector_charges: number
+  sector_charges: number,
+  waive_off_sector_charges: string
 }
 
 export class BookingRequestConverter {

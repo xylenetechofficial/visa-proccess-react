@@ -84,6 +84,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Ticket Booking Request"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchTicketBookingRequest()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

@@ -7,6 +7,7 @@ import {
 } from "../../../../componenets/CoustomHeader";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import {
+  CustomSelectComponent,
   CustomSelectComponentUnlabeled,
   selectOptionConveter,
   selectOptionConveterv3,
@@ -61,6 +62,10 @@ const CandidatePayment = (props: {
     }
   }
 
+  useEffect(() => {
+    handleReset()
+  }, [props.AgentPaymentList]);
+
   return (
     <div className="shadow-slate-500  rounded-lg shadow-md justify-center h-80">
       <div className="text-xl p-3 font-bold text-gray-500 uppercase bg-[#F1F2F6] dark:bg-gray-500 dark:text-gray-500 w-auto">
@@ -70,8 +75,8 @@ const CandidatePayment = (props: {
         <UpdateContentBox>
           <SubHeading1 text="candidate  :" />
 
-          <CustomSelectComponentUnlabeled
-
+          <CustomSelectComponent
+            style={{ width: "200px" }}
             value={CandidatePayment.candidate_id}
             // value={""}
             onChange={(value) => {
@@ -91,9 +96,9 @@ const CandidatePayment = (props: {
         <UpdateContentBox>
           <SubHeading1 text=" Amount :" />
           <UnlabeledInput
-            
-type="number"
-                    
+
+            type="number"
+
             value={CandidatePayment.amount}
             onchange={(value) => {
               setCandidatePayment({ ...CandidatePayment, amount: parseInt(value) }),

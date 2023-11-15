@@ -3,7 +3,8 @@ import { ReactNode } from "react";
 interface ParentComponentProps {
     children: ReactNode;
     width?: number;
-    color?:string;
+    color?: string;
+    style?: React.CSSProperties;
 }
 interface ParentComponent2Props {
     children: ReactNode;
@@ -205,16 +206,16 @@ export function TableRow2({ children }: ParentComponentProps) {
 
     );
 }
-export function TableRow3({ children , color}: ParentComponentProps) {
-    let colour='bg-white';
-    if(color === 'red'){
-        colour='bg-red-700 text-white'
+export function TableRow3({ children, color }: ParentComponentProps) {
+    let colour = 'bg-white';
+    if (color === 'red') {
+        colour = 'bg-red-700 text-white'
     }
-    else if(color === 'orange'){
-        colour='bg-orange-300 text-white'
+    else if (color === 'orange') {
+        colour = 'bg-orange-300 text-white'
     }
-    else{
-        colour="bg-white"
+    else {
+        colour = "bg-white"
     }
 
     return (
@@ -301,12 +302,12 @@ export function TableCell2lastColumn({ children }: ParentComponentProps) {
         </td>
     );
 }
-export function TableCell3({ children, width }: ParentComponentProps) {
+export function TableCell3({ children, width, style }: ParentComponentProps) {
     const widthStyle = width ? `${width}px` : "fit-content";
 
     return (
         <td className="px-3 py-1 last:text-end " style={{ width: widthStyle }}>
-            <div className="flex">
+            <div className="flex" style={style ?? {}}>
 
                 {children}
             </div>
@@ -319,7 +320,7 @@ export const TableHeadNew = ({ children }: ParentComponentProps) => {
 
     return (
         <th scope="row"
-        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-x-2">
+            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-x-2">
             {children}
         </th>
     )
@@ -329,7 +330,7 @@ export const TableHeadNew = ({ children }: ParentComponentProps) => {
 export function TableCellNew({ children }: ParentComponentProps) {
     return (
         <td className="px-6 py-4 cursor-pointer">
-                {children}     
+            {children}
         </td>
     );
 }
@@ -337,7 +338,7 @@ export function TableCellNew({ children }: ParentComponentProps) {
 export function TableCellNew2({ children }: ParentComponentProps) {
     return (
         <td className="px-6 py-4 border-x-2 cursor-pointer ">
-                {children}     
+            {children}
         </td>
     );
 }
@@ -345,7 +346,7 @@ export function TableCellNew2({ children }: ParentComponentProps) {
 export function TableCellNew3({ children }: ParentComponentProps) {
     return (
         <td className="px-6 py-4 border-x-2">
-                {children}     
+            {children}
         </td>
     );
 }

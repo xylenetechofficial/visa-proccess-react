@@ -10,7 +10,7 @@ import EditModal from './edit';
 import CreateModal from './add';
 import Pagination from "../../../../componenets/Pagination";
 import { ImmigrationDonePPReleaseInterface } from "../type";
-import { createImmigrationDonePPRelease, readImmigrationDonePPReleaseList } from "../repository";
+import { readImmigrationDonePPReleaseList } from "../repository";
 import ImmigrationDOnePPReleaseTable from "./Table";
 import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
@@ -44,7 +44,7 @@ export default function Main() {
   const fetchImmigrationDoneList = async (page?: number) => {
     const data = await readImmigrationDonePPReleaseList({
       page: page ?? 1,
-      // status: "yes"
+      status: "yes"
     });
     setImmigrationDonePPReleaseList(data);
     setAdditionalData(await PaginationManager.getData());
@@ -53,20 +53,6 @@ export default function Main() {
   useEffect(() => {
     fetchImmigrationDoneList(additionalData.pagination.page);
   }, []);
-
-
-  const onClickSubmit = async () => {
-    const newArray = []
-
-    for (let i = 0; i < immigrationDonePPReleaseList.length; i++) {
-      if (immigrationDonePPReleaseList[i].checked) newArray.push(immigrationDonePPReleaseList[i])
-    }
-    const update = await createImmigrationDonePPRelease(newArray)
-    if (update) {
-      // props.onClose();
-      fetchImmigrationDoneList()
-    }
-  }
 
   return (
     <div>
@@ -80,12 +66,12 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         <div>
-          {/* {authPermissionList.url_has('create') ? <GreenButton
+          {authPermissionList.url_has('create') ? <GreenButton
             text={"Add"}
             onClick={() => {
               setModalName("add");
             }}
-          /> : ""} */}
+          /> : ""}
           {authPermissionList.url_has('update') ? <BlueButton
             text={"Edit"}
             onClick={() => {
@@ -94,21 +80,12 @@ export default function Main() {
           /> : ""}
         </div>
       </CardHeader>
-
       {/*  agent stable */}
       <ImmigrationDOnePPReleaseTable
         snoBase={additionalData.pagination.sno_base}
         RcPPRecieved_list={immigrationDonePPReleaseList}
         onChange={(list) => setImmigrationDonePPReleaseList(list)}
-        actionType="add"
       />
-
-      <br />
-      <GreenButton
-        onClick={onClickSubmit}
-        text="Submit"
-      />
-      <br />
 
       <Pagination
         data={additionalData}
