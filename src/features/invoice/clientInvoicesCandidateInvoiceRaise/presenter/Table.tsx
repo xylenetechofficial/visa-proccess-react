@@ -14,13 +14,15 @@ import { CustomSelectComponentUnlabeledv2, selectOptionConveter, selectOptionCon
 // import { useState } from "react";
 // import { convertDateFormat } from "../../../../utils/function";
 import { CandidateInvoiceRaiseInterface, CandidateInvoiceRaiseListInterface } from "../type";
-import { BankList, currencyList } from "../../../db";
+import { currencyList } from "../../../db";
+import { BankInterface } from "../../../masters/bank/type";
 
 const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
   candidateInvoiceRaiseList: CandidateInvoiceRaiseListInterface[];
   onClickEdit: any,
   onChange: (value: CandidateInvoiceRaiseListInterface[]) => void
   setData: (value: any) => void
+  BankList: BankInterface[]
 }) => {
 
 
@@ -86,10 +88,10 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
               {/* <TableCell3> {ele.document_charges}</TableCell3> */}
               <TableCell3> {ele.service_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
               <TableCell3> {ele.ticket_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
-              <TableCell3> <UnlabeledInput 
-type="number"
-                     value={ele.total_charges} onchange={(value) =>
-                onUpdateRow(index, { ...ele, total_charges: parseInt(value) })} /></TableCell3>
+              <TableCell3> <UnlabeledInput
+                type="number"
+                value={ele.total_charges} onchange={(value) =>
+                  onUpdateRow(index, { ...ele, total_charges: parseInt(value) })} /></TableCell3>
               <TableCell3>
                 <UnlabeledInput
                   // type="number"
@@ -175,7 +177,7 @@ type="number"
                   value={ele.bank_id}
                   options={selectOptionConveter({
                     // options: [{ name: "SBI", value: 1 }, { name: "PNB", value: 2 }],
-                    options: BankList,
+                    options: props.BankList,
                     options_struct: { name: "name", value: "value" }
                   })}
                   onChange={(value) => {

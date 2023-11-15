@@ -51,6 +51,7 @@ export const CurrencyList2 = [
 ];
 
 export const GivenToList = [
+  { name: "Select", value: "" },
   { name: "Given To RC", value: "Given To RC" },
   { name: "Given To Agent", value: "Given To Agent" },
   { name: "Given To Candidate", value: "Given To Candidate" },
@@ -64,6 +65,7 @@ export const GivenToList = [
 ];
 
 export const GivenToList_without_RC = [
+  { name: "Select", value: "" },
   { name: "Given To Agent", value: "Given To Agent" },
   { name: "Given To Candidate", value: "Given To Candidate" },
   { name: "Given To Accounts", value: "Given To Accounts" },
@@ -76,10 +78,12 @@ export const GivenToList_without_RC = [
 ];
 
 export const GivenToList_only_passprt = [
+  { name: "Select", value: "" },
   { name: "Passport Received", value: "Passport Received" },
 ];
 
 export const DAD_GivenToList = [
+  { name: "Select", value: "" },
   { name: "Given To Cancelation", value: "Given To Cancelation" },
   { name: "Given To Candidate", value: "Given To Candidate" },
 ];

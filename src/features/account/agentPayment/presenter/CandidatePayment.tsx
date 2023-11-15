@@ -7,6 +7,7 @@ import {
 } from "../../../../componenets/CoustomHeader";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import {
+  CustomSelectComponent,
   CustomSelectComponentUnlabeled,
   selectOptionConveter,
   selectOptionConveterv3,
@@ -30,7 +31,7 @@ const CandidatePayment = (props: {
   const [CandidatePayment, setCandidatePayment] = useState(initValue);
   const handleClick = async (CandidatePayment: CandidateDiscountApproveRejectInterface) => {
     const flg = await createCandidateDiscountApprovalReject(CandidatePayment);
-    
+
     if (!flg) return;
 
     handleReset();
@@ -75,7 +76,9 @@ const CandidatePayment = (props: {
         <UpdateContentBox>
           <SubHeading1 text="candidate  :" />
 
-          <CustomSelectComponentUnlabeled
+          <CustomSelectComponent
+            style={{ width: "200px" }}
+
             value={CandidatePayment.candidate_id}
             onChange={(value) => {
               setCandidatePayment({ ...CandidatePayment, candidate_id: value })
@@ -93,14 +96,14 @@ const CandidatePayment = (props: {
         <UpdateContentBox>
           <SubHeading1 text=" Amount :" />
           <UnlabeledInput
-            
-type="number"
-                    
+
+            type="number"
+
             value={CandidatePayment.amount < 1 ? "" : CandidatePayment.amount}
             onchange={(value) => {
               if (value == "")
-              value = '0'
-                setCandidatePayment({ ...CandidatePayment, amount: parseInt(value) })
+                value = '0'
+              setCandidatePayment({ ...CandidatePayment, amount: parseInt(value) })
               // const numberRegex = /[0-9]+$/;
 
 

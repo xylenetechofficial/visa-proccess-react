@@ -81,14 +81,11 @@ const ImmigrationDOnePPReleaseTable = (props: {
         <TableBody3>
           {props.RcPPRecieved_list.map((item, index) => {
             let GivenToList_local: any = [];
-            let isFreeze = true;
 
             console.log(item.passport_no + "  " + item.local_given_to);   // Only Dev
-            //  TODO: Passport Received
-            if (item.local_given_to == "Passport Received") isFreeze = false
+
             if (item.local_given_to == "Given To RC") {
               GivenToList_local = GivenToList_only_passprt
-              isFreeze = false
             } else if (item.payment == "Received") {
               GivenToList_local = GivenToList
             } else {
@@ -107,8 +104,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
               <TableCell3>{item.is_invoice} </TableCell3>
 
 
-              {props.actionType == 'edit' ? <>
-                {/* // ? If edit page \\ */}
+              {props.actionType == 'add' || props.actionType == 'edit' ? <>
                 <TableCell3 >
                   <CustomSingleCheckBox
                     onChange={(value) => onUpdateRow(index, { ...item, checked: value })}
@@ -117,36 +113,6 @@ const ImmigrationDOnePPReleaseTable = (props: {
                 </TableCell3>
 
                 <TableCell3>
-                  <CustomSelectComponentUnlabeled
-                    label={item.local_given_to}
-                    value={item.given_to}
-                    onChange={(value: any) => {
-                      onUpdateRow(index, { ...item, given_to: value })
-                    }}
-                    options={GivenToList}
-                  />
-                </TableCell3>
-
-                <TableCell3>
-                  <DateInput id="fdsd6g" onChange={(value) => {
-                    onUpdateRow(index, { ...item, given_date: value })
-                  }}
-                    value={item?.given_date} />
-                </TableCell3>
-
-              </> : props.actionType == 'add' ? <>
-                <TableCell3 >
-                  <CustomSingleCheckBox
-                    onChange={(value) => onUpdateRow(index, { ...item, checked: value })}
-                    value={item.checked ? true : false}
-                  />
-                </TableCell3>
-
-                <TableCell3
-                  style={{
-                    flexDirection: "column",
-                    alignItems: "flex-end"
-                  }} >
                   {/* {item.local_given_to == "Given To Cancelation" ? item.local_given_to : <>
                   <CustomSelectComponentUnlabeled
                     value={item.given_to}
@@ -156,19 +122,14 @@ const ImmigrationDOnePPReleaseTable = (props: {
                     options={GivenToList_local}
                   />
                 </>} */}
-                  {isFreeze && item.local_given_to != "" ? item.local_given_to : <>
-                    {item.local_given_to}
-                    <br />
-                    <CustomSelectComponentUnlabeled
-                      label={item.local_given_to}
-                      value={item.given_to}
-                      onChange={(value: any) => {
-                        onUpdateRow(index, { ...item, given_to: value })
-                      }}
-                      options={GivenToList_local}
-                    />
-                  </>
-                  }
+                  <CustomSelectComponentUnlabeled
+                    label={item.local_given_to}
+                    value={item.given_to}
+                    onChange={(value: any) => {
+                      onUpdateRow(index, { ...item, given_to: value })
+                    }}
+                    options={GivenToList_local}
+                  />
                   {/* <CustomSelectComponentUnlabeled
                   value={item.given_to}
                   onChange={(value: any) => {

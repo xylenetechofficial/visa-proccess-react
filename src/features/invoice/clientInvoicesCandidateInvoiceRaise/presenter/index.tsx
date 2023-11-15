@@ -8,6 +8,8 @@ import ClientInvoicesCandidateInvoiceRaiseTable from "./Table";
 import { Box, styled } from "@mui/material";
 import { CandidateInvoiceRaiseInterface, CandidateInvoiceRaiseListInterface } from "../type";
 import { createCandidatesInvoiceRaiseList, readCandidatesInvoiceRaiseList } from "../repository";
+import { BankInterface } from "../../../masters/bank/type";
+import { readBankList } from "../../../masters/bank/repository";
 
 export default function Main() {
 
@@ -25,30 +27,38 @@ export default function Main() {
 
   const [data, setData] = useState<any>([])
 
-  const fetchCandidatesInvoiceRaiseList = async ()=>{
+  const fetchCandidatesInvoiceRaiseList = async () => {
     console.log("called")
     const data = await readCandidatesInvoiceRaiseList();
-    if(data){
+    if (data) {
       setCandidateInvoiceRaiseList(data)
     }
 
-}
-const onClickAdd= async(candidateInvoiceRaise:any)=>{
-  console.log("first",candidateInvoiceRaise)
-  const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
-  if(data){
-    fetchCandidatesInvoiceRaiseList();
   }
-}
-  useEffect(()=>{
+  const onClickAdd = async (candidateInvoiceRaise: any) => {
+    console.log("first", candidateInvoiceRaise)
+    const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
+    if (data) {
+      fetchCandidatesInvoiceRaiseList();
+    }
+  }
+
+  const [BankList, setBankList] = useState<BankInterface[]>([])
+  async function fetchBanckList() {
+    const data = await readBankList(false, 0)
+    setBankList(data)
+  }
+
+  useEffect(() => {
     fetchCandidatesInvoiceRaiseList();
-  },[])
+    fetchBanckList()
+  }, [])
   return (
     <div>
       <CustomNavbarV3
         pageName="Candidates Invoice Raise"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>fetchCandidatesInvoiceRaiseList()}
+        refresh={() => fetchCandidatesInvoiceRaiseList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -58,10 +68,11 @@ const onClickAdd= async(candidateInvoiceRaise:any)=>{
         onClickEdit={() => console.log("first")}
         onChange={(value) => setCandidateInvoiceRaiseList(value)}
         candidateInvoiceRaiseList={candidateInvoiceRaise}
-        setData={(value:any)=>setData(value)}
+        setData={(value: any) => setData(value)}
+        BankList={BankList}
       />
 
-    <CustomButton2 buttonText="Submit" onClick={()=>onClickAdd(data)}/>
+      <CustomButton2 buttonText="Submit" onClick={() => onClickAdd(data)} />
 
     </div>
   );

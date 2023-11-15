@@ -46,9 +46,9 @@ export default function Main(props: {
                         {props.ticketBookingRequestList.map((item, index) => {
 
                             let check_in = true;
-                            if (item.waive_off_sector_charges) {
+                            if (item.waive_off_sector_charges=="yes") {
                                 check_in = true;
-                            } else if (check_in && item.raise_invoice == "BY AGENCY" && parseInt(item.sector_charges) == 0) {
+                            } else if (item.air_ticket == "BY AGENCY" && item.sector_charges == 0) {
                                 check_in = false;
                                 onUpdateRow(index, { ...item, sector_from: '1' })
                             }
@@ -74,6 +74,7 @@ export default function Main(props: {
                                     <TableCell3>{item.emigration_done} </TableCell3>
                                     <TableCell3><Checkbox onChange={(e) => onUpdateRow(index, { ...item, check: e.target.checked ? "Yes" : 'No' })} /></TableCell3>
                                     <TableCell3>
+                                        {check_in ?"yes":"no"}
                                         {check_in ? <>
                                             {/* {props.sectorList.map((sector) => sector.id == parseInt(item.sector_from) ? sector.name : "")} */}
                                             <CustomSelectComponent style={{ width: "138px" }} options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })} />
