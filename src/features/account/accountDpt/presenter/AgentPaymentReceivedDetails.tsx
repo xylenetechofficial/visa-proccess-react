@@ -6,13 +6,15 @@ import { useState } from "react";
 import { PaymentReceivedInterface } from "../type";
 import { updateAgentPaymentReceivedDetail } from "../repository";
 import { convertDateFormat } from "../../../../utils/function";
+import { showMessage_v2 } from "../../../../utils/alert";
 
 export default function Main(props:{
     setModalName:(value:boolean)=>void,
     currentData:PaymentReceivedInterface,
+    setCurrentData:(value:any)=>void
     
 }){
-    const [paymentValue,setPaymentValue]=useState<number>(0)
+    const [paymentValue,setPaymentValue]=useState<number>(props.currentData.amount_received)
     const CardHeader = styled(Box)(() => ({
         display: "flex",
         flexWrap: "wrap",
@@ -35,7 +37,21 @@ export default function Main(props:{
     };
 
     const onClickAdd =async(amount:number, id:number)=>{
+        
+        if(paymentValue <= props.currentData.amount_received){
+            console.log(paymentValue, props.currentData.amount_received,"AAA")
         const res = await updateAgentPaymentReceivedDetail(amount,id)
+        
+        }else{
+            showMessage_v2({message:"Greater Amount is not allowed"})
+        }
+    }
+    const handleChange =(value:any)=>{
+        if(value <= props.currentData.amount_received){
+            setPaymentValue(value);            
+        } else{
+        showMessage_v2({message:"Greater Amount not allowed",status:500}) 
+        }
     }
 return (
     <>
@@ -87,8 +103,8 @@ return (
                 <UpdateContentBox>
                     <SubHeading1 text="Payment Received   :" />
                     <UnlabeledInput placeholder="Enter payment received amount" 
-type="number"
-                     value={paymentValue} onchange={(value)=>setPaymentValue(parseInt(value))}/>
+                    type="number"
+                    value={paymentValue} onchange={(value)=>handleChange(parseInt(value))}/>
                 </UpdateContentBox>
           
                 <div className=" flex justify-center">

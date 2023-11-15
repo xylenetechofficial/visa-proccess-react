@@ -51,7 +51,7 @@ export default function Main() {
   return (
     <div>
       <CustomNavbarV3
-        pageName="AGENT PAYMENTS RECEIVED"
+        pageName="PAYMENTS RECEIVED"
         searchFunction={(query) => setSearchQuery(query)}
         refresh={() => {
           fetchList();

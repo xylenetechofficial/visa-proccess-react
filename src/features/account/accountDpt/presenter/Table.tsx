@@ -8,7 +8,7 @@ import {
   TableRow3,
 } from "../../../../componenets/Table";
 import { useState } from "react";
-import { RedButton } from "../../../../componenets/CustomButton";
+import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 import { PaymentReceivedInterface } from "../type";
 
 const AccountCandidatesListTable = (props: {
@@ -41,7 +41,7 @@ const AccountCandidatesListTable = (props: {
             <TableHeadCell3> SECTOR CHARGES </TableHeadCell3>
             <TableHeadCell3> EXTRA SERVICE CHARGES </TableHeadCell3>
             <TableHeadCell3> AMOUNT RECEIVED </TableHeadCell3>
-            <TableHeadCell3> EDIT </TableHeadCell3>
+            <TableHeadCell3> VIEW </TableHeadCell3>
           </TableHeadRow3>
         </TableHeadRed>
         <TableBody3>
@@ -68,10 +68,11 @@ const AccountCandidatesListTable = (props: {
               <TableCell3>{item.amount_received} </TableCell3>
               <TableCell3>
                 {" "}
-                <RedButton
+                {/* <RedButton
                   text="Edit"
                   onClick={() => props.onClickEdit(item)}
-                />
+                /> */}
+                <BlueButton  onClick={()=> props.onClickEdit(item)} text="View"/>
               </TableCell3>
             </TableRow3>
           ))}

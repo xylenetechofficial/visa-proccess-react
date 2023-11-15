@@ -50,7 +50,7 @@ export default function Main(props: {
             ))}
           </TableBody3>
         </Table3>
-        {editModal ? <AgentPaymentModal currentData={currentData} setModalName={(value) => setEditModal(value)} /> : ''}
+        {editModal ? <AgentPaymentModal currentData={currentData} setCurrentData={setCurrentData} setModalName={(value) => setEditModal(value)} /> : ''}
       </div>
     </FullScreenModal>
   )
