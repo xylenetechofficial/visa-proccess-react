@@ -4,6 +4,7 @@ import AgentPaymentReceivedDetailTable from "./Table";
 import EditModal from "./Edit";
 import { PaymentReceivedInterface } from "../type";
 import {
+  deletePaymentReceived,
   readEditPaymentReceivedList,
   readPaymentReceivedList,
 } from "../repository";
@@ -48,6 +49,9 @@ export default function Main() {
   useEffect(() => {
     fetchList(additionalData.pagination.page);
   }, []);
+  const onClickDelete =async(id:number)=>{
+    await deletePaymentReceived(id)
+  }
   return (
     <div>
       <CustomNavbarV3
@@ -77,6 +81,7 @@ export default function Main() {
         <EditModal
           editPaymentList={editPaymentList}
           setModal={(value) => setModal(value)}
+          onClickDelete={(id)=>onClickDelete(id)}
         />
       ) : (
         ""

@@ -34,12 +34,8 @@ export async function readPenaltyChargesList(query: {
 
   export async function updatePenaltyChargesItem(data_list: PenaltyChargesInterface) {
     console.log(data_list)
-    const path = "/account/penalty-charges-list"
-
-    const payload =  PenaltyChargesConverter.toAdapter(data_list)
-    
-  
-    console.log(payload)
+    const path = "/account/penalty-charges/"+data_list.id
+    const payload =  PenaltyChargesConverter.toAdapter(data_list)  
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT

@@ -7,7 +7,8 @@ import { PaymentReceivedInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 export default function Main(props: {
   setModal: (value: string) => void,
-  editPaymentList: PaymentReceivedInterface[]
+  editPaymentList: PaymentReceivedInterface[],
+  onClickDelete:(value:any)=>void
 }) {
 
   const [currentData, setCurrentData] = useState<PaymentReceivedInterface>({} as PaymentReceivedInterface)
@@ -45,7 +46,9 @@ export default function Main(props: {
                 <TableCell3> {item.agent_name}</TableCell3>
                 <TableCell3>{item.amount_received} </TableCell3>
                 <TableCell3>{convertDateFormat(item.date)} </TableCell3>
-                <TableCell3> <RedButton text="Edit" onClick={() => { onClickEdit(), setCurrentData(item) }} /></TableCell3>
+                <TableCell3> <RedButton text="Edit" onClick={() => { onClickEdit(), setCurrentData(item) }} />
+                <RedButton text="Delete" onClick={()=> props.onClickDelete(item.id)} />
+                </TableCell3>
               </TableRow3>
             ))}
           </TableBody3>

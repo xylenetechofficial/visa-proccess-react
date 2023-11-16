@@ -171,7 +171,10 @@ const ServiceChargesTable = (props: {
                   }
                 />
               </TableCell3>
-              <TableCell3> {ele.waive_off_sector_charges}</TableCell3>
+              <TableCell3> <CustomSingleCheckBox value={ele.waive_off_sector_charges ==='yes'}
+              onChange={(value) => {
+                    onUpdateRow(index, { ...ele, waive_off_sector_charges: value ? "yes" :"no" });
+                  }} /></TableCell3>
               <TableCell3>
                 {" "}
                 <UnlabeledInput
@@ -224,7 +227,7 @@ const ServiceChargesTable = (props: {
               </TableCell3>
               <TableCell3>
                 {" "}
-                <Checkbox />
+                <CustomSingleCheckBox  value={ele.raise_invoice === 1 ? true:false} onChange={(value)=> onUpdateRow(index, { ...ele, raise_invoice: value ? 1:0 })}/>
               </TableCell3>
               <TableCell3>
                 {" "}

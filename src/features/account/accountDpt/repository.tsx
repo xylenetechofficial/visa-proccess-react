@@ -113,3 +113,10 @@ export async function readEditPaymentReceivedList(ele:PaymentReceivedInterface) 
     showMessage_v2({ message: response.message, status: response.code })
   
   }
+  export async function deletePaymentReceived(id:number) {
+    const path = "/account/receive-payment/" + id
+    const response = await ApiHelper.delete(path, {
+      tokenType: AuthTokenType.JWT
+    })
+    showMessage_v2({ message: response.message, status: response.code })
+  }
