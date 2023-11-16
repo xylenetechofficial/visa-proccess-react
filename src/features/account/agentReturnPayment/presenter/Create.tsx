@@ -5,7 +5,7 @@ import { BulkPaymentInterface } from "../type";
 
 import CandidateTable from "./CandidateTable";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
+import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { readAgentList } from "../../../masters/agent/repository";
 import { AgentInterface } from "../../../masters/agent/type";
 import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
@@ -86,7 +86,8 @@ export default function Main(props: {
         >
             <UpdateContentBox>
                 <SubHeading1 text="Agent: " />
-                <CustomSelectComponentUnlabeled
+                <CustomSelectComponent
+                    style={{ width: "200px" }}
                     onChange={(value) => {
                         setAgent(parseInt(value))
                         fetchBulkPaymentList(parseInt(value))
@@ -97,11 +98,11 @@ export default function Main(props: {
             </UpdateContentBox>
             <UpdateContentBox>
                 <SubHeading1 text="Amount :" />
-                <UnlabeledInput 
-type="number"
-                     value={totalAmount} onchange={(value) =>
-                    setTotalAmount(parseInt(value))
-                } />
+                <UnlabeledInput
+                    type="number"
+                    value={totalAmount} onchange={(value) =>
+                        setTotalAmount(parseInt(value))
+                    } />
             </UpdateContentBox>
             <UpdateContentBox>
                 <SubHeading1 text="Description :" />
