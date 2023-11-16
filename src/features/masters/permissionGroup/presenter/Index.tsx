@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
+import { deleteUser, readUserList, readUserRoleList, } from "../repository";
+import { UserInterface, UserRole } from "../type";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
-import PermissionGroupTable from "./Table";
-import { confirmationMessage } from "../../../../utils/alert";
+import UserTable from "./Table";
+import { confirmationMessage, showMessage } from "../../../../utils/alert";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import Pagination from "../../../../componenets/Pagination";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
-import { PermissionGroupInterface, PermissionInterface } from "../type";
-import { deletePermissionGroup, readPermissionGroupList, readSinglePermissionGroup } from "../repository";
+import Pagination from "../../../../componenets/Pagination";
+import { PermissionGroupInterface } from "../type";
+
 const CardHeader = styled(Box)(() => ({
   display: "flex",
-  flexWrap: "wrap",
+
   paddingRight: "24px",
   marginBottom: "18px",
   alignItems: "center",
@@ -24,109 +26,113 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  const [permissionGroupList, setPermissionGroupList] = useState<PermissionInterface[]>([]);
-  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>({
-    pagination: {
-      page: 1,
-      page_count: 1,
-      item_count: 0,
-      sno_base: 0,
+  const [userList, setUserList] = useState<UserInterface[]>([]);
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
     }
-  });
+  );
 
-  const initValue: PermissionGroupInterface = {
-    id: 0,
-    name: "",
-    dpt_list: []
-  }
-  const [permissionGroup, setPermissionGroup] = useState<PermissionGroupInterface>(initValue);
+  const [editUser, setEditUser] = useState<UserInterface>(
+    {} as UserInterface
+  );
 
   const [modalName, setModalName] = useState("");
-  const [actionType, setActionType] = useState("");
 
-
-  const [dataFiltered, setDataFiltered] = useState<any[]>([]);
-  const filterData = (query: string, data: any[]) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const filterData = (query: string, data: UserInterface[]) => {
     if (!query) {
-      setDataFiltered(data);
-      return;
+      return data;
     } else {
-      const d = data.filter((d) =>
+      return data.filter((d) =>
         d.name.toLowerCase().includes(query.toLowerCase())
       );
-      setDataFiltered(d);
-      return;
     }
   };
+  const dataFiltered = filterData(searchQuery, userList);
 
-  const searchFunction = async (query: string) => {
-    filterData(query, permissionGroupList);
-  };
-
-
-  const onClickDuplicate = async (permission: PermissionInterface) => {
-    setPermissionGroup(permission);
-    setModalName("create");
-    setActionType("copy");
-  }
-
-  const onClickEdit = async (permission: PermissionInterface) => {
-    // const res: any = await readSinglePermissionGroup(permission.id)
-    setPermissionGroup(permission);
-    // console.log("onClickEdit"); // Only Dev
-    // console.log(permission); // Only Dev
+  const onClickEdit = (user: UserInterface) => {
+    setEditUser(user);
+    console.log("onClickEdit"); // Only Dev
+    console.log(user); // Only Dev
     setModalName("edit");
   };
 
-  const onClickDelete = async (permission: any) => {
+  const onClickDelete = async (user: UserInterface) => {
     const flag = await confirmationMessage("Do you really want to delete?");
-    if (flag && permission.id) {
-      await deletePermissionGroup(permission.id);
-      fetchPermissionGroupList();
+    if (flag && user.id) {
+      const res = await deleteUser(user.id);
+      // showMessage(res.message);
+      fetchUserList();
     }
   };
 
-  const fetchPermissionGroupList = async (page?: number) => {
-    const res = await readPermissionGroupList(true, page ?? additionalData.pagination.page);
-    setPermissionGroupList(res);
+
+  const fetchUserList = async (page?: number) => {
+    const data = await readUserList({
+      user_role_id: 0,
+      active: 2,
+      page: page ?? additionalData.pagination.page
+    }, true);
+    filterData("", userList);
+    setUserList(data);
     setAdditionalData(await PaginationManager.getData());
-    filterData("", res);
   };
 
+
+  const [user, setUser] = useState<UserInterface>({} as UserInterface)
+
+  // const fetchUser = async () => {
+  //   const res = await readUser()
+  //   setUser(res)
+  // }
+
+
+  const [userRoleList, setUserRoleList] = useState<UserRole[]>([])
+
+  const fetchUserRoleList = async () => {
+    const res = await readUserRoleList()
+    setUserRoleList(res)
+  }
   useEffect(() => {
-    fetchPermissionGroupList();
+    fetchUserList();
+    // fetchUser()
+    fetchUserRoleList()
   }, []);
 
-  console.log(dataFiltered, "+++", permissionGroupList)
-  const onClickCreate = async () => {
-    const res: any = await readSinglePermissionGroup(0)
-    setPermissionGroup(res);
-    console.log(res, "Only dev")
-
-  }
   return (
     <div>
-      <CustomNavbarV3 pageName="Permission Group" searchFunction={searchFunction} />
+      <CustomNavbarV3
+        pageName="User"
+        searchFunction={(query) => setSearchQuery(query)}
+        refresh={() => readUserList({
+          user_role_id: 0,
+          active: 0,
+          page: additionalData.pagination.page
+        }, true)}
+      />
+
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        {/* Add */}
         <GreenButton
           text={"Add +"}
           onClick={() => {
-            setPermissionGroup({ ...permissionGroup, id: 0 })
             setModalName("create");
-            // onClickCreate()
           }}
         />
       </CardHeader>
 
-      {/*  agency stable */}
-      <PermissionGroupTable
+      {/*  user stable */}
+      <UserTable
         snoBase={additionalData.pagination.sno_base}
-        permission={dataFiltered}
+        userList={dataFiltered}
         onClickEdit={onClickEdit}
-        onClickDuplicate={onClickDuplicate}
         onClickDelete={onClickDelete}
       />
 
@@ -134,7 +140,7 @@ export default function Main() {
         data={additionalData}
         onPageChange={(e) => {
           console.log(e); // Only Dev
-          fetchPermissionGroupList(e);
+          fetchUserList(e);
         }}
       />
 
@@ -145,13 +151,12 @@ export default function Main() {
         ""
       ) : (
         <CreateModal
-          permission={permissionGroup}
           onClose={() => {
             setModalName("")
-            setActionType("")
-            fetchPermissionGroupList()
+            fetchUserList()
           }}
-          actionType={actionType}
+          user={user}
+          userRoleList={userRoleList}
         />
       )}
 
@@ -160,11 +165,12 @@ export default function Main() {
         ""
       ) : (
         <EditModal
-          permission={permissionGroup}
+          user={editUser}
           onClose={() => {
             setModalName("")
-            fetchPermissionGroupList
+            fetchUserList()
           }}
+          userRoleList={userRoleList}
         />
       )}
     </div>
