@@ -1,3 +1,66 @@
+export const roleList = [
+  {
+      id: 1,
+      name: "DIRECTOR"
+  },
+  {
+      id: 2,
+      name: "GENERAL MANAGER"
+  },
+  {
+      id: 3,
+      name: "OPERATIONS MANAGER"
+  },
+  {
+      id: 4,
+      name: "RECUITMENT MANAGER"
+  },
+  {
+      id: 5,
+      name: "RECRUITMENT SUPERVISOR"
+  },
+  {
+      id: 6,
+      name: "RECRUITMENT COORDINATOR"
+  },
+  {
+      id: 7,
+      name: "ACCOUNTS"
+  },
+  {
+      id: 8,
+      name: "DATA ENTRY"
+  },
+  {
+      id: 9,
+      name: "SUBMISSION"
+  },
+  {
+      id: 10,
+      name: "TICKET"
+  },
+  {
+      id: 11,
+      name: "BDE"
+  },
+  {
+      id: 12,
+      name: "SECTOR ADMIN"
+  },
+  {
+      id: 13,
+      name: "SOURCING"
+  },
+  {
+      id: 14,
+      name: "DEPARTURE"
+  },
+  {
+      id: 15,
+      name: "KSA INVOICE"
+  }
+];
+
 export const currencyList = [
   { id: 1, name: "IND" },
   { id: 2, name: "USD" },
