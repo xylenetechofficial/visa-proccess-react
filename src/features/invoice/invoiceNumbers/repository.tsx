@@ -6,12 +6,25 @@ import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper
 import {  AddCandidateInvoiceNumberInterface, AddSelectionPenaltyAfterDeploymentConverter, ClientInvoiceNumberAdapter, ClientInvoiceNumberConverter, ClientInvoiceNumberInterface } from "./type";
 
 
-export async function readCandidateInvoiceNumbersList() {
+export async function readCandidateInvoiceNumbersList(
+  refresh = false,
+  filter_for = "",
+  page_number?: number
+) {
+
+
+
+  
   const path = "/invoice-dpt/candidates-invoice-number-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    cacheTime: refresh ? 0 : 1,
+    queryParameters: {
+      filter_for: filter_for,
+      page: page_number ?? 0,
+    },
   });
 
   if (response.code != 200) {

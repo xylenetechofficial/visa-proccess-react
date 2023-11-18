@@ -3,7 +3,15 @@ export interface IndexEwakalaInterface {
     company_name: string,
     received_date: string,
     visa_quantity: number,
+    ekawala_qty: string,
+    category: string,
+    pt_number: string,
+    demand_id: string,
+    country: string,
+    approved_date: string,
+    expiry_date: string,
     visa_number: string,
+    deman_acknowledged_date: string,
     visa_authorization_name: string
 }
 export interface IndexEwakalaAdapter {
@@ -12,6 +20,14 @@ export interface IndexEwakalaAdapter {
     received_date: string,
     visa_quantity: number,
     visa_number: string,
+    ekawala_qty: string,
+    category: string,
+    pt_number: string,
+    demand_id: string,
+    country: string,
+    approved_date: string,
+    expiry_date: string,
+    deman_acknowledged_date: string,
     visa_authorization_name: string
 }
 
@@ -27,6 +43,14 @@ export class IndexEwakalaConverter {
             visa_quantity: a?.visa_quantity,
             visa_number: a?.visa_number,
             visa_authorization_name: a?.visa_authorization_name,
+            ekawala_qty: a?.ekawala_qty,
+            category: a?.category,
+            pt_number: a?.pt_number,
+            demand_id: a?.demand_id,
+            country: a?.country,
+            approved_date: a?.approved_date,
+            expiry_date: a?.expiry_date,
+            deman_acknowledged_date: a?.deman_acknowledged_date,
         };
         return data;
     }
@@ -52,6 +76,14 @@ export class IndexEwakalaConverter {
             visa_quantity: i?.visa_quantity,
             visa_number: i?.visa_number,
             visa_authorization_name: i?.visa_authorization_name,
+            ekawala_qty: i?.ekawala_qty,
+            category: i?.category,
+            pt_number: i?.pt_number,
+            demand_id: i?.demand_id,
+            country: i?.country,
+            approved_date: i?.approved_date,
+            expiry_date: i?.expiry_date,
+            deman_acknowledged_date: i?.deman_acknowledged_date,
         };
         return data;
     }

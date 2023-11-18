@@ -1,4 +1,13 @@
 
+
+export interface AgentInterface {
+  id?: number;
+  name: string;
+  isDocumentRegistration: number;
+  location: number;
+  number?: string;
+}
+
 export interface ClientInvoiceNumberInterface {
 
   id: number,

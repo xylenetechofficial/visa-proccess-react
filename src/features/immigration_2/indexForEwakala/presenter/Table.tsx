@@ -14,7 +14,7 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { IndexEwakalaInterface } from "../type";
 
 const IndexForEwakalaTable = (props: {
-  snoBase:number,
+  snoBase: number,
   indexForEwakala: IndexEwakalaInterface[];
   setIndexForEwakala: any
   data: any;
@@ -36,6 +36,15 @@ const IndexForEwakalaTable = (props: {
             <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
             <TableHeadCell3> VISA QUANTITY </TableHeadCell3>
             <TableHeadCell3> VISA NUMBER </TableHeadCell3>
+            <TableHeadCell3> Ekawala Qty </TableHeadCell3>
+            <TableHeadCell3> Category </TableHeadCell3>
+            <TableHeadCell3> Pt no. </TableHeadCell3>
+            <TableHeadCell3> Demand id </TableHeadCell3>
+            <TableHeadCell3> Country </TableHeadCell3>
+            <TableHeadCell3> Approved date </TableHeadCell3>
+            <TableHeadCell3> Expiry date </TableHeadCell3>
+            <TableHeadCell3> Deman acknowledged date </TableHeadCell3>
+
             <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
           </TableHeadRow3>
         </TableHead3>
@@ -43,13 +52,21 @@ const IndexForEwakalaTable = (props: {
           {props?.indexForEwakala?.map((item, index) => (
             <TableRow3 key={index}>
 
-<TableCell3>{index + props.snoBase +1}</TableCell3>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item?.party_code}</TableCell3>
               <TableCell3>{item?.company_name} </TableCell3>
               <TableCell3> {item?.received_date}</TableCell3>
               <TableCell3>  </TableCell3>
               <TableCell3>{item?.visa_quantity} </TableCell3>
               <TableCell3>{item?.visa_number} </TableCell3>
+              <TableCell3>{item?.ekawala_qty} </TableCell3>
+              <TableCell3>{item?.category} </TableCell3>
+              <TableCell3>{item?.pt_number} </TableCell3>
+              <TableCell3>{item?.demand_id} </TableCell3>
+              <TableCell3>{item?.country} </TableCell3>
+              <TableCell3>{item?.approved_date} </TableCell3>
+              <TableCell3>{item?.expiry_date} </TableCell3>
+              <TableCell3>{item?.deman_acknowledged_date} </TableCell3>
               <TableCell3>{item?.visa_authorization_name} </TableCell3>
 
             </TableRow3>

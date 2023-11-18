@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteUser, readUserList, readUserRoleList, } from "../repository";
+import { deleteUser, readUserList, readUserRoleList } from "../repository";
 import { UserInterface, UserRole } from "../type";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
@@ -14,7 +14,8 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
-import { PermissionGroupInterface } from "../type";
+import { PermissionGroupInterface } from "../../permissionGroup/type";
+import { readPermissionGroupList } from "../../permissionGroup/repository/PermissionGroup";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -85,12 +86,12 @@ export default function Main() {
   };
 
 
-  const [user, setUser] = useState<UserInterface>({} as UserInterface)
+  const [permissionGroupList, setPermissionGroupList] = useState<PermissionGroupInterface[]>([])
 
-  // const fetchUser = async () => {
-  //   const res = await readUser()
-  //   setUser(res)
-  // }
+  const fetchPermissionGroupList = async () => {
+    const res = await readPermissionGroupList()
+    setPermissionGroupList(res)
+  }
 
 
   const [userRoleList, setUserRoleList] = useState<UserRole[]>([])
@@ -101,7 +102,7 @@ export default function Main() {
   }
   useEffect(() => {
     fetchUserList();
-    // fetchUser()
+    fetchPermissionGroupList()
     fetchUserRoleList()
   }, []);
 
@@ -155,7 +156,7 @@ export default function Main() {
             setModalName("")
             fetchUserList()
           }}
-          user={user}
+          permissionGroupList={permissionGroupList}
           userRoleList={userRoleList}
         />
       )}
@@ -170,6 +171,7 @@ export default function Main() {
             setModalName("")
             fetchUserList()
           }}
+          permissionGroupList={permissionGroupList}
           userRoleList={userRoleList}
         />
       )}

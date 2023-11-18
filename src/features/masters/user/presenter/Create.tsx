@@ -1,22 +1,31 @@
 import { useEffect, useState } from "react";
-import { createUser, updateUser } from "../repository";
-import { UserInterface, UserRole } from "../type";
+import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
+import { SubHeading1 } from "../../../../componenets/CoustomHeader";
+// import { Checkbox } from "flowbite-react";
+import { PermissionGroupInterface, PermissionDataInterface, PageInterface, PermissionInterface, UserInterface, UserRole } from "../type";
+import { RenderPermissions } from "./RenderPermissions";
+import { StandardInput } from "../../../../componenets/Input";
+import { createPermissionGroup, readSinglePermissionGroup } from "../repository/PermissionGroup";
+import { createUser } from "../repository";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
-import ModalContent from "../../../../componenets/Modal";
-import { StandardInput } from "../../../../componenets/Input";
-import { PermissionGroupInterface } from "../../permissionGroup/type";
-
+import { getNanoID } from "../../../../utils/function";
 
 
 export default function Main(props: {
-    onClose: any,
-    permissionGroupList: PermissionGroupInterface[]
+    user: UserInterface,
     userRoleList: UserRole[]
+    onClose: any,
+    actionType?: string
 }) {
+    const initValue: PermissionGroupInterface = {
+        id: 0,
+        name: "",
+        dpt_list: []
+    }
+    const [permissionGroup, setPermissionGroup] = useState(initValue)
 
-
-    const initValue: UserInterface = {
+    const initValue_user: UserInterface = {
         id: 0,
         name: "",
         user_name: "",
@@ -29,26 +38,41 @@ export default function Main(props: {
         user_role_name: "",
         active: 0,
     }
-    const [user, setUser] = useState(initValue)
+    const [user, setUser] = useState(initValue_user)
+    async function onClickAdd() {
+
+        console.log(permissionGroup);   // Only Dev
+        const res = await createPermissionGroup({ ...permissionGroup, name: getNanoID() })
+
+        if (!res) return
 
 
-    async function onClickSave() {
-        const data = await createUser(user)
+        const data = await createUser({ ...user, permission_group_id: res.id })
 
         if (!data) return
+
+        setPermissionGroup(initValue)
+        setUser(initValue_user)
 
         props.onClose()
     }
 
+    const fetchPermissionList = async () => {
+        const res: any = await readSinglePermissionGroup(user.user_role_id)
+        setPermissionGroup(res);
+    }
+
+    useEffect(() => {
+        fetchPermissionList();
+    }, [user.user_role_id]);
+
     return (
-
-        <ModalContent
-            buttonName="Create"
-            handleClick={onClickSave}
-            title="Create User"
+        <FullScreenModal
+            title={`Create Permission`}
             onClose={props.onClose}
+            buttonName="Create"
+            handleClick={onClickAdd}
         >
-
 
             <StandardInput
                 label="Name"
@@ -85,17 +109,6 @@ export default function Main(props: {
             />
 
             <CustomSelectComponent
-                value={user.permission_group_id}
-                label="Permission Group"
-                options={
-                    selectOptionConveter({ options: props.permissionGroupList, options_struct: { name: "name", value: "id" } })}
-
-                onChange={(value) => {
-                    setUser({ ...user, permission_group_id: value })
-
-                }} />
-
-            <CustomSelectComponent
                 value={user.user_role_id}
                 label="User Role"
                 options={
@@ -117,7 +130,25 @@ export default function Main(props: {
                 }}
             />
 
+            {/* <div className="w-96">
+                <StandardInput
+                    label="Name"
+                    value={permissionGroup.name}
+                    onChangeValue={(value: string) => {
+                        setPermissionGroup({ ...permissionGroup, name: value })
+                    }}
+                />
+            </div> */}
+            <div className="w-full">
 
-        </ModalContent>
+                {/* <SubHeading1 text={permissionGroup.name} /> */}
+                <RenderPermissions
+                    departments={permissionGroup.dpt_list ?? []}
+                    onUpdate={(value) => setPermissionGroup({ ...permissionGroup, dpt_list: value })}
+                />
+            </div>
+
+        </FullScreenModal>
     )
 }
+
