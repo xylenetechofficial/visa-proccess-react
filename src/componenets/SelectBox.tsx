@@ -81,6 +81,7 @@ export function CustomSelectComponentUnlabeled(props: {
                 }}
                 id="countries" className="bg-white border max-w-[300px] min-w-[130px] border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
+                    <option value="" >select</option>
                 {props.options.map((element) => (
                     <option value={element.value} selected={element.value == props.value} >{element.name}</option>
                 ))}

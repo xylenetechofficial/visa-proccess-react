@@ -15,7 +15,8 @@ import { FaFilter } from "react-icons/fa";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { PermissionGroupInterface } from "../../permissionGroup/type";
-import { readPermissionGroupList } from "../../permissionGroup/repository/PermissionGroup";
+import { readPermissionGroupList } from "../../user/repository";
+// import { readPermissionGroupList } from "../../permissionGroup/repository/PermissionGroup";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",

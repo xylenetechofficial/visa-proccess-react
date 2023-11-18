@@ -124,7 +124,7 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 {" "}
                 <UnlabeledInput
-                  type="text"
+                  type="number"
                   value={ele.other_charges}
                   onchange={(value) =>
                     onUpdateRow(index, { ...ele, other_charges: value })
@@ -134,7 +134,7 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 {" "}
                 <UnlabeledInput
-                  type="text"
+                  type="number"
                   value={ele.sector_charges}
                   onchange={(value) =>
                     onUpdateRow(index, { ...ele, sector_charges: value })
@@ -144,7 +144,7 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 {" "}
                 <UnlabeledInput
-                  type="text"
+                  type="number"
                   value={ele.partial_charges}
                   onchange={(value) =>
                     onUpdateRow(index, { ...ele, partial_charges: value })
@@ -154,7 +154,7 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 {" "}
                 <UnlabeledInput
-                  type="text"
+                  type="number"
                   value={ele.service_charges}
                   onchange={(value) =>
                     onUpdateRow(index, { ...ele, service_charges: value })
@@ -164,7 +164,7 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 {" "}
                 <UnlabeledInput
-                  type="text"
+                  type="number"
                   value={ele.agent_commission}
                   onchange={(value) =>
                     onUpdateRow(index, { ...ele, agent_commission: value })
@@ -232,7 +232,7 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 {" "}
                 <UnlabeledInput
-                  type="text"
+                  type="number"
                   value={ele.invoice_service_charges}
                   onchange={(value) =>
                     onUpdateRow(index, {
@@ -260,7 +260,7 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 {" "}
                 <UnlabeledInput
-                  type="text"
+                  type="number"
                   value={ele.invoice_ticket_charges}
                   onchange={(value) =>
                     onUpdateRow(index, {

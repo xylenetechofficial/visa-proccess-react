@@ -61,10 +61,13 @@ export default function Main() {
       //     if (element.candidate_received_date == '' || element.candidate_submission_date == '')
       //         continue
 
+      if (element.given_date == "" || element.given_to == "" || element.dad_amount < 1 || element.dad_service_tax == "")
+        continue
+
       new_list.push(element);
     }
-
-    const data: any = await createCandidateList(new_list);
+console.log(new_list);   // Only Dev
+    // const data: any = await createCandidateList(new_list);
     fetchCandidateList();
   };
   useEffect(() => {
@@ -75,14 +78,14 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Candidate List"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>fetchCandidateList()}
+        refresh={() => fetchCandidateList()}
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
       <CandidateTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         candidateDataList={candidateDataList}
         onChange={(value: any) => setCandidateDataList(value)}
         fetchCandidateList={fetchCandidateList}
