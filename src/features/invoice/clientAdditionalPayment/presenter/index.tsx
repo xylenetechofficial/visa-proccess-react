@@ -8,9 +8,45 @@ import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomCom
 import { createBulkClientPayment, createClientPayment, deleteAdditionalPayment, readClientAdditionalPaymentList, updateBulkClientPaymentList, updateClientSinglePayment } from '../repository';
 import { BlueButton, GreenButton } from '../../../../componenets/CustomButton';
 import { ClientPaymentSingleAddInterface } from '../type';
-
+import { AdditionalDataInterface } from '../../../../utils/api_helper';
+import { AgentInterface } from '../../invoiceNumbers/type';
+import {  PaginationManager } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
 
 export default function Main() {
+
+
+    const [agentList, setAgentList] = useState<AgentInterface[]>([]);
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
+
+  const [editAgent, setEditAgent] = useState<AgentInterface>(
+    {} as AgentInterface
+  );
+
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const filterData = (query: string, data: AgentInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.name.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+  };
+  const dataFiltered = filterData(searchQuery, agentList);
+
+
+
 
     const CardHeader = styled(Box)(() => ({
         display: "flex",
@@ -20,7 +56,7 @@ export default function Main() {
         alignItems: "center",
         justifyContent: "space-between",
     }));
-    const [searchQuery, setSearchQuery] = useState("")
+    
     const [clientPaymentData, setClientPaymentData] = useState<any[]>([])
     const [modal,setModal]=useState("");
      const [data, setData]=useState([{
@@ -29,9 +65,9 @@ export default function Main() {
         "description":"add payment"
     }])
     const [clientSingle,setClientSingle]= useState<ClientPaymentSingleAddInterface[]>([])
-  const fetchClientAdditionalPaymentList = async ()=>{
+  const fetchClientAdditionalPaymentList = async (page?: number)=>{
     console.log("called")
-    const data = await readClientAdditionalPaymentList();
+    const data = await readClientAdditionalPaymentList({page:page ?? additionalData.pagination.page});
     if(data){
         setClientPaymentData(data)
     }
@@ -58,6 +94,8 @@ export default function Main() {
     const datas :any = await createBulkClientPayment(item);
     if(datas){
         fetchClientAdditionalPaymentList()
+        filterData("", agentList);
+      setAdditionalData(await PaginationManager.getData());
     }
 
 }
@@ -82,6 +120,7 @@ export default function Main() {
                 <GreenButton text="Add" onClick={() => { setModal('create') }} />
             </CardHeader>
             <ClientAdditionalInvoicePaymentAddTable
+            snoBase={additionalData.pagination.sno_base}
                 clientPaymentData={clientPaymentData}
                 onClickEdit={(value) => setClientSingle(value)}
                 onChange={(value) => setClientPaymentData(value)}
@@ -129,6 +168,16 @@ export default function Main() {
                 :''
             }
             <BlueButton text="Submit" onClick={()=>{updatePaymentList(data)}} />
+
+
+
+            <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchClientAdditionalPaymentList(e);
+        }}
+      />
         </div>
 
     );

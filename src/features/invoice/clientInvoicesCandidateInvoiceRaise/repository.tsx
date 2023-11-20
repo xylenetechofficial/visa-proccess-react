@@ -1,14 +1,19 @@
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { AddInvoiceRaiseConverter,  CandidateInvoiceRaiseInterface, CandidateInvoiceRaiseListAdapter, CandidateInvoiceRaiseListConverter, CandidateInvoiceRaiseListInterface } from "./type";
 
 
-export async function readCandidatesInvoiceRaiseList() {
+export async function readCandidatesInvoiceRaiseList(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/candidates-invoice-raise-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
@@ -25,6 +30,10 @@ export async function readCandidatesInvoiceRaiseList() {
     }
   }
 
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return data as CandidateInvoiceRaiseListInterface[]
 }
 

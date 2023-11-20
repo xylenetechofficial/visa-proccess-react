@@ -8,7 +8,9 @@ import { ClientAdditionalInvoiceInterface } from '../type';
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { RedButton } from '../../../../componenets/CustomButton';
 import { readClientAdditionalInvoiceList } from '../repository';
-
+import { AdditionalDataInterface, PaginationManager } from '../../../../utils/api_helper';
+import { AgentInterface } from '../../invoiceNumbers/type';
+import Pagination from "../../../../componenets/Pagination";
 const DataList: ClientAdditionalInvoiceInterface[] = [{
     id: 1,
     company_id: 1,
@@ -33,6 +35,37 @@ const DataList: ClientAdditionalInvoiceInterface[] = [{
 
 export default function Main() {
 
+
+    const [agentList, setAgentList] = useState<AgentInterface[]>([]);
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+      {
+        pagination: {
+          page: 1,
+          page_count: 1,
+          item_count: 0,
+          sno_base: 0,
+        },
+      }
+    );
+  
+    const [editAgent, setEditAgent] = useState<AgentInterface>(
+      {} as AgentInterface
+    );
+  
+  
+    const [searchQuery, setSearchQuery] = useState("");
+    const filterData = (query: string, data: AgentInterface[]) => {
+      if (!query) {
+        return data;
+      } else {
+        return data.filter((d) =>
+          d.name.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+    };
+    const dataFiltered = filterData(searchQuery, agentList);
+
+
     const CardHeader = styled(Box)(() => ({
         display: "flex",
         flexWrap: "wrap",
@@ -41,16 +74,18 @@ export default function Main() {
         alignItems: "center",
         justifyContent: "space-between",
     }));
-    const [searchQuery, setSearchQuery] = useState("")
+    
     const [modal,setModal]=useState('')
     const [immigrationData, setImmigrationData] = useState<ClientAdditionalInvoiceInterface[]>([])
 
 
-    const fetchClientAdditionalInvoiceList = async ()=>{
+    const fetchClientAdditionalInvoiceList = async (page?: number)=>{
         console.log("called")
-        const data = await readClientAdditionalInvoiceList();
+        const data = await readClientAdditionalInvoiceList({page:page ?? additionalData.pagination.page});
         if(data){
             setImmigrationData(data)
+            filterData("", agentList);
+      setAdditionalData(await PaginationManager.getData());
         }
 
     }
@@ -59,7 +94,7 @@ export default function Main() {
     }
     useEffect(() => {
         setImmigrationData(DataList)
-        fetchClientAdditionalInvoiceList();
+        fetchClientAdditionalInvoiceList(additionalData.pagination.page);
     }, [])
     return (
         <div className='h-screen'>
@@ -72,6 +107,7 @@ export default function Main() {
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
             </CardHeader>
             <ClientAdditionalInvoiceTable
+            snoBase={additionalData.pagination.sno_base}
                 immigrationData={immigrationData}
                 onClickEdit={(value) => setImmigrationData([value])}
                 onChange={(value) => setImmigrationData(value)}
@@ -94,6 +130,15 @@ export default function Main() {
                 />
                 :''
             }
+
+
+        <Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchClientAdditionalInvoiceList(e);
+        }}
+      />
         </div>
 
     );

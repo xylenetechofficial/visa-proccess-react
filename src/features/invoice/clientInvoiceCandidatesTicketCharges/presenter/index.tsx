@@ -9,8 +9,30 @@ import { Box, styled } from "@mui/material";
 import { AddCandidatesTicketChargesInterface, CandidatesTicketChargesInterface } from "../type";
 import { createCandidatesTicketCharges, readCandidatesTicketChargesList } from "../repository";
 import { GreenButton } from "../../../../componenets/CustomButton";
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
+import { AgentInterface } from "../../../masters/agent/type";
+
 
 export default function Main() {
+
+
+  const [agentList, setAgentList] = useState<AgentInterface[]>([]);
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
+
+  const [editAgent, setEditAgent] = useState<AgentInterface>(
+    {} as AgentInterface
+  );
+
   const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -22,12 +44,31 @@ export default function Main() {
 
   const [ClientInvoiceCandidatesTicketChargesList, setClientInvoiceCandidatesTicketChargesList] = useState<CandidatesTicketChargesInterface[]>([]);
 
-  const [searchQuery, setSearchQuery] = useState('');
+  
 
-  const fetchClientAdditionalInvoiceList = async ()=>{
+
+
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const filterData = (query: string, data: AgentInterface[]) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) =>
+        d.name.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+  };
+  const dataFiltered = filterData(searchQuery, agentList);
+
+  const fetchClientAdditionalInvoiceList = async (page?: number)=>{
     console.log("called")
-    const data = await readCandidatesTicketChargesList();
+    const data = await readCandidatesTicketChargesList({page:page ?? additionalData.pagination.page});
     if(data){
+      filterData("", agentList);
+      // setAgentList(data);
+      // fetchClientAdditionalInvoiceList(data);
+      setAdditionalData(await PaginationManager.getData());
       setClientInvoiceCandidatesTicketChargesList(data)
     }
 
@@ -37,7 +78,7 @@ const onUpdate =async()=>{
    fetchClientAdditionalInvoiceList();
 }
 useEffect(() => {
-  fetchClientAdditionalInvoiceList();
+  fetchClientAdditionalInvoiceList(additionalData.pagination.page);
 }, [])
   return (
     <div>
@@ -51,11 +92,25 @@ useEffect(() => {
       </CardHeader>
 
       <ClientInvoicesCandidateInvoiceRaiseTable
+      snoBase={additionalData.pagination.sno_base}
         ClientInvoiceCandidatesTicketChargesList={ClientInvoiceCandidatesTicketChargesList}
         onChange={(value)=>setClientInvoiceCandidatesTicketChargesList(value)}
       />
 
+
+
+
 <CustomButton2 buttonText="Submit" onClick={()=>onUpdate()}  />
+
+
+
+<Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchClientAdditionalInvoiceList(e);
+        }}
+      />
     
     </div>
   );

@@ -10,7 +10,8 @@ const ClientInvoiceAddTable = (props: {
   candidateNumbreList: ClientInvoiceNumberInterface[],
   onChange: (value: ClientInvoiceNumberInterface[]) => void
   data:any,
-  setData:any
+  setData:any,
+  snoBase:number
 }) => {
 
   function onUpdateRow(index: number, rowData: ClientInvoiceNumberInterface) {
@@ -52,7 +53,7 @@ const ClientInvoiceAddTable = (props: {
           {props.candidateNumbreList?.map((ele, index) => (
             <TableRow3 key={index + 1}>
 
-              <TableCell3> {index+1}</TableCell3>
+              <TableCell3> {index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
               <TableCell3> {ele.candidate_name}</TableCell3>

@@ -14,6 +14,7 @@ import { convertDateFormat } from "../../../../utils/function";
 const ClientInvoiceAddTable = (props: {
   CourierDateList: CourierDateInterface[];
   sectorList: SectorInterface[],
+  snoBase:number,
   onChange: (value: CourierDateInterface[]) => void,
   setCourierDateData: any
 }) => {
@@ -53,7 +54,7 @@ const ClientInvoiceAddTable = (props: {
           {props.CourierDateList?.map((ele: any, index) => (
             <TableRow3 key={index + 1}>
 
-              <TableCell3> {index + 1}</TableCell3>
+<TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
               <TableCell3> {ele.invoice_type}</TableCell3>
               <TableCell3>{ele.invoice_number}</TableCell3>

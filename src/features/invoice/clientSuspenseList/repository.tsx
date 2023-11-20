@@ -2,15 +2,20 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { ClientSuspenseAdapter, ClientSuspenseConverter, ClientSuspenseInterface } from "./type";
 
-export async function readClientSuspenseList() {
+export async function readClientSuspenseList(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/client-suspend-amount-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
@@ -26,6 +31,11 @@ export async function readClientSuspenseList() {
       data.push(ClientSuspenseConverter.toInterface(element));
     }
   }
+
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as ClientSuspenseInterface[]
 }

@@ -9,6 +9,7 @@ const Main = (props: {
     immigrationData: ClientAdditionalInvoiceInterface[],
     onChange: (value: ClientAdditionalInvoiceInterface[]) => void
     setModal:any,
+    snoBase:number;
 }) => {
     const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "INVOICE AMOUNT","ACTION"];
     function onUpdateRow(index: number, rowData: ClientAdditionalInvoiceInterface) {
@@ -36,7 +37,7 @@ const Main = (props: {
                     {props.immigrationData?.map((item, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3>{index +1}</TableCell3>
+                            <TableCell3>{index + props.snoBase+1}</TableCell3>
                             <TableCell3>{item?.company_name}</TableCell3>
                             <TableCell3>{item?.invoice_number}</TableCell3>
                             <TableCell3>{convertDateFormat(item?.invoice_date)}</TableCell3>

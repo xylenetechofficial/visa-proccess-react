@@ -15,6 +15,7 @@ import { CustomSelectComponentUnlabeledv2 } from "../../../../componenets/Select
 import { CurrencyList2 } from "../../../db";
 
 const ClientInvoiceCandidatesTicketChargesTable = (props: {
+  snoBase:number,
   ClientInvoiceCandidatesTicketChargesList: CandidatesTicketChargesInterface[];
   onChange: (value: CandidatesTicketChargesInterface[]) => void
 }) => {
@@ -56,7 +57,7 @@ const ClientInvoiceCandidatesTicketChargesTable = (props: {
         </TableHead3>
         <TableBody3>
           {props.ClientInvoiceCandidatesTicketChargesList?.map((ele, index) => (
-            <TableRow3 key={index + 1}>
+            <TableRow3 key={index + props.snoBase+1}>
 
               <TableCell3> {index+1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>

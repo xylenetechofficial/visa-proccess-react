@@ -11,6 +11,7 @@ import { convertDateFormat } from "../../../../utils/function";
 const ClientInvoiceAddTable = (props: {
   invoiceDispatchList: InvoiceDispatchInterface[];
   // setData:any
+  snoBase:number,
   onChange: (value: InvoiceDispatchInterface[]) => void
   setInvoiceDispatchData:any
 }) => {
@@ -64,7 +65,7 @@ const ClientInvoiceAddTable = (props: {
           
             <TableRow3 key={index + 1}>
 
-              <TableCell3> {index + 1}</TableCell3>
+<TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
               <TableCell3> {ele.invoice_type}</TableCell3>
               <TableCell3>{ele.invoice_number}</TableCell3>

@@ -8,7 +8,8 @@ import { CurrencyList2 } from "../../../db";
 
 const ClientInvoiceAddTable = (props: {
   ClientInvoiceChargesList: ClientInvoiceChargesInterface[];
-  setData:any
+  setData:any,
+  snoBase:number,
   onChange: (value: ClientInvoiceChargesInterface[]) => void
 }) => {
 
@@ -54,7 +55,7 @@ const ClientInvoiceAddTable = (props: {
           {props.ClientInvoiceChargesList?.map((ele, index) => (
             <TableRow3 key={index + 1}>
 
-              <TableCell3> {ele.id}</TableCell3>
+              <TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
               <TableCell3> {ele.candidate_name}</TableCell3>

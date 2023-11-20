@@ -2,17 +2,22 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { AddCourierDateConverter, AddCourierDateInterface, AllSelectionInvoiceDateAdapter, AllSelectionInvoiceDateConverter, AllSelectionInvoiceDateInterface, CourierDateAdapter, CourierDateConverter, CourierDateInterface } from "./type";
 
 
 
-export async function readCourierDateEntrylist() {
+export async function readCourierDateEntrylist(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/invoice-courier-date-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
@@ -29,6 +34,10 @@ export async function readCourierDateEntrylist() {
     }
   }
 console.log(data,"aa")
+
+await PaginationManager.setData(
+  response.additional_data as AdditionalDataInterface
+);
 return response.data
   // return data as AllSelectionInvoiceDateInterface[]
 }

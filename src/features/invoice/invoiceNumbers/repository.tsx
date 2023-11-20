@@ -2,29 +2,25 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
-import {  AddCandidateInvoiceNumberInterface, AddSelectionPenaltyAfterDeploymentConverter, ClientInvoiceNumberAdapter, ClientInvoiceNumberConverter, ClientInvoiceNumberInterface } from "./type";
+import { ApiHelper, AuthTokenType, ContentType, PaginationManager, AdditionalDataInterface } from "../../../utils/api_helper";
+import { AddCandidateInvoiceNumberInterface, AddSelectionPenaltyAfterDeploymentConverter, ClientInvoiceNumberAdapter, ClientInvoiceNumberConverter, ClientInvoiceNumberInterface } from "./type";
 
 
 export async function readCandidateInvoiceNumbersList(
-  refresh = false,
-  filter_for = "",
-  page_number?: number
+  queryParameters: {
+    page: number
+  }
 ) {
 
 
 
-  
+
   const path = "/invoice-dpt/candidates-invoice-number-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
-    cacheTime: refresh ? 0 : 1,
-    queryParameters: {
-      filter_for: filter_for,
-      page: page_number ?? 0,
-    },
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
@@ -40,28 +36,30 @@ export async function readCandidateInvoiceNumbersList(
       data.push(ClientInvoiceNumberConverter.toInterface(element));
     }
   }
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as ClientInvoiceNumberInterface[]
 }
 
 
 
-export async function createCandidatesInvoiceNumber(ClientAdditionalInvoice:AddCandidateInvoiceNumberInterface) {
-    const path = "/invoice-dpt/candidates-invoice-number-list";
-  const list :any ={
-    selection_list:ClientAdditionalInvoice
+export async function createCandidatesInvoiceNumber(ClientAdditionalInvoice: AddCandidateInvoiceNumberInterface) {
+  const path = "/invoice-dpt/candidates-invoice-number-list";
+  const list: any = {
+    selection_list: ClientAdditionalInvoice
   }
-    const payload = AddSelectionPenaltyAfterDeploymentConverter.toAdapter(list);
-    const response = await ApiHelper.post(path, payload, {
-      contentType: ContentType.json,
-      tokenType: AuthTokenType.JWT
-    })
-  
-    if (response.code == 200) {
-      showMessage_v2({ message: response.message, status: response.code })
-    }
+  const payload = AddSelectionPenaltyAfterDeploymentConverter.toAdapter(list);
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
 
-    // return
+  if (response.code == 200) {
+    showMessage_v2({ message: response.message, status: response.code })
   }
-  
- 
+
+  // return
+}
+

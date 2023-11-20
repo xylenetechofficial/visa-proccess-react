@@ -1,48 +1,16 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaFilter } from "react-icons/fa";
 import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import CandidateInvoiceNumber from "./Table";
-import { Box,  styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { BlueButton } from "../../../../componenets/CustomButton";
 import { AddCandidateInvoiceNumberInterface, ClientInvoiceNumberInterface } from "../type";
 import { createCandidatesInvoiceNumber, readCandidateInvoiceNumbersList } from "../repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
-import Pagination from "../../../../componenets/Pagination";
-import { AgentInterface } from "../type";
+
 export default function Main() {
-
-
-  const [agentList, setAgentList] = useState<AgentInterface[]>([]);
-  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
-    {
-      pagination: {
-        page: 1,
-        page_count: 1,
-        item_count: 0,
-        sno_base: 0,
-      },
-    }
-  );
-
-  const [editAgent, setEditAgent] = useState<AgentInterface>(
-    {} as AgentInterface
-  );
-
-  
-  const [searchQuery, setSearchQuery] = useState("");
-  const filterData = (query: string, data: AgentInterface[]) => {
-    if (!query) {
-      return data;
-    } else {
-      return data.filter((d) =>
-        d.name.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-  };
-  const dataFiltered = filterData(searchQuery, agentList);
 
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -51,28 +19,26 @@ export default function Main() {
     marginBottom: "18px",
     alignItems: "center",
     justifyContent: "space-between",
-}));
+  }));
 
   const [candidateNumbreList, setCandidateNumberList] = useState<ClientInvoiceNumberInterface[]>([]);
   // const [data, setData]= useState<AddCandidateInvoiceNumberInterface[]>([])
   const [data, setData]= useState<AddCandidateInvoiceNumberInterface[]>([])
-  
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const createCandidateNumber = async (item:any)=>{
+  const createCandidateNumber = async (item: any) => {
     await createCandidatesInvoiceNumber(item)
   }
 
-
-  
-  const fetchCandidateNumbersList =async(page?: number)=>{
-  const data =  await readCandidateInvoiceNumbersList(true, "", page ?? additionalData.pagination.page);
+  const fetchCandidateNumbersList =async()=>{
+  const data =  await readCandidateInvoiceNumbersList();
 if(data){
   setCandidateNumberList(data);
 }
   }
 
   useEffect(()=>{
-    fetchCandidateNumbersList(additionalData.pagination.page);
+    fetchCandidateNumbersList();
   },[])
   return (
     <div>
@@ -86,25 +52,13 @@ if(data){
 
       <CandidateInvoiceNumber
         candidateNumbreList={candidateNumbreList}
+        snoBase={additionalData.pagination.sno_base}
         // setCandidateNumberList={candidateNumbreList}
-        onChange={(value)=>setCandidateNumberList(value)}
+        onChange={(value) => setCandidateNumberList(value)}
         data={data}
         setData={setData}
       />
-
-
-
       <BlueButton text="Submit" onClick={()=>createCandidateNumber(data)} />
-
-
-
-      <Pagination
-        data={additionalData}
-        onPageChange={(e) => {
-          console.log(e); // Only Dev
-          fetchCandidateNumbersList(e);
-        }}
-      />
     </div>
   );
 }

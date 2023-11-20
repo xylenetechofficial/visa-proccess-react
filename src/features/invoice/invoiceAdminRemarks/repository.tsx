@@ -2,18 +2,23 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import {  AddInvoiceAdminInterface, AddInvoiceAdminRemarkConverter, InvoiceAdminRemarkAdapter, InvoiceAdminRemarkConverter, InvoiceAdminRemarkInterface } from "./type";
 
 
 
 
-export async function readInvoiceAdminRemarkList() {
+export async function readInvoiceAdminRemarkList(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/invoice-admin-remarks-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
@@ -30,6 +35,9 @@ export async function readInvoiceAdminRemarkList() {
     }
   }
 
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return data as InvoiceAdminRemarkInterface[]
 }
 

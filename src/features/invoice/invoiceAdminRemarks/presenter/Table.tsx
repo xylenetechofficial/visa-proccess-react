@@ -9,6 +9,7 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 const ClientInvoiceAddTable = (props: {
   InvoiceAdminRemarkList: InvoiceAdminRemarkInterface[];
   // setData:any
+  snoBase:number,
   setInvoiceAdminData:any,
   onChange: (value: InvoiceAdminRemarkInterface[]) => void
 }) => {
@@ -54,7 +55,7 @@ const ClientInvoiceAddTable = (props: {
 
             <TableRow3 key={index + 1}>
 
-              <TableCell3> {index + 1}</TableCell3>
+<TableCell3 >{index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
               <TableCell3> {ele.invoice_type}</TableCell3>
               <TableCell3>{ele.invoice_number}</TableCell3>

@@ -3,15 +3,20 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { ClientPaymentAddInterface, ClientPaymentAddAdapter, ClientPaymentAddConverter, ClientPaymentSingleAddInterface, ClientPaymentSingleAddConverter, ClientAdditionalPaymentSingleUpdateConverter, ClientPaymentSingleUpdateInterface } from "./type";
 
-export async function readClientAdditionalPaymentList() {
+export async function readClientAdditionalPaymentList(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/client-additional-payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
@@ -27,6 +32,10 @@ export async function readClientAdditionalPaymentList() {
       data.push(ClientPaymentAddConverter.toInterface(element));
     }
   }
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as ClientPaymentAddInterface[]
 }

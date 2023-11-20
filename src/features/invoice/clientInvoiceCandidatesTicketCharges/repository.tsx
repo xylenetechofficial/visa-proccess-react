@@ -6,12 +6,17 @@ import { showMessage_v2 } from "../../../utils/alert";
 import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
 import { AddCandidatesTicketChargesInterface, AddChargesConverter, AddChargesInterface, CandidatesTicketChargesAdapter, CandidatesTicketChargesConverter, CandidatesTicketChargesInterface } from "./type";
 
-export async function readCandidatesTicketChargesList() {
+export async function readCandidatesTicketChargesList(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/candidates-ticket-charge-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {

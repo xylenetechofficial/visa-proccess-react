@@ -47,6 +47,7 @@ export default function Main() {
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
             </CardHeader>
             <ClientAdditionalInvoicePaymentAddTable
+            
                 clientAdditionalPaymentList={clientAdditionalPaymentList}
                 onClickPaymentList={(value) => {
                     setClientAdditionalPayment(value)

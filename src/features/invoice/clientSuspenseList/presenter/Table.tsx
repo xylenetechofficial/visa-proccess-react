@@ -9,7 +9,8 @@ const RejectCancelApproveTable = (props: {
     clientSuspence: ClientSuspenseInterface[],
     onChange: (value: ClientSuspenseInterface[]) => void
     onClickEdit: (value: ClientSuspenseInterface) => void
-    setModal:any
+    setModal:any,
+    snoBase:number
 }) => {
     const HEADERLIST = ["SR NO.", "COMPANY NAME", "PAYMENT RECEIVED DATE", "AMOUNT RECEIVED", "PAYMENT DESCRIPTION","ACTION"];
     function onUpdateRow(index: number, rowData: ClientSuspenseInterface) {
@@ -37,7 +38,7 @@ const RejectCancelApproveTable = (props: {
                     {props.clientSuspence?.map((item, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3>{index +1}</TableCell3>
+                             <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3>{item?.company_name}</TableCell3>
                             <TableCell3>{convertDateFormat(item?.payment_received_date)}</TableCell3>
                             <TableCell3>{item?.amount_received}</TableCell3>

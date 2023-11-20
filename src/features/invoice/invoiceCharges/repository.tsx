@@ -2,16 +2,21 @@
 // get immigration - list => readImmigrationList
 
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import {  AddCandidateInvoiceChargesInterface, AddSelectionPenaltyAfterDeploymentConverter, ClientInvoiceChargesAdapter, ClientInvoiceChargesConverter, ClientInvoiceChargesInterface } from "./type";
 
 
-export async function readCandidateInvoiceChargessList() {
+export async function readCandidateInvoiceChargessList(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/candidates-invoice-charge-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
@@ -27,6 +32,11 @@ export async function readCandidateInvoiceChargessList() {
       data.push(ClientInvoiceChargesConverter.toInterface(element));
     }
   }
+
+
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
 
   return data as ClientInvoiceChargesInterface[]
 }

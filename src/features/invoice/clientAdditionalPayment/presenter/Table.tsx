@@ -15,7 +15,8 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
     data: any,
     setData: any,
     setModal: any
-    deleteAdditionalPaymentByid:any
+    deleteAdditionalPaymentByid:any,
+    snoBase:number
 }) => {
     const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "INVOICE AMOUNT", "PAYMENT RECEIVED", "BALANCE PAYMENT", "ACTION"];
 
@@ -56,7 +57,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                     {props.clientPaymentData?.map((item, index) => (
 
                         <TableRow3 key={index}>
-                            <TableCell3>{index + 1}</TableCell3>
+                            <TableCell3>{index + props.snoBase+1}</TableCell3>
                             <TableCell3>{item?.company_name}</TableCell3>
                             <TableCell3>{item?.invoice_number}</TableCell3>
                             <TableCell3>{item?.invoice_date}</TableCell3>

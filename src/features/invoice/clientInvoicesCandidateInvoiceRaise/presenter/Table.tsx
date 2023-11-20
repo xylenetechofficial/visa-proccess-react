@@ -18,6 +18,7 @@ import { currencyList } from "../../../db";
 import { BankInterface } from "../../../masters/bank/type";
 
 const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
+  snoBase:number,
   candidateInvoiceRaiseList: CandidateInvoiceRaiseListInterface[];
   onClickEdit: any,
   onChange: (value: CandidateInvoiceRaiseListInterface[]) => void
@@ -72,7 +73,7 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
           {props.candidateInvoiceRaiseList?.map((ele, index) => (
             <TableRow3 key={index + 1}>
 
-              <TableCell3> {index + 1}</TableCell3>
+              <TableCell3> {index + props.snoBase+1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
               <TableCell3> {ele.candidate_name}</TableCell3>
