@@ -80,6 +80,8 @@ export default function Main() {
   useEffect(() => {
     fetchCandidateNumbersList(additionalData.pagination.page);
   }, [])
+
+  //hello
   return (
     <div>
       <CustomNavbarV3
