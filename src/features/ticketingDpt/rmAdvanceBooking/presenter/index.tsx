@@ -7,6 +7,7 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { RMAdvanceBookingInterface } from "../type";
+import { confirmationMessage,confirmationMessagealert, showMessage } from "../../../../utils/alert";
 import {
   createRMAdvanceBooking,
   readRMAdvanceBookingList,
@@ -68,6 +69,16 @@ export default function Main() {
       const element = item[i];
       // console.log(item);   // Only Dev
       // console.log(element);   // Only Dev
+
+
+      if (element.payment == "Pending") {
+
+        const flag = await confirmationMessagealert("Do you really want to delete?");
+        
+      } else {
+        // alert('hi');s
+      }
+
       if (element.advance == "Yes") new_data.push(element);
     }
     await createRMAdvanceBooking(new_data);

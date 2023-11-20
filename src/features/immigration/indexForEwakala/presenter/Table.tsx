@@ -37,6 +37,7 @@ const IndexForEwakalaTable = (props: {
             <TableHeadCell> ACTUAL PROFESSION </TableHeadCell>
             <TableHeadCell> VISA QUANTITY </TableHeadCell>
             <TableHeadCell> VISA NUMBER </TableHeadCell>
+            <TableHeadCell> VISA NUMBER1 </TableHeadCell>
             <TableHeadCell> VISA AUTHORIZATION </TableHeadCell>
           </TableHeadRow>
         </TableHead2>
@@ -50,6 +51,7 @@ const IndexForEwakalaTable = (props: {
               <TableCell> {item?.received_date}</TableCell>
               <TableCell>  </TableCell>
               <TableCell>{item?.visa_quantity} </TableCell>
+              <TableCell>{item?.visa_number} </TableCell>
               <TableCell>{item?.visa_number} </TableCell>
               <TableCell>{item?.visa_authorization_name} </TableCell>
 
