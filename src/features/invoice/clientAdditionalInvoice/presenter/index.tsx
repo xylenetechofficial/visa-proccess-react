@@ -93,8 +93,8 @@ export default function Main() {
         setImmigrationData([...immigrationData,data])
     }
     useEffect(() => {
-        setImmigrationData(DataList)
-        fetchClientAdditionalInvoiceList(additionalData.pagination.page);
+        // setImmigrationData(DataList)
+        fetchClientAdditionalInvoiceList();
     }, [])
     return (
         <div className='h-screen'>

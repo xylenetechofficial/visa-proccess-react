@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
-import { RMAdvanceBookingAdapter, RMAdvanceBookingConverter, RMAdvanceBookingInterface } from "./type";
+import { AddRMAdvanceConverter, RMAdvanceBookingAdapter, RMAdvanceBookingConverter, RMAdvanceBookingInterface } from "./type";
 
 
 export async function readRMAdvanceBookingList(query: {
@@ -27,22 +27,30 @@ export async function readRMAdvanceBookingList(query: {
     showMessage_v2({ message: response.message, status: response.code })
   }
 
+  const data = []
+  console.log(response.data)
+  if (response.data) {
+    const dataAdapter = response.data as RMAdvanceBookingAdapter[];
+    for (let i = 0; i < dataAdapter.length; i++) {
+      const element = dataAdapter[i];
+      data.push(RMAdvanceBookingConverter.toInterface(element));
+    }
+  }
   await PaginationManager.setData(
     response.additional_data as AdditionalDataInterface
   );
-console.log(response.data);   // Only Dev
-  return RMAdvanceBookingConverter.toInterfaceList(response.data as RMAdvanceBookingAdapter[])
+
+  return data as RMAdvanceBookingInterface[]
 }
 
 
 
-export async function createRMAdvanceBooking(list: RMAdvanceBookingInterface[]) {
+export async function createRMAdvanceBooking(RMAdvanceBooking: RMAdvanceBookingInterface[]) {
   const path = "/ticketing-dpt/rm-advance-booking-list";
-
-  const payload = {
-    selection_list: RMAdvanceBookingConverter.toAdapterList(list)
+  const list: any = {
+    selection_list: RMAdvanceBooking
   }
-
+  const payload = AddRMAdvanceConverter.toAdapter(list);
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
@@ -52,30 +60,31 @@ export async function createRMAdvanceBooking(list: RMAdvanceBookingInterface[]) 
     showMessage_v2({ message: response.message, status: response.code })
   }
 
-  if (response.code > 199 && response.code < 300)
-    return true
-  else
-    return false
+  const data = []
+  console.log(response.data)
+  if (response.data) {
+    const dataAdapter = response.data as RMAdvanceBookingAdapter[];
+    for (let i = 0; i < dataAdapter.length; i++) {
+      const element = dataAdapter[i];
+      data.push(RMAdvanceBookingConverter.toInterface(element));
+    }
+  }
+
+  return data as RMAdvanceBookingInterface[]
 }
 
 
-export async function updateRMAdvanceBooking(list: RMAdvanceBookingInterface[]) {
-  const path = "/ticketing-dpt/rm-advance-booking-list";
+export async function updateRMAdvanceBooking(RMAdvanceBooking: RMAdvanceBookingInterface) {
 
-  const payload = {
-    selection_list: RMAdvanceBookingConverter.toAdapterList(list)
-  }
+  const payload = RMAdvanceBookingConverter.toAdapter(RMAdvanceBooking);
 
+  const path = "/ticketing-dpt/rm-advance-booking-list"
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
   })
   showMessage_v2({ message: response.message, status: response.code })
 
-  if (response.code > 199 && response.code < 300)
-    return true
-  else
-    return false
 }
 
 

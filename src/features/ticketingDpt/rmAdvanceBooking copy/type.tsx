@@ -20,6 +20,7 @@ export interface RMAdvanceBookingInterface {
 }
 
 
+// block_visa
 export interface RMAdvanceBookingAdapter {
   id?: number,
   party_code: string,
@@ -36,16 +37,19 @@ export interface RMAdvanceBookingAdapter {
   is_invoice: string,
   advance: string,
   payment_date: string,
-  is_pendding?: boolean,
 }
 
 export class RMAdvanceBookingConverter {
+  // private i: RMAdvanceBookingInterface
+  // private a: RMAdvanceBookingAdapter
 
   /**
    * toInterface
    */
   public static toInterface(a: RMAdvanceBookingAdapter) {
     const data: RMAdvanceBookingInterface = {
+
+
       id: a.id,
       party_code: a.party_code,
       company_name: a.company_name,
@@ -61,29 +65,16 @@ export class RMAdvanceBookingConverter {
       is_invoice: a.is_invoice,
       advance: a.advance,
       payment_date: a.payment_date,
-      is_pendding: a.is_pendding,
     };
-    console.log("SV: ", a);   // Only Dev
-    console.log("IV: ", data);   // Only Dev
     return data;
-  }
-
-
-  public static toInterfaceList(a_list: RMAdvanceBookingInterface[]) {
-    const data_list: RMAdvanceBookingInterface[] = [];
-
-    for (let i = 0; i < a_list.length; i++) {
-      const element = a_list[i];
-      data_list.push(this.toInterface(element));
-    }
-
-    return data_list;
   }
 
   /**
    * toAdapter
    */
   public static toAdapter(i: RMAdvanceBookingInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
     const data: RMAdvanceBookingAdapter = {
 
       id: i.id,
@@ -104,16 +95,83 @@ export class RMAdvanceBookingConverter {
     };
     return data;
   }
+}
 
 
-  public static toAdapterList(i_list: RMAdvanceBookingInterface[]) {
-    const data_list: RMAdvanceBookingAdapter[] = [];
 
-    for (let i = 0; i < i_list.length; i++) {
-      const element = i_list[i];
-      data_list.push(this.toAdapter(element));
-    }
+export interface AddRMAdvanceInterface {
 
-    return data_list;
+  selection_list: RMAdvanceBookingInterface[],
+
+}
+
+export interface AddRMAdvanceAdapter {
+
+  selection_list: RMAdvanceBookingInterface[],
+
+}
+
+
+export class AddRMAdvanceConverter {
+  // private i: AddCandidateInvoiceNumberInterface
+  // private a: AddPenaltyAfterDeploymentAdapter
+
+  /**
+   * toInterface
+   */
+  public static toInterface(a: AddRMAdvanceAdapter) {
+    const data: AddRMAdvanceInterface = {
+      selection_list: a?.selection_list?.map((item) => ({
+
+
+        id: item.id,
+        party_code: item.party_code,
+        company_name: item.company_name,
+        candidate_name: item.candidate_name,
+        pp_no: item.pp_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent: item.agent,
+        visa_received_date: item.visa_received_date,
+        visa_authorization: item.visa_authorization,
+        given_to: item.given_to,
+        payment: item.payment,
+        is_invoice: item.is_invoice,
+        advance: item.advance,
+        payment_date: item.payment_date,
+      })),
+
+    };
+    return data;
+  }
+
+  /**
+   * toAdapter
+   */
+  public static toAdapter(i: AddRMAdvanceInterface) {
+    console.log("i"); // Only Dev
+    console.log(i); // Only Dev
+    const data: AddRMAdvanceAdapter = {
+
+      selection_list: i?.selection_list?.map((item) => ({
+        id: item.id,
+        party_code: item.party_code,
+        company_name: item.company_name,
+        candidate_name: item.candidate_name,
+        pp_no: item.pp_no,
+        actual_profession: item.actual_profession,
+        visa_profession: item.visa_profession,
+        agent: item.agent,
+        visa_received_date: item.visa_received_date,
+        visa_authorization: item.visa_authorization,
+        given_to: item.given_to,
+        payment: item.payment,
+        is_invoice: item.is_invoice,
+        advance: item.advance,
+        payment_date: item.payment_date,
+      })),
+
+    };
+    return data;
   }
 }

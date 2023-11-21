@@ -7,7 +7,6 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { RMAdvanceBookingInterface } from "../type";
-import { confirmationMessage,confirmationMessagealert,confirmationMessage_v2,showMessage } from "../../../../utils/alert";
 import {
   createRMAdvanceBooking,
   readRMAdvanceBookingList,
@@ -18,7 +17,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
-// import { confirmationMessage, confirmationMessage_v2 } from "../../../../utils/alert";
+import { confirmationMessage } from "../../../../utils/alert";
 
 const filterButtonList = [
   { name: "All", value: "all", },
@@ -60,12 +59,22 @@ export default function Main() {
       immigration_status: query?.immigration_status ?? immigrationStatus
     });
     if (data) {
-      console.log(data)
       setRMAdvanceBookingList(data);
     }
     setAdditionalData(await PaginationManager.getData());
   }
-
+  // const onClickCreate = async (item: RMAdvanceBookingInterface[]) => {
+  //   const new_data: RMAdvanceBookingInterface[] = [];
+  //   for (let i = 0; i < item.length; i++) {
+  //     const element = item[i];
+  //     // console.log(item);   // Only Dev
+  //     // console.log(element);   // Only Dev
+  //     if (element.advance == "Yes") new_data.push(element);
+  //   }
+  //   await createRMAdvanceBooking(new_data);
+  //   fetchRMAdvanceBooking();
+  //   // window.location.reload()
+  // };
 
   const onClickCreate = async (item: RMAdvanceBookingInterface[]) => {
     const new_data: RMAdvanceBookingInterface[] = [];
@@ -74,17 +83,12 @@ export default function Main() {
       if (element.advance == "Yes") new_data.push(element);
     }
 
-    const final_data = await get_approve_data(new_data, 1)
+    const final_data = await get_approve_data(new_data)
     console.log("new_data", new_data);   // Only Dev
     console.log("final_data", final_data);   // Only Dev
-
-    await createRMAdvanceBooking(final_data);
-    fetchRMAdvanceBooking();
-    // window.location.reload()
   };
 
-  async function get_approve_data(list: RMAdvanceBookingInterface[], context: number): Promise<RMAdvanceBookingInterface[]> {
-    console.log("get_approve_data context: 1");   // Only Dev
+  async function get_approve_data(list: RMAdvanceBookingInterface[]): Promise<RMAdvanceBookingInterface[]> {
     const new_data: RMAdvanceBookingInterface[] = [];
     let find_one = false;
 
@@ -96,11 +100,7 @@ export default function Main() {
           new_data.push(element);
         } else {
           find_one = true
-          const flag = await confirmationMessage_v2({
-            title: "Immigratoin pending",
-            content: `Passport No. <strong> ${element.pp_no} </strong>`
-          })
-
+          const flag = await confirmationMessage(`PP ${element.pp_no} is pending`)
           if (flag) {
             new_data.push({ ...element, is_approve: 1 });
           }
@@ -111,7 +111,7 @@ export default function Main() {
     }
 
     if (find_one) {
-      return await get_approve_data(new_data, context + 1)
+      return await get_approve_data(new_data)
     }
     return new_data;
   }

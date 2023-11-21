@@ -1,7 +1,6 @@
 import swal from "sweetalert";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 // import 'react-toastify/dist/ReactToastify.css';
-
 
 export const showMessage = (message?: any, timer?: number, status?: number) => {
   if (!timer) {
@@ -9,8 +8,8 @@ export const showMessage = (message?: any, timer?: number, status?: number) => {
   }
 
   if (!message) {
-    console.log(status)
-    toast.error(message, { theme: "colored" })
+    console.log(status);
+    toast.error(message, { theme: "colored" });
 
     // swal({
     //   title: "",
@@ -19,7 +18,7 @@ export const showMessage = (message?: any, timer?: number, status?: number) => {
     // });
     return;
   }
-  toast.success(message, { theme: "colored" })
+  toast.success(message, { theme: "colored" });
   // swal({
   //   title: "",
   //   text: `${message}`,
@@ -28,30 +27,33 @@ export const showMessage = (message?: any, timer?: number, status?: number) => {
 
   return;
 };
-export const showMessage_v2 = (props: { message?: any, timer?: number, status?: number }) => {
+export const showMessage_v2 = (props: {
+  message?: any;
+  timer?: number;
+  status?: number;
+}) => {
   if (!props.timer) {
     props.timer = 3000;
   }
 
   if (!props.message) {
-    toast.error(props.message, { theme: "colored" })
+    toast.error(props.message, { theme: "colored" });
     return;
   }
-  console.log(props.message);   // Only Dev
-  props.status = props.status ?? 0
-  if ((props.status > 199) && (props.status < 300)) {
+  console.log(props.message); // Only Dev
+  props.status = props.status ?? 0;
+  if (props.status > 199 && props.status < 300) {
     // okay
-    toast.success(props.message, { theme: "colored" })
+    toast.success(props.message, { theme: "colored" });
 
     return;
-  } else if ((props.status > 399) && (props.status < 500)) {
+  } else if (props.status > 399 && props.status < 500) {
     // warnning
-    toast.warning(props.message, { theme: "colored" })
+    toast.warning(props.message, { theme: "colored" });
     return;
-
-  } else if ((props.status > 499) && (props.status < 600)) {
+  } else if (props.status > 499 && props.status < 600) {
     // error
-    toast.error(props.message + " Error", { theme: "colored" })
+    toast.error(props.message + " Error", { theme: "colored" });
     return;
   }
 
@@ -88,5 +90,22 @@ export const confirmationMessagealert = (message: any) => {
     } else {
       swal("Cancelled", "Your imaginary file is safe :)", "error");
     }
+  });
+};
+
+
+export const confirmationMessage_v2 = (data: {
+  content: string;
+  title?: string;
+  icon?: string;
+}) => {
+  const content = document.createElement("div");
+  content.innerHTML = data.content;
+
+  return swal({
+    icon: data.icon ?? "warning",
+    dangerMode: data.icon == "warning" ? true : false,
+    content: { element: content },
+    title: data.title,
   });
 };

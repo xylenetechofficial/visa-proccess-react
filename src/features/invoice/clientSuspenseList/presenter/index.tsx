@@ -101,7 +101,7 @@ export default function Main() {
     return (
         <div className='h-screen'>
 
-            <CustomNavbarV3 pageName="CLIENT ADDITIONAL INVOICE" searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="CLIENT SUSPENCE LIST" searchFunction={(query) => setSearchQuery(query)} />
             <CardHeader>
                 <RedButton text="Add Client Suspence Amount" onClick={()=>setModal('create')} />
             </CardHeader>
