@@ -5,6 +5,8 @@ import { RC_CandidateInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { GivenToList } from "../../../db";
 import { convertDateFormat } from "../../../../utils/function";
+import { RedButton } from "../../../../componenets/CustomButton";
+import { removeRC_Candidate } from "../repository";
 
 
 const Main = (props: {
@@ -35,6 +37,7 @@ const Main = (props: {
     "Given To Delhi Office Date",
     "PP Received",
     "PP Received Date",
+    "Action",
   ];
 
 
@@ -63,7 +66,7 @@ const Main = (props: {
           {props.rc_candidateDataList.map((item, index) => (
 
             <TableRow3 key={index}>
-             <TableCell3>{index + props.snoBase + 1}</TableCell3>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.name}</TableCell3>
               <TableCell3>{item.passport_no}</TableCell3>
               <TableCell3>{item.company_name}</TableCell3>
@@ -89,7 +92,7 @@ const Main = (props: {
                   }}
                   value={item.dad_pp_received ? true : false}
                 />
-                </TableCell3>
+              </TableCell3>
 
               <TableCell3>
                 <DateInput id="jhvh" onChange={(value) => {
@@ -98,6 +101,15 @@ const Main = (props: {
                   value={item.dad_pp_received_date} />
               </TableCell3>
 
+              <TableCell3>
+                <RedButton
+                  text="Remove"
+                  onClick={()=>{
+                    removeRC_Candidate(item)
+                    props.fetchRC_CandidateList()
+                  }}
+                />
+              </TableCell3>
             </TableRow3>
           ))}
 

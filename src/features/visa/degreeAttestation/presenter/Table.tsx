@@ -14,9 +14,10 @@ import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 import { addDegreeAttestationCancel, addDegreeAttestationForward } from "../repository";
 
 const DegreeAttestationTable = (props: {
-  snoBase:number,
+  snoBase: number,
   degreAttestationList: DegreeAttestationInterface[]
   fetch_list: any
+  onClickCancel: (ele: DegreeAttestationInterface) => void
 }) => {
 
   const onclickForward = async (element: DegreeAttestationInterface) => {
@@ -28,14 +29,14 @@ const DegreeAttestationTable = (props: {
     props.fetch_list()
   };
 
-  const onclickCancel = async (element: DegreeAttestationInterface) => {
-    const res = await addDegreeAttestationCancel(element)
+  // const onclickCancel = async (element: DegreeAttestationInterface) => {
+  //   const res = await addDegreeAttestationCancel(element)
 
-    if (!res)
-      return
+  //   if (!res)
+  //     return
 
-    props.fetch_list()
-  };
+  //   props.fetch_list()
+  // };
   const HeaderList = ['sn. no', 'candidate name', 'p.p no', 'actual position ',
     'agent name', 'rc name', 'company', 'amout payable to vendor', 'amount receivale',
     'vendor name', 'for visa process', 'for degree cancelation charge']
@@ -53,7 +54,7 @@ const DegreeAttestationTable = (props: {
         <TableBody3>
           {props.degreAttestationList.map((ele: DegreeAttestationInterface, index: any) => (
             <TableRow3 key={index}>
-              <TableCell3 >{index + props.snoBase+1}</TableCell3>
+              <TableCell3 >{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{ele.candidate_name}</TableCell3>
               <TableCell3>{ele.passport_no}</TableCell3>
               <TableCell3>{ele.actual_position}</TableCell3>
@@ -67,13 +68,13 @@ const DegreeAttestationTable = (props: {
               <TableCell3>{ele.vendor_name}</TableCell3>
               <TableCell3>
                 <BlueButton
-                  text="Forwars"
+                  text="Forwards"
                   onClick={() => onclickForward(ele)} />
               </TableCell3>
               <TableCell3>
                 <RedButton
                   text="Cancel"
-                  onClick={() => onclickCancel(ele)} />
+                  onClick={() => props.onClickCancel(ele)} />
               </TableCell3>
 
             </TableRow3>

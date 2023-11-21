@@ -1,26 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Modal, styled } from "@mui/material";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
 import { CustomRadioButton } from '../../../../componenets/RadioButton';
-import { MolForwardedTovisaDepartmentDataInterface, MolWorkPermitCancelInterface2 } from '../type';
-import { addMolWorkPermitCancel, updateMolWorkPermitCancelData } from '../repository';
+import { DegreeAttestationInterface } from '../type/Index';
+import { addDegreeAttestationCancel } from '../repository';
 import { MistakeByList } from '../../../db';
+// import { MolForwardedTovisaDepartmentDataInterface, DegreeAttestationCancelInterface2 } from '../type';
+// import { addDegreeAttestationCancel, updateDegreeAttestationCancelData } from '../repository';
 
 export default function Main(props: {
     setModalName: (value: string) => void,
-    currentData: any
+    currentData: DegreeAttestationInterface
 }) {
     const [data, setData] = useState({})
-    const [molWorkPermit, setmolWorkPermit] = useState<MolWorkPermitCancelInterface2>(
-        {
-            "candidate_id": props.currentData.id,
-            "client_invoice": 'no',
-            "penalty_amount": 0,
-            "mistake_by": ''
-        })
+    const [degreeAttestation, setdegreeAttestation] = useState<DegreeAttestationInterface>({} as DegreeAttestationInterface)
+
     const CardHeader = styled(Box)(() => ({
         display: "flex",
         flexWrap: "wrap",
@@ -42,15 +39,18 @@ export default function Main(props: {
         p: 4,
     };
     async function onClickAdd() {
-
-        // call create
-        // const newArray: any = { ...visaProfessionList, visaProfessionList: visaProfessionList }
-        // const newArray: any = { ...molWorkPermit }
-        // // newArray.candidate_id =props.currentElement.id
-        // console.log(newArray, "AAAAAAA")
-        const flag = await addMolWorkPermitCancel(molWorkPermit)
+        console.log("id",degreeAttestation.id);   // Only Dev
+        console.log("client_invoice",degreeAttestation.client_invoice);   // Only Dev
+        console.log("penalty_amount",degreeAttestation.penalty_amount);   // Only Dev
+        console.log("mistake_by",degreeAttestation.mistake_by);   // Only Dev
+        const flag = await addDegreeAttestationCancel(degreeAttestation)
+        if(!flag) return
         props.setModalName('')
     }
+
+    useEffect(() => {
+        setdegreeAttestation(props.currentData)
+    }, [])
     return (
         <>
             <Modal open={true}
@@ -90,7 +90,7 @@ export default function Main(props: {
 
                         <UpdateContentBox>
                             <SubHeading1 text="CANDIDATE NAME   :" />
-                            <SubHeading1 text={props.currentData.name} />
+                            <SubHeading1 text={props.currentData.candidate_name} />
                         </UpdateContentBox>
 
                         <UpdateContentBox>
@@ -99,42 +99,38 @@ export default function Main(props: {
                         </UpdateContentBox>
                         <UpdateContentBox>
                             <SubHeading1 text="AGENT  :" />
-                            <SubHeading1 text={props.currentData.agent} />
+                            <SubHeading1 text={props.currentData.agent_name} />
                         </UpdateContentBox>
                         <UpdateContentBox>
                             <SubHeading1 text="CLIENT INVOICE  :" />
                             <CustomRadioButton
                                 inlined
-                                value={molWorkPermit.client_invoice}
+                                value={degreeAttestation.client_invoice}
                                 onChange={(value) => {
                                     if (value == "yes")
-                                        setmolWorkPermit({ ...molWorkPermit, client_invoice: value, mistake_by: "", penalty_amount: 0 })
+                                        setdegreeAttestation({ ...degreeAttestation, client_invoice: value, mistake_by: "", penalty_amount: 0 })
                                     else
-                                        setmolWorkPermit({ ...molWorkPermit, client_invoice: value })
+                                        setdegreeAttestation({ ...degreeAttestation, client_invoice: value })
                                 }}
-                                //    onChange={(value)=>setmolWorkPermit({ ...molWorkPermit, client_invoice: value })} 
+                                //    onChange={(value)=>setdegreeAttestation({ ...degreeAttestation, client_invoice: value })} 
 
                                 option={[{ name: "No", value: "no" }, { name: "Yes", value: "yes" }]} />
                         </UpdateContentBox>
-                        {molWorkPermit.client_invoice == "yes" ? <></> : <>
+                        {degreeAttestation.client_invoice == "yes" ? <></> : <>
 
                             <UpdateContentBox>
                                 <SubHeading1 text="PENALTY AMOUNT  :" />
-                                <UnlabeledInput type='number' value={molWorkPermit.penalty_amount} onchange={(value) => setmolWorkPermit({ ...molWorkPermit, penalty_amount: parseInt(value) })} />
+                                <UnlabeledInput type='number' value={degreeAttestation.penalty_amount} onchange={(value) => setdegreeAttestation({ ...degreeAttestation, penalty_amount: parseInt(value) })} />
                             </UpdateContentBox>
                             <UpdateContentBox>
                                 <SubHeading1 text="MISTAKE BY  :" />
-                                <CustomSelectComponent value={molWorkPermit.mistake_by} options={MistakeByList} onChange={(value) => setmolWorkPermit({ ...molWorkPermit, mistake_by: value })} />
+                                <CustomSelectComponent value={degreeAttestation.mistake_by} options={MistakeByList} onChange={(value) => setdegreeAttestation({ ...degreeAttestation, mistake_by: value })} />
                             </UpdateContentBox>
                         </>}
 
                         <div className=" flex justify-center">
 
-                            <GreenButton text="Submit" onClick={() => {
-                                console.log("agentPaymentReceivedList", "AAAA")
-                                onClickAdd()
-                                props.setModalName('')
-                            }} />
+                            <GreenButton text="Submit" onClick={() => { console.log("agentPaymentReceivedList", "AAAA"), props.setModalName(''), onClickAdd() }} />
                             <RedButton text="Back" onClick={() => { props.setModalName('') }} />
 
                         </div>

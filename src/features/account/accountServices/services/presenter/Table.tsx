@@ -18,7 +18,7 @@ import {
   selectOptionConveter,
 } from "../../../../../componenets/SelectBox";
 import { CustomSingleCheckBox } from "../../../../../componenets/Checkbox";
-import MultiSelectCheckbox, { MultiSelectCheckbox2 } from "../../../../../componenets/CustomComponents";
+// import MultiSelectCheckbox, { MultiSelectCheckbox2 } from "../../../../../componenets/CustomComponents";
 
 const ServiceChargesTable = (props: {
   snoBase: number;

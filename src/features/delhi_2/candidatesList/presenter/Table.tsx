@@ -6,6 +6,7 @@ import { convertDateFormat } from "../../../../utils/function";
 import { CandidateInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { DAD_GivenToList, GivenToList } from "../../../db";
+import { removeCandidate } from "../repository";
 
 
 const Main = (props: {
@@ -34,7 +35,8 @@ const Main = (props: {
     "Service Tax Received",
     "Amount",
     "Given To",
-    "Given Date"
+    "Given Date",
+    "Action",
   ];
 
   function onUpdateRow(index: number, rowData: CandidateInterface) {
@@ -62,7 +64,7 @@ const Main = (props: {
           {props.candidateDataList.map((item, index) => (
 
             <TableRow3 key={index}>
-            <TableCell3>{index + props.snoBase + 1}</TableCell3>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.name}</TableCell3>
               <TableCell3>{item.passport_no}</TableCell3>
               <TableCell3>{item.company_name}</TableCell3>
@@ -87,9 +89,9 @@ const Main = (props: {
               <TableCell3>{item.service_tax_received}</TableCell3>
 
               <TableCell3>
-                <UnlabeledInput 
-type="number"
-                    
+                <UnlabeledInput
+                  type="number"
+
                   onchange={(value) => {
                     onUpdateRow(index, { ...item, dad_amount: parseInt(value) })
                   }}
@@ -111,6 +113,16 @@ type="number"
                   value={item.given_date} />
               </TableCell3>
 
+              <TableCell3>
+                <RedButton
+                  text="Remove"
+                  onClick={()=>{
+                    removeCandidate(item)
+                    window.location.reload()
+                    // props.fetchCandidateList()
+                  }}
+                />
+              </TableCell3>
             </TableRow3>
           ))}
 

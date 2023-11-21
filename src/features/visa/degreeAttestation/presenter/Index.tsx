@@ -13,6 +13,8 @@ import { Box, styled } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
+import CancelModal from "./CancelModal";
+
 import { DegreeAttestationInterface } from "../type/DegreeAttestation";
 import { readDegreeAttestationList } from "../repository";
 import {
@@ -36,6 +38,7 @@ export default function Main() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [modalName, setModalName] = useState("");
+  const [degreAttestationCurrent, setDegreAttestationCurrent] = useState<DegreeAttestationInterface>({} as DegreeAttestationInterface);
   const [degreAttestationList, setDegreAttestationList] = useState<
     DegreeAttestationInterface[]
   >([]);
@@ -97,6 +100,10 @@ export default function Main() {
         snoBase={additionalData.pagination.sno_base}
         degreAttestationList={degreAttestationList}
         fetch_list={fetch_list}
+        onClickCancel={(ele) => {
+          setDegreAttestationCurrent(ele)
+          setModalName('cancel')
+        }}
       />
 
       {/* <Pagination data={additionalData} onPageChange={(e) => { fetch_list(e) }} /> */}
@@ -124,6 +131,17 @@ export default function Main() {
         <EditModal
           onClose={() => {
             fetch_list();
+            setModalName("");
+          }}
+        />
+      )}
+
+      {modalName !== "cancel" ? (
+        ""
+      ) : (
+        <CancelModal
+          currentData={degreAttestationCurrent}
+          setModalName={(name: string) => {
             setModalName("");
           }}
         />

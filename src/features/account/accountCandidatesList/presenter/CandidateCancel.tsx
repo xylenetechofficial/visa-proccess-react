@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { AccountCandidateCancelInterface2 } from "../type";
 import { createAccountCandidateCancel } from "../repository";
+import { MistakeByList } from "../../../db";
 export default function Main(props: {
     onClose: any,
     currentData: any
@@ -194,11 +195,7 @@ type="number"
                                 value={candidateCancelData.mistake_by}
                                 onChange={(value) => setCandidateCancelData({ ...candidateCancelData, mistake_by: value })}
                                 // onChange={(value) => console.log(value)}
-                                option={[
-                                    { name: "Agent/Candidate", value: "Agent/Candidate" },
-                                    { name: "Soundlines", value: "Soundlines" },
-                                    { name: "client", value: "client" },
-                                ]}
+                                option={MistakeByList}
                             />
                         </UpdateContentBox>
                     </>}

@@ -8,7 +8,7 @@ import { RC_CandidateAdapter, RC_CandidateConverter, RC_CandidateInterface } fro
 export async function readRC_CandidateList(query: {
     status?: string
     page?: number
-  }) {
+}) {
     const path = "/delhi-account-dasboard/rc-candidate-list";
 
     const response = await ApiHelper.get(path, {
@@ -17,7 +17,7 @@ export async function readRC_CandidateList(query: {
         queryParameters: {
             page: query.page ?? 0,
             status: query.status ?? "",
-          },
+        },
     });
 
     if (response.code != 200) {
@@ -26,7 +26,7 @@ export async function readRC_CandidateList(query: {
 
     await PaginationManager.setData(
         response.additional_data as AdditionalDataInterface
-      );
+    );
 
     return RC_CandidateConverter.toInterfaceList(response.data as RC_CandidateAdapter[])
 }
@@ -41,6 +41,24 @@ export async function createRC_CandidateList(data_list: RC_CandidateInterface[])
     }
 
     const response = await ApiHelper.patch(path, payload, {
+        contentType: ContentType.json,
+        tokenType: AuthTokenType.JWT
+    })
+
+    showMessage_v2({ message: response.message, status: response.code })
+
+    if (response.code > 199 && response.code < 300) {
+        return true;
+    }
+    return false;
+}
+
+
+
+export async function removeRC_Candidate(data: RC_CandidateInterface) {
+    const path = "/delhi-account-dasboard/rc-candidate/" + data.id ?? 0;
+
+    const response = await ApiHelper.delete(path, {
         contentType: ContentType.json,
         tokenType: AuthTokenType.JWT
     })

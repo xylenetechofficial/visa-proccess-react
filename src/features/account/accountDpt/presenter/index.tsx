@@ -51,6 +51,7 @@ export default function Main() {
   }, []);
   const onClickDelete =async(id:number)=>{
     await deletePaymentReceived(id)
+    window.location.reload()
   }
   return (
     <div>

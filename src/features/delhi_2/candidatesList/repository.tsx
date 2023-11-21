@@ -52,3 +52,20 @@ export async function createCandidateList(data_list: CandidateInterface[]) {
     }
     return false;
 }
+
+
+export async function removeCandidate(data: CandidateInterface) {
+    const path = "/delhi-account-dasboard/candidate/" + data.id ?? 0;
+
+    const response = await ApiHelper.delete(path, {
+        contentType: ContentType.json,
+        tokenType: AuthTokenType.JWT
+    })
+
+    showMessage_v2({ message: response.message, status: response.code })
+
+    if (response.code > 199 && response.code < 300) {
+        return true;
+    }
+    return false;
+}
