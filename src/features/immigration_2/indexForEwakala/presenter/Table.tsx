@@ -18,9 +18,21 @@ const IndexForEwakalaTable = (props: {
   indexForEwakala: IndexEwakalaInterface[];
   setIndexForEwakala: any
   data: any;
-  setData: any;
+  setData: any,
+  onChange: (value: IndexEwakalaInterface[]) => void,
 }) => {
-
+  function onUpdateRow(index: number, rowData: IndexEwakalaInterface) {
+    const nextData: IndexEwakalaInterface[] = props.indexForEwakala.map((e, i) => {
+        if (i === index) {
+            // Increment the clicked counter
+            return rowData;
+        } else {
+            // The rest haven't changed
+            return e;
+        }
+    });
+    props.onChange(nextData)
+}
   const [date, setDate] = useState<any>([])
   console.log(props.data)
   return (
@@ -61,11 +73,50 @@ const IndexForEwakalaTable = (props: {
               <TableCell3>{item?.visa_number} </TableCell3>
               <TableCell3>{item?.ekawala_qty} </TableCell3>
               <TableCell3>{item?.category} </TableCell3>
-              <TableCell3>{item?.pt_number} </TableCell3>
-              <TableCell3>{item?.demand_id} </TableCell3>
+              {/* <TableCell3>{item?.pt_number} </TableCell3> */}
+
+              <TableCell3>
+                <UnlabeledInput
+                  placeholder="" 
+                  type="text"
+                  value={item?.pt_number} onchange={(value) => {
+                    onUpdateRow(index, { ...item, pt_number: value })
+                  }}
+                />
+              </TableCell3>
+
+
+              {/* <TableCell3>{item?.demand_id} </TableCell3> */}
+              <TableCell3>
+                <UnlabeledInput
+                 placeholder="" 
+                 type="text"
+                 onchange={(value) => {
+                    onUpdateRow(index, { ...item, demand_id: value })
+                  }}
+                  value={item.demand_id}
+                />
+              </TableCell3>
               <TableCell3>{item?.country} </TableCell3>
-              <TableCell3>{item?.approved_date} </TableCell3>
-              <TableCell3>{item?.expiry_date} </TableCell3>
+              
+              <TableCell3>
+                <DateInput
+                  id=""
+                  onChange={(value) => {
+                    onUpdateRow(index, { ...item, approved_date: value })
+                  }}
+                  value={item.approved_date}
+                />
+              </TableCell3>
+              <TableCell3>
+                <DateInput
+                  id=""
+                  onChange={(value) => {
+                    onUpdateRow(index, { ...item, expiry_date: value })
+                  }}
+                  value={item.expiry_date}
+                />
+              </TableCell3>
               <TableCell3>{item?.deman_acknowledged_date} </TableCell3>
               <TableCell3>{item?.visa_authorization_name} </TableCell3>
 

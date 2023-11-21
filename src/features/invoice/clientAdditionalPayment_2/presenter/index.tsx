@@ -11,9 +11,41 @@ import PaymentListModal from "./PaymentList";
 import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import { ClientAdditionalPaymentInterface } from '../type';
 import { readClientAdditionalPaymentList } from '../repository';
-
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import Pagination from "../../../../componenets/Pagination";
+import { AgentInterface } from "../../../masters/agent/type";
 
 export default function Main() {
+
+
+    const [agentList, setAgentList] = useState<AgentInterface[]>([]);
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+      {
+        pagination: {
+          page: 1,
+          page_count: 1,
+          item_count: 0,
+          sno_base: 0,
+        },
+      }
+    );
+  
+    const [editAgent, setEditAgent] = useState<AgentInterface>(
+      {} as AgentInterface
+    );
+  
+  
+    const [searchQuery, setSearchQuery] = useState("");
+    const filterData = (query: string, data: AgentInterface[]) => {
+      if (!query) {
+        return data;
+      } else {
+        return data.filter((d) =>
+          d.name.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+    };
+    const dataFiltered = filterData(searchQuery, agentList);
 
     const CardHeader = styled(Box)(() => ({
         display: "flex",
@@ -23,19 +55,22 @@ export default function Main() {
         alignItems: "center",
         justifyContent: "space-between",
     }));
-    const [searchQuery, setSearchQuery] = useState("")
+    
     const [modal, setModal] = useState("");
     const [clientAdditionalPaymentList, setClientAdditionalPaymentList] = useState<ClientAdditionalPaymentInterface[]>([])
     const [clientAdditionalPayment, setClientAdditionalPayment] = useState<ClientAdditionalPaymentInterface>({} as ClientAdditionalPaymentInterface)
 
 
-    const fetchClientAdditionalPaymentList = async () => {
-        const data = await readClientAdditionalPaymentList();
-        setClientAdditionalPaymentList(data)
+    const fetchClientAdditionalPaymentList = async (page?: number) => {
+        const data = await readClientAdditionalPaymentList({page:page ?? additionalData.pagination.page});
+        filterData("", agentList);
+        setClientAdditionalPaymentList(data);
+        
+        setAdditionalData(await PaginationManager.getData());
     }
 
     useEffect(() => {
-        fetchClientAdditionalPaymentList()
+        fetchClientAdditionalPaymentList(additionalData.pagination.page)
     }, [])
 
     return (
@@ -119,6 +154,15 @@ export default function Main() {
                     />
                     : ''
             }
+
+
+<Pagination
+        data={additionalData}
+        onPageChange={(e) => {
+          console.log(e); // Only Dev
+          fetchClientAdditionalPaymentList(e);
+        }}
+      />
         </div>
 
     );

@@ -6,14 +6,15 @@ import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
-import { RedButton } from "../../../../componenets/CustomButton";
+import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import IndexForEwakalaTable from "./Table";
-import { readIndexEwakalaList } from "../repository";
+import { readIndexEwakalaList, updateEwakalaeDate } from "../repository";
 import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { IndexEwakalaInterface } from "../type";
 
 export default function Main() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,7 +31,9 @@ export default function Main() {
     }
   );
 
-  const [indexForEwakala, setIndexForEwakala] = useState([]);
+  const [indexForEwakala, setIndexForEwakala] = useState<
+  IndexEwakalaInterface[]
+>([]);
 
   const fetchIndexEwakalaList = async (page?: number) => {
     const data: any = await readIndexEwakalaList(page);
@@ -40,13 +43,25 @@ export default function Main() {
 
     setAdditionalData(await PaginationManager.getData());
   };
+
+
+  const OnClickSubmit = async () => {
+    console.log(indexForEwakala);
+    const newArray = [];
+    for (let i = 0; i < indexForEwakala.length; i++) {
+      newArray.push(indexForEwakala[i]);
+    }
+    const res = updateEwakalaeDate(newArray);
+    fetchIndexEwakalaList();
+  };
+
   useEffect(() => {
     fetchIndexEwakalaList(additionalData.pagination.page);
   }, []);
   return (
     <div>
       <CustomNavbarV3
-        pageName="Index For Ewakala"
+        pageName="Demand Details"
         searchFunction={(query) => setSearchQuery(query)}
       />
 
@@ -56,7 +71,12 @@ export default function Main() {
         setIndexForEwakala={setIndexForEwakala}
         data={data}
         setData={setData}
+        onChange={(value) => setIndexForEwakala(value)}
       />
+
+
+<GreenButton onClick={OnClickSubmit} text="Submit" />
+      <br />
 
       <Pagination
         data={additionalData}

@@ -32,4 +32,20 @@ export async function readIndexEwakalaList(page_number?: number) {
   
     return data as IndexEwakalaInterface[]
   }
+
+
+  export async function updateEwakalaeDate(EwakalaeDateList: IndexEwakalaInterface[]) {
+
+    const payload = {
+      selection_list: IndexEwakalaConverter.toAdapterList(EwakalaeDateList)
+    }
+  
+    const path = "/immigration-dpt/index-for-ewakala-list"
+    const response = await ApiHelper.post(path, payload, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT
+    })
+    showMessage_v2({ message: response.message, status: response.code })
+   return response
+  }
   

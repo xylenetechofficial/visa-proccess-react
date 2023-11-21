@@ -1,19 +1,26 @@
 import { showMessage_v2 } from "../../../utils/alert";
-import { ApiHelper, AuthTokenType, ContentType } from "../../../utils/api_helper";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { ClientAdditionalPaymentConverter, ClientAdditionalPaymentInterface, PaymentConverter, PaymentInterface, SuspenseAdjustAmountConverter, SuspenseAdjustAmountInterface } from "./type";
 
-export async function readClientAdditionalPaymentList() {
+export async function readClientAdditionalPaymentList(
+  queryParameters: {
+    page: number
+  }
+) {
   const path = "/invoice-dpt/client-additional-payment-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters: queryParameters,
   });
 
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
-
+  await PaginationManager.setData(
+    response.additional_data as AdditionalDataInterface
+  );
   return ClientAdditionalPaymentConverter.toInterfaceList(response.data as ClientAdditionalPaymentInterface[])
 }
 
