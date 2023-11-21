@@ -76,12 +76,14 @@ export default function Main() {
     }));
     
     const [modal,setModal]=useState('')
+    const [editinvoiceData, setEditInvoiceData]= useState({})
     const [immigrationData, setImmigrationData] = useState<ClientAdditionalInvoiceInterface[]>([])
 
 
     const fetchClientAdditionalInvoiceList = async (page?: number)=>{
         console.log("called")
         const data = await readClientAdditionalInvoiceList({page:page ?? additionalData.pagination.page});
+        console.log(data,"dtata")
         if(data){
             setImmigrationData(data)
             filterData("", agentList);
@@ -109,7 +111,7 @@ export default function Main() {
             <ClientAdditionalInvoiceTable
             snoBase={additionalData.pagination.sno_base}
                 immigrationData={immigrationData}
-                onClickEdit={(value) => setImmigrationData([value])}
+                onClickEdit={(value) => setEditInvoiceData(value)}
                 onChange={(value) => setImmigrationData(value)}
                 setModal={setModal}
             />
@@ -124,9 +126,9 @@ export default function Main() {
             {
                 modal === 'edit' ?
                 <ClientAdditionalInvoiceAddEdit
-                immigrationData={immigrationData}
+                immigrationData={editinvoiceData}
                 onClose={()=>setModal('')}
-                fetchClientAdditionalInvoiceList={fetchClientAdditionalInvoiceList}
+                fetchClientAdditionalInvoiceList={()=>fetchClientAdditionalInvoiceList()}
                 />
                 :''
             }

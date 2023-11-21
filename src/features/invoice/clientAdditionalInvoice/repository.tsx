@@ -77,7 +77,12 @@ export async function createClientAdditionalInvoice(ClientAdditionalInvoice:Clie
       tokenType: AuthTokenType.JWT
     })
     showMessage_v2({ message: response.message, status: response.code })
-  
+    if(response.code === 200){
+      return true;
+    }
+    else{
+      return false
+    }
   }
 
   export async function deleteClientAdditinalInvoice(id: number) {
