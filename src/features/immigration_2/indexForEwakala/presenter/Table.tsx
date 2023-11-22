@@ -13,6 +13,7 @@ import {
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { IndexEwakalaInterface } from "../type";
 import { addDaysToDate } from "../../../../utils/function";
+import { BlueButton } from "../../../../componenets/CustomButton";
 
 const IndexForEwakalaTable = (props: {
   snoBase: number,
@@ -20,6 +21,7 @@ const IndexForEwakalaTable = (props: {
   setIndexForEwakala: any
   data: any;
   setData: any,
+  setModalName:(value :string)=>void,
   onChange: (value: IndexEwakalaInterface[]) => void,
 }) => {
   function onUpdateRow(index: number, rowData: IndexEwakalaInterface) {
@@ -73,7 +75,7 @@ const IndexForEwakalaTable = (props: {
               <TableCell3>{item?.visa_quantity} </TableCell3>
               <TableCell3>{item?.visa_number} </TableCell3>
               <TableCell3>{item?.ekawala_qty} </TableCell3>
-              <TableCell3>{item?.category} </TableCell3>
+              <TableCell3>{item?.category}<BlueButton text={"View"} onClick={()=>props.setModalName("view")}/> </TableCell3>
               {/* <TableCell3>{item?.pt_number} </TableCell3> */}
 
               <TableCell3>

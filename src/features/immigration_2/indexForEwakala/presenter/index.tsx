@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { Box, styled } from "@mui/material";
-import { FaFilter } from "react-icons/fa";
-import ClientAdditionalInvoiceTable from "./Table";
+import ViewSingleTable from "./ViewModal";
 import {
-  CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
-import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
+import { GreenButton } from "../../../../componenets/CustomButton";
 import IndexForEwakalaTable from "./Table";
 import { readIndexEwakalaList, updateEwakalaeDate } from "../repository";
 import {
@@ -19,7 +16,7 @@ import { IndexEwakalaInterface } from "../type";
 export default function Main() {
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState("");
-
+  const [modalName, setModalName]= useState("")
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -58,6 +55,7 @@ export default function Main() {
   useEffect(() => {
     fetchIndexEwakalaList(additionalData.pagination.page);
   }, []);
+
   return (
     <div>
       <CustomNavbarV3
@@ -71,6 +69,7 @@ export default function Main() {
         setIndexForEwakala={setIndexForEwakala}
         data={data}
         setData={setData}
+        setModalName={(value)=>setModalName(value)}
         onChange={(value) => setIndexForEwakala(value)}
       />
 
@@ -85,6 +84,9 @@ export default function Main() {
           fetchIndexEwakalaList(e);
         }}
       />
+      {modalName === 'view' ?
+      <ViewSingleTable setModalName={(value)=>setModalName(value)} data={[]}/>
+       :''}
     </div>
   );
 }
