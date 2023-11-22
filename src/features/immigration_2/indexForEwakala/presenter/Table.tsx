@@ -12,6 +12,7 @@ import {
 
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { IndexEwakalaInterface } from "../type";
+import { addDaysToDate } from "../../../../utils/function";
 
 const IndexForEwakalaTable = (props: {
   snoBase: number,
@@ -23,16 +24,16 @@ const IndexForEwakalaTable = (props: {
 }) => {
   function onUpdateRow(index: number, rowData: IndexEwakalaInterface) {
     const nextData: IndexEwakalaInterface[] = props.indexForEwakala.map((e, i) => {
-        if (i === index) {
-            // Increment the clicked counter
-            return rowData;
-        } else {
-            // The rest haven't changed
-            return e;
-        }
+      if (i === index) {
+        // Increment the clicked counter
+        return rowData;
+      } else {
+        // The rest haven't changed
+        return e;
+      }
     });
     props.onChange(nextData)
-}
+  }
   const [date, setDate] = useState<any>([])
   console.log(props.data)
   return (
@@ -45,7 +46,7 @@ const IndexForEwakalaTable = (props: {
             <TableHeadCell3> PARTY CODE </TableHeadCell3>
             <TableHeadCell3> COMPANY NAME</TableHeadCell3>
             <TableHeadCell3>RECEIVED DATE</TableHeadCell3>
-            <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
+            {/* <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3> */}
             <TableHeadCell3> VISA QUANTITY </TableHeadCell3>
             <TableHeadCell3> VISA NUMBER </TableHeadCell3>
             <TableHeadCell3> Ekawala Qty </TableHeadCell3>
@@ -68,7 +69,7 @@ const IndexForEwakalaTable = (props: {
               <TableCell3>{item?.party_code}</TableCell3>
               <TableCell3>{item?.company_name} </TableCell3>
               <TableCell3> {item?.received_date}</TableCell3>
-              <TableCell3>  </TableCell3>
+              {/* <TableCell3>  </TableCell3> */}
               <TableCell3>{item?.visa_quantity} </TableCell3>
               <TableCell3>{item?.visa_number} </TableCell3>
               <TableCell3>{item?.ekawala_qty} </TableCell3>
@@ -77,7 +78,7 @@ const IndexForEwakalaTable = (props: {
 
               <TableCell3>
                 <UnlabeledInput
-                  placeholder="" 
+                  placeholder=""
                   type="text"
                   value={item?.pt_number} onchange={(value) => {
                     onUpdateRow(index, { ...item, pt_number: value })
@@ -89,21 +90,23 @@ const IndexForEwakalaTable = (props: {
               {/* <TableCell3>{item?.demand_id} </TableCell3> */}
               <TableCell3>
                 <UnlabeledInput
-                 placeholder="" 
-                 type="text"
-                 onchange={(value) => {
+                  placeholder=""
+                  type="text"
+                  onchange={(value) => {
                     onUpdateRow(index, { ...item, demand_id: value })
                   }}
                   value={item.demand_id}
                 />
               </TableCell3>
               <TableCell3>{item?.country} </TableCell3>
-              
+
               <TableCell3>
                 <DateInput
                   id=""
                   onChange={(value) => {
-                    onUpdateRow(index, { ...item, approved_date: value })
+                    console.log(value);   // Only Dev
+                    const date = addDaysToDate(value, 365)
+                    onUpdateRow(index, { ...item, approved_date: value, expiry_date: date })
                   }}
                   value={item.approved_date}
                 />

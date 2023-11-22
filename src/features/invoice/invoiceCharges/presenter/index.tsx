@@ -58,6 +58,7 @@ export default function Main() {
 
 
   const createCandidateCharges = async (item: any) => {
+    console.log(item);   // Only Dev
     await createCandidatesInvoiceCharges(item)
   }
 
@@ -92,7 +93,7 @@ export default function Main() {
         onChange={(value) => setClientInvoiceChargesList(value)}
         setData={setData}
       />
-      <BlueButton text="Submit" onClick={()=>{createCandidateCharges(data)}} />
+      <BlueButton text="Submit" onClick={()=>{createCandidateCharges(ClientInvoiceChargesList)}} />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {

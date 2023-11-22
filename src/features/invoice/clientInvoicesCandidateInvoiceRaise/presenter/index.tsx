@@ -70,11 +70,20 @@ export default function Main() {
 
   }
   const onClickAdd = async (candidateInvoiceRaise: any) => {
-    console.log("first", candidateInvoiceRaise)
-    const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
-    if (data) {
-      fetchCandidatesInvoiceRaiseList(additionalData.pagination.page);
-    }
+
+    const newArray = []
+
+        for (let i = 0; i < candidateInvoiceRaise.length; i++) {
+            if (!candidateInvoiceRaise[i].is_without)
+                continue
+                newArray.push(candidateInvoiceRaise[i])
+        }
+
+    console.log("first", newArray)
+    // const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
+    // if (data) {
+    //   fetchCandidatesInvoiceRaiseList(additionalData.pagination.page);
+    // }
   }
 
   const [BankList, setBankList] = useState<BankInterface[]>([])

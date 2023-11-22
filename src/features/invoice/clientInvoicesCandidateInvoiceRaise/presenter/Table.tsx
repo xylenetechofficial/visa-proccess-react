@@ -179,7 +179,7 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   options={selectOptionConveter({
                     // options: [{ name: "SBI", value: 1 }, { name: "PNB", value: 2 }],
                     options: props.BankList,
-                    options_struct: { name: "name", value: "value" }
+                    options_struct: { name: "name", value: "id" }
                   })}
                   onChange={(value) => {
 

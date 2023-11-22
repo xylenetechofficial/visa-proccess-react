@@ -43,7 +43,7 @@ export async function readCandidateInvoiceChargessList(
 
 
 
-export async function createCandidatesInvoiceCharges(ClientAdditionalInvoice:AddCandidateInvoiceChargesInterface) {
+export async function createCandidatesInvoiceCharges(ClientAdditionalInvoice:any) {
     const path = "/invoice-dpt/candidates-invoice-charge-list";
   const list :any ={
     selection_list:ClientAdditionalInvoice
