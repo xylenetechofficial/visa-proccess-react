@@ -144,36 +144,6 @@ export class RejectCancelApproveConverter {
     return data;
   }
 }
-// export interface EditRejectCancelApproveInterface {
-//   id: number;
-//   mofa_cancel_id: number;
-//   status: number;
-// }
-
-// export interface EditRejectCancelApproveAdapter {
-//   id: number;
-//   mofa_cancel_id: number;
-//   status: number;
-// }
-// export class EditRejectCancelApproveConverter {
-//   // private i: EditRejectCancelApproveInterface
-//   // private a: RejectCancelApproveSingleAdapter
-
-//   /**
-//    * toInterface
-//    */
-
-//   public static toInterface(a: EditRejectCancelApproveAdapter) {
-//     const data: EditRejectCancelApproveInterface = {
-//       id: a.id,
-//       mofa_cancel_id: a.mofa_cancel_id,
-//       status: a.status,
-//     };
-//     return data;
-//   }
-// }
-
-
 export interface RejectCancelApproveListInterface {
 
   selection_list: RejectCancelApproveInterface[],

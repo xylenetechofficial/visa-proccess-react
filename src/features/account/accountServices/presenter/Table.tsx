@@ -9,20 +9,18 @@ import {
   TableHeadCell3,
   TableHeadRow3,
   TableRow3,
-} from "../../../../../componenets/Table";
-import { convertDateFormat } from "../../../../../utils/function";
-import { UnlabeledInput } from "../../../../../componenets/Input";
-import { currencyList } from "../../../../db";
+} from "../../../../componenets/Table";
+import { convertDateFormat } from "../../../../utils/function";
+import { UnlabeledInput } from "../../../../componenets/Input";
+import { currencyList } from "../../../db";
 import {
   CustomSelectComponentUnlabeled,
   selectOptionConveter,
-} from "../../../../../componenets/SelectBox";
-import { CustomSingleCheckBox } from "../../../../../componenets/Checkbox";
-// import MultiSelectCheckbox, { MultiSelectCheckbox2 } from "../../../../../componenets/CustomComponents";
+} from "../../../../componenets/SelectBox";
+import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
 
 const ServiceChargesTable = (props: {
   snoBase: number;
-  // ServiceChargesList: ServiceChargesInterface[];
   ServiceChargesList: any;
   setServiceChargesList: any;
   data: any;
@@ -31,7 +29,7 @@ const ServiceChargesTable = (props: {
   onChange: (value: any) => void;
   fetchPaymentDetail: (type: string, id: number) => any;
 }) => {
-  const [date, setDate] = useState<any>([]);
+  
   console.log(props.ServiceChargesList);
   const [selectedCheckbox, setSelectedCheckbox] = useState([{ isChecked: "" }]);
 
@@ -188,9 +186,6 @@ const ServiceChargesTable = (props: {
               <TableCell3>
                 <Checkbox
                   value={"PROVIDED BY CO."}
-                  // checked={
-                  //   selectedCheckbox[index]?.isChecked === `${ele.id}PROVIDED`
-                  // }
                   checked={ele.air_ticket === 'PROVIDED BY CO.'}
                   onChange={(e) =>{
                     handleCheckboxChange(`${ele.id}PROVIDED`, index),
@@ -201,9 +196,6 @@ const ServiceChargesTable = (props: {
                 PROVIDED BY CO.
                 <Checkbox
                   value={"BY AGENCY"}
-                  // checked={
-                  //   selectedCheckbox[index]?.isChecked === `${ele.id}AGENCY`
-                  // }
                   checked={ele.air_ticket === 'BY AGENCY'}
                   onChange={(e) =>{
                     handleCheckboxChange(`${ele.id}AGENCY`, index),
@@ -214,16 +206,12 @@ const ServiceChargesTable = (props: {
                 BY AGENCY
                 <Checkbox
                   value={"RAISE INVOICE"}
-                  // checked={
-                  //   selectedCheckbox[index]?.isChecked === `${ele.id}RAISE`
-                  // }
                   checked={ele.air_ticket === 'RAISE INVOICE'}
                   onChange={(e) =>{ handleCheckboxChange(`${ele.id}RAISE`, index), 
                   onUpdateRow(index, { ...ele, air_ticket: e.target.value })
                 }}
                 />
                 RAISE INVOICE 
-               
               </TableCell3>
               <TableCell3>
                 {" "}

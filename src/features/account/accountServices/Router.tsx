@@ -1,28 +1,13 @@
-// lib
-import { lazy, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom'
 
+import { Route, Routes } from 'react-router-dom'
+import Home from './presenter/index'
 
-
-import Agreement from './services/Router'
-
-
-
-function Main() {
-    // const { user } = useUserAuth()
+export default function Main(){
     return (
-
+        <>
         <Routes>
-            <Route path='/*' element={<Agreement />}></Route>
-            
-
+        <Route path='/' element={<Home />} ></Route>
         </Routes>
-
-
+        </>
     )
 }
-
-
-
-
-export default Main;

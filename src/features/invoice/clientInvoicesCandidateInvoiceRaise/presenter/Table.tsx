@@ -6,19 +6,16 @@ import {
   TableHeadCell3,
   TableHeadRow3,
   TableRow3,
-
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeledv2, selectOptionConveter, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
-// import { useState } from "react";
-// import { convertDateFormat } from "../../../../utils/function";
-import { CandidateInvoiceRaiseInterface, CandidateInvoiceRaiseListInterface } from "../type";
+import { CustomSelectComponentUnlabeledv2, selectOptionConveter } from "../../../../componenets/SelectBox";
+import { CandidateInvoiceRaiseListInterface } from "../type";
 import { currencyList } from "../../../db";
 import { BankInterface } from "../../../masters/bank/type";
 
 const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
-  snoBase:number,
+  snoBase: number,
   candidateInvoiceRaiseList: CandidateInvoiceRaiseListInterface[];
   onClickEdit: any,
   onChange: (value: CandidateInvoiceRaiseListInterface[]) => void
@@ -53,12 +50,10 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
             <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
             <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3>
             <TableHeadCell3> VISA PROFESSION </TableHeadCell3>
-            {/* <TableHeadCell3> VISA RECIEVED DATE </TableHeadCell3> */}
             <TableHeadCell3> AGENT</TableHeadCell3>
             <TableHeadCell3> DIVISION </TableHeadCell3>
             <TableHeadCell3> VISA AUTHORIZATION </TableHeadCell3>
             <TableHeadCell3> RC </TableHeadCell3>
-            {/* <TableHeadCell3>  DEPARTURE DATE</TableHeadCell3> */}
             <TableHeadCell3> OTHER CHARGES</TableHeadCell3>
             <TableHeadCell3> SERVICES CHARGES</TableHeadCell3>
             <TableHeadCell3> TICKET CHARGES</TableHeadCell3>
@@ -72,8 +67,7 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
         <TableBody3>
           {props.candidateInvoiceRaiseList?.map((ele, index) => (
             <TableRow3 key={index + 1}>
-
-              <TableCell3> {index + props.snoBase+1}</TableCell3>
+              <TableCell3> {index + props.snoBase + 1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
               <TableCell3> {ele.candidate_name}</TableCell3>
@@ -85,8 +79,6 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
               <TableCell3> {ele.visa_authorisation_name}</TableCell3>
               <TableCell3> {ele.rc_name}</TableCell3>
               <TableCell3> {ele.other_charges}</TableCell3>
-              {/* <TableCell3> {ele.other_charges}</TableCell3> */}
-              {/* <TableCell3> {ele.document_charges}</TableCell3> */}
               <TableCell3> {ele.service_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
               <TableCell3> {ele.ticket_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
               <TableCell3> <UnlabeledInput
@@ -99,18 +91,6 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   value={ele?.invoice_number}
                   onchange={(value) => {
                     if (value) {
-
-                      // props.setData((prev: any) => {
-                      //   const newData = [...prev];
-                      //       newData[index] = {
-                      //           ...newData[index],
-                      //           invoice_number: value,
-                      //           id:index,
-                      //           total_charges:ele.total_charges
-
-                      //       };
-                      //       return newData;
-                      //   })
                       onUpdateRow(index, { ...ele, invoice_number: value })
                     }
                     else {
@@ -122,78 +102,37 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
               </TableCell3>
               <TableCell3>
                 <DateInput id="date"
-
                   value={ele.invoice_date}
                   onChange={(value) => {
-
                     if (value) {
-                      // props.setData((prev: any) => {
-                      //   const newData = [...prev];
-                      //       newData[index] = {
-                      //           ...newData[index],
-                      //           invoice_date: value,
-                      //           id:index,
-
-                      //       };
-                      //       return newData;
-                      //   })
                       onUpdateRow(index, { ...ele, invoice_date: value })
                       console.log(value)
                     }
                     else {
                       onUpdateRow(index, { ...ele, invoice_date: '' })
                     }
-
                   }} />
-
               </TableCell3>
-
               <TableCell3>
-                <Checkbox value={ele.is_without} onChange={(e) => {
-
+                <Checkbox value={ele.is_without} checked={ele.is_without ? true : false} onChange={(e) => {
                   if (e.target.checked) {
-                    // props.setData((prev: any) => {
-                    //   const newData = [...prev];
-                    //       newData[index] = {
-                    //           ...newData[index],
-                    //           is_without: e.target.checked ? 1 : 0,
-                    //           id:index,
-
-                    //       };
-                    //       return newData;
-                    //   })
                     onUpdateRow(index, { ...ele, is_without: e.target.checked ? 1 : 0 })
                       , console.log(e.target.checked, "checked")
                   }
                   else {
                     onUpdateRow(index, { ...ele, is_without: 0 })
                   }
-
                 }} />
               </TableCell3>
-
               <TableCell3>
-
                 <CustomSelectComponentUnlabeledv2
                   value={ele.bank_id}
                   options={selectOptionConveter({
-                    // options: [{ name: "SBI", value: 1 }, { name: "PNB", value: 2 }],
                     options: props.BankList,
                     options_struct: { name: "name", value: "id" }
                   })}
                   onChange={(value) => {
-
                     if (value) {
-                      // props.setData((prev: any) => {
-                      //   const newData = [...prev];
-                      //       newData[index] = {
-                      //           ...newData[index],
-                      //           bank_id: value,
-                      //           id:index,
-
-                      //       };
-                      //       return newData;
-                      //   })
                       onUpdateRow(index, { ...ele, bank_id: value })
                         , console.log(value)
                     }
@@ -203,14 +142,11 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
                   }
                   } />
               </TableCell3>
-
             </TableRow3>
           ))
           }
-
         </TableBody3>
       </Table3>
-
     </div>
   );
 };

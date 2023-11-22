@@ -82,7 +82,7 @@ const RejectCancelApproveTable = (props: {
               <TableCell3>{item.service_charges} ( {item.ccp_cancel_type} )</TableCell3>
               <TableCell3>{item.air_ticket}</TableCell3>
               <TableCell3>{item.is_invoice}</TableCell3>
-              <TableCell3><Checkbox onClick={(e:any) =>
+              <TableCell3><Checkbox  value={item.is_checked} checked={item.is_checked ? true: false} onClick={(e:any) =>
                  {onUpdateRow(index, {...item, is_checked : e.target.checked ? 1:0})}} />
                  </TableCell3>
             </TableRow3>

@@ -1,18 +1,15 @@
 
 
-import { showMessage_v2 } from "../../../../utils/alert";
-import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../../utils/api_helper";
-import { AddServiceChargesInterFace, AddServiceConverter, ServiceChargesConverter, ServiceChargesInterface } from "./type";
+import { showMessage_v2 } from "../../../utils/alert";
+import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
+import {  ServiceChargesConverter, ServiceChargesInterface } from "./type";
 
 
 export async function readServiceChargesList(query: {
   status?: string
   page?: number
 }) {
-
-  //   const payload = ServiceChargesByIDConverter.toAdapter(AgentBy);
   const path = `/account/service-charge-list`;
-
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
@@ -20,44 +17,22 @@ export async function readServiceChargesList(query: {
       page: query.page ?? 0,
       status: query.status ?? "",
     },
-
   });
   await PaginationManager.setData(
     response.additional_data as AdditionalDataInterface
   );
-
-
   console.log(response)
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
   return response.data
 
-  //   const data: ServiceChargesInterface[] = [];
-  // console.log(response.data);
-  // const dataAdapter: ServiceChargesAdapter[] = response.data as ServiceChargesAdapter[];
-  // if (response.data) {
-  //   const dataAdapter: ServiceChargesAdapter[] = response.data as ServiceChargesAdapter[];
-  //   for (let i = 0; i < dataAdapter.length; i++) {
-  //     const element = dataAdapter[i];
-  //     data.push(ServiceChargesConverter.toInterface(element));
-  //   }
-  // }
-  // return dataAdapter as ServiceChargesAdapter[]
 }
-
-
-
-
-
-
 
 export async function createServiceCharges(ServiceCharges: ServiceChargesInterface[]) {
   console.log(ServiceCharges)
   const path = "/account/service-charge-list"
-  // const list :any ={
-  //   "selection_list":ServiceCharges
-  // }
+
   const payload = {
     selection_list: ServiceChargesConverter.toAdapterList(ServiceCharges)
   }

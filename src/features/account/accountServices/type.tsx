@@ -178,12 +178,6 @@ export class ServiceChargesConverter {
   }
 }
 
-
-
-
-
-
-
 export interface AddServiceInterface {
 
   id: number,
