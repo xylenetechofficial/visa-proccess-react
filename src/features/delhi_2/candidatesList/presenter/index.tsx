@@ -67,7 +67,7 @@ export default function Main() {
       new_list.push(element);
     }
 console.log(new_list);   // Only Dev
-    // const data: any = await createCandidateList(new_list);
+    const data: any = await createCandidateList(new_list);
     fetchCandidateList();
   };
   useEffect(() => {

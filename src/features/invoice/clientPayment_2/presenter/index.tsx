@@ -67,7 +67,7 @@ export default function Main() {
         const data = await readClientPaymentList({page:page ?? additionalData.pagination.page});
         setClientPaymentList(data)
         filterData("", agentList);
-        setAdditionalData(await PaginationManager.getData());
+        // setAdditionalData(await PaginationManager.getData());
     }
 
     useEffect(() => {

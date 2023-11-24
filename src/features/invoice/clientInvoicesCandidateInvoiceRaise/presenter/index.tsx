@@ -79,11 +79,11 @@ export default function Main() {
                 newArray.push(candidateInvoiceRaise[i])
         }
 
-    console.log("first", newArray)
-    // const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
-    // if (data) {
-    //   fetchCandidatesInvoiceRaiseList(additionalData.pagination.page);
-    // }
+    // console.log("first", newArray)
+    const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
+    if (data) {
+      fetchCandidatesInvoiceRaiseList(additionalData.pagination.page);
+    }
   }
 
   const [BankList, setBankList] = useState<BankInterface[]>([])

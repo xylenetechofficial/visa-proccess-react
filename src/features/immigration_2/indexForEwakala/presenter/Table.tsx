@@ -21,7 +21,7 @@ const IndexForEwakalaTable = (props: {
   setIndexForEwakala: any
   data: any;
   setData: any,
-  setModalName:(value :string)=>void,
+  setModalName: (value: string) => void,
   onChange: (value: IndexEwakalaInterface[]) => void,
 }) => {
   function onUpdateRow(index: number, rowData: IndexEwakalaInterface) {
@@ -51,7 +51,7 @@ const IndexForEwakalaTable = (props: {
             {/* <TableHeadCell3> ACTUAL PROFESSION </TableHeadCell3> */}
             <TableHeadCell3> VISA QUANTITY </TableHeadCell3>
             <TableHeadCell3> VISA NUMBER </TableHeadCell3>
-            <TableHeadCell3> Ekawala Qty </TableHeadCell3>
+            {/* <TableHeadCell3> Ekawala Qty </TableHeadCell3> */}
             <TableHeadCell3> Category </TableHeadCell3>
             <TableHeadCell3> Pt no. </TableHeadCell3>
             <TableHeadCell3> Demand id </TableHeadCell3>
@@ -74,8 +74,8 @@ const IndexForEwakalaTable = (props: {
               {/* <TableCell3>  </TableCell3> */}
               <TableCell3>{item?.visa_quantity} </TableCell3>
               <TableCell3>{item?.visa_number} </TableCell3>
-              <TableCell3>{item?.ekawala_qty} </TableCell3>
-              <TableCell3>{item?.category}<BlueButton text={"View"} onClick={()=>props.setModalName("view")}/> </TableCell3>
+              {/* <TableCell3>{item?.ekawala_qty} </TableCell3> */}
+              <TableCell3>{item?.category}<BlueButton text={"View"} onClick={() => props.setModalName("view")} /> </TableCell3>
               {/* <TableCell3>{item?.pt_number} </TableCell3> */}
 
               <TableCell3>
@@ -122,7 +122,14 @@ const IndexForEwakalaTable = (props: {
                   value={item.expiry_date}
                 />
               </TableCell3>
-              <TableCell3>{item?.deman_acknowledged_date} </TableCell3>
+              <DateInput
+                id=""
+                onChange={(value) => {
+                  console.log(value);   // Only Dev
+                  onUpdateRow(index, { ...item, deman_acknowledged_date: value })
+                }}
+                value={item.deman_acknowledged_date}
+              />
               <TableCell3>{item?.visa_authorization_name} </TableCell3>
 
             </TableRow3>

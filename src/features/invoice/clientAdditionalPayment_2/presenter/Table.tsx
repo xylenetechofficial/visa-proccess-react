@@ -42,7 +42,7 @@ const ClientAdditionalInvoicePaymentAddTable = (props: {
                     {props.clientAdditionalPaymentList.map((item, index) => (
 
                         <TableRow3 key={index}>
-                            
+                            <TableCell3>{index + 1}</TableCell3>
                             <TableCell3>{item.company_name}</TableCell3>
                             <TableCell3>{item.invoice_number}</TableCell3>
                             <TableCell3>{convertDateFormat(item.invoice_date)}</TableCell3>

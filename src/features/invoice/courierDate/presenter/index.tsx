@@ -63,7 +63,7 @@ export default function Main() {
 
       setCourierDateList(data.invoice_list)
       setAdditionalInvoiceList(data.additional_invoice_list)
-      setAdditionalData(await PaginationManager.getData());
+      // setAdditionalData(await PaginationManager.getData());
      }
     }
     const onClickAdd =async ()=>{
