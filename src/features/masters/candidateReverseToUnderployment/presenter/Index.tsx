@@ -9,6 +9,8 @@ import { FaFilter } from "react-icons/fa";
 
 import CandidateReverseToUnderployment from "./Table";
 import ReverseModal from './Reverse'
+import { readCandidateReverseToUnderdeploymentList } from "../repository";
+import { CandidateReverseToDeployeMentInterface } from "../type";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -21,18 +23,25 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [candidateReverseToUnderploymentList,setCandidateReverseToUnderploymentList] = useState<CandidateReverseToDeployeMentInterface[]>([])
   const [modalName, setModalName] = useState("");
-
-  const onClickReverse = () => {
+  const [modalData,setModalData]= useState<CandidateReverseToDeployeMentInterface >({} as CandidateReverseToDeployeMentInterface)
+  const onClickReverse = (item:CandidateReverseToDeployeMentInterface) => {
     console.log("onClickReverse"); // Only Dev
+    setModalData(item)
     setModalName("Reverse");
+
   };
 
+  const fetchCandidateReverseToDeploymentList = async()=>{
+    const res= await readCandidateReverseToUnderdeploymentList()
+    console.log(res,"Ss")
+    setCandidateReverseToUnderploymentList(res)
+  }
   useEffect(() => {
-    return;
+    fetchCandidateReverseToDeploymentList();
   }, []);
-
+console.log(candidateReverseToUnderploymentList,"Ss")
   return (
     <div>
       <CustomNavbarV3
@@ -53,7 +62,8 @@ export default function Main() {
       </CardHeader>
 
       <CandidateReverseToUnderployment
-      onClickReverse={onClickReverse}
+      onClickReverse={(value)=>onClickReverse(value)}
+      candidateReverseToUnderploymentList={candidateReverseToUnderploymentList}
       />
 
       {/* <!-- Modal --> */}
@@ -64,6 +74,7 @@ export default function Main() {
       ) : (
         <ReverseModal
           onClose={() => setModalName("")}
+          modalData={modalData}
         />
       )}
     </div>

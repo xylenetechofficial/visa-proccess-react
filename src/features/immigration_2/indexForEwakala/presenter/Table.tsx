@@ -14,6 +14,7 @@ import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { IndexEwakalaInterface } from "../type";
 import { addDaysToDate } from "../../../../utils/function";
 import { BlueButton } from "../../../../componenets/CustomButton";
+import { fetchDemanDetailsList } from "../repository";
 
 const IndexForEwakalaTable = (props: {
   snoBase: number,
@@ -23,6 +24,7 @@ const IndexForEwakalaTable = (props: {
   setData: any,
   setModalName: (value: string) => void,
   onChange: (value: IndexEwakalaInterface[]) => void,
+  setModalData:(value:any)=>void
 }) => {
   function onUpdateRow(index: number, rowData: IndexEwakalaInterface) {
     const nextData: IndexEwakalaInterface[] = props.indexForEwakala.map((e, i) => {
@@ -38,6 +40,14 @@ const IndexForEwakalaTable = (props: {
   }
   const [date, setDate] = useState<any>([])
   console.log(props.data)
+  const fetchModalData = async(name:string, code:number)=>{
+    props.setModalName(name);
+    const res :any= await fetchDemanDetailsList(code)
+    console.log(res)
+    if(res){
+      props.setModalData(res)
+    }
+  }
   return (
     <div className="overflow-auto">
 
@@ -75,7 +85,7 @@ const IndexForEwakalaTable = (props: {
               <TableCell3>{item?.visa_quantity} </TableCell3>
               <TableCell3>{item?.visa_number} </TableCell3>
               {/* <TableCell3>{item?.ekawala_qty} </TableCell3> */}
-              <TableCell3>{item?.category}<BlueButton text={"View"} onClick={() => props.setModalName("view")} /> </TableCell3>
+              <TableCell3>{item?.category}<BlueButton text={"View"} onClick={() => { fetchModalData('view', item.party_code)}} /> </TableCell3>
               {/* <TableCell3>{item?.pt_number} </TableCell3> */}
 
               <TableCell3>

@@ -49,3 +49,17 @@ export async function readIndexEwakalaList(page_number?: number) {
    return response
   }
   
+  export async function fetchDemanDetailsList(code:number) {
+    const path =`/immigration-dpt/index-for-ewakala/visa-profession-list`;
+    const response = await ApiHelper.get(path, {
+      contentType: ContentType.json,
+      tokenType: AuthTokenType.JWT,
+      queryParameters: {
+        party_code:code
+      },
+    });
+    if (response.code != 200) {
+      showMessage_v2({ message: response.message, status: response.code })
+    }
+    return response.data;
+  }

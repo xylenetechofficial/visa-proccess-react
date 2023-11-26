@@ -5,7 +5,7 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import IndexForEwakalaTable from "./Table";
-import { readIndexEwakalaList, updateEwakalaeDate } from "../repository";
+import { fetchDemanDetailsList, readIndexEwakalaList, updateEwakalaeDate } from "../repository";
 import {
   AdditionalDataInterface,
   PaginationManager,
@@ -16,7 +16,9 @@ import { IndexEwakalaInterface } from "../type";
 export default function Main() {
   const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState("");
-  const [modalName, setModalName]= useState("")
+  const [modalName, setModalName]= useState("");
+  const [modalData, setModalData] = useState([]);
+  const [artyCode, setPartyCode] = useState<number>(0);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -52,6 +54,8 @@ export default function Main() {
     fetchIndexEwakalaList();
   };
 
+ 
+
   useEffect(() => {
     fetchIndexEwakalaList(additionalData.pagination.page);
   }, []);
@@ -70,7 +74,9 @@ export default function Main() {
         data={data}
         setData={setData}
         setModalName={(value)=>setModalName(value)}
+        setModalData={setModalData}
         onChange={(value) => setIndexForEwakala(value)}
+        // fetchModalData={(name, code)=>fetchModalData(name, code)}
       />
 
 
@@ -85,7 +91,7 @@ export default function Main() {
         }}
       />
       {modalName === 'view' ?
-      <ViewSingleTable setModalName={(value)=>setModalName(value)} data={[]}/>
+      <ViewSingleTable setModalName={(value)=>setModalName(value)} data={modalData}/>
        :''}
     </div>
   );

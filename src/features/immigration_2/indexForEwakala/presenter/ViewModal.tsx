@@ -19,26 +19,22 @@ export default function ViewModal(props:{
         <TableHeadRed>
           <TableHeadRow3>
             <TableHeadCell3> Sr No.</TableHeadCell3>
-            <TableHeadCell3> CANDIDATE NAME</TableHeadCell3>
-            <TableHeadCell3> PASSPORT NO.</TableHeadCell3>
-            <TableHeadCell3> AGENT NAME</TableHeadCell3>
-            <TableHeadCell3> AMOUNT RECEIVED</TableHeadCell3>
-            <TableHeadCell3> DATE </TableHeadCell3>
-            <TableHeadCell3> EDIT</TableHeadCell3>
+            <TableHeadCell3> Visa Profession</TableHeadCell3>
+            <TableHeadCell3> Arabic Visa Category</TableHeadCell3>
+            <TableHeadCell3> Quantity</TableHeadCell3>
+            {/* <TableHeadCell3> Action</TableHeadCell3> */}
           </TableHeadRow3>
         </TableHeadRed>
         <TableBody3>
           {props.data.map((item :any, index:number) => (
             <TableRow3>
               <TableCell3>{index + 1} </TableCell3>
-              <TableCell3> {item.name}</TableCell3>
-              <TableCell3>{item.passport_no} </TableCell3>
-              <TableCell3> {item.agent_name}</TableCell3>
-              <TableCell3>{item.amount_received} </TableCell3>
-              <TableCell3>{convertDateFormat(item.date)} </TableCell3>
-              <TableCell3> <BlueButton text='Save'/>
+              <TableCell3> {item.visa_profession}</TableCell3>
+              <TableCell3>{item.arabic_visa_category} </TableCell3>
+              <TableCell3> {item.quantity}</TableCell3>
+              {/* <TableCell3> <BlueButton text='Save'/>
               
-              </TableCell3>
+              </TableCell3> */}
             </TableRow3>
           ))}
         </TableBody3>

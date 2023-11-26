@@ -4,6 +4,8 @@ import {
   UpdateContentBox,
 } from "../../../../componenets/CoustomHeader";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
+import { CandidateReverseToDeployeMentInterface } from "../type";
+import { createCandidateReverseToUnderdeployement } from "../repository";
 
 const style = {
   position: "absolute",
@@ -18,7 +20,13 @@ const style = {
   p: 4,
 };
 
-export default function Main(props: { onClose: any }) {
+export default function Main(props: { onClose: ()=>void, modalData:CandidateReverseToDeployeMentInterface }) {
+  console.log(props.modalData)
+  const onSubmit = async(item :CandidateReverseToDeployeMentInterface)=>{
+    console.log(item)
+    await createCandidateReverseToUnderdeployement(item)
+    props.onClose();
+  }
   return (
     <Box sx={style}>
      <h3 className="mb-4 text-2xl align-center font-medium text-gray-900 dark:text-white">
@@ -48,21 +56,22 @@ export default function Main(props: { onClose: any }) {
       <div className=" grid grid-cols-1 py-3  gap-2 shadow">
         <UpdateContentBox>
           <SubHeading1 text="party code :" />
-          1234
+          {props.modalData.party_code}
         </UpdateContentBox>
 
         <UpdateContentBox>
           <SubHeading1 text="company name :" />
-          Amit
+{props.modalData.company_name}
         </UpdateContentBox>
 
         <div className="">
           <div className="flex justify-center shadow-sm">
-            <GreenButton text="Submit" />
+            <GreenButton text="Submit" onClick={()=> onSubmit(props.modalData)} />
             <RedButton
               text="cancel"
               onClick={() => {
                 props.onClose();
+               
               }}
             />
           </div>
