@@ -35,7 +35,7 @@ export default function Main() {
 >([]);
 
   const fetchIndexEwakalaList = async (page?: number) => {
-    const data: any = await readIndexEwakalaList(page);
+    const data: any = await readIndexEwakalaList(page??additionalData.pagination.page);
     if (data) {
       setIndexForEwakala(data);
     }
@@ -65,6 +65,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Demand Details"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchIndexEwakalaList()}
       />
 
       <IndexForEwakalaTable

@@ -285,7 +285,10 @@ export class UrlHelper {
     const ls = window.localStorage;
     switch (authTokenType) {
       case AuthTokenType.JWT:
-        headers = { ...headers, Authorization: ls.getItem("jwt_token") };
+        headers = {
+          ...headers,
+          Authorization: "Bearer " + ls.getItem("jwt_token"),
+        };
         break;
       case AuthTokenType.apiKey:
         headers = { ...headers, "X-API-KEY": ls.getItem("admin_key") };

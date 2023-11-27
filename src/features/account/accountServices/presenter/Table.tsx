@@ -12,12 +12,13 @@ import {
 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
 import { UnlabeledInput } from "../../../../componenets/Input";
-import { currencyList } from "../../../db";
+import { AirTicketList, currencyList } from "../../../db";
 import {
   CustomSelectComponentUnlabeled,
   selectOptionConveter,
 } from "../../../../componenets/SelectBox";
 import { CustomSingleCheckBox } from "../../../../componenets/Checkbox";
+import { CustomRadioButton } from "../../../../componenets/RadioButton";
 
 const ServiceChargesTable = (props: {
   snoBase: number;
@@ -184,50 +185,11 @@ const ServiceChargesTable = (props: {
                 />
               </TableCell3>
               <TableCell3>
-                <Checkbox
-                  value={"PROVIDED BY CO."}
-                  checked={ele.air_ticket === 'PROVIDED BY CO.'}
-                  onChange={(e) =>{
-                    handleCheckboxChange(`${ele.id}PROVIDED`, index),
-                    onUpdateRow(index, { ...ele, air_ticket: e.target.value })
-                  }
-                }
-                />
-                PROVIDED BY CO.
-                <Checkbox
-                  value={"BY AGENCY"}
-                  checked={ele.air_ticket === 'BY AGENCY'}
-                  onChange={(e) =>{
-                    handleCheckboxChange(`${ele.id}AGENCY`, index),
-                    onUpdateRow(index, { ...ele, air_ticket: e.target.value })
-                  }
-                }
-                />{" "}
-                BY AGENCY
-                <Checkbox
-                  value={"RAISE INVOICE"}
-                  checked={ele.air_ticket === 'RAISE INVOICE'}
-                  onChange={(e) =>{ handleCheckboxChange(`${ele.id}RAISE`, index), 
-                  onUpdateRow(index, { ...ele, air_ticket: e.target.value })
-                }}
-                />
-                RAISE INVOICE 
-              </TableCell3>
-              <TableCell3>
-                {" "}
-                <CustomSingleCheckBox  value={ele.raise_invoice === 1 ? true:false} onChange={(value)=> onUpdateRow(index, { ...ele, raise_invoice: value ? 1:0 })}/>
-              </TableCell3>
-              <TableCell3>
-                {" "}
-                <UnlabeledInput
-                  type="number"
-                  value={ele.invoice_service_charges}
-                  onchange={(value) =>
-                    onUpdateRow(index, {
-                      ...ele,
-                      invoice_service_charges: value,
-                    })
-                  }
+              <CustomRadioButton
+                    inlined={true}
+                    option={AirTicketList}
+                    value={ele.air_ticket}
+                    onChange={(value) => onUpdateRow(index,{ ...ele, air_ticket: value })}
                 />
               </TableCell3>
               <TableCell3>

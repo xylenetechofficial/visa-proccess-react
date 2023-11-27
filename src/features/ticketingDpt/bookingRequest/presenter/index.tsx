@@ -52,7 +52,7 @@ export default function Main() {
     if (data) {
       setTicketBookingRequestList(data);
     }
-    setAdditionalData(await PaginationManager.getData());
+    // setAdditionalData(await PaginationManager.getData());
   }
   const onClickCreate = async (item: BookingRequestInterface[]) => {
     const new_data: BookingRequestInterface[] = [];

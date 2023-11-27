@@ -17,27 +17,27 @@ export async function readIndexEwakalaList(page_number?: number) {
       showMessage_v2({ message: response.message, status: response.code })
     }
   
-    const data = []
-    console.log(response.data)
-    if (response.data) {
-      const dataAdapter = response.data as IndexEwakalaAdapter[];
-      for (let i = 0; i < dataAdapter.length; i++) {
-        const element = dataAdapter[i];
-        data.push(IndexEwakalaConverter.toInterface(element));
-      }
-    }
+    // const data = []
+    // console.log(response.data)
+    // if (response.data) {
+    //   const dataAdapter = response.data as IndexEwakalaAdapter[];
+    //   for (let i = 0; i < dataAdapter.length; i++) {
+    //     const element = dataAdapter[i];
+    //     data.push(IndexEwakalaConverter.toInterface(element));
+    //   }
+    // }
     await PaginationManager.setData(
       response.additional_data as AdditionalDataInterface
     );
   
-    return data as IndexEwakalaInterface[]
+    return IndexEwakalaConverter.toInterfaceList(response.data as IndexEwakalaAdapter[])
   }
 
 
   export async function updateEwakalaeDate(EwakalaeDateList: IndexEwakalaInterface[]) {
 
     const payload = {
-      selection_list: IndexEwakalaConverter.toAdapterList(EwakalaeDateList)
+      data_list: IndexEwakalaConverter.toAdapterList(EwakalaeDateList)
     }
   
     const path = "/immigration-dpt/index-for-ewakala-list"

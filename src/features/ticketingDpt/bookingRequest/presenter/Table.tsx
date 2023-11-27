@@ -1,7 +1,7 @@
 import { Checkbox } from "flowbite-react"
 import { CustomCheckBox } from "../../../../componenets/Checkbox"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
-import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox"
+import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { SectorInterface } from "../../../masters/sector/type"
 import { BookingRequestInterface } from "../type"
@@ -74,10 +74,9 @@ export default function Main(props: {
                                     <TableCell3>{item.emigration_done} </TableCell3>
                                     <TableCell3><Checkbox onChange={(e) => onUpdateRow(index, { ...item, check: e.target.checked ? "Yes" : 'No' })} /></TableCell3>
                                     <TableCell3>
-                                        {check_in ?"yes":"no"}
                                         {check_in ? <>
                                             {/* {props.sectorList.map((sector) => sector.id == parseInt(item.sector_from) ? sector.name : "")} */}
-                                            <CustomSelectComponent style={{ width: "138px" }} options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })} />
+                                            <CustomSelectComponentUnlabeled style={{ width: "138px" }} options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })} />
                                         </> : <>
                                             <UnlabeledInput
                                                 disabled
@@ -88,13 +87,13 @@ export default function Main(props: {
                                     </TableCell3>
                                     <TableCell3>
                                         {/* {props.sectorList.map((sector) => sector.id == parseInt(item.sector_to) ? sector.name : "")} */}
-                                        <CustomSelectComponent style={{ width: "138px" }} options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_to: value })} />
+                                        <CustomSelectComponentUnlabeled style={{ width: "138px" }} options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_to: value })} />
                                     </TableCell3>
                                     <TableCell3><DateInput id={`recired_date${index}`} value={item.require_date} onChange={(value) => onUpdateRow(index, { ...item, require_date: value })} /> </TableCell3>
 
                                     <TableCell3>
                                         {/* {TicketingPriorityList.map((data) => data.value == item.priority ? data.name : "")} */}
-                                        <CustomSelectComponent style={{ width: "138px" }} options={selectOptionConveter({ options: TicketingPriorityList, options_struct: { name: "name", value: "value" } })} onChange={(value) => { onUpdateRow(index, { ...item, priority: value }) }} value={item.priority} />
+                                        <CustomSelectComponentUnlabeled style={{ width: "138px" }} options={selectOptionConveter({ options: TicketingPriorityList, options_struct: { name: "name", value: "value" } })} onChange={(value) => { onUpdateRow(index, { ...item, priority: value }) }} value={item.priority} />
                                     </TableCell3>
 
                                     <TableCell3>{item.sector_charges} </TableCell3>
