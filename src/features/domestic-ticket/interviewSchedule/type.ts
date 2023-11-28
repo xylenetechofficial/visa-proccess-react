@@ -10,6 +10,8 @@ export interface InterviewScheduleInterface {
   sectorId: number;
   staff: string;
   noOfPerson: number;
+  client: string;
+  noOfClient: number;
 }
 
 export interface InterviewScheduleAdapter {
@@ -19,6 +21,8 @@ export interface InterviewScheduleAdapter {
   sector_id: number;
   staff: string;
   no_person: number;
+  client: string;
+  noOfClient: number;
 }
 
 export class InterviewScheduleConverter {
@@ -30,6 +34,9 @@ export class InterviewScheduleConverter {
       noOfPerson: a.no_person,
       sectorId: a.sector_id,
       staff: a.staff,
+      client: a.client,
+      noOfClient:a.noOfClient
+
     };
     return data;
   }
@@ -47,6 +54,8 @@ export class InterviewScheduleConverter {
       no_person: i.noOfPerson,
       sector_id: i.sectorId,
       staff: i.staff,
+      client: i.client,
+      noOfClient:i.noOfClient
     };
     return data;
   }
