@@ -1,12 +1,17 @@
 import { createTicketIssue } from "../repository";
 import { useEffect, useState } from "react";
-import ModalContent from "../../../../componenets/Modal";
+import Full, { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, StandardInput } from "../../../../componenets/Input";
 import { TicketIssueInterface, convertinterviewSchedulePeriodOptions } from "../type";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CompanyInterface } from "../../../masters/company/type";
 import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
+import { InterviewScheduleInterface } from "../../interviewSchedule/type";
+import { readInterviewSchedule, readInterviewScheduleList } from "../../interviewSchedule/repository";
+import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import { RedButton } from "../../../../componenets/CustomButton";
+import ClientAndStaffTable from './ClientAndStaffTable';
 
 
 
@@ -19,31 +24,27 @@ export default function Main(props: {
     fetchTicketIssueList: any,
     sectorList: SectorInterface[],
     interviewSchedulePeriodList: InterviewSchedulePeriodInterface[],
-    companyList:CompanyInterface[]
+    companyList: CompanyInterface[]
 
 }) {
     const initialValue: TicketIssueInterface = {
-        date: "",
-        interviewSchedulePeriodId: 0,
-        
-
+        interview_schedule_id: 0,
+        staff_list: [],
+        client_list: [],
     }
     const [ticketIssue, setTicketIssue] = useState<TicketIssueInterface>(initialValue)
-    
+
 
     async function onClickAdd() {
 
         // call create
-        console.log({
-            date: ticketIssue.date,
-            ticketIssuePeriodId: ticketIssue.interviewSchedulePeriodId,
-      
-        })
-        await createTicketIssue({
-            date: ticketIssue.date,
-            interviewSchedulePeriodId: ticketIssue.interviewSchedulePeriodId,
-           
-        })
+        console.log(ticketIssue)
+        await createTicketIssue(ticketIssue)
+        // await createTicketIssue({
+        //     date: ticketIssue.date,
+        //     interviewSchedulePeriodId: ticketIssue.interviewSchedulePeriodId,
+
+        // })
 
 
         setTicketIssue(initialValue)
@@ -51,12 +52,32 @@ export default function Main(props: {
         props.fetchTicketIssueList()
     }
 
+    const [interviewscheduleList, setInterviewscheduleList] =
+        useState<InterviewScheduleInterface[]>([]);
+    const fetchInterviewscheduleList = async (period_id: any) => {
+        const data = await readInterviewScheduleList(0, {
+            interview_schedule_period: period_id
+        });
+        setInterviewscheduleList(data);
+    };
+
+    async function fetchInterviewschedule(id: number) {
+        const data = await readInterviewSchedule(id)
+        if (data)
+            setTicketIssue({
+                ...ticketIssue,
+                interview_schedule_id:ticketIssue.interview_schedule_id,
+                client_list: data.client_list,
+                staff_list: data.staff_list,
+            })
+    }
+
     // useEffect(() => {
     //     converFOROptions()
     // }, [])
     return (
 
-        <ModalContent
+        <FullScreenModal
             title="Add Ticket Issue"
             onClose={props.onClose}
             buttonName="Add"
@@ -66,27 +87,51 @@ export default function Main(props: {
 
             {/* Interview schedule period */}
             <CustomSelectComponent
-                value={ticketIssue.interviewSchedulePeriodId}
+                value={ticketIssue.interview_schedule_period_id}
                 label="Interview schedule Period"
                 required
-                options={convertinterviewSchedulePeriodOptions(props.interviewSchedulePeriodList,props.companyList)}
+                options={convertinterviewSchedulePeriodOptions(props.interviewSchedulePeriodList, props.companyList)}
 
                 onChange={(value) => {
-                    setTicketIssue({ ...ticketIssue, interviewSchedulePeriodId: value })
+                    fetchInterviewscheduleList(value)
+                    setTicketIssue({ ...ticketIssue, interview_schedule_period_id: value })
 
                 }} />
 
             {/* date */}
-            <DateInput id="ticketIssueFromdate"
-                label="Date"
+            <CustomSelectComponent
+                value={ticketIssue.interview_schedule_id}
+                label="Interview schedule"
                 required
-                onChange={(value: string) => setTicketIssue({ ...ticketIssue, date: value })}
-                value={ticketIssue.date}
+                options={selectOptionConveter({
+                    options: interviewscheduleList,
+                    options_struct: { name: "date", value: "id" }
+                })}
+
+                onChange={(value) => {
+                    setTicketIssue({ ...ticketIssue, interview_schedule_id: value })
+                    fetchInterviewschedule(value)
+
+                }} />
+
+            <ClientAndStaffTable
+                snoBase={0}
+                staffAndClientDataList={ticketIssue.staff_list}
+                onChange={(value: any) => {
+                    setTicketIssue({ ...ticketIssue, staff_list: value })
+                }}
             />
 
-          
+            <ClientAndStaffTable
+                snoBase={0}
+                staffAndClientDataList={ticketIssue.client_list}
+                onChange={(value:any) => {
+                    setTicketIssue({ ...ticketIssue, client_list: value })
+                }}
+            />
 
-        </ModalContent>
+
+        </FullScreenModal>
 
 
     )

@@ -57,16 +57,16 @@ export default function Main() {
     }
   );
 
-  const filterData = (query: string, data: TicketIssueInterface[]) => {
-    if (!query) {
-      return data;
-    } else {
-      return data.filter((d) =>
-        d.date.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-  };
-  const dataFiltered = filterData(searchQuery, ticketIssueList);
+  // const filterData = (query: string, data: TicketIssueInterface[]) => {
+  //   if (!query) {
+  //     return data;
+  //   } else {
+  //     return data.filter((d) =>
+  //       d..toLowerCase().includes(query.toLowerCase())
+  //     );
+  //   }
+  // };
+  // const dataFiltered = filterData(searchQuery, ticketIssueList);
 
   const onClickEdit = (interviewSchedule: TicketIssueInterface) => {
     setEditTicketIssue(interviewSchedule);
@@ -87,9 +87,12 @@ export default function Main() {
   // }, [editTicketIssue, modalName])
 
   const fetchTicketIssueList = async (page?: number) => {
-    const data = await readTicketIssueList(page ?? 1);
+    const data = await readTicketIssueList({
+      page: page ?? additionalData.pagination.page,
+      status: "yes"
+    });
     setTicketIssueList(data);
-    filterData("", data);
+    // filterData("", data);
     setAdditionalData(await PaginationManager.getData());
   };
   const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
@@ -124,6 +127,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Ticket Issue"
         searchFunction={(value) => setSearchQuery(value)}
+        refresh={() => fetchTicketIssueList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -139,9 +143,9 @@ export default function Main() {
 
       {/*  interviewSchedule stable */}
       <TicketIssueTable
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         companyList={companyList}
-        interviewScheduleList={dataFiltered}
+        interviewScheduleList={ticketIssueList}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
         InterviewSchedulePeriodList={interviewschedulePeriodList}

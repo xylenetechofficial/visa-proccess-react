@@ -5,24 +5,49 @@ import { InterviewSchedulePeriodInterface } from "../interviewSchedulePeriod/typ
 
 export interface TicketIssueInterface {
   id?: number;
-  interviewSchedulePeriodId: number;
-  date: string;
+  interview_schedule_period_id?: number;
+  interview_schedule_id: number;
+  staff_list: StaffAndClientInterface[];
+  client_list: StaffAndClientInterface[];
 }
-
+export interface StaffAndClientInterface {
+  id?: number;
+  name: string;
+  ticket_amount: number;
+  travel_by: string;
+  hotel_amount: number;
+  other_expenses: number;
+  total_amount: number;
+  remarks: string;
+}
 export interface TicketIssueAdapter {
   id?: number;
-  interview_schedule_period_id: number;
-  date: string;
+  interview_schedule_id: number;
+  staff_list: StaffAndClientInterface[];
+  client_list: StaffAndClientInterface[];
 }
 
 export class TicketIssueConverter {
   public static toInterface(a: TicketIssueAdapter) {
     const data: TicketIssueInterface = {
       id: a.id,
-      date: a.date,
-      interviewSchedulePeriodId: a.interview_schedule_period_id,
+      interview_schedule_id: a.interview_schedule_id,
+      staff_list: a.staff_list,
+      client_list: a.client_list,
     };
     return data;
+  }
+  
+
+    public static toInterfaceList(a_list: TicketIssueAdapter[]) {
+    const data_list: TicketIssueInterface[] = [];
+
+    for (let i = 0; i < a_list.length; i++) {
+      const element = a_list[i];
+      data_list.push(this.toInterface(element));
+    }
+
+    return data_list;
   }
 
   /**
@@ -33,10 +58,24 @@ export class TicketIssueConverter {
     console.log(i); // Only Dev
     const data: TicketIssueAdapter = {
       id: i.id,
-      date: i.date,
-      interview_schedule_period_id: i.interviewSchedulePeriodId,
+      interview_schedule_id: i.interview_schedule_id,
+      staff_list: i.staff_list,
+      client_list: i.client_list,
     };
     return data;
+  }
+  
+
+  
+  public static toAdapterList(i_list: TicketIssueInterface[]) {
+    const data_list: TicketIssueAdapter[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toAdapter(element));
+    }
+
+    return data_list;
   }
 }
 

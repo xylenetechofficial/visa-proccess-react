@@ -2,7 +2,7 @@ import { createInterviewSchedule } from "../repository";
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, StandardInput } from "../../../../componenets/Input";
-import { InterviewScheduleInterface, convertinterviewSchedulePeriodOptions } from "../type";
+import { InterviewScheduleInterface, StaffAndClientInterface, convertinterviewSchedulePeriodOptions } from "../type";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CompanyInterface } from "../../../masters/company/type";
 import { SectorInterface } from "../../../masters/sector/type";
@@ -21,7 +21,7 @@ export default function Main(props: {
     fetchInterviewScheduleList: any,
     sectorList: SectorInterface[],
     InterviewSchedulePeriodList: InterviewSchedulePeriodInterface[],
-    companyList: CompanyInterface[]
+    // companyList: CompanyInterface[]
 
 }) {
     const initialValue: InterviewScheduleInterface = {
@@ -30,9 +30,10 @@ export default function Main(props: {
         noOfPerson: 0,
         sectorId: 0,
         staff: "",
-        client:'',
-        noOfClient:0
-
+        client: '',
+        noOfClient: 0,
+        client_list: [],
+        staff_list: [],
     }
     const [interviewSchedule, setInterviewSchedule] = useState<InterviewScheduleInterface>(initialValue)
 
@@ -43,27 +44,115 @@ export default function Main(props: {
         console.log({
             date: interviewSchedule.date,
             interviewSchedulePeriodId: interviewSchedule.interviewSchedulePeriodId,
-            noOfPerson: interviewSchedule.noOfPerson,
             sectorId: interviewSchedule.sectorId,
-            staff: interviewSchedule.staff
+
+            client_list:interviewSchedule.client_list,
+            staff_list:interviewSchedule.staff_list,
         })
-        await createInterviewSchedule({
-            date: interviewSchedule.date,
-            interviewSchedulePeriodId: interviewSchedule.interviewSchedulePeriodId,
-            no_person: interviewSchedule.noOfPerson,
-            sectorId: interviewSchedule.sectorId,
-            staff: interviewSchedule.staff
-        })
+        await createInterviewSchedule(interviewSchedule)
+        // await createInterviewSchedule({
+        //     date: interviewSchedule.date,
+        //     interviewSchedulePeriodId: interviewSchedule.interviewSchedulePeriodId,
+        //     no_person: interviewSchedule.noOfPerson,
+        //     sectorId: interviewSchedule.sectorId,
+        //     staff: interviewSchedule.staff
+        // })
 
 
         setInterviewSchedule(initialValue)
 
         props.fetchInterviewScheduleList()
+        props.onClose()
     }
 
     // useEffect(() => {
-    //     converFOROptions()
-    // }, [])
+    //     onAddStaff()
+    // }, [interviewSchedule.noOfPerson])
+
+    // useEffect(() => {
+    //     onAddClient()
+    // }, [interviewSchedule.noOfClient])
+
+
+    function onAddStaff(data?: StaffAndClientInterface) {
+        const new_data = interviewSchedule.staff_list
+        new_data.push({
+            name: '',
+            ticket_amount: 0,
+            travel_by: '',
+            hotel_amount: 0,
+            other_expenses: 0,
+            total_amount: 0,
+            remarks: '',
+        })
+
+    }
+
+
+
+
+
+
+    function onAddClient(data?: StaffAndClientInterface) {
+        const new_data = interviewSchedule.client_list
+        new_data.push({
+            name: '',
+            ticket_amount: 0,
+            travel_by: '',
+            hotel_amount: 0,
+            other_expenses: 0,
+            total_amount: 0,
+            remarks: '',
+        })
+
+    }
+    function onUpdateStaff(index: number, data: StaffAndClientInterface) {
+        const new_data = []
+        for (let i = 0; i < interviewSchedule.staff_list.length; i++) {
+            const element = interviewSchedule.staff_list[i];
+
+            if (index == i) new_data.push(data)
+            else new_data.push(element)
+        }
+
+        setInterviewSchedule({ ...interviewSchedule, staff_list: new_data })
+    }
+
+    function onRemoveStaff(index: number) {
+        const new_data = []
+        for (let i = 0; i < interviewSchedule.staff_list.length; i++) {
+            const element = interviewSchedule.staff_list[i];
+
+            if (index == i) continue
+            else new_data.push(element)
+        }
+
+        setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson - 1, staff_list: new_data })
+    }
+
+    function onUpdateClient(index: number, data: StaffAndClientInterface) {
+        const new_data = []
+        for (let i = 0; i < interviewSchedule.client_list.length; i++) {
+            const element = interviewSchedule.client_list[i];
+
+            if (index == i) new_data.push(data)
+            else new_data.push(element)
+        }
+
+        setInterviewSchedule({ ...interviewSchedule, client_list: new_data })
+    }
+
+    function onRemoveClient(index: number) {
+        const new_data = []
+        for (let i = 0; i < interviewSchedule.client_list.length; i++) {
+            const element = interviewSchedule.client_list[i];
+
+            if (index == i) continue
+            else new_data.push(element)
+        }
+
+        setInterviewSchedule({ ...interviewSchedule, client_list: new_data })
+    }
     return (
 
         <FullScreenModal
@@ -81,7 +170,7 @@ export default function Main(props: {
                         value={interviewSchedule.interviewSchedulePeriodId}
                         label="Interview schedule Period"
                         required
-                        options={convertinterviewSchedulePeriodOptions(props.InterviewSchedulePeriodList, props.companyList)}
+                        options={convertinterviewSchedulePeriodOptions(props.InterviewSchedulePeriodList, [])}
 
                         onChange={(value) => {
                             setInterviewSchedule({ ...interviewSchedule, interviewSchedulePeriodId: value })
@@ -113,7 +202,7 @@ export default function Main(props: {
                         }} />
                 </UpdateContentBox>
                 {/* staff */}
-                <UpdateContentBox>
+                {/* <UpdateContentBox>
                     <StandardInput
                         label="Staff"
                         required
@@ -122,33 +211,55 @@ export default function Main(props: {
                             (value: string) =>
                                 setInterviewSchedule({ ...interviewSchedule, staff: value })}
                     />
-                </UpdateContentBox>
+                </UpdateContentBox> */}
                 {/* no of  person*/}
                 <UpdateContentBox>
                     <StandardInput
-                        label="No of person"
+                        label="No of Staff"
                         required
 
                         type="number"
 
                         value={interviewSchedule.noOfPerson}
                         onChangeValue={
-                            (value: string) =>
-                                setInterviewSchedule({ ...interviewSchedule, noOfPerson: parseInt(value) })}
+                            (val: string) => {
+                                const value = parseInt(val)
+                                if (value > interviewSchedule.noOfPerson)
+                                    onAddStaff()
+                                else {
+                                    for (let i = 0; i < interviewSchedule.noOfPerson - value; i++) {
+                                        interviewSchedule.staff_list.pop()
+                                    }
+                                }
+
+                                setInterviewSchedule({ ...interviewSchedule, noOfPerson: value })
+                            }
+                        }
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
-                    {Array.from({length: interviewSchedule.noOfPerson??0 }, (_, index) => (
+                    {
+                        interviewSchedule.staff_list.map((ele, index) => {
+                            return (<>
+                                <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
+                                    console.log(value);   // Only Dev
+                                    onUpdateStaff(index, { ...ele, name: value })
+                                }} />
+                                <RedButton text="Delete Staff" onClick={() => onRemoveStaff(index)} />
+                            </>)
+                        })
+                    }
+                    {/* {Array.from({ length: interviewSchedule.noOfPerson ?? 0 }, (_, index) => (
                         // <UpdateContentBox>
                         <>
-                        <div>
-                    <StandardInput  key={index} value={""} onChangeValue={(value:string)=> console.log(value)} />
-                    <RedButton text="Delete Staff" onClick={()=>setInterviewSchedule({...interviewSchedule, noOfPerson:interviewSchedule.noOfPerson - 1 })}/></div>
-                    </>
-                    ))}
+                            <div>
+                                <StandardInput key={index} value={""} onChangeValue={(value: string) => console.log(value)} />
+                                <RedButton text="Delete Staff" onClick={() => setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson - 1 })} /></div>
+                        </>
+                    ))} */}
                 </UpdateContentBox>
                 {/* Client */}
-                <UpdateContentBox>
+                {/* <UpdateContentBox>
                     <StandardInput
                         label="Client"
                         required
@@ -157,31 +268,52 @@ export default function Main(props: {
                             (value: string) =>
                                 setInterviewSchedule({ ...interviewSchedule, client: value })}
                     />
-                </UpdateContentBox>
-               
+                </UpdateContentBox> */}
+
                 {/* no of  person*/}
                 <UpdateContentBox>
                     <StandardInput
-                        label="No of person"
+                        label="No of Client"
                         required
 
                         type="number"
 
                         value={interviewSchedule.noOfClient}
                         onChangeValue={
-                            (value: string) =>
-                                setInterviewSchedule({ ...interviewSchedule, noOfClient: parseInt(value) })}
+                            (val: string) => {
+                                const value = parseInt(val)
+                                if (value > interviewSchedule.noOfClient)
+                                    onAddClient()
+                                else {
+                                    for (let i = 0; i < interviewSchedule.noOfClient - value; i++) {
+                                        interviewSchedule.client_list.pop()
+                                    }
+                                }
+                                setInterviewSchedule({ ...interviewSchedule, noOfClient: value })
+                            }
+                        }
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
-                    {Array.from({length: interviewSchedule.noOfClient??0 }, (_, index) => (
+                    {
+                        interviewSchedule.client_list.map((ele, index) => {
+                            return (<>
+                                <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
+                                    console.log(value);   // Only Dev
+                                    onUpdateClient(index, { ...ele, name: value })
+                                }} />
+                                <RedButton text="Delete Client" onClick={() => onRemoveClient(index)} />
+                            </>)
+                        })
+                    }
+                    {/* {Array.from({ length: interviewSchedule.noOfClient ?? 0 }, (_, index) => (
                         // <UpdateContentBox>
                         <>
-                        <div>
-                    <StandardInput  key={index} value={""} onChangeValue={(value:string)=> console.log(value)} />
-                    <RedButton text="Delete Client" onClick={()=>setInterviewSchedule({...interviewSchedule, noOfClient:interviewSchedule.noOfClient - 1 })}/></div>
-                    </>
-                    ))}
+                            <div>
+                                <StandardInput key={index} value={""} onChangeValue={(value: string) => console.log(value)} />
+                                <RedButton text="Delete Client" onClick={() => setInterviewSchedule({ ...interviewSchedule, noOfClient: interviewSchedule.noOfClient - 1 })} /></div>
+                        </>
+                    ))} */}
                 </UpdateContentBox>
             </div>
         </FullScreenModal>

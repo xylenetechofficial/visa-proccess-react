@@ -2,7 +2,10 @@ import { TicketIssueAdapter, TicketIssueConverter, TicketIssueInterface } from "
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readTicketIssueList(page_number?: number) {
+export async function readTicketIssueList(queryParameters:{
+  page?: number,
+  status?:string,
+}) {
 
 
   const path = "/domestic-ticket/ticket-issue-list";
@@ -10,9 +13,7 @@ export async function readTicketIssueList(page_number?: number) {
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
-    queryParameters: {
-      page: page_number ?? 0,
-    },
+    queryParameters: queryParameters,
   });
 
 
@@ -46,11 +47,7 @@ export async function readTicketIssueList(page_number?: number) {
 export async function createTicketIssue(interviewSchedule: TicketIssueInterface) {
   const path = "/domestic-ticket/ticket-issue"
 
-  const payload = {
-    date: interviewSchedule.date,
-    interview_schedule_period_id: interviewSchedule.interviewSchedulePeriodId,
-
-  };
+  const payload =TicketIssueConverter.toAdapter(interviewSchedule)
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT
@@ -63,10 +60,7 @@ export async function updateTicketIssue(id: number, interviewSchedule: TicketIss
 
 
 
-  const payload = {
-    date: interviewSchedule.date,
-    interview_schedule_period_id: interviewSchedule.interviewSchedulePeriodId,
-  };
+  const payload =TicketIssueConverter.toAdapter(interviewSchedule)
 
   const path = "/domestic-ticket/ticket-issue/" + id
   const response = await ApiHelper.patch(path, payload, {

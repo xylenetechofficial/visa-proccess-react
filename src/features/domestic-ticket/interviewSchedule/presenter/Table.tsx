@@ -15,7 +15,7 @@ import { convertDateFormat } from '../../../../utils/function';
 const InterviewScheduleTable = (props:
     {
         snoBase:number,
-        companyList: CompanyInterface[],
+        // companyList: CompanyInterface[],
         interviewScheduleList: InterviewScheduleInterface[],
         onClickEdit: any, onClickDelete: any,
         sectorList: SectorInterface[],
@@ -33,7 +33,7 @@ const InterviewScheduleTable = (props:
                         <TableHeadCell3> Comapany</TableHeadCell3>
                         <TableHeadCell3> Date</TableHeadCell3>
                         <TableHeadCell3> Sector</TableHeadCell3>
-                        <TableHeadCell3> Staff</TableHeadCell3>
+                        {/* <TableHeadCell3> Staff</TableHeadCell3> */}
                         <TableHeadCell3 > Action</TableHeadCell3>
 
                     </TableHeadRow3>
@@ -41,30 +41,14 @@ const InterviewScheduleTable = (props:
                 <TableBody3>
                     {props.interviewScheduleList.map((ele, index) => {
 
-                        let companyName = "";
-                        for (let i = 0; i < props.InterviewSchedulePeriodList.length; i++) {
-                            const interviewSchedulePeriod = props.InterviewSchedulePeriodList[i];
-
-                            for (let j = 0; j < props.companyList.length; j++) {
-                                const company = props.companyList[j];
-                                if (interviewSchedulePeriod.company == company.id) {
-                                    companyName = company.name
-                                    break
-                                }
-                            }
-                            if (companyName != "")
-                                break
-
-                        }
-
                         return (
 
                             <TableRow3 key={index}>
                                <TableCell3 >{index + props.snoBase+1}</TableCell3>
-                                <TableCell3 > {companyName}</TableCell3>
+                                <TableCell3 > {ele.company_name}</TableCell3>
                                 <TableCell3>{convertDateFormat(ele.date)}</TableCell3>
-                                <TableCell3>{props.sectorList.map((e) => e.id == ele.sectorId ? e.name : "")}</TableCell3>
-                                <TableCell3>{ele.staff}</TableCell3>
+                                <TableCell3>{ele.sector_name}</TableCell3>
+                                {/* <TableCell3>{ele.staff}</TableCell3> */}
                                 <TableCell3 >
 
                                     <BlueButton text={" EDIT"} onClick={() => {

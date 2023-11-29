@@ -40,6 +40,7 @@ export default function Main(props: {
         setInterviewSchedulePeriod(initialValue)
 
         props.fetchInterviewSchedulePeriodList()
+        props.onClose()
     }
 
     return (

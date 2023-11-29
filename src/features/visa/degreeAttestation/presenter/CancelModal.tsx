@@ -39,17 +39,21 @@ export default function Main(props: {
         p: 4,
     };
     async function onClickAdd() {
-        console.log("id",degreeAttestation.id);   // Only Dev
-        console.log("client_invoice",degreeAttestation.client_invoice);   // Only Dev
-        console.log("penalty_amount",degreeAttestation.penalty_amount);   // Only Dev
-        console.log("mistake_by",degreeAttestation.mistake_by);   // Only Dev
+        // console.log("id",degreeAttestation.id);   // Only Dev
+        // console.log("client_invoice",degreeAttestation.client_invoice);   // Only Dev
+        // console.log("penalty_amount",degreeAttestation.penalty_amount);   // Only Dev
+        // console.log("mistake_by",degreeAttestation.mistake_by);   // Only Dev
         const flag = await addDegreeAttestationCancel(degreeAttestation)
-        if(!flag) return
+        if (!flag) return
         props.setModalName('')
     }
 
     useEffect(() => {
-        setdegreeAttestation(props.currentData)
+        setdegreeAttestation({
+            ...props.currentData,
+            penalty_amount: degreeAttestation.amount_receivaled,
+            client_invoice: "no"
+        })
     }, [])
     return (
         <>
@@ -101,7 +105,7 @@ export default function Main(props: {
                             <SubHeading1 text="AGENT  :" />
                             <SubHeading1 text={props.currentData.agent_name} />
                         </UpdateContentBox>
-                        <UpdateContentBox>
+                        {/* <UpdateContentBox>
                             <SubHeading1 text="CLIENT INVOICE  :" />
                             <CustomRadioButton
                                 inlined
@@ -115,17 +119,17 @@ export default function Main(props: {
                                 //    onChange={(value)=>setdegreeAttestation({ ...degreeAttestation, client_invoice: value })} 
 
                                 option={[{ name: "No", value: "no" }, { name: "Yes", value: "yes" }]} />
-                        </UpdateContentBox>
+                        </UpdateContentBox> */}
                         {degreeAttestation.client_invoice == "yes" ? <></> : <>
 
                             <UpdateContentBox>
                                 <SubHeading1 text="PENALTY AMOUNT  :" />
                                 <UnlabeledInput type='number' value={degreeAttestation.penalty_amount} onchange={(value) => setdegreeAttestation({ ...degreeAttestation, penalty_amount: parseInt(value) })} />
                             </UpdateContentBox>
-                            <UpdateContentBox>
+                            {/* <UpdateContentBox>
                                 <SubHeading1 text="MISTAKE BY  :" />
                                 <CustomSelectComponent value={degreeAttestation.mistake_by} options={MistakeByList} onChange={(value) => setdegreeAttestation({ ...degreeAttestation, mistake_by: value })} />
-                            </UpdateContentBox>
+                            </UpdateContentBox> */}
                         </>}
 
                         <div className=" flex justify-center">

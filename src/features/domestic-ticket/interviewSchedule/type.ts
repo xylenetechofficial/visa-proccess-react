@@ -9,9 +9,25 @@ export interface InterviewScheduleInterface {
   date: string;
   sectorId: number;
   staff: string;
+  staff_list: StaffAndClientInterface[];
   noOfPerson: number;
   client: string;
+  client_list: StaffAndClientInterface[];
   noOfClient: number;
+
+  company_name?: string;
+  sector_name?: string;
+}
+
+export interface StaffAndClientInterface {
+  id?: number;
+  name: string;
+  ticket_amount: number;
+  travel_by: string;
+  hotel_amount: number;
+  other_expenses: number;
+  total_amount: number;
+  remarks: string;
 }
 
 export interface InterviewScheduleAdapter {
@@ -20,9 +36,14 @@ export interface InterviewScheduleAdapter {
   date: string;
   sector_id: number;
   staff: string;
+  staff_list: StaffAndClientInterface[];
   no_person: number;
   client: string;
+  client_list: StaffAndClientInterface[];
   noOfClient: number;
+
+  company_name?: string;
+  sector_name?: string;
 }
 
 export class InterviewScheduleConverter {
@@ -35,11 +56,30 @@ export class InterviewScheduleConverter {
       sectorId: a.sector_id,
       staff: a.staff,
       client: a.client,
-      noOfClient:a.noOfClient
+      noOfClient: a.noOfClient,
 
+      company_name: a.company_name,
+      sector_name: a.sector_name,
+      staff_list: a.staff_list,
+      client_list: a.client_list,
     };
     return data;
   }
+
+
+    public static toInterfaceList(a_list: InterviewScheduleAdapter[]) {
+    const data_list: InterviewScheduleInterface[] = [];
+
+    for (let i = 0; i < a_list.length; i++) {
+      const element = a_list[i];
+      data_list.push(this.toInterface(element));
+    }
+
+    return data_list;
+  }
+
+
+
 
   /**
    * toAdapter
@@ -55,10 +95,31 @@ export class InterviewScheduleConverter {
       sector_id: i.sectorId,
       staff: i.staff,
       client: i.client,
-      noOfClient:i.noOfClient
+      noOfClient: i.noOfClient,
+
+      company_name: i.company_name,
+      sector_name: i.sector_name,
+      staff_list: i.staff_list,
+      client_list: i.client_list,
     };
     return data;
   }
+
+
+  
+  public static toAdapterList(i_list: InterviewScheduleInterface[]) {
+    const data_list: InterviewScheduleAdapter[] = [];
+
+    for (let i = 0; i < i_list.length; i++) {
+      const element = i_list[i];
+      data_list.push(this.toAdapter(element));
+    }
+
+    return data_list;
+  }
+
+
+
 }
 
 export const convertinterviewSchedulePeriodOptions = (

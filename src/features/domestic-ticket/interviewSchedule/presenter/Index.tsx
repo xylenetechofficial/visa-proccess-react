@@ -101,17 +101,17 @@ export default function Main() {
   // }, [editInterviewSchedule, modalName])
 
   const fetchInterviewScheduleList = async (page?: number) => {
-    const data = await readInterviewScheduleList(page ?? 1);
+    const data = await readInterviewScheduleList(page ?? additionalData.pagination.page);
     setInterviewScheduleList(data);
     filterData("", data);
     setAdditionalData(await PaginationManager.getData());
   };
-  const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
+  // const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
 
-  const fetchCompanyList = async () => {
-    const data = await readCompanyList();
-    setCompanyList(data);
-  };
+  // const fetchCompanyList = async () => {
+  //   const data = await readCompanyList();
+  //   setCompanyList(data);
+  // };
 
   const [interviewschedulePeriodList, setInterviewschedulePeriodList] =
     useState<InterviewSchedulePeriodInterface[]>([]);
@@ -129,7 +129,7 @@ export default function Main() {
   useEffect(() => {
     fetchInterviewSchedulePeriodList();
     fetchInterviewScheduleList(additionalData.pagination.page);
-    fetchCompanyList();
+    // fetchCompanyList();
     fetchSectorList();
   }, []);
 
@@ -138,6 +138,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Interview Schedule"
         searchFunction={searchFunction}
+        refresh={() => fetchInterviewScheduleList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -154,7 +155,7 @@ export default function Main() {
       {/*  interviewSchedule stable */}
       <InterviewScheduleTable
         snoBase={additionalData.pagination.sno_base}
-        companyList={companyList}
+        // companyList={companyList}
         interviewScheduleList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
@@ -169,7 +170,7 @@ export default function Main() {
           fetchInterviewScheduleList(e);
         }}
       />
-      
+
       {/* <!-- Modal --> */}
 
       {/* Create */}
@@ -177,7 +178,7 @@ export default function Main() {
         ""
       ) : (
         <CreateModal
-          companyList={companyList}
+          // companyList={companyList}
           onClose={() => setModalName("")}
           fetchInterviewScheduleList={fetchInterviewScheduleList}
           InterviewSchedulePeriodList={interviewschedulePeriodList}
@@ -190,7 +191,7 @@ export default function Main() {
         ""
       ) : (
         <EditModal
-          companyList={companyList}
+          // companyList={companyList}
           currentElement={editInterviewSchedule}
           onClose={() => setModalName("")}
           fetchInterviewScheduleList={fetchInterviewScheduleList}

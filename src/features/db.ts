@@ -163,3 +163,9 @@ export const MistakeByList = [
   { name: "Soundlines", value: "Soundlines" },
   { name: "client", value: "client" },
 ];
+
+export const TravelBytList = [
+  { name: "Air Ticket", value: "Air Ticket" },
+  { name: "Train Ticket", value: "Train Ticket" },
+  { name: "Other", value: "Other" },
+];
