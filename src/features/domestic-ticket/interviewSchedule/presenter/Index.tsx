@@ -101,9 +101,10 @@ export default function Main() {
   // }, [editInterviewSchedule, modalName])
 
   const fetchInterviewScheduleList = async (page?: number) => {
+    console.log("IS called");   // Only Dev
     const data = await readInterviewScheduleList(page ?? additionalData.pagination.page);
     setInterviewScheduleList(data);
-    filterData("", data);
+    // filterData("", data);
     setAdditionalData(await PaginationManager.getData());
   };
   // const [companyList, setCompanyList] = useState<CompanyInterface[]>([]);
@@ -156,7 +157,7 @@ export default function Main() {
       <InterviewScheduleTable
         snoBase={additionalData.pagination.sno_base}
         // companyList={companyList}
-        interviewScheduleList={dataFiltered}
+        interviewScheduleList={interviewScheduleList}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
         InterviewSchedulePeriodList={interviewschedulePeriodList}

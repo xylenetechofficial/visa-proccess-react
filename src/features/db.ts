@@ -169,3 +169,8 @@ export const TravelBytList = [
   { name: "Train Ticket", value: "Train Ticket" },
   { name: "Other", value: "Other" },
 ];
+
+export const ReportedForList = [
+  { id: "Reported", name: "Reported" },
+  { id: "Not Reported", name: "Not Reported" },
+];

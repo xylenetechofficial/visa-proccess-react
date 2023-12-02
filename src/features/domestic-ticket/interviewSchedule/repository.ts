@@ -15,7 +15,7 @@ import { showMessage_v2 } from "../../../utils/alert";
 export async function readInterviewScheduleList(
   page_number?: number,
   queryParameters?: {
-    interview_schedule_period?: any;
+    interview_schedule_period?: number;
   }
 ) {
   const path = "/domestic-ticket/interview-schedule-list";
@@ -25,7 +25,8 @@ export async function readInterviewScheduleList(
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       page: page_number ?? 0,
-      interview_schedule_period: queryParameters?.interview_schedule_period,
+      interview_schedule_period:
+        queryParameters?.interview_schedule_period ?? 0,
     },
   });
 

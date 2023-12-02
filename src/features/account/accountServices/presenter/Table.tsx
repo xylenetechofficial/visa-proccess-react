@@ -193,6 +193,31 @@ const ServiceChargesTable = (props: {
                 />
               </TableCell3>
               <TableCell3>
+                {" "}
+                <CustomSingleCheckBox
+                  value={ele.raise_invoice}
+                  onChange={(value) =>
+                    onUpdateRow(index, {
+                      ...ele,
+                      raise_invoice: value,
+                    })
+                  }
+                />
+              </TableCell3>
+              <TableCell3>
+                {" "}
+                <UnlabeledInput
+                  type="number"
+                  value={ele.invoice_service_charges}
+                  onchange={(value) =>
+                    onUpdateRow(index, {
+                      ...ele,
+                      invoice_service_charges: value,
+                    })
+                  }
+                />
+              </TableCell3>
+              <TableCell3>
                 <CustomSelectComponentUnlabeled
                   value={ele.invoice_service_currency}
                   onChange={(value: any) =>

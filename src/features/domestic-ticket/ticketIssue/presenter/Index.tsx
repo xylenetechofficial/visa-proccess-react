@@ -183,7 +183,7 @@ export default function Main() {
           currentElement={editTicketIssue}
           onClose={() => setModalName("")}
           fetchTicketIssueList={fetchTicketIssueList}
-          TicketIssuePeriodList={interviewschedulePeriodList}
+          interviewSchedulePeriodList={interviewschedulePeriodList}
           sectorList={sectorList}
         />
       )}

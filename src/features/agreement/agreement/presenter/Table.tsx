@@ -13,6 +13,7 @@ import {
   CustomSelectComponent,
   selectOptionConveter,
 } from "../../../../componenets/SelectBox";
+import { ReportedForList } from "../../../db";
 
 const AgreementTable = (props: {
   agreementList: AgreementInterface[];
@@ -33,10 +34,7 @@ const AgreementTable = (props: {
     props.onChange(nextData);
   }
 
-  const reported_for_agreement = [
-    { id: "Reported", name: "Reported" },
-    { id: "Not Reported", name: "Not Reported" },
-  ];
+
 
   const HEADERLIST = [
     ["Sr No."],
@@ -105,7 +103,7 @@ const AgreementTable = (props: {
                         value={item.reported_for_agreement}
                         label="Reported For Agreement"
                         options={selectOptionConveter({
-                          options: reported_for_agreement,
+                          options: ReportedForList,
                           options_struct: { name: "name", value: "id" },
                         })}
                         onChange={(value) => {

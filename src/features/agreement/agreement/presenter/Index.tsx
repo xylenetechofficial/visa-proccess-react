@@ -17,7 +17,7 @@ import { useUserAuth } from "../../../context/UserAuthContext";
 
 import CreateModal from "./Create";
 import EditModal from "./Edit";
-import { readAgreementList } from "../repository";
+import { createAgreement, readAgreementList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
 
 const CardHeader = styled(Box)(() => ({
@@ -48,31 +48,47 @@ export default function Main() {
     }
   );
 
-  const fetchAgreementList = async (page?: number) => {
+  const fetchAgreementList = async (page?: number, status?: string) => {
     const data = await readAgreementList({
-      page: page ?? 1,
-      status: "yes",
+      page: page ?? additionalData.pagination.page,
+      status: status ?? "no",
     });
     setAgreementList(data);
     setAdditionalData(await PaginationManager.getData());
   };
 
   useEffect(() => {
-    fetchAgreementList(additionalData.pagination.page);
+    fetchAgreementList(additionalData.pagination.page, "no");
   }, []);
+
+  const onClickSubmit = async () => {
+    const newArray = [];
+
+    for (let i = 0; i < agreementList.length; i++) {
+      if (agreementList[i].reported_for_agreement == "") continue;
+
+      newArray.push(agreementList[i]);
+    }
+    const update = await createAgreement(newArray);
+    if (update) {
+      // props.onClose();
+      fetchAgreementList(additionalData.pagination.page, "no");
+    }
+  };
 
   return (
     <div>
       <CustomNavbarV3
         pageName="Agreement"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={() => fetchAgreementList()}
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         <div>
-          {authPermissionList.url_has("create") ? (
+          {/* {authPermissionList.url_has("create") ? (
             <GreenButton
               text={"Add"}
               onClick={() => {
@@ -81,7 +97,7 @@ export default function Main() {
             />
           ) : (
             ""
-          )}
+          )} */}
           {authPermissionList.url_has("update") ? (
             <BlueButton
               text={"Edit"}
@@ -99,7 +115,7 @@ export default function Main() {
       <AgreementTable
         agreementList={agreementList}
         snoBase={additionalData.pagination.sno_base}
-        actionType="read"
+        actionType="add"
         onChange={(list) => setAgreementList(list)}
       />
 
@@ -111,13 +127,19 @@ export default function Main() {
         }}
       />
 
+      <br />
+      <GreenButton
+        text={"Submit"}
+        onClick={onClickSubmit}
+      />
+
       {/* <!-- Modal --> */}
 
       {/* Create */}
       {modalName !== "create" ? (
         ""
       ) : (
-        <CreateModal onClose={() =>{
+        <CreateModal onClose={() => {
           setModalName("")
           fetchAgreementList()
         }} />
@@ -128,9 +150,9 @@ export default function Main() {
         ""
       ) : (
         <EditModal onClose={() => {
-            setModalName("")
-            fetchAgreementList()
-          }} />
+          setModalName("")
+          fetchAgreementList(additionalData.pagination.page, "no");
+        }} />
       )}
     </div>
   );

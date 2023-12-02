@@ -40,10 +40,10 @@ export default function Main(props: { onClose: any, fetchAgentList: any }) {
         // call create
         const data = await createAgent(agent)
         // show alert
-        showMessage(data.message)
+        // showMessage(data.message)
 
-        if (data.code !== 201)
-            return
+        if(!data) return
+
 
         setAgent(initValue)
 

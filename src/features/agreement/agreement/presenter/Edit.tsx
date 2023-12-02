@@ -24,7 +24,7 @@ export default function Main(props: {
 
     const fetchCreateAgreementList = async (page?: number) => {
         const data: any = await readAgreementList({
-            page: page ?? 1,
+            page: page ?? additionalData.pagination.page,
             status: "yes"
           });
           setAgreementList(data);

@@ -41,7 +41,8 @@ export default function Main(props: { agent: AgentInterface, onClose: any, fetch
 
     async function onClickSave() {
         const data = await updateAgent(props.agent.id ?? 0, agent)
-        showMessage(data.message)
+        // showMessage(data.message)
+        if(!data) return
         props.fetchAgentList()
         props.onClose()
     }

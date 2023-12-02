@@ -46,60 +46,110 @@ export async function readAgentList(
   await PaginationManager.setData(
     response.additional_data as AdditionalDataInterface
   );
- 
-  return data
- 
+
+  return data;
 }
 
+// export async function createAgent(agent: AgentInterface) {
+//   let response: ResponseInterface = {
+//     code: 404,
+//     message: "Something Went Wrong",
+//   };
+//   const payload = AgentConverter.toAdapter(agent);
+//   await axios
+//     .post(endpoint + "/masters/agent", payload)
+//     .then((res) => {
+//       console.log(res); // Only Dev
+//       response = res.data as ResponseInterface;
+//     })
+//     .catch((err) => {
+//       console.log(err); // Only Dev
+//     });
+//   return response;
+// }
+
+// export async function updateAgent(id: number, agent: AgentInterface) {
+//   let response: ResponseInterface = {
+//     code: 404,
+//     message: "Something Went Wrong",
+//   };
+//   const payload = AgentConverter.toAdapter(agent);
+//   await axios
+//     .patch(endpoint + "/masters/agent/" + id, payload)
+//     .then((res) => {
+//       console.log(res); // Only Dev
+//       response = res.data as ResponseInterface;
+//     })
+//     .catch((err) => {
+//       console.log(err); // Only Dev
+//     });
+//   return response;
+// }
+
+// export async function deleteAgent(id: number) {
+//   let response: ResponseInterface = {
+//     code: 404,
+//     message: "Something Went Wrong",
+//   };
+//   await axios
+//     .delete(endpoint + "/masters/agent/" + id)
+//     .then((res) => {
+//       console.log(res); // Only Dev
+//       response = res.data as ResponseInterface;
+//     })
+//     .catch((err) => {
+//       console.log(err); // Only Dev
+//     });
+//   return response;
+// }
+
 export async function createAgent(agent: AgentInterface) {
-  let response: ResponseInterface = {
-    code: 404,
-    message: "Something Went Wrong",
-  };
+  const path = "/masters/agent";
   const payload = AgentConverter.toAdapter(agent);
-  await axios
-    .post(endpoint + "/masters/agent", payload)
-    .then((res) => {
-      console.log(res); // Only Dev
-      response = res.data as ResponseInterface;
-    })
-    .catch((err) => {
-      console.log(err); // Only Dev
-    });
-  return response;
+
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT,
+  });
+
+  showMessage_v2({ message: response.message, status: response.code });
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
 }
 
 export async function updateAgent(id: number, agent: AgentInterface) {
-  let response: ResponseInterface = {
-    code: 404,
-    message: "Something Went Wrong",
-  };
+  const path = "/masters/agent/" + id;
+
   const payload = AgentConverter.toAdapter(agent);
-  await axios
-    .patch(endpoint + "/masters/agent/" + id, payload)
-    .then((res) => {
-      console.log(res); // Only Dev
-      response = res.data as ResponseInterface;
-    })
-    .catch((err) => {
-      console.log(err); // Only Dev
-    });
-  return response;
+
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT,
+  });
+
+  showMessage_v2({ message: response.message, status: response.code });
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
 }
 
 export async function deleteAgent(id: number) {
-  let response: ResponseInterface = {
-    code: 404,
-    message: "Something Went Wrong",
-  };
-  await axios
-    .delete(endpoint + "/masters/agent/" + id)
-    .then((res) => {
-      console.log(res); // Only Dev
-      response = res.data as ResponseInterface;
-    })
-    .catch((err) => {
-      console.log(err); // Only Dev
-    });
-  return response;
+  const path = "/masters/agent/" + id;
+
+  const response = await ApiHelper.delete(path, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT,
+  });
+
+  showMessage_v2({ message: response.message, status: response.code });
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
 }

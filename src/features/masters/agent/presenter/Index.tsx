@@ -66,7 +66,10 @@ export default function Main() {
     const flag = await confirmationMessage("Do you really want to delete?");
     if (flag && agent.id) {
       const res = await deleteAgent(agent.id);
-      showMessage(res.message);
+
+      if (!res) return
+
+      // showMessage(res.message);
       fetchAgentList();
     }
   };
