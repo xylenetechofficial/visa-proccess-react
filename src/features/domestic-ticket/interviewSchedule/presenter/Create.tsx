@@ -1,27 +1,19 @@
 import { createInterviewSchedule } from "../repository";
-import { useEffect, useState } from "react";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
+import {  useState } from "react";
+import  { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, StandardInput } from "../../../../componenets/Input";
 import { InterviewScheduleInterface, StaffAndClientInterface, convertinterviewSchedulePeriodOptions } from "../type";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { CompanyInterface } from "../../../masters/company/type";
 import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { RedButton } from "../../../../componenets/CustomButton";
-
-
-
-
-
-
 
 export default function Main(props: {
     onClose: any,
     fetchInterviewScheduleList: any,
     sectorList: SectorInterface[],
     InterviewSchedulePeriodList: InterviewSchedulePeriodInterface[],
-    // companyList: CompanyInterface[]
 
 }) {
     const initialValue: InterviewScheduleInterface = {
@@ -50,29 +42,12 @@ export default function Main(props: {
             staff_list:interviewSchedule.staff_list,
         })
         await createInterviewSchedule(interviewSchedule)
-        // await createInterviewSchedule({
-        //     date: interviewSchedule.date,
-        //     interviewSchedulePeriodId: interviewSchedule.interviewSchedulePeriodId,
-        //     no_person: interviewSchedule.noOfPerson,
-        //     sectorId: interviewSchedule.sectorId,
-        //     staff: interviewSchedule.staff
-        // })
-
-
+    
         setInterviewSchedule(initialValue)
 
         props.fetchInterviewScheduleList()
         props.onClose()
     }
-
-    // useEffect(() => {
-    //     onAddStaff()
-    // }, [interviewSchedule.noOfPerson])
-
-    // useEffect(() => {
-    //     onAddClient()
-    // }, [interviewSchedule.noOfClient])
-
 
     function onAddStaff(data?: StaffAndClientInterface) {
         const new_data = interviewSchedule.staff_list
@@ -87,11 +62,6 @@ export default function Main(props: {
         })
 
     }
-
-
-
-
-
 
     function onAddClient(data?: StaffAndClientInterface) {
         const new_data = interviewSchedule.client_list
@@ -161,8 +131,6 @@ export default function Main(props: {
             buttonName="Add"
             handleClick={onClickAdd}
         >
-
-
             {/* Interview schedule period */}
             <div className=" grid grid-cols-1 py-3  gap-2 shadow">
                 <UpdateContentBox>
@@ -202,24 +170,13 @@ export default function Main(props: {
                         }} />
                 </UpdateContentBox>
                 {/* staff */}
-                {/* <UpdateContentBox>
-                    <StandardInput
-                        label="Staff"
-                        required
-                        value={interviewSchedule.staff}
-                        onChangeValue={
-                            (value: string) =>
-                                setInterviewSchedule({ ...interviewSchedule, staff: value })}
-                    />
-                </UpdateContentBox> */}
+              
                 {/* no of  person*/}
                 <UpdateContentBox>
                     <StandardInput
                         label="No of Staff"
                         required
-
                         type="number"
-
                         value={interviewSchedule.noOfPerson}
                         onChangeValue={
                             (val: string) => {
@@ -231,53 +188,36 @@ export default function Main(props: {
                                         interviewSchedule.staff_list.pop()
                                     }
                                 }
-
                                 setInterviewSchedule({ ...interviewSchedule, noOfPerson: value })
                             }
                         }
                     />
                 </UpdateContentBox>
-                <UpdateContentBox>
+                    <div className="grid grid-cols-1 gap-4">
                     {
                         interviewSchedule.staff_list.map((ele, index) => {
                             return (<>
+                            <div className=" flex justify-between max-w-lg gap-2 ">
                                 <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
                                     console.log(value);   // Only Dev
                                     onUpdateStaff(index, { ...ele, name: value })
                                 }} />
                                 <RedButton text="Delete Staff" onClick={() => onRemoveStaff(index)} />
+                                </div>
                             </>)
                         })
                     }
-                    {/* {Array.from({ length: interviewSchedule.noOfPerson ?? 0 }, (_, index) => (
-                        // <UpdateContentBox>
-                        <>
-                            <div>
-                                <StandardInput key={index} value={""} onChangeValue={(value: string) => console.log(value)} />
-                                <RedButton text="Delete Staff" onClick={() => setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson - 1 })} /></div>
-                        </>
-                    ))} */}
-                </UpdateContentBox>
+                
+                    </div>
                 {/* Client */}
-                {/* <UpdateContentBox>
-                    <StandardInput
-                        label="Client"
-                        required
-                        value={interviewSchedule.client}
-                        onChangeValue={
-                            (value: string) =>
-                                setInterviewSchedule({ ...interviewSchedule, client: value })}
-                    />
-                </UpdateContentBox> */}
+             
 
                 {/* no of  person*/}
                 <UpdateContentBox>
                     <StandardInput
                         label="No of Client"
                         required
-
                         type="number"
-
                         value={interviewSchedule.noOfClient}
                         onChangeValue={
                             (val: string) => {
@@ -294,27 +234,21 @@ export default function Main(props: {
                         }
                     />
                 </UpdateContentBox>
-                <UpdateContentBox>
+                <div className="grid grid-cols-1 gap-4">
                     {
                         interviewSchedule.client_list.map((ele, index) => {
                             return (<>
+                            <div className=" flex justify-between max-w-lg gap-2 ">
                                 <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
                                     console.log(value);   // Only Dev
                                     onUpdateClient(index, { ...ele, name: value })
                                 }} />
                                 <RedButton text="Delete Client" onClick={() => onRemoveClient(index)} />
+                                </div>
                             </>)
                         })
                     }
-                    {/* {Array.from({ length: interviewSchedule.noOfClient ?? 0 }, (_, index) => (
-                        // <UpdateContentBox>
-                        <>
-                            <div>
-                                <StandardInput key={index} value={""} onChangeValue={(value: string) => console.log(value)} />
-                                <RedButton text="Delete Client" onClick={() => setInterviewSchedule({ ...interviewSchedule, noOfClient: interviewSchedule.noOfClient - 1 })} /></div>
-                        </>
-                    ))} */}
-                </UpdateContentBox>
+                    </div>
             </div>
         </FullScreenModal>
 

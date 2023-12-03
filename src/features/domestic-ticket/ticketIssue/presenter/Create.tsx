@@ -86,6 +86,7 @@ export default function Main(props: {
 
 
             {/* Interview schedule period */}
+            <div className="justify-between max-w-lg gap-2">
             <CustomSelectComponent
                 value={ticketIssue.interview_schedule_period_id}
                 label="Interview schedule Period"
@@ -97,8 +98,10 @@ export default function Main(props: {
                     setTicketIssue({ ...ticketIssue, interview_schedule_period_id: value })
 
                 }} />
-
+                </div>
+            
             {/* date */}
+            <div className="justify-between max-w-lg gap-2">
             <CustomSelectComponent
                 value={ticketIssue.interview_schedule_id}
                 label="Interview schedule"
@@ -113,7 +116,7 @@ export default function Main(props: {
                     fetchInterviewschedule(value)
 
                 }} />
-
+                </div>
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.staff_list}
