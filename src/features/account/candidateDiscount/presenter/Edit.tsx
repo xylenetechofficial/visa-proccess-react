@@ -1,10 +1,10 @@
-import {  readCandidateDiscount, updateCandidateDiscount } from "../repository";
+import { readCandidateDiscount, readCandidateDiscountList, updateCandidateDiscount } from "../repository";
 import { useEffect, useState } from "react";
-import  { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput,  UnlabeledInput } from "../../../../componenets/Input";
+import { FullScreenModal } from "../../../../componenets/Modal";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CandidateDiscountInterface, VisaProfesionInterface } from "../type";
-import {  CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
+import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
@@ -12,87 +12,121 @@ import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/re
 import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
 import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
 import VisaProfessionTable from "./VisaProfessionTable";
-
+import CandidateDiscountTable from './Table';
+import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 
 export default function Main(props: {
-    onClose: ()=>void, 
-    fetchCandidateDiscountList: ()=>void,
-    currentElement:CandidateDiscountInterface, 
-    
-    companyList: CompanyInterface[],
-    countryList: CountryInterface[],
+    onClose: () => void,
+    fetchCandidateDiscountList: () => void,
+
 }) {
 
-    const initValue: CandidateDiscountInterface = {
-        id: 0,
-        arabic_sponsor_name: "",
-        company: 0,
-        country: 0,
-        division: "",
-        index_date: "",
-        om: 0,
-        quantity: 0,
-        rc: 0,
-        rm: 0,
-        sponsor_id: "",
-        visa_accountable: 0,
-        visa_authorization: 0,
-        visa_authorization_name: 0,
-        visa_number: "",
-        visa_date_arabic: "",
-        visa_expiry_date: "",
-        visa_fee: 0,
-        visa_issued_date: "",
-        visa_submission: "",
-    }
+    // const initValue: CandidateDiscountInterface = {
+    //     id: 0,
+    //     arabic_sponsor_name: "",
+    //     company: 0,
+    //     country: 0,
+    //     division: "",
+    //     index_date: "",
+    //     om: 0,
+    //     quantity: 0,
+    //     rc: 0,
+    //     rm: 0,
+    //     sponsor_id: "",
+    //     visa_accountable: 0,
+    //     visa_authorization: 0,
+    //     visa_authorization_name: 0,
+    //     visa_number: "",
+    //     visa_date_arabic: "",
+    //     visa_expiry_date: "",
+    //     visa_fee: 0,
+    //     visa_issued_date: "",
+    //     visa_submission: "",
+    // }
 
-    const [CandidateDiscount, setCandidateDiscount] = useState(initValue)
-    const [visaProfessionList, setVisaProfessionList] = useState<VisaProfesionInterface[]>([])
+    // const [CandidateDiscount, setCandidateDiscount] = useState(initValue)
+    // const [visaProfessionList, setVisaProfessionList] = useState<VisaProfesionInterface[]>([])
 
 
 
-    async function onClickAdd() {
+    // async function onClickAdd() {
 
-        // call create
-        const newArray :any={...CandidateDiscount,visaProfessionList:visaProfessionList}
-   
-        // const flag = await updateCandidateDiscount(props.currentElement.id??0,newArray)
-        const flag = await updateCandidateDiscount(newArray)
+    //     // call create
+    //     const newArray :any={...CandidateDiscount,visaProfessionList:visaProfessionList}
 
-       
-        setCandidateDiscount(initValue)
-        props.fetchCandidateDiscountList()
-    }
-    const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
-    const fetchvisaAuhorisationList = async () => {
-        const data = await readVisaAuthorisationList();
-        if (data) {
-            setvisaAuhorisationList(data);
+    //     // const flag = await updateCandidateDiscount(props.currentElement.id??0,newArray)
+    //     const flag = await updateCandidateDiscount(newArray)
+
+
+    //     setCandidateDiscount(initValue)
+    //     props.fetchCandidateDiscountList()
+    // }
+    // const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
+    // const fetchvisaAuhorisationList = async () => {
+    //     const data = await readVisaAuthorisationList();
+    //     if (data) {
+    //         setvisaAuhorisationList(data);
+    //     }
+    // }
+    // const fetchCandidateDiscount= async () => {
+    //     const data = await readCandidateDiscount(props.currentElement.id??0);
+    //     if (data) {
+    //         setCandidateDiscount(data);
+    //         setVisaProfessionList(data.visaProfessionList??[])
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchvisaAuhorisationList();
+    //     fetchCandidateDiscount()
+
+    // }, [])
+
+    const [CandidateDiscountList, setCandidateDiscountList] = useState<CandidateDiscountInterface[]>([]);
+    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+        {
+          pagination: {
+            page: 1,
+            page_count: 1,
+            item_count: 0,
+            sno_base: 0,
+          },
         }
-    }
-    const fetchCandidateDiscount= async () => {
-        const data = await readCandidateDiscount(props.currentElement.id??0);
+      );
+    const fetchCandidateDiscountList = async (page?: number) => {
+        const data: any = await readCandidateDiscountList({
+          page: page ?? additionalData.pagination.page,
+          status: "no"
+        });
         if (data) {
-            setCandidateDiscount(data);
-            setVisaProfessionList(data.visaProfessionList??[])
+          setCandidateDiscountList(data);
         }
-    }
-    useEffect(() => {
-        fetchvisaAuhorisationList();
-        fetchCandidateDiscount()
-        
-    }, [])
-
+        setAdditionalData(await PaginationManager.getData());
+    
+      };
+      useEffect(() => {
+        fetchCandidateDiscountList(additionalData.pagination.page);
+    
+      }, []);
+      const handleSubmit = async (data: any) => {
+        console.log(data, "lllAAAAAAA")
+        const updatedForm = { selection_list: data };
+    
+        const res: any = await updateCandidateDiscount(updatedForm)
+        if (res) {
+          fetchCandidateDiscountList();
+        }
+    
+      }
     return (
 
         <FullScreenModal
             buttonName="Update"
-            handleClick={onClickAdd}
-            title="Update Block Visa"
+            handleClick={() => handleSubmit(CandidateDiscountList)}
+            title="Update Candidate Discount"
             onClose={props.onClose}
         >
 
-            <div className=" grid grid-cols-1 py-3  gap-2 shadow">
+            {/* <div className=" grid grid-cols-1 py-3  gap-2 shadow">
                 <UpdateContentBox>
 
                     <SubHeading1 text="Index Date  :" />
@@ -285,14 +319,28 @@ export default function Main(props: {
 
 
 
-            </div>
+            </div> */}
 
 
-            <VisaProfessionTable
+            {/* <VisaProfessionTable
                 visaProfessionList={visaProfessionList}
                 onChange={(value) => setVisaProfessionList(value)}
-            />
+            /> */}
 
+
+            <div className=" grid grid-cols-1 py-3  gap-2 shadow">
+            <CandidateDiscountTable
+             snoBase={additionalData.pagination.sno_base}
+             CandidateDiscountList={CandidateDiscountList}
+             setCandidateDiscountList={setCandidateDiscountList}
+             discountAndRemark={{}}
+             setDiscountList={{}}
+             data={{}}
+             setData={{}}
+             discountList={{}}
+             onChange={(value)=>{setCandidateDiscountList(value)}} />
+
+            </div>
         </FullScreenModal>
     )
 }

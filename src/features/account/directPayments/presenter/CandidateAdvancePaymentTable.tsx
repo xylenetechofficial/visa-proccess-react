@@ -2,7 +2,7 @@ import {
     AdvancePaymentInterface,
     CandidateAdvancePaymentInterface,
 } from "../type";
-import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import {
     Table3,
     TableBody3,
@@ -18,13 +18,14 @@ import { readAdvancePaymentList } from "../repository";
 import { convertDateFormat } from "../../../../utils/function";
 import Pagination from "../../../../componenets/Pagination";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import EditCandidateAdvancePaymentTable from './EditCandidateAdvancePayment';
 
 const CandidateAdvancePaymentTable = (props: {
     CandidateAdvancePaymentList: CandidateAdvancePaymentInterface[];
     onChange: (ele: CandidateAdvancePaymentInterface[]) => void;
     onchangeCheck: string;
 }) => {
-
+    const [modalName, setModalName] = useState('')
     const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
         {
             pagination: {
@@ -36,6 +37,15 @@ const CandidateAdvancePaymentTable = (props: {
         }
     );
     const [onChange, setonChange] = useState<string>("");
+    const [singleAdvancePaymentEdit, setSingleAdvancePaymentEdit] = useState(
+        {
+            name: '',
+            passport_no: '',
+            amount: 0,
+            received_date: '',
+            remarks: ''
+        }
+    )
     const [advancePaymentList, setAdvancePaymentList] =
         useState<AdvancePaymentInterface[]>();
     const onClickAddNewRow = () => {
@@ -89,7 +99,9 @@ const CandidateAdvancePaymentTable = (props: {
     useEffect(() => {
         fetchAdvancePaymentList(additionalData.pagination.page,);
     }, [props.onchangeCheck]);
-
+    const onClickDelete = (id: number) => {
+        console.log(id, "Call the Api for Delete")
+    }
     return (
         <div className="overflow-auto" style={{ justifyContent: "center" }}>
             <Table3>
@@ -101,6 +113,7 @@ const CandidateAdvancePaymentTable = (props: {
                         <TableHeadCell3> ADVANCE AMOUNT</TableHeadCell3>
                         <TableHeadCell3> RECIEVED DATE</TableHeadCell3>
                         <TableHeadCell3> REMARKS</TableHeadCell3>
+                        <TableHeadCell3>Action </TableHeadCell3>
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody3>
@@ -112,6 +125,7 @@ const CandidateAdvancePaymentTable = (props: {
                             <TableCell3>{item.amount}</TableCell3>
                             <TableCell3>{convertDateFormat(item.received_date)}</TableCell3>
                             <TableCell3>{item.remarks}</TableCell3>
+                            <TableCell3><BlueButton text="Edit" onClick={() => { setSingleAdvancePaymentEdit(item), setModalName('edit'), console.log("edit") }} /> <RedButton text="Delete" onClick={() => onClickDelete(item.id)} /></TableCell3>
                         </TableRow3>
                     ))}
 
@@ -131,72 +145,9 @@ const CandidateAdvancePaymentTable = (props: {
                     fetchAdvancePaymentList(e);
                 }}
             />
+            {modalName === 'edit' ? <EditCandidateAdvancePaymentTable onClose={() => setModalName('')} fetchcandidateAdvancePaymentList={fetchAdvancePaymentList} singleAdvancePaymentList={singleAdvancePaymentEdit} setSingleAdvancePaymentEdit={setSingleAdvancePaymentEdit} /> : ''}
         </div>
     );
 };
 
 export default CandidateAdvancePaymentTable;
-
-// const TableData = (
-//     props: {
-//         index: number;
-//         data: CandidateAdvancePaymentInterface;
-//         // onClickEdit: any;
-//         onUpdate: (index: number, rowData: CandidateAdvancePaymentInterface) => void;
-//         onClickRemove: (index: number) => void;
-//         onChange: string
-//     }
-
-// ) => {
-
-//     const [localRowData, setLocalRowData] = useState<any>({
-//         // const [localRowData, setLocalRowData] = useState<VisaProfesionInterface>({
-//         visa_profession: "",
-//         arabic_visa_category: "",
-//         block_visa_id: 0,
-//         quantity: 0,
-
-//     })
-//     useEffect(() => {
-//         setLocalRowData(props.data)
-//     }, [props.onChange])
-//     useEffect(() => {
-//         console.log("rerender");   // Only Dev
-//         props.onUpdate(props.index, localRowData!)
-//     }, [localRowData])
-
-//     console.log(localRowData)
-//     return (
-//         <TableRow key={props.index}>
-//             <TableCell3 >{props.index + 1}</TableCell3>
-//             <TableCell3 >
-//                 <UnlabeledInput
-//                     value={localRowData.visa_profession}
-//                     onchange={(value) => setLocalRowData({ ...localRowData, visa_profession: value })}
-//                 />
-//             </TableCell3>
-
-//             <TableCell3 >
-//                 {/* {props.data.service_charges} */}
-//                 <UnlabeledInput
-//                     value={localRowData.arabic_visa_category}
-//                     onchange={(value) => setLocalRowData({ ...localRowData, arabic_visa_category: value })}
-//                 />
-//             </TableCell3>
-//             <TableCell3 >
-//                 {/* {props.data.quantity} */}
-//                 <UnlabeledInput
-//                     value={localRowData.quantity}
-//                     onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
-//                 />
-//             </TableCell3>
-//             <TableCell3 >
-
-//                 <RedButton text={" Remove"} onClick={() => {
-//                     props.onClickRemove(props.index)
-//                 }} />
-
-//             </TableCell3>
-//         </TableRow>
-//     )
-// }

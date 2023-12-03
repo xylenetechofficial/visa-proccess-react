@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box,  styled } from "@mui/material";
-import AccountDashboardTable from "./Table";
+import IncentiveTable from "./Table";
 import {
   CustomButton2,
   CustomNavbarV3,
@@ -8,17 +8,17 @@ import {
 import { FaFilter } from "react-icons/fa";
 
 import {
-  createAccountDashboard,
-  readAccountDashboardList,
+  createIncentive,
+  readIncentiveList,
 } from "../repository";
-import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { AddIncentiveInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
-
+import { BlueButton } from "../../../../componenets/CustomButton";
+import EditIncentiveTable from './Edit'
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -54,13 +54,13 @@ export default function Main() {
   const [addIncentive, setIncentive] = useState<AddIncentiveInterface[]>([]);
   const onClickCreate = async (data: AddIncentiveInterface) => {
     console.log(data, "DDDDDDDDDDDDDDDDDDDDDD", addIncentive);
-    await createAccountDashboard(addIncentive);
-    await fetchAccountDashboardList(status);
+    await createIncentive(addIncentive);
+    await fetchIncentiveList(status);
   };
 
 
-  const [accountDashboardList, setAccountDashboardList] = useState<any>([]);
-
+  const [incentiveList, setIncentiveList] = useState<any>([]);
+  const [modalName, setModalName] = useState('')
   const [searchQuery, setSearchQuery] = useState("");
 
   // const filterData = (query: string, data: AccountDashboardInterface[]) => {
@@ -73,22 +73,22 @@ export default function Main() {
       );
     }
   };
-  const dataFiltered = filterData(searchQuery, accountDashboardList);
+  const dataFiltered = filterData(searchQuery, incentiveList);
 
-  const fetchAccountDashboardList = async (value: string, page?: number) => {
-    const data = await readAccountDashboardList(value, {
+  const fetchIncentiveList = async (value: string, page?: number) => {
+    const data = await readIncentiveList(value, {
       page: page ?? additionalData.pagination.page,
       status: "no",
     });
     console.log(data, "AAAAAAAAA");
     if (data) {
-      setAccountDashboardList(data);
+      setIncentiveList(data);
     }
     setAdditionalData(await PaginationManager.getData());
     // setAccountDashboardList(data);
   };
   useEffect(() => {
-    fetchAccountDashboardList(status, additionalData.pagination.page);
+    fetchIncentiveList(status, additionalData.pagination.page);
   }, [status]);
 
   return (
@@ -100,37 +100,36 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <CustomSelectComponentUnlabeled
-          value=""
-          options={[
-            { name: "Yes", value: "yes" },
-            { name: "No", value: "no" },
-          ]}
-          onChange={(value) => setStatus(value)}
-        />
+
+        <BlueButton text="Edit" onClick={()=>{
+          setModalName('edit')
+        }}/>
       </CardHeader>
 
-      {/*  AccountDashboard stable */}
-      <AccountDashboardTable
-        // accountDashboardList={dataFiltered}
+      {/*  Incentive Table */}
+      <IncentiveTable
         snoBase={additionalData.pagination.sno_base}
-        accountDashboardList={accountDashboardList}
-        setAccountDashboardList={setAccountDashboardList}
+        incentiveList={incentiveList}
+        setIncentiveList={setIncentiveList}
         updateIncentive={updateIncentive}
         setUpdateIncentive={setUpdateIncentive}
         data={data}
         setData={setData}
         onChange={(value) => setIncentive(value)}
-        onClickCreate={onClickCreate}
+        onClick={onClickCreate}
       />
       <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
           console.log(e); // Only Dev
-          fetchAccountDashboardList(status, e);
+          fetchIncentiveList(status, e);
         }}
       />
+      {modalName === 'edit' ? 
+      <EditIncentiveTable
+      setModalName={setModalName}
+       />:''}
     </div>
   );
 }

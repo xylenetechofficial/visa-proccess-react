@@ -19,14 +19,13 @@ import { convertDateFormat } from "../../../../utils/function";
 const AccountDashboardTable = (props: {
   // accountDashboardList: AgentPaymentReceivedInterface[];
   snoBase: number;
-  accountDashboardList: IncentiveInterface[];
-  setAccountDashboardList: any;
-
+  incentiveList: IncentiveInterface[];
+  setIncentiveList: any;
   updateIncentive: any;
   setUpdateIncentive: any;
   data: any;
   setData: any;
-  onClickCreate: any;
+  onClick: any;
   onChange: (value: AddIncentiveInterface[]) => void;
 }) => {
   const dummy = [1, 2];
@@ -34,10 +33,10 @@ const AccountDashboardTable = (props: {
   const [incentivesData, setincentivesData] = useState<AddIncentiveInterface[]>(
     []
   );
-  console.log(incentivesData, "indcentive", props?.accountDashboardList);
+  console.log(incentivesData, "indcentive", props?.incentiveList);
 
   function onUpdateRow(index: number, rowData: IncentiveInterface) {
-    const nextData = props.accountDashboardList.map((e, i) => {
+    const nextData = props.incentiveList.map((e, i) => {
       if (i === index) {
         // Increment the clicked counter
         return rowData;
@@ -62,13 +61,13 @@ const AccountDashboardTable = (props: {
               <TableHeadCell3> DIVISION </TableHeadCell3>
               <TableHeadCell3> OPS MANAGER </TableHeadCell3>
               <TableHeadCell3> RC NAME</TableHeadCell3>
-              <TableHeadCell3> SELECT </TableHeadCell3>
+              {/* <TableHeadCell3> SELECT </TableHeadCell3> */}
               <TableHeadCell3> MANAGER INCENTIVE</TableHeadCell3>
               <TableHeadCell3> STAFF INCENTIVE</TableHeadCell3>
             </TableHeadRow3>
           </TableHead3>
           <TableBody3>
-            {props?.accountDashboardList?.map((ele: any, index: any) => (
+            {props?.incentiveList?.map((ele: any, index: any) => (
               <TableRow3 key={index}>
                 <TableCell3>{index + props?.snoBase + 1}</TableCell3>
                 <TableCell3> {ele?.job_order_no}</TableCell3>
@@ -81,7 +80,7 @@ const AccountDashboardTable = (props: {
                 <TableCell3>{ele?.division} </TableCell3>
                 <TableCell3>{ele?.ops_manager} </TableCell3>
                 <TableCell3>{ele?.rc_name}</TableCell3>
-                <TableCell3>
+                {/* <TableCell3>
                   {" "}
                   <Checkbox
                     onClick={(value) => {
@@ -97,14 +96,14 @@ const AccountDashboardTable = (props: {
                       onUpdateRow(index, { ...ele, id: ele.id });
                     }}
                   />
-                </TableCell3>
+                </TableCell3> */}
                 <TableCell3>
                   {" "}
                   <UnlabeledInput
                     type="number"
                     // value={incentivesData[index]?.manager_incentive} onchange={(value) => {
                     value={
-                      props?.accountDashboardList[index]?.manager_incentive
+                      props?.incentiveList[index]?.manager_incentive
                     }
                     onchange={(value) => {
                       console.log("first"),
@@ -117,7 +116,7 @@ const AccountDashboardTable = (props: {
                           return newArray;
                         });
                       onUpdateRow(index, { ...ele, manager_incentive: value });
-                      props?.setAccountDashboardList((prev: any) => {
+                      props?.setIncentiveList((prev: any) => {
                         const newArray = [...prev];
                         newArray[index] = {
                           ...newArray[index],
@@ -138,7 +137,7 @@ const AccountDashboardTable = (props: {
                 <TableCell3>
                   <UnlabeledInput
                     type="number"
-                    value={props.accountDashboardList[index]?.staff_incentive}
+                    value={props.incentiveList[index]?.staff_incentive}
                     onchange={(value) => {
                       onUpdateRow(index, { ...ele, staff_incentive: value });
                       setincentivesData((prev: any) => {
@@ -149,7 +148,7 @@ const AccountDashboardTable = (props: {
                         };
                         return newArray;
                       });
-                      props?.setAccountDashboardList((prev: any) => {
+                      props?.setIncentiveList((prev: any) => {
                         const newArray = [...prev];
                         newArray[index] = {
                           ...newArray[index],
@@ -183,7 +182,7 @@ const AccountDashboardTable = (props: {
               };
             });
             console.log(props.data, "a");
-            props.onClickCreate(incentivesData);
+            props.onClick(incentivesData);
           }}
         />
       </div>

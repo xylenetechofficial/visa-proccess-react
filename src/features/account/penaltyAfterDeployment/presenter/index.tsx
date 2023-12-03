@@ -14,7 +14,8 @@ import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBo
 import { AddSelectionPenaltyAfterDeploymentInterface, PenaltyAfterDeploymentDashboardInterface } from "../type";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
-
+import { BlueButton } from "../../../../componenets/CustomButton";
+import EditPenaltyDeployement from './Edit'
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -102,8 +103,14 @@ export default function Main() {
       <CardHeader>
 
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <CustomSelectComponentUnlabeled value={status} onChange={(value) => setStatus(value)} options={[{ name: "Yes", value: "yes" }, { name: "No", value: "no" }]} />
-
+        {/* <CustomSelectComponentUnlabeled value={status} onChange={(value) => setStatus(value)} options={[{ name: "Yes", value: "yes" }, { name: "No", value: "no" }]} /> */}
+        <BlueButton
+          text={"Edit"}
+          onClick={() => {
+            console.log("edit")
+            setModalName('Edit')
+          }}
+        />
       </CardHeader>
 
 
@@ -128,8 +135,7 @@ export default function Main() {
           fetchAccountDashboardList(e);
         }}
       />
-
-
+      {modalName === 'Edit' ? <EditPenaltyDeployement onClose={()=>setModalName('')} /> :''}
     </div>
   );
 }

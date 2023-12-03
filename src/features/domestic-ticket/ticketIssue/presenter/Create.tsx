@@ -75,6 +75,7 @@ export default function Main(props: {
     // useEffect(() => {
     //     converFOROptions()
     // }, [])
+    console.log(ticketIssue,"ticketIssue")
     return (
 
         <FullScreenModal

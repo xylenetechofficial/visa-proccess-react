@@ -43,6 +43,7 @@ const Main = (props: {
     });
     props.onChange(nextData)
   }
+  console.log(props.staffAndClientDataList,"SS")
   return (
     <div className="overflow-auto">
 
@@ -72,6 +73,7 @@ const Main = (props: {
                   type="number"
                   onchange={(val: any) => {
                     console.log(val);   // Only Dev
+                    onUpdateRow(index, { ...item, ticket_amount: val })
                   }}
                 />
               </TableCell3>
@@ -82,6 +84,7 @@ const Main = (props: {
                   options={selectOptionConveter({ options: TravelBytList, options_struct: { name: "name", value: "value" } })}
                   onChange={(val: any) => {
                     console.log(val);   // Only Dev
+                    onUpdateRow(index, { ...item, travel_by: val })
                   }}
                 />
               </TableCell3>
@@ -89,6 +92,7 @@ const Main = (props: {
                 <UnlabeledInput
                   onchange={(val: any) => {
                     console.log(val);   // Only Dev
+                    onUpdateRow(index, { ...item, hotel_amount: val })
                   }}
                   value={item.hotel_amount}
                   type="number"
@@ -100,6 +104,7 @@ const Main = (props: {
                   type="number"
                   onchange={(val: any) => {
                     console.log(val);   // Only Dev
+                    onUpdateRow(index, { ...item, other_expenses: val })
                   }}
                 />
               </TableCell3>
@@ -109,6 +114,7 @@ const Main = (props: {
                   type="number"
                   onchange={(val: any) => {
                     console.log(val);   // Only Dev
+                    onUpdateRow(index, { ...item, total_amount: val })
                   }}
                 />
               </TableCell3>
@@ -117,6 +123,7 @@ const Main = (props: {
                   value={item.remarks}
                   onchange={(val: any) => {
                     console.log(val);   // Only Dev
+                    onUpdateRow(index, { ...item, remarks: val })
                   }}
                 />
               </TableCell3>

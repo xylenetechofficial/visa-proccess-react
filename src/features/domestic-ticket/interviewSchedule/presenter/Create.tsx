@@ -49,8 +49,12 @@ export default function Main(props: {
         props.onClose()
     }
 
-    function onAddStaff(data?: StaffAndClientInterface) {
+    function onAddStaff(data?:number) {
+        console.log(data,"if interviewSchedule SSS")
+        if(data){
+        for(let i=0; i< data ; i++){
         const new_data = interviewSchedule.staff_list
+        // const new_data=[];
         new_data.push({
             name: '',
             ticket_amount: 0,
@@ -60,10 +64,14 @@ export default function Main(props: {
             total_amount: 0,
             remarks: '',
         })
-
+    }
+    }
     }
 
-    function onAddClient(data?: StaffAndClientInterface) {
+    function onAddClient(data?: number) {
+        console.log(data,"SSS",interviewSchedule.client)
+        if(data){
+            for(let i=0; i< data ; i++){
         const new_data = interviewSchedule.client_list
         new_data.push({
             name: '',
@@ -74,6 +82,8 @@ export default function Main(props: {
             total_amount: 0,
             remarks: '',
         })
+    }
+}
 
     }
     function onUpdateStaff(index: number, data: StaffAndClientInterface) {
@@ -123,6 +133,7 @@ export default function Main(props: {
 
         setInterviewSchedule({ ...interviewSchedule, client_list: new_data })
     }
+       console.log(interviewSchedule.staff_list,"if interviewSchedule console")
     return (
 
         <FullScreenModal
@@ -180,21 +191,36 @@ export default function Main(props: {
                         value={interviewSchedule.noOfPerson}
                         onChangeValue={
                             (val: string) => {
+                                if(val===''){
+                                    val='0'
+                                }
                                 const value = parseInt(val)
-                                if (value > interviewSchedule.noOfPerson)
-                                    onAddStaff()
+                                if (value > interviewSchedule.noOfPerson){
+                                    setInterviewSchedule({ ...interviewSchedule, noOfPerson: value })
+                                console.log(value,"if interviewSchedule",interviewSchedule.noOfPerson)
+                                
+                                    onAddStaff(value)
+                                   
+                                    return
+                                }
                                 else {
+                                    console.log(value,"if interviewSchedule else",interviewSchedule.noOfPerson)
+                                    setInterviewSchedule({ ...interviewSchedule, noOfPerson: value })
                                     for (let i = 0; i < interviewSchedule.noOfPerson - value; i++) {
+                                        console.log(i,"if interviewSchedule loop", interviewSchedule.staff_list, value)
                                         interviewSchedule.staff_list.pop()
+                                        // onAddStaff(value)
                                     }
                                 }
-                                setInterviewSchedule({ ...interviewSchedule, noOfPerson: value })
+                                // setInterviewSchedule({ ...interviewSchedule, noOfPerson: value })
                             }
                         }
                     />
                 </UpdateContentBox>
                     <div className="grid grid-cols-1 gap-4">
+                      
                     {
+                        
                         interviewSchedule.staff_list.map((ele, index) => {
                             return (<>
                             <div className=" flex justify-between max-w-lg gap-2 ">
@@ -223,7 +249,7 @@ export default function Main(props: {
                             (val: string) => {
                                 const value = parseInt(val)
                                 if (value > interviewSchedule.noOfClient)
-                                    onAddClient()
+                                    onAddClient(value)
                                 else {
                                     for (let i = 0; i < interviewSchedule.noOfClient - value; i++) {
                                         interviewSchedule.client_list.pop()

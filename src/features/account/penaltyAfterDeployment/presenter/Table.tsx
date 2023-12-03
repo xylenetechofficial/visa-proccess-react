@@ -87,7 +87,7 @@ const AccountDashboardTable = (props: {
               <TableHeadCell3> DISCOUNTED AMOUNT</TableHeadCell3>
               <TableHeadCell3> PAYMENT </TableHeadCell3>
               <TableHeadCell3> PENDING AMOUNT  </TableHeadCell3>
-              <TableHeadCell3> <Checkbox />  </TableHeadCell3>
+              {/* <TableHeadCell3> <Checkbox />  </TableHeadCell3> */}
               <TableHeadCell3> PENALTY AFTER DEPARTURE</TableHeadCell3>
               <TableHeadCell3> PENALTY REMARKS</TableHeadCell3>
             </TableHeadRow3>
@@ -141,7 +141,8 @@ const AccountDashboardTable = (props: {
                 <TableCell3> {ele?.discount_amount} </TableCell3>
                 <TableCell3> {ele?.payment} </TableCell3>
                 <TableCell3> {ele?.pending_amount}  </TableCell3>
-                <TableCell3> <Checkbox
+                {/* <TableCell3>
+                   <Checkbox
                   value={penaltyData[index]?.id} onClick={(value) => {
                     setPenaltyData((prev: any) => {
                       const newData = [...prev];
@@ -153,7 +154,8 @@ const AccountDashboardTable = (props: {
                     }),
                       onUpdateRow(index, { ...ele, id: ele.id })
                     console.log(penaltyData, "ss")
-                  }} />  </TableCell3>
+                  }} />
+                    </TableCell3> */}
                 <TableCell3> <UnlabeledInput 
 type="number"
                      value={ele?.penalty_after_departure}
