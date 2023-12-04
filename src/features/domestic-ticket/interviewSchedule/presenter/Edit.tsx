@@ -8,7 +8,7 @@ import { CompanyInterface } from "../../../masters/company/type";
 import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { RedButton } from "../../../../componenets/CustomButton";
+import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 
 
 
@@ -224,7 +224,7 @@ export default function Main(props: {
                     />
                 </UpdateContentBox> */}
                 {/* no of  person*/}
-                <UpdateContentBox>
+                {/* <UpdateContentBox>
                     <StandardInput
                         label="No of Staff"
                         required
@@ -247,16 +247,22 @@ export default function Main(props: {
                             }
                         }
                     />
-                </UpdateContentBox>
+                </UpdateContentBox> */}
+                
                 <UpdateContentBox>
+                    <BlueButton text="Add Staff" onClick={()=> {setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson + 1 }), onAddStaff()}} />
+                </UpdateContentBox>
+                <div className="grid grid-cols-1 gap-4">
                     {
                         interviewSchedule.staff_list.map((ele, index) => {
                             return (<>
+                             <div className=" flex justify-between max-w-lg gap-2 ">
                                 <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
                                     console.log(value);   // Only Dev
                                     onUpdateStaff(index, { ...ele, name: value })
                                 }} />
                                 <RedButton text="Delete Staff" onClick={() => onRemoveStaff(index)} />
+                                </div>
                             </>)
                         })
                     }
@@ -268,7 +274,7 @@ export default function Main(props: {
                                 <RedButton text="Delete Staff" onClick={() => setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson - 1 })} /></div>
                         </>
                     ))} */}
-                </UpdateContentBox>
+                </div>
                 {/* Client */}
                 {/* <UpdateContentBox>
                     <StandardInput
@@ -282,7 +288,7 @@ export default function Main(props: {
                 </UpdateContentBox> */}
 
                 {/* no of  person*/}
-                <UpdateContentBox>
+                {/* <UpdateContentBox>
                     <StandardInput
                         label="No of Client"
                         required
@@ -304,16 +310,21 @@ export default function Main(props: {
                             }
                         }
                     />
+                </UpdateContentBox> */}
+                 <UpdateContentBox>
+                    <BlueButton text="Add Client" onClick={()=>{ setInterviewSchedule({ ...interviewSchedule, noOfClient: interviewSchedule.noOfClient + 1 }), onAddClient()}} />
                 </UpdateContentBox>
-                <UpdateContentBox>
+                <div className="grid grid-cols-1 gap-4">
                     {
                         interviewSchedule.client_list.map((ele, index) => {
                             return (<>
+                                <div className=" flex justify-between max-w-lg gap-2 ">
                                 <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
                                     console.log(value);   // Only Dev
                                     onUpdateClient(index, { ...ele, name: value })
                                 }} />
                                 <RedButton text="Delete Client" onClick={() => onRemoveClient(index)} />
+                                </div>
                             </>)
                         })
                     }
@@ -325,7 +336,7 @@ export default function Main(props: {
                                 <RedButton text="Delete Client" onClick={() => setInterviewSchedule({ ...interviewSchedule, noOfClient: interviewSchedule.noOfClient - 1 })} /></div>
                         </>
                     ))} */}
-                </UpdateContentBox>
+                </div>
             </div>
         </FullScreenModal>
 

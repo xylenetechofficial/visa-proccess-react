@@ -7,7 +7,7 @@ import { CustomSelectComponent, selectOptionConveter } from "../../../../compone
 import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { RedButton } from "../../../../componenets/CustomButton";
+import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 
 export default function Main(props: {
     onClose: any,
@@ -51,8 +51,8 @@ export default function Main(props: {
 
     function onAddStaff(data?:number) {
         console.log(data,"if interviewSchedule SSS")
-        if(data){
-        for(let i=0; i< data ; i++){
+        // if(data){
+        // for(let i=0; i< data ; i++){
         const new_data = interviewSchedule.staff_list
         // const new_data=[];
         new_data.push({
@@ -64,14 +64,14 @@ export default function Main(props: {
             total_amount: 0,
             remarks: '',
         })
-    }
-    }
+    // }
+    // }
     }
 
     function onAddClient(data?: number) {
         console.log(data,"SSS",interviewSchedule.client)
-        if(data){
-            for(let i=0; i< data ; i++){
+        // if(data){
+        //     for(let i=0; i< data ; i++){
         const new_data = interviewSchedule.client_list
         new_data.push({
             name: '',
@@ -82,8 +82,8 @@ export default function Main(props: {
             total_amount: 0,
             remarks: '',
         })
-    }
-}
+//     }
+// }
 
     }
     function onUpdateStaff(index: number, data: StaffAndClientInterface) {
@@ -183,7 +183,7 @@ export default function Main(props: {
                 {/* staff */}
               
                 {/* no of  person*/}
-                <UpdateContentBox>
+                {/* <UpdateContentBox>
                     <StandardInput
                         label="No of Staff"
                         required
@@ -216,6 +216,9 @@ export default function Main(props: {
                             }
                         }
                     />
+                </UpdateContentBox> */}
+                <UpdateContentBox>
+                    <BlueButton text="Add Staff" onClick={()=> {setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson + 1 }),onAddStaff()}} />
                 </UpdateContentBox>
                     <div className="grid grid-cols-1 gap-4">
                       
@@ -239,7 +242,7 @@ export default function Main(props: {
              
 
                 {/* no of  person*/}
-                <UpdateContentBox>
+                {/* <UpdateContentBox>
                     <StandardInput
                         label="No of Client"
                         required
@@ -259,6 +262,9 @@ export default function Main(props: {
                             }
                         }
                     />
+                </UpdateContentBox> */}
+                    <UpdateContentBox>
+                    <BlueButton text="Add Client" onClick={()=> {setInterviewSchedule({ ...interviewSchedule, noOfClient: interviewSchedule.noOfClient + 1 }), onAddClient()}} />
                 </UpdateContentBox>
                 <div className="grid grid-cols-1 gap-4">
                     {

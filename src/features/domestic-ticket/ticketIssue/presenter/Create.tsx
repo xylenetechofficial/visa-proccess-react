@@ -9,7 +9,7 @@ import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { InterviewScheduleInterface } from "../../interviewSchedule/type";
 import { readInterviewSchedule, readInterviewScheduleList } from "../../interviewSchedule/repository";
-import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import { Heading2, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { RedButton } from "../../../../componenets/CustomButton";
 import ClientAndStaffTable from './ClientAndStaffTable';
 
@@ -118,6 +118,7 @@ export default function Main(props: {
 
                 }} />
                 </div>
+                <Heading2  text="Staffs"/>
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.staff_list}
@@ -125,7 +126,7 @@ export default function Main(props: {
                     setTicketIssue({ ...ticketIssue, staff_list: value })
                 }}
             />
-
+            <Heading2  text="Client"/>
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.client_list}
