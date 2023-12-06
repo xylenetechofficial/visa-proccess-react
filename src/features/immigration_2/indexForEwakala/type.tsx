@@ -11,7 +11,7 @@ export interface IndexEwakalaInterface {
     approved_date: string,
     expiry_date: string,
     visa_number: string,
-    deman_acknowledged_date: string,
+    demand_acknowledged_date: string,
     visa_authorization_name: string
 }
 export interface IndexEwakalaAdapter {
@@ -27,7 +27,7 @@ export interface IndexEwakalaAdapter {
     country: string,
     approved_date: string,
     expiry_date: string,
-    deman_acknowledged_date: string,
+    demand_acknowledged_date: string,
     visa_authorization_name: string
 }
 
@@ -50,7 +50,7 @@ export class IndexEwakalaConverter {
             country: a?.country,
             approved_date: a?.approved_date,
             expiry_date: a?.expiry_date,
-            deman_acknowledged_date: a?.deman_acknowledged_date,
+            demand_acknowledged_date: a?.demand_acknowledged_date,
         };
         return data;
     }
@@ -83,7 +83,7 @@ export class IndexEwakalaConverter {
             country: i?.country,
             approved_date: i?.approved_date,
             expiry_date: i?.expiry_date,
-            deman_acknowledged_date: i?.deman_acknowledged_date,
+            demand_acknowledged_date: i?.demand_acknowledged_date,
         };
         return data;
     }

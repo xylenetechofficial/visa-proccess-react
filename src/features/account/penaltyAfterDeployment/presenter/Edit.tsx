@@ -28,7 +28,7 @@ const fetchPenaltyAFterDeploymentList = async(page?: number)=>{
     const data: PenaltyAfterDeploymentDashboardInterface[] = await readAccountDashboardList(
         {
           page: page ?? additionalData.pagination.page,
-          status: "no"
+          status: "yes"
         });
   
       if (data) {

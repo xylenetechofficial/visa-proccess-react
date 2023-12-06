@@ -136,9 +136,9 @@ const IndexForEwakalaTable = (props: {
                 id=""
                 onChange={(value) => {
                   console.log(value);   // Only Dev
-                  onUpdateRow(index, { ...item, deman_acknowledged_date: value })
+                  onUpdateRow(index, { ...item, demand_acknowledged_date: value })
                 }}
-                value={item.deman_acknowledged_date}
+                value={item.demand_acknowledged_date}
               />
               <TableCell3>{item?.visa_authorization_name} </TableCell3>
 

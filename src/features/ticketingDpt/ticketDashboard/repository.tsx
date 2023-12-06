@@ -163,7 +163,7 @@ export async function readUnderProcessList(ticketDashboard: any) {
 
 export async function updateUnderProcessReverse(ticketDashboard: UnderprocessInterface) {
 
-  const path = "ticketing-dpt/tickets-dashboard/ticket-under-process/" + ticketDashboard.id;
+  const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process/" + ticketDashboard.id;
   const response = await ApiHelper.delete(path, {
     tokenType: AuthTokenType.JWT
   })
@@ -291,7 +291,7 @@ export async function readTrying(ticketDashboard: any) {
 
 export async function updateTryingReverse(item: TypingInterface) {
 
-  const path = `ticketing-dpt/tickets-dashboard/ticket-trying/${item.id}`;
+  const path = `/ticketing-dpt/tickets-dashboard/ticket-trying/${item.id}`;
   const response = await ApiHelper.delete(path, {
     tokenType: AuthTokenType.JWT
   })

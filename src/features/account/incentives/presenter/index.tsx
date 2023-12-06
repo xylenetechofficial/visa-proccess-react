@@ -75,8 +75,8 @@ export default function Main() {
   };
   const dataFiltered = filterData(searchQuery, incentiveList);
 
-  const fetchIncentiveList = async (value: string, page?: number) => {
-    const data = await readIncentiveList(value, {
+  const fetchIncentiveList = async (value?: string, page?: number) => {
+    const data = await readIncentiveList(value??"", {
       page: page ?? additionalData.pagination.page,
       status: "no",
     });
@@ -96,6 +96,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Incentives"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={()=>fetchIncentiveList()}
       />
 
       <CardHeader>

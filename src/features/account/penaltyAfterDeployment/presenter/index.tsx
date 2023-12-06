@@ -98,6 +98,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Penalty After Deployment"
         searchFunction={(query) => setSearchQuery(query)}
+        refresh={() => fetchAccountDashboardList()}
       />
 
       <CardHeader>
@@ -135,7 +136,7 @@ export default function Main() {
           fetchAccountDashboardList(e);
         }}
       />
-      {modalName === 'Edit' ? <EditPenaltyDeployement onClose={()=>setModalName('')} /> :''}
+      {modalName === 'Edit' ? <EditPenaltyDeployement onClose={() => setModalName('')} /> : ''}
     </div>
   );
 }

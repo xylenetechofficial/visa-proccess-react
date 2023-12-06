@@ -32,7 +32,7 @@ export default function Main(props: { setModalName: any }) {
     const fetchIncentiveList = async (value: string, page?: number) => {
         const data = await readIncentiveList(value, {
           page: page ?? additionalData.pagination.page,
-          status: "no",
+          status: "yes",
         });
         if (data) {
             setIncentiveList(data);
