@@ -5,6 +5,8 @@ import { DateInput, StandardInput } from "../../../../componenets/Input";
 import { InterviewSchedulePeriodInterface } from "../type";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CompanyInterface } from "../../../masters/company/type";
+import { readJobOrderList } from "../../../job-dpt/jobOrder/repository";
+import { JobOrderInterface } from "../../../job-dpt/jobOrder/type";
 
 
 
@@ -19,10 +21,12 @@ export default function Main(props: {
     companyList: CompanyInterface[]
     currentElement: InterviewSchedulePeriodInterface
 }) {
+    const [jobOrderList, setJobOrderList] = useState<JobOrderInterface[]>([]);
     const initialValue: InterviewSchedulePeriodInterface = {
         company: 0,
         fromDate: "",
-        toDate: ""
+        toDate: "",
+        job_order:''
     }
     const [interviewSchedulePeriod, setInterviewSchedulePeriod] = useState<InterviewSchedulePeriodInterface>(initialValue)
 
@@ -32,6 +36,7 @@ export default function Main(props: {
     async function onClickAdd() {
 
         // call create
+        //add job_order property
         await updateInterviewSchedulePeriod(props.currentElement.id ?? 0, {
             company: interviewSchedulePeriod.company,
             fromDate: interviewSchedulePeriod.fromDate,
@@ -46,8 +51,18 @@ export default function Main(props: {
     }
 
     useEffect(() => {
+        fetchJobOrder();
         setInterviewSchedulePeriod(props.currentElement)
     }, [])
+    const fetchJobOrder = async () => {
+        const res = await readJobOrderList()
+        if (res) {
+            console.log(res, "fetch job order")
+            setJobOrderList(res);
+        }
+
+    }
+
     return (
 
         <ModalContent
@@ -86,6 +101,19 @@ export default function Main(props: {
                 onChange={(value: string) => setInterviewSchedulePeriod({ ...interviewSchedulePeriod, toDate: value })}
                 value={interviewSchedulePeriod.toDate}
             />
+
+            {/* JobOrder */}
+            <CustomSelectComponent
+                value={interviewSchedulePeriod.company}
+                label="Job Order"
+                required
+                options={
+                    selectOptionConveter({ options:jobOrderList, options_struct: { name: "jobOrderNumber", value: "id" } })}
+
+                onChange={(value) => {
+                    setInterviewSchedulePeriod({ ...interviewSchedulePeriod, job_order: value })
+
+                }} />
 
         </ModalContent>
 

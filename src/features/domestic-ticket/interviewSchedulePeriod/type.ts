@@ -3,6 +3,7 @@ export interface InterviewSchedulePeriodInterface {
   company: number;
   fromDate: string;
   toDate: string;
+  job_order?:string,
 }
 
 export interface InterviewSchedulePeriodAdapter {
@@ -10,6 +11,7 @@ export interface InterviewSchedulePeriodAdapter {
   client_id: number;
   from_date: string;
   to_date: string;
+  job_order?:string,
 }
 
 export class InterviewSchedulePeriodConverter {
@@ -19,6 +21,7 @@ public static toInterface(a: InterviewSchedulePeriodAdapter) {
     company: a.client_id,
     fromDate: a.from_date,
     toDate: a.to_date,
+    job_order:a.job_order
   
   };
   return data;
@@ -35,6 +38,7 @@ public static toAdapter(i: InterviewSchedulePeriodInterface) {
     client_id: i.company,
     from_date: i.fromDate,
     to_date: i.toDate,
+    job_order:i.job_order
   };
   return data;
 }

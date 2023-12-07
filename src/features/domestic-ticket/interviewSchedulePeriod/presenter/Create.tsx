@@ -23,7 +23,8 @@ export default function Main(props: {
     const initialValue: InterviewSchedulePeriodInterface = {
         company: 0,
         fromDate: "",
-        toDate: ""
+        toDate: "",
+        job_order:""
     }
     const [interviewSchedulePeriod, setInterviewSchedulePeriod] = useState<InterviewSchedulePeriodInterface>(initialValue)
 
@@ -33,10 +34,12 @@ export default function Main(props: {
     async function onClickAdd() {
 
         // call create
+        //add job_order property
         await createInterviewSchedulePeriod({
             company: interviewSchedulePeriod?.company,
             fromDate: interviewSchedulePeriod?.fromDate,
             toDate: interviewSchedulePeriod?.toDate
+            
         })
 
 
@@ -45,13 +48,17 @@ export default function Main(props: {
         props.fetchInterviewSchedulePeriodList()
         props.onClose()
     }
-const fetchJobOrder = async()=>{
-    const res= await readJobOrderList()
-    setJobOrderList(res);
-}
-useEffect(()=>{
-    fetchJobOrder();
-},[])
+    const fetchJobOrder = async () => {
+        const res = await readJobOrderList()
+        if (res) {
+            console.log(res, "fetch job order")
+            setJobOrderList(res);
+        }
+
+    }
+    useEffect(() => {
+        fetchJobOrder();
+    }, [])
     return (
 
         <ModalContent
@@ -93,6 +100,19 @@ useEffect(()=>{
                 value={interviewSchedulePeriod.toDate}
             />
 
+
+            {/* JobOrder */}
+            <CustomSelectComponent
+                value={interviewSchedulePeriod.company}
+                label="Job Order"
+                required
+                options={
+                    selectOptionConveter({ options: jobOrderList, options_struct: { name: "jobOrderNumber", value: "id" } })}
+
+                onChange={(value) => {
+                    setInterviewSchedulePeriod({ ...interviewSchedulePeriod, job_order: value })
+
+                }} />
         </ModalContent>
 
 
