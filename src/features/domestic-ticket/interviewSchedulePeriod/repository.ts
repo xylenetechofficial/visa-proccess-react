@@ -60,17 +60,13 @@ export async function createInterviewSchedulePeriod(interviewSchedulePeriod: Int
   showMessage_v2({ message: response.message, status: response.code })
 }
 
-export async function updateInterviewSchedulePeriod(id: number, interviewSchedulePeriod: InterviewSchedulePeriodInterface) {
+export async function updateInterviewSchedulePeriod(interviewSchedulePeriod: InterviewSchedulePeriodInterface) {
 
 
 
-  const payload = {
-    client_id: interviewSchedulePeriod.company,
-    from_date: interviewSchedulePeriod.fromDate,
-    to_date: interviewSchedulePeriod.toDate,
-  };
+  const payload = InterviewSchedulePeriodConverter.toAdapter(interviewSchedulePeriod);
 
-  const path = "/domestic-ticket/interview-schedule-period/" + id
+  const path = "/domestic-ticket/interview-schedule-period/" + interviewSchedulePeriod.id
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT

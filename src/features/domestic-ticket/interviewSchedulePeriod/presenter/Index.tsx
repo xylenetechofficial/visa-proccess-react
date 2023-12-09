@@ -15,6 +15,7 @@ import {
   deleteInterviewSchedulePeriod,
   readInterviewSchedulePeriodList,
 } from "../repository";
+// import { readCountryList } from "../../../masters/country/repository";
 import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import {
@@ -99,7 +100,7 @@ export default function Main() {
 
  
   const fetchInterviewSchedulePeriodList = async (page?: number) => {
-    const data = await readInterviewSchedulePeriodList(page ?? 1);
+    const data = await readInterviewSchedulePeriodList(page ?? additionalData.pagination.page);
     setInterviewSchedulePeriodList(data);
     filterData("", data);
 
@@ -121,6 +122,7 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Interview Schedule Period"
         searchFunction={searchFunction}
+        refresh={()=>fetchInterviewSchedulePeriodList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />

@@ -31,6 +31,11 @@ const InterviewSchedulePeriodTable = (props: {
             <TableHeadCell3> Comapany</TableHeadCell3>
             <TableHeadCell3> From</TableHeadCell3>
             <TableHeadCell3> To</TableHeadCell3>
+
+            <TableHeadCell3> Job Order No</TableHeadCell3>
+            <TableHeadCell3> OPERATIONS MANAGER</TableHeadCell3>
+            <TableHeadCell3> Recuitment Coordinator</TableHeadCell3>
+
             <TableHeadCell3> Action</TableHeadCell3>
           </TableHeadRow3>
         </TableHead3>
@@ -46,6 +51,11 @@ const InterviewSchedulePeriodTable = (props: {
               </TableCell3>
               <TableCell3>{convertDateFormat(ele.fromDate)}</TableCell3>
               <TableCell3>{convertDateFormat(ele.toDate)}</TableCell3>
+
+              <TableCell3>{ele.job_order_no}</TableCell3>
+              <TableCell3>{ele.om_name}</TableCell3>
+              <TableCell3>{ele.rc_name}</TableCell3>
+
               <TableCell3>
                 <BlueButton
                   text={" EDIT"}

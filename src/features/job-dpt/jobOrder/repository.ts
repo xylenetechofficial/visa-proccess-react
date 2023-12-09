@@ -8,7 +8,13 @@ import {
 } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 
-export async function readJobOrderList(page_number?: number) {
+export async function readJobOrderList(
+  page_number?: number,
+  queryParameters?: {
+    company_id?: number;
+    status?: string;
+  }
+) {
   const path = "/job-dpt/job-order-list";
 
   const response = await ApiHelper.get(path, {
@@ -16,6 +22,8 @@ export async function readJobOrderList(page_number?: number) {
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       page: page_number ?? 0,
+      company_id: queryParameters?.company_id ?? "",
+      status: queryParameters?.status ?? "",
     },
   });
 

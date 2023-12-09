@@ -20,7 +20,7 @@ export default function Main(props: {
         company: 0,
         fromDate: "",
         toDate: "",
-        job_order:''
+        job_order_id: 0
     }
     const [interviewSchedulePeriod, setInterviewSchedulePeriod] = useState<InterviewSchedulePeriodInterface>(initialValue)
 
@@ -31,11 +31,7 @@ export default function Main(props: {
 
         // call create
         //add job_order property
-        await updateInterviewSchedulePeriod(props.currentElement.id ?? 0, {
-            company: interviewSchedulePeriod.company,
-            fromDate: interviewSchedulePeriod.fromDate,
-            toDate: interviewSchedulePeriod.toDate
-        })
+        await updateInterviewSchedulePeriod(interviewSchedulePeriod)
 
 
         setInterviewSchedulePeriod(initialValue)
@@ -45,11 +41,11 @@ export default function Main(props: {
     }
 
     useEffect(() => {
-        fetchJobOrder();
+        fetchJobOrder(props.currentElement.company);
         setInterviewSchedulePeriod(props.currentElement)
     }, [])
-    const fetchJobOrder = async () => {
-        const res = await readJobOrderList()
+    const fetchJobOrder = async (company_id: number) => {
+        const res = await readJobOrderList(0, { company_id: company_id })
         if (res) {
             console.log(res, "fetch job order")
             setJobOrderList(res);
@@ -76,6 +72,7 @@ export default function Main(props: {
                     selectOptionConveter({ options: props.companyList, options_struct: { name: "name", value: "id" } })}
 
                 onChange={(value) => {
+                    fetchJobOrder(value)
                     setInterviewSchedulePeriod({ ...interviewSchedulePeriod, company: value })
 
                 }} />
@@ -98,14 +95,14 @@ export default function Main(props: {
 
             {/* JobOrder */}
             <CustomSelectComponent
-                value={interviewSchedulePeriod.job_order}
+                value={interviewSchedulePeriod.job_order_id}
                 label="Job Order"
                 required
                 options={
-                    selectOptionConveter({ options:jobOrderList, options_struct: { name: "jobOrderNumber", value: "id" } })}
+                    selectOptionConveter({ options: jobOrderList, options_struct: { name: "jobOrderNumber", value: "id" } })}
 
                 onChange={(value) => {
-                    setInterviewSchedulePeriod({ ...interviewSchedulePeriod, job_order: value })
+                    setInterviewSchedulePeriod({ ...interviewSchedulePeriod, job_order_id: value })
 
                 }} />
 
