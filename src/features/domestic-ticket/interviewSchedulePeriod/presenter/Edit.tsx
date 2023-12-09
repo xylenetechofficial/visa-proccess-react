@@ -1,18 +1,12 @@
 import { updateInterviewSchedulePeriod } from "../repository";
 import { useEffect, useState } from "react";
 import ModalContent from "../../../../componenets/Modal";
-import { DateInput, StandardInput } from "../../../../componenets/Input";
+import { DateInput } from "../../../../componenets/Input";
 import { InterviewSchedulePeriodInterface } from "../type";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CompanyInterface } from "../../../masters/company/type";
 import { readJobOrderList } from "../../../job-dpt/jobOrder/repository";
 import { JobOrderInterface } from "../../../job-dpt/jobOrder/type";
-
-
-
-
-
-
 
 
 export default function Main(props: {
@@ -104,7 +98,7 @@ export default function Main(props: {
 
             {/* JobOrder */}
             <CustomSelectComponent
-                value={interviewSchedulePeriod.company}
+                value={interviewSchedulePeriod.job_order}
                 label="Job Order"
                 required
                 options={

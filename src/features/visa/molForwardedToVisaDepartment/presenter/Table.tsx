@@ -10,7 +10,8 @@ import { convertDateFormat } from '../../../../utils/function';
 const Table = (props: {
     snoBase:number,
     jobOrderList: MolForwardedTovisaDepartmentDataInterface[],
-    onChange: (value: MolForwardedTovisaDepartmentDataInterface[]) => void
+    onChange: (value: MolForwardedTovisaDepartmentDataInterface[]) => void,
+    onClick?:()=>void
 
 }) => {
     const tableHeadings = [
@@ -35,7 +36,6 @@ const Table = (props: {
         ["MOL PP RECEIVED DATE"],
         ["MOL FORWARDED "],
         ["MOL FORWARDED DATE"],
-
 
 
     ];
@@ -111,7 +111,6 @@ const Table = (props: {
                                 />
                             </TableCell3>
                             <TableCell3 > {ele.molForwardedDate?convertDateFormat(ele.molForwardedDate):""}</TableCell3>
-
                         </TableRow3>
                     ))}
 

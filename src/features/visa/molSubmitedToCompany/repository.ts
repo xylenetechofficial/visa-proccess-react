@@ -6,7 +6,7 @@ import { MolReceivedAdapter, MolReceivedConverter, MolReceivedInterface } from "
 
 
 
-export async function ReadMolRecievedData(page_number?: number) {
+export async function ReadMolRecievedData(page_number?: number , status?:string) {
   const path = "/visa-dpt/mol-submitted-to-company-list";
 
   const response = await ApiHelper.get(path, {
@@ -14,6 +14,7 @@ export async function ReadMolRecievedData(page_number?: number) {
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       page: page_number ?? 0,
+      status:status ?? ''
     },
     
   });
@@ -32,7 +33,20 @@ export async function ReadMolRecievedData(page_number?: number) {
   return data
 }
 
+export async function createMolReceivedData(candidateList: MolReceivedInterface[]) {
 
+  const payload = {
+    selection_list: MolReceivedConverter.toAdapterList(candidateList)
+  }
+
+  const path = "/visa-dpt/mol-submitted-to-company-list"
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+ return response
+}
 
 
 export async function updateMolReceivedData(candidateList: MolReceivedInterface[]) {
@@ -40,7 +54,6 @@ export async function updateMolReceivedData(candidateList: MolReceivedInterface[
   const payload = {
     selection_list: MolReceivedConverter.toAdapterList(candidateList)
   }
-
   const path = "/visa-dpt/mol-submitted-to-company-list"
   const response = await ApiHelper.patch(path, payload, {
     contentType: ContentType.json,

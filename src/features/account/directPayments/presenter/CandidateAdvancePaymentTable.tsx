@@ -2,7 +2,7 @@ import {
     AdvancePaymentInterface,
     CandidateAdvancePaymentInterface,
 } from "../type";
-import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
+import { BlueButton,  RedButton } from "../../../../componenets/CustomButton";
 import {
     Table3,
     TableBody3,
@@ -13,8 +13,7 @@ import {
     TableRow3,
 } from "../../../../componenets/Table";
 import { useState, useEffect } from "react";
-import { UnlabeledInput } from "../../../../componenets/Input";
-import { deleteAdvancePayment, readAdvancePaymentList, updateAdvancePayment } from "../repository";
+import { deleteAdvancePayment, readAdvancePaymentList } from "../repository";
 import { convertDateFormat } from "../../../../utils/function";
 import Pagination from "../../../../componenets/Pagination";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";

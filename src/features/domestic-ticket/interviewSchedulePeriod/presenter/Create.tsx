@@ -10,10 +10,6 @@ import { JobOrderInterface } from "../../../job-dpt/jobOrder/type";
 
 
 
-
-
-
-
 export default function Main(props: {
     onClose: any,
     fetchInterviewSchedulePeriodList: any,
@@ -103,7 +99,7 @@ export default function Main(props: {
 
             {/* JobOrder */}
             <CustomSelectComponent
-                value={interviewSchedulePeriod.company}
+                value={interviewSchedulePeriod.job_order}
                 label="Job Order"
                 required
                 options={

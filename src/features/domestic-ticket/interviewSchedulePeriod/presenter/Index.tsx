@@ -15,7 +15,6 @@ import {
   deleteInterviewSchedulePeriod,
   readInterviewSchedulePeriodList,
 } from "../repository";
-import { readCountryList } from "../../../masters/country/repository";
 import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import {
@@ -98,9 +97,7 @@ export default function Main() {
     }
   };
 
-  // useEffect(() => {
-  // }, [editInterviewSchedulePeriod, modalName])
-
+ 
   const fetchInterviewSchedulePeriodList = async (page?: number) => {
     const data = await readInterviewSchedulePeriodList(page ?? 1);
     setInterviewSchedulePeriodList(data);

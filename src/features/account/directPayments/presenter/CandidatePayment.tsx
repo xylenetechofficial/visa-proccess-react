@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { DateInput, TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
+import  { useEffect, useState } from "react";
+import {  TextAreaInput, UnlabeledInput } from "../../../../componenets/Input";
 import {
   SubHeading1,
-  SubHeading2,
   UpdateContentBox,
 } from "../../../../componenets/CoustomHeader";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomSelectComponent,
-  CustomSelectComponentUnlabeled,
   selectOptionConveter,
-  selectOptionConveterv3,
 } from "../../../../componenets/SelectBox";
 import { createCandidatePaymentAdd } from "../repository";
 import { CandidatePaymentInterface } from "../type";
@@ -18,7 +15,6 @@ import { showMessage_v2 } from "../../../../utils/alert";
 const CandidatePayment = (props: {
   fetchAgentPaymentList: () => void,
   AgentPaymentList: any;
-
   AgentID: any,
 }) => {
 
@@ -40,7 +36,6 @@ const CandidatePayment = (props: {
       props.fetchAgentPaymentList();
       handleReset();
     }
-
   }
   const handleReset = () => {
     setCandidatePayment({
@@ -108,7 +103,6 @@ const CandidatePayment = (props: {
           />
         </UpdateContentBox>
       </div>
-
 
       <UpdateContentBox>
         <SubHeading1 text="remark :" />

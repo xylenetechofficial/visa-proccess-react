@@ -5,7 +5,7 @@ import { showMessage_v2 } from "../../../utils/alert";
 
 
 
-export async function readMolForwardedTovisaDept(page_number?: number) {
+export async function readMolForwardedTovisaDept(page_number?: number, status?:string) {
   const path = "/visa-dpt/mol-forward-to-visa-dpt-list";
 
   const response = await ApiHelper.get(path, {
@@ -29,6 +29,21 @@ export async function readMolForwardedTovisaDept(page_number?: number) {
   const data: MolForwardedTovisaDepartmentDataInterface[] = MolForwardedTovisaDepartmentDataConverter.toInterfaceList(response.data as MolForwardedTovisaDepartmentDataAdapter[])
 
   return data
+}
+
+export async function createMolForwardedToVisaDeptData(candidateList: MolForwardedTovisaDepartmentDataInterface[]) {
+
+  const payload = {
+    selection_list: MolForwardedTovisaDepartmentDataConverter.toAdapterList(candidateList)
+  }
+
+  const path = "/visa-dpt/mol-forward-to-visa-dpt-list"
+  const response = await ApiHelper.post(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+  return response
 }
 
 

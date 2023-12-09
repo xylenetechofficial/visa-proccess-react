@@ -1,5 +1,4 @@
 import { InterviewSchedulePeriodInterface } from "../type";
-import { Paper } from "@mui/material";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 import {
   Table3,

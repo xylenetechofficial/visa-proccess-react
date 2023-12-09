@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-// import CreateModal from './Create'
-// import EditModal from './Edit'
+import CreateModal from './Create'
+import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import {
   CustomButton2,
@@ -8,9 +8,9 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 
-import { ReadMolRecievedData, updateMolReceivedData } from "../repository";
+import { ReadMolRecievedData, createMolReceivedData } from "../repository";
 import Table from "./Table";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import { MolReceivedInterface } from "../type";
 import {
   AdditionalDataInterface,
@@ -59,10 +59,9 @@ export default function Main() {
     setModalName("create");
   };
 
-  // useEffect(() => {
-  // }, [editIndexVisa, modalName])
   const onClickSubmit = async () => {
-    const res = await updateMolReceivedData(JobOrderList);
+    // const res = await updateMolReceivedData(JobOrderList);
+    const res = await createMolReceivedData(JobOrderList);
     fetchMofaRecievedData();
   };
 
@@ -85,6 +84,20 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        <div>
+          {/* <GreenButton
+            text={"Add"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          /> */}
+          <BlueButton
+            text={"Edit"}
+            onClick={() => {
+              setModalName("edit");
+            }}
+          />
+        </div>
       </CardHeader>
 
       {/*  indexVisa stable */}
@@ -105,6 +118,8 @@ export default function Main() {
           fetchMofaRecievedData(e);
         }}
       />
+      {modalName === 'create' ? <CreateModal onClose={()=>setModalName('')} /> :'' }
+      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} /> :'' }
     </div>
   );
 }

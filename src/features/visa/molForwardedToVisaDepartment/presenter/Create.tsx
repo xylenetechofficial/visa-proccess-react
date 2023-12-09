@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CreateModal from './Create'
+// import CreateModal from './Create'
 // import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import {
@@ -9,7 +9,6 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { MolForwardedTovisaDepartmentDataInterface } from "../type";
 import {
-  createMolForwardedToVisaDeptData,
   readMolForwardedTovisaDept,
   updateMolForwardedToVisaDeptData,
 } from "../repository";
@@ -21,6 +20,7 @@ import {
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import EditModel from './Edit'
+import { FullScreenModal } from "../../../../componenets/Modal";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -30,7 +30,7 @@ const CardHeader = styled(Box)(() => ({
   justifyContent: "space-between",
 }));
 
-export default function Main() {
+export default function Main(props:{onClose:()=>void}) {
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -64,17 +64,10 @@ export default function Main() {
   };
   const dataFiltered = filterData(searchQuery, JobOrderList);
 
-  const onClickCreate = () => {
-    setModalName("create");
-  };
 
 
-  const onClickSubmit = async () => {
-    // const res = await updateMolForwardedToVisaDeptData(JobOrderList);
-    const res = await createMolForwardedToVisaDeptData(JobOrderList);
-    if(res){
-      fetchMolForwardedToDepartment()
-    }
+  const onClickCreate = async () => {
+    const res = await updateMolForwardedToVisaDeptData(JobOrderList);
   };
 
   const fetchMolForwardedToDepartment = async (page?: number) => {
@@ -88,41 +81,25 @@ export default function Main() {
   }, []);
 
   return (
-    <div className="h-screen">
-      <CustomNavbarV3
-        pageName="Mol Forwarded To Visa Department"
-        searchFunction={(query) => setSearchQuery(query)}
-      />
-
-      <CardHeader>
-        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <div>
-          {/* <GreenButton
-            text={"Add"}
-            onClick={() => {
-              setModalName("create");
-            }}
-          /> */}
-          <BlueButton
-            text={"Edit"}
-            onClick={() => {
-              setModalName("edit");
-            }}
-          />
-        </div>
-      </CardHeader>
-
+    <FullScreenModal
+    // buttonName="submit"
+    handleClick={onClickCreate}
+    title="Add Mol Forwarded To Visa Department"
+    onClose={props.onClose}
+>
+  
       {/*  indexVisa stable */}
       <Table
-        snoBase={additionalData.pagination.sno_base}
+       snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onChange={(value) => setJobOrderList(value)}
+        onClick={()=> {console.log("edit modal"),setModalName('edit') }}
       />
       <br />
-      <GreenButton onClick={onClickSubmit} text="Submit" />
+      <GreenButton onClick={onClickCreate} text="Create" />
       <br />
       <br />
-
+      
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
@@ -130,16 +107,7 @@ export default function Main() {
           fetchMolForwardedToDepartment(e);
         }}
       />
-      {modalName === 'create' ?
-        <CreateModal onClose={() => setModalName('')}
-        /> : ''}
-      {modalName === 'edit' ?
-        <EditModel
-          onClose={() => {
-            setModalName("")
-            fetchMolForwardedToDepartment()
-          }} /> : ''}
-    </div>
-
+     
+    </FullScreenModal>
   );
 }
