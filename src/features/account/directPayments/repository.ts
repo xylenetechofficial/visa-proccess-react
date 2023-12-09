@@ -34,12 +34,11 @@ import {
 } from "../candidateDiscountApproveReject/type";
 
 export async function readDirectPaymentList(
-    AgentBy: AgentPaymentByIDInterface,
-    query: {
-      status?: string
-      page?: number
-    }
-   
+  AgentBy: AgentPaymentByIDInterface,
+  query: {
+    status?: string;
+    page?: number;
+  }
 ) {
   const payload = AgentPaymentByIDConverter.toAdapter(AgentBy);
   // const path = `/account/direct-payment-list?${payload}`;
@@ -186,8 +185,8 @@ export async function addAdvancePayment(
 
 //Read Advance Payment List Start
 export async function readAdvancePaymentList(query: {
-  status?: string
-  page?: number
+  status?: string;
+  page?: number;
 }) {
   const path = "/account/direct-payment/advance-payment-list";
   const response = await ApiHelper.get(path, {
@@ -215,10 +214,41 @@ export async function readAdvancePaymentList(query: {
 
   await PaginationManager.setData(
     response.additional_data as AdditionalDataInterface
-  
   );
-  
+
   return dataAdapter as AdvancePaymentAdapter[];
+}
+
+export async function updateAdvancePayment(
+  advancePayment: AdvancePaymentInterface
+) {
+  const path = "/account/direct-payment/advance-payment/" + advancePayment.id;
+
+  const payload = AdvancePaymentConverter.toAdapter(advancePayment);
+  const response = await ApiHelper.patch(path, payload, {
+    tokenType: AuthTokenType.JWT,
+  });
+
+  showMessage_v2({ message: response.message, status: response.code });
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
+}
+
+export async function deleteAdvancePayment(id: number) {
+  const path = "/account/direct-payment/advance-payment/" + id;
+  const response = await ApiHelper.delete(path, {
+    tokenType: AuthTokenType.JWT,
+  });
+
+  showMessage_v2({ message: response.message, status: response.code });
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
 }
 //Read Advance Payment List End
 

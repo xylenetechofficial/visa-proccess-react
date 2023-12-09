@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { CustomCheckBox, CustomSingleCheckBox } from '../../../../componenets/Checkbox';
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from '../../../../componenets/SelectBox';
 import { convertDateFormat } from '../../../../utils/function';
+import { MedicalStatusList } from '../../../db';
 // import { CustomRadioButton } from '../../../../componenets/RadioButton';
 // import { rcList } from '../../../job-dpt/db/user';
 const initValue: Src_Col_Dash_CandidateInterface = {

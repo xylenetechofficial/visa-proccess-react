@@ -65,6 +65,7 @@ export class ApiHelper {
       .then((res) => {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
+        this.CheckAuth(response);
 
         // store response to cache
         if (cacheTime) UCM.setData(response, cacheTime);
@@ -131,6 +132,7 @@ export class ApiHelper {
       .then((res) => {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
+        this.CheckAuth(response);
       })
       .catch((err) => {
         console.log("//  =====  HTTP FAILD  =====  \\"); // Only Dev
@@ -183,6 +185,7 @@ export class ApiHelper {
       .then((res) => {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
+        this.CheckAuth(response);
       })
       .catch((err: AxiosError) => {
         console.log("//  =====  HTTP FAILD  =====  \\"); // Only Dev
@@ -228,6 +231,7 @@ export class ApiHelper {
       .then((res) => {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
+        this.CheckAuth(response);
       })
       .catch((err) => {
         console.log("//  =====  HTTP FAILD  =====  \\"); // Only Dev
@@ -237,6 +241,15 @@ export class ApiHelper {
     return response;
   }
 
+  static async CheckAuth(response: ResponseInterface) {
+    if (response.code == 401) {
+      const jwt_token = window.localStorage.getItem("jwt_token") ?? "";
+      if (jwt_token != "") {
+        window.localStorage.setItem("jwt_token", "");
+        window.location.reload();
+      }
+    }
+  }
   static async ErrorLogger(err: AxiosError) {
     const url = UrlHelper.getUrl("/error-log");
     const payload = await GenerateLog(

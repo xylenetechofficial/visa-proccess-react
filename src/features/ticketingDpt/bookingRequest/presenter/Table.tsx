@@ -46,11 +46,12 @@ export default function Main(props: {
                         {props.ticketBookingRequestList.map((item, index) => {
 
                             let check_in = true;
-                            if (item.waive_off_sector_charges=="yes") {
+                            if (item.waive_off_sector_charges == "yes") {
                                 check_in = true;
                             } else if (item.air_ticket == "BY AGENCY" && item.sector_charges == 0) {
                                 check_in = false;
-                                onUpdateRow(index, { ...item, sector_from: '1' })
+                                if (item.sector_from != '1')
+                                    onUpdateRow(index, { ...item, sector_from: '1' })
                             }
 
                             return (

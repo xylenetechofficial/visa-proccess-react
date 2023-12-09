@@ -93,7 +93,8 @@ export default function Main(props: {
 
 
                 <CandidateAdvancePaymentTable
-                
+                onClose={()=>props.onClose()}
+                readAdvancePaymentList={()=>{props.readAdvancePaymentList()}}
                     onchangeCheck={onchangeCheck}
                     CandidateAdvancePaymentList={[candidateAdvancePayment]} onChange={() => { console.log("first") }} />
             </div>

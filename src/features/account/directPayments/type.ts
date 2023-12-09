@@ -343,8 +343,8 @@ export interface AdvancePaymentInterface {
   received_date: string,
   remarks: string,
   used: string,
-  created_at: string,
-  updated_at: string
+  created_at?: string,
+  updated_at?: string
 }
 export interface AdvancePaymentAdapter {
   id: number,
@@ -354,8 +354,8 @@ export interface AdvancePaymentAdapter {
   received_date: string,
   remarks: string,
   used: string,
-  created_at: string,
-  updated_at: string
+  created_at?: string,
+  updated_at?: string
 }
 
 export class AdvancePaymentConverter{

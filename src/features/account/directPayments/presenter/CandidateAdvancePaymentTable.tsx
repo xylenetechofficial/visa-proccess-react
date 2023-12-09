@@ -14,13 +14,15 @@ import {
 } from "../../../../componenets/Table";
 import { useState, useEffect } from "react";
 import { UnlabeledInput } from "../../../../componenets/Input";
-import { readAdvancePaymentList } from "../repository";
+import { deleteAdvancePayment, readAdvancePaymentList, updateAdvancePayment } from "../repository";
 import { convertDateFormat } from "../../../../utils/function";
 import Pagination from "../../../../componenets/Pagination";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import EditCandidateAdvancePaymentTable from './EditCandidateAdvancePayment';
 
 const CandidateAdvancePaymentTable = (props: {
+    onClose:any
+    readAdvancePaymentList: any
     CandidateAdvancePaymentList: CandidateAdvancePaymentInterface[];
     onChange: (ele: CandidateAdvancePaymentInterface[]) => void;
     onchangeCheck: string;
@@ -101,6 +103,7 @@ const CandidateAdvancePaymentTable = (props: {
     }, [props.onchangeCheck]);
     const onClickDelete = (id: number) => {
         console.log(id, "Call the Api for Delete")
+
     }
     return (
         <div className="overflow-auto" style={{ justifyContent: "center" }}>
@@ -125,7 +128,20 @@ const CandidateAdvancePaymentTable = (props: {
                             <TableCell3>{item.amount}</TableCell3>
                             <TableCell3>{convertDateFormat(item.received_date)}</TableCell3>
                             <TableCell3>{item.remarks}</TableCell3>
-                            <TableCell3><BlueButton text="Edit" onClick={() => { setSingleAdvancePaymentEdit(item), setModalName('edit'), console.log("edit") }} /> <RedButton text="Delete" onClick={() => onClickDelete(item.id)} /></TableCell3>
+                            <TableCell3>
+                                <BlueButton text="Edit" onClick={() => {
+                                    setSingleAdvancePaymentEdit(item)
+                                    setModalName('edit')
+                                    console.log("edit")
+                                }} />
+                                <RedButton text="Delete" onClick={async () => {
+                                    // onClickDelete(item.id)
+                                    const flag = await deleteAdvancePayment(item.id)
+                                    // if (!flag) return
+
+                                    props.onClose()
+                                }} />
+                            </TableCell3>
                         </TableRow3>
                     ))}
 
@@ -145,7 +161,7 @@ const CandidateAdvancePaymentTable = (props: {
                     fetchAdvancePaymentList(e);
                 }}
             />
-            {modalName === 'edit' ? <EditCandidateAdvancePaymentTable onClose={() => setModalName('')} fetchcandidateAdvancePaymentList={fetchAdvancePaymentList} singleAdvancePaymentList={singleAdvancePaymentEdit} setSingleAdvancePaymentEdit={setSingleAdvancePaymentEdit} /> : ''}
+            {modalName === 'edit' ? <EditCandidateAdvancePaymentTable onClose={()=>props.onClose()} fetchcandidateAdvancePaymentList={fetchAdvancePaymentList} singleAdvancePaymentList={singleAdvancePaymentEdit} setSingleAdvancePaymentEdit={setSingleAdvancePaymentEdit} /> : ''}
         </div>
     );
 };

@@ -174,3 +174,15 @@ export const ReportedForList = [
   { id: "Reported", name: "Reported" },
   { id: "Not Reported", name: "Not Reported" },
 ];
+
+export const MedicalStatusList = [
+  { name: "Fit", value: "Fit" },
+  { name: "Unfit", value: "Unfit" },
+  { name: "Repeat", value: "Repeat" },
+  { name: "Backed Out", value: "Backed Out" },
+];
+
+export const DiscountTypeList = [
+  { name: "Normal Discount", value: "Normal Discount" },
+  { name: "Error Discount", value: "Error Discount" },
+];

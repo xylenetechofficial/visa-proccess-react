@@ -183,7 +183,8 @@ export default function Main() {
           }}
         />
 
-{modalName === 'Edit' ? <EditCandidateDiscountTable onClose={()=>setModalName('')} fetchCandidateDiscountList={fetchCandidateDiscountList} /> :''}
+        {modalName === 'Edit' ? <EditCandidateDiscountTable onClose={() => setModalName('')} /> : ''}
+
       </div>
     </div>
   );
