@@ -95,7 +95,8 @@ const ImmigrationDOnePPReleaseTable = (props: {
               GivenToList_local = GivenToList_without_RC
             }
 
-            return (<TableRow3>
+            return (
+              <TableRow3 key={index + 1} color={item.color_code}>
               <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.name} </TableCell3>
               <TableCell3>{item.passport_no} </TableCell3>

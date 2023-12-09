@@ -30,7 +30,7 @@ export interface ImmigrationInterface {
   immigration_received_date: string
   immigration_reject_remarks: string
   is_without: number
-
+  color_code:string
 
 
   checked?:number
@@ -67,6 +67,7 @@ export interface ImmigrationAdapter {
   immigration_received_date: string
   immigration_reject_remarks: string
   is_without: number
+  color_code:string
 }
 
 export class ImmigrationConverter {
@@ -107,6 +108,7 @@ export class ImmigrationConverter {
       immigration_received_date: a.immigration_received_date,
       immigration_reject_remarks: a.immigration_reject_remarks,
       is_without: a.is_without,
+      color_code:a.color_code
     };
     return data;
   }
@@ -160,6 +162,7 @@ export class ImmigrationConverter {
       immigration_received_date: i.immigration_received_date,
       immigration_reject_remarks: i.immigration_reject_remarks,
       is_without: i.is_without,
+      color_code:i.color_code
     };
     return data;
   }

@@ -29,7 +29,7 @@ export interface ImmigrationDonePPReleaseInterface {
 
     immigration_document_received: number,
     balance_amount: number,
-
+    color_code:string,
     checked?: boolean
 }
 
@@ -62,7 +62,7 @@ export interface ImmigrationDonePPReleaseAdapter {
     is_without: number
 
     immigration_document_received: number
-
+    color_code:string,
     balance_amount: number
 }
 
@@ -103,7 +103,7 @@ export class ImmigrationCDonePPReleaseConverter {
             is_without: a.is_without,
 
             immigration_document_received: a.immigration_document_received,
-
+            color_code:a.color_code,
             balance_amount: a.balance_amount,
         };
 
@@ -154,7 +154,7 @@ export class ImmigrationCDonePPReleaseConverter {
             given_to: i.given_to,
             given_date: i.given_date,
             is_without: i.is_without,
-
+            color_code:i.color_code,
             immigration_document_received: i.immigration_document_received,
             balance_amount: i.balance_amount,
 

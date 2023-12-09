@@ -93,7 +93,8 @@ const ImmigrationTable = (props: {
         <TableBody3>
           {props.list.map((item, index) => (
 
-            <TableRow3 key={index}>
+            // <TableRow3 key={index}>
+            <TableRow3 key={index + 1} color={item.color_code}>
               <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3>{item.company_name}</TableCell3>
               <TableCell3>{item.name}</TableCell3>
