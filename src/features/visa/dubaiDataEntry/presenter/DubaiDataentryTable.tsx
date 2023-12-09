@@ -1,16 +1,16 @@
 import { DubaiDataEntryInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
-import { SectorInterface } from '../../../masters/sector/type';
-import { CompanyInterface } from '../../../masters/company/type';
-import { CountryInterface } from '../../../masters/country/type';
+// import { SectorInterface } from '../../../masters/sector/type';
+// import { CompanyInterface } from '../../../masters/company/type';
+// import { CountryInterface } from '../../../masters/country/type';
 
 
 import { useState, useEffect } from "react";
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
 import { CustomCheckBox, CustomSingleCheckBox } from '../../../../componenets/Checkbox';
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from '../../../../componenets/SelectBox';
-import { CustomRadioButton } from '../../../../componenets/RadioButton';
+// import { CustomRadioButton } from '../../../../componenets/RadioButton';
 import EditModal from "./Edit"
 import { updateDubaiDataEntryOne } from '../repository';
 import { convertDateFormat } from '../../../../utils/function';
@@ -112,9 +112,9 @@ const DubaiDataEntryTable = (props: {
                         <TableHeadCell3 >	RC</TableHeadCell3>
                         <TableHeadCell3 >	MOL DATE</TableHeadCell3>
                         <TableHeadCell3 >	WORK PERMIT DATE</TableHeadCell3>
-                        <TableHeadCell3 >	PP/COPY</TableHeadCell3>
+                        <TableHeadCell3 >	*PP/COPY</TableHeadCell3>
                         <TableHeadCell3 >	*PP RECEIVED</TableHeadCell3>
-                        <TableHeadCell3 >	PP RECEIVED DATE</TableHeadCell3>
+                        <TableHeadCell3 >	*PP RECEIVED DATE</TableHeadCell3>
                         <TableHeadCell3 >	DOCUMENT CHARGES</TableHeadCell3>
                         {/* <TableHeadCell3 >	REJECT</TableHeadCell3> */}
                         {/* <TableHeadCell3 >	BACKED OUT</TableHeadCell3> */}

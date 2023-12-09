@@ -2,7 +2,7 @@ import { MolReceivedInterface } from '../type'
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table3, TableBody, TableBody3, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow3, TableRow, TableRow3 } from '../../../../componenets/Table';
 import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
-import { convertDateFormat } from '../../../../utils/function';
+import { convertDateFormat, getJsDate } from '../../../../utils/function';
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
 
@@ -10,10 +10,10 @@ import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
 
 
 const Table = (props: {
-    snoBase:number,
+    snoBase: number,
     jobOrderList: MolReceivedInterface[],
     onChange: (value: MolReceivedInterface[]) => void
-   
+
 }) => {
     const tableHeadings = [
         ["SR. NO."],
@@ -37,9 +37,9 @@ const Table = (props: {
         ["MOL PP RECEIVED DATE"],
         // ["MOL FORWARDED "],
         ["MOL FORWARDED DATE"],
-        ["SELECT"],
-        ["MOL RECEIVE STATUS"],
-        ["MOL RECEIVED DATE"],
+        ["*SELECT"],
+        ["*MOL RECEIVE STATUS"],
+        ["*MOL RECEIVED DATE"],
         ["MOL NUMBER"],
 
 
@@ -78,7 +78,7 @@ const Table = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
+                            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.passportNo}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.ppIssueDate)}</TableCell3>
@@ -106,7 +106,14 @@ const Table = (props: {
                                         // const day = ("0" + date.getDate()).slice(-2);
                                         // const month = ("0" + (date.getMonth() + 1)).slice(-2);
                                         // const year = date.getFullYear();
-                                        onUpdateRow(index, { ...ele, checked: value ? 1 : 0 })
+                                        // onUpdateRow(index, { ...ele, checked: value ? 1 : 0 })
+
+                                        if (value)
+                                            onUpdateRow(index, { ...ele, checked: 1, molReceievedStatus: "yes", molReceiedDate: `${getJsDate()}` })
+                                        else
+                                            onUpdateRow(index, { ...ele, checked: 0, molReceievedStatus: ``, molReceiedDate: `` })
+
+
                                     }}
                                     value={ele.checked ? true : false}
                                 />
@@ -114,19 +121,19 @@ const Table = (props: {
                             <TableCell3>
                                 <CustomSelectComponentUnlabeled
                                     onChange={(value) => {
-                                        const date = new Date();
-                                        const day = ("0" + date.getDate()).slice(-2);
-                                        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                        const year = date.getFullYear();
+                                        // const date = new Date();
+                                        // const day = ("0" + date.getDate()).slice(-2);
+                                        // const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                        // const year = date.getFullYear();
                                         if (value == "yes")
-                                            onUpdateRow(index, { ...ele, molReceievedStatus: "yes", molReceiedDate: `${year}-${month}-${day}` })
+                                            onUpdateRow(index, { ...ele, molReceievedStatus: "yes", molReceiedDate: `${getJsDate()}` })
                                         else {
                                             onUpdateRow(index, { ...ele, molReceievedStatus: value, molReceiedDate: `` })
 
                                         }
 
 
-                                    
+
 
                                     }}
                                     options={[

@@ -2,7 +2,7 @@
 import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table3, TableBody, TableBody3, TableCell, TableCell3, TableHead, TableHead3, TableHeadCell, TableHeadCell3, TableHeadRow, TableHeadRow3, TableRow, TableRow3 } from '../../../../componenets/Table';
 import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
-import { convertDateFormat } from '../../../../utils/function';
+import { convertDateFormat, getJsDate } from '../../../../utils/function';
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
 import { MolReceivedInterface } from '../type';
@@ -11,7 +11,7 @@ import { MolReceivedInterface } from '../type';
 
 
 const Table = (props: {
-    snoBase:number,
+    snoBase: number,
     jobOrderList: MolReceivedInterface[],
     onChange: (value: MolReceivedInterface[]) => void
 
@@ -40,9 +40,9 @@ const Table = (props: {
         ["MOL FORWARDED DATE"],
         // ["MOL RECEIVE STATUS"],
         ["MOL RECEIVED DATE"],
-        ["SELECT "],
-        ["SUBMITTED TO COMPANY"],
-        ["SUBMITTED DATE"],
+        ["*SELECT "],
+        ["*SUBMITTED TO COMPANY"],
+        ["*SUBMITTED DATE"],
 
 
 
@@ -80,7 +80,7 @@ const Table = (props: {
                     {props.jobOrderList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                          <TableCell3 >{index + props.snoBase+1}</TableCell3>
+                            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             <TableCell3 > {ele.name}</TableCell3>
                             <TableCell3 > {ele.passportNo}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.ppIssueDate)}</TableCell3>
@@ -105,40 +105,47 @@ const Table = (props: {
                             <TableCell3 >
                                 <CustomSingleCheckBox
                                     onChange={(value) => {
-                                        const date = new Date();
-                                        const day = ("0" + date.getDate()).slice(-2);
-                                        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                        const year = date.getFullYear();
-                                        onUpdateRow(index, { ...ele, checked: value ? 1 : 0 })
+                                        // const date = new Date();
+                                        // const day = ("0" + date.getDate()).slice(-2);
+                                        // const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                        // const year = date.getFullYear();
+                                        // onUpdateRow(index, { ...ele, checked: value ? 1 : 0 })
+
+                                        if (value)
+                                            onUpdateRow(index, { ...ele, checked: 1, submittedToCompany: "yes", submitedDate: `${getJsDate()}` })
+                                        else
+                                            onUpdateRow(index, { ...ele, checked: 0, submittedToCompany: ``, submitedDate: `` })
+
                                     }}
                                     value={ele.checked ? true : false}
                                 />
                             </TableCell3>
                             <TableCell3>
-                            <CustomSelectComponentUnlabeled
-                            options={[
-                                {name:"yes",value:"yes"},
-                                {name:"no",value:"no"},
-                            ]}
+                                <CustomSelectComponentUnlabeled
+                                    options={[
+                                        { name: "yes", value: "yes" },
+                                        { name: "no", value: "no" },
+                                    ]}
                                     onChange={(value) => {
-                                        const date = new Date();
-                                        const day = ("0" + date.getDate()).slice(-2);
-                                        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-                                        const year = date.getFullYear();
-                                        if(value=="yes")
-                                        onUpdateRow(index, { ...ele, submittedToCompany: "yes", submitedDate: `${year}-${month}-${day}` })
-                                        else{
-                                            onUpdateRow(index, { ...ele, submittedToCompany: value, submitedDate: `` })
+                                        // const date = new Date();
+                                        // const day = ("0" + date.getDate()).slice(-2);
+                                        // const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                        // const year = date.getFullYear();
 
-                                        }
-                                        
+                                        if (value)
+                                            onUpdateRow(index, { ...ele, checked: 1, submittedToCompany: "yes", submitedDate: `${getJsDate()}` })
+                                        else
+                                            onUpdateRow(index, { ...ele, checked: 0, submittedToCompany: ``, submitedDate: `` })
+
+
+
                                     }}
                                     value={ele.submittedToCompany ? true : false}
                                 />
                             </TableCell3>
-                            <TableCell3 > {ele.submitedDate?convertDateFormat(ele.submitedDate):""}</TableCell3>
+                            <TableCell3 > {ele.submitedDate ? convertDateFormat(ele.submitedDate) : ""}</TableCell3>
 
-                           
+
 
                         </TableRow3>
                     ))}

@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import jsConvert from "js-convert-case";
+import { func } from "prop-types";
 
 export function getNanoID(length = 10) {
   return nanoid(length);
@@ -153,4 +154,11 @@ export function openPopupWindow(
   return popupWindow;
 }
 
+export function getJsDate() {
+  const date = new Date();
+  const day = ("0" + date.getDate()).slice(-2);
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const year = date.getFullYear();
 
+  return `${year}-${month}-${day}`;
+}
