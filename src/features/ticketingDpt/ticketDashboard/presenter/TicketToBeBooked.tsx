@@ -60,7 +60,7 @@ export default function Main(props: {
           <TableHead3>
             <TableHeadRow3>
               <TableHeadCell3>sr.no</TableHeadCell3>
-              <TableHeadCell3>setting visa</TableHeadCell3>
+              {/* <TableHeadCell3>setting visa</TableHeadCell3> */}
               <TableHeadCell3>job order no</TableHeadCell3>
               <TableHeadCell3>company name</TableHeadCell3>
               <TableHeadCell3>candidate name</TableHeadCell3>
@@ -86,7 +86,7 @@ export default function Main(props: {
             {props.openTicketToBeBooked.map((item, index) => (
               <TableRow3>
                 <TableCell3>{index + 1}</TableCell3>
-                <TableCell3>{item.setting_visa} </TableCell3>
+                {/* <TableCell3>{item.setting_visa} </TableCell3> */}
                 <TableCell3>{item.job_order_no} </TableCell3>
                 <TableCell3>{item.company_name} </TableCell3>
                 <TableCell3>{item.candidate_name} </TableCell3>

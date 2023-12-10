@@ -25,6 +25,7 @@ export default function Main(props:
         AgentPaymentList: any,
         onClose: any,
         paymentDetail: any[],
+        returnPaymentDetail: any[],
         detailData: any
     }) {
 
@@ -100,6 +101,7 @@ export default function Main(props:
 
                 <PaymentDetailBulkTable
                     visaProfessionList={props.paymentDetail}
+                    returnPaymentDetail={props.returnPaymentDetail}
                     onChange={(value) => console.log("Df")}
                 />
 

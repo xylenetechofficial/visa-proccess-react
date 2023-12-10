@@ -212,3 +212,19 @@ if (response.data) {
 }
 return dataAdapter as any[]
 }
+
+
+export async function readReturnPaymentDetails(type:string,id:number) {
+  
+  const path = `/account/agent-payment/return-payment-list?${type}=${id}`;
+
+  const response = await ApiHelper.get(path, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT,
+  });
+
+  if (response.code !== 200 ) {
+    showMessage_v2({ message: response.message, status: response.code })
+  }
+return response.data as any[]
+}

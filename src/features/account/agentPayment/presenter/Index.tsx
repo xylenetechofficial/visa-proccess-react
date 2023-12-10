@@ -10,6 +10,7 @@ import {
   // deleteAgentPayment,
   readAgentPaymentList,
   readPaymentDetails,
+  readReturnPaymentDetails,
 } from "../repository";
 import {
   SubHeading1,
@@ -104,15 +105,21 @@ export default function Main() {
   // const dataFiltered = filterData(searchQuery, AgentPaymentList);
 
   const [paymentDetail, setPaymentDetailList] = useState<any[]>([]);
+  const [returnPaymentDetail, setReturnPaymentDetailList] = useState<any[]>([]);
 
   const fetchPaymentDetail = async (type: string, ele: any) => {
     // candidate_id
     // bulk_payment_id
     setDetailData(ele);
     const data: any = await readPaymentDetails(type, ele.id);
+    const return_data: any = await readReturnPaymentDetails(type, ele.id);
     console.log(type, ele.id, "SSSSS", data);
     if (data) {
       setPaymentDetailList(data);
+    }
+
+    if (return_data) {
+      setReturnPaymentDetailList(return_data);
     }
   };
   const fetchAgentList = async () => {
@@ -246,6 +253,7 @@ export default function Main() {
         <PaymentDetailFromBulk
           onClose={() => setModalName("")}
           paymentDetail={paymentDetail}
+          returnPaymentDetail={returnPaymentDetail}
           detailData={detailData}
           AgentPaymentList={AgentPaymentList}
         />

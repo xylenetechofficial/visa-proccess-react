@@ -1,4 +1,4 @@
-import { cancelPartyCode, createIndexVisa, createPartyCode, readJobOrderList, readJobOrderQuantity, updateIndexVisa } from "../repository";
+import { cancelPartyCode, createIndexVisa, createPartyCode, readJobOrderQuantity, updateIndexVisa } from "../repository";
 import { useEffect, useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
@@ -24,6 +24,7 @@ import VisaProfessionTable from "./VisaProfessionTable";
 // import { BlueButton } from "../../../../componenets/CustomButton";
 import { addDaysToDate } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
+import { readJobOrderList } from "../../../job-dpt/jobOrder/repository";
 
 
 export default function Main(props: {
@@ -189,7 +190,8 @@ export default function Main(props: {
 
         let data
         if (indexVisa.company) {
-            data = await readJobOrderList({ companyId: indexVisa.company ?? 0 });
+            // data = await readJobOrderList({ companyId: indexVisa.company ?? 0 });
+            data = await readJobOrderList(0, { company_id: indexVisa.company })
 
         }
         if (data) {
@@ -319,7 +321,26 @@ export default function Main(props: {
                     <SubHeading1 text=" Job order :" />
                     <CustomSelectComponentUnlabeled
                         onChange={(value) => {
-                            setIndexVisa({ ...indexVisa, jobOrderNo: value })
+                            for (let i = 0; i < JobOrderList.length; i++) {
+                                const element = JobOrderList[i]
+                                if (value == element.jobOrderNumber) {
+                                    console.log({
+                                        jobOrderNo: element.jobOrderNumber ?? "",
+                                        country: element.CountryId ?? 0,
+                                        om: element.operationManagerId ?? 0,
+                                        rc: element.rcId ?? 0,
+                                        rm: element.recruitmentManagerId ?? 0,
+                                    });   // Only Dev
+                                    setIndexVisa({
+                                        ...indexVisa,
+                                        jobOrderNo: element.jobOrderNumber ?? "",
+                                        country: element.CountryId ?? 0,
+                                        om: element.operationManagerId ?? 0,
+                                        rc: element.rcId ?? 0,
+                                        rm: element.recruitmentManagerId ?? 0,
+                                    })
+                                }
+                            }
                         }
                         }
 
@@ -385,9 +406,9 @@ export default function Main(props: {
 
                     <SubHeading1 text="Quantity  :" />
                     <UnlabeledInput
-                        
-type="number"
-                    
+
+                        type="number"
+
                         value={indexVisa.quantity}
                         onchange={(value) => setIndexVisa({ ...indexVisa, quantity: parseInt(value) })}
                     />
@@ -421,9 +442,9 @@ type="number"
 
                         <SubHeading1 text="Visa fee :" />
                         <UnlabeledInput
-                            
-type="number"
-                    
+
+                            type="number"
+
                             value={indexVisa.visa_fee}
                             onchange={(value) => setIndexVisa({ ...indexVisa, visa_fee: parseInt(value) })}
                         />

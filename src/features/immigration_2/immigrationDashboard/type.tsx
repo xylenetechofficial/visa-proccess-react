@@ -30,7 +30,7 @@ export interface ImmigrationInterface {
   immigration_received_date: string
   immigration_reject_remarks: string
   is_without: number
-  color_code:string
+  color_code?:string
 
 
   checked?:number
@@ -67,7 +67,7 @@ export interface ImmigrationAdapter {
   immigration_received_date: string
   immigration_reject_remarks: string
   is_without: number
-  color_code:string
+  color_code?:string
 }
 
 export class ImmigrationConverter {

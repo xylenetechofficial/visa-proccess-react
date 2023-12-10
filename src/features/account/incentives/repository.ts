@@ -56,3 +56,21 @@ export async function createIncentive(AccountDashboard: any) {
   }
   return false;
 }
+
+export async function updateIncentiveList(AccountDashboard: any) {
+  
+  const path = "/account/incentive-list"
+  const list :any ={job_order_list:AccountDashboard}
+  const payload = AddIncentiveConverter.toAdapter(list);
+  
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+
+  if (response.code > 199 && response.code < 300) {
+    return true;
+  }
+  return false;
+}

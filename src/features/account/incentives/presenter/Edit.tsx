@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
 import IncentiveTable from './Table'
-import { readIncentiveList } from "../repository";
+import { createIncentive, readIncentiveList, updateIncentiveList } from "../repository";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 export default function Main(props: { setModalName: any }) {
     const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
@@ -26,9 +26,11 @@ export default function Main(props: { setModalName: any }) {
         ],
       });
     const [IncentiveList, setIncentiveList] = useState<any>()
-    const handleClick = () => {
-        console.log("handleClick")
-    }
+    const handleClick =async () => {
+      await updateIncentiveList(IncentiveList);
+      // await fetchIncentiveList(status);
+      props.setModalName('')
+    };
     const fetchIncentiveList = async (value: string, page?: number) => {
         const data = await readIncentiveList(value, {
           page: page ?? additionalData.pagination.page,

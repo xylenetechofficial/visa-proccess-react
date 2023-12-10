@@ -211,8 +211,8 @@ export function TableRow3({ children, color }: ParentComponentProps) {
     if (color === 'red') {
         colour = 'bg-red-700 text-white'
     }
-    else if (color === 'orange') {
-        colour = 'bg-orange-300 text-white'
+    else if (color === 'yellow') {
+        colour = 'bg-yellow-300 text-white'
     }
     else {
         colour = "bg-white"
