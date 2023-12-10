@@ -4,9 +4,9 @@
 
 # @protocal = https
 # @endpoint = {{protocal}}://{{hostname}}/api
-# @endpoint = http://localhost/api
+@endpoint = http://localhost/api
 # @endpoint =https://5fc6-103-142-115-55.ngrok-free.app/api
-@endpoint = http://visa.devdasz.com/api
+# @endpoint = http://visa.devdasz.com/api
 
 @JWT=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJpYXQiOjE2OTkwMTU0OTUsIm5iZiI6MTY5OTAxNTQ5NSwiZGF0YSI6eyJ1c2VyIjp7Im5hbWUiOiJhZG1pbiIsInVzZXJfbmFtZSI6ImFkbWluIiwiaWQiOjF9LCJwZXJtaXNzaW9uIjpbMSwyLDMsNCw1LDYsNyw4LDksMTAsMTEsMTIsMTMsMTQsMTUsMTYsMTcsMTgsMTksMjAsMjEsMjIsMjMsMjQsMjUsMjYsMjcsMjgsMjksMzAsMzEsMzIsMzMsMzQsMzUsMzYsMzcsMzgsMzksNDAsNDEsNDIsNDMsNDQsNDUsNDYsNDcsNDgsNDksNTAsNTEsNTIsNTMsNTQsNTUsNTYsNTcsNTgsNTksNjAsNjEsNjIsNjMsNjQsNjUsNjYsNjcsNjgsNjksNzAsNzEsNzIsNzMsNzQsNzUsNzYsNzcsNzgsNzksODAsODEsODIsODMsODQsODUsODYsODcsODgsODksOTAsOTEsOTIsOTMsOTQsOTUsOTYsOTcsOTgsOTksMTAwLDEwMSwxMDIsMTAzLDEwNCwxMDUsMTA2LDEwNywxMDgsMTA5LDExMCwxMTEsMTEyLDExMywxMTQsMTE1LDExNiwxMTcsMTE4LDExOSwxMjAsMTIxLDEyMiwxMjMsMTI0LDEyNSwxMjYsMTI3LDEyOCwxMjksMTMwLDEzMSwxMzIsMTMzLDEzNCwxMzUsMTM2LDEzNywxMzgsMTM5LDE0MCwxNDEsMTQyLDE0MywxNDQsMTQ1LDE0NiwxNDcsMTQ4LDE0OSwxNTAsMTUxLDE1MiwxNTMsMTU0LDE1NSwxNTYsMTU3LDE1OCwxNTksMTYwLDE2MSwxNjIsMTYzLDE2NCwxNjUsMTY2LDE2NywxNjgsMTY5LDE3MCwxNzEsMTcyLDE3MywxNzQsMTc1LDE3NiwxNzcsMTc4LDE3OSwxODAsMTgxLDE4MiwxODMsMTg0LDE4NSwxODYsMTg3LDE4OCwxODksMTkwLDE5MSwxOTIsMTkzLDE5NCwxOTUsMTk2LDE5NywxOTgsMTk5LDIwMCwyMDEsMjAyLDIwMywyMDQsMjA1LDIwNiwyMDcsMjA4LDIwOSwyMTAsMjExLDIxMiwyMTMsMjE0LDIxNSwyMTYsMjE3LDIxOCwyMTksMjIwLDIyMSwyMjIsMjIzLDIyNCwyMjUsMjI2LDIyNywyMjgsMjI5LDIzMCwyMzEsMjMyLDIzMywyMzQsMjM1LDIzNiwyMzcsMjM4LDIzOSwyNDAsMjQxLDI0MiwyNDMsMjQ0LDI0NSwyNDYsMjQ3LDI0OCwyNDksMjUwLDI1MSwyNTIsMjUzLDI1NCwyNTUsMjU2LDI1NywyNTgsMjU5LDI2MCwyNjEsMjYyLDI2MywyNjQsMjY1LDI2NiwyNjcsMjY4LDI2OSwyNzAsMjcxLDI3MiwyNzMsMjc0LDI3NSwyNzYsMjc3LDI3OCwyNzksMjgwLDI4MSwyODIsMjgzLDI4NCwyODUsMjg2LDI4NywyODgsMjg5LDI5MCwyOTEsMjkyLDI5MywyOTQsMjk1LDI5NiwyOTcsMjk4LDI5OSwzMDAsMzAxLDMwMiwzMDMsMzA0LDMwNSwzMDYsMzA3LDMwOCwzMDksMzEwLDMxMSwzMTIsMzEzLDMxNCwzMTUsMzE2LDMxNywzMTgsMzE5LDMyMCwzMjEsMzIyLDMyMywzMjQsMzI1LDMyNiwzMjcsMzI4LDMyOSwzMzAsMzMxLDMzMiwzMzMsMzM0LDMzNSwzMzYsMzM3LDMzOCwzMzksMzQwLDM0MSwzNDIsMzQzLDM0NCwzNDUsMzQ2LDM0NywzNDgsMzQ5LDM1MCwzNTEsMzUyLDM1MywzNTQsMzU1LDM1NiwzNTcsMzU4LDM1OSwzNjAsMzYxLDM2MiwzNjMsMzY0LDM2NSwzNjYsMzY3LDM2OCwzNjksMzcwLDM3MSwzNzIsMzczLDM3NCwzNzUsMzc2LDM3NywzNzgsMzc5LDM4MCwzODEsMzgyLDM4MywzODQsMzg1LDM4NiwzODcsMzg4LDM4OSwzOTAsMzkxLDM5MiwzOTMsMzk0LDM5NSwzOTYsMzk3LDM5OCwzOTksNDAwLDQwMSw0MDIsNDAzLDQwNCw0MDUsNDA2LDQwNyw0MDgsNDA5LDQxMCw0MTEsNDEyLDQxMyw0MTQsNDE1LDQxNiw0MTcsNDE4LDQxOSw0MjAsNDIxLDQyMiw0MjMsNDI0LDQyNSw0MjYsNDI3LDQyOCw0MjksNDMwLDQzMSw0MzIsNDMzLDQzNCw0MzUsNDM2LDQzNyw0MzgsNDM5LDQ0MCw0NDEsNDQyLDQ0Myw0NDRdfSwiZXhwIjoxNjk5MDUxNDk1fQ.KgYjo6mhrhmWWUkBxgfsMpItFl3pzbJ8IrTmZmM-gGc
 ###
@@ -15,6 +15,53 @@ GET {{endpoint}}/masters/permission-group-list?id=0
 
 
 
+
+
+##################################################################
+
+##################      Domestic Ticket         ##################
+
+##################################################################
+
+
+# ================      Interview Schedule Period      =============== #
+GET {{endpoint}}/domestic-ticket/interview-schedule-period-list?status=no
+
+# status=no for add
+# status=yes for edit
+
+
+### Add Penalty After Deployment
+#done
+POST {{endpoint}}/domestic-ticket/penalty-after-deployment-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id": 5,
+            "penalty_after_departure": 23,
+            "penalty_remarks": "something"
+        }
+    ]
+}
+
+
+
+### Update Penalty After Deployment
+# where this function is needed?
+PATCH {{endpoint}}/domestic-ticket/penalty-after-deployment-list
+content-type: application/json
+
+{
+    "selection_list":[
+        {
+            "id": 5,
+            "penalty_after_departure": 230,
+            "penalty_remarks": "something"
+        }
+    ]
+}
 
 
 ##################################################################

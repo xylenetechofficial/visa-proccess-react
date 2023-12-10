@@ -58,6 +58,11 @@ export const readDirectorList = async () => {
   return data as UserInterface[];
 };
 
+export const readGeneralManagerList = async () => {
+  const data = await readUserList({ active: 1, user_role_id: 2 });
+  return data as UserInterface[];
+};
+
 export const readOperationManagerist = async () => {
   const data = await readUserList({ active: 1, user_role_id: 3 });
   return data as UserInterface[];

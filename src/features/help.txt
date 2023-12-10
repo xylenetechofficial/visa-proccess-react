@@ -1,42 +1,30 @@
-export interface CancelPartyCodeInterface {
+export interface {{SAMPLE}}Interface {
   id?: number;
   index_date: string;
-  party_code: string;
-  company_name: string;
-  generate_by: string;
 }
 
-export interface CancelPartyCodeAdapter {
+export interface {{SAMPLE}}Adapter {
   id?: number;
   index_date: string;
-  party_code: string;
-  company_name: string;
-  generate_by: string;
 }
 
-export class CancelPartyCodeConverter {
-  // private i: AgentInterface
-  // private a: AgentAdapter
-
+export class {{SAMPLE}}Converter {
   /**
    * toInterface
    */
-  public static toInterface(a: CancelPartyCodeAdapter) {
-    const data: CancelPartyCodeInterface = {
-      id: a.id,
-      index_date: a.index_date,
-      party_code: a.party_code,
-      company_name: a.company_name,
-      generate_by: a.generate_by,
+  public static toInterface(item: {{SAMPLE}}Adapter) {
+    const data: {{SAMPLE}}Interface = {
+      id: item.id,
+      index_date: item.index_date,
     };
     return data;
   }
 
-  public static toInterfaceList(a_list: CancelPartyCodeAdapter[]) {
-    const data_list: CancelPartyCodeInterface[] = [];
+  public static toInterfaceList(item_list: {{SAMPLE}}Adapter[]) {
+    const data_list: {{SAMPLE}}Interface[] = [];
 
-    for (let i = 0; i < a_list.length; i++) {
-      const element = a_list[i];
+    for (let i = 0; i < item_list.length; i++) {
+      const element = item_list[i];
       data_list.push(this.toAdapter(element));
     }
 
@@ -46,22 +34,19 @@ export class CancelPartyCodeConverter {
   /**
    * toAdapter
    */
-  public static toAdapter(i: CancelPartyCodeInterface) {
-    const data: CancelPartyCodeAdapter = {
-      id: i.id,
-      index_date: i.index_date,
-      party_code: i.party_code,
-      company_name: i.company_name,
-      generate_by: i.generate_by,
+  public static toAdapter(item: {{SAMPLE}}Interface) {
+    const data: {{SAMPLE}}Adapter = {
+      id: item.id,
+      index_date: item.index_date,
     };
     return data;
   }
 
-  public static toAdapterList(i_list: CancelPartyCodeInterface[]) {
-    const data_list: CancelPartyCodeAdapter[] = [];
+  public static toAdapterList(item_list: {{SAMPLE}}Interface[]) {
+    const data_list: {{SAMPLE}}Adapter[] = [];
 
-    for (let i = 0; i < i_list.length; i++) {
-      const element = i_list[i];
+    for (let i = 0; i < item_list.length; i++) {
+      const element = item_list[i];
       data_list.push(this.toAdapter(element));
     }
 

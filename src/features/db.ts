@@ -186,3 +186,9 @@ export const DiscountTypeList = [
   { name: "Normal Discount", value: "Normal Discount" },
   { name: "Error Discount", value: "Error Discount" },
 ];
+
+export const DataByList = [
+  { name: "All", value: "all" },
+  { name: "KSA", value: "ksa" },
+  { name: "NON KSA", value: "non ksa" },
+];
