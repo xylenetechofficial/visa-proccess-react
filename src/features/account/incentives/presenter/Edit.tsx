@@ -27,6 +27,7 @@ export default function Main(props: { setModalName: any }) {
       });
     const [IncentiveList, setIncentiveList] = useState<any>()
     const handleClick =async () => {
+      console.log("fgvfh");   // Only Dev
       await updateIncentiveList(IncentiveList);
       // await fetchIncentiveList(status);
       props.setModalName('')
@@ -64,7 +65,7 @@ export default function Main(props: { setModalName: any }) {
                     setUpdateIncentive={setUpdateIncentive}
                     data={data}
                     setData={setData}
-                    onClick={onClickUpdate}
+                    onClick={handleClick}
                     onChange={(value) => setIncentiveList(value)}
                 />
 

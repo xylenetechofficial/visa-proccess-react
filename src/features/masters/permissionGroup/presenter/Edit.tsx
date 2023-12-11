@@ -6,6 +6,7 @@ import { PermissionGroupInterface, PermissionDataInterface, PageInterface, Permi
 import { RenderPermissions } from "./RenderPermissions";
 import { StandardInput } from "../../../../componenets/Input";
 import { readSinglePermissionGroup, updatePermissionGroup } from "../repository";
+import { Heading1 } from "../../../../componenets/CoustomHeader";
 
 
 export default function Main(props: {
@@ -48,13 +49,16 @@ export default function Main(props: {
             handleClick={onClickAdd}
         >
              <div className="w-96">
-             <StandardInput
+                <Heading1
+                text={permissionGroup.name}
+                />
+             {/* <StandardInput
                     label="Name"
                     value={permissionGroup.name}
                     onChangeValue={(value: string) => {
                         setPermissionGroup({ ...permissionGroup, name: value })
                     }}
-                />
+                /> */}
              </div>
             <div className="w-full">
 

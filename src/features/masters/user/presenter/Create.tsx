@@ -74,7 +74,7 @@ export default function Main(props: {
         console.log("readGeneralManagerist:", data);
         setGeneralManagerist(data)
     }
-    
+
     const [OperationManagerist, setOperationManagerist] = useState<UserInterface[]>([])
     const fetchOperationManagerist = async () => {
         const data = await readOperationManagerist()
@@ -124,12 +124,12 @@ export default function Main(props: {
     }
 
     useEffect(() => {
-        fetchBDEList()
+        // fetchBDEList()
         fetchGeneralManagerist()
         fetchOperationManagerist()
         fetchRecruitManagerList()
         fetchRecruitSuperVisorList()
-        fetchRecruitCoordinatorList()
+        // fetchRecruitCoordinatorList()
         fetchSectorList()
     }, []);
 
@@ -139,7 +139,7 @@ export default function Main(props: {
 
     return (
         <FullScreenModal
-            title={`Create Permission`}
+            title={`Create User`}
             onClose={props.onClose}
             buttonName="Create"
             handleClick={onClickAdd}
@@ -271,6 +271,8 @@ export default function Main(props: {
                     onChange={(value) => setUser({ ...user, invoice_sector_id: value })}
                     label="Invoice Sector"
                 /> : ""}
+
+            {/* ###################### */}
 
             <CustomRadioButton
                 label="Active: "

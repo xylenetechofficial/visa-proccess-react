@@ -49,14 +49,14 @@ export default function Main(props: { onClose: () => void }) {
       <FullScreenModal
         // buttonName="Update"
         handleClick={() => handleSubmit()}
-        title="Edit Candidate Discount"
+        title="Edit Penalty"
         onClose={() => { props.onClose(), console.log("dfdf") }}
       >
         <AccountDashboardTable
           snoBase={1}
           accountDashboardList={penaltyAfterDeployement}
           setAccountDashboardList={setPenaltyAfterDeployement}
-          onClickCreate={[]}
+          onClickCreate={handleSubmit}
           data={data}
           setData={setData}
           setStatus={setStatus}

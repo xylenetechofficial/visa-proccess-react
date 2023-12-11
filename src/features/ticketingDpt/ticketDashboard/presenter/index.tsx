@@ -59,7 +59,7 @@ export default function Main() {
 
   const [modalName, setModalName] = useState("");
 
-  const TicketToBeBooked = async (ticketDashboard: TicketDashboardInterface) => {
+  const TicketToBeBooked = async (ticketDashboard: TickeDashboardInterface2) => {
 
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
@@ -71,7 +71,7 @@ export default function Main() {
     }
   };
 
-  const underProcess = async (ticketDashboard: TicketDashboardInterface) => {
+  const underProcess = async (ticketDashboard: TickeDashboardInterface2) => {
 
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
@@ -83,7 +83,7 @@ export default function Main() {
     }
   };
 
-  const AgencyInvoiceAwaiting = async (ticketDashboard: TicketDashboardInterface) => {
+  const AgencyInvoiceAwaiting = async (ticketDashboard: TickeDashboardInterface2) => {
 
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
@@ -93,7 +93,7 @@ export default function Main() {
       setAgencyInvoiceAwaiting(res)
     }
   };
-  const tryingFunction = async (ticketDashboard: TicketDashboardInterface) => {
+  const tryingFunction = async (ticketDashboard: TickeDashboardInterface2) => {
 
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev

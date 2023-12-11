@@ -111,14 +111,14 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         {/* Add */}
-        <GreenButton
+        {/* <GreenButton
           text={"Add +"}
           onClick={() => {
             setPermissionGroup({ ...permissionGroup, id: 0 })
             setModalName("create");
             // onClickCreate()
           }}
-        />
+        /> */}
       </CardHeader>
 
       {/*  agency stable */}

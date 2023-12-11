@@ -7,10 +7,10 @@ import { Table } from "flowbite-react";
 export default function Main(props: {
   TicketDashboardList: TickeDashboardInterface2[];
   // onChange: (value: TicketDashboardInterface[]) => void;
-  TicketToBeBooked: (value: any) => void;
-  underProcess: (value: any) => void;
-  AgencyInvoiceAwaiting: (value: any) => void;
-  tryingFunction: (value: any) => void;
+  TicketToBeBooked: (value: TickeDashboardInterface2) => void;
+  underProcess: (value: TickeDashboardInterface2) => void;
+  AgencyInvoiceAwaiting: (value: TickeDashboardInterface2) => void;
+  tryingFunction: (value: TickeDashboardInterface2) => void;
 }) {
   const extraData = {
     total_ticket_to_be_booked: 0,
@@ -78,7 +78,7 @@ export default function Main(props: {
                         {ticket.sector}
                       </TableHeadNew>
                       <TableCellNew2>
-                      <span
+                        <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
                             props.TicketToBeBooked(ticket);
@@ -89,7 +89,7 @@ export default function Main(props: {
                       </TableCellNew2>
                       <div className="grid grid-cols-2 gap-0">
                         <TableCellNew2>
-                        <span
+                          <span
                             className="text-red-600 cursor-pointer px-10"
                             onClick={() => {
                               props.underProcess(ticket);
@@ -99,7 +99,7 @@ export default function Main(props: {
                           </span>
                         </TableCellNew2>
                         <TableCellNew>
-                        <span
+                          <span
                             className="text-red-600 cursor-pointer px-10"
                             onClick={() => {
                               props.tryingFunction(ticket);
@@ -111,7 +111,7 @@ export default function Main(props: {
                       </div>
 
                       <TableCellNew2>
-                      <span
+                        <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
                             props.AgencyInvoiceAwaiting(ticket);
@@ -124,22 +124,35 @@ export default function Main(props: {
 
                     <TableRow3 key={"total"} >
                       <TableHeadNew>
-                       <span className="text-red-500"> Total</span>
+                        <span className="text-red-500"> Total</span>
                       </TableHeadNew>
                       <TableCellNew>
-                       <span className="text-red-600 px-10" > {extraData.total_ticket_to_be_booked}</span>
+                        <span className="text-red-600 px-10"
+                          onClick={() => {
+                            props.TicketToBeBooked({ ...ticket, ticketing_sector_from: 0, ticketing_sector_to: 0 });
+                          }}> {extraData.total_ticket_to_be_booked}</span>
                       </TableCellNew>
                       <div className="grid grid-cols-2  gap-0">
                         <TableCellNew2>
-                        <span className="text-red-600 px-10" >   {extraData.total_ticket_under_process}</span>
+                          <span className="text-red-600 px-10"
+                            onClick={() => {
+                              props.underProcess(ticket);
+                            }}>   {extraData.total_ticket_under_process}</span>
                         </TableCellNew2>
                         <TableCellNew>
-                        <span className="text-red-600 px-10" > {extraData.total_ticket_trying}</span>
+                          <span className="text-red-600 px-10"
+                            onClick={() => {
+                              props.tryingFunction(ticket);
+                            }}> {extraData.total_ticket_trying}</span>
                         </TableCellNew>
                       </div>
 
                       <TableCellNew2>
-                      <span className="text-red-600 px-10" >  {extraData.total_agency_invoice_awaiting}</span>
+                        <span className="text-red-600 px-10"
+                          onClick={() => {
+                            props.AgencyInvoiceAwaiting(ticket);
+                          }}
+                        >  {extraData.total_agency_invoice_awaiting}</span>
                       </TableCellNew2>
                     </TableRow3>
 
@@ -158,12 +171,12 @@ export default function Main(props: {
               else
                 return (
                   <>
-                   <TableRow3 key={index} >
+                    <TableRow3 key={index} >
                       <TableHeadNew>
                         {ticket.sector}
                       </TableHeadNew>
                       <TableCellNew2>
-                      <span
+                        <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
                             props.TicketToBeBooked(ticket);
@@ -174,7 +187,7 @@ export default function Main(props: {
                       </TableCellNew2>
                       <div className="grid grid-cols-2 gap-0">
                         <TableCellNew2>
-                        <span
+                          <span
                             className="text-red-600 cursor-pointer px-10"
                             onClick={() => {
                               props.underProcess(ticket);
@@ -184,7 +197,7 @@ export default function Main(props: {
                           </span>
                         </TableCellNew2>
                         <TableCellNew>
-                        <span
+                          <span
                             className="text-red-600 cursor-pointer px-10"
                             onClick={() => {
                               props.tryingFunction(ticket);
@@ -196,7 +209,7 @@ export default function Main(props: {
                       </div>
 
                       <TableCellNew2>
-                      <span
+                        <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
                             props.AgencyInvoiceAwaiting(ticket);
@@ -209,7 +222,7 @@ export default function Main(props: {
 
                   </>
                 );
-            })} 
+            })}
           </TableBody3>
         </Table>
       </div>

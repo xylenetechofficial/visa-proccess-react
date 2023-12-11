@@ -36,11 +36,11 @@ const AgencyTable = (props: {
                                     props.onClickEdit(ele)
                                 }} />
 
-                                <YellowButton text={"COPY"} onClick={() => {
+                                {/* <YellowButton text={"COPY"} onClick={() => {
                                     console.log("COPY");   // Only Dev
                                     console.log(ele);   // Only Dev
                                     props.onClickDuplicate(ele)
-                                }} />
+                                }} /> */}
 
                                 <RedButton text={"DELETE"} onClick={() => {
                                     props.onClickDelete(ele)
