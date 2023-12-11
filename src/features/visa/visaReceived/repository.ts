@@ -6,7 +6,7 @@ import { VisaAllocationConverter } from "../indexVisa/type";
 
 
 
-export async function readVisaReceivedDate(page_number?: number) {
+export async function readVisaReceivedDate(page_number?: number,status?:string) {
   const path = "/visa-dpt/visa-received-list";
 
   const response = await ApiHelper.get(path, {
@@ -14,6 +14,7 @@ export async function readVisaReceivedDate(page_number?: number) {
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       page: page_number ?? 0,
+      status:status ?? ''
     },
 
    

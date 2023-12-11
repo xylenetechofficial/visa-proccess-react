@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CreateModal from "./Create";
-// import EditModal from './Edit'
+import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import {
   CustomButton2,
@@ -8,9 +8,9 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { SendToMofa_JobOrderInterface } from "../type";
-import { readSendToMofaJobOrder } from "../repository";
+import { deleteSendToMofaCandidate, readSendToMofaJobOrder } from "../repository";
 import Table from "./Table";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import {
   AdditionalDataInterface,
   PaginationManager,
@@ -93,9 +93,11 @@ export default function Main() {
     setModalName("add");
   };
 
-  // useEffect(() => {
-  // }, [editIndexVisa, modalName])
+  const onClickDelete = async (ele: SendToMofa_JobOrderInterface) => {
+    const res = await deleteSendToMofaCandidate(ele);
+    fetchSendToMofaJobOrder(additionalData.pagination.page);
 
+  }
   const fetchSendToMofaJobOrder = async (page?: number) => {
     const data = await readSendToMofaJobOrder("yes", page ?? 1);
     console.log(data);
@@ -115,15 +117,19 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <GreenButton onClick={() => setModalName("add")} text="Add" />
+        <div>
+          <GreenButton onClick={() => setModalName("add")} text="Add" />
+          <BlueButton onClick={() => setModalName("edit")} text="Edit" />
+        </div>
       </CardHeader>
 
       {/*  indexVisa stable */}
       <Table
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onClickAdd={onClickAdd}
         onClickEdit={onClickEdit}
+        onClickDelete={onClickDelete}
       />
 
       <Pagination
@@ -147,12 +153,12 @@ export default function Main() {
       )}
 
       {/* Edit */}
-      {/* {modalName !== "edit" ? "" :
-                <EditModal
-                    currentElement={currentElement}
-                    onClose={() => setModalName("")}
+      {modalName !== "edit" ? "" :
+        <EditModal
+          currentElement={currentElement}
+          onClose={() => setModalName("")}
 
-                />} */}
+        />}
     </div>
   );
 }

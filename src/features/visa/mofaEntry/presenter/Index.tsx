@@ -8,7 +8,7 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { MofaPaymentInterface, Mofa_Entry_Candidate_Interface } from "../type";
-import { readMofaEntryCandiateList, readMofaPaymentList } from "../repository";
+import { deleteMofaEntry, readMofaEntryCandiateList, readMofaPaymentList } from "../repository";
 import Table from "./Table";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { Heading6 } from "../../../../componenets/CoustomHeader";
@@ -99,9 +99,10 @@ export default function Main() {
     setModalName("add");
   };
 
-  // useEffect(() => {
-  // }, [editIndexVisa, modalName])
-
+  const onClickDelete =async(ele:Mofa_Entry_Candidate_Interface)=>{
+    const res = await deleteMofaEntry(ele)
+    fetchMofaEntryCandiateList();
+  }
   const fetchMofaEntryCandiateList = async (page?: number) => {
     const data = await readMofaEntryCandiateList("yes", 0, page ?? 1);
     console.log(data);
@@ -147,6 +148,7 @@ export default function Main() {
         candidateList={CandidateList}
         onClickAdd={onClickAdd}
         onClickEdit={onClickEdit}
+        onClickDelete={onClickDelete}
       />
 
       <Pagination

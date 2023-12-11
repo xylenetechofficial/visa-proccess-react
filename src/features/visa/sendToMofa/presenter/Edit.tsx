@@ -1,61 +1,58 @@
-// import { readSourcingCollectionDashboardCandidate, updateSourcingCollectionDashboardCandidate } from "../repository";
-// import { useEffect, useState } from "react";
-// import { FullScreenModal } from "../../../../componenets/Modal";
-// import { Src_Col_Dash_CandidateInterface, Src_Col_Dash_JobOrderInterface, } from "../type";
-
-// import CandidateTable from "./CandidateTable";
-
-
-// export default function Main(props: {
-//     onClose: any,
-//     currentElement: Src_Col_Dash_JobOrderInterface
-// }) {
+import { useEffect, useState } from "react";
+import { FullScreenModal } from "../../../../componenets/Modal";
+import CandidateTable from "./CandidateTable";
+import { SendToMofa_JobOrderInterface } from "../type";
+import { readSendToMofaJobOrder, updateSendToMofaCandidate } from "../repository";
 
 
+export default function Main(props: {
+    onClose: ()=>void,
+    currentElement: SendToMofa_JobOrderInterface
+
+}) {
+
+    const [candidateList, setCandidateList] = useState<SendToMofa_JobOrderInterface[]>([])
+
+    const fetchSendToMofaCandidate = async () => {
+        const data = await readSendToMofaJobOrder("no",props.currentElement.id ?? 0);
+        if (data) {
+            setCandidateList(data);
+        }
+    }
+    useEffect(() => {
+        fetchSendToMofaCandidate();
+    }, [])
+
+    async function onClickAdd() {
+        const newArray = []
+        for(let i=0;i<candidateList.length;i++){
+            if(candidateList[i].checked){
+                newArray.push(candidateList[i])
+            }
+        }
+        // call create
+        const res = await updateSendToMofaCandidate(newArray)
+        props.onClose();
+        if (res.code != 201) {
+            return;
+        }
+        fetchSendToMofaCandidate();
+    }
 
 
+    return (
 
-//     async function onClickAdd() {
-//         // call create
-//         const res = await updateSourcingCollectionDashboardCandidate(candidateList)
-//         if (res.code != 201) {
-//             return;
-//         }
-//         fetchSourcingCollectionDashboardCandidate();
+        <FullScreenModal
+            buttonName="Update"
+            handleClick={onClickAdd}
+            title="Update Send to Mofa"
+            onClose={props.onClose}
+        >
+            <CandidateTable
+                candidateList={candidateList}
+                onChange={(ele) => setCandidateList(ele)}
 
-
-//     }
-
-//     const [candidateList, setCandidateList] = useState<Src_Col_Dash_CandidateInterface[]>([])
-//     const fetchSourcingCollectionDashboardCandidate = async () => {
-//         const data = await readSourcingCollectionDashboardCandidate(props.currentElement.id ?? 0, "yes");
-//         if (data) {
-//             setCandidateList(data);
-//         }
-//     }
-//     useEffect(() => {
-//         fetchSourcingCollectionDashboardCandidate();
-//     }, [])
-
-
-
-//     // unset function
-
-
-
-//     return (
-
-//         <FullScreenModal
-//             buttonName="Update"
-//             handleClick={onClickAdd}
-//             title="Update Sourcing Collection Dashboard"
-//             onClose={props.onClose}
-//         >
-//             <CandidateTable
-//                 candidateList={candidateList}
-//                 onChange={(ele) => setCandidateList(ele)}
-
-//             />
-//         </FullScreenModal>
-//     )
-// }
+            />
+        </FullScreenModal>
+    )
+}

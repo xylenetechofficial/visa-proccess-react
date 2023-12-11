@@ -11,6 +11,7 @@ const Table = (props: {
     jobOrderList: SendToMofa_JobOrderInterface[],
     onClickAdd: (ele: SendToMofa_JobOrderInterface) => void,
     onClickEdit: (ele: SendToMofa_JobOrderInterface) => void,
+    onClickDelete:(ele:SendToMofa_JobOrderInterface) =>void,
 
 }) => {
 
@@ -39,7 +40,7 @@ const Table = (props: {
                         <TableHeadCell3 >CURRENT STATUS</TableHeadCell3>
                         <TableHeadCell3 >VISA PROFESSION</TableHeadCell3>
                         <TableHeadCell3 >PARTY CODE </TableHeadCell3>
-                        {/* <TableHeadCell3 > Action</TableHeadCell3> */}
+                        <TableHeadCell3 > Action</TableHeadCell3>
 
                     </TableHeadRow3>
                 </TableHead3>
@@ -66,14 +67,15 @@ const Table = (props: {
                             <TableCell3 > {ele.currentStatus}</TableCell3>
                             <TableCell3 > {ele.visaProfession}</TableCell3>
                             <TableCell3 > {ele.partyCode}</TableCell3>
-                            {/* <TableCell3 >
-                                <GreenButton text={"Add"}  onClick={() => {
+                           <TableCell3 >
+                                {/* <GreenButton text={"Add"}  onClick={() => {
                                     props.onClickAdd(ele)
                                 }} />
                                 <BlueButton text={" Edit"} onClick={() => {
                                     props.onClickEdit(ele)
-                                }} />
-                            </TableCell3> */}
+                                }} /> */}
+                                <RedButton  text='Delete' onClick={()=>props.onClickDelete(ele)}/>
+                            </TableCell3> 
                         </TableRow3>
                     ))}
 

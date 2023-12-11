@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // import CreateModal from './Create'
-// import EditModal from './Edit'
+import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import {
   CustomButton2,
@@ -10,7 +10,7 @@ import { FaFilter } from "react-icons/fa";
 import { VisaReceivedInterface } from "../type";
 import { readVisaReceivedDate, updateVisaReceivedData } from "../repository";
 import Table from "./Table";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import {
   AdditionalDataInterface,
   PaginationManager,
@@ -110,6 +110,7 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
       </CardHeader>
 
       {/*  indexVisa stable */}
@@ -130,6 +131,11 @@ export default function Main() {
           fetchVisaReceiveData(e);
         }}
       />
+      {modalName !== "edit" ? (
+        ""
+      ) : (
+        <EditModal onClose={()=>setModalName('')} currentElement={JobOrderList} />
+      )}
     </div>
   );
 }

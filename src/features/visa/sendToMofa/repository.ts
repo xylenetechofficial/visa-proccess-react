@@ -52,18 +52,28 @@ export async function createSendToMofaCandidate(candidateList:SendToMofa_JobOrde
  return response;
 }
 
-// export async function updateSourcingCollectionDashboardCandidate(candidateList: Src_Col_Dash_CandidateInterface[]) {
+export async function updateSendToMofaCandidate(candidateList: SendToMofa_JobOrderInterface[]) {
 
-//   const payload = {
-//     selection_list: Src_Col_Dash_CandidateConverter.toAdapterList(candidateList)
-//   }
+  const payload = {
+    selection_list: SendToMofa_JobOrderConverter.toAdapterList(candidateList)
+  }
 
-//   const path = "/visa-dpt/sourcing-dashboard-list"
-//   const response = await ApiHelper.patch(path, payload, {
-//     contentType: ContentType.json,
-//     tokenType: AuthTokenType.JWT
-//   })
-//   showMessage_v2({ message: response.message, status: response.code })
-//  return response
-// }
+  const path ="/visa-dpt/send-to-mofa-list";
+  const response = await ApiHelper.patch(path, payload, {
+    contentType: ContentType.json,
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+ return response
+}
 
+
+export async function deleteSendToMofaCandidate(candidateList: SendToMofa_JobOrderInterface){
+  
+  const path = "/visa-dpt/send-to-mofa-list/" + candidateList.id
+  const response = await ApiHelper.delete(path, {
+    tokenType: AuthTokenType.JWT
+  })
+  showMessage_v2({ message: response.message, status: response.code })
+ 
+}

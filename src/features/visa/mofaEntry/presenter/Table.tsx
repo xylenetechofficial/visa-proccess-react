@@ -1,16 +1,13 @@
 import { Mofa_Entry_Candidate_Interface } from '../type'
-import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
+import { BlueButton,  RedButton } from '../../../../componenets/CustomButton';
 import { Table3,  TableBody3, TableCell3, TableHead3,  TableHeadCell3,  TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
-import { convertDateFormat } from '../../../../utils/function';
-
-
-
 
 const Table = (props: {
     snoBase:number,
     candidateList: Mofa_Entry_Candidate_Interface[],
     onClickAdd: (ele: Mofa_Entry_Candidate_Interface) => void,
     onClickEdit: (ele: Mofa_Entry_Candidate_Interface) => void,
+    onClickDelete: (ele: Mofa_Entry_Candidate_Interface) => void,
 
 }) => {
     const tableHeadings = [
@@ -92,6 +89,7 @@ const Table = (props: {
                                 <BlueButton text={" Edit"} onClick={() => {
                                     props.onClickEdit(ele)
                                 }} />
+                                <RedButton text='Delete' onClick={()=> props.onClickDelete(ele)} />
 
 
 
