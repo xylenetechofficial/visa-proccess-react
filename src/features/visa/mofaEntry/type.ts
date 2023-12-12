@@ -8,6 +8,7 @@ export interface Mofa_Entry_Candidate_Interface {
   passport_no: string;
   actual_profession: string;
   division: string;
+  agent_id: number;
   agent_name: string;
   rs_name: string;
   rm_name: string;
@@ -40,6 +41,7 @@ export interface Mofa_Entry_Candidate_Adapter {
   passport_no: string;
   actual_profession: string;
   division: string;
+  agent_id: number;
   agent_name: string;
   rs_name: string;
   rm_name: string;
@@ -79,6 +81,7 @@ export class Mofa_Entry_Converter {
       passport_no: a.passport_no,
       actual_profession: a.actual_profession,
       division: a.division,
+      agent_id: a.agent_id,
       agent_name: a.agent_name,
       rs_name: a.rs_name,
       rm_name: a.rm_name,
@@ -119,6 +122,7 @@ export class Mofa_Entry_Converter {
       passport_no: i.passport_no,
       actual_profession: i.actual_profession,
       division: i.division,
+      agent_id: i.agent_id,
       agent_name: i.agent_name,
       rs_name: i.rs_name,
       rm_name: i.rm_name,

@@ -6,10 +6,12 @@ import { MofaPaymentAdapter, MofaPaymentInterface, Mofa_Entry_Candidate_Interfac
 import CandidateTable from "./CandidateTable";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
+import { AgentInterface } from "../../../masters/agent/type";
 
 
 export default function Main(props: {
     onClose: any,
+    AgentList:AgentInterface[]
     fetchMofaEntryCandiateList: any
 }) {
 
@@ -106,6 +108,7 @@ export default function Main(props: {
             <CandidateTable
                 countryTypeID={countryTypeID}
                 candidateList={candidateList}
+                AgentList={props.AgentList}
                 onChange={(ele) => setCandidateList(ele)}
             />
         </FullScreenModal>

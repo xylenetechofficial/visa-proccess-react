@@ -15,6 +15,8 @@ import { Heading6 } from "../../../../componenets/CoustomHeader";
 import MofaPaymentTable from "./MofaPaymentTable";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { AgentInterface } from "../../../masters/agent/type";
+import { readAgentList } from "../../../masters/agent/repository";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -29,6 +31,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
   passport_no: "",
   actual_profession: "",
   division: "",
+  agent_id:0,
   agent_name: "",
   rs_name: "",
   rm_name: "",
@@ -119,8 +122,18 @@ export default function Main() {
     setMofaPaymentList(data);
   };
 
+
+  const [AgentList, setAgentList] = useState<AgentInterface[]>([])
+  const fetchAgentList = async () => {
+      const data = await readAgentList()
+      console.log(data);
+      setAgentList(data)
+  }
+
   useEffect(() => {
-    fetchMofaPaymentList();
+      fetchAgentList()
+
+      fetchMofaPaymentList();
     fetchMofaEntryCandiateList(additionalData.pagination.page);
   }, []);
 
@@ -170,6 +183,7 @@ export default function Main() {
             fetchMofaEntryCandiateList();
             setModalName("");
           }}
+          AgentList={AgentList}
           fetchMofaEntryCandiateList={fetchMofaEntryCandiateList}
         />
       )}
@@ -184,6 +198,7 @@ export default function Main() {
             fetchMofaEntryCandiateList();
             setModalName("");
           }}
+          AgentList={AgentList}
           fetchMofaEntryCandiateList={fetchMofaEntryCandiateList}
         />
       )}

@@ -2,9 +2,10 @@ import { Mofa_Entry_Candidate_Interface } from '../type'
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
-import { CustomSelectComponentUnlabeled } from '../../../../componenets/SelectBox';
+import { CustomSelectComponentUnlabeled, selectOptionConveterv2 } from '../../../../componenets/SelectBox';
 import { ReligionList } from '../../../db';
 import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
+import { AgentInterface } from '../../../masters/agent/type';
 
 const initValue: Mofa_Entry_Candidate_Interface = {
     id: 0,
@@ -12,6 +13,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
     passport_no: "",
     actual_profession: "",
     division: "",
+    agent_id: 0,
     agent_name: "",
     rs_name: "",
     rm_name: "",
@@ -36,6 +38,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
 const CandidateTable = (props: {
     countryTypeID: number,
     candidateList: Mofa_Entry_Candidate_Interface[],
+    AgentList: AgentInterface[]
     onChange: (ele: Mofa_Entry_Candidate_Interface[]) => void,
 
 }) => {
@@ -135,6 +138,7 @@ const CandidateTable = (props: {
                             data={ele}
                             index={index}
                             onChange={onChange}
+                            AgentList={props.AgentList}
                             onUpdate={onUpdateRow}
                         />
 
@@ -164,6 +168,7 @@ const TableData = (
         data: Mofa_Entry_Candidate_Interface;
         onUpdate: (index: number, rowData: Mofa_Entry_Candidate_Interface) => void;
         onChange: string
+        AgentList: AgentInterface[]
     }
 
 ) => {
@@ -206,7 +211,13 @@ const TableData = (
             <TableCell3 > {localRowData.actual_profession}</TableCell3>
 
             <TableCell3 > {localRowData.division}</TableCell3>
-            <TableCell3 > {localRowData.agent_name}</TableCell3>
+            <TableCell3 >
+                <CustomSelectComponentUnlabeled
+                    onChange={(value) => setLocalRowData({ ...localRowData, agent_id: value })}
+                    options={selectOptionConveterv2({ options: props.AgentList, options_struct: { name: "name", value: "id" } })}
+                    value={localRowData.agent_id}
+                />
+                {localRowData.agent_name}</TableCell3>
             <TableCell3 > {localRowData.rs_name}</TableCell3>
             <TableCell3 > {localRowData.rm_name}</TableCell3>
             <TableCell3 > {localRowData.rc_name}</TableCell3>
@@ -250,7 +261,7 @@ const TableData = (
                     />
                 </TableCell3>
             </>}
-            
+
             <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     value={localRowData.pp_copy}

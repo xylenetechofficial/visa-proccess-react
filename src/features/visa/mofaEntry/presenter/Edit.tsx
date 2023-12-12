@@ -6,13 +6,15 @@ import { Mofa_Entry_Candidate_Interface } from "../type";
 import CandidateTable from "./CandidateTable";
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
+import { CustomSelectComponentUnlabeled, selectOptionConveter, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
 import { ReligionList } from "../../../db";
+import { AgentInterface } from "../../../masters/agent/type";
 
 
 export default function Main(props: {
     onClose: any,
     currentElement: Mofa_Entry_Candidate_Interface,
+    AgentList: AgentInterface[]
     fetchMofaEntryCandiateList: any
 }) {
 
@@ -22,6 +24,7 @@ export default function Main(props: {
         passport_no: "",
         actual_profession: "",
         division: "",
+        agent_id: 0,
         agent_name: "",
         rs_name: "",
         rm_name: "",
@@ -121,7 +124,11 @@ export default function Main(props: {
                 <UpdateContentBox>
 
                     <SubHeading1 text="Agent Name:" />
-                    {localRowData.agent_name}
+                    <CustomSelectComponentUnlabeled
+                        onChange={(value) => setLocalRowData({ ...localRowData, agent_id: value })}
+                        options={selectOptionConveter({ options: props.AgentList, options_struct: { name: "name", value: "id" } })}
+                        value={localRowData.agent_id}
+                    />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
