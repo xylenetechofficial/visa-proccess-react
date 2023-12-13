@@ -17,6 +17,7 @@ export interface RMAdvanceBookingInterface {
   is_pendding?: boolean,
 
   is_approve?: number,
+  checked?:number
 }
 
 

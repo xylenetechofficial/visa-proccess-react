@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
-import { AddBookingRequestConverter, BookingRequestAdapter, BookingRequestConverter, BookingRequestInterface } from "./type";
+import {  BookingRequestConverter, BookingRequestInterface } from "./type";
 
 
 export async function readTicketBookingRequestList(query: {
@@ -25,57 +25,40 @@ export async function readTicketBookingRequestList(query: {
     showMessage_v2({ message: response.message, status: response.code })
   }
 
-  const data = []
-  console.log(response.data)
-  if (response.data) {
-    const dataAdapter = response.data as BookingRequestAdapter[];
-    for (let i = 0; i < dataAdapter.length; i++) {
-      const element = dataAdapter[i];
-      data.push(BookingRequestConverter.toInterface(element));
-    }
-  }
-
   await PaginationManager.setData(
     response.additional_data as AdditionalDataInterface
   );
 
-  return data as BookingRequestInterface[]
+  return BookingRequestConverter.toInterfaceList(response.data as BookingRequestInterface[])
 }
 
 
 
 export async function createTicketBookingRequest(TicketBookingRequest:BookingRequestInterface[]) {
     const path = "/ticketing-dpt/booking-request-list";
-  const list :any ={
-    selection_list:TicketBookingRequest
+
+  const payload ={
+    selection_list:BookingRequestConverter.toAdapterList(TicketBookingRequest)
   }
-    const payload = AddBookingRequestConverter.toAdapter(list);
+
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT
     })
-  
-    if (response.code != 200) {
-      showMessage_v2({ message: response.message, status: response.code })
+    showMessage_v2({ message: response.message, status: response.code })
+    if(response.code >199 && response.code < 300){
+      return true;
     }
-  
-    const data = []
-    console.log(response.data)
-    if (response.data) {
-      const dataAdapter = response.data as BookingRequestAdapter[];
-      for (let i = 0; i < dataAdapter.length; i++) {
-        const element = dataAdapter[i];
-        data.push(BookingRequestConverter.toInterface(element));
-      }
-    }
-  
-    return data as BookingRequestInterface[]
+    return false;
+
   }
   
   
-  export async function updateTicketBookingRequest( TicketBookingRequest: BookingRequestInterface) {
+  export async function updateTicketBookingRequestList( TicketBookingRequest: BookingRequestInterface[]) {
 
-    const payload = BookingRequestConverter.toAdapter(TicketBookingRequest);
+    const payload ={
+       selection_list: BookingRequestConverter.toAdapterList(TicketBookingRequest)
+    };
   
     const path = "/ticketing-dpt/booking-request-list"
     const response = await ApiHelper.patch(path, payload, {
@@ -84,6 +67,10 @@ export async function createTicketBookingRequest(TicketBookingRequest:BookingReq
     })
     showMessage_v2({ message: response.message, status: response.code })
   
+    if (response.code > 199 && response.code < 300) {
+      return true;
+    }
+    return false;
   }
 
 

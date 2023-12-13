@@ -11,7 +11,8 @@ import {
   createTicketBookingRequest,
   readTicketBookingRequestList,
 } from "../repository";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import EditModal from './Edit';
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import { SectorInterface } from "../../../masters/sector/type";
 import { readSectorList } from "../../../masters/sector/repository";
 import {
@@ -28,6 +29,7 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
+  const [modalName, setModalName]= useState('')
   const [searchQuery, setSearchQuery] = useState("");
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -88,6 +90,7 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
       </CardHeader>
 
       <BookingTable
@@ -110,6 +113,7 @@ export default function Main() {
           fetchTicketBookingRequest(e);
         }}
       />
+      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} /> :''}
     </>
   );
 }

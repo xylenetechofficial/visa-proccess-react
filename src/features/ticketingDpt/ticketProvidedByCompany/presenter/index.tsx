@@ -1,5 +1,6 @@
 import TicketProvidedByCompanyTable from "./Table";
 import { useEffect, useState } from "react";
+import EditModal from './Edit';
 import {
   CustomButton2,
   CustomNavbarV3,
@@ -7,13 +8,13 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import {
-  createTicketProvidedByCompany,
+  createTicketProvidedByCompanyList,
   readTicketProvidedByCompanyList,
 } from "../repository";
 import { TicketProvidedByCompanyInterface } from "../type";
 import { readSectorList } from "../../../masters/sector/repository";
 import { SectorInterface } from "../../../masters/sector/type";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 export default function Main() {
@@ -26,35 +27,39 @@ export default function Main() {
     justifyContent: "space-between",
   }));
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [modalName, setModalName] = useState('')
   const [TicketProvidedByCompanyList, setTicketProvidedByCompanyList] =
     useState<TicketProvidedByCompanyInterface[]>([]);
   const [TicketProvidedByCompanyData, setTicketProvidedByCompanyData] =
     useState<TicketProvidedByCompanyInterface[]>([]);
 
-    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
-        {
-          pagination: {
-            page: 1,
-            page_count: 1,
-            item_count: 0,
-            sno_base: 0,
-          },
-        }
-      );
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
+        page: 1,
+        page_count: 1,
+        item_count: 0,
+        sno_base: 0,
+      },
+    }
+  );
 
-  async function fetchTicketProvidedByCompany(page?:number) {
-    const data = await readTicketProvidedByCompanyList( {page: page ?? additionalData.pagination.page,
-    status: "no",
-  });
+  async function fetchTicketProvidedByCompany(page?: number) {
+    const data = await readTicketProvidedByCompanyList({
+      page: page ?? additionalData.pagination.page,
+      status: "no",
+    });
     if (data) {
       setTicketProvidedByCompanyList(data);
     }
     setAdditionalData(await PaginationManager.getData());
   }
   const onClickCreate = async (item: TicketProvidedByCompanyInterface[]) => {
-    console.log(item);
-    await createTicketProvidedByCompany(item);
+    const newArray = []
+        for (let i = 0; i < item.length; i++) {
+            if (item[i].checked) newArray.push(item[i])
+        }
+    await createTicketProvidedByCompanyList(newArray);
   };
   const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
   const fetchSectorList = async () => {
@@ -78,13 +83,13 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+      <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
       </CardHeader>
 
       <TicketProvidedByCompanyTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         TicketProvidedByCompanyList={TicketProvidedByCompanyList}
         sectorList={sectorList}
-        setTicketProvidedByCompanyData={setTicketProvidedByCompanyData}
         onChange={(value) => setTicketProvidedByCompanyList(value)}
       />
       <br />
@@ -101,7 +106,7 @@ export default function Main() {
           fetchTicketProvidedByCompany(e);
         }}
       />
-
+      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} /> : ''}
     </>
   );
 }

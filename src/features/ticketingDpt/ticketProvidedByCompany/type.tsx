@@ -14,10 +14,9 @@ export interface TicketProvidedByCompanyInterface {
   sector_to: string,
   pnr_no: string,
   departure_date: string,
+  checked?:number
 }
 
-
-// block_visa
 export interface TicketProvidedByCompanyAdapter {
   id?: number,
   party_code: string,
@@ -67,13 +66,27 @@ export class TicketProvidedByCompanyConverter {
   }
 
   /**
+   * toInterfaceList
+   */
+
+  public static toInterfaceList(a_list: TicketProvidedByCompanyAdapter[]) {
+    const data_list: TicketProvidedByCompanyInterface[] = [];
+
+    for (let i = 0; i < a_list.length; i++) {
+      const element = a_list[i];
+      data_list.push(this.toInterface(element));
+    }
+
+    return data_list;
+  }
+  /**
    * toAdapter
    */
   public static toAdapter(i: TicketProvidedByCompanyInterface) {
     console.log("i"); // Only Dev
     console.log(i); // Only Dev
     const data: TicketProvidedByCompanyAdapter = {
-     
+
       id: i.id,
       party_code: i.party_code,
       company_name: i.company_name,
@@ -92,81 +105,19 @@ export class TicketProvidedByCompanyConverter {
     };
     return data;
   }
-}
-
-
-export interface AddTicketProvidedInterface {
-
-  selection_list: TicketProvidedByCompanyInterface[],
-  
-}
-
-export interface AddTicketProvidedAdapter {
-
-  selection_list: TicketProvidedByCompanyAdapter[],
-  
-}
-
-
-export class AddTicketProvidedConverter {
-  // private i: AddCandidateInvoiceNumberInterface
-  // private a: AddPenaltyAfterDeploymentAdapter
-
   /**
-   * toInterface
+   * toAdapterList
    */
-  public static toInterface(a: AddTicketProvidedAdapter) {
-    const data: AddTicketProvidedInterface = {
-      selection_list: a?.selection_list?.map((item) => ({
-     
-        id: item.id,
-        party_code: item.party_code,
-        company_name: item.company_name,
-        candidate_name: item.candidate_name,
-        passport_no: item.passport_no,
-        actual_profession: item.actual_profession,
-        visa_profession: item.visa_profession,
-        agent: item.agent,
-        rc_name: item.rc_name,
-        visa_received_date: item.visa_received_date,
-        visa_expiry_date: item.visa_expiry_date,
-        sector_from: item.sector_from,
-        sector_to: item.sector_to,
-        pnr_no: item.pnr_no,
-        departure_date: item.departure_date
-      })),
+  public static toAdapterList(a_list:TicketProvidedByCompanyInterface[]) {
+    const data_list:  TicketProvidedByCompanyAdapter[] = [];
+
+    for (let i = 0; i < a_list.length; i++) {
+      const element = a_list[i];
+      data_list.push(this.toInterface(element));
+    }
+
+    return data_list;
+  }
   
-    };
-    return data;
-  }
-
-  /**
-   * toAdapter
-   */
-  public static toAdapter(i: AddTicketProvidedInterface) {
-    console.log("i"); // Only Dev
-    console.log(i); // Only Dev
-    const data: AddTicketProvidedAdapter = {
-
-      selection_list: i?.selection_list?.filter(item => item.sector_from !== undefined && item.sector_to !== undefined && item.pnr_no !== undefined && item.departure_date !== undefined).map((item) => ({
-        id: item.id,
-        party_code: item.party_code,
-        company_name: item.company_name,
-        candidate_name: item.candidate_name,
-        passport_no: item.passport_no,
-        actual_profession: item.actual_profession,
-        visa_profession: item.visa_profession,
-        agent: item.agent,
-        rc_name: item.rc_name,
-        visa_received_date: item.visa_received_date,
-        visa_expiry_date: item.visa_expiry_date,
-        sector_from: item.sector_from,
-        sector_to: item.sector_to,
-        pnr_no: item.pnr_no,
-        departure_date: item.departure_date
-    })),
-      
-    };
-    return data;
-  }
 }
+

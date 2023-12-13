@@ -94,6 +94,17 @@ export class BookingRequestConverter {
     return data;
   }
 
+  public static toInterfaceList(a_list: BookingRequestAdapter[]) {
+    const data_list: BookingRequestInterface[] = [];
+
+    for (let i = 0; i < a_list.length; i++) {
+      const element = a_list[i];
+      data_list.push(this.toInterface(element));
+    }
+
+    return data_list;
+  }
+
   /**
    * toAdapter
    */
@@ -127,106 +138,17 @@ export class BookingRequestConverter {
     };
     return data;
   }
-}
 
+ 
+  public static toAdapterList(a_list: BookingRequestInterface[]) {
+    const data_list: BookingRequestAdapter[] = [];
 
-// export interface AddBookingInterface {
-//   id:number,
-//   received:string,
-//   received_date:string,
-// }
+    for (let i = 0; i < a_list.length; i++) {
+      const element = a_list[i];
+      data_list.push(this.toAdapter(element));
+    }
 
-export interface AddBookingRequestInterface {
-
-  selection_list: BookingRequestInterface[],
-
-}
-
-export interface AddBookingRequestAdapter {
-
-  selection_list: BookingRequestInterface[],
-
-}
-
-
-export class AddBookingRequestConverter {
-  // private i: AddCandidateInvoiceNumberInterface
-  // private a: AddPenaltyAfterDeploymentAdapter
-
-  /**
-   * toInterface
-   */
-  public static toInterface(a: AddBookingRequestAdapter) {
-    const data: AddBookingRequestInterface = {
-      selection_list: a?.selection_list?.map((item) => ({
-        id: item.id,
-        party_code: item.party_code,
-        company_name: item.company_name,
-        candidate_name: item.candidate_name,
-        pp_no: item.pp_no,
-        actual_profession: item.actual_profession,
-        visa_profession: item.visa_profession,
-        agent: item.agent,
-        rc_name: item.rc_name,
-        visa_received_date: item.visa_received_date,
-        visa_expiry_date: item.visa_expiry_date,
-        is_invoice: item.is_invoice,
-        raise_invoice: item.raise_invoice,
-        air_ticket: item.air_ticket,
-        division: item.division,
-        emigration_required: item.emigration_required,
-        emigration_done: item.emigration_done,
-        sector_from: item.sector_from,
-        sector_to: item.sector_to,
-        require_date: item.require_date,
-        priority: item.priority,
-        sector_charges: item.sector_charges,
-        waive_off_sector_charges: item.waive_off_sector_charges
-
-      })),
-
-    };
-    return data;
-  }
-
-  /**
-   * toAdapter
-   */
-  public static toAdapter(i: AddBookingRequestInterface) {
-    console.log("i"); // Only Dev
-    console.log(i); // Only Dev
-    const data: AddBookingRequestAdapter = {
-
-      selection_list: i?.selection_list?.map((item) => ({
-        id: item.id,
-        party_code: item.party_code,
-        company_name: item.company_name,
-        candidate_name: item.candidate_name,
-        pp_no: item.pp_no,
-        actual_profession: item.actual_profession,
-        visa_profession: item.visa_profession,
-        agent: item.agent,
-        rc_name: item.rc_name,
-        visa_received_date: item.visa_received_date,
-        visa_expiry_date: item.visa_expiry_date,
-        is_invoice: item.is_invoice,
-        raise_invoice: item.raise_invoice,
-        air_ticket: item.air_ticket,
-        division: item.division,
-        emigration_required: item.emigration_required,
-        emigration_done: item.emigration_done,
-        sector_from: item.sector_from,
-        sector_to: item.sector_to,
-        require_date: item.require_date,
-        priority: item.priority,
-        sector_charges: item.sector_charges,
-
-        waive_off_sector_charges: item.waive_off_sector_charges
-
-
-      })),
-
-    };
-    return data;
+    return data_list;
   }
 }
+

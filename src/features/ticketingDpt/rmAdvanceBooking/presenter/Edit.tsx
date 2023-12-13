@@ -1,5 +1,4 @@
 import RMAdvanceBooking from "./Table";
-import EditModal from './Edit';
 import { useState, useEffect } from "react";
 import {
   CustomButton2,
@@ -12,13 +11,15 @@ import { confirmationMessage,confirmationMessagealert,confirmationMessage_v2,sho
 import {
   createRMAdvanceBooking,
   readRMAdvanceBookingList,
+  updateRMAdvanceBooking,
 } from "../repository";
-import { BlueButton, GreenButton, YellowButton } from "../../../../componenets/CustomButton";
+import { GreenButton, YellowButton } from "../../../../componenets/CustomButton";
 import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { FullScreenModal } from "../../../../componenets/Modal";
 // import { confirmationMessage, confirmationMessage_v2 } from "../../../../utils/alert";
 
 const filterButtonList = [
@@ -27,7 +28,9 @@ const filterButtonList = [
   { name: "ECNR", value: "no", },
   { name: "ECR", value: "yes", },
 ]
-export default function Main() {
+export default function Main(props:{
+    onClose:()=>void
+}) {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -36,7 +39,6 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
-  const [modalName, setModalName]= useState('')
   const [searchQuery, setSearchQuery] = useState("");
   const [immigrationStatus, setImmigrationStatus] = useState("all");
 
@@ -58,7 +60,7 @@ export default function Main() {
   async function fetchRMAdvanceBooking(page?: number, query?: { immigration_status: any }) {
     const data = await readRMAdvanceBookingList({
       page: page ?? additionalData.pagination.page,
-      status: "no",
+      status: "yes",
       immigration_status: query?.immigration_status ?? immigrationStatus
     });
     if (data) {
@@ -80,7 +82,8 @@ export default function Main() {
     console.log("new_data", new_data);   // Only Dev
     console.log("final_data", final_data);   // Only Dev
 
-    await createRMAdvanceBooking(final_data);
+    // await createRMAdvanceBooking(final_data);
+    await updateRMAdvanceBooking(new_data)
     fetchRMAdvanceBooking();
     // window.location.reload()
   };
@@ -124,13 +127,12 @@ export default function Main() {
 
   return (
     <>
-      <CustomNavbarV3
-        pageName="RM Advance Booking"
-        searchFunction={(query) => setSearchQuery(query)}
-        refresh={() => {
-          fetchRMAdvanceBooking();
-        }}
-      />
+     <FullScreenModal
+      handleClick={() => props.onClose()}
+      title="Edit RM Advance Booking"
+      onClose={() => props.onClose()}
+    >
+    
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
@@ -142,7 +144,6 @@ export default function Main() {
               fetchRMAdvanceBooking(additionalData.pagination.page, { immigration_status: ele.value });
             }}
           />)}
-          <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
         </div>
       </CardHeader>
       <RMAdvanceBooking
@@ -152,7 +153,7 @@ export default function Main() {
       />
       <br />
       <GreenButton
-        text="Submit"
+        text="Update"
         onClick={() => onClickCreate(RMAdvanceBookingList)}
       />
       <br />
@@ -164,7 +165,7 @@ export default function Main() {
           fetchRMAdvanceBooking(e);
         }}
       />
-      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')}/>:'' }
+      </FullScreenModal>
     </>
   );
 }
