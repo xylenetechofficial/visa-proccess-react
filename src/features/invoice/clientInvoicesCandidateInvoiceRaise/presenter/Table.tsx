@@ -66,7 +66,7 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
         </TableHead3>
         <TableBody3>
           {props.candidateInvoiceRaiseList?.map((ele, index) => (
-            <TableRow3 key={index + 1}>
+            <TableRow3 key={index + 1} color={ele.color_code}>
               <TableCell3> {index + props.snoBase + 1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>

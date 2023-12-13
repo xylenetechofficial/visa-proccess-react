@@ -70,7 +70,7 @@ export async function updateSendToMofaCandidate(candidateList: SendToMofa_JobOrd
 
 export async function deleteSendToMofaCandidate(candidateList: SendToMofa_JobOrderInterface){
   
-  const path = "/visa-dpt/send-to-mofa-list/" + candidateList.id
+  const path = "/visa-dpt/send-to-mofa/" + candidateList.id
   const response = await ApiHelper.delete(path, {
     tokenType: AuthTokenType.JWT
   })

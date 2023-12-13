@@ -22,7 +22,8 @@ export interface CandidateInvoiceRaiseListInterface {
   invoice_number: string,
   invoice_date: string,
   bank_id: number,
-  is_without: number
+  is_without: number,
+  color_code?:string
 
 }
 
@@ -47,7 +48,8 @@ export interface CandidateInvoiceRaiseListAdapter {
   invoice_number: string,
   invoice_date: string,
   bank_id: number,
-  is_without: number
+  is_without: number,
+  color_code?:string
 }
 
 export class CandidateInvoiceRaiseListConverter {
@@ -80,6 +82,7 @@ export class CandidateInvoiceRaiseListConverter {
       invoice_date: a?.invoice_date,
       bank_id: a?.bank_id,
       is_without: a?.is_without,
+      color_code:a?.color_code
 
     };
     return data;
@@ -112,6 +115,7 @@ export class CandidateInvoiceRaiseListConverter {
       invoice_date: i?.invoice_date,
       bank_id: i?.bank_id,
       is_without: i?.is_without,
+      color_code:i?.color_code
 
     };
     return data;
