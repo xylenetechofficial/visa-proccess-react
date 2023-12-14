@@ -9,6 +9,7 @@ export interface UserInterface {
   permission_group_name?: string;
   user_role_id: number;
   user_role_name?: string;
+  country_id: number;
 
   gm_id?: number;
   om_id?: number;
@@ -32,6 +33,7 @@ export interface UserAdapter {
   permission_group_name?: string;
   user_role_id: number;
   user_role_name?: string;
+  country_id: number;
 
   gm_id?: number;
   om_id?: number;
@@ -64,6 +66,7 @@ export class UserConverter {
       user_role_id: a.user_role_id,
       user_role_name: a.user_role_name,
 
+      country_id: a.country_id,
       gm_id: a.gm_id,
       om_id: a.om_id,
       rm_id: a.rm_id,
@@ -95,6 +98,7 @@ export class UserConverter {
       user_role_id: i.user_role_id,
       user_role_name: i.user_role_name,
 
+      country_id: i.country_id,
       gm_id: i.gm_id,
       om_id: i.om_id,
       rm_id: i.rm_id,

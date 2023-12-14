@@ -42,9 +42,9 @@ const AgencyTable = (props: {
                                     props.onClickDuplicate(ele)
                                 }} /> */}
 
-                                <RedButton text={"DELETE"} onClick={() => {
+                                {/* <RedButton text={"DELETE"} onClick={() => {
                                     props.onClickDelete(ele)
-                                }} />
+                                }} /> */}
 
                             </TableCell3>
                         </TableRow3>

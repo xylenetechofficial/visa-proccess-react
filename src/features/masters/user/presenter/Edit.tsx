@@ -41,6 +41,7 @@ export default function Main(props: {
         user_role_id: 0,
         user_role_name: "",
 
+        country_id:0,
         gm_id: 0,
         om_id: 0,
         rm_id: 0,

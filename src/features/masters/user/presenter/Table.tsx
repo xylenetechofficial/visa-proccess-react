@@ -31,7 +31,7 @@ const UserTable = (props: { userList: UserInterface[], onClickEdit: any, onClick
                 <TableHead3 >
                     <TableHeadRow3>
                         <TableHeadCell3 > Sr No.</TableHeadCell3>
-                        <TableHeadCell3> Name</TableHeadCell3>
+                        <TableHeadCell3> Login Name</TableHeadCell3>
                         <TableHeadCell3> Email</TableHeadCell3>
                         {/* <TableHeadCell3> Permission Group</TableHeadCell3> */}
                         <TableHeadCell3> Role</TableHeadCell3>
@@ -44,8 +44,8 @@ const UserTable = (props: { userList: UserInterface[], onClickEdit: any, onClick
 
                         <TableRow3 key={index}>
                             <TableCell3 >{index + props.snoBase + 1}</TableCell3>
-                            <TableCell3 > {ele.name}</TableCell3>
-                            <TableCell3 > {ele.name}</TableCell3>
+                            <TableCell3 > {ele.user_name}</TableCell3>
+                            <TableCell3 > {ele.email}</TableCell3>
                             {/* <TableCell3 > {ele.permission_group_name}</TableCell3> */}
                             <TableCell3 > {ele.user_role_name}</TableCell3>
                             <TableCell3 >
