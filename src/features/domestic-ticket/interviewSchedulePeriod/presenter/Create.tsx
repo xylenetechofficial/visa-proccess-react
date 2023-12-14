@@ -31,12 +31,7 @@ export default function Main(props: {
 
         // call create
         //add job_order property
-        await createInterviewSchedulePeriod({
-            company: interviewSchedulePeriod?.company,
-            fromDate: interviewSchedulePeriod?.fromDate,
-            toDate: interviewSchedulePeriod?.toDate
-
-        })
+        await createInterviewSchedulePeriod(interviewSchedulePeriod)
 
 
         setInterviewSchedulePeriod(initialValue)

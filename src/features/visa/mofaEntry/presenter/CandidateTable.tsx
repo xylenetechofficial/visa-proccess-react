@@ -2,7 +2,7 @@ import { Mofa_Entry_Candidate_Interface } from '../type'
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
 import { useState, useEffect } from "react";
 import { DateInput, UnlabeledInput } from '../../../../componenets/Input';
-import { CustomSelectComponentUnlabeled, selectOptionConveterv2 } from '../../../../componenets/SelectBox';
+import { CustomSelectComponentUnlabeled, selectOptionConveter, selectOptionConveterv2 } from '../../../../componenets/SelectBox';
 import { ReligionList } from '../../../db';
 import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
 import { AgentInterface } from '../../../masters/agent/type';
@@ -214,7 +214,7 @@ const TableData = (
             <TableCell3 >
                 <CustomSelectComponentUnlabeled
                     onChange={(value) => setLocalRowData({ ...localRowData, agent_id: value })}
-                    options={selectOptionConveterv2({ options: props.AgentList, options_struct: { name: "name", value: "id" } })}
+                    options={selectOptionConveter({ options: props.AgentList, options_struct: { name: "name", value: "id" } })}
                     value={localRowData.agent_id}
                 />
                 {localRowData.agent_name}</TableCell3>

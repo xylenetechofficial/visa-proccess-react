@@ -47,11 +47,7 @@ export async function readInterviewSchedulePeriodList(page_number?: number) {
 export async function createInterviewSchedulePeriod(interviewSchedulePeriod: InterviewSchedulePeriodInterface) {
   const path = "/domestic-ticket/interview-schedule-period"
 
-  const payload = {
-    client_id: interviewSchedulePeriod.company,
-    from_date: interviewSchedulePeriod.fromDate,
-    to_date: interviewSchedulePeriod.toDate,
-  };
+  const payload = InterviewSchedulePeriodConverter.toAdapter(interviewSchedulePeriod);
   const response = await ApiHelper.post(path, payload, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT

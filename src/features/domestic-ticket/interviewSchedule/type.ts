@@ -130,25 +130,25 @@ export const convertinterviewSchedulePeriodOptions = (
   for (let i = 0; i < InterviewSchedulePeriodList.length; i++) {
     const interviewSchedulePeriod = InterviewSchedulePeriodList[i];
 
-    let companyName = "";
-    for (let j = 0; j < companyList.length; j++) {
-      const company = companyList[j];
-      // if copany found break the loop
-      if (company.id == interviewSchedulePeriod.company) {
-        companyName = company.name;
-        break;
-      }
-    }
+    // let companyName = "";
+    // for (let j = 0; j < companyList.length; j++) {
+    //   const company = companyList[j];
+    //   // if copany found break the loop
+    //   if (company.id == interviewSchedulePeriod.company) {
+    //     companyName = company.name;
+    //     break;
+    //   }
+    // }
 
     data.push({
       value: InterviewSchedulePeriodList[i].id,
-      name: `${companyName} - ${convertDateFormat(
+      name: `${interviewSchedulePeriod.company_name??""} - ${convertDateFormat(
         interviewSchedulePeriod.fromDate
       )} - ${convertDateFormat(interviewSchedulePeriod.toDate)}`,
     });
 
     // if copany found break the loop
-    if (companyName != "") break;
+    // if (companyName != "") break;
   }
 
   return data;

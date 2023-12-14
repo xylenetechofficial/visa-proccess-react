@@ -7,7 +7,7 @@ import { CustomSelectComponent, selectOptionConveter } from "../../../../compone
 import { CompanyInterface } from "../../../masters/company/type";
 import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
-import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import { Heading6, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 
 
@@ -37,6 +37,10 @@ export default function Main(props: {
         staff_list: [],
     }
     const [interviewSchedule, setInterviewSchedule] = useState<InterviewScheduleInterface>(initialValue)
+    const [interviewSchedulePeriod, setInterviewSchedulePeriod] = useState({
+        company_name: "",
+        job_order_no: "",
+    } as InterviewSchedulePeriodInterface)
 
 
     async function onClickAdd() {
@@ -68,12 +72,21 @@ export default function Main(props: {
 
     async function getInterViewShedule(id: number) {
         const data = await readInterviewSchedule(id)
-        if (data)
+        if (data) {
+            // for (let i = 0; i < props.InterviewSchedulePeriodList.length; i++) {
+            //     const element = props.InterviewSchedulePeriodList[i];
+            //     if (element.id == data.interviewSchedulePeriodId) {
+            //         setInterviewSchedulePeriod(element)
+            //         break
+            //     }
+            // }
             setInterviewSchedule({
                 ...data,
                 noOfClient: data.client_list.length,
                 noOfPerson: data.staff_list.length,
             })
+
+        }
     }
 
     useEffect(() => {
@@ -184,10 +197,20 @@ export default function Main(props: {
                         options={convertinterviewSchedulePeriodOptions(props.InterviewSchedulePeriodList, [])}
 
                         onChange={(value) => {
+                            // for (let i = 0; i < props.InterviewSchedulePeriodList.length; i++) {
+                            //     const element = props.InterviewSchedulePeriodList[i];
+                            //     if (element.id == value) {
+                            //         setInterviewSchedulePeriod(element)
+                            //         break
+                            //     }
+                            // }
                             setInterviewSchedule({ ...interviewSchedule, interviewSchedulePeriodId: value })
 
                         }} />
                 </UpdateContentBox>
+                {/* <UpdateContentBox> */}
+                {/* <Heading6 text={`${interviewSchedulePeriod.company_name} - ${interviewSchedulePeriod.job_order_no}`} /> */}
+                {/* </UpdateContentBox> */}
                 {/* date */}
                 <UpdateContentBox>
                     <DateInput id="interviewScheduleFromdate"
@@ -248,20 +271,20 @@ export default function Main(props: {
                         }
                     />
                 </UpdateContentBox> */}
-                
+
                 <UpdateContentBox>
-                    <BlueButton text="Add Staff" onClick={()=> {setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson + 1 }), onAddStaff()}} />
+                    <BlueButton text="Add Staff" onClick={() => { setInterviewSchedule({ ...interviewSchedule, noOfPerson: interviewSchedule.noOfPerson + 1 }), onAddStaff() }} />
                 </UpdateContentBox>
                 <div className="grid grid-cols-1 gap-4">
                     {
                         interviewSchedule.staff_list.map((ele, index) => {
                             return (<>
-                             <div className=" flex justify-between max-w-lg gap-2 ">
-                                <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
-                                    console.log(value);   // Only Dev
-                                    onUpdateStaff(index, { ...ele, name: value })
-                                }} />
-                                <RedButton text="Delete Staff" onClick={() => onRemoveStaff(index)} />
+                                <div className=" flex justify-between max-w-lg gap-2 ">
+                                    <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
+                                        console.log(value);   // Only Dev
+                                        onUpdateStaff(index, { ...ele, name: value })
+                                    }} />
+                                    <RedButton text="Delete Staff" onClick={() => onRemoveStaff(index)} />
                                 </div>
                             </>)
                         })
@@ -311,19 +334,19 @@ export default function Main(props: {
                         }
                     />
                 </UpdateContentBox> */}
-                 <UpdateContentBox>
-                    <BlueButton text="Add Client" onClick={()=>{ setInterviewSchedule({ ...interviewSchedule, noOfClient: interviewSchedule.noOfClient + 1 }), onAddClient()}} />
+                <UpdateContentBox>
+                    <BlueButton text="Add Client" onClick={() => { setInterviewSchedule({ ...interviewSchedule, noOfClient: interviewSchedule.noOfClient + 1 }), onAddClient() }} />
                 </UpdateContentBox>
                 <div className="grid grid-cols-1 gap-4">
                     {
                         interviewSchedule.client_list.map((ele, index) => {
                             return (<>
                                 <div className=" flex justify-between max-w-lg gap-2 ">
-                                <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
-                                    console.log(value);   // Only Dev
-                                    onUpdateClient(index, { ...ele, name: value })
-                                }} />
-                                <RedButton text="Delete Client" onClick={() => onRemoveClient(index)} />
+                                    <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
+                                        console.log(value);   // Only Dev
+                                        onUpdateClient(index, { ...ele, name: value })
+                                    }} />
+                                    <RedButton text="Delete Client" onClick={() => onRemoveClient(index)} />
                                 </div>
                             </>)
                         })

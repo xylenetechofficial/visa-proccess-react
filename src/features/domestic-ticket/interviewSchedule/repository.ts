@@ -31,7 +31,7 @@ export async function readInterviewScheduleList(
   });
 
   if (response.code != 200) {
-    showMessage_v2({ message: response.message, status: response.code });
+    // showMessage_v2({ message: response.message, status: response.code });
     return [];
   }
 
@@ -111,7 +111,7 @@ export async function readInterviewSchedule(id: number) {
     tokenType: AuthTokenType.JWT,
   });
 
-  showMessage_v2({ message: response.message, status: response.code });
+  // showMessage_v2({ message: response.message, status: response.code });
 
   return InterviewScheduleConverter.toInterface(
     response.data as InterviewScheduleAdapter

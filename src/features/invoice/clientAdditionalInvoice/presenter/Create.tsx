@@ -18,7 +18,7 @@ export default function Main(props: {
     // const initValue: AccountDashboardInterface = {
     const initValue: any = {
      
-        company_id: 3,
+        company_id: 0,
         invoice_date: "",
         invoice_number: 0,
         invoice_amount: 0,
@@ -62,7 +62,7 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text=" Client :" />
                     <CustomSelectComponentUnlabeled
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, company: value })}
+                        onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
 
                         options={selectOptionConveter({ options: companyList, options_struct: { name: "name", value: "id" } })}
                         value={accountDashboard.company}
