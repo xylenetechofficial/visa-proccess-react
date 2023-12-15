@@ -52,7 +52,7 @@ export default function Main(props:
         console.log("onClickEdit"); // Only Dev
         console.log(ticketDashboard); // Only Dev
         props.setModalName("typingmodal");
-        const res: any = await readTrying(ticketDashboard)
+        const res: any = await readTrying(ticketDashboard ,"yes")
         if (res) {
             setTrying(res)
         }
@@ -64,7 +64,7 @@ export default function Main(props:
         console.log("onClickEdit"); // Only Dev
         console.log(ticketDashboard); // Only Dev
         props.setModalName("underProcess");
-        const res: any = await readUnderProcessList(ticketDashboard);
+        const res: any = await readUnderProcessList(ticketDashboard, "yes");
         console.log(res, "RESLL")
         if (res) {
             setOpenUnderProcess(res)

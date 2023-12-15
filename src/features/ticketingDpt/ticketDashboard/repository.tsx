@@ -135,7 +135,7 @@ export async function updateTicketToBeBookedList(ticketDashboard: TicketInterfac
 //post ticketing-dpt/tickets-dashboard/ticket-under-process-list
 //delete ticketing-dpt/tickets-dashboard/ticket-under-process/{id}
 
-export async function readUnderProcessList(ticketDashboard: any) {
+export async function readUnderProcessList(ticketDashboard: any, status?:string) {
   const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process-list";
   console.log(ticketDashboard, "IPA")
   const response = await ApiHelper.get(path, {
@@ -143,7 +143,8 @@ export async function readUnderProcessList(ticketDashboard: any) {
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       ticketing_sector_from: ticketDashboard.ticketing_sector_from,
-      ticketing_sector_to: ticketDashboard.ticketing_sector_to
+      ticketing_sector_to: ticketDashboard.ticketing_sector_to,
+      status:status ??""
     }
   });
 
@@ -234,7 +235,7 @@ export async function updateTryingList(ticketDashboard: TypingInterface[]) {
   return false;
 }
 
-export async function readTrying(ticketDashboard: any) {
+export async function readTrying(ticketDashboard: any, status?:string) {
   const path = "/ticketing-dpt/tickets-dashboard/ticket-trying-list";
   console.log(ticketDashboard, "IPA")
   const response = await ApiHelper.get(path, {
@@ -242,7 +243,8 @@ export async function readTrying(ticketDashboard: any) {
     tokenType: AuthTokenType.JWT,
     queryParameters: {
       ticketing_sector_from: ticketDashboard.ticketing_sector_from,
-      ticketing_sector_to: ticketDashboard.ticketing_sector_to
+      ticketing_sector_to: ticketDashboard.ticketing_sector_to,
+      status:status ??""
     }
   });
 
