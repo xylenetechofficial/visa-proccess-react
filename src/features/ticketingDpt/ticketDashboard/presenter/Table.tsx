@@ -27,29 +27,28 @@ export default function Main(props: {
               <TableHeadCell>
                 Sector
               </TableHeadCell>
-              {props.TicketToBeBooked ? <>
+              
                 <TableHeadCell>
                   TICKET TO BE BOOKED
                 </TableHeadCell>
-              </> : ''}
+              
 
               <th scope="col" className="px-24 py-3 border-b">
                 UNDER BOOKING
               </th>
-              {props.AgencyInvoiceAwaiting ? <>
+              
                 <TableHeadCell>
                   AGENCY INVOICE AWAITING
                 </TableHeadCell>
-              </>
-                : ''}
+            
             </TableHeadRow3>
 
             <TableHeadRow3>
 
               <TableHeadCell><></></TableHeadCell>
-              {props.TicketToBeBooked ? <>
+              
                 <TableHeadCellNew><></></TableHeadCellNew>
-              </> : ''}
+              
               <div className="grid grid-cols-2 gap-0">
                 <TableHeadCell>
                   under process
@@ -58,9 +57,9 @@ export default function Main(props: {
                   trying
                 </TableHeadCellNew>
               </div>
-              {props.AgencyInvoiceAwaiting ?
+              
                 <TableHeadCell><></></TableHeadCell>
-                : ''}
+              
             </TableHeadRow3>
           </TableHead3New>
           <TableBody3>
@@ -87,7 +86,7 @@ export default function Main(props: {
                       <TableHeadNew>
                         {ticket.sector}
                       </TableHeadNew>
-                      {props.TicketToBeBooked ? <>
+                      
                         <TableCellNew2>
                           <span
                             className="text-red-600 cursor-pointer px-10"
@@ -100,7 +99,7 @@ export default function Main(props: {
                             {ticket.ticket_to_be_booked}
                           </span>
                         </TableCellNew2>
-                      </> : ''}
+                      
                       <div className="grid grid-cols-2 gap-0">
                         <TableCellNew2>
                           <span
@@ -123,8 +122,7 @@ export default function Main(props: {
                           </span>
                         </TableCellNew>
                       </div>
-                      {props.AgencyInvoiceAwaiting ?
-                        <>
+                     
                           <TableCellNew2>
                             <span
                               className="text-red-600 cursor-pointer px-10"
@@ -138,15 +136,14 @@ export default function Main(props: {
                               {ticket.agency_invoice_awaiting}
                             </span>
                           </TableCellNew2>
-                        </> : ''}
+                        
                     </TableRow3>
 
                     <TableRow3 key={"total"} >
                       <TableHeadNew>
                         <span className="text-red-500"> Total</span>
                       </TableHeadNew>
-                      {props.TicketToBeBooked ?
-                        <>
+                   
                           <TableCellNew>
                             <span className="text-red-600 px-10"
                               onClick={() => {
@@ -155,7 +152,7 @@ export default function Main(props: {
                                 }
                               }}> {extraData.total_ticket_to_be_booked}</span>
                           </TableCellNew>
-                        </> : ''}
+                       
                       <div className="grid grid-cols-2  gap-0">
                         <TableCellNew2>
                           <span className="text-red-600 px-10"
@@ -170,7 +167,7 @@ export default function Main(props: {
                             }}> {extraData.total_ticket_trying}</span>
                         </TableCellNew>
                       </div>
-                      {props.AgencyInvoiceAwaiting ? <>
+                      
                         <TableCellNew2>
                           <span className="text-red-600 px-10"
                             onClick={() => {
@@ -181,13 +178,13 @@ export default function Main(props: {
                             }}
                           >  {extraData.total_agency_invoice_awaiting}</span>
                         </TableCellNew2>
-                      </> : ''}
+                      
                     </TableRow3>
 
                     <TableRow3>
-                      {props.TicketToBeBooked ? <>
+                      
                         <TableCellNew3><></></TableCellNew3>
-                      </> : ''}
+                      
                       <TableCellNew3><></></TableCellNew3>
 
                       <div className="flex  border justify-around">
@@ -206,7 +203,7 @@ export default function Main(props: {
                       <TableHeadNew>
                         {ticket.sector}
                       </TableHeadNew>
-                      {props.TicketToBeBooked ? <>
+                      
                         <TableCellNew2>
                           <span
                             className="text-red-600 cursor-pointer px-10"
@@ -219,7 +216,7 @@ export default function Main(props: {
                             {ticket.ticket_to_be_booked}
                           </span>
                         </TableCellNew2>
-                      </> : ""}
+                      
                       <div className="grid grid-cols-2 gap-0">
                         <TableCellNew2>
                           <span
@@ -242,8 +239,7 @@ export default function Main(props: {
                           </span>
                         </TableCellNew>
                       </div>
-                      {props.AgencyInvoiceAwaiting ?
-                        <>
+                      
                           <TableCellNew2>
                             <span
                               className="text-red-600 cursor-pointer px-10"
@@ -256,7 +252,7 @@ export default function Main(props: {
                               {ticket.agency_invoice_awaiting}
                             </span>
                           </TableCellNew2>
-                        </> : ''}
+                        
                     </TableRow3>
 
                   </>
