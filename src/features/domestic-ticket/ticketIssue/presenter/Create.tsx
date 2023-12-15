@@ -63,19 +63,14 @@ export default function Main(props: {
 
     async function fetchInterviewschedule(id: number) {
         const data = await readInterviewSchedule(id)
-        if (data)
-            setTicketIssue({
-                ...ticketIssue,
-                interview_schedule_id:ticketIssue.interview_schedule_id,
-                client_list: data.client_list,
-                staff_list: data.staff_list,
-            })
+
+        return data
     }
 
     // useEffect(() => {
     //     converFOROptions()
     // }, [])
-    console.log(ticketIssue,"ticketIssue")
+    console.log(ticketIssue, "ticketIssue")
     return (
 
         <FullScreenModal
@@ -88,37 +83,43 @@ export default function Main(props: {
 
             {/* Interview schedule period */}
             <div className="justify-between max-w-lg gap-2">
-            <CustomSelectComponent
-                value={ticketIssue.interview_schedule_period_id}
-                label="Interview schedule Period"
-                required
-                options={convertinterviewSchedulePeriodOptions(props.interviewSchedulePeriodList, props.companyList)}
+                <CustomSelectComponent
+                    value={ticketIssue.interview_schedule_period_id}
+                    label="Interview schedule Period"
+                    required
+                    options={convertinterviewSchedulePeriodOptions(props.interviewSchedulePeriodList, props.companyList)}
 
-                onChange={(value) => {
-                    fetchInterviewscheduleList(value)
-                    setTicketIssue({ ...ticketIssue, interview_schedule_period_id: value })
+                    onChange={(value) => {
+                        fetchInterviewscheduleList(value)
+                        setTicketIssue({ ...ticketIssue, interview_schedule_period_id: value })
 
-                }} />
-                </div>
-            
+                    }} />
+            </div>
+
             {/* date */}
             <div className="justify-between max-w-lg gap-2">
-            <CustomSelectComponent
-                value={ticketIssue.interview_schedule_id}
-                label="Interview schedule"
-                required
-                options={selectOptionConveter({
-                    options: interviewscheduleList,
-                    options_struct: { name: "date", value: "id" }
-                })}
+                <CustomSelectComponent
+                    value={ticketIssue.interview_schedule_id}
+                    label="Interview schedule"
+                    required
+                    options={selectOptionConveter({
+                        options: interviewscheduleList,
+                        options_struct: { name: "date", value: "id" }
+                    })}
 
-                onChange={(value) => {
-                    setTicketIssue({ ...ticketIssue, interview_schedule_id: value })
-                    fetchInterviewschedule(value)
+                    onChange={async (value) => {
+                        const data = await fetchInterviewschedule(value)
 
-                }} />
-                </div>
-                <Heading2  text="Staffs"/>
+                        if (data)
+                            setTicketIssue({
+                                ...ticketIssue,
+                                interview_schedule_id: value,
+                                client_list: data.client_list,
+                                staff_list: data.staff_list,
+                            })
+                    }} />
+            </div>
+            <Heading2 text="Staffs" />
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.staff_list}
@@ -126,11 +127,11 @@ export default function Main(props: {
                     setTicketIssue({ ...ticketIssue, staff_list: value })
                 }}
             />
-            <Heading2  text="Client"/>
+            <Heading2 text="Client" />
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.client_list}
-                onChange={(value:any) => {
+                onChange={(value: any) => {
                     setTicketIssue({ ...ticketIssue, client_list: value })
                 }}
             />

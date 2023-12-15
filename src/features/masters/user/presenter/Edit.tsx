@@ -14,6 +14,8 @@ import { SectorInterface } from "../../sector/type";
 import { Heading6 } from "../../../../componenets/CoustomHeader";
 import { CustomCheckBox } from "../../../../componenets/Checkbox";
 import { DataByList } from "../../../db";
+import { CountryInterface } from "../../country/type";
+import { readCountryList } from "../../country/repository";
 
 
 export default function Main(props: {
@@ -41,7 +43,8 @@ export default function Main(props: {
         user_role_id: 0,
         user_role_name: "",
 
-        country_id:0,
+        country_id: 0,
+
         gm_id: 0,
         om_id: 0,
         rm_id: 0,
@@ -101,6 +104,12 @@ export default function Main(props: {
         setRecruitCoordinatorList(data)
     }
 
+    const [CountryList, setCountryList] = useState<CountryInterface[]>([])
+    const fetchCountryList = async () => {
+        const data = await readCountryList()
+        setCountryList(data)
+    }
+
     async function onClickEdit() {
 
         console.log(permissionGroup);   // Only Dev
@@ -124,7 +133,7 @@ export default function Main(props: {
     useEffect(() => {
         setUser(props.user)
         fetchPermissionList();
-    }, [props.user])
+    }, [props.user.user_role_id])
 
 
     useEffect(() => {
@@ -135,6 +144,9 @@ export default function Main(props: {
         fetchRecruitSuperVisorList()
         // fetchRecruitCoordinatorList()
         fetchSectorList()
+
+        fetchCountryList()
+
     }, []);
 
 
@@ -147,17 +159,28 @@ export default function Main(props: {
         >
 
 
-            <StandardInput
+
+            <CustomSelectComponent
+                value={user.country_id}
+                label="Country"
+                options={
+                    selectOptionConveter({ options: CountryList, options_struct: { name: "name", value: "id" } })}
+
+                onChange={(value) => {
+                    setUser({ ...user, country_id: value })
+                }} />
+
+            {/* <StandardInput
                 label="Name"
                 value={user.name}
                 onChangeValue={(value: string) => {
                     setUser({ ...user, name: value })
                 }}
-            />
+            /> */}
 
 
             <StandardInput
-                label="User Name"
+                label="Login Name"
                 value={user.user_name}
                 onChangeValue={(value: string) => {
                     setUser({ ...user, user_name: value })

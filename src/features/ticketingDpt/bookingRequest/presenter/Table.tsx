@@ -77,7 +77,12 @@ export default function Main(props: {
                                     <TableCell3>
                                         {check_in ? <>
                                             {/* {props.sectorList.map((sector) => sector.id == parseInt(item.sector_from) ? sector.name : "")} */}
-                                            <CustomSelectComponentUnlabeled style={{ width: "138px" }} options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })} />
+                                            <CustomSelectComponentUnlabeled
+                                                style={{ width: "138px" }}
+                                                options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                                                onChange={(value) => onUpdateRow(index, { ...item, sector_from: value })}
+                                                value={item.sector_from}
+                                            />
                                         </> : <>
                                             <UnlabeledInput
                                                 disabled
@@ -88,13 +93,22 @@ export default function Main(props: {
                                     </TableCell3>
                                     <TableCell3>
                                         {/* {props.sectorList.map((sector) => sector.id == parseInt(item.sector_to) ? sector.name : "")} */}
-                                        <CustomSelectComponentUnlabeled style={{ width: "138px" }} options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })} onChange={(value) => onUpdateRow(index, { ...item, sector_to: value })} />
+                                        <CustomSelectComponentUnlabeled
+                                            style={{ width: "138px" }}
+                                            options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                                            onChange={(value) => onUpdateRow(index, { ...item, sector_to: value })}
+                                            value={item.sector_to}
+                                        />
                                     </TableCell3>
                                     <TableCell3><DateInput id={`recired_date${index}`} value={item.require_date} onChange={(value) => onUpdateRow(index, { ...item, require_date: value })} /> </TableCell3>
 
                                     <TableCell3>
                                         {/* {TicketingPriorityList.map((data) => data.value == item.priority ? data.name : "")} */}
-                                        <CustomSelectComponentUnlabeled style={{ width: "138px" }} options={selectOptionConveter({ options: TicketingPriorityList, options_struct: { name: "name", value: "value" } })} onChange={(value) => { onUpdateRow(index, { ...item, priority: value }) }} value={item.priority} />
+                                        <CustomSelectComponentUnlabeled
+                                            style={{ width: "138px" }}
+                                            options={selectOptionConveter({ options: TicketingPriorityList, options_struct: { name: "name", value: "value" } })}
+                                            onChange={(value) => { onUpdateRow(index, { ...item, priority: value }) }}
+                                            value={item.priority} />
                                     </TableCell3>
 
                                     <TableCell3>{item.sector_charges} </TableCell3>

@@ -160,7 +160,7 @@ export default function Main(props: {
         >
 
             <CustomSelectComponent
-                value={user.user_role_id}
+                value={user.country_id}
                 label="Country"
                 options={
                     selectOptionConveter({ options: CountryList, options_struct: { name: "name", value: "id" } })}

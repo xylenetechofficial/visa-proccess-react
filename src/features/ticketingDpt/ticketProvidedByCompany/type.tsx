@@ -10,8 +10,8 @@ export interface TicketProvidedByCompanyInterface {
   rc_name: string,
   visa_received_date: string,
   visa_expiry_date: string,
-  sector_from: string,
-  sector_to: string,
+  sector_from: number,
+  sector_to: number,
   pnr_no: string,
   departure_date: string,
   checked?:number
@@ -29,8 +29,8 @@ export interface TicketProvidedByCompanyAdapter {
   rc_name: string,
   visa_received_date: string,
   visa_expiry_date: string,
-  sector_from: string,
-  sector_to: string,
+  sector_from: number,
+  sector_to: number,
   pnr_no: string,
   departure_date: string,
 }

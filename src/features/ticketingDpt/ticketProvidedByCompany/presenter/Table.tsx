@@ -14,24 +14,24 @@ export default function Main(props: {
     sectorList: SectorInterface[],
     onChange: (value: TicketProvidedByCompanyInterface[]) => void
 }) {
-    
+
     const HEADERLIST = [
-         'SR NO.',
-         'PARTY CODE', 
-         'COMPANY NAME', 
-         'CANDIDATE NAME', 
-         'PP NO', 
-         'ACTUAL PROFESSION', 
-         'VISA PROFESSION', 
-         'AGENT', 
-         'RC NAME', 
-         'VISA RECEIVED DATE', 
-         'VISA EXPIRE DATE', 
-         'SELECT', 
-         'SECTOR FROM', 
-         'SECTOR TO', 
-         'PNR NO ', 
-         'DEPARTURE DATE'];
+        'SR NO.',
+        'PARTY CODE',
+        'COMPANY NAME',
+        'CANDIDATE NAME',
+        'PP NO',
+        'ACTUAL PROFESSION',
+        'VISA PROFESSION',
+        'AGENT',
+        'RC NAME',
+        'VISA RECEIVED DATE',
+        'VISA EXPIRE DATE',
+        'SELECT',
+        'SECTOR FROM',
+        'SECTOR TO',
+        'PNR NO ',
+        'DEPARTURE DATE'];
     function onUpdateRow(index: number, rowData: TicketProvidedByCompanyInterface) {
         const nextData = props.TicketProvidedByCompanyList.map((e, i) => {
             if (i === index) {
@@ -79,12 +79,16 @@ export default function Main(props: {
                                         value={item.checked ? true : false}
                                     />
                                 </TableCell3>
-                                <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                                <TableCell3><CustomSelectComponentUnlabeled
+                                    options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                                    value={item.sector_from}
                                     onChange={(value) => {
                                         onUpdateRow(index, { ...item, sector_from: value })
 
                                     }} /></TableCell3>
-                                <TableCell3><CustomSelectComponentUnlabeled options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                                <TableCell3><CustomSelectComponentUnlabeled 
+                                options={selectOptionConveter({ options: props.sectorList, options_struct: { name: "name", value: "id" } })}
+                                value={item.sector_to}
                                     onChange={(value) => {
                                         onUpdateRow(index, { ...item, sector_to: value })
 

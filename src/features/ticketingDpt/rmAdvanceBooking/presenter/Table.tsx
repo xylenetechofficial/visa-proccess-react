@@ -1,5 +1,5 @@
 import { Checkbox } from "flowbite-react";
-import { CustomCheckBox } from "../../../../componenets/Checkbox"
+import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
 import { Table3, TableBody2,  TableCell3,  TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
@@ -56,7 +56,7 @@ export default function Main(props:{
                             <TableCell3> {item.given_to} </TableCell3>
                             <TableCell3> {item.payment} </TableCell3>
                             <TableCell3> {item.is_invoice} </TableCell3>
-                            <TableCell3><Checkbox  onChange={(e) => onUpdateRow(index,{...item,advance:e.target.checked ? "Yes":'No'})} /></TableCell3>
+                            <TableCell3><CustomSingleCheckBox value={item.advance=="Yes"?true:false} onChange={(e) => onUpdateRow(index,{...item,advance:e.target.checked ? "Yes":'No'})} /></TableCell3>
                             <TableCell3><DateInput id="paymentDate" value={item.payment_date} onChange={(value)=>onUpdateRow(index,{...item,payment_date:value})}/></TableCell3>
                         </TableRow3>
                     ))}
