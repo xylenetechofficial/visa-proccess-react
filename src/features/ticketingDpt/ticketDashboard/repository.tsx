@@ -9,12 +9,16 @@ import { TickeDashboardAdapter2, TickeDashboardInterface2, TicketAdapter, Ticket
 import { AddUnderprocessConverter, UnderprocessAdapter, UnderprocessConverter, UnderprocessInterface } from "./underprocessType";
 
 
-export async function readTicketDashboardList() {
+export async function readTicketDashboardList(page?: number,status?:string) {
   const path = "/ticketing-dpt/tickets-dashboard-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
+    queryParameters:{
+      page:page ?? 0,
+      status:status ?? ''
+    }
   });
 
   if (response.code != 200) {

@@ -7,9 +7,9 @@ import { Table } from "flowbite-react";
 export default function Main(props: {
   TicketDashboardList: TickeDashboardInterface2[];
   // onChange: (value: TicketDashboardInterface[]) => void;
-  TicketToBeBooked: (value: TickeDashboardInterface2) => void;
+  TicketToBeBooked?: (value: TickeDashboardInterface2) => void;
   underProcess: (value: TickeDashboardInterface2) => void;
-  AgencyInvoiceAwaiting: (value: TickeDashboardInterface2) => void;
+  AgencyInvoiceAwaiting?: (value: TickeDashboardInterface2) => void;
   tryingFunction: (value: TickeDashboardInterface2) => void;
 }) {
   const extraData = {
@@ -29,19 +29,29 @@ export default function Main(props: {
               <TableHeadCell>
                 Sector
               </TableHeadCell>
-              <TableHeadCell>
+              {props.TicketToBeBooked ? <>
+                <TableHeadCell>
                 TICKET TO BE BOOKED
               </TableHeadCell>
+              </> : ''}
+             
               <th scope="col" className="px-24 py-3 border-b">
                 UNDER BOOKING
               </th>
+              {props.AgencyInvoiceAwaiting ? <>
               <TableHeadCell>
                 AGENCY INVOICE AWAITING
               </TableHeadCell>
+              </>
+            : ''}
             </TableHeadRow3>
+         
             <TableHeadRow3>
+             
               <TableHeadCell><></></TableHeadCell>
+              {props.TicketToBeBooked ? <>
               <TableHeadCellNew><></></TableHeadCellNew>
+              </> :''}
               <div className="grid grid-cols-2 gap-0">
                 <TableHeadCell>
                   under process
@@ -50,7 +60,9 @@ export default function Main(props: {
                   trying
                 </TableHeadCellNew>
               </div>
+              {props.AgencyInvoiceAwaiting ? 
               <TableHeadCell><></></TableHeadCell>
+              :''}
             </TableHeadRow3>
           </TableHead3New>
           <TableBody3>
@@ -77,16 +89,18 @@ export default function Main(props: {
                       <TableHeadNew>
                         {ticket.sector}
                       </TableHeadNew>
+                      {props.TicketToBeBooked ?<>
                       <TableCellNew2>
                         <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
-                            props.TicketToBeBooked(ticket);
+                            props.TicketToBeBooked??(ticket);
                           }}
                         >
                           {ticket.ticket_to_be_booked}
                         </span>
                       </TableCellNew2>
+                      </> :''}
                       <div className="grid grid-cols-2 gap-0">
                         <TableCellNew2>
                           <span
@@ -109,29 +123,34 @@ export default function Main(props: {
                           </span>
                         </TableCellNew>
                       </div>
-
+                            {props.AgencyInvoiceAwaiting ?
+                            <>
                       <TableCellNew2>
                         <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
-                            props.AgencyInvoiceAwaiting(ticket);
+                            props.AgencyInvoiceAwaiting??(ticket);
                           }}
                         >
                           {ticket.agency_invoice_awaiting}
                         </span>
                       </TableCellNew2>
+                      </>:''}
                     </TableRow3>
 
                     <TableRow3 key={"total"} >
                       <TableHeadNew>
                         <span className="text-red-500"> Total</span>
                       </TableHeadNew>
+                      {props.TicketToBeBooked ?
+                      <>
                       <TableCellNew>
                         <span className="text-red-600 px-10"
                           onClick={() => {
-                            props.TicketToBeBooked({ ...ticket, ticketing_sector_from: 0, ticketing_sector_to: 0 });
+                            props.TicketToBeBooked??({ ...ticket, ticketing_sector_from: 0, ticketing_sector_to: 0 });
                           }}> {extraData.total_ticket_to_be_booked}</span>
                       </TableCellNew>
+                      </> :''}
                       <div className="grid grid-cols-2  gap-0">
                         <TableCellNew2>
                           <span className="text-red-600 px-10"
@@ -146,19 +165,23 @@ export default function Main(props: {
                             }}> {extraData.total_ticket_trying}</span>
                         </TableCellNew>
                       </div>
-
+{props.AgencyInvoiceAwaiting ? <>
                       <TableCellNew2>
                         <span className="text-red-600 px-10"
                           onClick={() => {
-                            props.AgencyInvoiceAwaiting(ticket);
+                            props.AgencyInvoiceAwaiting??(ticket);
                           }}
                         >  {extraData.total_agency_invoice_awaiting}</span>
                       </TableCellNew2>
+                      </> :''}
                     </TableRow3>
 
                     <TableRow3>
+                      {props.TicketToBeBooked ? <>
                       <TableCellNew3><></></TableCellNew3>
+                      </> :''}
                       <TableCellNew3><></></TableCellNew3>
+                     
                       <div className="flex  border justify-around">
                         <td className="px-6 py-4 text-red-500">
                           {extraData.total_ticket_under_process_trying}
@@ -175,16 +198,18 @@ export default function Main(props: {
                       <TableHeadNew>
                         {ticket.sector}
                       </TableHeadNew>
+                      {props.TicketToBeBooked ? <>
                       <TableCellNew2>
                         <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
-                            props.TicketToBeBooked(ticket);
+                            props.TicketToBeBooked??(ticket);
                           }}
                         >
                           {ticket.ticket_to_be_booked}
                         </span>
                       </TableCellNew2>
+                      </> :""}
                       <div className="grid grid-cols-2 gap-0">
                         <TableCellNew2>
                           <span
@@ -207,17 +232,19 @@ export default function Main(props: {
                           </span>
                         </TableCellNew>
                       </div>
-
+            { props.AgencyInvoiceAwaiting ?
+            <>
                       <TableCellNew2>
                         <span
                           className="text-red-600 cursor-pointer px-10"
                           onClick={() => {
-                            props.AgencyInvoiceAwaiting(ticket);
+                            props.AgencyInvoiceAwaiting??(ticket);
                           }}
                         >
                           {ticket.agency_invoice_awaiting}
                         </span>
                       </TableCellNew2>
+                      </>:''}
                     </TableRow3>
 
                   </>

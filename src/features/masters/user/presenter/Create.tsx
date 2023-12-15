@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { Heading6, SubHeading1 } from "../../../../componenets/CoustomHeader";
+import { Heading6, SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
 // import { Checkbox } from "flowbite-react";
 import { PermissionGroupInterface, PermissionDataInterface, PageInterface, PermissionInterface, UserInterface, UserRole } from "../type";
 import { RenderPermissions } from "./RenderPermissions";
@@ -158,18 +158,24 @@ export default function Main(props: {
             buttonName="Create"
             handleClick={onClickAdd}
         >
+            <div className=" grid grid-cols-1 py-3  gap-2 shadow justify-between">
+            <div className="">
 
-            <CustomSelectComponent
-                value={user.country_id}
-                label="Country"
-                options={
-                    selectOptionConveter({ options: CountryList, options_struct: { name: "name", value: "id" } })}
+                
+                <UpdateContentBox>
+                    <CustomSelectComponent
+                        value={user.country_id}
+                        label="Country"
+                        options={
+                            selectOptionConveter({ options: CountryList, options_struct: { name: "name", value: "id" } })}
 
-                onChange={(value) => {
-                    setUser({ ...user, country_id: value })
-                }} />
+                        onChange={(value) => {
+                            setUser({ ...user, country_id: value })
+                        }} />
+                </UpdateContentBox>
 
-            {/* <StandardInput
+
+                {/* <StandardInput
                 label="Name"
                 value={user.name}
                 onChangeValue={(value: string) => {
@@ -177,138 +183,147 @@ export default function Main(props: {
                 }}
             /> */}
 
-
-            <StandardInput
-                label="Login Name"
-                value={user.user_name}
-                onChangeValue={(value: string) => {
-                    setUser({ ...user, user_name: value })
-                }}
-            />
-
-            <StandardInput
-                label="Email"
-                value={user.email}
-                onChangeValue={(value: string) => {
-                    setUser({ ...user, email: value })
-                }}
-            />
-
-
-            <StandardInput
-                label="Password"
-                value={user.password}
-                onChangeValue={(value: string) => {
-                    setUser({ ...user, password: value })
-                }}
-            />
-
-            <CustomSelectComponent
-                value={user.user_role_id}
-                label="User Role"
-                options={
-                    selectOptionConveter({ options: props.userRoleList, options_struct: { name: "name", value: "id" } })}
-
-                onChange={(value) => {
-                    for (let i = 0; i < props.userRoleList.length; i++) {
-                        const element = props.userRoleList[i];
-                        if (element.id == value) {
-                            setRole(element)
-                            break
-                        }
-                    }
-                    setUser({ ...user, user_role_id: value })
-
-                }} />
-
-            {/* ########################################## */}
-            {/* Genaral Manager */}
-            {role.gm ?
-                <CustomSelectComponent
-                    required
-                    value={user.gm_id}
-                    options={selectOptionConveter({ options: GeneralManagerist, options_struct: { name: "name", value: "id" } })}
-                    onChange={(value) => setUser({ ...user, gm_id: value })}
-                    label="Genaral Manager"
-                /> : ""}
-
-            {/* OPs name */}
-            {role.om ?
-                <CustomSelectComponent
-                    required
-                    value={user.om_id}
-                    options={selectOptionConveter({ options: OperationManagerist, options_struct: { name: "name", value: "id" } })}
-                    onChange={(value) => setUser({ ...user, om_id: value })}
-                    label="Operation Manager"
-                /> : ""}
-
-            {/* Recruit Manager */}
-            {role.rm ?
-                <CustomSelectComponent
-                    required
-                    value={user.rm_id}
-                    options={selectOptionConveter({ options: RecruitManagerList, options_struct: { name: "name", value: "id" } })}
-                    onChange={(value) => setUser({ ...user, rm_id: value })}
-                    label="Recruit Manager"
-                /> : ""}
-
-            {/* Recruit SuperVisor */}
-            {role.rs ?
-                <CustomSelectComponent
-                    required
-                    value={user.rs_id}
-                    options={selectOptionConveter({ options: RecruitSuperVisorList, options_struct: { name: "name", value: "id" } })}
-                    onChange={(value) => setUser({ ...user, rs_id: value })}
-                    label="Recruit SuperVisor"
-                /> : ""}
-
-            {/* Data by */}
-
-            {role.data_by ?
-                <>
-                    <Heading6 text='View Data Of Countries' />
-
-                    <CustomCheckBox
-                        inlined
-                        value={user.data_by}
-                        option={selectOptionConveter({ options: DataByList, options_struct: { name: "name", value: "id" } })}
-                        onChange={(value) => setUser({ ...user, data_by: value })}
+                <UpdateContentBox>
+                    <StandardInput
+                        label="Login Name"
+                        value={user.user_name}
+                        onChangeValue={(value: string) => {
+                            setUser({ ...user, user_name: value })
+                        }}
                     />
-                </> : ""}
+                </UpdateContentBox>
+                <UpdateContentBox>
+                    <StandardInput
+                        label="Email"
+                        value={user.email}
+                        onChangeValue={(value: string) => {
+                            setUser({ ...user, email: value })
+                        }}
+                    />
 
-            {/* Sector */}
-            {role.sector ?
-                <CustomSelectComponent
-                    required
-                    value={user.sector_id}
-                    options={selectOptionConveter({ options: SectorList, options_struct: { name: "name", value: "id" } })}
-                    onChange={(value) => setUser({ ...user, sector_id: value })}
-                    label="Sector"
-                /> : ""}
+                </UpdateContentBox>
+                <UpdateContentBox>
+                    <StandardInput
+                        label="Password"
+                        value={user.password}
+                        onChangeValue={(value: string) => {
+                            setUser({ ...user, password: value })
+                        }}
+                    />
+                </UpdateContentBox>
+                <div className="mt-3">
 
-            {/* Invoice Sector */}
-            {role.invoice_sector ?
-                <CustomSelectComponent
-                    required
-                    value={user.invoice_sector_id}
-                    options={selectOptionConveter({ options: SectorList, options_struct: { name: "name", value: "id" } })}
-                    onChange={(value) => setUser({ ...user, invoice_sector_id: value })}
-                    label="Invoice Sector"
-                /> : ""}
+                
+                <UpdateContentBox>
+                    <CustomSelectComponent
+                        value={user.user_role_id}
+                        label="User Role"
+                        options={
+                            selectOptionConveter({ options: props.userRoleList, options_struct: { name: "name", value: "id" } })}
 
-            {/* ###################### */}
+                        onChange={(value) => {
+                            for (let i = 0; i < props.userRoleList.length; i++) {
+                                const element = props.userRoleList[i];
+                                if (element.id == value) {
+                                    setRole(element)
+                                    break
+                                }
+                            }
+                            setUser({ ...user, user_role_id: value })
 
-            <CustomRadioButton
-                label="Active: "
-                value={user.active}
-                inlined
-                option={[{ value: 1, name: "yes" }, { value: 0, name: "No" }]}
-                onChange={(value) => {
-                    setUser({ ...user, active: value })
-                }}
-            />
+                        }} />
+                </UpdateContentBox>
+                </div>
+                </div>
+                
+                {/* ########################################## */}
+                {/* Genaral Manager */}
+                {role.gm ?
+                    <CustomSelectComponent
+                        required
+                        value={user.gm_id}
+                        options={selectOptionConveter({ options: GeneralManagerist, options_struct: { name: "name", value: "id" } })}
+                        onChange={(value) => setUser({ ...user, gm_id: value })}
+                        label="Genaral Manager"
+                    /> : ""}
 
-            {/* <div className="w-96">
+                {/* OPs name */}
+                {role.om ?
+                    <CustomSelectComponent
+                        required
+                        value={user.om_id}
+                        options={selectOptionConveter({ options: OperationManagerist, options_struct: { name: "name", value: "id" } })}
+                        onChange={(value) => setUser({ ...user, om_id: value })}
+                        label="Operation Manager"
+                    /> : ""}
+
+                {/* Recruit Manager */}
+                {role.rm ?
+                    <CustomSelectComponent
+                        required
+                        value={user.rm_id}
+                        options={selectOptionConveter({ options: RecruitManagerList, options_struct: { name: "name", value: "id" } })}
+                        onChange={(value) => setUser({ ...user, rm_id: value })}
+                        label="Recruit Manager"
+                    /> : ""}
+
+                {/* Recruit SuperVisor */}
+                {role.rs ?
+                    <CustomSelectComponent
+                        required
+                        value={user.rs_id}
+                        options={selectOptionConveter({ options: RecruitSuperVisorList, options_struct: { name: "name", value: "id" } })}
+                        onChange={(value) => setUser({ ...user, rs_id: value })}
+                        label="Recruit SuperVisor"
+                    /> : ""}
+
+                {/* Data by */}
+
+                {role.data_by ?
+                    <>
+                        <Heading6 text='View Data Of Countries' />
+
+                        <CustomCheckBox
+                            inlined
+                            value={user.data_by}
+                            option={selectOptionConveter({ options: DataByList, options_struct: { name: "name", value: "id" } })}
+                            onChange={(value) => setUser({ ...user, data_by: value })}
+                        />
+                    </> : ""}
+
+                {/* Sector */}
+                {role.sector ?
+                    <CustomSelectComponent
+                        required
+                        value={user.sector_id}
+                        options={selectOptionConveter({ options: SectorList, options_struct: { name: "name", value: "id" } })}
+                        onChange={(value) => setUser({ ...user, sector_id: value })}
+                        label="Sector"
+                    /> : ""}
+
+                {/* Invoice Sector */}
+                {role.invoice_sector ?
+                    <CustomSelectComponent
+                        required
+                        value={user.invoice_sector_id}
+                        options={selectOptionConveter({ options: SectorList, options_struct: { name: "name", value: "id" } })}
+                        onChange={(value) => setUser({ ...user, invoice_sector_id: value })}
+                        label="Invoice Sector"
+                    /> : ""}
+
+                {/* ###################### */}
+
+                <CustomRadioButton
+                    label="Active: "
+                    value={user.active}
+                    inlined
+                    option={[{ value: 1, name: "yes" }, { value: 0, name: "No" }]}
+                    onChange={(value) => {
+                        setUser({ ...user, active: value })
+                    }}
+                />
+
+                {/* <div className="w-96">
                 <StandardInput
                     label="Name"
                     value={permissionGroup.name}
@@ -317,15 +332,17 @@ export default function Main(props: {
                     }}
                 />
             </div> */}
-            <div className="w-full">
+                <div className="w-full">
 
-                {/* <SubHeading1 text={permissionGroup.name} /> */}
-                <RenderPermissions
-                    departments={permissionGroup.dpt_list ?? []}
-                    onUpdate={(value) => setPermissionGroup({ ...permissionGroup, dpt_list: value })}
-                />
+                    {/* <SubHeading1 text={permissionGroup.name} /> */}
+                    <RenderPermissions
+                        departments={permissionGroup.dpt_list ?? []}
+                        onUpdate={(value) => setPermissionGroup({ ...permissionGroup, dpt_list: value })}
+                    />
+                </div>
+
+
             </div>
-
         </FullScreenModal>
     )
 }

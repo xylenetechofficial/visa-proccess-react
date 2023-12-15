@@ -4,12 +4,10 @@ import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
-import BookingTable from "./Table";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import { createTicketDashboard, readAgencyInvoiceAwaiting, readTicketDashboardList, readTicketToBeBookedList, readTrying, readUnderProcessList } from "../repository";
-import { TickeDashboardInterface2, TicketDashboardInterface, TicketInterface } from "../type";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import {  readAgencyInvoiceAwaiting, readTicketDashboardList, readTicketToBeBookedList, readTrying, readUnderProcessList } from "../repository";
+import { TickeDashboardInterface2,  TicketInterface } from "../type";
 import TicketToBeBookedModal from "./TicketToBeBooked";
 import UnderProcess from "./UnderProcess";
 import Trying from "./Trying";
@@ -19,6 +17,8 @@ import { AgentInvoiceAwaitingInterface } from "../agentInvoiceAwaitingType";
 import { UnderprocessInterface } from "../underprocessType";
 import { AgencyInterface } from "../../../masters/agency/type";
 import { readAgencyList } from "../../../masters/agency/repository";
+import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
+import EditModal from './Edit';
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -38,12 +38,7 @@ export default function Main() {
       setTicketDashboardList(data);
     }
   }
-  // const onClickCreate = async (item: TicketDashboardInterface[]) => {
-  //   const data = await createTicketDashboard(item);
-  //   if (data) {
-  //     fetchTicketDashboard();
-  //   }
-  // };
+
 
   const [openTicketToBeBooked, setOpenTicketToBeBooked] =
     useState<TicketInterface[]>([]);
@@ -123,6 +118,10 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        <div>
+          <BlueButton text="Edit" onClick={()=>setModalName('edit')} /> 
+          <RedButton text="Delete" onClick={()=>setModalName('delete')} />
+        </div>
       </CardHeader>
 
       <TicketDashboard
@@ -175,6 +174,8 @@ export default function Main() {
           agencyList={agencyList}
         />
       )}
+
+      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} setModalName={(value)=>setModalName(value)}/> :''}
       {/* <GreenButton text='Submit' onClick={()=>onClickCreate(TicketDashboardList)} /> */}
     </>
   );
