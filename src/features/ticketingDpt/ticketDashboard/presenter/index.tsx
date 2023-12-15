@@ -120,7 +120,7 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
         <div>
           <BlueButton text="Edit" onClick={()=>setModalName('edit')} /> 
-          <RedButton text="Delete" onClick={()=>setModalName('delete')} />
+          {/* <RedButton text="Delete" onClick={()=>setModalName('delete')} /> */}
         </div>
       </CardHeader>
 
