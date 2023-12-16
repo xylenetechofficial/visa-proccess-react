@@ -563,7 +563,7 @@ export default function Main(props: {
                     <CustomSelectComponentUnlabeled
                         value={indexVisa.rm}
                         onChange={(value) => setIndexVisa({ ...indexVisa, rm: value })}
-                        options={selectOptionConveter({ options: RecruitCoordinatorList, options_struct: { name: "name", value: "id" } })}
+                        options={selectOptionConveter({ options: RecruitManagerList, options_struct: { name: "name", value: "id" } })}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>

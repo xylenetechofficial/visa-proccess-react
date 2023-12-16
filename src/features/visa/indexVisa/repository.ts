@@ -107,7 +107,7 @@ export async function cancelPartyCode(indexVisa: IndexVisaInterface) {
 }
 
 export async function readIndexVisa(id: number) {
-  const path = "/visa-dpt/index-visa" + id;
+  const path = "/visa-dpt/index-visa/" + id;
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,

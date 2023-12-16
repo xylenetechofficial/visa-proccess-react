@@ -91,7 +91,7 @@ console.log(props.immigrationData,"aaaaaaaaaaa")
                             //     };
                             //     return newData;
                             //   })
-                            setAccountDashboard({...accountDashboard,invoice_date:value })
+                            setAccountDashboard({...accountDashboard,company_id:value })
                             }
 
                         options={selectOptionConveter({ options: props.companyList, options_struct: { name: "name", value: "id" } })}

@@ -10,7 +10,7 @@ import { convertDateFormat } from '../../../../utils/function';
 
 
 const IndexVisaTable = (props: {
-    snoBase:number,
+    snoBase: number,
     indexVisaList: IndexVisaInterface[],
     onClickEdit: any,
     onClickDelete: any
@@ -18,10 +18,10 @@ const IndexVisaTable = (props: {
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
 }) => {
-   
+
     return (
         <div className='overflow-auto'>
-           
+
 
             <Table3>
                 <TableHead3 >
@@ -48,34 +48,34 @@ const IndexVisaTable = (props: {
                     {props.indexVisaList.map((ele, index) => (
 
                         <TableRow3 key={index}>
-                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
+                            <TableCell3 >{index + props.snoBase + 1}</TableCell3>
                             <TableCell3 > {ele.jobOrderNo}</TableCell3>
                             <TableCell3 > {convertDateFormat(ele.index_date)}</TableCell3>
                             {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company ? company.name : "")}</TableCell3> */}
-                            <TableCell3 > {ele.company_name??""}</TableCell3>
+                            <TableCell3 > {ele.company_name ?? ""}</TableCell3>
                             <TableCell3 > {ele.party_code}</TableCell3>
-                    
+
                             <TableCell3 > {convertDateFormat(ele.visa_issued_date)}</TableCell3>
-                            <TableCell3 > {convertDateFormat(ele.visa_expiry_date)}</TableCell3>  
+                            <TableCell3 > {convertDateFormat(ele.visa_expiry_date)}</TableCell3>
                             {/* <TableCell3 > {props.countryList.map((country) => country.id == ele.country ? country.name : "")}</TableCell3> */}
-                            <TableCell3 > {ele.country_name??""}</TableCell3>
+                            <TableCell3 > {ele.country_name ?? ""}</TableCell3>
                             <TableCell3 > {ele.visa_date_arabic}</TableCell3>
                             <TableCell3 > {ele.visa_number}</TableCell3>
                             <TableCell3 > {ele.visa_fee}</TableCell3>
-                            <TableCell3 > {ele.visa_authorization_name??""}</TableCell3>
+                            <TableCell3 > {ele.visa_authorization_name ?? ""}</TableCell3>
                             <TableCell3 > {ele.visa_submission}</TableCell3>
                             <TableCell3 > {ele.sponsor_id}</TableCell3>
                             <TableCell2lastColumn >
 
-                        
-                        {/* <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
+
+                                <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
                                     props.onClickEdit(ele)
-                                }} /> */}
+                                }} />
 
                                 <RedButton text={"Delete"} preIcon='delete' onClick={() => {
                                     props.onClickDelete(ele)
                                 }} />
-                       
+
 
                             </TableCell2lastColumn>
                         </TableRow3>

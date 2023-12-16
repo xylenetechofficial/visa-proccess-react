@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CreateModal from "./Create";
-// import EditModal from './Edit'
+import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import IndexVisaTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
@@ -170,7 +170,7 @@ export default function Main() {
 
       {/*  indexVisa stable */}
       <IndexVisaTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         indexVisaList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
@@ -203,15 +203,15 @@ export default function Main() {
       )}
 
       {/* Edit */}
-      {/* {modalName !== "edit" ? "" :
-                <EditModal
-                    currentElement={editIndexVisa}
-                    onClose={() => setModalName("")}
-                    fetchIndexVisaList={fetchIndexVisaList}
-                    companyList={companyList}
-                    countryList={countryList}
-                    sectorList={sectorList}
-                />} */}
+      {modalName !== "edit" ? "" :
+        <EditModal
+          currentElement={editIndexVisa}
+          onClose={() => setModalName("")}
+          fetchIndexVisaList={fetchIndexVisaList}
+          companyList={companyList}
+          countryList={countryList}
+          sectorList={sectorList}
+        />}
     </div>
   );
 }
