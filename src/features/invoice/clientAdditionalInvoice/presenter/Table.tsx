@@ -3,27 +3,15 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRo
 import { BlueButton } from "../../../../componenets/CustomButton";
 import { convertDateFormat } from "../../../../utils/function";
 
-
 const Main = (props: {
     onClickEdit:(value: ClientAdditionalInvoiceInterface)=>void;
-    immigrationData: ClientAdditionalInvoiceInterface[],
+    clientAdditionalInvoiceList: ClientAdditionalInvoiceInterface[],
     onChange: (value: ClientAdditionalInvoiceInterface[]) => void
-    setModal:any,
+    setModalName:(value:string)=>void,
     snoBase:number;
 }) => {
     const HEADERLIST = ["SR NO.", "COMPANY NAME", "INVOICE NUMBER", "INVOICE DATE", "INVOICE AMOUNT","ACTION"];
-    function onUpdateRow(index: number, rowData: ClientAdditionalInvoiceInterface) {
-        const nextData = props.immigrationData.map((e, i) => {
-            if (i === index) {
-                // Increment the clicked counter
-                return rowData;
-            } else {
-                // The rest haven't changed
-                return e;
-            }
-        });
-        props.onChange(nextData)
-    }
+   
     return (
         <div className="overflow-auto">
 
@@ -34,7 +22,7 @@ const Main = (props: {
                     </TableHeadRow3>
                 </TableHead3>
                 <TableBody3>
-                    {props.immigrationData?.map((item, index) => (
+                    {props.clientAdditionalInvoiceList?.map((item, index) => (
 
                         <TableRow3 key={index}>
                             <TableCell3>{index + props.snoBase+1}</TableCell3>
@@ -42,7 +30,7 @@ const Main = (props: {
                             <TableCell3>{item?.invoice_number}</TableCell3>
                             <TableCell3>{convertDateFormat(item?.invoice_date)}</TableCell3>
                             <TableCell3>{item?.invoice_amount}</TableCell3>
-                            <TableCell3><BlueButton text="Edit" onClick={()=>{props.setModal("edit"); props.onClickEdit(item)}}/></TableCell3>
+                            <TableCell3><BlueButton text="Edit" onClick={()=>{props.setModalName("edit"); props.onClickEdit(item)}}/></TableCell3>
                             
                         </TableRow3>
                     ))}

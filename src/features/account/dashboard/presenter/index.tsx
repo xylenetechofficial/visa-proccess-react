@@ -87,7 +87,7 @@ export default function Main( ) {
   useEffect(() => {
     fetchAccountDashboardList(additionalData.pagination.page);
    }, []);
-
+console.log(additionalData)
   return (
     <div>
       <CustomNavbarV3

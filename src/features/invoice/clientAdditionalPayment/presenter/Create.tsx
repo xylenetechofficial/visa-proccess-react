@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react"
-import { FullScreenModal } from "../../../../componenets/Modal"
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
-
-import { ClientPaymentSingleAddInterface } from "../type"
 import { Box } from "@mui/material"
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton"
 import { createClientPayment } from "../repository"
@@ -26,14 +23,10 @@ const style = {
 
 
 export default function Main(props: {
-    // clientSingle: ClientPaymentSingleAddInterface,
-    onClose: () => any,
-    fetchClientAdditionalInvoiceList: any,
-
-
+    onClose: () => void,
+    fetchClientAdditionalInvoiceList: () => void,
 }) {
 
-    // const initValue: AccountDashboardInterface = {
     const initValue: any = {
 
         company_id: 0,
@@ -43,24 +36,24 @@ export default function Main(props: {
         date: '',
         description: ''
     }
-    // console.log(props.clientSingle, "clientSuspence")
-    const [accountDashboard, setAccountDashboard] = useState(initValue)
-    const [companyList, setCompanyList]=useState<any>([]);
+
+    const [clientAdditionalPayment, setClientAdditionalPayment] = useState(initValue)
+    const [companyList, setCompanyList] = useState<any>([]);
     const fetchCompanyList = async () => {
         setCompanyList(await readCompanyList(true))
     }
-    useEffect(()=>{
+    useEffect(() => {
         fetchCompanyList()
-      },[])
+    }, [])
     async function onClickUpdate() {
 
         // call create
-        const newArray: any = accountDashboard;
+        const newArray: any = clientAdditionalPayment;
         const flag = await createClientPayment(newArray);
         if (!flag) {
             return;
         }
-        setAccountDashboard(initValue)
+        setClientAdditionalPayment(initValue)
 
         props.fetchClientAdditionalInvoiceList();
         props.onClose();
@@ -96,18 +89,18 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text=" Company :" />
                     <CustomSelectComponentUnlabeled
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
+                        onChange={(value) => setClientAdditionalPayment({ ...clientAdditionalPayment, company_id: value })}
 
                         options={selectOptionConveter({ options: companyList, options_struct: { name: "name", value: "id" } })}
-                        value={accountDashboard.company_id}
+                        value={clientAdditionalPayment.company_id}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
 
                     <SubHeading1 text="INVOICE NUMBER  :" />
                     <UnlabeledInput
-                        value={accountDashboard.invoice_number}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, invoice_number: value })}
+                        value={clientAdditionalPayment.invoice_number}
+                        onchange={(value) => setClientAdditionalPayment({ ...clientAdditionalPayment, invoice_number: value })}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -115,8 +108,8 @@ export default function Main(props: {
                     <SubHeading1 text="INVOICE DATE  :" />
                     <DateInput
                         id="sd;fksdakj"
-                        value={accountDashboard.invoice_date}
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, invoice_date: value })}
+                        value={clientAdditionalPayment.invoice_date}
+                        onChange={(value) => setClientAdditionalPayment({ ...clientAdditionalPayment, invoice_date: value })}
                     />
                 </UpdateContentBox>
 
@@ -124,11 +117,9 @@ export default function Main(props: {
 
                     <SubHeading1 text="AMOUNT RECEIVED (INR)  :" />
                     <UnlabeledInput
-                        
-type="number"
-                    
-                        value={accountDashboard.amount}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, amount: parseInt(value) })}
+                        type="number"
+                        value={clientAdditionalPayment.amount}
+                        onchange={(value) => setClientAdditionalPayment({ ...clientAdditionalPayment, amount: parseInt(value) })}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -136,8 +127,8 @@ type="number"
                     <SubHeading1 text=" DATE  :" />
                     <DateInput
                         id="sd;fksdakj"
-                        value={accountDashboard.date}
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, date: value })}
+                        value={clientAdditionalPayment.date}
+                        onChange={(value) => setClientAdditionalPayment({ ...clientAdditionalPayment, date: value })}
                     />
                 </UpdateContentBox>
 
@@ -145,8 +136,8 @@ type="number"
                 <UpdateContentBox>
                     <SubHeading1 text=" PAYMENT DESCRIPTION :" />
                     <UnlabeledInput
-                        value={accountDashboard.description}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, description: value })}
+                        value={clientAdditionalPayment.description}
+                        onchange={(value) => setClientAdditionalPayment({ ...clientAdditionalPayment, description: value })}
                     />
                 </UpdateContentBox>
                 <div className="grid grid-cols-2 shadow ">

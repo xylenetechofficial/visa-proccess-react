@@ -1,69 +1,51 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { FullScreenModal } from "../../../../componenets/Modal"
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
-import { createClientAdditionalInvoice, updateClientAdditionalInvoice } from "../repository"
-import { readCompanyList } from "../../../masters/company/repository"
+import { updateClientAdditionalInvoice } from "../repository"
 import { CompanyInterface } from "../../../masters/company/type"
 
-
-
 export default function Main(props: {
-    immigrationData:any,
-    onClose: ()=>void, 
+    clientAdditionalInvoiceList: any,
+    onClose: () => void,
     fetchClientAdditionalInvoiceList: any,
-    // createClientAdditionalInvoiceTemp:any
-    companyList:CompanyInterface[]
+    companyList: CompanyInterface[]
 }) {
 
-    // const initValue: AccountDashboardInterface = {
-    
+    const [clientAdditionalInvoice, setclientAdditionalInvoice] = useState(props?.clientAdditionalInvoiceList)
 
-    const [accountDashboard, setAccountDashboard] = useState(props?.immigrationData)
-    // const [companyList, setCompanyList]=useState<any>([]);
-    // const fetchCompanyList = async () => {
-    //     setCompanyList(await readCompanyList(true))
-    // }
-    // useEffect(()=>{
-    //     fetchCompanyList()
-    //   },[])
-
-
-console.log(props.immigrationData,"aaaaaaaaaaa")
     async function onClickAdd() {
-
-        const flag :any = await updateClientAdditionalInvoice(accountDashboard?.id, accountDashboard);
+        const flag: any = await updateClientAdditionalInvoice(clientAdditionalInvoice?.id, clientAdditionalInvoice);
         if (flag) {
-          console.log(flag)
+            
             props.onClose();
             props.fetchClientAdditionalInvoiceList();
             return;
         }
-        // setAccountDashboard(initValue)
-        console.log(flag)
+        
         props.fetchClientAdditionalInvoiceList();
         props.onClose();
     }
-  
+
     function onUpdateRow(index: number, rowData: any) {
-        const nextData :any= props.immigrationData.map((e:any, i:any) => {
-          if (i === index) {
-            // Increment the clicked counter
-            return rowData;
-          } else {
-            // The rest haven't changed
-            return e;
-          }
+        const nextData: any = props.clientAdditionalInvoiceList.map((e: any, i: any) => {
+            if (i === index) {
+                // Increment the clicked counter
+                return rowData;
+            } else {
+                // The rest haven't changed
+                return e;
+            }
         });
         onChange(nextData)
-        // props.setData(nextData)
-       
-      }
-      const onChange =(data:any)=>{
-        setAccountDashboard(data)
-      }
-    console.log(accountDashboard,"lllllllllll")
+        
+
+    }
+    const onChange = (data: any) => {
+        setclientAdditionalInvoice(data)
+    }
+    console.log(clientAdditionalInvoice, "lllllllllll")
     return (
 
         <FullScreenModal
@@ -91,11 +73,13 @@ console.log(props.immigrationData,"aaaaaaaaaaa")
                             //     };
                             //     return newData;
                             //   })
-                            setAccountDashboard({...accountDashboard,company_id:value })
+                            setclientAdditionalInvoice({...clientAdditionalInvoice,company_id:value })
                             }
 
+                            // setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_date: value })
+                        // }
                         options={selectOptionConveter({ options: props.companyList, options_struct: { name: "name", value: "id" } })}
-                        value={accountDashboard.company_id}
+                        value={clientAdditionalInvoice.company_id}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -103,22 +87,10 @@ console.log(props.immigrationData,"aaaaaaaaaaa")
                     <SubHeading1 text="INVOICE DATE  :" />
                     <DateInput
                         id="sd;fksdakj"
-                        value={accountDashboard.invoice_date}
+                        value={clientAdditionalInvoice.invoice_date}
                         onChange={(value) =>
-                            //  setAccountDashboard({ ...accountDashboard, invoice_date: value })
-                            // onUpdateRow(0,{...accountDashboard, invoice_date:value} )
-                            // setAccountDashboard((prev: any) => {
-                            //     const newData: any = [...prev];
-                            //     newData[0] = {
-                            //       ...newData[0],
-                            //     //   company_id: accountDashboard?.company_id,
-                            //       invoice_date: value,
-                                  
-                            //     };
-                            //     return newData;
-                            //   })
-                            setAccountDashboard({...accountDashboard,invoice_date:value })
-                            }
+                            setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_date: value })
+                        }
                     />
                 </UpdateContentBox>
 
@@ -126,62 +98,29 @@ console.log(props.immigrationData,"aaaaaaaaaaa")
 
                     <SubHeading1 text="INVOICE NUMBER  :" />
                     <UnlabeledInput
-                        value={accountDashboard.invoice_number}
+                        value={clientAdditionalInvoice.invoice_number}
                         onchange={(value) =>
-                            //  setAccountDashboard({ ...accountDashboard, invoice_number: value })
-                            // onUpdateRow(0,{...accountDashboard, invoice_number:value} )
-
-                            // setAccountDashboard((prev: any) => {
-                            //     const newData: any = [...prev];
-                            //     newData[0] = {
-                            //       ...newData[0],
-                            //     //   company_id: accountDashboard?.company_id,
-                            //       invoice_number: value,
-                                  
-                            //     };
-                            //     return newData;
-                            //   })
-                            setAccountDashboard({...accountDashboard,invoice_number:value })
-                            }
+                            setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_number: value })
+                        }
                     />
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text=" INVOICE AMOUNT :" />
                     <UnlabeledInput
-                    
-type="number"
-                    
-                        value={accountDashboard.invoice_amount}
-                        onchange={(value) =>{
-                            //  setAccountDashboard({ ...accountDashboard, invoice_amount: value })
-                            // onUpdateRow(0,{...accountDashboard, invoice_amount:parseInt(value)} )
-                          if(value){
-                            // setAccountDashboard((prev: any) => {
-                            //     const newData: any = [...prev];
-                            //     newData[0] = {
-                            //       ...newData[0],
-                            //     invoice_amount: parseInt(value),
-                                  
-                            //     };
-                            //     return newData;
-                            //   })
-                            setAccountDashboard({...accountDashboard,invoice_amount:value })
+
+                        type="number"
+
+                        value={clientAdditionalInvoice.invoice_amount}
+                        onchange={(value) => {
+                            if (value) {
+                                setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_amount: value })
                             }
-                            else{
-                                // setAccountDashboard((prev: any) => {
-                                //     const newData: any = [...prev];
-                                //     newData[0] = {
-                                //       ...newData[0],
-                                //     invoice_amount: parseInt(''),
-                                      
-                                //     };
-                                //     return newData;
-                                //   })
-                                setAccountDashboard({...accountDashboard,invoice_amount:value })
+                            else {
+                                setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_amount: value })
                             }
-                            }}
-                        
+                        }}
+
                     />
                 </UpdateContentBox>
             </div>

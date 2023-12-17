@@ -1,34 +1,22 @@
 import PassportReleaseRequest from "./Table";
-import EditModal from './Edit';
 import { useState, useEffect } from "react";
-import {
-  CustomButton2,
-  CustomNavbarV3,
-} from "../../../../componenets/CustomComponents";
-import { FaFilter } from "react-icons/fa";
-import { Box, styled } from "@mui/material";
+
 import { PassportReleaseRequestInterface } from "../type";
 import {
-  createPassportReleaseRequest,
+  
   readPassportReleaseRequestList,
+  updatePassportReleaseRequest,
 } from "../repository";
-import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
+import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
-export default function Main() {
-  const CardHeader = styled(Box)(() => ({
-    display: "flex",
-    flexWrap: "wrap",
-    paddingRight: "24px",
-    marginBottom: "18px",
-    alignItems: "center",
-    justifyContent: "space-between",
-  }));
-  const [searchQuery, setSearchQuery] = useState("");
-  const [modalName, setModalName]=useState('')
+import { FullScreenModal } from "../../../../componenets/Modal";
+export default function Main(props:{onClose:(value:string)=>void}) {
+
+
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -46,7 +34,7 @@ export default function Main() {
   async function fetchPassportReleaseRequest(page?: number) {
     const data = await readPassportReleaseRequestList({
       page: page ?? additionalData.pagination.page,
-      status: "no",
+      status: "yes",
     }
     );
     if (data) {
@@ -54,8 +42,14 @@ export default function Main() {
     }
     setAdditionalData(await PaginationManager.getData());
   }
-  const onClickCreate = async (item: PassportReleaseRequestInterface[]) => {
-    await createPassportReleaseRequest(item);
+  const onClickUpdate = async (item: PassportReleaseRequestInterface[]) => {
+    // await createPassportReleaseRequest(item);
+    const newArray = []
+    for (let i = 0; i < item.length; i++) {
+        if (item[i].checked) newArray.push(item[i])
+    }
+    await updatePassportReleaseRequest(newArray)
+   props.onClose('')
   };
 
   useEffect(() => {
@@ -64,14 +58,13 @@ export default function Main() {
 
   return (
     <>
-      <CustomNavbarV3
-        pageName="Passport Release Request"
-        searchFunction={(query) => setSearchQuery(query)}
-      />
-      <CardHeader>
-        <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <BlueButton text="Edit"  onClick={()=>setModalName('edit')}/>
-      </CardHeader>
+    
+    <FullScreenModal
+      handleClick={() => props.onClose('')}
+      title="Edit Passport Release Request"
+      onClose={() => props.onClose('')}
+    >
+      
       <PassportReleaseRequest
         PassportReleaseRequestList={PassportReleaseRequestList}
         onChange={(value) => setPassportReleaseRequestList(value)}
@@ -79,8 +72,8 @@ export default function Main() {
       />
       <br />
       <GreenButton
-        text="Submit"
-        onClick={() => onClickCreate(PassportReleaseRequestList)}
+        text="Updatte"
+        onClick={() => onClickUpdate(PassportReleaseRequestList)}
       />
       <br />
       <Pagination
@@ -90,7 +83,7 @@ export default function Main() {
           fetchPassportReleaseRequest(e);
         }}
       />
-      {modalName === 'edit' ? <EditModal onClose={(value)=>setModalName(value)}/>:''}
+      </FullScreenModal>
     </>
   );
 }

@@ -3,7 +3,7 @@
 
 import { showMessage_v2 } from "../../../utils/alert";
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
-import { AddPassportRequestConverter, PassportReleaseRequestAdapter, PassportReleaseRequestConverter, PassportReleaseRequestInterface } from "./type";
+import {  PassportReleaseRequestAdapter, PassportReleaseRequestConverter, PassportReleaseRequestInterface } from "./type";
 
 
 export async function readPassportReleaseRequestList(query: {
@@ -46,10 +46,8 @@ export async function readPassportReleaseRequestList(query: {
 
 export async function createPassportReleaseRequest(PassportReleaseRequest:PassportReleaseRequestInterface[]) {
     const path = "/ticketing-dpt/passport-release-request-list";
-  const list:any ={
-    selection_list:PassportReleaseRequest
-  }
-    const payload = AddPassportRequestConverter.toAdapter(list);
+  
+    const payload = PassportReleaseRequestConverter.toAdapterList(PassportReleaseRequest);
     console.log(payload)
     const response = await ApiHelper.post(path, payload, {
       contentType: ContentType.json,
@@ -59,32 +57,23 @@ export async function createPassportReleaseRequest(PassportReleaseRequest:Passpo
     if (response.code != 200) {
       showMessage_v2({ message: response.message, status: response.code })
       return false;
-    }
-  
-    const data = []
-    console.log(response.data)
-    // if (response.data) {
-    //   const dataAdapter = response.data as PassportReleaseRequestAdapter[];
-    //   for (let i = 0; i < dataAdapter.length; i++) {
-    //     const element = dataAdapter[i];
-    //     data.push(PassportReleaseRequestConverter.toInterface(element));
-    //   }
-    // }
-  
+    } 
     return true
   }
   
   
-  export async function updatePassportReleaseRequest( PassportReleaseRequest: PassportReleaseRequestInterface) {
-
-    const payload = PassportReleaseRequestConverter.toAdapter(PassportReleaseRequest);
-  
+  export async function updatePassportReleaseRequest( PassportReleaseRequest: PassportReleaseRequestInterface[]) {
+    const payload ={selection_list: PassportReleaseRequestConverter.toAdapterList(PassportReleaseRequest)};
     const path = "/ticketing-dpt/passport-release-request-list"
     const response = await ApiHelper.patch(path, payload, {
       contentType: ContentType.json,
       tokenType: AuthTokenType.JWT
     })
-    showMessage_v2({ message: response.message, status: response.code })
+    if (response.code != 200) {
+      showMessage_v2({ message: response.message, status: response.code })
+      return false;
+    } 
+    return true
   
   }
 

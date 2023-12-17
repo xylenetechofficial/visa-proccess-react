@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, styled } from "@mui/material";
-import BlockVisaTable from "./Table";
-import { confirmationMessage } from "../../../../utils/alert";
+import Table from "./Table";
 import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import {
   CustomButton2,
@@ -9,7 +8,7 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import {
-  deleteBlockVisa,
+  
   readCandidateDiscountList,
   updateCandidateDiscountApproveReject,
 } from "../repository";
@@ -40,30 +39,16 @@ export default function Main() {
     }
   );
 
-  const [modalName, setModalName] = useState("");
 
-  const onClickEdit = (blockVisa: any) => {
-    console.log("onClickEdit"); // Only Dev
-    console.log(blockVisa); // Only Dev
-    setModalName("edit");
-  };
-
-  const onClickDelete = async (blockVisa: any) => {
-    const flag = await confirmationMessage("Do you really want to delete?");
-    if (flag && blockVisa.id) {
-      await deleteBlockVisa(blockVisa.id);
-      fetchCandidateDiscountList();
-    }
-  };
 
   const [data, setData] = useState({
     selection_list: [{}],
   });
-  const [blockVisaList, setBlockVisaList] = useState<any[]>([]);
+  const [candidateDiscountApproveRejectList, setCandidateDiscountApproveRejectList] = useState<any[]>([]);
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  // const filterData = (query: string, data: BlockVisaInterface[]) => {
+  
   const filterData = (query: string, data: any[]) => {
     if (!query) {
       return data;
@@ -73,7 +58,7 @@ export default function Main() {
       );
     }
   };
-  const dataFiltered = filterData(searchQuery, blockVisaList);
+  const dataFiltered = filterData(searchQuery, candidateDiscountApproveRejectList);
 
   const fetchCandidateDiscountList = async (page?: number) => {
     const data: any = await readCandidateDiscountList({
@@ -83,15 +68,15 @@ export default function Main() {
     setAdditionalData(await PaginationManager.getData());
     console.log(data);
     if (data) {
-      setBlockVisaList(data);
+      setCandidateDiscountApproveRejectList(data);
     }
-    setBlockVisaList(data);
+    setCandidateDiscountApproveRejectList(data);
   };
   useEffect(() => {
     fetchCandidateDiscountList(additionalData.pagination.page);
   }, []);
 
-  const handleClick = async (status: any) => {
+  const onClickApproveReject = async (status: any) => {
     const newArray: any = { ...data };
     console.log(newArray, "PPPP");
     const filteredArray = Object.values(newArray)
@@ -118,19 +103,17 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
 
-      {/*  blockVisa stable */}
-      <BlockVisaTable
-      snoBase={additionalData.pagination.sno_base}
+      {/*  Candidate Discount Approve Reject table */}
+      <Table
+        snoBase={additionalData.pagination.sno_base}
         candidateDiscountApproveReject={dataFiltered}
-        onClickEdit={onClickEdit}
-        onClickDelete={onClickDelete}
         setData={setData}
         data={data}
         onChange={(value) => setData(value)}
       />
       <br />
-      <GreenButton onClick={() => handleClick(1)} text="Approve" />
-      <RedButton onClick={() => handleClick(2)} text="Reject" />
+      <GreenButton onClick={() => onClickApproveReject(1)} text="Approve" />
+      <RedButton onClick={() => onClickApproveReject(2)} text="Reject" />
       <br />
 
       <Pagination

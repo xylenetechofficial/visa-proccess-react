@@ -1,56 +1,40 @@
-import { useEffect, useState } from "react"
 import { FullScreenModal } from "../../../../componenets/Modal"
 import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input"
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 import { createClientAdditionalInvoice } from "../repository"
-import { readCompanyList } from "../../../masters/company/repository"
 import { CompanyInterface } from "../../../masters/company/type"
-
-
+import { useState } from "react"
 
 export default function Main(props: {
-    onClose: any, 
+    onClose: () => void,
     fetchClientAdditionalInvoiceList: any,
-    // createClientAdditionalInvoiceTemp:any
-    companyList:CompanyInterface[]
+    companyList: CompanyInterface[]
 }) {
 
-    // const initValue: AccountDashboardInterface = {
     const initValue: any = {
-     
         company_id: 0,
         invoice_date: "",
         invoice_number: 0,
         invoice_amount: 0,
     }
 
-    const [accountDashboard, setAccountDashboard] = useState(initValue)
-
-
-    // const [companyList, setCompanyList]=useState<any>([]);
-    // const fetchCompanyList = async () => {
-    //     setCompanyList(await readCompanyList(true))
-    // }
-    // useEffect(()=>{
-    //     fetchCompanyList()
-    //   },[])
+    const [clientAdditionalInvoice, setclientAdditionalInvoice] = useState(initValue)
 
     async function onClickAdd() {
 
         // call create
-        const newArray :any = accountDashboard;
+        const newArray: any = clientAdditionalInvoice;
         const flag = await createClientAdditionalInvoice(newArray);
-        // const flag = await props.createClientAdditionalInvoiceTemp(newArray);
         if (!flag) {
             return;
         }
-        setAccountDashboard(initValue)
-        
+        setclientAdditionalInvoice(initValue)
+
         props.fetchClientAdditionalInvoiceList();
         props.onClose();
     }
-  
+
     return (
 
         <FullScreenModal
@@ -63,10 +47,10 @@ export default function Main(props: {
                 <UpdateContentBox>
                     <SubHeading1 text=" Client :" />
                     <CustomSelectComponentUnlabeled
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, company_id: value })}
+                        onChange={(value) => setclientAdditionalInvoice({ ...clientAdditionalInvoice, company_id: value })}
 
                         options={selectOptionConveter({ options: props.companyList, options_struct: { name: "name", value: "id" } })}
-                        value={accountDashboard.company}
+                        value={clientAdditionalInvoice.company}
                     />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -74,8 +58,8 @@ export default function Main(props: {
                     <SubHeading1 text="INVOICE DATE  :" />
                     <DateInput
                         id="sd;fksdakj"
-                        value={accountDashboard.invoice_date}
-                        onChange={(value) => setAccountDashboard({ ...accountDashboard, invoice_date: value })}
+                        value={clientAdditionalInvoice.invoice_date}
+                        onChange={(value) => setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_date: value })}
                     />
                 </UpdateContentBox>
 
@@ -83,19 +67,17 @@ export default function Main(props: {
 
                     <SubHeading1 text="INVOICE NUMBER  :" />
                     <UnlabeledInput
-                        value={accountDashboard.invoice_number}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, invoice_number: value })}
+                        value={clientAdditionalInvoice.invoice_number}
+                        onchange={(value) => setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_number: value })}
                     />
                 </UpdateContentBox>
 
                 <UpdateContentBox>
                     <SubHeading1 text=" INVOICE AMOUNT :" />
                     <UnlabeledInput
-                        
-type="number"
-                    
-                        value={accountDashboard.invoice_amount}
-                        onchange={(value) => setAccountDashboard({ ...accountDashboard, invoice_amount: parseInt(value) })}
+                        type="number"
+                        value={clientAdditionalInvoice.invoice_amount}
+                        onchange={(value) => setclientAdditionalInvoice({ ...clientAdditionalInvoice, invoice_amount: parseInt(value) })}
                     />
                 </UpdateContentBox>
             </div>

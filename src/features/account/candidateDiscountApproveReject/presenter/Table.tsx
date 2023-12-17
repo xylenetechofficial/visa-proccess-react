@@ -1,7 +1,4 @@
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3, } from '../../../../componenets/Table';
-import { SectorInterface } from '../../../masters/sector/type';
-import { CompanyInterface } from '../../../masters/company/type';
-import { CountryInterface } from '../../../masters/country/type';
 import { CandidateDiscountApproveRejectInterface } from '../type';
 import { useState } from 'react';
 import { Checkbox } from '@mui/material';
@@ -10,8 +7,8 @@ import { convertDateFormat } from '../../../../utils/function';
 const AgentPaymentTable = (props: {
   snoBase: number,
   candidateDiscountApproveReject: CandidateDiscountApproveRejectInterface[],
-  onClickEdit: any,
-  onClickDelete: any
+  
+  
   setData: any;
   data: any,
   onChange: (value: any) => void

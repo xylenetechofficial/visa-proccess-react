@@ -14,6 +14,7 @@ export interface PassportReleaseRequestInterface {
     air_ticket: string,
     division: string,
     ticketing_release_by_date: string,
+    checked?:boolean
 }
 
 
@@ -65,6 +66,16 @@ export class PassportReleaseRequestConverter {
         };
         return data;
     }
+    public static toInterfaceList(i_list: PassportReleaseRequestAdapter[]) {
+      const data_list: PassportReleaseRequestInterface[] = [];
+
+      for (let i = 0; i < i_list.length; i++) {
+          const element = i_list[i];
+          data_list.push(this.toInterface(element));
+      }
+
+      return data_list;
+  }
 
     /**
      * toAdapter
@@ -92,81 +103,91 @@ export class PassportReleaseRequestConverter {
         };
         return data;
     }
+    public static toAdapterList(i_list: PassportReleaseRequestInterface[]) {
+      const data_list: PassportReleaseRequestAdapter[] = [];
+
+      for (let i = 0; i < i_list.length; i++) {
+          const element = i_list[i];
+          data_list.push(this.toAdapter(element));
+      }
+
+      return data_list;
+  }
 }
 
 
-export interface AddPassportRequestInterface {
+// export interface AddPassportRequestInterface {
 
-    selection_list: PassportReleaseRequestInterface[],
+//     selection_list: PassportReleaseRequestInterface[],
     
-  }
+//   }
   
-  export interface AddPassportRequestAdapter {
+//   export interface AddPassportRequestAdapter {
   
-    selection_list: PassportReleaseRequestInterface[],
+//     selection_list: PassportReleaseRequestInterface[],
     
-  }
+//   }
   
   
-  export class AddPassportRequestConverter {
-    // private i: AddCandidateInvoiceNumberInterface
-    // private a: AddPenaltyAfterDeploymentAdapter
+  // export class AddPassportRequestConverter {
+  //   // private i: AddCandidateInvoiceNumberInterface
+  //   // private a: AddPenaltyAfterDeploymentAdapter
   
-    /**
-     * toInterface
-     */
-    public static toInterface(a: AddPassportRequestAdapter) {
-      const data: AddPassportRequestInterface = {
-        selection_list: a?.selection_list?.map((item) => ({
+  //   /**
+  //    * toInterface
+  //    */
+  //   public static toInterface(a: AddPassportRequestAdapter) {
+  //     const data: AddPassportRequestInterface = {
+  //       selection_list: a?.selection_list?.map((item) => ({
        
-            id: item.id,
-            party_code: item.party_code,
-            company_name: item.company_name,
-            candidate_name: item.candidate_name,
-            pp_no: item.pp_no,
-            actual_profession: item.actual_profession,
-            visa_profession: item.visa_profession,
-            agent_name: item.agent_name,
-            rc_name: item.rc_name,
-            visa_received_date: item.visa_received_date,
-            visa_expiry_date: item.visa_expiry_date,
-            is_invoice: item.is_invoice,
-            air_ticket: item.air_ticket,
-            division: item.division,
-            ticketing_release_by_date: item.ticketing_release_by_date,
-        })),
+  //           id: item.id,
+  //           party_code: item.party_code,
+  //           company_name: item.company_name,
+  //           candidate_name: item.candidate_name,
+  //           pp_no: item.pp_no,
+  //           actual_profession: item.actual_profession,
+  //           visa_profession: item.visa_profession,
+  //           agent_name: item.agent_name,
+  //           rc_name: item.rc_name,
+  //           visa_received_date: item.visa_received_date,
+  //           visa_expiry_date: item.visa_expiry_date,
+  //           is_invoice: item.is_invoice,
+  //           air_ticket: item.air_ticket,
+  //           division: item.division,
+  //           ticketing_release_by_date: item.ticketing_release_by_date,
+  //       })),
     
-      };
-      return data;
-    }
+  //     };
+  //     return data;
+  //   }
   
-    /**
-     * toAdapter
-     */
-    public static toAdapter(i: AddPassportRequestInterface) {
-      console.log("i"); // Only Dev
-      console.log(i); // Only Dev
-      const data: AddPassportRequestAdapter = {
+  //   /**
+  //    * toAdapter
+  //    */
+  //   public static toAdapter(i: AddPassportRequestInterface) {
+  //     console.log("i"); // Only Dev
+  //     console.log(i); // Only Dev
+  //     const data: AddPassportRequestAdapter = {
   
-        selection_list: i?.selection_list?.filter(item => item.ticketing_release_by_date !== '').map((item) => ({
-            id: item.id,
-            party_code: item.party_code,
-            company_name: item.company_name,
-            candidate_name: item.candidate_name,
-            pp_no: item.pp_no,
-            actual_profession: item.actual_profession,
-            visa_profession: item.visa_profession,
-            agent_name: item.agent_name,
-            rc_name: item.rc_name,
-            visa_received_date: item.visa_received_date,
-            visa_expiry_date: item.visa_expiry_date,
-            is_invoice: item.is_invoice,
-            air_ticket: item.air_ticket,
-            division: item.division,
-            ticketing_release_by_date: item.ticketing_release_by_date,
-      })),
+  //       selection_list: i?.selection_list?.filter(item => item.ticketing_release_by_date !== '').map((item) => ({
+  //           id: item.id,
+  //           party_code: item.party_code,
+  //           company_name: item.company_name,
+  //           candidate_name: item.candidate_name,
+  //           pp_no: item.pp_no,
+  //           actual_profession: item.actual_profession,
+  //           visa_profession: item.visa_profession,
+  //           agent_name: item.agent_name,
+  //           rc_name: item.rc_name,
+  //           visa_received_date: item.visa_received_date,
+  //           visa_expiry_date: item.visa_expiry_date,
+  //           is_invoice: item.is_invoice,
+  //           air_ticket: item.air_ticket,
+  //           division: item.division,
+  //           ticketing_release_by_date: item.ticketing_release_by_date,
+  //     })),
         
-      };
-      return data;
-    }
-  }
+  //     };
+  //     return data;
+  //   }
+  // }

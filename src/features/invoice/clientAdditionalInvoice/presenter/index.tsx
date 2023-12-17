@@ -12,27 +12,6 @@ import { AdditionalDataInterface, PaginationManager } from '../../../../utils/ap
 import { AgentInterface } from '../../invoiceNumbers/type';
 import Pagination from "../../../../componenets/Pagination";
 import { readCompanyList } from '../../../masters/company/repository';
-// const DataList: ClientAdditionalInvoiceInterface[] = [{
-//     id: 1,
-//     company_id: 1,
-//     invoice_number:"string",
-//     invoice_date:"string",
-//     invoice_amount:"string",
-// },
-// {
-//     id: 1,
-//     company_id: 1,
-//     invoice_number:"string",
-//     invoice_date:"string",
-//     invoice_amount:"string",
-// },
-// {
-//     id: 1,
-//     company_id: 1,
-//     invoice_number:"string",
-//     invoice_date:"string",
-//     invoice_amount:"string",
-// }]
 
 export default function Main() {
 
@@ -49,10 +28,6 @@ export default function Main() {
     }
   );
 
-  const [editAgent, setEditAgent] = useState<AgentInterface>(
-    {} as AgentInterface
-  );
-
 
   const [searchQuery, setSearchQuery] = useState("");
   const filterData = (query: string, data: AgentInterface[]) => {
@@ -64,7 +39,7 @@ export default function Main() {
       );
     }
   };
-  const dataFiltered = filterData(searchQuery, agentList);
+  // const dataFiltered = filterData(searchQuery, agentList);
 
 
   const CardHeader = styled(Box)(() => ({
@@ -76,9 +51,10 @@ export default function Main() {
     justifyContent: "space-between",
   }));
 
-  const [modal, setModal] = useState('')
+
+  const [modalName, setModalName] = useState('')
   const [editinvoiceData, setEditInvoiceData] = useState({})
-  const [immigrationData, setImmigrationData] = useState<ClientAdditionalInvoiceInterface[]>([])
+  const [clientAdditionalInvoiceList, setClientAdditionalInvoiceList] = useState<ClientAdditionalInvoiceInterface[]>([])
 
 
   const fetchClientAdditionalInvoiceList = async (page?: number) => {
@@ -86,66 +62,61 @@ export default function Main() {
     const data = await readClientAdditionalInvoiceList({ page: page ?? additionalData.pagination.page });
     console.log(data, "dtata")
     if (data) {
-      setImmigrationData(data)
+      setClientAdditionalInvoiceList(data)
       filterData("", agentList);
       setAdditionalData(await PaginationManager.getData());
     }
 
   }
   const createClientAdditionalInvoiceTemp = async (data: any) => {
-    setImmigrationData([...immigrationData, data])
+    setClientAdditionalInvoiceList([...clientAdditionalInvoiceList, data])
   }
-  useEffect(() => {
-    // setImmigrationData(DataList)
-    fetchClientAdditionalInvoiceList();
-  }, [])
+
 
   const [companyList, setCompanyList] = useState<any>([]);
   const fetchCompanyList = async () => {
     setCompanyList(await readCompanyList(true))
   }
   useEffect(() => {
+    fetchClientAdditionalInvoiceList();
     fetchCompanyList()
   }, [])
 
   return (
     <div className='h-screen'>
-
       <CustomNavbarV3 pageName="CLIENT ADDITIONAL INVOICE" searchFunction={(query) => setSearchQuery(query)} />
       <CardHeader>
-        <RedButton text="Add Client Additional Invoice" onClick={() => setModal('create')} />
+        <RedButton text="Add Client Additional Invoice" onClick={() => setModalName('create')} />
       </CardHeader>
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
       <ClientAdditionalInvoiceTable
         snoBase={additionalData.pagination.sno_base}
-        immigrationData={immigrationData}
+        clientAdditionalInvoiceList={clientAdditionalInvoiceList}
         onClickEdit={(value) => setEditInvoiceData(value)}
-        onChange={(value) => setImmigrationData(value)}
-        setModal={setModal}
+        onChange={(value) => setClientAdditionalInvoiceList(value)}
+        setModalName={setModalName}
       />
       {
-        modal === 'create' ?
+        modalName === 'create' ?
           <ClientAdditionalInvoiceAdd
-            onClose={() => setModal('')}
+            onClose={() => setModalName('')}
             companyList={companyList}
             fetchClientAdditionalInvoiceList={fetchClientAdditionalInvoiceList}
           />
           : ''
       }
       {
-        modal === 'edit' ?
+        modalName === 'edit' ?
           <ClientAdditionalInvoiceAddEdit
-            immigrationData={editinvoiceData}
-            onClose={() => setModal('')}
+          clientAdditionalInvoiceList={editinvoiceData}
+            onClose={() => setModalName('')}
             companyList={companyList}
             fetchClientAdditionalInvoiceList={() => fetchClientAdditionalInvoiceList()}
           />
           : ''
       }
-
-
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
@@ -154,8 +125,5 @@ export default function Main() {
         }}
       />
     </div>
-
   );
-
-
 }

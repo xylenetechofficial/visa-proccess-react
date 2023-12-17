@@ -115,14 +115,5 @@ export async function updateBlockVisa(blockVisa: CandidateDiscountApproveRejectI
     // const path = "/account
 }
 
-export async function deleteBlockVisa(id: number) {
 
-  const path = "/visa-dpt/block-visa/" + id
-  const response = await ApiHelper.delete(path, {
-    tokenType: AuthTokenType.JWT
-  })
-
-  showMessage_v2({ message: response.message, status: response.code })
-
-}
 
