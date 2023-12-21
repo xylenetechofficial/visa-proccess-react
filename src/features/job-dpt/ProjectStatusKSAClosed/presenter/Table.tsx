@@ -3,6 +3,7 @@ import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3,  TableHeadR
 
 import { CustomSingleCheckBox } from '../../../../componenets/Checkbox';
 import { CustomSelectComponent } from '../../../../componenets/SelectBox';
+import { KsaStatusList } from '../../../db';
 
 
 
@@ -100,15 +101,7 @@ const ProjectStatusKSATable = (props: {
                                     onChange={(value) => {
                                         props.handleksaStatus(index, value)
                                     }}
-                                    options={
-                                        [
-                                            { name: "Under Process", value: "Under Process" },
-                                            { name: "Closed ", value: "Closed" },
-                                            { name: "On Hold", value: "On Hold" },
-                                            { name: "Cancelled", value: "Cancelled" },
-                                            { name: "Only visa balance", value: "Only visa balance" },
-                                            { name: "Processed In old module", value: "Processed In old module" },
-                                        ]}
+                                    options={KsaStatusList}
                                     value={ele.ksa_status}
                                 />
                             </TableCell3>

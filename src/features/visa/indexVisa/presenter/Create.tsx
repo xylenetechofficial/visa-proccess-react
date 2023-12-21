@@ -141,10 +141,10 @@ export default function Main(props: {
                         arabic_sponsor_name: blockVisaList[i].arabic_sponsor_name,
                         division: blockVisaList[i].division,
                         sponsor_id: blockVisaList[i].sponsor_id,
-                        om: blockVisaList[i].om,
+                        // om: blockVisaList[i].om,
 
-                        rc: blockVisaList[i].rc,
-                        rm: blockVisaList[i].rm,
+                        // rc: blockVisaList[i].rc,
+                        // rm: blockVisaList[i].rm,
                         visaProfessionList: blockVisaList[i].visaProfessionList
 
                     })
@@ -174,9 +174,9 @@ export default function Main(props: {
                         arabic_sponsor_name: "",
                         division: "",
                         sponsor_id: "",
-                        om: 0,
-                        rc: 0,
-                        rm: 0,
+                        // om: 0,
+                        // rc: 0,
+                        // rm: 0,
                         visaProfessionList: []
 
                     })

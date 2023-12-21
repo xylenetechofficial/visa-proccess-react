@@ -56,7 +56,7 @@ export default function Main(props:{
                             <TableCell3> {item.given_to} </TableCell3>
                             <TableCell3> {item.payment} </TableCell3>
                             <TableCell3> {item.is_invoice} </TableCell3>
-                            <TableCell3><CustomSingleCheckBox value={item.advance=="Yes"?true:false} onChange={(e) => onUpdateRow(index,{...item,advance:e.target.checked ? "Yes":'No'})} /></TableCell3>
+                            <TableCell3><CustomSingleCheckBox value={item.advance=="Yes"?true:false} onChange={(e) => onUpdateRow(index,{...item,advance:e ? "Yes":'No'})} /></TableCell3>
                             <TableCell3><DateInput id="paymentDate" value={item.payment_date} onChange={(value)=>onUpdateRow(index,{...item,payment_date:value})}/></TableCell3>
                         </TableRow3>
                     ))}

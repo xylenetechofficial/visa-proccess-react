@@ -241,13 +241,13 @@ export function NavbarResponsiveFeatures(props: { searchFunction: (ele: string) 
         </li>
 
 
-        <li className='mb-3 md:mb-0'>
+        {/* <li className='mb-3 md:mb-0'>
             <button type="button" className="relative inline-flex items-center p-2 mb-2 mr-2 text-sm font-medium text-center rounded-lg text-navbar-text hover:bg-highlight focus:ring-4 focus:outline-none focus:ring-blue-300 ">
                 <FaRegBell className="w-8 h-8" />
                 <span className="sr-only">Notifications</span>
                 <div className="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white border-2 border-white rounded-full bg-[#E10000] top-1 right-1 dark:border-gray-900"></div>
             </button>
-        </li>
+        </li> */}
         {props.refresh ?
             <li className='mb-3 md:mb-0'>
                 <button type="button"

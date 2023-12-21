@@ -192,3 +192,14 @@ export const DataByList = [
   { name: "KSA", value: "ksa" },
   { name: "NON KSA", value: "non ksa" },
 ];
+
+
+
+export const KsaStatusList = [
+  { name: "Under Process", value: "Under Process" },
+  { name: "Closed ", value: "Closed" },
+  { name: "On Hold", value: "On Hold" },
+  { name: "Cancelled", value: "Cancelled" },
+  { name: "Only visa balance", value: "Only visa balance" },
+  { name: "Processed In old module", value: "Processed In old module" },
+];

@@ -58,6 +58,7 @@ export async function readMofaEntryPartyCodeList(status: string) {
     queryParameters: {
       status: status ?? "",
     },
+    cacheTime: 1,
   });
 
   if (response.code != 200) {
@@ -137,11 +138,12 @@ export async function UpdateMofaEntry(
   showMessage_v2({ message: response.message, status: response.code });
   return response;
 }
-export async function deleteMofaEntry(candidateEle:Mofa_Entry_Candidate_Interface){
-  
-  const path = "/visa-dpt/mofa-entry/" + candidateEle.id
+export async function deleteMofaEntry(
+  candidateEle: Mofa_Entry_Candidate_Interface
+) {
+  const path = "/visa-dpt/mofa-entry/" + candidateEle.id;
   const response = await ApiHelper.delete(path, {
-    tokenType: AuthTokenType.JWT
-  })
+    tokenType: AuthTokenType.JWT,
+  });
   showMessage_v2({ message: response.message, status: response.code });
 }

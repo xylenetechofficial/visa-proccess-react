@@ -33,7 +33,7 @@ export const showMessage_v2 = (props: {
   status?: number;
 }) => {
   if (!props.timer) {
-    props.timer = 3000;
+    props.timer = 5000;
   }
 
   if (!props.message) {
