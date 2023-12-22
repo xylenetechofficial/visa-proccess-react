@@ -9,16 +9,13 @@ import { TickeDashboardAdapter2, TickeDashboardInterface2, TicketAdapter, Ticket
 import { AddUnderprocessConverter, UnderprocessAdapter, UnderprocessConverter, UnderprocessInterface } from "./underprocessType";
 
 
-export async function readTicketDashboardList(page?: number,status?:string) {
+export async function readTicketDashboardList(queryParameters?: { page?: number, status?: string }) {
   const path = "/ticketing-dpt/tickets-dashboard-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
-    queryParameters:{
-      page:page ?? 0,
-      status:status ?? ''
-    }
+    queryParameters: queryParameters
   });
 
   if (response.code != 200) {
@@ -135,16 +132,16 @@ export async function updateTicketToBeBookedList(ticketDashboard: TicketInterfac
 //post ticketing-dpt/tickets-dashboard/ticket-under-process-list
 //delete ticketing-dpt/tickets-dashboard/ticket-under-process/{id}
 
-export async function readUnderProcessList(ticketDashboard: any, status?:string) {
+export async function readUnderProcessList(ticketDashboard: any, queryParameters?: { page?: number, status?: string }) {
   const path = "/ticketing-dpt/tickets-dashboard/ticket-under-process-list";
   console.log(ticketDashboard, "IPA")
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
+      ...queryParameters,
       ticketing_sector_from: ticketDashboard.ticketing_sector_from,
       ticketing_sector_to: ticketDashboard.ticketing_sector_to,
-      status:status ??""
     }
   });
 
@@ -235,16 +232,16 @@ export async function updateTryingList(ticketDashboard: TypingInterface[]) {
   return false;
 }
 
-export async function readTrying(ticketDashboard: any, status?:string) {
+export async function readTrying(ticketDashboard: any, queryParameters?: { page?: number, status?: string }) {
   const path = "/ticketing-dpt/tickets-dashboard/ticket-trying-list";
   console.log(ticketDashboard, "IPA")
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
+      ...queryParameters,
       ticketing_sector_from: ticketDashboard.ticketing_sector_from,
       ticketing_sector_to: ticketDashboard.ticketing_sector_to,
-      status:status ??""
     }
   });
 
@@ -252,17 +249,17 @@ export async function readTrying(ticketDashboard: any, status?:string) {
     showMessage_v2({ message: response.message, status: response.code })
   }
   const data = []
-    console.log(response.data)
-    if (response.data) {
-      const dataAdapter = response.data as TypingAdapter[];
-      for (let i = 0; i < dataAdapter.length; i++) {
-        const element = dataAdapter[i];
-        data.push(TypingConverter.toInterface(element));
-      }
+  console.log(response.data)
+  if (response.data) {
+    const dataAdapter = response.data as TypingAdapter[];
+    for (let i = 0; i < dataAdapter.length; i++) {
+      const element = dataAdapter[i];
+      data.push(TypingConverter.toInterface(element));
     }
-    console.log("first", data)
-    return data as TypingInterface[]
-  
+  }
+  console.log("first", data)
+  return data as TypingInterface[]
+
 }
 
 //   export async function updateTryingReverse(item:TypingInterface){
@@ -313,13 +310,14 @@ export async function updateTryingReverse(item: TypingInterface) {
 
 
 // by backend
-export async function readAgencyInvoiceAwaiting(ticketDashboard: any) {
+export async function readAgencyInvoiceAwaiting(ticketDashboard: any,queryParameters?: { page?: number, status?: string }) {
   const path = "/ticketing-dpt/tickets-dashboard/agency-invoice-awaiting-list";
 
   const response = await ApiHelper.get(path, {
     contentType: ContentType.json,
     tokenType: AuthTokenType.JWT,
     queryParameters: {
+      ...queryParameters,
       ticketing_sector_from: ticketDashboard.ticketing_sector_from,
       ticketing_sector_to: ticketDashboard.ticketing_sector_to
     }

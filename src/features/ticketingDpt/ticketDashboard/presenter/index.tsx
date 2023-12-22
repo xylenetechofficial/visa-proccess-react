@@ -6,8 +6,8 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import {  readAgencyInvoiceAwaiting, readTicketDashboardList, readTicketToBeBookedList, readTrying, readUnderProcessList } from "../repository";
-import { TickeDashboardInterface2,  TicketInterface } from "../type";
+import { readAgencyInvoiceAwaiting, readTicketDashboardList, readTicketToBeBookedList, readTrying, readUnderProcessList } from "../repository";
+import { TickeDashboardInterface2, TicketInterface } from "../type";
 import TicketToBeBookedModal from "./TicketToBeBooked";
 import UnderProcess from "./UnderProcess";
 import Trying from "./Trying";
@@ -33,7 +33,7 @@ export default function Main() {
 
   // console.log(TicketDashboardList, "Amit")
   async function fetchTicketDashboard() {
-    const data = await readTicketDashboardList();
+    const data = await readTicketDashboardList({ page: 0, status: "no" });
     if (data) {
       setTicketDashboardList(data);
     }
@@ -71,7 +71,7 @@ export default function Main() {
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("underProcess");
-    const res: any = await readUnderProcessList(ticketDashboard);
+    const res: any = await readUnderProcessList(ticketDashboard, { page: 0, status: "no" });
     console.log(res, "RESLL")
     if (res) {
       setOpenUnderProcess(res)
@@ -83,7 +83,7 @@ export default function Main() {
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("agencyinvoiceawaiting");
-    const res: any = await readAgencyInvoiceAwaiting(ticketDashboard)
+    const res: any = await readAgencyInvoiceAwaiting(ticketDashboard, { page: 0, status: "no" });
     if (res) {
       setAgencyInvoiceAwaiting(res)
     }
@@ -93,7 +93,7 @@ export default function Main() {
     console.log("onClickEdit"); // Only Dev
     console.log(ticketDashboard); // Only Dev
     setModalName("typingmodal");
-    const res: any = await readTrying(ticketDashboard)
+    const res: any = await readTrying(ticketDashboard, { page: 0, status: "no" });
     if (res) {
       setTrying(res)
     }
@@ -103,7 +103,7 @@ export default function Main() {
     const res = await readAgencyList();
     setAgencyList(res);
   };
-  
+
   useEffect(() => {
     fetchTicketDashboard();
     fetchAgencyList();
@@ -119,7 +119,7 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
         <div>
-          <BlueButton text="Edit" onClick={()=>setModalName('edit')} /> 
+          <BlueButton text="Edit" onClick={() => setModalName('edit')} />
           {/* <RedButton text="Delete" onClick={()=>setModalName('delete')} /> */}
         </div>
       </CardHeader>
@@ -175,7 +175,7 @@ export default function Main() {
         />
       )}
 
-      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} setModalName={(value)=>setModalName(value)}/> :''}
+      {modalName === 'edit' ? <EditModal onClose={() => setModalName('')} setModalName={(value) => setModalName(value)} /> : ''}
       {/* <GreenButton text='Submit' onClick={()=>onClickCreate(TicketDashboardList)} /> */}
     </>
   );

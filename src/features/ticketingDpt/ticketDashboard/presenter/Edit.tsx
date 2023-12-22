@@ -22,12 +22,12 @@ export default function Main(props:
     const [openTicketToBeBooked, setOpenTicketToBeBooked] =
         useState<TicketInterface[]>([]);
 
-        const [agencyInvoiceAwaiting, setAgencyInvoiceAwaiting] =
+    const [agencyInvoiceAwaiting, setAgencyInvoiceAwaiting] =
         useState<AgentInvoiceAwaitingInterface[]>([]);
 
     async function fetchTicketDashboard() {
-        const data = await readTicketDashboardList(0, "yes");
-        console.log(data,"s")
+        const data = await readTicketDashboardList({ page: 0, status: "yes" });
+        console.log(data, "s")
         if (data) {
             setTicketDashboardList(data);
         }
@@ -52,19 +52,19 @@ export default function Main(props:
         console.log("onClickEdit"); // Only Dev
         console.log(ticketDashboard); // Only Dev
         props.setModalName("typingmodal");
-        const res: any = await readTrying(ticketDashboard ,"yes")
+        const res: any = await readTrying(ticketDashboard, { page: 0, status: "yes" });
         if (res) {
             setTrying(res)
         }
     };
 
-    
+
     const underProcess = async (ticketDashboard: TickeDashboardInterface2) => {
 
         console.log("onClickEdit"); // Only Dev
         console.log(ticketDashboard); // Only Dev
         props.setModalName("underProcess");
-        const res: any = await readUnderProcessList(ticketDashboard, "yes");
+        const res: any = await readUnderProcessList(ticketDashboard, { page: 0, status: "yes" });
         console.log(res, "RESLL")
         if (res) {
             setOpenUnderProcess(res)
@@ -76,11 +76,11 @@ export default function Main(props:
         console.log("onClickEdit"); // Only Dev
         console.log(ticketDashboard); // Only Dev
         props.setModalName("agencyinvoiceawaiting");
-        const res: any = await readAgencyInvoiceAwaiting(ticketDashboard)
+        const res: any = await readAgencyInvoiceAwaiting(ticketDashboard, { page: 0, status: "yes" });
         if (res) {
-          setAgencyInvoiceAwaiting(res)
+            setAgencyInvoiceAwaiting(res)
         }
-      };
+    };
 
 
     const handleClick = () => {
@@ -94,17 +94,17 @@ export default function Main(props:
         <FullScreenModal
             buttonName=""
             handleClick={() => handleClick()}
-            title="Trying"
+            title="Ticket Dashboard"
             onClose={props.onClose}
         >
 
             <Table
-            //  TicketToBeBooked={TicketToBeBooked}
-              TicketDashboardList={TicketDashboardList}
-               tryingFunction={tryingFunction} 
-               underProcess={underProcess}
-                // AgencyInvoiceAwaiting={AgencyInvoiceAwaiting}
-                />
+                //  TicketToBeBooked={TicketToBeBooked}
+                TicketDashboardList={TicketDashboardList}
+                tryingFunction={tryingFunction}
+                underProcess={underProcess}
+            // AgencyInvoiceAwaiting={AgencyInvoiceAwaiting}
+            />
         </FullScreenModal>
     )
 }
