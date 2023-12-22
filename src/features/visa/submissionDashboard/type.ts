@@ -47,6 +47,8 @@ export interface SubmissionDashboardInterface {
 
   mofa_rejecte_remarks?: string;
   color_code?: string;
+
+  ministry_order_no: string;
 }
 
 export interface SubmissionDashboardAdapter {
@@ -96,6 +98,8 @@ export interface SubmissionDashboardAdapter {
   mofa_rejecte_remarks?: string;
 
   color_code?: string;
+
+  ministry_order_no: string;
 }
 
 export class SubmissionDashboardConverter {
@@ -152,8 +156,9 @@ export class SubmissionDashboardConverter {
       is_without: a.is_without,
 
       mofa_rejecte_remarks: a.mofa_rejecte_remarks,
-      
+
       color_code: a.color_code,
+      ministry_order_no: a.ministry_order_no,
     };
 
     return data;
@@ -200,6 +205,7 @@ export class SubmissionDashboardConverter {
       is_without: i.is_without,
 
       mofa_rejecte_remarks: i.mofa_rejecte_remarks,
+      ministry_order_no: i.ministry_order_no,
     };
     return data;
   }

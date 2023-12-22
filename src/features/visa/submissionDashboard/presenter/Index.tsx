@@ -27,51 +27,51 @@ const CardHeader = styled(Box)(() => ({
   alignItems: "center",
   justifyContent: "space-between",
 }));
-const initValue: SubmissionDashboardInterface = {
-  id: 0,
-  party_code: "",
-  company_name: "",
-  name: "",
-  passport_no: "",
+// const initValue: SubmissionDashboardInterface = {
+//   id: 0,
+//   party_code: "",
+//   company_name: "",
+//   name: "",
+//   passport_no: "",
 
-  mofa_number: "",
-  visa_profession: "",
-  visa_authorization: "",
-  visa_submission: "",
-  visa_no: "",
+//   mofa_number: "",
+//   visa_profession: "",
+//   visa_authorization: "",
+//   visa_submission: "",
+//   visa_no: "",
 
-  submission_date: "",
-  visa_issue_date: "",
-  visa_received_date: "",
-  arabic_sponsor_name: "",
-  arabic_visa_category: "",
-  visa_arabic_date: "",
+//   submission_date: "",
+//   visa_issue_date: "",
+//   visa_received_date: "",
+//   arabic_sponsor_name: "",
+//   arabic_visa_category: "",
+//   visa_arabic_date: "",
 
-  pp_issued_date: "",
-  pp_expiry_date: "",
-  place_of_issue: "",
+//   pp_issued_date: "",
+//   pp_expiry_date: "",
+//   place_of_issue: "",
 
-  date_of_birth: "",
-  place_of_birth: "",
-  address: "",
+//   date_of_birth: "",
+//   place_of_birth: "",
+//   address: "",
 
-  actual_profession: "",
+//   actual_profession: "",
 
-  agent_name: "",
-  division: "",
-  rm_name: "",
-  rs_name: "",
-  rc_name: "",
+//   agent_name: "",
+//   division: "",
+//   rm_name: "",
+//   rs_name: "",
+//   rc_name: "",
 
-  cancelled_candidates: "",
-  document_charges: 0,
-  consulate_charges: 0,
+//   cancelled_candidates: "",
+//   document_charges: 0,
+//   consulate_charges: 0,
 
-  remarks: "",
-  is_without: 0,
+//   remarks: "",
+//   is_without: 0,
 
-  reject: 0,
-};
+//   reject: 0,
+// };
 export default function Main() {
   const [submissionDashboardDataList, setSubmissionDashboardDataList] =
     useState<SubmissionDashboardInterface[]>([]);

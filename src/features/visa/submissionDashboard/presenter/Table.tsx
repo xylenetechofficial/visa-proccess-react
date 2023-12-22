@@ -57,8 +57,8 @@ const initValue: SubmissionDashboardInterface = {
     remarks: "",
     reject: 0,
 
-    is_without: 0
-    ,
+    is_without: 0,
+    ministry_order_no:"",
 }
 
 const Table = (props: {
@@ -85,6 +85,8 @@ const Table = (props: {
         ["*SUBMISSION DATE"],
         ["*VISA ISSUED DATE"],
         ["*VISA RECEIVED DATE"],
+        ["Ministry Order No"],
+        
         ["ARABIC SPONSOR NAME"],
         ["ARABIC VISA CATEGORY"],
         ["VISA ARABIC DATE"],
@@ -290,6 +292,12 @@ const TableData = (
             id='f;4ljf;ld'
             value={localRowData.visa_received_date}
             onChange={(value) => setLocalRowData({ ...localRowData, visa_received_date: value })}
+        />
+        </TableCell3>
+
+        <TableCell3 >  <UnlabeledInput
+            value={localRowData.ministry_order_no}
+            onchange={(value) => setLocalRowData({ ...localRowData, ministry_order_no: value })}
         />
         </TableCell3>
 
