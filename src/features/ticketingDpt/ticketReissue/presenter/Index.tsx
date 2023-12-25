@@ -7,6 +7,7 @@ import {
 import TicketReissueTable from "./Table";
 import { FaFilter } from "react-icons/fa";
 import EditModal from "./Edit";
+import AddModal from "./Add";
 import { readTicketIssueList } from "../repository";
 import { TicketIssueInterface } from "../type";
 import {
@@ -14,6 +15,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { BlueButton } from "../../../../componenets/CustomButton";
 
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -50,6 +52,13 @@ export default function Main() {
     console.log(reissue); // Only Dev
     setModalName("edit");
   };
+
+  const onClickAdd = (reissue: any) => {
+    setReIssue(reissue);
+    console.log("onClickAdd"); // Only Dev
+    console.log(reissue); // Only Dev
+    setModalName("add");
+  };
   const [ticketIssueList, setTicketIssueList] = useState<
     TicketIssueInterface[]
   >([]);
@@ -77,12 +86,28 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+
+        <div>
+          {/* {authPermissionList.url_has('create') ? <GreenButton
+            text={"Add"}
+            onClick={() => {
+              setModalName("add");
+            }}
+          /> : ""} */}
+          <BlueButton
+            text={"Edit"}
+            onClick={() => {
+              setModalName("edit");
+            }}
+          />
+        </div>
       </CardHeader>
 
       <TicketReissueTable
         snoBase={additionalData.pagination.sno_base}
-        onClickEdit={onClickEdit}
+        onClickAdd={onClickAdd}
         ticketIssueList={ticketIssueList}
+        onChange={(list) => setTicketIssueList(list)}
       />
 
       <Pagination
@@ -93,12 +118,23 @@ export default function Main() {
         }}
       />
 
+      {modalName !== "add" ? (
+        ""
+      ) : (
+        <AddModal
+          reIssue={reIssue}
+          setReIssue={setReIssue}
+          onClose={() => {
+            setModalName("");
+            fetchTicketissue();
+          }}
+        />
+      )}
+
       {modalName !== "edit" ? (
         ""
       ) : (
         <EditModal
-          reIssue={reIssue}
-          setReIssue={setReIssue}
           onClose={() => {
             setModalName("");
             fetchTicketissue();
