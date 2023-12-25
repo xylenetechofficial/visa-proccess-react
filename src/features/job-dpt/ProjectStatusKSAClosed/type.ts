@@ -22,6 +22,7 @@ export interface ProjectStatusKSAInterface {
   no_of_days_lapse: number;
   status: string;
   ksa_status: string;
+  job_order_no_url?: string;
 
 }
 export interface ProjectStatusKSAAdapter {
@@ -47,6 +48,7 @@ export interface ProjectStatusKSAAdapter {
   no_of_days_lapse: number;
   status: string;
   ksa_status: string;
+  job_order_no_url?: string;
 }
 
 export class ProjectStatusKSAConverter {
@@ -80,6 +82,7 @@ export class ProjectStatusKSAConverter {
       no_of_days_lapse: a.no_of_days_lapse,
       status: a.status,
       ksa_status: a.ksa_status,
+      job_order_no_url:a.job_order_no_url,
     };
     return data;
   }
@@ -125,6 +128,7 @@ export class ProjectStatusKSAConverter {
       no_of_days_lapse: i.no_of_days_lapse,
       status: i.status,
       ksa_status: i.ksa_status,
+      job_order_no_url:i.job_order_no_url,
     };
     return data;
   }

@@ -1,3 +1,4 @@
+import { string } from "prop-types";
 import {
   ActualProfessionConverter,
   ActualProfessionInterface,
@@ -47,6 +48,7 @@ export interface JobOrderInterface {
   file5_url?: string;
   momFile?: File;
   momFileUrl?: string;
+  job_order_no_url?: string;
 }
 
 export interface JobOrderAdapter {
@@ -91,6 +93,7 @@ export interface JobOrderAdapter {
   file5_url?: string;
   mom_file?: File;
   mom_file_url?: string;
+  job_order_no_url?: string;
 }
 export class JobOrderConverter {
   // private i: AgentInterface
@@ -155,6 +158,7 @@ export class JobOrderConverter {
       file5_url: a.file5_url,
       momFile: a.mom_file,
       momFileUrl: a.mom_file_url,
+      job_order_no_url:a.job_order_no_url,
     };
     return data;
   }
@@ -220,6 +224,7 @@ export class JobOrderConverter {
       file5: i.file5,
       mom_file: i.momFile,
       mom_file_url: i.momFileUrl,
+      job_order_no_url:i.job_order_no_url,
     };
     return data;
   }

@@ -12,6 +12,7 @@ export interface JobOrderInterface {
   client_country_name?: string;
   company_name?: string;
   division: string;
+  job_order_no_url?: string;
   departureSectorId: number;
   jobOrderNumber?: string;
   operationManagerId: number;
@@ -27,6 +28,7 @@ export interface JobOrderInterface {
   file3_url?: string;
   file4_url?: string;
   file5_url?: string;
+
 }
 
 export interface JobOrderAdapter {
@@ -40,6 +42,8 @@ export interface JobOrderAdapter {
   bde_id: number;
   bde_name?: string;
   company: number;
+  job_order_no_url?: string;
+
   client_country_name?: string;
   company_name?: string;
   division: string;
@@ -96,6 +100,7 @@ export class JobOrderConverter {
       file3_url: a.file3_url,
       file4_url: a.file4_url,
       file5_url: a.file5_url,
+      job_order_no_url: a.job_order_no_url,
     };
     return data;
   }
@@ -141,6 +146,7 @@ export class JobOrderConverter {
       file3: i.file3,
       file4: i.file4,
       file5: i.file5,
+      job_order_no_url: i.job_order_no_url,
     };
     return data;
   }

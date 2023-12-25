@@ -37,6 +37,7 @@ export interface JobOrderInterface {
   file5_url?: string;
 
   quantity?: number;
+  job_order_no_url?: string;
 }
 
 export interface JobOrderAdapter {
@@ -75,6 +76,7 @@ export interface JobOrderAdapter {
   file5_url?: string;
 
   quantity?: number;
+  job_order_no_url?: string;
 }
 export class JobOrderConverter {
   // private i: AgentInterface
@@ -122,6 +124,7 @@ export class JobOrderConverter {
       file5_url: a.file5_url,
 
       quantity: a.quantity,
+      job_order_no_url: a.job_order_no_url,
     };
     return data;
   }
@@ -177,6 +180,7 @@ export class JobOrderConverter {
       file5: i.file5,
 
       quantity: i.quantity,
+      job_order_no_url:i.job_order_no_url,
     };
     return data;
   }

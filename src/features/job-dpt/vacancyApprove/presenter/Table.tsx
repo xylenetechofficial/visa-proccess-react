@@ -1,5 +1,9 @@
 import { JobOrderInterface } from "../type";
-import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
+import {
+  BlueButton,
+  LinkButton,
+  RedButton,
+} from "../../../../componenets/CustomButton";
 import {
   Table3,
   TableBody3,
@@ -13,7 +17,7 @@ import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 // import { BDEList, OPManagerList, rcList, recruitManagerList, rsList } from '../../db/user';
-import { convertDateFormat } from "../../../../utils/function";
+import { convertDateFormat, openPopupWindow } from "../../../../utils/function";
 
 const JobOrderTable = (props: {
   snoBase: number;
@@ -46,7 +50,15 @@ const JobOrderTable = (props: {
           {props.jobOrderList.map((ele, index) => (
             <TableRow3 key={index}>
               <TableCell3>{index + props.snoBase + 1}</TableCell3>
-              <TableCell3> {ele.jobOrderNumber}</TableCell3>
+              <TableCell3>
+                <LinkButton
+                  text={ele.jobOrderNumber}
+                  onClick={() => {
+                    openPopupWindow(ele.job_order_no_url ?? "", "", 700, 650);
+                  }}
+                />
+                {/* {ele.jobOrderNumber} */}
+              </TableCell3>
               <TableCell3> {convertDateFormat(ele.date)}</TableCell3>
               <TableCell3> {ele.company_name ?? ""}</TableCell3>
               <TableCell3> {ele.client_country_name ?? ""}</TableCell3>

@@ -93,3 +93,16 @@ export const YellowButton: React.FC<ButtonProps> = ({ text = 'Button', onClick }
   );
 };
 
+
+
+export const LinkButton: React.FC<ButtonProps> = ({text, onClick}) => {
+  return(
+    <button
+    type="button"
+    className="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+    onClick={onClick}
+  >
+    {text}
+  </button>
+  )
+  }

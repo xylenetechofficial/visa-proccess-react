@@ -56,6 +56,7 @@ export interface JobOrderInterface {
 
   om_status: string;
   om_remarks: string;
+  job_order_no_url?: string;
 }
 
 export interface JobOrderAdapter {
@@ -106,6 +107,7 @@ export interface JobOrderAdapter {
 
   om_status: string;
   om_remarks: string;
+  job_order_no_url?: string;
 }
 export class JobOrderConverter {
   // private i: AgentInterface
@@ -174,6 +176,7 @@ export class JobOrderConverter {
 
       om_status: a.om_status,
       om_remarks: a.om_remarks,
+      job_order_no_url:a.job_order_no_url,
     };
     return data;
   }
@@ -245,6 +248,7 @@ export class JobOrderConverter {
 
       om_status: i.om_status,
       om_remarks: i.om_remarks,
+      job_order_no_url:i.job_order_no_url,
     };
     return data;
   }
