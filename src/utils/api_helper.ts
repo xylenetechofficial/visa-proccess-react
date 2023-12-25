@@ -66,6 +66,12 @@ export class ApiHelper {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
         this.CheckAuth(response);
+        RequestLogger.make({
+          message: response.message,
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "get",
+        });
 
         // store response to cache
         if (cacheTime) UCM.setData(response, cacheTime);
@@ -74,6 +80,12 @@ export class ApiHelper {
         console.log("//  =====  HTTP FAILD  =====  \\"); // Only Dev
         console.log(err); // Only Dev
         this.ErrorLogger(err);
+        RequestLogger.make({
+          message: "Error",
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "get",
+        });
       });
     return response;
   }
@@ -133,11 +145,23 @@ export class ApiHelper {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
         this.CheckAuth(response);
+        RequestLogger.make({
+          message: response.message,
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "post",
+        });
       })
       .catch((err) => {
         console.log("//  =====  HTTP FAILD  =====  \\"); // Only Dev
         console.log(err); // Only Dev
         this.ErrorLogger(err);
+        RequestLogger.make({
+          message: "Error",
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "post",
+        });
       });
     return response;
   }
@@ -186,11 +210,23 @@ export class ApiHelper {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
         this.CheckAuth(response);
+        RequestLogger.make({
+          message: response.message,
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "patch",
+        });
       })
       .catch((err: AxiosError) => {
         console.log("//  =====  HTTP FAILD  =====  \\"); // Only Dev
         console.log(err); // Only Dev
         this.ErrorLogger(err);
+        RequestLogger.make({
+          message: "Error",
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "patch",
+        });
       });
     return response;
   }
@@ -232,11 +268,23 @@ export class ApiHelper {
         // console.log(res); // Only Dev
         response = res.data as ResponseInterface;
         this.CheckAuth(response);
+        RequestLogger.make({
+          message: response.message,
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "delete",
+        });
       })
       .catch((err) => {
         console.log("//  =====  HTTP FAILD  =====  \\"); // Only Dev
         console.log(err); // Only Dev
         this.ErrorLogger(err);
+        RequestLogger.make({
+          message: "Error",
+          time_stamp: Date.now().toString(),
+          url: url,
+          method: "delete",
+        });
       });
     return response;
   }
@@ -434,5 +482,30 @@ export class PaginationManager {
   static async setData(additional_data: AdditionalDataInterface) {
     console.log("Savig additional_data: ", additional_data);
     this.ls.setItem("additional_data", JSON.stringify(additional_data));
+  }
+}
+
+interface RequestLoggerInterface {
+  time_stamp: string;
+  url: string;
+  method: string;
+  message: string;
+  messages?: any[];
+}
+
+class RequestLogger {
+  static ls = localStorage;
+
+  static make(log_data: RequestLoggerInterface) {
+    const data = this.ls.getItem("request_log") ?? "";
+
+    let data_list = [] as RequestLoggerInterface[];
+    if (data != "") {
+      data_list = JSON.parse(data) as RequestLoggerInterface[];
+    }
+
+    data_list.push(log_data);
+
+    this.ls.setItem("request_log", JSON.stringify(data_list));
   }
 }
