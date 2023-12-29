@@ -1,9 +1,6 @@
-// import { CandidateDiscountConverter, CandidateDiscountInterface } from "./type";
 import { AdditionalDataInterface, ApiHelper, AuthTokenType, ContentType, PaginationManager } from "../../../utils/api_helper";
 import { showMessage_v2 } from "../../../utils/alert";
 import { AccountCandidateAdapter, AccountCandidateCancelConverter, AccountCandidateCancelConverter2, AccountCandidateCancelInterface, AccountCandidateCancelInterface2, AccountCandidateConverter, AccountCandidateInterface } from "./type";
-
-
 
 export async function readCandidateDiscountList(query: {
   status?: string
@@ -19,13 +16,11 @@ export async function readCandidateDiscountList(query: {
       status: query.status ?? "",
     },
   });
-  console.log(response,"r")
   if (response.code != 200) {
     showMessage_v2({ message: response.message, status: response.code })
   }
 
   const data = []
-  console.log(response.data,"SESESE")
   if (response.data) {
     const dataAdapter = response.data as AccountCandidateAdapter[];
     for (let i = 0; i < dataAdapter.length; i++) {

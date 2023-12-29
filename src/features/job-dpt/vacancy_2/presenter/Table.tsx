@@ -50,7 +50,7 @@ const JobOrderTable = (props: {
                             <LinkButton
                   text={ele.jobOrderNumber}
                   onClick={() => {
-                    openPopupWindow(ele.job_order_no_url ?? "", "", 700, 650);
+                    openPopupWindow(ele.job_order_no_url??"", "", 700, 650);
                   }}
                 />
                 {/* {ele.jobOrderNumber} */}

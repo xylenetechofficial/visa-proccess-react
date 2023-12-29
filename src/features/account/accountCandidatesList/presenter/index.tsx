@@ -1,18 +1,8 @@
 import { useEffect, useState } from "react";
-import { Box, styled } from "@mui/material";
-import { FaFilter } from "react-icons/fa";
-import ClientAdditionalInvoiceTable from "./Table";
-import {
-  CustomButton2,
-  CustomNavbarV3,
-} from "../../../../componenets/CustomComponents";
-import { RedButton } from "../../../../componenets/CustomButton";
+import { CustomNavbarV3 } from "../../../../componenets/CustomComponents";
 import AccountCandidatesListTable from "./Table";
-import { readCandidateDiscountList, updateCandidate } from "../repository";
-import {
-  AccountCandidateCancelInterface,
-  AccountCandidateInterface,
-} from "../type";
+import { readCandidateDiscountList } from "../repository";
+import { AccountCandidateInterface } from "../type";
 import CandidateCancel from "./CandidateCancel";
 import {
   AdditionalDataInterface,
@@ -66,27 +56,23 @@ export default function Main() {
   );
 
   const fetchAccoundCandidates = async (page?: number) => {
-    const data: any = await readCandidateDiscountList({
+    const data = await readCandidateDiscountList({
       page: page ?? additionalData.pagination.page,
-      status: "no"
+      status: "no",
     });
-    console.log(data, "ddd");
-    if (data) {
       setCandidatesList(data);
-    }
     setAdditionalData(await PaginationManager.getData());
+
   };
   const [modalName, setModalName] = useState("");
   const [currentData, setCurrentData] =
     useState<AccountCandidateInterface>(initailState);
-  const onClickEdit = (data: any) => {
+    
+  const onClickCancel = (data: any) => {
     setCurrentData(data);
     setModalName("cancel");
   };
-  const [updateCandidateData, setUpdateCandidateData] = useState(initailState);
-  // const onCLickUpdate =async()=>{
-  //     const data:any = await updateCandidate(1,updateCandidateData)
-  // }
+
   useEffect(() => {
     fetchAccoundCandidates(additionalData.pagination.page);
   }, []);
@@ -101,18 +87,17 @@ export default function Main() {
       />
 
       <AccountCandidatesListTable
- snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         candidatesList={candidatesList}
         setCandidatesList={setCandidatesList}
         data={data}
         setData={setData}
-        onClickEdit={(value) => onClickEdit(value)}
+        onClickCancel={(value) => onClickCancel(value)}
       />
 
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
           fetchAccoundCandidates(e);
         }}
       />

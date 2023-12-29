@@ -19,6 +19,7 @@ import { convertDateFormat } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
 // import { generate_final_actual_profession } from "../../Extra/function";
 import { FileInput, FileInputUnlabel, FileOpenPopup } from "../../../../componenets/Input";
+import PreviousActualProfessionTable from "./PreviousActualProfessionTable";
 
 
 
@@ -51,8 +52,6 @@ export default function Main(props: {
         interviewModeId: 0,
         master_sector_ids: [],
         differed_sector_ids: [],
-
-
     }
     const [jobOrder, setJobOrder] = useState(initValue)
     const [isactualProfessionUpdated, setIsActualProfessionUpdated] = useState("")
@@ -394,12 +393,17 @@ export default function Main(props: {
 
 
             <Heading6 text="Actual Profession Table" />
-
             <ActualProfessionTable
                 actualProfessionList={actualProfesionList}
                 jobOrder={jobOrder}
                 onChange={(value) => setActualProfesionList(value)}
                 isChanged={isactualProfessionUpdated}
+            />
+
+<Heading6 text="Previous Profession Table" />
+            <PreviousActualProfessionTable
+                actualProfesionList_old={actualProfesionList_old}
+               
             />
 
         </FullScreenModal>

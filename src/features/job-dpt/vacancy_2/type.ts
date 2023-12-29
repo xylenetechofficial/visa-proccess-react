@@ -50,7 +50,7 @@ export interface JobOrderInterface {
 
   momFile?: File;
   momFileUrl?: string;
-  job_order_no_url?: string;
+  job_order_no_url?:string;
 }
 
 export interface JobOrderAdapter {
@@ -98,7 +98,7 @@ export interface JobOrderAdapter {
 
   mom_file?: File;
   mom_file_url?: string;
-  job_order_no_url?: string;
+  job_order_no_url?:string;
 }
 export class JobOrderConverter {
   // private i: AgentInterface

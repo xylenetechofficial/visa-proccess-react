@@ -7,11 +7,6 @@ import {
   TableHeadRow3,
   TableRow3,
 } from "../../../../componenets/Table";
-// import { Checkbox } from "@mui/material";
-// import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-// import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
-import { useState } from "react";
-// import { convertDateFormat } from "../../../../utils/function";
 import { AccountCandidateInterface } from "../type";
 import { RedButton } from "../../../../componenets/CustomButton";
 
@@ -21,10 +16,9 @@ const AccountCandidatesListTable = (props: {
   setCandidatesList: any;
   data: any;
   setData: any;
-  onClickEdit: (value: any) => void;
+  onClickCancel: (value: any) => void;
 }) => {
-  const [date, setDate] = useState<any>([]);
-  console.log(props.data);
+ 
   return (
     <div className="overflow-auto">
       <Table3>
@@ -91,7 +85,7 @@ const AccountCandidatesListTable = (props: {
                   <>
                     <RedButton
                       text="Cancel"
-                      onClick={() => props.onClickEdit(item)}
+                      onClick={() => props.onClickCancel(item)}
                     />
                   </>
                 ) : (

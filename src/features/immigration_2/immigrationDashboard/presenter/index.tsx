@@ -45,7 +45,7 @@ export default function Main() {
 
   const fetchImmigrationDashboardList = async (page?: number) => {
     const data = await readImmigrationList({
-      page: page ?? 1,
+      page: page ?? additionalData.pagination.page,
       status: "yes"
     });
     setImmigrationList(data);
