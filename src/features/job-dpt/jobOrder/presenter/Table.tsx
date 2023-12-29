@@ -8,9 +8,6 @@ import { CountryInterface } from '../../../masters/country/type';
 import { convertDateFormat, openPopupWindow } from '../../../../utils/function';
 import { useUserAuth } from '../../../context/UserAuthContext';
 
-
-
-
 const JobOrderTable = (props: {
     snoBase: number;
     jobOrderList: JobOrderInterface[],

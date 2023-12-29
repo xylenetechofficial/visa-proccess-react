@@ -82,8 +82,6 @@ const ActualProfessionTable = (props: {
                         <TableHeadCell3 > Job Description</TableHeadCell3>
                         <TableHeadCell3 > Master Service Charges	 			</TableHeadCell3>
                         <TableHeadCell3 > Differed Service Charges</TableHeadCell3>
-
-
                         <TableHeadCell3 >  Action</TableHeadCell3>
 
                     </TableHeadRow3>

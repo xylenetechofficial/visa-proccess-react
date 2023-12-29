@@ -18,6 +18,7 @@ import { CompanyInterface } from "../../../masters/company/type";
 import { CountryInterface } from "../../../masters/country/type";
 // import { BDEList, OPManagerList, rcList, recruitManagerList, rsList } from '../../db/user';
 import { convertDateFormat, openPopupWindow } from "../../../../utils/function";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const JobOrderTable = (props: {
   snoBase: number;
@@ -27,6 +28,9 @@ const JobOrderTable = (props: {
   companyList: CompanyInterface[];
   countryList: CountryInterface[];
 }) => {
+
+  const { authPermissionList } = useUserAuth()
+
   return (
     <div className="overflow-auto">
       <Table3>
@@ -74,12 +78,16 @@ const JobOrderTable = (props: {
               <TableCell3> {ele.rs_name ?? ""}</TableCell3>
               <TableCell3> {ele.rc_name ?? ""}</TableCell3>
               <TableCell3>
-                <BlueButton
+                {
+                  authPermissionList.url_has('update') ?
+                  <BlueButton
                   text={" Update"}
                   onClick={() => {
                     props.onClickEdit(ele);
                   }}
-                />
+                /> : ""
+                }
+               
 
                 {/* <RedButton text={"Delete"} preIcon='delete' onClick={() => {
                                         props.onClickDelete(ele)

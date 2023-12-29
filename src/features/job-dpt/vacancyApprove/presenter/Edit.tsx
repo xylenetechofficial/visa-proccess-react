@@ -200,7 +200,7 @@ export default function Main(props: {
         <FullScreenModal
             buttonName="Update"
             handleClick={onClickAdd}
-            title="Update Job Order"
+            title="Update Approve By RM"
             onClose={props.onClose}
         >
 

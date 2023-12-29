@@ -96,10 +96,19 @@ const FinalActualProfessionTable = (props: {
                     <TableHeadRow3  >
                         <TableHeadCell3  > Sr No.</TableHeadCell3>
                         <TableHeadCell3 > Actual Profession</TableHeadCell3>
+
                         {/* <TableHeadCell3 > Grade</TableHeadCell3> */}
+
                         <TableHeadCell3 >Sector</TableHeadCell3>
-                        <TableHeadCell3 >Sector Charge</TableHeadCell3>
+
                         <TableHeadCell3 > Quantity</TableHeadCell3>
+
+                        <TableHeadCell3 >Service Charges</TableHeadCell3>
+
+                        <TableHeadCell3 > Partial Charges</TableHeadCell3>
+
+                        <TableHeadCell3 >Sector Charge</TableHeadCell3>
+                    
                         {/* <TableHeadCell3 >Selection Target QTY</TableHeadCell3> */}
                         {/* <TableHeadCell3 > Min. Salary</TableHeadCell3> */}
                         {/* <TableHeadCell3 >Max. Salary</TableHeadCell3> */}
@@ -107,14 +116,20 @@ const FinalActualProfessionTable = (props: {
 
                         {/* <TableHeadCell3 > Master Service Charges</TableHeadCell3> */}
                         {/* <TableHeadCell3 > Differed Service Charges</TableHeadCell3> */}
-                        <TableHeadCell3 >Service Charges</TableHeadCell3>
-                        <TableHeadCell3 > Partial Charges</TableHeadCell3>
+                       
+                        
                         <TableHeadCell3 >Consoldilate Charges</TableHeadCell3>
+
                         <TableHeadCell3 > Agent Commission</TableHeadCell3>
+
                         <TableHeadCell3 > Air Ticket</TableHeadCell3>
+
                         <TableHeadCell3 > Is Invoice</TableHeadCell3>
+
                         <TableHeadCell3 > Invoice Service Charges</TableHeadCell3>
+
                         <TableHeadCell3 > Invoice Ticket Charges</TableHeadCell3>
+                        
                         <TableHeadCell3 > Invoice Service Charges Currency</TableHeadCell3>
                         <TableHeadCell3 >  Action</TableHeadCell3>
 
@@ -223,13 +238,7 @@ const TableData = (
                     onChange={(value) => setLocalRowData({ ...localRowData, sector: parseInt(value) })}
                 /> */}
             </TableCell3>
-            <TableCell3 >
-                <UnlabeledInput
-                    value={localRowData.sector_charge}
-                    type='number'
-                    onchange={(value) => setLocalRowData({ ...localRowData, sector_charge: parseInt(value) })}
-                />
-            </TableCell3>
+
             <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.quantity}
@@ -237,6 +246,31 @@ const TableData = (
                     onchange={(value) => setLocalRowData({ ...localRowData, quantity: parseInt(value) })}
                 />
             </TableCell3>
+
+            <TableCell3 >
+                <UnlabeledInput
+                    type='number'
+                    value={localRowData.service_charges}
+                    onchange={(value) => setLocalRowData({ ...localRowData, service_charges: parseInt(value) })}
+                />
+            </TableCell3>
+
+            <TableCell3 >
+                <UnlabeledInput
+                    type='number'
+                    value={localRowData.partial_charges}
+                    onchange={(value) => setLocalRowData({ ...localRowData, partial_charges: parseInt(value) })}
+                />
+            </TableCell3>
+
+            <TableCell3 >
+                <UnlabeledInput
+                    value={localRowData.sector_charge}
+                    type='number'
+                    onchange={(value) => setLocalRowData({ ...localRowData, sector_charge: parseInt(value) })}
+                />
+            </TableCell3>
+           
             {/* <TableCell3 >
                 <UnlabeledInput
                     value={localRowData.seletion_target_quantity}
@@ -280,20 +314,8 @@ const TableData = (
                     onchange={(value) => setLocalRowData({ ...localRowData, differed_service_charges: parseInt(value) })}
                 />
             </TableCell3> */}
-            <TableCell3 >
-                <UnlabeledInput
-                    type='number'
-                    value={localRowData.service_charges}
-                    onchange={(value) => setLocalRowData({ ...localRowData, service_charges: parseInt(value) })}
-                />
-            </TableCell3>
-            <TableCell3 >
-                <UnlabeledInput
-                    type='number'
-                    value={localRowData.partial_charges}
-                    onchange={(value) => setLocalRowData({ ...localRowData, partial_charges: parseInt(value) })}
-                />
-            </TableCell3>
+           
+           
             <TableCell3 >
                 <MultiSelectCheckbox
                     onChange={(value) => {
@@ -330,6 +352,7 @@ const TableData = (
                     onchange={(value) => setLocalRowData({ ...localRowData, agent_commission: parseInt(value) })}
                 />
             </TableCell3>
+
             <TableCell3 >
                 {/* {props.data.invoice_ticket_charges} */}
                 {/* <UnlabeledInput
@@ -344,6 +367,7 @@ const TableData = (
                     onChange={(value) => setLocalRowData({ ...localRowData, air_ticket: value })}
                 />
             </TableCell3>
+
             <TableCell3 >
                 <CustomSingleCheckBox
                     value={localRowData.is_invoice == 1 ? true : false}
@@ -360,6 +384,7 @@ const TableData = (
                     onchange={(value) => setLocalRowData({ ...localRowData, invoice_service_charges: parseInt(value) })}
                 />
             </TableCell3>
+
             <TableCell3 >
                 <UnlabeledInput
                     type='number'
