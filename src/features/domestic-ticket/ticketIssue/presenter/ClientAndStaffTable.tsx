@@ -1,8 +1,8 @@
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 // import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox";
-import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
+import { UnlabeledInput } from "../../../../componenets/Input";
 import { StaffAndClientInterface } from "../type";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+import {  CustomSelectComponentUnlabeled, selectOptionConveter} from "../../../../componenets/SelectBox";
 import { TravelBytList } from "../../../db";
 // import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 // import { GivenToList } from "../../../db";
@@ -14,7 +14,7 @@ import { TravelBytList } from "../../../db";
 const Main = (props: {
   snoBase: number,
   staffAndClientDataList: StaffAndClientInterface[],
-  onChange: (value: StaffAndClientInterface[]) => void,
+  onChange: any,
 }) => {
 
   const HEADERLIST = [
@@ -71,9 +71,9 @@ const Main = (props: {
                 <UnlabeledInput
                   value={item.ticket_amount}
                   type="number"
-                  onchange={(val: any) => {
-                    console.log(val);   // Only Dev
-                    onUpdateRow(index, { ...item, ticket_amount: val })
+                  onchange={(value:any) => {
+                    // console.log(val);   // Only Dev
+                    onUpdateRow(index, { ...item, ticket_amount: value })
                   }}
                 />
               </TableCell3>
@@ -82,7 +82,7 @@ const Main = (props: {
                 <CustomSelectComponentUnlabeled
                   value={item.travel_by}
                   options={selectOptionConveter({ options: TravelBytList, options_struct: { name: "name", value: "value" } })}
-                  onChange={(val: any) => {
+                  onChange={(val) => {
                     console.log(val);   // Only Dev
                     onUpdateRow(index, { ...item, travel_by: val })
                   }}
@@ -90,7 +90,7 @@ const Main = (props: {
               </TableCell3>
               <TableCell3>
                 <UnlabeledInput
-                  onchange={(val: any) => {
+                  onchange={(val:any) => {
                     console.log(val);   // Only Dev
                     onUpdateRow(index, { ...item, hotel_amount: val })
                   }}

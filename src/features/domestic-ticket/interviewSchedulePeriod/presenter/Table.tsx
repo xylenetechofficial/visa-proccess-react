@@ -11,14 +11,20 @@ import {
 } from "../../../../componenets/Table";
 import { CompanyInterface } from "../../../masters/company/type";
 import { convertDateFormat } from "../../../../utils/function";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const InterviewSchedulePeriodTable = (props: {
   snoBase: number;
   companyList: CompanyInterface[];
   interviewSchedulePeriodList: InterviewSchedulePeriodInterface[];
-  onClickEdit: any;
-  onClickDelete: any;
+  onClickEdit: (
+    interviewSchedulePeriod: InterviewSchedulePeriodInterface
+  ) => void;
+  onClickDelete: (
+    interviewSchedulePeriod: InterviewSchedulePeriodInterface
+  ) => void;
 }) => {
+  const { authPermissionList } = useUserAuth();
   return (
     <div
       className="overflow-auto"
@@ -57,19 +63,26 @@ const InterviewSchedulePeriodTable = (props: {
               <TableCell3>{ele.rc_name}</TableCell3>
 
               <TableCell3>
-                <BlueButton
-                  text={" EDIT"}
-                  onClick={() => {
-                    props.onClickEdit(ele);
-                  }}
-                />
-
-                <RedButton
-                  text={"DELETE"}
-                  onClick={() => {
-                    props.onClickDelete(ele);
-                  }}
-                />
+                {authPermissionList.url_has("update") ? (
+                  <BlueButton
+                    text={" EDIT"}
+                    onClick={() => {
+                      props.onClickEdit(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+                {authPermissionList.url_has("delete") ? (
+                  <RedButton
+                    text={"DELETE"}
+                    onClick={() => {
+                      props.onClickDelete(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
               </TableCell3>
             </TableRow3>
           ))}

@@ -29,8 +29,12 @@ import {
 } from "../repository";
 import { AgentInterface } from "../../agent/type";
 import { readAgentList } from "../../agent/repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -70,6 +74,7 @@ export default function Main() {
       );
     }
   };
+  const { authPermissionList } = useUserAuth();
   const dataFiltered = filterData(searchQuery, agentSpecialNoteList);
 
   const [agentList, setAgentList] = useState<AgentInterface[]>([]);
@@ -104,10 +109,12 @@ export default function Main() {
   // }, [editAgentSpecialNote, modalName])
 
   const fetchAgentSpecialNoteList = async (page?: number) => {
-    const res = await readAgentSpecialNoteList(true, page ?? additionalData.pagination.page);
+    const res = await readAgentSpecialNoteList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setAgentSpecialNoteList(res);
     setAdditionalData(await PaginationManager.getData());
-
   };
   useEffect(() => {
     fetchAgentSpecialNoteList(additionalData.pagination.page);
@@ -121,13 +128,16 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  agentSpecialNote stable */}

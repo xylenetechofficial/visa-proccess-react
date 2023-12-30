@@ -29,6 +29,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -52,7 +53,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [editInterviewMode, setEditInterviewMode] =
     useState<InterviewModeInterface>({} as InterviewModeInterface);
 
@@ -94,7 +95,10 @@ export default function Main() {
   // }, [editInterviewMode, modalName])
 
   const fetchInterviewModeList = async (page?: number) => {
-    const res = await readInterviewModeList(true, page ?? additionalData.pagination.page);
+    const res = await readInterviewModeList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setInterviewModeList(res);
     setAdditionalData(await PaginationManager.getData());
   };
@@ -111,13 +115,16 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        <GreenButton
-          text={"Add  +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add  +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  interviewMode stable */}

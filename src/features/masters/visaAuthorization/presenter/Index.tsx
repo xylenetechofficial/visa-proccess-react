@@ -27,8 +27,12 @@ import {
   deleteVisaAuthorisation,
   readVisaAuthorisationList,
 } from "../repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -52,7 +56,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [editVisaAuthorisation, setEditVisaAuthorisation] =
     useState<VisaAuthorisationInterface>({} as VisaAuthorisationInterface);
 
@@ -96,10 +100,9 @@ export default function Main() {
   // }, [editVisaAuthorisation, modalName])
 
   const fetchVisaAuthorisationList = async (page?: number) => {
-    const res = await readVisaAuthorisationList(true, page ?? 1)
+    const res = await readVisaAuthorisationList(true, page ?? 1);
     setVisaAuthorisationList(res);
     setAdditionalData(await PaginationManager.getData());
-
   };
   useEffect(() => {
     fetchVisaAuthorisationList();
@@ -114,13 +117,16 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        <GreenButton
-          text={"Add  +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add  +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  visaAuthorisation stable */}

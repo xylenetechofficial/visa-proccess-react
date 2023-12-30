@@ -44,18 +44,18 @@ export default function Main() {
 
   const fetchDeployCandidateData = async (page?: number) => {
     const data = await readDeployCandidatesList(page ?? 1);
-    console.log(data);
+    // console.log(data);
     setDeployCandidateList(data);
     setAdditionalData(await PaginationManager.getData());
   };
 
   const OnClickSubmit = async () => {
-    console.log(deployCandidateList);
+    // console.log(deployCandidateList);
     const newArray = [];
     for (let i = 0; i < deployCandidateList.length; i++) {
       newArray.push(deployCandidateList[i]);
     }
-    const res = updateDeployCandidates(newArray);
+    await updateDeployCandidates(newArray);
     fetchDeployCandidateData();
   };
 
@@ -87,7 +87,7 @@ export default function Main() {
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchDeployCandidateData(e);
         }}
       />

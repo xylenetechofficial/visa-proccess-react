@@ -8,6 +8,7 @@ import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHe
 import { CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { createSendToActualMofaEntryList, readPartyCodeList, readSendToActualMofaEntryList } from "../repository";
 import SendToActualMofaTable from "./CandidateTable";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -19,7 +20,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-
+// const {authPermissionList} = useUserAuth();
     const party_code_init: PartyCodeInterface = {
         company: 0,
         job_order_actual_profession_list: [],
@@ -67,7 +68,7 @@ export default function Main() {
     }
 
 
-    async function add_party_code(data: SendToActualMofaEntryInterface[], info: PartyCodeInterface) {
+ /*   async function add_party_code(data: SendToActualMofaEntryInterface[], info: PartyCodeInterface) {
         const newArray = data.map((ele, i) => {
             // ele.job_order_actual_profession=info.job_order_actual_profession_list
             ele.job_order_id = info.job_order_id
@@ -81,6 +82,7 @@ export default function Main() {
         // return newArray
         setSendToActualMofaEntryList(newArray)
     }
+    */
 
     useEffect(() => {
         fetchSendToActualMofaEntryList();

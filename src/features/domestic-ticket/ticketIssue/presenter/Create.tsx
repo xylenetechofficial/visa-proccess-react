@@ -1,7 +1,6 @@
 import { createTicketIssue } from "../repository";
 import { useEffect, useState } from "react";
-import Full, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, StandardInput } from "../../../../componenets/Input";
+import { FullScreenModal } from "../../../../componenets/Modal";
 import { TicketIssueInterface, convertinterviewSchedulePeriodOptions } from "../type";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { CompanyInterface } from "../../../masters/company/type";
@@ -9,8 +8,7 @@ import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { InterviewScheduleInterface } from "../../interviewSchedule/type";
 import { readInterviewSchedule, readInterviewScheduleList } from "../../interviewSchedule/repository";
-import { Heading2, UpdateContentBox } from "../../../../componenets/CoustomHeader";
-import { RedButton } from "../../../../componenets/CustomButton";
+import { Heading2 } from "../../../../componenets/CoustomHeader";
 import ClientAndStaffTable from './ClientAndStaffTable';
 
 
@@ -20,8 +18,8 @@ import ClientAndStaffTable from './ClientAndStaffTable';
 
 
 export default function Main(props: {
-    onClose: any,
-    fetchTicketIssueList: any,
+    onClose: () =>void,
+    fetchTicketIssueList: () =>void,
     sectorList: SectorInterface[],
     interviewSchedulePeriodList: InterviewSchedulePeriodInterface[],
     companyList: CompanyInterface[]
@@ -54,7 +52,7 @@ export default function Main(props: {
 
     const [interviewscheduleList, setInterviewscheduleList] =
         useState<InterviewScheduleInterface[]>([]);
-    const fetchInterviewscheduleList = async (period_id: any) => {
+    const fetchInterviewscheduleList = async (period_id: number) => {
         const data = await readInterviewScheduleList(0, {
             interview_schedule_period: period_id
         });
@@ -123,7 +121,7 @@ export default function Main(props: {
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.staff_list}
-                onChange={(value: any) => {
+                onChange={(value) => {
                     setTicketIssue({ ...ticketIssue, staff_list: value })
                 }}
             />
@@ -131,7 +129,7 @@ export default function Main(props: {
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.client_list}
-                onChange={(value: any) => {
+                onChange={(value) => {
                     setTicketIssue({ ...ticketIssue, client_list: value })
                 }}
             />

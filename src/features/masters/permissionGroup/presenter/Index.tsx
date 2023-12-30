@@ -14,6 +14,7 @@ import Pagination from "../../../../componenets/Pagination";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import { PermissionGroupInterface, PermissionInterface } from "../type";
 import { deletePermissionGroup, readPermissionGroupList, readSinglePermissionGroup } from "../repository";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",

@@ -16,7 +16,7 @@ import { NomineeRelationList, ReligionList, VisaSubmissionList } from "../../../
 
 
 export default function Main(props: {
-    onClose: any, fetchMofaEntryList: any,
+    onClose: () => void, fetchMofaEntryList: ()=>void,
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
@@ -194,7 +194,7 @@ export default function Main(props: {
                     <SubHeading1 text=" AGENT :" />
                     <CustomSelectComponentUnlabeled
                         value={mofaEntryListEle.agent}
-                        onChange={(value: any) => setMofaEntryListEle({ ...mofaEntryListEle, agent: value })}
+                        onChange={(value) => setMofaEntryListEle({ ...mofaEntryListEle, agent: value })}
                         options={selectOptionConveter({ options: agentList, options_struct: { name: "name", value: "id" } })}
                     />
                 </UpdateContentBox>
@@ -225,7 +225,7 @@ export default function Main(props: {
                     <SubHeading1 text="PP/COPY :" />
                     <CustomSelectComponentUnlabeled
                         value={mofaEntryListEle.pp_copy}
-                        onChange={(value: any) => setMofaEntryListEle({ ...mofaEntryListEle, pp_copy: value })}
+                        onChange={(value) => setMofaEntryListEle({ ...mofaEntryListEle, pp_copy: value })}
                         options={[
                             { name: "PP", value: "PP" },
                             { name: "COPY", value: "COPY" },
@@ -284,7 +284,7 @@ export default function Main(props: {
 
                     <CustomSelectComponentUnlabeled
                         value={mofaEntryListEle.nominee_relation}
-                        onChange={(value: any) => setMofaEntryListEle({ ...mofaEntryListEle, nominee_relation: value })}
+                        onChange={(value) => setMofaEntryListEle({ ...mofaEntryListEle, nominee_relation: value })}
                         options={NomineeRelationList}
                     />
                 </UpdateContentBox>
@@ -294,7 +294,7 @@ export default function Main(props: {
                     <SubHeading1 text="RELIGION   :" />
                     <CustomSelectComponentUnlabeled
                         value={mofaEntryListEle.religion}
-                        onChange={(value: any) => setMofaEntryListEle({ ...mofaEntryListEle, religion: value })}
+                        onChange={(value) => setMofaEntryListEle({ ...mofaEntryListEle, religion: value })}
                         options={ReligionList} />
                 </UpdateContentBox>
                 <UpdateContentBox>
@@ -303,7 +303,7 @@ export default function Main(props: {
 
                     <CustomSelectComponentUnlabeled
                         value={mofaEntryListEle.visa_authorization}
-                        onChange={(value: any) => setMofaEntryListEle({ ...mofaEntryListEle, visa_authorization: value })}
+                        onChange={(value) => setMofaEntryListEle({ ...mofaEntryListEle, visa_authorization: value })}
                         options={selectOptionConveter({ options: visaAuhorisationList, options_struct: { name: "name", value: "id" } })}
                     />
                 </UpdateContentBox>
@@ -313,7 +313,7 @@ export default function Main(props: {
 
                     <CustomSelectComponentUnlabeled
                         value={mofaEntryListEle.visa_submission}
-                        onChange={(value: any) => setMofaEntryListEle({ ...mofaEntryListEle, visa_submission: value })}
+                        onChange={(value) => setMofaEntryListEle({ ...mofaEntryListEle, visa_submission: value })}
                         options={VisaSubmissionList} />
                 </UpdateContentBox>
 

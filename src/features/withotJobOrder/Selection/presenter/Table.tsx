@@ -1,23 +1,30 @@
-import { SelectionInterface } from '../type'
-import { BlueButton, RedButton } from '../../../../componenets/CustomButton';
-import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
-import { convertDateFormat } from '../../../../utils/function';
-
-
-
+import { SelectionInterface } from "../type";
+import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
+import {
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
+} from "../../../../componenets/Table";
+import { convertDateFormat } from "../../../../utils/function";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const SelectionTable = (props: {
-    selectionList: SelectionInterface[],
-    onClickEdit: any,
-    onClickDelete: any
-    snoBase:number,
-    // sectorList: SectorInterface[],
-    // companyList: CompanyInterface[],
-    // countryList: CountryInterface[],
+  selectionList: SelectionInterface[];
+  onClickEdit: (selection: SelectionInterface) => void;
+  onClickDelete: (selection: SelectionInterface) => void;
+  snoBase: number;
+  // sectorList: SectorInterface[],
+  // companyList: CompanyInterface[],
+  // countryList: CountryInterface[],
 }) => {
-    return (
-        <div className='overflow-auto'>
-            {/* <Table  >
+  const { authPermissionList } = useUserAuth();
+  return (
+    <div className="overflow-auto">
+      {/* <Table  >
                 <TableHead >
                     <TableHeadRow  >
                         <TableHeadCell  > Sr No.</TableHeadCell>
@@ -63,57 +70,60 @@ const SelectionTable = (props: {
                 </TableBody>
             </Table> */}
 
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>
+            <TableHeadCell3> Sr No.</TableHeadCell3>
+            <TableHeadCell3> COMPANY</TableHeadCell3>
+            <TableHeadCell3> CANDIDATE NAME</TableHeadCell3>
+            <TableHeadCell3> PASSPORT NO</TableHeadCell3>
+            <TableHeadCell3> ACTUAL PROFESSION</TableHeadCell3>
+            <TableHeadCell3> AGENT</TableHeadCell3>
+            <TableHeadCell3> ADDED DATE</TableHeadCell3>
+            <TableHeadCell3> Action</TableHeadCell3>
+          </TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
+          {props.selectionList.map((ele, index) => (
+            <TableRow3 key={index}>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
+              {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell3> */}
+              <TableCell3> {ele.company_name ?? ""}</TableCell3>
+              <TableCell3> {ele.name}</TableCell3>
+              <TableCell3> {ele.passport_no}</TableCell3>
+              <TableCell3> {ele.actual_profession}</TableCell3>
+              <TableCell3> {ele.agent_name}</TableCell3>
+              <TableCell3> {convertDateFormat(ele.createAt)}</TableCell3>
+              <TableCell3>
+                {authPermissionList.url_has("update") ? (
+                  <BlueButton
+                    text={" Edit"}
+                    preIcon="edit"
+                    onClick={() => {
+                      props.onClickEdit(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+                {authPermissionList.url_has("delete") ? (
+                  <RedButton
+                    text={"Delete"}
+                    preIcon="delete"
+                    onClick={() => {
+                      props.onClickDelete(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+              </TableCell3>
+            </TableRow3>
+          ))}
+        </TableBody3>
+      </Table3>
+    </div>
+  );
+};
 
-            <Table3  >
-                <TableHead3 >
-                    <TableHeadRow3  >
-                        <TableHeadCell3  > Sr No.</TableHeadCell3>
-                        <TableHeadCell3 > COMPANY</TableHeadCell3>
-                        <TableHeadCell3 > CANDIDATE NAME</TableHeadCell3>
-                        <TableHeadCell3 > PASSPORT NO</TableHeadCell3>
-                        <TableHeadCell3 > ACTUAL PROFESSION</TableHeadCell3>
-                        <TableHeadCell3 > AGENT</TableHeadCell3>
-                        <TableHeadCell3 > ADDED DATE</TableHeadCell3>
-                        <TableHeadCell3 > Action</TableHeadCell3>
-
-                    </TableHeadRow3>
-                </TableHead3>
-                <TableBody3>
-                    {props.selectionList.map((ele, index) => (
-
-                        <TableRow3 key={index}>
-                            <TableCell3 >{index +props.snoBase + 1}</TableCell3>
-                            {/* <TableCell3 > {props.companyList.map((company) => company.id == ele.company_id ? company.name : "")}</TableCell3> */}
-                            <TableCell3 > {ele.company_name ?? ""}</TableCell3>
-                            <TableCell3 > {ele.name}</TableCell3>
-                            <TableCell3 > {ele.passport_no}</TableCell3>
-                            <TableCell3 > {ele.actual_profession}</TableCell3>
-                            <TableCell3 > {ele.agent_name}</TableCell3>
-                            <TableCell3 > {convertDateFormat(ele.createAt)}</TableCell3>
-                            <TableCell3 >
-
-
-                                <BlueButton text={" Edit"} preIcon='edit' onClick={() => {
-                                    props.onClickEdit(ele)
-                                }} />
-
-                                <RedButton text={"Delete"} preIcon='delete' onClick={() => {
-                                    props.onClickDelete(ele)
-                                }} />
-
-
-                            </TableCell3>
-                        </TableRow3>
-                    ))}
-
-
-
-                </TableBody3>
-            </Table3>
-
-        </div>
-    )
-}
-
-export default SelectionTable
-
+export default SelectionTable;

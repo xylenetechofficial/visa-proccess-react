@@ -157,13 +157,13 @@ export default function Main(props: {
                         <TableCellNew2>
                           <span className="text-red-600 px-10"
                             onClick={() => {
-                              props.underProcess(ticket);
+                              props.underProcess({ ...ticket, ticketing_sector_from: 0, ticketing_sector_to: 0 });
                             }}>   {extraData.total_ticket_under_process}</span>
                         </TableCellNew2>
                         <TableCellNew>
                           <span className="text-red-600 px-10"
                             onClick={() => {
-                              props.tryingFunction(ticket);
+                              props.tryingFunction({ ...ticket, ticketing_sector_from: 0, ticketing_sector_to: 0 });
                             }}> {extraData.total_ticket_trying}</span>
                         </TableCellNew>
                       </div>
@@ -172,7 +172,7 @@ export default function Main(props: {
                           <span className="text-red-600 px-10"
                             onClick={() => {
                               if (props.AgencyInvoiceAwaiting) {
-                                props.AgencyInvoiceAwaiting(ticket);
+                                props.AgencyInvoiceAwaiting({ ...ticket, ticketing_sector_from: 0, ticketing_sector_to: 0 });
                               }
                               
                             }}

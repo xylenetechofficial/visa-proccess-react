@@ -15,7 +15,11 @@ import { deleteBank, readBankList } from "../repository";
 import { readVisaAuthorisationList } from "../../visaAuthorization/repository";
 import { VisaAuthorisationInterface } from "../../visaAuthorization/type";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -38,6 +42,7 @@ export default function Main() {
     }
   );
 
+  const { authPermissionList } = useUserAuth();
   const [editBank, setEditBank] = useState<BankInterface>({} as BankInterface);
 
   const [modalName, setModalName] = useState("");
@@ -49,7 +54,7 @@ export default function Main() {
   >([]);
 
   const fetchVisaAuthorisationList = async () => {
-    const res = await readVisaAuthorisationList()
+    const res = await readVisaAuthorisationList();
     setVisaAuthorisationList(res);
   };
 
@@ -91,10 +96,12 @@ export default function Main() {
   // }, [editBank, modalName])
 
   const fetchBankList = async (page?: number) => {
-    const res = await readBankList(true, page ?? additionalData.pagination.page);
+    const res = await readBankList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setBankList(res);
-  setAdditionalData(await PaginationManager.getData());
-
+    setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
     fetchBankList(additionalData.pagination.page);
@@ -109,18 +116,21 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  bank stable */}
       <BankTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         bankList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}

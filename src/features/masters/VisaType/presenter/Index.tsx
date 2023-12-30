@@ -13,7 +13,11 @@ import { FaFilter } from "react-icons/fa";
 import { VisaTypeInterface } from "../type";
 import { deleteVisaType, readVisaTypeList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -35,7 +39,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [editVisaType, setEditVisaType] = useState<VisaTypeInterface>(
     {} as VisaTypeInterface
   );
@@ -78,10 +82,12 @@ export default function Main() {
   // }, [editVisaType, modalName])
 
   const fetchVisaTypeList = async (page?: number) => {
-    const res = await readVisaTypeList(true, page ?? additionalData.pagination.page);
+    const res = await readVisaTypeList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setVisaTypeList(res);
     setAdditionalData(await PaginationManager.getData());
-
   };
   useEffect(() => {
     fetchVisaTypeList(additionalData.pagination.page);
@@ -96,13 +102,17 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
         {/* <Button
                     variant="contained"
                     color="success"

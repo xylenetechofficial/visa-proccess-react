@@ -23,6 +23,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -33,6 +34,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth();
   const [selectionList, setSelectionList] = useState<SelectionInterface[]>([]);
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
@@ -67,7 +69,7 @@ export default function Main() {
 
   const onClickEdit = (selection: SelectionInterface) => {
     setEditSelection(selection);
-    console.log("onClickEdit"); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
     console.log(selection); // Only Dev
     setModalName("edit");
   };
@@ -129,13 +131,17 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
         {/* <Button
                     variant="contained"
                     color="success"
@@ -152,7 +158,7 @@ export default function Main() {
 
       {/*  selection stable */}
       <SelectionTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         selectionList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}

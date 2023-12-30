@@ -11,10 +11,23 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { AgencyInterface } from "../type";
-import { createUser, deleteAgency, deleteUser, readAgencyList, readRoleList, readSingleUser, readUserList, updateUser } from "../repository";
+import {
+  createUser,
+  deleteAgency,
+  deleteUser,
+  readAgencyList,
+  readRoleList,
+  readSingleUser,
+  readUserList,
+  updateUser,
+} from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import { UserInterface } from "../../user/type";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -26,15 +39,17 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
   const [agencyList, setAgencyList] = useState<AgencyInterface[]>([]);
-  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>({
-    pagination: {
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
         page: 1,
         page_count: 1,
         item_count: 0,
         sno_base: 0,
+      },
     }
-});
-
+  );
+  const { authPermissionList } = useUserAuth();
   const [editAgency, setEditAgency] = useState<AgencyInterface>(
     {} as AgencyInterface
   );
@@ -80,7 +95,7 @@ export default function Main() {
   // }, [editAgency, modalName])
 
   const fetchAgencyList = async (page?: number) => {
-    const res = await readAgencyList(true,  page);
+    const res = await readAgencyList(true, page);
     setAgencyList(res);
     setAdditionalData(await PaginationManager.getData());
     filterData("", res);
@@ -89,50 +104,52 @@ export default function Main() {
   useEffect(() => {
     fetchAgencyList(additionalData.pagination.page);
     fetchRoleList();
-    
   }, []);
 
-  const fetchRoleList = async()=>{
-  const res=  await readRoleList();
-  console.log(res,"WWWW")
-  
-  }
+  const fetchRoleList = async () => {
+    const res = await readRoleList();
+    console.log(res, "WWWW");
+  };
 
   //call it on any click or any event to fetch users list
-  const fetchUserList =async()=>{
-    const user = await readUserList({user_role_id:1,active:1},false)
-  // after getting result store it o any state for further
-  }
+  const fetchUserList = async () => {
+    const user = await readUserList({ user_role_id: 1, active: 1 }, false);
+    // after getting result store it o any state for further
+  };
 
   // call it any event for create user and send payload also instead empty curly braces
-  const createNewUser = async ()=>{
-    const res = await createUser({}as UserInterface)
-  }
-  // call it for read single user data 
-  const readUser = async(id: number)=>{
-    const res = await readSingleUser(id) 
-  }
-// call it on any event for update single user
-  const updateSingleUser=async(id:number, user:UserInterface)=>{
-    const res= await updateUser(id,user)
-  }
+  const createNewUser = async () => {
+    const res = await createUser({} as UserInterface);
+  };
+  // call it for read single user data
+  const readUser = async (id: number) => {
+    const res = await readSingleUser(id);
+  };
+  // call it on any event for update single user
+  const updateSingleUser = async (id: number, user: UserInterface) => {
+    const res = await updateUser(id, user);
+  };
   // call it on any event for delete single user
-  const deleteSingleUser = async(id:number)=>{
-    const res  = await deleteUser(id)
-  }
-    return (
+  const deleteSingleUser = async (id: number) => {
+    const res = await deleteUser(id);
+  };
+  return (
     <div>
       <CustomNavbarV3 pageName="Agency" searchFunction={searchFunction} />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         {/* Add */}
-        <GreenButton
-          text={"Addss +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Addss +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  agency stable */}

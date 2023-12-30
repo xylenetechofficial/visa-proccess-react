@@ -13,7 +13,11 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -40,6 +44,7 @@ export default function Main() {
     {} as CountryInterface
   );
 
+  const { authPermissionList } = useUserAuth();
   const [modalName, setModalName] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -78,9 +83,12 @@ export default function Main() {
   // }, [editCountry, modalName])
 
   const fetchCountryList = async (page?: number) => {
-    const res = await readCountryList(true, page ?? additionalData.pagination.page);
+    const res = await readCountryList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setCountryList(res);
-  setAdditionalData(await PaginationManager.getData());
+    setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
     fetchCountryList(additionalData.pagination.page);
@@ -95,13 +103,17 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
         {/* <Button
                     variant="contained"
                     color="success"
@@ -118,7 +130,7 @@ export default function Main() {
 
       {/*  country stable */}
       <CountryTable
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         countryList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}

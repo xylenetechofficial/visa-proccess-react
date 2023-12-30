@@ -11,47 +11,47 @@ import SelectionTable from "./CandidateTable";
 
 
 export default function Main(props: {
-    onClose: any, fetchSelectionList: any,
+    onClose: ()=>void, fetchSelectionList: ()=>void,
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
     countryList: CountryInterface[],
 }) {
 
-    const initValue: SelectionInterface = {
-        actual_profession: "",
-        address: "",
-        age: 0,
-        agent: "",
-        basic_salary: 0,
-        company_id: 0,
-        contact_no: "",
-        createAt: "",
-        date_of_birth: "",
-        fa: 0,
-        fa_provided: 0,
-        ha: 0,
-        ha_or_ta_provided: 0,
-        job_order_id: 0,
-        name: "",
-        nominee_name: "",
-        nominee_relation: "",
-        other_allowance: 0,
-        passport_no: "",
-        place_of_birth: "",
-        religion: "",
-        sector: 0,
-        selection_status: "",
-        ta: 0,
-        total_salary: 0,
-        id: 0,
-        place_of_issue: "",
-        pp_expiry_date: "",
-        pp_issued_date: "",
+    // const initValue: SelectionInterface = {
+    //     actual_profession: "",
+    //     address: "",
+    //     age: 0,
+    //     agent: "",
+    //     basic_salary: 0,
+    //     company_id: 0,
+    //     contact_no: "",
+    //     createAt: "",
+    //     date_of_birth: "",
+    //     fa: 0,
+    //     fa_provided: 0,
+    //     ha: 0,
+    //     ha_or_ta_provided: 0,
+    //     job_order_id: 0,
+    //     name: "",
+    //     nominee_name: "",
+    //     nominee_relation: "",
+    //     other_allowance: 0,
+    //     passport_no: "",
+    //     place_of_birth: "",
+    //     religion: "",
+    //     sector: 0,
+    //     selection_status: "",
+    //     ta: 0,
+    //     total_salary: 0,
+    //     id: 0,
+    //     place_of_issue: "",
+    //     pp_expiry_date: "",
+    //     pp_issued_date: "",
 
-        visa_authorization: 0,
-        visa_submission: '',
-        division: ''
-    }
+    //     visa_authorization: 0,
+    //     visa_submission: '',
+    //     division: ''
+    // }
     const [selectionList, setSelectionList] = useState<SelectionInterface[]>([])
     const [company, setCompany] = useState()
 

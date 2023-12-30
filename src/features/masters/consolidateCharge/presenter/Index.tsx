@@ -16,7 +16,11 @@ import {
   readConsolidateChargeList,
 } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -58,6 +62,8 @@ export default function Main() {
       );
     }
   };
+
+  const { authPermissionList } = useUserAuth();
   const dataFiltered = filterData(searchQuery, consolidateChargeList);
 
   const onClickCreate = () => {
@@ -85,10 +91,12 @@ export default function Main() {
   // }, [editConsolidateCharge, modalName])
 
   const fetchConsolidateChargeList = async (page?: number) => {
-    const res = await readConsolidateChargeList(true, page ?? additionalData.pagination.page);
+    const res = await readConsolidateChargeList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setConsolidateChargeList(res);
-  setAdditionalData(await PaginationManager.getData());
-
+    setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
     fetchConsolidateChargeList(additionalData.pagination.page);
@@ -104,12 +112,16 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  consolidateCharge stable */}

@@ -14,6 +14,7 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -37,6 +38,7 @@ export default function Main() {
     }
   );
 
+  const {authPermissionList} = useUserAuth();
   const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
   );
@@ -98,12 +100,17 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        <GreenButton
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
           text={"Add +"}
           onClick={() => {
             setModalName("create");
           }}
         />
+        ) : (
+          ""
+        )}
+       
       </CardHeader>
 
       {/*  agent stable */}

@@ -9,13 +9,15 @@ import {
   TableHeadRow3,
   TableRow3,
 } from "../../../../componenets/Table";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const InterviewModeTable = (props: {
   interviewModeList: InterviewModeInterface[];
   onClickEdit: any;
   onClickDelete: any;
-  snoBase:number,
+  snoBase: number;
 }) => {
+  const { authPermissionList } = useUserAuth();
   return (
     <div
       className="overflow-auto"
@@ -33,25 +35,33 @@ const InterviewModeTable = (props: {
         <TableBody3>
           {props.interviewModeList.map((ele, index) => (
             <TableRow3 key={index}>
-              <TableCell3>{index + props.snoBase +1}</TableCell3>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3> {ele.name}</TableCell3>
               <TableCell3> {ele.selectionType}</TableCell3>
               <TableCell3>
-                <BlueButton
-                  text={" Edit"}
-                  preIcon="edit"
-                  onClick={() => {
-                    props.onClickEdit(ele);
-                  }}
-                />
+                {authPermissionList.url_has("update") ? (
+                  <BlueButton
+                    text={" Edit"}
+                    preIcon="edit"
+                    onClick={() => {
+                      props.onClickEdit(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
 
-                <RedButton
-                  text={"Delete"}
-                  preIcon="delete"
-                  onClick={() => {
-                    props.onClickDelete(ele);
-                  }}
-                />
+                {authPermissionList.url_has("delete") ? (
+                  <RedButton
+                    text={"Delete"}
+                    preIcon="delete"
+                    onClick={() => {
+                      props.onClickDelete(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
               </TableCell3>
             </TableRow3>
           ))}

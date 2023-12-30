@@ -66,10 +66,10 @@ const MofaEntryTable = (props: {
     const [isMofaEntryChanged, setIsMofaEntryChanged] = useState<string>("")
 
     // add new row
-    const onClickAddNewRow = () => {
-        const arr = [...props.mofaEntryList, initValue]
-        props.onChange(arr)
-    }
+    // const onClickAddNewRow = () => {
+    //     const arr = [...props.mofaEntryList, initValue]
+    //     props.onChange(arr)
+    // }
 
     //  remove a row
     const onClickRemoveRow = (index: number) => {

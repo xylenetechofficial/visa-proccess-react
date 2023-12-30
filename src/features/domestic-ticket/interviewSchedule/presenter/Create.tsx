@@ -6,12 +6,12 @@ import { InterviewScheduleInterface, StaffAndClientInterface, convertinterviewSc
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
 import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
-import { Heading1, Heading3, Heading6, SubHeading1, SubHeading2, UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import {  UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 
 export default function Main(props: {
-    onClose: any,
-    fetchInterviewScheduleList: any,
+    onClose: () => void,
+    fetchInterviewScheduleList: () => void,
     sectorList: SectorInterface[],
     InterviewSchedulePeriodList: InterviewSchedulePeriodInterface[],
 
@@ -28,8 +28,7 @@ export default function Main(props: {
         staff_list: [],
     }
     const [interviewSchedule, setInterviewSchedule] = useState<InterviewScheduleInterface>(initialValue)
-    const [interviewSchedulePeriod, setInterviewSchedulePeriod] = useState({} as InterviewSchedulePeriodInterface)
-
+  
 
     async function onClickAdd() {
 
@@ -69,8 +68,8 @@ export default function Main(props: {
         // }
     }
 
-    function onAddClient(data?: number) {
-        console.log(data, "SSS", interviewSchedule.client)
+    function onAddClient() {
+        // console.log(data, "SSS", interviewSchedule.client)
         // if(data){
         //     for(let i=0; i< data ; i++){
         const new_data = interviewSchedule.client_list
@@ -239,7 +238,7 @@ export default function Main(props: {
                             return (<>
                                 <div className=" flex justify-between max-w-lg gap-2 ">
                                     <StandardInput key={index} value={ele.name} onChangeValue={(value: string) => {
-                                        console.log(value);   // Only Dev
+                                        // console.log(value);   // Only Dev
                                         onUpdateStaff(index, { ...ele, name: value })
                                     }} />
                                     <RedButton text="Delete Staff" onClick={() => onRemoveStaff(index)} />

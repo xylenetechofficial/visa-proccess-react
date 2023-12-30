@@ -13,7 +13,11 @@ import { FaFilter } from "react-icons/fa";
 import { VendorInterface } from "../type";
 import { deleteAgency, readVendorList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -35,7 +39,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [editVendor, setEditVendor] = useState<VendorInterface>(
     {} as VendorInterface
   );
@@ -81,11 +85,13 @@ export default function Main() {
   // }, [editAgency, modalName])
 
   const fetchVendorList = async (page?: number) => {
-    const res = await readVendorList(true, page ?? additionalData.pagination.page);
-    setVendorList(res)
+    const res = await readVendorList(
+      true,
+      page ?? additionalData.pagination.page
+    );
+    setVendorList(res);
     filterData("", res);
     setAdditionalData(await PaginationManager.getData());
-
   };
 
   useEffect(() => {
@@ -99,12 +105,16 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         {/* Add */}
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  agency stable */}

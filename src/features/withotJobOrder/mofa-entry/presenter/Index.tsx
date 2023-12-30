@@ -29,6 +29,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -53,7 +54,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [editMofaEntry, setEditMofaEntry] = useState<MofaEntryInterface>(
     {} as MofaEntryInterface
   );
@@ -75,7 +76,7 @@ export default function Main() {
 
   const onClickEdit = (mofaEntry: MofaEntryInterface) => {
     setEditMofaEntry(mofaEntry);
-    console.log("onClickEdit"); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
     console.log(mofaEntry); // Only Dev
     setModalName("edit");
   };
@@ -116,7 +117,7 @@ export default function Main() {
 
   const fetchMofaEntryList = async (page?: number) => {
     const data = await readMofaEntryList({}, page);
-    console.log(data);
+    // console.log(data);
     setMofaEntryList(data);
     setAdditionalData(await PaginationManager.getData());
   };
@@ -143,13 +144,17 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
         {/* <Button
                     variant="contained"
                     color="success"
@@ -171,7 +176,7 @@ export default function Main() {
       <div className="mt-6"></div>
       <Heading6 text="Mofa entry" />
       <MofaEntryTable
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         mofaEntryList={dataFiltered}
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}

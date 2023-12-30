@@ -12,8 +12,12 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { GradeInterface } from "../type";
 import { deleteGrade, readGradeList } from "../repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -35,7 +39,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [editGrade, setEditGrade] = useState<GradeInterface>(
     {} as GradeInterface
   );
@@ -78,10 +82,12 @@ export default function Main() {
   // }, [editGrade, modalName])
 
   const fetchGradeList = async (page?: number) => {
-    const res = await readGradeList(true, page ?? additionalData.pagination.page);
+    const res = await readGradeList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setGradeList(res);
-  setAdditionalData(await PaginationManager.getData());
-
+    setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
     fetchGradeList(additionalData.pagination.page);
@@ -97,12 +103,17 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
+
         {/* <Button
                     variant="contained"
                     color="success"

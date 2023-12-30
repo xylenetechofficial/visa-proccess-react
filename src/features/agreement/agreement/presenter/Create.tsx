@@ -25,7 +25,7 @@ export default function Main(props: { onClose: any }) {
   );
 
   const fetchCreateAgreementList = async (page?: number) => {
-      const data: any = await readAgreementList({
+      const data: AgreementInterface[] = await readAgreementList({
           page: page ?? 1,
           status: "no"
         });

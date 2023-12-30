@@ -1,13 +1,12 @@
-import { createInterviewSchedule, readInterviewSchedule, updateInterviewSchedule } from "../repository";
+import { readInterviewSchedule, updateInterviewSchedule } from "../repository";
 import { useEffect, useState } from "react";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
+import  { FullScreenModal } from "../../../../componenets/Modal";
 import { DateInput, StandardInput } from "../../../../componenets/Input";
 import { InterviewScheduleInterface, StaffAndClientInterface, convertinterviewSchedulePeriodOptions } from "../type";
 import { CustomSelectComponent, selectOptionConveter } from "../../../../componenets/SelectBox";
-import { CompanyInterface } from "../../../masters/company/type";
 import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
-import { Heading6, UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 
 
@@ -17,8 +16,8 @@ import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 
 
 export default function Main(props: {
-    onClose: any,
-    fetchInterviewScheduleList: any,
+    onClose: () => void,
+    fetchInterviewScheduleList:()=> void,
     sectorList: SectorInterface[],
     InterviewSchedulePeriodList: InterviewSchedulePeriodInterface[],
     // companyList: CompanyInterface[]
@@ -37,23 +36,23 @@ export default function Main(props: {
         staff_list: [],
     }
     const [interviewSchedule, setInterviewSchedule] = useState<InterviewScheduleInterface>(initialValue)
-    const [interviewSchedulePeriod, setInterviewSchedulePeriod] = useState({
-        company_name: "",
-        job_order_no: "",
-    } as InterviewSchedulePeriodInterface)
+    // const [interviewSchedulePeriod, setInterviewSchedulePeriod] = useState({
+    //     company_name: "",
+    //     job_order_no: "",
+    // } as InterviewSchedulePeriodInterface)
 
 
     async function onClickAdd() {
 
         // call create
-        console.log({
-            date: interviewSchedule.date,
-            interviewSchedulePeriodId: interviewSchedule.interviewSchedulePeriodId,
-            sectorId: interviewSchedule.sectorId,
+        // console.log({
+        //     date: interviewSchedule.date,
+        //     interviewSchedulePeriodId: interviewSchedule.interviewSchedulePeriodId,
+        //     sectorId: interviewSchedule.sectorId,
 
-            client_list: interviewSchedule.client_list,
-            staff_list: interviewSchedule.staff_list,
-        })
+        //     client_list: interviewSchedule.client_list,
+        //     staff_list: interviewSchedule.staff_list,
+        // })
         await updateInterviewSchedule(props.currentElement.id ?? 0, interviewSchedule)
         // await createInterviewSchedule({
         //     date: interviewSchedule.date,
@@ -98,8 +97,8 @@ export default function Main(props: {
     // }, [interviewSchedule.noOfClient])
 
 
-    function onAddStaff(data?: StaffAndClientInterface) {
-        const new_data = interviewSchedule.staff_list
+    function onAddStaff() {
+        const new_data:StaffAndClientInterface[] = interviewSchedule.staff_list
         new_data.push({
             name: '',
             ticket_amount: 0,
@@ -117,8 +116,8 @@ export default function Main(props: {
 
 
 
-    function onAddClient(data?: StaffAndClientInterface) {
-        const new_data = interviewSchedule.client_list
+    function onAddClient() {
+        const new_data:StaffAndClientInterface[] = interviewSchedule.client_list
         new_data.push({
             name: '',
             ticket_amount: 0,

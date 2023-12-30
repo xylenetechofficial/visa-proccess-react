@@ -12,7 +12,6 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { TicketIssueInterface } from "../type";
 import { deleteTicketIssue, readTicketIssueList } from "../repository";
-import { readCountryList } from "../../../masters/country/repository";
 import { readCompanyList } from "../../../masters/company/repository";
 import { CompanyInterface } from "../../../masters/company/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
@@ -24,6 +23,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -34,6 +34,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth();
   const [ticketIssueList, setTicketIssueList] = useState<
     TicketIssueInterface[]
   >([]);
@@ -70,8 +71,8 @@ export default function Main() {
 
   const onClickEdit = (interviewSchedule: TicketIssueInterface) => {
     setEditTicketIssue(interviewSchedule);
-    console.log("onClickEdit"); // Only Dev
-    console.log(interviewSchedule); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(interviewSchedule); // Only Dev
     setModalName("edit");
   };
 
@@ -89,7 +90,7 @@ export default function Main() {
   const fetchTicketIssueList = async (page?: number) => {
     const data = await readTicketIssueList({
       page: page ?? additionalData.pagination.page,
-      status: "yes"
+      status: "yes",
     });
     setTicketIssueList(data);
     // filterData("", data);
@@ -133,12 +134,16 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         {/* Add */}
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  interviewSchedule stable */}

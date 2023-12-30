@@ -19,6 +19,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -45,7 +46,7 @@ export default function Main() {
   const [editSector, setEditSector] = useState<SectorInterface>(
     {} as SectorInterface
   );
-
+  const { authPermissionList } = useUserAuth();
   const [modalName, setModalName] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -88,7 +89,10 @@ export default function Main() {
   };
 
   const fetchSectorList = async (page?: number) => {
-    const res = await readSectorList(true, page ?? additionalData.pagination.page);
+    const res = await readSectorList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     console.log("read sector"); // Only Dev
     setSectorList(res);
 
@@ -108,13 +112,17 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
         {/* <Button
                     variant="contained"
                     color="success"

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteUser, readUserList, readUserRoleList, } from "../repository";
+import { deleteUser, readUserList, readUserRoleList } from "../repository";
 import { UserInterface, UserRole } from "../type";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
@@ -12,9 +12,13 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { PermissionGroupInterface } from "../type";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -38,9 +42,7 @@ export default function Main() {
     }
   );
 
-  const [editUser, setEditUser] = useState<UserInterface>(
-    {} as UserInterface
-  );
+  const [editUser, setEditUser] = useState<UserInterface>({} as UserInterface);
 
   const [modalName, setModalName] = useState("");
 
@@ -72,37 +74,39 @@ export default function Main() {
     }
   };
 
+  const { authPermissionList } = useUserAuth();
 
   const fetchUserList = async (page?: number) => {
-    const data = await readUserList({
-      user_role_id: 0,
-      active: 2,
-      page: page ?? additionalData.pagination.page
-    }, true);
+    const data = await readUserList(
+      {
+        user_role_id: 0,
+        active: 2,
+        page: page ?? additionalData.pagination.page,
+      },
+      true
+    );
     filterData("", userList);
     setUserList(data);
     setAdditionalData(await PaginationManager.getData());
   };
 
-
-  const [user, setUser] = useState<UserInterface>({} as UserInterface)
+  const [user, setUser] = useState<UserInterface>({} as UserInterface);
 
   // const fetchUser = async () => {
   //   const res = await readUser()
   //   setUser(res)
   // }
 
-
-  const [userRoleList, setUserRoleList] = useState<UserRole[]>([])
+  const [userRoleList, setUserRoleList] = useState<UserRole[]>([]);
 
   const fetchUserRoleList = async () => {
-    const res = await readUserRoleList()
-    setUserRoleList(res)
-  }
+    const res = await readUserRoleList();
+    setUserRoleList(res);
+  };
   useEffect(() => {
     fetchUserList();
     // fetchUser()
-    fetchUserRoleList()
+    fetchUserRoleList();
   }, []);
 
   return (
@@ -110,22 +114,30 @@ export default function Main() {
       <CustomNavbarV3
         pageName="User"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={() => readUserList({
-          user_role_id: 0,
-          active: 0,
-          page: additionalData.pagination.page
-        }, true)}
+        refresh={() =>
+          readUserList(
+            {
+              user_role_id: 0,
+              active: 0,
+              page: additionalData.pagination.page,
+            },
+            true
+          )
+        }
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  user stable */}
@@ -152,8 +164,8 @@ export default function Main() {
       ) : (
         <CreateModal
           onClose={() => {
-            setModalName("")
-            fetchUserList()
+            setModalName("");
+            fetchUserList();
           }}
           user={user}
           userRoleList={userRoleList}
@@ -167,8 +179,8 @@ export default function Main() {
         <EditModal
           user={editUser}
           onClose={() => {
-            setModalName("")
-            fetchUserList()
+            setModalName("");
+            fetchUserList();
           }}
           userRoleList={userRoleList}
         />

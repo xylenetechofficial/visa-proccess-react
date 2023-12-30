@@ -15,9 +15,6 @@ import {
   deleteInterviewSchedule,
   readInterviewScheduleList,
 } from "../repository";
-import { readCountryList } from "../../../masters/country/repository";
-import { readCompanyList } from "../../../masters/company/repository";
-import { CompanyInterface } from "../../../masters/company/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { readInterviewSchedulePeriodList } from "../../interviewSchedulePeriod/repository";
 import { SectorInterface } from "../../../masters/sector/type";
@@ -27,6 +24,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -37,6 +35,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth();
   const [interviewScheduleList, setInterviewScheduleList] = useState<
     InterviewScheduleInterface[]
   >([]);
@@ -46,7 +45,7 @@ export default function Main() {
 
   const [modalName, setModalName] = useState("");
 
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -82,8 +81,8 @@ export default function Main() {
 
   const onClickEdit = (interviewSchedule: InterviewScheduleInterface) => {
     setEditInterviewSchedule(interviewSchedule);
-    console.log("onClickEdit"); // Only Dev
-    console.log(interviewSchedule); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(interviewSchedule); // Only Dev
     setModalName("edit");
   };
 
@@ -101,8 +100,10 @@ export default function Main() {
   // }, [editInterviewSchedule, modalName])
 
   const fetchInterviewScheduleList = async (page?: number) => {
-    console.log("IS called");   // Only Dev
-    const data = await readInterviewScheduleList(page ?? additionalData.pagination.page);
+    // console.log("IS called"); // Only Dev
+    const data: InterviewScheduleInterface[] = await readInterviewScheduleList(
+      page ?? additionalData.pagination.page
+    );
     setInterviewScheduleList(data);
     // filterData("", data);
     setAdditionalData(await PaginationManager.getData());
@@ -145,12 +146,16 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         {/* Add */}
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  interviewSchedule stable */}

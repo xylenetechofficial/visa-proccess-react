@@ -23,6 +23,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -33,6 +34,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth();
   const [interviewSchedulePeriodList, setInterviewSchedulePeriodList] =
     useState<InterviewSchedulePeriodInterface[]>([]);
 
@@ -43,7 +45,7 @@ export default function Main() {
 
   const [modalName, setModalName] = useState("");
 
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -83,7 +85,7 @@ export default function Main() {
     interviewSchedulePeriod: InterviewSchedulePeriodInterface
   ) => {
     setEditInterviewSchedulePeriod(interviewSchedulePeriod);
-    console.log("onClickEdit"); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
     console.log(interviewSchedulePeriod); // Only Dev
     setModalName("edit");
   };
@@ -98,9 +100,10 @@ export default function Main() {
     }
   };
 
- 
   const fetchInterviewSchedulePeriodList = async (page?: number) => {
-    const data = await readInterviewSchedulePeriodList(page ?? additionalData.pagination.page);
+    const data = await readInterviewSchedulePeriodList(
+      page ?? additionalData.pagination.page
+    );
     setInterviewSchedulePeriodList(data);
     filterData("", data);
 
@@ -122,22 +125,26 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Interview Schedule Period"
         searchFunction={searchFunction}
-        refresh={()=>fetchInterviewSchedulePeriodList()}
+        refresh={() => fetchInterviewSchedulePeriodList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         {/* Add */}
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
       {/*  interviewSchedulePeriod stable */}
       <InterviewSchedulePeriodTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         companyList={companyList}
         interviewSchedulePeriodList={dataFiltered}
         onClickEdit={onClickEdit}
@@ -146,7 +153,7 @@ export default function Main() {
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchInterviewSchedulePeriodList(e);
         }}
       />

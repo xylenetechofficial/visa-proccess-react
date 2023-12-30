@@ -11,7 +11,7 @@ import MofaEntryTable from "./CandidateTable";
 
 
 export default function Main(props: {
-    onClose: any, fetchMofaEntryList: any,
+    onClose: ()=>void, fetchMofaEntryList: ()=>void,
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
     countryList: CountryInterface[],

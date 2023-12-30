@@ -25,7 +25,11 @@ import { FaFilter } from "react-icons/fa";
 import { OtherDocsInterface } from "../type";
 import { deleteOtherDocs, readOtherDocsList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -51,6 +55,7 @@ export default function Main() {
     {} as OtherDocsInterface
   );
 
+  const { authPermissionList } = useUserAuth();
   const [modalName, setModalName] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -88,10 +93,10 @@ export default function Main() {
   // useEffect(() => {
   // }, [editOtherDocs, modalName])
 
-  const fetchOtherDocsList = async (page?:number) => {
-    const res = await readOtherDocsList(true, page ?? 1)
+  const fetchOtherDocsList = async (page?: number) => {
+    const res = await readOtherDocsList(true, page ?? 1);
     setOtherDocsList(res);
-  setAdditionalData(await PaginationManager.getData());
+    setAdditionalData(await PaginationManager.getData());
   };
   useEffect(() => {
     fetchOtherDocsList();
@@ -107,12 +112,16 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  otherDocs stable */}

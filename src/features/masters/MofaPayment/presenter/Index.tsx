@@ -12,8 +12,12 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { MofaPaymentInterface } from "../type";
 import { deleteMofaPayment, readMofaPaymentList } from "../repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -24,9 +28,11 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth();
   const [mofaPaymentList, setMofaPaymentList] = useState<
     MofaPaymentInterface[]
   >([]);
+
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -80,11 +86,10 @@ export default function Main() {
   // useEffect(() => {
   // }, [editMofaPayment, modalName])
 
-  const fetchMofaPaymentList = async (page?:number) => {
-    const res = await readMofaPaymentList(true , page ?? 1)
+  const fetchMofaPaymentList = async (page?: number) => {
+    const res = await readMofaPaymentList(true, page ?? 1);
     setMofaPaymentList(res);
     setAdditionalData(await PaginationManager.getData());
-
   };
   useEffect(() => {
     fetchMofaPaymentList();
@@ -99,13 +104,17 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
         {/* <Button
                     variant="contained"
                     color="success"

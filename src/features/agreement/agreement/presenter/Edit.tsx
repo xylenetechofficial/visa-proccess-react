@@ -4,7 +4,7 @@ import { AdditionalDataInterface, PaginationManager } from "../../../../utils/ap
 import { AgreementInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 import AgreementTable from "./Table";
-import { readAgreementList, updateAgreement, updateAgreementList } from "../repository";
+import { readAgreementList,  updateAgreementList } from "../repository";
 
 export default function Main(props: {
     onClose: any,
@@ -23,7 +23,7 @@ export default function Main(props: {
     );
 
     const fetchCreateAgreementList = async (page?: number) => {
-        const data: any = await readAgreementList({
+        const data:AgreementInterface[] = await readAgreementList({
             page: page ?? additionalData.pagination.page,
             status: "yes"
           });

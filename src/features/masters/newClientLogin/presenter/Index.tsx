@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteClientLogin, readClientLoginList,  } from "../repository";
+import { deleteClientLogin, readClientLoginList } from "../repository";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
@@ -11,9 +11,13 @@ import {
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { ClientLogin } from "../type";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -37,6 +41,7 @@ export default function Main() {
     }
   );
 
+  const { authPermissionList } = useUserAuth();
   const [editClientLogin, setEditClientLogin] = useState<ClientLogin>(
     {} as ClientLogin
   );
@@ -59,12 +64,11 @@ export default function Main() {
     }
   };
 
-
   const fetchClientLogin = async (page?: number) => {
     const data = await readClientLoginList({
-      page: page ?? additionalData.pagination.page
+      page: page ?? additionalData.pagination.page,
     });
-    console.log(data);   // Only Dev
+    console.log(data); // Only Dev
     setClientLoginList(data);
     setAdditionalData(await PaginationManager.getData());
   };
@@ -78,20 +82,25 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Client Login"
         searchFunction={(query) => ""}
-        refresh={() => readClientLoginList({
-          page: additionalData.pagination.page
-        })}
+        refresh={() =>
+          readClientLoginList({
+            page: additionalData.pagination.page,
+          })
+        }
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  user stable */}
@@ -118,8 +127,8 @@ export default function Main() {
       ) : (
         <CreateModal
           onClose={() => {
-            setModalName("")
-            fetchClientLogin()
+            setModalName("");
+            fetchClientLogin();
           }}
         />
       )}
@@ -131,8 +140,8 @@ export default function Main() {
         <EditModal
           clientLogin={editClientLogin}
           onClose={() => {
-            setModalName("")
-            fetchClientLogin()
+            setModalName("");
+            fetchClientLogin();
           }}
         />
       )}

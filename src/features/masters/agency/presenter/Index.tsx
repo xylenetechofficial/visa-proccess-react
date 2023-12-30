@@ -13,7 +13,11 @@ import { FaFilter } from "react-icons/fa";
 import { AgencyInterface } from "../type";
 import { deleteAgency, readAgencyList } from "../repository";
 import Pagination from "../../../../componenets/Pagination";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -25,14 +29,17 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
   const [agencyList, setAgencyList] = useState<AgencyInterface[]>([]);
-  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>({
-    pagination: {
+  const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+    {
+      pagination: {
         page: 1,
         page_count: 1,
         item_count: 0,
         sno_base: 0,
+      },
     }
-});
+  );
+  const { authPermissionList } = useUserAuth();
 
   const [editAgency, setEditAgency] = useState<AgencyInterface>(
     {} as AgencyInterface
@@ -79,7 +86,10 @@ export default function Main() {
   // }, [editAgency, modalName])
 
   const fetchAgencyList = async (page?: number) => {
-    const res = await readAgencyList(true,  page ?? additionalData.pagination.page);
+    const res = await readAgencyList(
+      true,
+      page ?? additionalData.pagination.page
+    );
     setAgencyList(res);
     setAdditionalData(await PaginationManager.getData());
     filterData("", res);
@@ -96,12 +106,16 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         {/* Add */}
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  agency stable */}
