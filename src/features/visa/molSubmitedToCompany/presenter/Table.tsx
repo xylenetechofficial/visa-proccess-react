@@ -140,7 +140,7 @@ const Table = (props: {
 
 
                                     }}
-                                    value={ele.submittedToCompany ? true : false}
+                                    value={ele.submittedToCompany}
                                 />
                             </TableCell3>
                             <TableCell3 > {ele.submitedDate ? convertDateFormat(ele.submitedDate) : ""}</TableCell3>

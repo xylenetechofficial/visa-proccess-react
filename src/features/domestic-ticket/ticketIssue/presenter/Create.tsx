@@ -121,7 +121,7 @@ export default function Main(props: {
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.staff_list}
-                onChange={(value) => {
+                onChange={(value:any) => {
                     setTicketIssue({ ...ticketIssue, staff_list: value })
                 }}
             />
@@ -129,7 +129,7 @@ export default function Main(props: {
             <ClientAndStaffTable
                 snoBase={0}
                 staffAndClientDataList={ticketIssue.client_list}
-                onChange={(value) => {
+                onChange={(value:any) => {
                     setTicketIssue({ ...ticketIssue, client_list: value })
                 }}
             />

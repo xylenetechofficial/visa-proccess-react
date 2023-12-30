@@ -42,7 +42,7 @@ export default function Main(props: { onClose: () => void }) {
 
     return (
         <>
-            <FullScreenModal onClose={() => props.onClose()} title="Add Mol received" handleClick={() => onClickSubmit()} >
+            <FullScreenModal onClose={() => props.onClose()} title="Edit Mol received" handleClick={() => onClickSubmit()} >
                 <div>
 
                     {/*  indexVisa stable */}
