@@ -25,6 +25,8 @@ import {
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { useUserAuth } from "../../../context/UserAuthContext";
+import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
+import { readInterviewSectorList } from "../../../masters/interviewSector/repository";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -122,17 +124,17 @@ export default function Main() {
     setInterviewschedulePeriodList(data);
   };
 
-  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
+  const [InterviewSectorList, setInterviewSectorList] = useState<InterviewSectorInterface[]>([]);
 
-  const fetchSectorList = async () => {
-    const data = await readSectorList();
-    setSectorList(data);
+  const fetchInterviewSectorList = async () => {
+    const data = await readInterviewSectorList();
+    setInterviewSectorList(data);
   };
   useEffect(() => {
     fetchInterviewSchedulePeriodList();
     fetchInterviewScheduleList(additionalData.pagination.page);
     // fetchCompanyList();
-    fetchSectorList();
+    fetchInterviewSectorList();
   }, []);
 
   return (
@@ -166,7 +168,7 @@ export default function Main() {
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
         InterviewSchedulePeriodList={interviewschedulePeriodList}
-        sectorList={sectorList}
+        sectorList={InterviewSectorList}
       />
 
       <Pagination
@@ -188,7 +190,7 @@ export default function Main() {
           onClose={() => setModalName("")}
           fetchInterviewScheduleList={fetchInterviewScheduleList}
           InterviewSchedulePeriodList={interviewschedulePeriodList}
-          sectorList={sectorList}
+          sectorList={InterviewSectorList}
         />
       )}
 
@@ -202,7 +204,7 @@ export default function Main() {
           onClose={() => setModalName("")}
           fetchInterviewScheduleList={fetchInterviewScheduleList}
           InterviewSchedulePeriodList={interviewschedulePeriodList}
-          sectorList={sectorList}
+          sectorList={InterviewSectorList}
         />
       )}
     </div>

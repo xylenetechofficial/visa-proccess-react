@@ -8,6 +8,7 @@ import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { UpdateContentBox } from "../../../../componenets/CoustomHeader";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
+import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
 
 
 
@@ -18,7 +19,7 @@ import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
 export default function Main(props: {
     onClose: () => void,
     fetchInterviewScheduleList:()=> void,
-    sectorList: SectorInterface[],
+    sectorList: InterviewSectorInterface[],
     InterviewSchedulePeriodList: InterviewSchedulePeriodInterface[],
     // companyList: CompanyInterface[]
     currentElement: InterviewScheduleInterface

@@ -13,6 +13,7 @@ import { SectorInterface } from "../../../masters/sector/type";
 import { InterviewSchedulePeriodInterface } from "../../interviewSchedulePeriod/type";
 import { convertDateFormat } from "../../../../utils/function";
 import { useUserAuth } from "../../../context/UserAuthContext";
+import { InterviewSectorInterface } from "../../../masters/interviewSector/type";
 
 const InterviewScheduleTable = (props: {
   snoBase: number;
@@ -20,7 +21,7 @@ const InterviewScheduleTable = (props: {
   interviewScheduleList: InterviewScheduleInterface[];
   onClickEdit: (interviewSchedule: InterviewScheduleInterface) => void;
   onClickDelete: (interviewSchedule: InterviewScheduleInterface) => void;
-  sectorList: SectorInterface[];
+  sectorList: InterviewSectorInterface[];
   InterviewSchedulePeriodList: InterviewSchedulePeriodInterface[];
 }) => {
   const { authPermissionList } = useUserAuth();
