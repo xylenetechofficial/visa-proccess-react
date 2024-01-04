@@ -1,4 +1,4 @@
-import { VisaAllocationInterface } from '../type'
+import { IndexVisaInterface, VisaAllocationInterface } from '../type'
 // import { BlueButton, GreenButton, RedButton } from '../../../../componenets/CustomButton';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableHeadRow, TableRow } from '../../../../componenets/Table';
 // import { SectorInterface } from '../../../masters/sector/type';
@@ -11,6 +11,7 @@ import { UnlabeledInput } from '../../../../componenets/Input';
 // import { CustomCheckBox } from '../../../../componenets/Checkbox';
 import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from '../../../../componenets/SelectBox';
 import { UserInterface } from '../../../context/Model';
+import { showMessage_v2 } from '../../../../utils/alert';
 // import { readOperationManagerist, readRecruitCoordinatorList, readRecruitManagerList, readRecruitSuperVisorList } from '../../../masters/user/repository';
 // import { CustomRadioButton } from '../../../../componenets/RadioButton';
 // import { rcList } from '../../../job-dpt/db/user';
@@ -18,9 +19,10 @@ import { UserInterface } from '../../../context/Model';
 
 
 const VisaAllocationTable = (props: {
+    indexVisa: IndexVisaInterface
     visaAllocationList: VisaAllocationInterface[],
     onChange: (ele: VisaAllocationInterface[]) => void,
-    RecruitCoordinatorList:UserInterface[]
+    RecruitCoordinatorList: UserInterface[]
 }) => {
 
     const [onChange, setonChange] = useState<string>("")
@@ -53,7 +55,20 @@ const VisaAllocationTable = (props: {
                 return e;
             }
         });
+
+        let total_visa_allocation = 0;
+        for (let i = 0; i < nextData.length; i++) {
+            total_visa_allocation += nextData[i].allocated_quantity;
+        }
+
+        if (total_visa_allocation > props.indexVisa.quantity) {
+            showMessage_v2({ message: "Allocation quantity more than the Index", status: 400 });
+            setonChange(Date.now().toString())
+            return
+        }
+
         props.onChange(nextData)
+        setonChange(Date.now().toString())
     }
 
 
@@ -85,7 +100,7 @@ const VisaAllocationTable = (props: {
                     </TableHeadRow>
                 </TableHead>
                 <TableBody>
-                    {props.visaAllocationList && props.visaAllocationList.map((ele, index) => (
+                    {props.visaAllocationList.map((ele, index) => (
                         <TableData
                             data={ele}
                             index={index}
@@ -122,7 +137,7 @@ const TableData = (
         onUpdate: (index: number, rowData: VisaAllocationInterface) => void;
         onClickRemove: (index: number) => void;
         onChange: string
-        RecruitCoordinatorList:UserInterface[]
+        RecruitCoordinatorList: UserInterface[]
     }
 
 ) => {
@@ -142,7 +157,7 @@ const TableData = (
 
         // fetchRecruitCoordinatorList()
         setRecruitCoordinatorList(props.RecruitCoordinatorList)
-    }, [])
+    }, [props.RecruitCoordinatorList])
     useEffect(() => {
         setLocalRowData(props.data)
     }, [props.onChange])

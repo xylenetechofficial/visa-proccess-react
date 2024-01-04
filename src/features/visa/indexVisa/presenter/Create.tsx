@@ -25,6 +25,7 @@ import VisaProfessionTable from "./VisaProfessionTable";
 import { addDaysToDate } from "../../../../utils/function";
 import { showMessage_v2 } from "../../../../utils/alert";
 import { readJobOrderList } from "../../../job-dpt/jobOrder/repository";
+import { NumberYesNoList } from "../../../db";
 
 
 export default function Main(props: {
@@ -585,10 +586,7 @@ export default function Main(props: {
                         inlined
                         value={indexVisa.visa_accountable}
                         onChange={(value) => setIndexVisa({ ...indexVisa, visa_accountable: value })}
-                        option={[
-                            { name: "Yes", value: 1 },
-                            { name: "No", value: 0 },
-                        ]}
+                        option={NumberYesNoList}
                     />
                 </UpdateContentBox>
 
@@ -598,6 +596,7 @@ export default function Main(props: {
                 onChange={(value) => setIndexVisa({ ...indexVisa, visaProfessionList: value })}
             />
             <VisaAllocationTable
+                indexVisa={indexVisa}
                 visaAllocationList={visaAllocationList}
                 onChange={(value) => setVisaAllocationList(value)}
                 RecruitCoordinatorList={RecruitCoordinatorList}

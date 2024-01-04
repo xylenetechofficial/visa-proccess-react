@@ -203,3 +203,9 @@ export const KsaStatusList = [
   { name: "Only visa balance", value: "Only visa balance" },
   { name: "Processed In old module", value: "Processed In old module" },
 ];
+
+
+export const NumberYesNoList = [
+  { name: "Yes", value: 1 },
+  { name: "No", value: 0 },
+];

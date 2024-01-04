@@ -37,6 +37,8 @@ const MultiSelectCheckbox = (props: {
 
     // console.log(props.value)
     // console.log(props.option)
+
+    const [allCheck, setAllCheck] = useState(false)
     return (
         <div>
             {/* {props.option.map((ele, index) => {
@@ -53,12 +55,34 @@ const MultiSelectCheckbox = (props: {
                 )
             })} */}
             <FormGroup sx={{ m: 1, minWidth: 150, width: "80%" }}>
+                <FormControlLabel
+                    key={"fsdgh"}
+                    control={<Checkbox
+                        checked={allCheck}
+                        onChange={(event) => {
+                            setAllCheck(event.target.checked)
+                            if (event.target.checked) {
+                                console.log("true");   // Only Dev
+                                const arr=[];
+                                for (let i = 0; i < props.option.length; i++) {
+                                    arr.push(props.option[i].value.toString());
+                                }
+                                props.onChange(arr)
+                            } else {
+                                console.log("false");   // Only Dev
+                                props.onChange([])
+                            }
+                        }}
+                        value={false}
+                    />}
+                    label={"all"}
+                />
                 {props.option.map((option: any) => (
                     <FormControlLabel
                         key={option.value}
                         control={
                             <Checkbox
-                                checked={props.value && props.value.includes(option.value.toString())}
+                                checked={props.value.includes(option.value.toString())}
                                 onChange={(event) => {
                                     const value = event.target.value;
                                     console.log(value);
@@ -537,8 +561,8 @@ export const MultiSelectCheckbox2 = (props: {
     // console.log(props.option)
     return (
         <div>
-            
-            <FormGroup sx={{ m: 1, minWidth: 150, width: "100%", display:"flex", direction:"left" }}>
+
+            <FormGroup sx={{ m: 1, minWidth: 150, width: "100%", display: "flex", direction: "left" }}>
                 {props.option.map((option: any) => (
                     <FormControlLabel
                         key={option.value}
