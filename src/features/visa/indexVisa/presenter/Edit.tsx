@@ -611,6 +611,7 @@ export default function Main(props: {
                 onChange={(value) => setIndexVisa({ ...indexVisa, visaProfessionList: value })}
             />
             <VisaAllocationTable
+                indexVisa={indexVisa}
                 visaAllocationList={visaAllocationList}
                 onChange={(value) => setVisaAllocationList(value)}
                 RecruitCoordinatorList={RecruitCoordinatorList}
