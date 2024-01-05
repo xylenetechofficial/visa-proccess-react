@@ -17,6 +17,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -28,8 +29,8 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  const [btnClicked, setBtnClicked] = useState("");
-
+  // const [btnClicked, setBtnClicked] = useState("");
+  const { authPermissionList } = useUserAuth();
   const [RejectCancelApproveList, setRejectCancelApproveList] = useState<
     RejectCancelApproveInterface[]
   >([]);
@@ -90,26 +91,35 @@ export default function Main() {
       </CardHeader>
       {/*  RejectCancelApprove stable */}
       <RejectCancelApproveTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         RejectCancelApproveList={RejectCancelApproveList}
         onChange={(value) => setRejectCancelApproveList(value)}
       />
       <br />
-      <YellowButton
-        text={"Reject"}
-        onClick={() => {
-          // setBtnClicked("Reject")
-          updateRejectCancelApproveList(1, RejectCancelApproveList);
-        }}
-      />
+      {authPermissionList.url_has("update") ? (
+        <YellowButton
+          text={"Reject"}
+          onClick={() => {
+            // setBtnClicked("Reject")
+            updateRejectCancelApproveList(1, RejectCancelApproveList);
+          }}
+        />
+      ) : (
+        ""
+      )}
 
-      <RedButton
-        text={"Cancel / Approve"}
-        onClick={() => {
-          // setBtnClicked("Cancel / Approve")
-          updateRejectCancelApproveList(2, RejectCancelApproveList);
-        }}
-      />
+      {authPermissionList.url_has("update") ? (
+        <RedButton
+          text={"Cancel / Approve"}
+          onClick={() => {
+            // setBtnClicked("Cancel / Approve")
+            updateRejectCancelApproveList(2, RejectCancelApproveList);
+          }}
+        />
+      ) : (
+        ""
+      )}
+
       <br />
       <Pagination
         data={additionalData}

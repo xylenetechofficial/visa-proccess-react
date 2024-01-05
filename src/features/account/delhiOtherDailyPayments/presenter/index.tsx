@@ -16,12 +16,6 @@ import {
   deleteAccountDashboard,
   readAccountDashboardList,
 } from "../repository";
-import { SectorInterface } from "../../../masters/sector/type";
-import { readSectorList } from "../../../masters/sector/repository";
-import { readCompanyList } from "../../../masters/company/repository";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CountryInterface } from "../../../masters/country/type";
-import { readCountryList } from "../../../masters/country/repository";
 import EditDelhiOtherPayment from "./Edit";
 import AddInAccountPage from "./PaymentDetail";
 import {

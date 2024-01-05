@@ -11,11 +11,18 @@ import {
   readAccountDashboardList,
 } from "../repository";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
-import { AddSelectionPenaltyAfterDeploymentInterface, PenaltyAfterDeploymentDashboardInterface } from "../type";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AddSelectionPenaltyAfterDeploymentInterface,
+  PenaltyAfterDeploymentDashboardInterface,
+} from "../type";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { BlueButton } from "../../../../componenets/CustomButton";
-import EditPenaltyDeployement from './Edit'
+import EditPenaltyDeployement from "./Edit";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -28,8 +35,8 @@ const CardHeader = styled(Box)(() => ({
 
 export default function Main() {
   const initialState: AddSelectionPenaltyAfterDeploymentInterface = {
-    selection_list: []
-  }
+    selection_list: [],
+  };
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -42,33 +49,35 @@ export default function Main() {
     }
   );
 
-  const [editAccountDashboard, setAccountDashboard] =
-    useState<any>({} as any);
+  // const [editAccountDashboard, setAccountDashboard] =
+  //   useState<any>({} as any);
 
-  const [modalName, setModalName] = useState("");
-  const [status, setStatus] = useState("yes");
-  const [data, setData] = useState<AddSelectionPenaltyAfterDeploymentInterface>(initialState)
-  const onClickCreate = async (item: any) => {
-    console.log(data, "aaaaa", item);
-    const list: any = { selection_list: data }
+  const [modalName, setModalName] = useState<string>("");
+  const [status, setStatus] = useState<string>("yes");
+  const [data, setData] =
+    useState<AddSelectionPenaltyAfterDeploymentInterface>(initialState);
+  const onClickCreate = async () => {
+    // console.log(data, "aaaaa", item);
+    const list:any= { selection_list: data };
     const datas: any = await createAccountDashboard(list);
     if (datas) {
       fetchAccountDashboardList();
     }
   };
 
-
-  const [accountDashboardList, setAccountDashboardList] = useState<PenaltyAfterDeploymentDashboardInterface[]>([])
-
+  const [accountDashboardList, setAccountDashboardList] = useState<
+    PenaltyAfterDeploymentDashboardInterface[]
+  >([]);
+  const { authPermissionList } = useUserAuth();
 
   const [searchQuery, setSearchQuery] = useState("");
 
   // const filterData = (query: string, data: AccountDashboardInterface[]) => {
-  const filterData = (query: string, data: any) => {
+  const filterData = (query: string, data: PenaltyAfterDeploymentDashboardInterface[]) => {
     if (!query) {
       return data;
     } else {
-      return data.filter((d: any) =>
+      return data.filter((d:any) =>
         d.index_date.toLowerCase().includes(query.toLowerCase())
       );
     }
@@ -76,10 +85,10 @@ export default function Main() {
   const dataFiltered = filterData(searchQuery, accountDashboardList);
 
   const fetchAccountDashboardList = async (page?: number) => {
-    const data: PenaltyAfterDeploymentDashboardInterface[] = await readAccountDashboardList(
-      {
+    const data: PenaltyAfterDeploymentDashboardInterface[] =
+      await readAccountDashboardList({
         page: page ?? additionalData.pagination.page,
-        status: "no"
+        status: "no",
       });
 
     if (data) {
@@ -102,18 +111,20 @@ export default function Main() {
       />
 
       <CardHeader>
-
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
         {/* <CustomSelectComponentUnlabeled value={status} onChange={(value) => setStatus(value)} options={[{ name: "Yes", value: "yes" }, { name: "No", value: "no" }]} /> */}
-        <BlueButton
-          text={"Edit"}
-          onClick={() => {
-            console.log("edit")
-            setModalName('Edit')
-          }}
-        />
+        {authPermissionList.url_has("update") ? (
+          <BlueButton
+            text={"Edit"}
+            onClick={() => {
+              console.log("edit");
+              setModalName("Edit");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
-
 
       {/*  AccountDashboard stable */}
       <AccountDashboardTable
@@ -136,7 +147,11 @@ export default function Main() {
           fetchAccountDashboardList(e);
         }}
       />
-      {modalName === 'Edit' ? <EditPenaltyDeployement onClose={() => setModalName('')} /> : ''}
+      {modalName === "Edit" ? (
+        <EditPenaltyDeployement onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

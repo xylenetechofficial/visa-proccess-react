@@ -17,12 +17,6 @@ import {
   deleteAccountDashboard,
   readAccountDashboardList,
 } from "../repository";
-import { SectorInterface } from "../../../masters/sector/type";
-import { readSectorList } from "../../../masters/sector/repository";
-import { readCompanyList } from "../../../masters/company/repository";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CountryInterface } from "../../../masters/country/type";
-import { readCountryList } from "../../../masters/country/repository";
 import {
   AdditionalDataInterface,
   PaginationManager,
@@ -58,10 +52,10 @@ export default function Main() {
   const [modalName, setModalName] = useState("");
 
   const onClickEdit = (accountDashboard: AgentPaymentReceivedInterface) => {
-    console.log(accountDashboard, "CCCCCC");
+    // console.log(accountDashboard, "CCCCCC");
     setAccountDashboard(accountDashboard);
-    console.log("onClickEdit"); // Only Dev
-    console.log(accountDashboard); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(accountDashboard); // Only Dev
     setModalName("edit");
   };
 
@@ -139,7 +133,7 @@ export default function Main() {
           <EditModal
             currentElement={editAccountDashboard}
             onClose={() => {
-              setModalName(""), console.log(modalName, "SSSSSSSSS");
+              setModalName("");
             }}
             fetchAccountDashboardList={fetchAccountDashboardList}
           />

@@ -16,6 +16,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 // import { Heading6 } from "../../../../componenets/CoustomHeader";
 // import MofaPaymentTable from "./MofaPaymentTable";
 const CardHeader = styled(Box)(() => ({
@@ -53,7 +54,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [searchQuery, setSearchQuery] = useState("");
 
   const filterData = (query: string, data: AgentReturnPaymentInterface[]) => {
@@ -111,11 +112,15 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <GreenButton onClick={() => setModalName("add")} text="Add" />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton onClick={() => setModalName("add")} text="Add" />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       <Table
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         candidateList={CandidateList}
         onClickAdd={onClickAdd}
         onClickEdit={onClickEdit}

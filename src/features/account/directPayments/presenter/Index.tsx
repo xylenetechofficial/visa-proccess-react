@@ -47,6 +47,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { AgentPaymentInterface } from "../../agentPayment/type";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -102,7 +103,7 @@ export default function Main() {
   const [detailData, setDetailData] = useState<any>({});
   const [modalName, setModalName] = useState("");
 
-  const [paymentDetail, setPaymentDetailList] = useState<any[]>([]);
+  const [paymentDetail, setPaymentDetailList] = useState<AgentPaymentByIDInterface[]>([]);
   const onClickCreate = () => {
     setModalName("create");
   };
@@ -118,16 +119,16 @@ export default function Main() {
     // bulk_payment_id
     setDetailData(ele);
     const data: any = await readPaymentDetails(type, ele.id);
-    console.log(type, ele.id, "SSSSS", data);
+    // console.log(type, ele.id, "SSSSS", data);
     if (data) {
       setPaymentDetailList(data);
     }
   };
   // const onClickEdit = (AgentPayment: AgentPaymentInterface) => {
-  const onClickEdit = (AgentPayment: any) => {
+  const onClickEdit = (AgentPayment: DirectPaymentInterface) => {
     setEditAgentPayment(AgentPayment);
-    console.log("onClickEdit"); // Only Dev
-    console.log(AgentPayment); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(AgentPayment); // Only Dev
     setModalName("edit");
   };
 

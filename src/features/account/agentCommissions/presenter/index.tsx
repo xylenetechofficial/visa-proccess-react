@@ -54,19 +54,19 @@ export default function Main() {
     modaltype: string,
     accountDashboard: AccountDashboardInterface
   ) => {
-    console.log(accountDashboard, "CCCCCC", modaltype);
+    // console.log(accountDashboard, "CCCCCC", modaltype);
     setAccountDashboard(accountDashboard);
-    console.log("onClickEdit", modaltype); // Only Dev
-    console.log(accountDashboard, modaltype); // Only Dev
+    // console.log("onClickEdit", modaltype); // Only Dev
+    // console.log(accountDashboard, modaltype); // Only Dev
     setModalName(modaltype);
   };
 
   const onAddBulkPayment = async (bulkPayment: BulkPaymentInterface) => {
-    console.log("first", bulkPayment);
+    // console.log("first", bulkPayment);
     await createBulkPayment(bulkPayment);
   };
   const onAddCashPayment = async (bulkPayment: BulkPaymentInterface) => {
-    console.log("first", bulkPayment);
+    // console.log("first", bulkPayment);
     await createCashPayment(bulkPayment);
   };
 

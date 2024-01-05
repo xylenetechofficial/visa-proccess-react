@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
 import { FullScreenModal } from "../../../../componenets/Modal";
 import AccountDashboardTable from "./Table";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
-import { AddSelectionPenaltyAfterDeploymentInterface, PenaltyAfterDeploymentDashboardInterface } from "../type";
-import { readAccountDashboardList, updateAccountDashboard } from "../repository";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import {
+  AddSelectionPenaltyAfterDeploymentInterface,
+  PenaltyAfterDeploymentDashboardInterface,
+} from "../type";
+import {
+  readAccountDashboardList,
+  updateAccountDashboard,
+} from "../repository";
 export default function Main(props: { onClose: () => void }) {
   const initialState: AddSelectionPenaltyAfterDeploymentInterface = {
-    selection_list: []
-  }
-  const [penaltyAfterDeployement, setPenaltyAfterDeployement] = useState<PenaltyAfterDeploymentDashboardInterface[]>([])
-  const [data, setData] = useState<AddSelectionPenaltyAfterDeploymentInterface>(initialState)
+    selection_list: [],
+  };
+  const [penaltyAfterDeployement, setPenaltyAfterDeployement] = useState<
+    PenaltyAfterDeploymentDashboardInterface[]
+  >([]);
+  const [data, setData] =
+    useState<AddSelectionPenaltyAfterDeploymentInterface>(initialState);
   const [status, setStatus] = useState("yes");
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -22,23 +34,22 @@ export default function Main(props: { onClose: () => void }) {
     }
   );
   const handleSubmit = async () => {
-    const list: any = { selection_list: penaltyAfterDeployement }
-    await updateAccountDashboard(list)
-    console.log("data")
-  }
+    const list: any = { selection_list: penaltyAfterDeployement };
+    await updateAccountDashboard(list);
+    console.log("data");
+  };
   const fetchPenaltyAFterDeploymentList = async (page?: number) => {
-    const data: PenaltyAfterDeploymentDashboardInterface[] = await readAccountDashboardList(
-      {
+    const data: PenaltyAfterDeploymentDashboardInterface[] =
+      await readAccountDashboardList({
         page: page ?? additionalData.pagination.page,
-        status: "yes"
+        status: "yes",
       });
 
     if (data) {
       setPenaltyAfterDeployement(data);
     }
     setAdditionalData(await PaginationManager.getData());
-
-  }
+  };
 
   useEffect(() => {
     fetchPenaltyAFterDeploymentList(additionalData.pagination.page);
@@ -50,7 +61,9 @@ export default function Main(props: { onClose: () => void }) {
         // buttonName="Update"
         handleClick={() => handleSubmit()}
         title="Edit Penalty"
-        onClose={() => { props.onClose(), console.log("dfdf") }}
+        onClose={() => {
+          props.onClose();
+        }}
       >
         <AccountDashboardTable
           snoBase={1}
@@ -61,9 +74,11 @@ export default function Main(props: { onClose: () => void }) {
           setData={setData}
           setStatus={setStatus}
           fetchAccountDashboardList={fetchPenaltyAFterDeploymentList}
-          onChange={(value) => { console.log("Edit"), setPenaltyAfterDeployement(value) }}
+          onChange={(value) => {
+            setPenaltyAfterDeployement(value);
+          }}
         />
       </FullScreenModal>
     </>
-  )
+  );
 }

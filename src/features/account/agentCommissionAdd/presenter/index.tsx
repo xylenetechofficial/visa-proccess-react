@@ -9,6 +9,7 @@ import { SubHeading2 } from "../../../../componenets/CoustomHeader";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { readAccount } from "../../agentCommissions/repository";
 import { AdditionalDataInterface } from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 
 const CardHeader = styled(Box)(() => ({
@@ -40,11 +41,11 @@ export default function Main(
   const [modalName, setModalName] = useState("");
 
   const onClickAdd = async (id: number, AgentCommission: number) => {
-    console.log("onClickEdit"); // Only Dev
-    console.log(AgentCommission); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(AgentCommission); // Only Dev
     setModalName("");
     setPassportNo("")
-    const flag = await createAgentCommission(id, AgentCommission);
+     await createAgentCommission(id, AgentCommission);
   };
 
   const [agentPaymentReceived, setAgentPaymentReceived] = useState<AgentPaymentReceivedInterface>({} as AgentPaymentReceivedInterface);
@@ -56,8 +57,6 @@ export default function Main(
       setAgentPaymentReceived(data);
     }
   };
-
-
   const [searchQuery, setSearchQuery] = useState("");
 
   // const filterData = (query: string, data: AccountDashboardInterface[]) => {

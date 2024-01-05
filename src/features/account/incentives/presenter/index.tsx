@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box,  styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import IncentiveTable from "./Table";
 import {
   CustomButton2,
@@ -7,10 +7,7 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 
-import {
-  createIncentive,
-  readIncentiveList,
-} from "../repository";
+import { createIncentive, readIncentiveList } from "../repository";
 import { AddIncentiveInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 import {
@@ -18,7 +15,8 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import { BlueButton } from "../../../../componenets/CustomButton";
-import EditIncentiveTable from './Edit'
+import EditIncentiveTable from "./Edit";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -39,7 +37,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [status, setStatus] = useState("yes");
   const [data, setData] = useState<any>({ job_order_list: [] });
   const [updateIncentive, setUpdateIncentive] = useState<any>({
@@ -53,14 +51,13 @@ export default function Main() {
   });
   const [addIncentive, setIncentive] = useState<AddIncentiveInterface[]>([]);
   const onClickCreate = async (data: AddIncentiveInterface) => {
-    console.log(data, "DDDDDDDDDDDDDDDDDDDDDD", addIncentive);
+    // console.log(data, "DDDDDDDDDDDDDDDDDDDDDD", addIncentive);
     await createIncentive(addIncentive);
     await fetchIncentiveList(status);
   };
 
-
   const [incentiveList, setIncentiveList] = useState<any>([]);
-  const [modalName, setModalName] = useState('')
+  const [modalName, setModalName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
   // const filterData = (query: string, data: AccountDashboardInterface[]) => {
@@ -76,11 +73,11 @@ export default function Main() {
   const dataFiltered = filterData(searchQuery, incentiveList);
 
   const fetchIncentiveList = async (value?: string, page?: number) => {
-    const data = await readIncentiveList(value??"", {
+    const data = await readIncentiveList(value ?? "", {
       page: page ?? additionalData.pagination.page,
       status: "no",
     });
-    console.log(data, "AAAAAAAAA");
+    // console.log(data, "AAAAAAAAA");
     if (data) {
       setIncentiveList(data);
     }
@@ -96,15 +93,21 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Incentives"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>fetchIncentiveList()}
+        refresh={() => fetchIncentiveList()}
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-
-        <BlueButton text="Edit" onClick={()=>{
-          setModalName('edit')
-        }}/>
+        {authPermissionList.url_has("update") ? (
+          <BlueButton
+            text="Edit"
+            onClick={() => {
+              setModalName("edit");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  Incentive Table */}
@@ -127,10 +130,11 @@ export default function Main() {
           fetchIncentiveList(status, e);
         }}
       />
-      {modalName === 'edit' ? 
-      <EditIncentiveTable
-      setModalName={setModalName}
-       />:''}
+      {modalName === "edit" ? (
+        <EditIncentiveTable setModalName={setModalName} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

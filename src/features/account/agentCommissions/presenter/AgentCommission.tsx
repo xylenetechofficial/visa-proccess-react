@@ -11,11 +11,11 @@ export default function Main(props: {
     onClose: () => void,
     fetchAccountDashboardList: () => void,
     currentElement: AccountDashboardInterface,
-    onAddBulkPayment:(value:any)=>void
-    onAddCashPayment:(value:any)=>void
+    onAddBulkPayment:(bulkPayment: BulkPaymentInterface)=>void
+    onAddCashPayment:(bulkPayment: BulkPaymentInterface)=>void
 
 }) {
-    console.log(props.currentElement, "ALLLLLLLLL")
+    // console.log(props.currentElement, "ALLLLLLLLL")
     // const initValue: AccountDashboardInterface = {}
    
 
@@ -28,7 +28,7 @@ export default function Main(props: {
             agent_id:props?.currentElement?.agent_id,
             remarks: ""
         })
-  console.log(agentPaymentReceivedList,"agentPaymentReceivedList")
+//   console.log(agentPaymentReceivedList,"agentPaymentReceivedList")
   
     const style = {
         position: 'absolute',

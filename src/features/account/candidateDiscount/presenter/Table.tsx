@@ -3,18 +3,19 @@ import { Checkbox } from '@mui/material';
 import { TextAreaInput, UnlabeledInput } from '../../../../componenets/Input';
 import { useState } from 'react';
 import { convertDateFormat } from '../../../../utils/function';
+import { CandidateDiscountInterface } from '../type';
 
 const CandidateDiscountTable = (props: {
   // CandidateDiscountList: CandidateDiscountInterface[],
   snoBase: number,
-  CandidateDiscountList: any,
+  CandidateDiscountList: CandidateDiscountInterface[],
   setCandidateDiscountList: any
   discountAndRemark: any,
   setDiscountList: any,
   data: any,
   setData: any,
   discountList: any,
-  onChange:(value: any)=>void
+  onChange:(value:any)=>void
 
 }) => {
   console.log(props?.CandidateDiscountList, "PPPPPP", props?.discountAndRemark)

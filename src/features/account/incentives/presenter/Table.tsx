@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import {
-  GreenButton,
-} from "../../../../componenets/CustomButton";
+import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   Table3,
   TableBody3,
@@ -11,7 +9,6 @@ import {
   TableHeadRow3,
   TableRow3,
 } from "../../../../componenets/Table";
-import { Checkbox } from "@mui/material";
 import { UnlabeledInput } from "../../../../componenets/Input";
 import { AddIncentiveInterface, IncentiveInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
@@ -102,9 +99,7 @@ const AccountDashboardTable = (props: {
                   <UnlabeledInput
                     type="number"
                     // value={incentivesData[index]?.manager_incentive} onchange={(value) => {
-                    value={
-                      props?.incentiveList[index]?.manager_incentive
-                    }
+                    value={props?.incentiveList[index]?.manager_incentive}
                     onchange={(value) => {
                       console.log("first"),
                         setincentivesData((prev: any) => {
@@ -181,7 +176,7 @@ const AccountDashboardTable = (props: {
                 job_order_list: incentivesData,
               };
             });
-            console.log(props.data, "a");
+            // console.log(props.data, "a");
             props.onClick(incentivesData);
           }}
         />

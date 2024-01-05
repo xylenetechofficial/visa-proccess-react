@@ -16,7 +16,7 @@ import VisaProfessionTable from "./VisaProfessionTable";
 
 
 export default function Main(props: {
-    onClose: any, fetchBlockVisaList: any,
+    onClose: () => void, fetchBlockVisaList: () => void,
     sectorList: SectorInterface[],
     companyList: CompanyInterface[],
     countryList: CountryInterface[],

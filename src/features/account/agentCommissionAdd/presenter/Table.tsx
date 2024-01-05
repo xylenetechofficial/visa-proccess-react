@@ -6,7 +6,7 @@ import { UnlabeledInput } from "../../../../componenets/Input";
 
 
 const AgentCommissionTable = (props: {
-  accountDashboardList: any,
+  accountDashboardList:AgentPaymentReceivedInterface[] ,
   setAgentPaymentReceived: any,
   setPassportNo: any
   onClickAdd: any;

@@ -40,8 +40,8 @@ export default function Main( ) {
 
   const onClickEdit = (accountDashboard: AccountDashboardInterface) => {
     setAccountDashboard(accountDashboard);
-    console.log("onClickEdit"); // Only Dev
-    console.log(accountDashboard); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(accountDashboard); // Only Dev
     setModalName("edit");
   };
 
@@ -71,9 +71,9 @@ export default function Main( ) {
   };
   const dataFiltered = filterData(searchQuery, accountDashboardList);
 
-  const [visaprofession, setVisaProfessionList] = useState<
-    VisaProfesionInterface[]
-  >([]);
+  // const [visaprofession, setVisaProfessionList] = useState<
+  //   VisaProfesionInterface[]
+  // >([]);
 
   const fetchAccountDashboardList = async (page?:number) => {
     const data = await readAccountDashboardList({page: page ?? additionalData.pagination.page,

@@ -1,17 +1,16 @@
 // lib
 import {useState} from 'react';
-import { Routes, Route } from 'react-router-dom'
 import { CustomNavbarV3 } from '../../../../componenets/CustomComponents';
 import ManageAgentTable from './Table';
 import EditManageAgentTable from './Edit';
-import { AdditionalDataInterface } from '../../../../utils/api_helper';
+// import { AdditionalDataInterface } from '../../../../utils/api_helper';
 // component
 
 
 
 function Main() {
 
-    const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
+   /* const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
         {
           pagination: {
             page: 1,
@@ -20,7 +19,7 @@ function Main() {
             sno_base: 0,
           },
         }
-      );
+      ); */
 
     const [seachQuery,setSearchQuery]= useState('')
     const [agentList, setAgentList] = useState([])
@@ -30,6 +29,7 @@ function Main() {
         <div>
 
         <CustomNavbarV3 pageName="MANAGE AGENT PAYMENT RETURN" searchFunction={(query) => setSearchQuery(query)} />
+
         <ManageAgentTable agentList={agentList} onClickEdit={(value)=>{setEditData(value),setModalName('edit')}}/>
 
         {modalName === 'edit' ? <EditManageAgentTable setModalName={(value)=>setModalName(value)} />:''}

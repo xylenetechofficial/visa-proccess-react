@@ -1,18 +1,28 @@
 import React, { useState } from "react";
-import { AccountDashboardInterface, AgentPaymentReceivedInterface } from "../type";
+import {
+  AccountDashboardInterface,
+  AgentPaymentReceivedInterface,
+} from "../type";
 import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
-import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
-
+import {
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
+} from "../../../../componenets/Table";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const AccountDashboardTable = (props: {
-  snoBase:number,
+  snoBase: number;
   accountDashboardList: AgentPaymentReceivedInterface[];
-  onClickEdit: any;
+  onClickEdit: (accountDashboard: AgentPaymentReceivedInterface) => void;
 }) => {
+  const { authPermissionList } = useUserAuth();
   return (
     <div className="overflow-auto">
-      
-
       <Table3>
         <TableHead3>
           <TableHeadRow3>
@@ -38,20 +48,16 @@ const AccountDashboardTable = (props: {
             <TableHeadCell3> EDIT</TableHeadCell3>
           </TableHeadRow3>
         </TableHead3>
-         <TableBody3>
+        <TableBody3>
           {props.accountDashboardList.map((ele, index) => (
             <TableRow3 key={index}>
-            <TableCell3 >{index + props.snoBase+1}</TableCell3>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
-              <TableCell3>
-              {ele.company_name}
-              </TableCell3>
+              <TableCell3>{ele.company_name}</TableCell3>
               <TableCell3> {ele.name}</TableCell3>
               <TableCell3> {ele.passport_no}</TableCell3>
               <TableCell3> {ele.actual_profession}</TableCell3>
-              <TableCell3>
-               {ele.visa_profession}
-              </TableCell3>
+              <TableCell3>{ele.visa_profession}</TableCell3>
               <TableCell3> {ele.agent_name}</TableCell3>
               <TableCell3> {ele?.photo_charges}</TableCell3>
               <TableCell3> {ele?.training_charges}</TableCell3>
@@ -64,16 +70,19 @@ const AccountDashboardTable = (props: {
               <TableCell3> {ele.sector_charges}</TableCell3>
               <TableCell3> {ele.extra_service_tax}</TableCell3>
               <TableCell3> {ele.amount_received}</TableCell3>
-              
-             
+
               <TableCell3>
-                <RedButton
-                  text={"Edit"}
-                  preIcon="edit"
-                  onClick={() => {
-                    props.onClickEdit(ele);
-                  }}
-                />
+                {authPermissionList.url_has("update") ? (
+                  <RedButton
+                    text={"Edit"}
+                    preIcon="edit"
+                    onClick={() => {
+                      props.onClickEdit(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
               </TableCell3>
             </TableRow3>
           ))}

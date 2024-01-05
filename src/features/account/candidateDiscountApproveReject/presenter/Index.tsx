@@ -17,6 +17,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { CandidateDiscountApproveRejectInterface } from "../type";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",

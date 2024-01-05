@@ -27,7 +27,7 @@ export default function Main(props: { setModalName: any }) {
       });
     const [IncentiveList, setIncentiveList] = useState<any>()
     const handleClick =async () => {
-      console.log("fgvfh");   // Only Dev
+      // console.log("fgvfh");   // Only Dev
       await updateIncentiveList(IncentiveList);
       // await fetchIncentiveList(status);
       props.setModalName('')
@@ -46,9 +46,9 @@ export default function Main(props: { setModalName: any }) {
         fetchIncentiveList(status, additionalData.pagination.page);
       }, [status]);
 
-      const onClickUpdate =()=>{
-        console.log("on click update")
-      }
+      // const onClickUpdate =()=>{
+      //   console.log("on click update")
+      // }
     
     return (
         <>

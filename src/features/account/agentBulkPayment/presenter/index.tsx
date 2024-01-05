@@ -27,6 +27,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -62,10 +63,10 @@ export default function Main() {
   };
 
   const onClickEdit = (accountDashboard: AgentPaymentReceivedInterface) => {
-    console.log(accountDashboard, "CCCCCC");
+    // console.log(accountDashboard, "CCCCCC");
     setAccountDashboard(accountDashboard);
-    console.log("onClickEdit"); // Only Dev
-    console.log(accountDashboard); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(accountDashboard); // Only Dev
     // setModalName(modaltype);
   };
   const onClickUpdate = async (
@@ -74,13 +75,13 @@ export default function Main() {
   ) => {
     console.log(id, accountDashboard, "CCCCCC");
     await updateAccountDashboard(id, accountDashboard);
-    console.log("onClickUpdate"); // Only Dev
-    console.log(accountDashboard); // Only Dev
+    // console.log("onClickUpdate"); // Only Dev
+    // console.log(accountDashboard); // Only Dev
     // setModalName(modaltype);
     await fetchAccountDashboardList();
   };
 
-  const onClickDelete = async (accountDashboard: any) => {
+  const onClickDelete = async (accountDashboard: AgentPaymentReceivedInterface) => {
     const flag = await confirmationMessage("Do you really want to delete?");
     if (flag && accountDashboard.id) {
       await deleteAccountDashboard(accountDashboard.id);
@@ -104,12 +105,13 @@ export default function Main() {
       );
     }
   };
+  const { authPermissionList } = useUserAuth();
   const dataFiltered = filterData(searchQuery, accountDashboardList);
 
-  const fetchAccountDashboardList = async (page?:number) => {
+  const fetchAccountDashboardList = async (page?: number) => {
     const data = await readAccountDashboardList({
       page: page ?? additionalData.pagination.page,
-      status: "no"
+      status: "no",
     });
 
     if (data) {
@@ -130,12 +132,16 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <CustomButton2
-          buttonText="Add AGENT BULK PAYMENT"
-          onClick={() => {
-            setModalName("addAgentBulkPayment");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <CustomButton2
+            buttonText="Add AGENT BULK PAYMENT"
+            onClick={() => {
+              setModalName("addAgentBulkPayment");
+            }}
+          />
+        ) : (
+          ""
+        )}
       </CardHeader>
       {/*  AccountDashboard stable */}
       <AccountDashboardTable
@@ -143,9 +149,9 @@ export default function Main() {
         onClickEdit={onClickEdit}
         onClickDelete={onClickDelete}
         setModalName={setModalName}
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
       />
-<br />
+      <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
@@ -167,7 +173,7 @@ export default function Main() {
             accountDashboardList={dataFiltered}
             currentElement={editAccountDashboard}
             onClose={() => {
-              setModalName(""), console.log(modalName, "SSSSSSSSS");
+              setModalName("")
             }}
             fetchAccountDashboardList={fetchAccountDashboardList}
             onClickCreate={onClickCreate}
