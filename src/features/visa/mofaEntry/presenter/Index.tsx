@@ -8,15 +8,23 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { MofaPaymentInterface, Mofa_Entry_Candidate_Interface } from "../type";
-import { deleteMofaEntry, readMofaEntryCandiateList, readMofaPaymentList } from "../repository";
+import {
+  deleteMofaEntry,
+  readMofaEntryCandiateList,
+  readMofaPaymentList,
+} from "../repository";
 import Table from "./Table";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import { Heading6 } from "../../../../componenets/CoustomHeader";
 import MofaPaymentTable from "./MofaPaymentTable";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { AgentInterface } from "../../../masters/agent/type";
 import { readAgentList } from "../../../masters/agent/repository";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -31,7 +39,7 @@ const initValue: Mofa_Entry_Candidate_Interface = {
   passport_no: "",
   actual_profession: "",
   division: "",
-  agent_id:0,
+  agent_id: 0,
   agent_name: "",
   rs_name: "",
   rm_name: "",
@@ -86,6 +94,7 @@ export default function Main() {
       );
     }
   };
+  const { authPermissionList } = useUserAuth();
   const dataFiltered = filterData(searchQuery, CandidateList);
 
   const onClickCreate = () => {
@@ -102,13 +111,13 @@ export default function Main() {
     setModalName("add");
   };
 
-  const onClickDelete =async(ele:Mofa_Entry_Candidate_Interface)=>{
-    const res = await deleteMofaEntry(ele)
+  const onClickDelete = async (ele: Mofa_Entry_Candidate_Interface) => {
+    await deleteMofaEntry(ele);
     fetchMofaEntryCandiateList();
-  }
+  };
   const fetchMofaEntryCandiateList = async (page?: number) => {
     const data = await readMofaEntryCandiateList("yes", 0, page ?? 1);
-    console.log(data);
+    // console.log(data);
     setCandidateList(data);
     setAdditionalData(await PaginationManager.getData());
   };
@@ -122,18 +131,17 @@ export default function Main() {
     setMofaPaymentList(data);
   };
 
-
-  const [AgentList, setAgentList] = useState<AgentInterface[]>([])
+  const [AgentList, setAgentList] = useState<AgentInterface[]>([]);
   const fetchAgentList = async () => {
-      const data = await readAgentList()
-      console.log(data);
-      setAgentList(data)
-  }
+    const data = await readAgentList();
+    // console.log(data);
+    setAgentList(data);
+  };
 
   useEffect(() => {
-      fetchAgentList()
+    fetchAgentList();
 
-      fetchMofaPaymentList();
+    fetchMofaPaymentList();
     fetchMofaEntryCandiateList(additionalData.pagination.page);
   }, []);
 
@@ -146,7 +154,11 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <GreenButton onClick={() => setModalName("add")} text="Add" />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton onClick={() => setModalName("add")} text="Add" />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  mofa payment stable */}

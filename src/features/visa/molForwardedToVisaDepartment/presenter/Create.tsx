@@ -19,7 +19,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
-import EditModel from './Edit'
+import EditModel from "./Edit";
 import { FullScreenModal } from "../../../../componenets/Modal";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -30,7 +30,7 @@ const CardHeader = styled(Box)(() => ({
   justifyContent: "space-between",
 }));
 
-export default function Main(props:{onClose:()=>void}) {
+export default function Main(props: { onClose: () => void }) {
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -64,8 +64,6 @@ export default function Main(props:{onClose:()=>void}) {
   };
   const dataFiltered = filterData(searchQuery, JobOrderList);
 
-
-
   const onClickCreate = async () => {
     const res = await updateMolForwardedToVisaDeptData(JobOrderList);
   };
@@ -82,24 +80,25 @@ export default function Main(props:{onClose:()=>void}) {
 
   return (
     <FullScreenModal
-    // buttonName="submit"
-    handleClick={onClickCreate}
-    title="Add Mol Forwarded To Visa Department"
-    onClose={props.onClose}
->
-  
+      // buttonName="submit"
+      handleClick={onClickCreate}
+      title="Add Mol Forwarded To Visa Department"
+      onClose={props.onClose}
+    >
       {/*  indexVisa stable */}
       <Table
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onChange={(value) => setJobOrderList(value)}
-        onClick={()=> {console.log("edit modal"),setModalName('edit') }}
+        onClick={() => {
+          console.log("edit modal"), setModalName("edit");
+        }}
       />
       <br />
       <GreenButton onClick={onClickCreate} text="Create" />
       <br />
       <br />
-      
+
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
@@ -107,7 +106,6 @@ export default function Main(props:{onClose:()=>void}) {
           fetchMolForwardedToDepartment(e);
         }}
       />
-     
     </FullScreenModal>
   );
 }

@@ -10,8 +10,7 @@ import {
 import Pagination from "../../../../componenets/Pagination";
 import { FullScreenModal } from "../../../../componenets/Modal";
 
-
-export default function Main(props:{onClose:()=>void}) {
+export default function Main(props: { onClose: () => void }) {
   const [JobOrderList, setJobOrderList] = useState<MolReceivedInterface[]>([]);
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
@@ -24,7 +23,6 @@ export default function Main(props:{onClose:()=>void}) {
       },
     }
   );
-
 
   const onClickSubmit = async () => {
     const res = await updateMolReceivedData(JobOrderList);
@@ -42,29 +40,31 @@ export default function Main(props:{onClose:()=>void}) {
   }, []);
 
   return (
-    <FullScreenModal onClose={()=>props.onClose()} title="Add Mol received" handleClick={()=>onClickSubmit()} >
-    <div>
-   
+    <FullScreenModal
+      onClose={() => props.onClose()}
+      title="Add Mol received"
+      handleClick={() => onClickSubmit()}
+    >
+      <div>
+        {/*  indexVisa stable */}
+        <Table
+          snoBase={additionalData.pagination.sno_base}
+          jobOrderList={JobOrderList}
+          onChange={(value) => setJobOrderList(value)}
+        />
+        <br />
+        <GreenButton onClick={onClickSubmit} text="Create" />
+        <br />
+        <br />
 
-      {/*  indexVisa stable */}
-      <Table
-       snoBase={additionalData.pagination.sno_base}
-        jobOrderList={JobOrderList}
-        onChange={(value) => setJobOrderList(value)}
-      />
-      <br />
-      <GreenButton onClick={onClickSubmit} text="Create" />
-      <br />
-      <br />
-
-      <Pagination
-        data={additionalData}
-        onPageChange={(e) => {
-          console.log(e); // Only Dev
-          fetchMofaRecievedData(e);
-        }}
-      />
-    </div>
+        <Pagination
+          data={additionalData}
+          onPageChange={(e) => {
+            // console.log(e); // Only Dev
+            fetchMofaRecievedData(e);
+          }}
+        />
+      </div>
     </FullScreenModal>
   );
 }

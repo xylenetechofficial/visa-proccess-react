@@ -14,6 +14,7 @@ import {
 import { readVisaIssueDate, updateVisaIssueDate } from "../repository";
 import { GreenButton } from "../../../../componenets/CustomButton";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -39,7 +40,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchVisaIssueData = async (page?: number) => {
@@ -80,8 +81,11 @@ export default function Main() {
         onChange={(value) => setVisaIssueDateList(value)}
       />
       <br />
-
-      <GreenButton onClick={OnClickSubmit} text="Submit" />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={OnClickSubmit} text="Submit" />
+      ) : (
+        ""
+      )}
       <br />
       <Pagination
         data={additionalData}

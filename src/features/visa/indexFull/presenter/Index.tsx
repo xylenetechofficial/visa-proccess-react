@@ -63,9 +63,9 @@ export default function Main() {
     useState<VisaProfessionEditInterface>({} as VisaProfessionEditInterface);
 
   const onClickEditProVisa = async (item: any) => {
-    console.log("onClickEdit"); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
     setModalName("Visa Prof. Edit");
-    console.log(item, "IT");
+    // console.log(item, "IT");
     const res: any = await readVisaProEditList(item.party_code);
     if (res) {
       setEditProVisaList(res);
@@ -73,19 +73,19 @@ export default function Main() {
   };
 
   const onClickVisaProEdit = (item: VisaProfessionEditInterface) => {
-    console.log("onClickEdit", item); // Only Dev
+    // console.log("onClickEdit", item); // Only Dev
     setModalName("Visa Edit");
     setVisaProEditList(item);
   };
 
   const onClickProView = (fullIndex: FullIndexInterface) => {
     setCurrentFullIndex(fullIndex);
-    console.log("on Click view"); // Only Dev
+    // console.log("on Click view"); // Only Dev
     setModalName("View Visa Prof");
   };
 
   const onClickVisaEdit = (item: FullIndexListInterface) => {
-    console.log("onClickEdit"); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
     setModalName("Edit");
     setEditIndexFullList(item);
   };
@@ -98,7 +98,7 @@ export default function Main() {
   };
 
   const onClickUpdateVisaProEdit = async () => {
-    console.log("onClickUpdateVisaProEdit"); // Only Dev
+    // console.log("onClickUpdateVisaProEdit"); // Only Dev
     const res: any = await updateVisaProEdit(visaProEditList);
     if (res) {
       fetchIndexVisaList();
@@ -136,7 +136,7 @@ export default function Main() {
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchIndexVisaList(e);
         }}
       />

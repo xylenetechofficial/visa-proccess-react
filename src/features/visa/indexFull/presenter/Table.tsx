@@ -11,15 +11,16 @@ import {
 import { BlueButton } from "../../../../componenets/CustomButton";
 import { FullIndexInterface } from "../type/IndexVisa";
 import { FullIndexListInterface } from "../type2";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 export default function Main(props: {
-  snoBase:number,
-  indexFullList: any[];
-  onClickEditProVisa: (value : any)=>void
+  snoBase: number;
+  indexFullList: FullIndexListInterface[];
+  onClickEditProVisa: (value: any) => void;
   onClickProView: (fullIndex: FullIndexInterface) => void;
-  onClickVisaEdit: (value: FullIndexListInterface)=>void
+  onClickVisaEdit: (value: FullIndexListInterface) => void;
 }) {
-
+  const { authPermissionList } = useUserAuth();
   return (
     <>
       <div className="overflow-auto">
@@ -63,7 +64,7 @@ export default function Main(props: {
           <TableBody3>
             {props.indexFullList.map((indexList, index) => (
               <TableRow3 key={index}>
-               <TableCell3 >{index + props.snoBase+1}</TableCell3>
+                <TableCell3>{index + props.snoBase + 1}</TableCell3>
                 <TableCell3>{indexList.job_order_no}</TableCell3>
                 <TableCell3>{indexList.index_date}</TableCell3>
                 <TableCell3>{indexList.company_name}</TableCell3>
@@ -102,20 +103,28 @@ export default function Main(props: {
                   />
                 </TableCell3>
                 <TableCell3>
-                  <BlueButton
-                    text={"Visa Prof. Edit"}
-                    onClick={() => {
-                      props.onClickEditProVisa(indexList);
-                    }}
-                  />
+                  {authPermissionList.url_has("create") ? (
+                    <BlueButton
+                      text={"Visa Prof. Edit"}
+                      onClick={() => {
+                        props.onClickEditProVisa(indexList);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </TableCell3>
                 <TableCell3>
-                  <BlueButton
-                    text={"Edit"}
-                    onClick={() => {
-                      props.onClickVisaEdit(indexList);
-                    }}
-                  />
+                  {authPermissionList.url_has("create") ? (
+                    <BlueButton
+                      text={"Edit"}
+                      onClick={() => {
+                        props.onClickVisaEdit(indexList);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </TableCell3>
               </TableRow3>
             ))}

@@ -14,6 +14,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -37,7 +38,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [searchQuery, setSearchQuery] = useState("");
 
   const filterData = (query: string, data: DubaiDataEntryInterface[]) => {
@@ -58,13 +59,13 @@ export default function Main() {
         newArray.push(dubaiDateEntryList[i]);
       }
     }
-    const data = await updateDubaiDataEntry(newArray);
+    await updateDubaiDataEntry(newArray);
     fetchDubaiDataEntryList();
   };
 
   const fetchDubaiDataEntryList = async (page?: number) => {
     const data = await readDubaiDataEntryList(page ?? 1);
-    console.log(data);
+    // console.log(data);
     if (data) {
       setDubaiDateEntryList(data);
     }
@@ -92,7 +93,7 @@ export default function Main() {
       </CardHeader>
 
       <DubaiDataEntryTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         dubaiDataEntryList={dubaiDateEntryList}
         onChange={(value) => setDubaiDateEntryList(value)}
         fetchDubaiDataEntryList={() => {
@@ -100,9 +101,13 @@ export default function Main() {
         }}
       />
       <br />
-
-      <BlueButton text="Update" onClick={handleUpdateDubaiDataEntryList} />
-<br /><br />
+      {authPermissionList.url_has("create") ? (
+        <BlueButton text="Update" onClick={handleUpdateDubaiDataEntryList} />
+      ) : (
+        ""
+      )}
+      <br />
+      <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {

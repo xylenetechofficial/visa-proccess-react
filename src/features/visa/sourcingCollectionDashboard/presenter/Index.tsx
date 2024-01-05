@@ -2,25 +2,16 @@ import { useEffect, useState } from "react";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
-import IndexVisaTable from "./Table";
-import { confirmationMessage } from "../../../../utils/alert";
-import { GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import {
-  Src_Col_Dash_CandidateInterface,
+  
   Src_Col_Dash_JobOrderInterface,
 } from "../type";
 import { readSourcingCollectionDashboardJobOrder } from "../repository";
-import { SectorInterface } from "../../../masters/sector/type";
-import { readSectorList } from "../../../masters/sector/repository";
-import { readCompanyList } from "../../../masters/company/repository";
-import { CompanyInterface } from "../../../masters/company/type";
-import { CountryInterface } from "../../../masters/country/type";
-import { readCountryList } from "../../../masters/country/repository";
 import Table from "./Table";
 import {
   AdditionalDataInterface,
@@ -100,7 +91,7 @@ export default function Main() {
 
   const fetchSourcingCollectionDashboardJobOrder = async (page?: number) => {
     const data = await readSourcingCollectionDashboardJobOrder(page ?? 1);
-    console.log(data);
+    // console.log(data);
     setJobOrderList(data);
     setAdditionalData(await PaginationManager.getData());
   };

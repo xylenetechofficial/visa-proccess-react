@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import CreateModal from './Create'
-import EditModal from './Edit'
+import CreateModal from "./Create";
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import {
   CustomButton2,
@@ -17,6 +17,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -43,7 +44,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const filterData = (query: string, data: MolReceivedInterface[]) => {
     if (!query) {
       return data;
@@ -91,23 +92,31 @@ export default function Main() {
               setModalName("create");
             }}
           /> */}
-          <BlueButton
-            text={"Edit"}
-            onClick={() => {
-              setModalName("edit");
-            }}
-          />
+          {authPermissionList.url_has("update") ? (
+            <BlueButton
+              text={"Edit"}
+              onClick={() => {
+                setModalName("edit");
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </CardHeader>
 
       {/*  indexVisa stable */}
       <Table
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onChange={(value) => setJobOrderList(value)}
       />
       <br />
-      <GreenButton onClick={onClickSubmit} text="Submit" />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={onClickSubmit} text="Submit" />
+      ) : (
+        ""
+      )}
       <br />
       <br />
 
@@ -118,8 +127,16 @@ export default function Main() {
           fetchMofaRecievedData(e);
         }}
       />
-      {modalName === 'create' ? <CreateModal onClose={()=>setModalName('')} /> :'' }
-      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} /> :'' }
+      {modalName === "create" ? (
+        <CreateModal onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
+      {modalName === "edit" ? (
+        <EditModal onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

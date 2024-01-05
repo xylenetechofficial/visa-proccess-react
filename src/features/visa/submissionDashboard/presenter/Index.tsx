@@ -19,6 +19,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -75,7 +76,7 @@ const CardHeader = styled(Box)(() => ({
 export default function Main() {
   const [submissionDashboardDataList, setSubmissionDashboardDataList] =
     useState<SubmissionDashboardInterface[]>([]);
-
+  const { authPermissionList } = useUserAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [change_string, set_change_string] = useState("");
 
@@ -140,14 +141,18 @@ export default function Main() {
       </CardHeader>
 
       <Table
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         submissionDashboardDataList={submissionDashboardDataList}
         onChange={(value) => setSubmissionDashboardDataList(value)}
         fetchSubmisionDashboardDataList={fetchSubmisionDashboardDataList}
         change_string={change_string}
       />
       <br />
-      <BlueButton text="Update" onClick={UpdateSubmissionDashboardDataList} />
+      {authPermissionList.url_has("update") ? (
+        <BlueButton text="Update" onClick={UpdateSubmissionDashboardDataList} />
+      ) : (
+        ""
+      )}
       <br />
       <br />
 

@@ -9,7 +9,6 @@ import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
-import { FaFilter } from "react-icons/fa";
 import { BlockVisaInterface, VisaProfesionInterface } from "../type";
 import { deleteBlockVisa, readBlockVisaList } from "../repository";
 import { SectorInterface } from "../../../masters/sector/type";
@@ -23,6 +22,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const CardHeader = styled(Box)(() => ({
   display: "flex",
@@ -37,7 +37,7 @@ export default function Main() {
   const [editBlockVisa, setEditBlockVisa] = useState<BlockVisaInterface>(
     {} as BlockVisaInterface
   );
-
+  const { authPermissionList } = useUserAuth();
   const [modalName, setModalName] = useState("");
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -56,8 +56,8 @@ export default function Main() {
 
   const onClickEdit = (blockVisa: BlockVisaInterface) => {
     setEditBlockVisa(blockVisa);
-    console.log("onClickEdit"); // Only Dev
-    console.log(blockVisa); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
+    // console.log(blockVisa); // Only Dev
     setModalName("edit");
   };
 
@@ -117,9 +117,9 @@ export default function Main() {
   };
   const dataFiltered = filterData(searchQuery, blockVisaList);
 
-  const [visaprofession, setVisaProfessionList] = useState<
+  /* const [visaprofession, setVisaProfessionList] = useState<
     VisaProfesionInterface[]
-  >([]);
+  >([]);*/
 
   const fetchBlockVisaList = async (page?: number) => {
     const data = await readBlockVisaList(page ?? 1);
@@ -147,13 +147,17 @@ export default function Main() {
 
       <CardHeader>
         {/* <CustomButton2 buttonText="Add filter" icon={<FaFilter />} /> */}
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
 
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
         {/* <Button
                     variant="contained"
                     color="success"

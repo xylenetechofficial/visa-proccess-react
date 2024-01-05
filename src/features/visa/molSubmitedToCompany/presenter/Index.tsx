@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import CreateModal from './Create'
-import EditModal from './Edit'
+import CreateModal from "./Create";
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
-import { ReadMolRecievedData, createMolReceivedData, updateMolReceivedData } from "../repository";
+import {
+  ReadMolRecievedData,
+  createMolReceivedData,
+  updateMolReceivedData,
+} from "../repository";
 import Table from "./Table";
 import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import { MolReceivedInterface } from "../type";
@@ -16,6 +20,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -53,18 +58,15 @@ export default function Main() {
     }
   };
   const dataFiltered = filterData(searchQuery, JobOrderList);
-
- 
-
-
+  const { authPermissionList } = useUserAuth();
   const onClickSubmit = async () => {
     // const res = await updateMolReceivedData(JobOrderList);
-    const res = await createMolReceivedData(JobOrderList);
+    await createMolReceivedData(JobOrderList);
     fetchMofaRecievedData();
   };
 
   const fetchMofaRecievedData = async (page?: number) => {
-    const data = await ReadMolRecievedData(page ?? 1,"no");
+    const data = await ReadMolRecievedData(page ?? 1, "no");
     console.log(data);
     setJobOrderList(data);
     setAdditionalData(await PaginationManager.getData());
@@ -89,35 +91,51 @@ export default function Main() {
               setModalName("create");
             }}
           /> */}
-          <BlueButton
-            text={"Edit"}
-            onClick={() => {
-              setModalName("edit");
-            }}
-          />
+          {authPermissionList.url_has("update") ? (
+            <BlueButton
+              text={"Edit"}
+              onClick={() => {
+                setModalName("edit");
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </CardHeader>
 
       {/*  indexVisa stable */}
       <Table
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onChange={(value) => setJobOrderList(value)}
       />
       <br />
-      <GreenButton onClick={onClickSubmit} text="Submit" />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={onClickSubmit} text="Submit" />
+      ) : (
+        ""
+      )}
       <br />
       <br />
 
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchMofaRecievedData(e);
         }}
       />
-      {modalName === 'create' ? <CreateModal onClose={()=>setModalName('')} /> : ''}
-      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} /> : ''}
+      {modalName === "create" ? (
+        <CreateModal onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
+      {modalName === "edit" ? (
+        <EditModal onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

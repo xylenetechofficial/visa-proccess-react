@@ -1,71 +1,72 @@
-import { Mofa_Entry_Candidate_Interface } from '../type'
-import { BlueButton,  RedButton } from '../../../../componenets/CustomButton';
-import { Table3,  TableBody3, TableCell3, TableHead3,  TableHeadCell3,  TableHeadRow3, TableRow3 } from '../../../../componenets/Table';
+import { Mofa_Entry_Candidate_Interface } from "../type";
+import { BlueButton, RedButton } from "../../../../componenets/CustomButton";
+import {
+  Table3,
+  TableBody3,
+  TableCell3,
+  TableHead3,
+  TableHeadCell3,
+  TableHeadRow3,
+  TableRow3,
+} from "../../../../componenets/Table";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const Table = (props: {
-    snoBase:number,
-    candidateList: Mofa_Entry_Candidate_Interface[],
-    onClickAdd: (ele: Mofa_Entry_Candidate_Interface) => void,
-    onClickEdit: (ele: Mofa_Entry_Candidate_Interface) => void,
-    onClickDelete: (ele: Mofa_Entry_Candidate_Interface) => void,
-
+  snoBase: number;
+  candidateList: Mofa_Entry_Candidate_Interface[];
+  onClickAdd: (ele: Mofa_Entry_Candidate_Interface) => void;
+  onClickEdit: (ele: Mofa_Entry_Candidate_Interface) => void;
+  onClickDelete: (ele: Mofa_Entry_Candidate_Interface) => void;
 }) => {
-    const tableHeadings = [
-        ["SR. NO." ],
-        ["COMPANY"],
-        ["PARTY CODE"],
-        ["CANDIDATE"],
-        ["PASSPORT NO"],
-        // ["ACTUAL PROFESSION"],
-        // ["DIVISION"],
-        ["AGENT"],
-        // ["RS"],
-        // ["RM"],
-        // ["RC"],
-    
-        // ["VISA PROFESSION"],
-        // ["MOFA NUMBER"],
-        // ["PP/COPY"],
-        // ["PP ISSUED DATE"],
-        // ["PP EXPIRY DATE"],
-        // ["PLACE OF ISSUE"],
-        // ["DATE OF BIRTH"],
-        // ["PLACE OF BIRTH"],
-        // ["ADDRESS"],
-        // ["RELIGION"],
-        // ["PAYMENT FROM"],
-        ["Action"],
-    
-      
-    ];
-    const tableHeadingsComponent = tableHeadings.map((e)=>(
-        <TableHeadCell3  > {e[0]}</TableHeadCell3>
-    ));
+  const { authPermissionList } = useUserAuth();
+  const tableHeadings = [
+    ["SR. NO."],
+    ["COMPANY"],
+    ["PARTY CODE"],
+    ["CANDIDATE"],
+    ["PASSPORT NO"],
+    // ["ACTUAL PROFESSION"],
+    // ["DIVISION"],
+    ["AGENT"],
+    // ["RS"],
+    // ["RM"],
+    // ["RC"],
 
-    return (
-        <div className='overflow-auto'>
+    // ["VISA PROFESSION"],
+    // ["MOFA NUMBER"],
+    // ["PP/COPY"],
+    // ["PP ISSUED DATE"],
+    // ["PP EXPIRY DATE"],
+    // ["PLACE OF ISSUE"],
+    // ["DATE OF BIRTH"],
+    // ["PLACE OF BIRTH"],
+    // ["ADDRESS"],
+    // ["RELIGION"],
+    // ["PAYMENT FROM"],
+    ["Action"],
+  ];
+  const tableHeadingsComponent = tableHeadings.map((e) => (
+    <TableHeadCell3> {e[0]}</TableHeadCell3>
+  ));
 
+  return (
+    <div className="overflow-auto">
+      <Table3>
+        <TableHead3>
+          <TableHeadRow3>{tableHeadingsComponent}</TableHeadRow3>
+        </TableHead3>
+        <TableBody3>
+          {props.candidateList.map((ele, index) => (
+            <TableRow3 key={index}>
+              <TableCell3>{index + props.snoBase + 1}</TableCell3>
+              <TableCell3> {ele.company_name}</TableCell3>
+              <TableCell3> {ele.party_code}</TableCell3>
+              <TableCell3> {ele.name}</TableCell3>
+              <TableCell3> {ele.passport_no}</TableCell3>
+              {/* <TableCell3 > {ele.actual_profession}</TableCell3> */}
+              <TableCell3> {ele.agent_name}</TableCell3>
 
-            <Table3  >
-                <TableHead3 >
-                    <TableHeadRow3  >
-                     {tableHeadingsComponent}
-
-                    </TableHeadRow3>
-                </TableHead3>
-                <TableBody3>
-                    {props.candidateList.map((ele, index) => (
-
-                        <TableRow3 key={index}>
-                           <TableCell3 >{index + props.snoBase+1}</TableCell3>
-                            <TableCell3 > {ele.company_name}</TableCell3>
-                            <TableCell3 > {ele.party_code}</TableCell3>
-                            <TableCell3 > {ele.name}</TableCell3>
-                            <TableCell3 > {ele.passport_no}</TableCell3>
-                            {/* <TableCell3 > {ele.actual_profession}</TableCell3> */}
-                            <TableCell3 > {ele.agent_name}</TableCell3>
-
-                            {/* <TableCell3 > {ele.division}</TableCell3>
+              {/* <TableCell3 > {ele.division}</TableCell3>
                             <TableCell3 > {ele.rs_name}</TableCell3>
                             <TableCell3 > {ele.rm_name}</TableCell3>
                             <TableCell3 > {ele.rc_name}</TableCell3>
@@ -80,31 +81,36 @@ const Table = (props: {
                             <TableCell3 > {ele.address}</TableCell3>
                             <TableCell3 > {ele.religion}</TableCell3>
                             <TableCell3 > {ele.payment_from}</TableCell3> */}
-                            <TableCell3 >
-
-                                {/* <GreenButton text={"Add"}  onClick={() => {
+              <TableCell3>
+                {/* <GreenButton text={"Add"}  onClick={() => {
                                     props.onClickAdd(ele)
                                 }} /> */}
 
-                                <BlueButton text={" Edit"} onClick={() => {
-                                    props.onClickEdit(ele)
-                                }} />
-                                <RedButton text='Delete' onClick={()=> props.onClickDelete(ele)} />
+                {authPermissionList.url_has("update") ? (
+                  <BlueButton
+                    text={" Edit"}
+                    onClick={() => {
+                      props.onClickEdit(ele);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+                {authPermissionList.url_has("delete") ? (
+                  <RedButton
+                    text="Delete"
+                    onClick={() => props.onClickDelete(ele)}
+                  />
+                ) : (
+                  ""
+                )}
+              </TableCell3>
+            </TableRow3>
+          ))}
+        </TableBody3>
+      </Table3>
+    </div>
+  );
+};
 
-
-
-                            </TableCell3>
-                        </TableRow3>
-                    ))}
-
-
-
-                </TableBody3>
-            </Table3>
-
-        </div>
-    )
-}
-
-export default Table
-
+export default Table;

@@ -7,7 +7,6 @@ import DegreeAttestationTable from "./Table";
 import {
   BlueButton,
   GreenButton,
-  YellowButton,
 } from "../../../../componenets/CustomButton";
 import { Box, styled } from "@mui/material";
 import { FaFilter } from "react-icons/fa";

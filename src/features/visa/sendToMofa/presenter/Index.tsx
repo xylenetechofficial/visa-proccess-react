@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CreateModal from "./Create";
-import EditModal from './Edit'
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import {
   CustomButton2,
@@ -8,7 +8,10 @@ import {
 } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { SendToMofa_JobOrderInterface } from "../type";
-import { deleteSendToMofaCandidate, readSendToMofaJobOrder } from "../repository";
+import {
+  deleteSendToMofaCandidate,
+  readSendToMofaJobOrder,
+} from "../repository";
 import Table from "./Table";
 import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import {
@@ -16,6 +19,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -54,7 +58,7 @@ export default function Main() {
     useState<SendToMofa_JobOrderInterface>(initValue);
 
   const [modalName, setModalName] = useState("");
-
+  const { authPermissionList } = useUserAuth();
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -94,10 +98,9 @@ export default function Main() {
   };
 
   const onClickDelete = async (ele: SendToMofa_JobOrderInterface) => {
-    const res = await deleteSendToMofaCandidate(ele);
+    await deleteSendToMofaCandidate(ele);
     fetchSendToMofaJobOrder(additionalData.pagination.page);
-
-  }
+  };
   const fetchSendToMofaJobOrder = async (page?: number) => {
     const data = await readSendToMofaJobOrder("yes", page ?? 1);
     console.log(data);
@@ -118,8 +121,16 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
         <div>
-          <GreenButton onClick={() => setModalName("add")} text="Add" />
-          <BlueButton onClick={() => setModalName("edit")} text="Edit" />
+          {authPermissionList.url_has("create") ? (
+            <GreenButton onClick={() => setModalName("add")} text="Add" />
+          ) : (
+            ""
+          )}
+          {authPermissionList.url_has("update") ? (
+            <BlueButton onClick={() => setModalName("edit")} text="Edit" />
+          ) : (
+            ""
+          )}
         </div>
       </CardHeader>
 
@@ -135,7 +146,7 @@ export default function Main() {
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchSendToMofaJobOrder(e);
         }}
       />
@@ -153,12 +164,14 @@ export default function Main() {
       )}
 
       {/* Edit */}
-      {modalName !== "edit" ? "" :
+      {modalName !== "edit" ? (
+        ""
+      ) : (
         <EditModal
           currentElement={currentElement}
           onClose={() => setModalName("")}
-
-        />}
+        />
+      )}
     </div>
   );
 }

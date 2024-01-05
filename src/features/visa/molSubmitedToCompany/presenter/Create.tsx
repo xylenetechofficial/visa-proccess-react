@@ -2,11 +2,6 @@ import { useEffect, useState } from "react";
 // import CreateModal from './Create'
 // import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
-import {
-  CustomButton2,
-  CustomNavbarV3,
-} from "../../../../componenets/CustomComponents";
-import { FaFilter } from "react-icons/fa";
 
 import { ReadMolRecievedData, updateMolReceivedData } from "../repository";
 import Table from "./Table";
@@ -43,7 +38,7 @@ export default function Main(props:{onClose:()=>void}) {
 
 
   const onClickCreate = async () => {
-    const res = await updateMolReceivedData(JobOrderList);
+     await updateMolReceivedData(JobOrderList);
     fetchMofaRecievedData();
   };
 
@@ -78,7 +73,7 @@ export default function Main(props:{onClose:()=>void}) {
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchMofaRecievedData(e);
         }}
       />

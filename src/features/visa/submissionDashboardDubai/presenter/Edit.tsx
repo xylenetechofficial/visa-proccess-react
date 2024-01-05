@@ -7,7 +7,7 @@ import CandidateTable from "./CandidateTable";
 
 
 export default function Main(props: {
-    onClose: any,
+    onClose: ()=>void,
     currentElement: Submission_Dash_JobOrderInterface
 }) {
 

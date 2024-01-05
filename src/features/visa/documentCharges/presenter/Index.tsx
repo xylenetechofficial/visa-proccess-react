@@ -9,8 +9,10 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 export default function Main() {
+  const { authPermissionList } = useUserAuth();
   const [documentChargesList, setDocumentChargesList] = useState<
     DocumentChargesInterface[]
   >([]);
@@ -29,7 +31,7 @@ export default function Main() {
 
   const fetchDocumentChargesList = async (page?: number) => {
     const data = await readDocumentChargesList(page ?? 1);
-    console.log(data);
+    // console.log(data);
     setDocumentChargesList(data);
     setAdditionalData(await PaginationManager.getData());
   };
@@ -44,8 +46,8 @@ export default function Main() {
       new_list.push(element);
     }
 
-    const data: any = await createDocumentCharges(new_list);
-    console.log(data, "crete");
+    await createDocumentCharges(new_list);
+    // console.log(data, "crete");
     fetchDocumentChargesList();
   };
 
@@ -61,23 +63,28 @@ export default function Main() {
       />
 
       <DocumentChargesTable
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         documentChargesList={documentChargesList}
         onChange={(value) => setDocumentChargesList(value)}
       />
-<br />
-      <BlueButton
-        text="Submit"
-        onClick={() => {
-          createDocumentChargesList(documentChargesList);
-        }}
-      />
-      <br /><br />
+      <br />
+      {authPermissionList.url_has("create") ? (
+        <BlueButton
+          text="Submit"
+          onClick={() => {
+            createDocumentChargesList(documentChargesList);
+          }}
+        />
+      ) : (
+        ""
+      )}
+
+      <br />
 
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchDocumentChargesList(e);
         }}
       />

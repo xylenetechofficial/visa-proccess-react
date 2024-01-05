@@ -1,281 +1,302 @@
-import { createBlockVisa, readBlockVisa, updateBlockVisa } from "../repository";
+import { readBlockVisa, updateBlockVisa } from "../repository";
 import { useEffect, useState } from "react";
-import ModalContent, { FullScreenModal } from "../../../../componenets/Modal";
-import { DateInput, FileInput, StandardInput, UnlabeledInput } from "../../../../componenets/Input";
+import { FullScreenModal } from "../../../../componenets/Modal";
+import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { SectorInterface } from "../../../masters/sector/type";
 import { CompanyInterface } from "../../../masters/company/type";
 import { BlockVisaInterface, VisaProfesionInterface } from "../type";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox";
+import {
+  CustomSelectComponentUnlabeled,
+  selectOptionConveter,
+} from "../../../../componenets/SelectBox";
 import { CustomRadioButton } from "../../../../componenets/RadioButton";
 import { CountryInterface } from "../../../masters/country/type";
-import ActualProfessionTable from "./VisaProfessionTable";
-import { SubHeading1, UpdateContentBox } from "../../../../componenets/CoustomHeader";
+import {
+  SubHeading1,
+  UpdateContentBox,
+} from "../../../../componenets/CoustomHeader";
 import { readVisaAuthorisationList } from "../../../masters/visaAuthorization/repository";
 import { VisaAuthorisationInterface } from "../../../masters/visaAuthorization/type";
 // import { OPManagerList, rcList, recruitManagerList } from "../../../job-dpt/db/user";
 import VisaProfessionTable from "./VisaProfessionTable";
 import { addDaysToDate } from "../../../../utils/function";
-import { UserInterface } from '../../../context/Model';
-import { readOperationManagerist, readRecruitCoordinatorList, readRecruitManagerList, readRecruitSuperVisorList } from '../../../masters/user/repository';
-
+import { UserInterface } from "../../../context/Model";
+import {
+  readOperationManagerist,
+  readRecruitCoordinatorList,
+  readRecruitManagerList,
+  readRecruitSuperVisorList,
+} from "../../../masters/user/repository";
 
 export default function Main(props: {
-    onClose: () => void,
-    fetchBlockVisaList: () => void,
-    currentElement: BlockVisaInterface,
-    sectorList: SectorInterface[],
-    companyList: CompanyInterface[],
-    countryList: CountryInterface[],
+  onClose: () => void;
+  fetchBlockVisaList: () => void;
+  currentElement: BlockVisaInterface;
+  sectorList: SectorInterface[];
+  companyList: CompanyInterface[];
+  countryList: CountryInterface[];
 }) {
+  const initValue: BlockVisaInterface = {
+    id: 0,
+    arabic_sponsor_name: "",
+    company: 0,
+    country: 0,
+    division: "",
+    index_date: "",
+    om: 0,
+    quantity: 0,
+    rc: 0,
+    rm: 0,
+    sponsor_id: "",
+    visa_accountable: 0,
+    visa_authorization: 0,
+    visa_number: "",
+    visa_date_arabic: "",
+    visa_expiry_date: "",
+    visa_fee: 0,
+    visa_issued_date: "",
+    visa_submission: "",
+    days: 709,
+    visaProfessionList: [],
+  };
 
-    const initValue: BlockVisaInterface = {
-        id: 0,
-        arabic_sponsor_name: "",
-        company: 0,
-        country: 0,
-        division: "",
-        index_date: "",
-        om: 0,
-        quantity: 0,
-        rc: 0,
-        rm: 0,
-        sponsor_id: "",
-        visa_accountable: 0,
-        visa_authorization: 0,
-        visa_number: "",
-        visa_date_arabic: "",
-        visa_expiry_date: "",
-        visa_fee: 0,
-        visa_issued_date: "",
-        visa_submission: "",
-        days: 709,
-        visaProfessionList:[]
+  const [blockVisa, setBlockVisa] = useState(initValue);
+  const [visaProfessionList, setVisaProfessionList] = useState<
+    VisaProfesionInterface[]
+  >([]);
+
+  async function onClickAdd() {
+    // call create
+    const newArray = { ...blockVisa, visaProfessionList: visaProfessionList };
+
+    await updateBlockVisa(props.currentElement.id ?? 0, newArray);
+
+    setBlockVisa(initValue);
+    props.fetchBlockVisaList();
+  }
+  const [visaAuhorisationList, setvisaAuhorisationList] = useState<
+    VisaAuthorisationInterface[]
+  >([]);
+  const fetchvisaAuhorisationList = async () => {
+    const data = await readVisaAuthorisationList();
+    if (data) {
+      setvisaAuhorisationList(data);
     }
-
-    const [blockVisa, setBlockVisa] = useState(initValue)
-    const [visaProfessionList, setVisaProfessionList] = useState<VisaProfesionInterface[]>([])
-
-
-
-    async function onClickAdd() {
-
-        // call create
-        const newArray = { ...blockVisa, visaProfessionList: visaProfessionList }
-
-        const flag = await updateBlockVisa(props.currentElement.id ?? 0, newArray)
-
-
-        setBlockVisa(initValue)
-        props.fetchBlockVisaList()
+  };
+  const fetchBlockVisa = async () => {
+    const data = await readBlockVisa(props.currentElement.id ?? 0);
+    if (data) {
+      setBlockVisa(data);
+      setVisaProfessionList(data.visaProfessionList ?? []);
     }
-    const [visaAuhorisationList, setvisaAuhorisationList] = useState<VisaAuthorisationInterface[]>([])
-    const fetchvisaAuhorisationList = async () => {
-        const data = await readVisaAuthorisationList();
-        if (data) {
-            setvisaAuhorisationList(data);
-        }
-    }
-    const fetchBlockVisa = async () => {
-        const data = await readBlockVisa(props.currentElement.id ?? 0);
-        if (data) {
-            setBlockVisa(data);
-            setVisaProfessionList(data.visaProfessionList ?? [])
-        }
-    }
-    const [RecruitSuperVisorList, setRecruitSuperVisorList] = useState<UserInterface[]>([])
-    const fetchRecruitSuperVisorList = async () => {
-        const data = await readRecruitSuperVisorList()
-        setRecruitSuperVisorList(data)
-    }
+  };
+  const [RecruitSuperVisorList, setRecruitSuperVisorList] = useState<
+    UserInterface[]
+  >([]);
+  const fetchRecruitSuperVisorList = async () => {
+    const data = await readRecruitSuperVisorList();
+    setRecruitSuperVisorList(data);
+  };
 
-    const [RecruitCoordinatorList, setRecruitCoordinatorList] = useState<UserInterface[]>([])
-    const fetchRecruitCoordinatorList = async () => {
-        const data = await readRecruitCoordinatorList()
-        setRecruitCoordinatorList(data)
-    }
-    
-    const [RecruitManagerList, setRecruitManagerList] = useState<UserInterface[]>([])
-    const fetchRecruitManagerList = async () => {
-        const data = await readRecruitManagerList()
-        setRecruitManagerList(data)
-    }
-    
-    const [OperationManagerist, setOperationManagerist] = useState<UserInterface[]>([])
-    const fetchOperationManagerist = async () => {
-        const data = await readOperationManagerist()
-        console.log(data);
-        setOperationManagerist(data)
-    }
-    
-    useEffect(() => {
-        fetchOperationManagerist()
-        fetchRecruitManagerList()
-        fetchRecruitCoordinatorList()
-        fetchRecruitSuperVisorList()
-        fetchvisaAuhorisationList();
-        fetchBlockVisa()
-        // setBlockVisa(props.currentElement)
-        // setVisaProfessionList(props.currentElement.visaProfessionList??[])
-    }, [])
+  const [RecruitCoordinatorList, setRecruitCoordinatorList] = useState<
+    UserInterface[]
+  >([]);
+  const fetchRecruitCoordinatorList = async () => {
+    const data = await readRecruitCoordinatorList();
+    setRecruitCoordinatorList(data);
+  };
 
-    return (
+  const [RecruitManagerList, setRecruitManagerList] = useState<UserInterface[]>(
+    []
+  );
+  const fetchRecruitManagerList = async () => {
+    const data = await readRecruitManagerList();
+    setRecruitManagerList(data);
+  };
 
-        <FullScreenModal
-            buttonName="Update"
-            handleClick={onClickAdd}
-            title="Update Block Visa"
-            onClose={props.onClose}
-        >
+  const [OperationManagerist, setOperationManagerist] = useState<
+    UserInterface[]
+  >([]);
+  const fetchOperationManagerist = async () => {
+    const data = await readOperationManagerist();
+    console.log(data);
+    setOperationManagerist(data);
+  };
 
-            <div className=" grid grid-cols-1 py-3  gap-2 shadow">
-                <UpdateContentBox>
+  useEffect(() => {
+    fetchOperationManagerist();
+    fetchRecruitManagerList();
+    fetchRecruitCoordinatorList();
+    fetchRecruitSuperVisorList();
+    fetchvisaAuhorisationList();
+    fetchBlockVisa();
+    // setBlockVisa(props.currentElement)
+    // setVisaProfessionList(props.currentElement.visaProfessionList??[])
+  }, []);
 
-                    <SubHeading1 text="Index Date  :" />
-                    <DateInput
-                        id="sd;fksdakj"
-                        value={blockVisa.index_date}
-                        onChange={(value) => setBlockVisa({ ...blockVisa, index_date: value })}
-                    />
-                </UpdateContentBox>
+  return (
+    <FullScreenModal
+      buttonName="Update"
+      handleClick={onClickAdd}
+      title="Update Block Visa"
+      onClose={props.onClose}
+    >
+      <div className=" grid grid-cols-1 py-3  gap-2 shadow">
+        <UpdateContentBox>
+          <SubHeading1 text="Index Date  :" />
+          <DateInput
+            id="sd;fksdakj"
+            value={blockVisa.index_date}
+            onChange={(value) =>
+              setBlockVisa({ ...blockVisa, index_date: value })
+            }
+          />
+        </UpdateContentBox>
 
+        <UpdateContentBox>
+          <SubHeading1 text=" COMPANY :" />
+          <CustomSelectComponentUnlabeled
+            onChange={(value) => setBlockVisa({ ...blockVisa, company: value })}
+            options={selectOptionConveter({
+              options: props.companyList,
+              options_struct: { name: "name", value: "id" },
+            })}
+            value={blockVisa.company}
+          />
+        </UpdateContentBox>
 
+        <UpdateContentBox>
+          <SubHeading1 text=" Country :" />
+          <CustomSelectComponentUnlabeled
+            onChange={(value) => setBlockVisa({ ...blockVisa, country: value })}
+            options={selectOptionConveter({
+              options: props.countryList,
+              options_struct: { name: "name", value: "id" },
+            })}
+            value={blockVisa.country}
+          />
+        </UpdateContentBox>
 
-                <UpdateContentBox>
-                    <SubHeading1 text=" COMPANY :" />
-                    <CustomSelectComponentUnlabeled
-                        onChange={(value) => setBlockVisa({ ...blockVisa, company: value })}
+        <UpdateContentBox>
+          <SubHeading1 text="Quantity  :" />
+          <UnlabeledInput
+            type="number"
+            value={blockVisa.quantity}
+            onchange={(value) =>
+              setBlockVisa({ ...blockVisa, quantity: parseInt(value) })
+            }
+          />
+        </UpdateContentBox>
 
-                        options={selectOptionConveter({ options: props.companyList, options_struct: { name: "name", value: "id" } })}
-                        value={blockVisa.company}
-                    />
-                </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="Visa Date(Arabic) :" />
+          <UnlabeledInput
+            value={blockVisa.visa_date_arabic}
+            onchange={(value) =>
+              setBlockVisa({ ...blockVisa, visa_date_arabic: value })
+            }
+          />
+        </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="Visa number:" />
+          <UnlabeledInput
+            value={blockVisa.visa_number}
+            onchange={(value) =>
+              setBlockVisa({ ...blockVisa, visa_number: value })
+            }
+          />
+        </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="Visa fee :" />
+          <UnlabeledInput
+            type="number"
+            value={blockVisa.visa_fee}
+            onchange={(value) =>
+              setBlockVisa({ ...blockVisa, visa_fee: parseInt(value) })
+            }
+          />
+        </UpdateContentBox>
 
-                <UpdateContentBox>
-                    <SubHeading1 text=" Country :" />
-                    <CustomSelectComponentUnlabeled
-                        onChange={(value) => setBlockVisa({ ...blockVisa, country: value })}
+        <UpdateContentBox>
+          <SubHeading1 text="Visa Issue DAte :" />
+          <DateInput
+            id="asdfsadfsadfsdfsa"
+            value={blockVisa.visa_issued_date}
+            onChange={(value) => {
+              const date = addDaysToDate(value, blockVisa.days);
+              setBlockVisa({
+                ...blockVisa,
+                visa_issued_date: value,
+                visa_expiry_date: date,
+              });
+            }}
+          />
+        </UpdateContentBox>
 
-                        options={selectOptionConveter({ options: props.countryList, options_struct: { name: "name", value: "id" } })}
-                        value={blockVisa.country}
-                    />
-                </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="VISA AUTHORIZATION:  :" />
 
-                <UpdateContentBox>
+          <CustomSelectComponentUnlabeled
+            value={blockVisa.visa_authorization}
+            onChange={(value) =>
+              setBlockVisa({ ...blockVisa, visa_authorization: value })
+            }
+            options={selectOptionConveter({
+              options: visaAuhorisationList,
+              options_struct: { name: "name", value: "id" },
+            })}
+          />
+        </UpdateContentBox>
 
-                    <SubHeading1 text="Quantity  :" />
-                    <UnlabeledInput
-                        
-type="number"
-                    
+        <UpdateContentBox>
+          <SubHeading1 text="visa submission:" />
+          <CustomSelectComponentUnlabeled
+            options={[
+              { name: "Mumbai", value: "Mumbai" },
+              { name: "Delhi", value: "Delhi" },
+            ]}
+            value={blockVisa.visa_submission}
+            onChange={(value) =>
+              setBlockVisa({ ...blockVisa, visa_submission: value })
+            }
+          />
+        </UpdateContentBox>
 
-                        value={blockVisa.quantity}
-                        onchange={(value) => setBlockVisa({ ...blockVisa, quantity: parseInt(value) })}
-                    />
-                </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="Arabic Sponsor Name :" />
+          <UnlabeledInput
+            value={blockVisa.arabic_sponsor_name}
+            onchange={(value) =>
+              setBlockVisa({ ...blockVisa, arabic_sponsor_name: value })
+            }
+          />
+        </UpdateContentBox>
 
+        <UpdateContentBox>
+          <SubHeading1 text="Sponsor Id:" />
+          <UnlabeledInput
+            value={blockVisa.sponsor_id}
+            onchange={(value) =>
+              setBlockVisa({ ...blockVisa, sponsor_id: value })
+            }
+          />
+        </UpdateContentBox>
 
-                <UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="Visa expiry date :" />
+          <DateInput
+            id="adsfdsfadfsdafdsfdsafas"
+            value={blockVisa.visa_expiry_date}
+            onChange={(value) => {
+              setBlockVisa({
+                ...blockVisa,
+                days: parseInt(value),
+                visa_expiry_date: value,
+              });
+            }}
+          />
 
-                    <SubHeading1 text="Visa Date(Arabic) :" />
-                    <UnlabeledInput
-                        value={blockVisa.visa_date_arabic}
-                        onchange={(value) => setBlockVisa({ ...blockVisa, visa_date_arabic: value })}
-                    />
-                </UpdateContentBox>
-                <UpdateContentBox>
-
-                    <SubHeading1 text="Visa number:" />
-                    <UnlabeledInput
-                        value={blockVisa.visa_number}
-                        onchange={(value) => setBlockVisa({ ...blockVisa, visa_number: value })}
-                    />
-                </UpdateContentBox>
-                <UpdateContentBox>
-
-                    <SubHeading1 text="Visa fee :" />
-                    <UnlabeledInput
-                        
-type="number"
-                    
-                        value={blockVisa.visa_fee}
-                        onchange={(value) => setBlockVisa({ ...blockVisa, visa_fee: parseInt(value) })}
-                    />
-                </UpdateContentBox>
-
-
-                <UpdateContentBox>
-
-                    <SubHeading1 text="Visa Issue DAte :" />
-                    <DateInput
-                        id="asdfsadfsadfsdfsa"
-                        value={blockVisa.visa_issued_date}
-                        onChange={(value) => {
-                            const date = addDaysToDate(value, blockVisa.days)
-                            setBlockVisa({ ...blockVisa, visa_issued_date: value, visa_expiry_date: date })
-                        }
-                        }
-                    />
-                </UpdateContentBox>
-
-
-
-
-
-                <UpdateContentBox>
-
-                    <SubHeading1 text="VISA AUTHORIZATION:  :" />
-
-                    <CustomSelectComponentUnlabeled
-                        value={blockVisa.visa_authorization}
-                        onChange={(value) => setBlockVisa({ ...blockVisa, visa_authorization: value })}
-                        options={selectOptionConveter({ options: visaAuhorisationList, options_struct: { name: "name", value: "id" } })}
-                    />
-                </UpdateContentBox>
-
-                <UpdateContentBox>
-
-                    <SubHeading1 text="visa submission:" />
-                    <CustomSelectComponentUnlabeled
-                        options={[
-                            { name: "Mumbai", value: "Mumbai" },
-                            { name: "Delhi", value: "Delhi" },
-
-                        ]}
-                        value={blockVisa.visa_submission}
-                        onChange={(value) => setBlockVisa({ ...blockVisa, visa_submission: value })}
-                    />
-                </UpdateContentBox>
-
-                <UpdateContentBox>
-
-                    <SubHeading1 text="Arabic Sponsor Name :" />
-                    <UnlabeledInput
-                        value={blockVisa.arabic_sponsor_name}
-                        onchange={(value) => setBlockVisa({ ...blockVisa, arabic_sponsor_name: value })}
-                    />
-                </UpdateContentBox>
-
-                <UpdateContentBox>
-
-                    <SubHeading1 text="Sponsor Id:" />
-                    <UnlabeledInput
-                        value={blockVisa.sponsor_id}
-                        onchange={(value) => setBlockVisa({ ...blockVisa, sponsor_id: value })}
-                    />
-                </UpdateContentBox>
-
-                <UpdateContentBox>
-
-                    <SubHeading1 text="Visa expiry date :" />
-                    <DateInput
-                        id="adsfdsfadfsdafdsfdsafas"
-                        value={blockVisa.visa_expiry_date}
-                        onChange={(value)=>{
-                            setBlockVisa({ ...blockVisa, days: parseInt(value), visa_expiry_date: value })
-                        }}
-                    />
-
-                    {/* <UnlabeledInput
+          {/* <UnlabeledInput
                         value={blockVisa.days}
                         onchange={(value) => {
                             const date = addDaysToDate(blockVisa.visa_issued_date, parseInt(value))
@@ -283,84 +304,92 @@ type="number"
 
                         }}
                     /> */}
-                </UpdateContentBox>
-                <UpdateContentBox>
-                <SubHeading1 text="Days :" />
-                    <UnlabeledInput
-                        value={blockVisa.days}
-                        onchange={(value) => {
-                            const date = addDaysToDate(blockVisa.visa_issued_date, parseInt(value))
-                            setBlockVisa({ ...blockVisa, days: parseInt(value), visa_expiry_date: date })
+        </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="Days :" />
+          <UnlabeledInput
+            value={blockVisa.days}
+            onchange={(value) => {
+              const date = addDaysToDate(
+                blockVisa.visa_issued_date,
+                parseInt(value)
+              );
+              setBlockVisa({
+                ...blockVisa,
+                days: parseInt(value),
+                visa_expiry_date: date,
+              });
+            }}
+          />
+        </UpdateContentBox>
 
-                        }}
-                    />
-                </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="Division :" />
+          <UnlabeledInput
+            value={blockVisa.division}
+            onchange={(value) =>
+              setBlockVisa({ ...blockVisa, division: value })
+            }
+          />
+        </UpdateContentBox>
 
-                <UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="OM:  :" />
 
-                    <SubHeading1 text="Division :" />
-                    <UnlabeledInput
-                        value={blockVisa.division}
-                        onchange={(value) => setBlockVisa({ ...blockVisa, division: value })}
-                    />
-                </UpdateContentBox>
+          <CustomSelectComponentUnlabeled
+            value={blockVisa.om}
+            onChange={(value) => setBlockVisa({ ...blockVisa, om: value })}
+            options={selectOptionConveter({
+              options: OperationManagerist,
+              options_struct: { name: "name", value: "id" },
+            })}
+          />
+        </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="RM:  :" />
 
+          <CustomSelectComponentUnlabeled
+            value={blockVisa.rm}
+            onChange={(value) => setBlockVisa({ ...blockVisa, rm: value })}
+            options={selectOptionConveter({
+              options: RecruitManagerList,
+              options_struct: { name: "name", value: "id" },
+            })}
+          />
+        </UpdateContentBox>
+        <UpdateContentBox>
+          <SubHeading1 text="RC:  :" />
 
-                <UpdateContentBox>
+          <CustomSelectComponentUnlabeled
+            value={blockVisa.rc}
+            onChange={(value) => setBlockVisa({ ...blockVisa, rc: value })}
+            options={selectOptionConveter({
+              options: RecruitCoordinatorList,
+              options_struct: { name: "name", value: "id" },
+            })}
+          />
+        </UpdateContentBox>
 
-                    <SubHeading1 text="OM:  :" />
+        <UpdateContentBox>
+          <SubHeading1 text="VISA ACCOUNTABLE :  :" />
 
-                    <CustomSelectComponentUnlabeled
-                        value={blockVisa.om}
-                        onChange={(value) => setBlockVisa({ ...blockVisa, om: value })}
-                        options={selectOptionConveter({ options: OperationManagerist, options_struct: { name: "name", value: "id" } })}
-                    />
-                </UpdateContentBox>
-                <UpdateContentBox>
+          <CustomRadioButton
+            value={blockVisa.visa_accountable}
+            onChange={(value) =>
+              setBlockVisa({ ...blockVisa, visa_accountable: value })
+            }
+            option={[
+              { name: "Yes", value: 1 },
+              { name: "No", value: 0 },
+            ]}
+          />
+        </UpdateContentBox>
+      </div>
 
-                    <SubHeading1 text="RM:  :" />
-
-                    <CustomSelectComponentUnlabeled
-                        value={blockVisa.rm}
-                        onChange={(value) => setBlockVisa({ ...blockVisa, rm: value })}
-                        options={selectOptionConveter({ options: RecruitManagerList, options_struct: { name: "name", value: "id" } })}
-                    />
-                </UpdateContentBox>
-                <UpdateContentBox>
-
-                    <SubHeading1 text="RC:  :" />
-
-                    <CustomSelectComponentUnlabeled
-                        value={blockVisa.rc}
-                        onChange={(value) => setBlockVisa({ ...blockVisa, rc: value })}
-                        options={selectOptionConveter({ options: RecruitCoordinatorList, options_struct: { name: "name", value: "id" } })}
-                    />
-                </UpdateContentBox>
-
-                <UpdateContentBox>
-
-                    <SubHeading1 text="VISA ACCOUNTABLE :  :" />
-
-                    <CustomRadioButton
-                        value={blockVisa.visa_accountable}
-                        onChange={(value) => setBlockVisa({ ...blockVisa, visa_accountable: value })}
-                        option={[
-                            { name: "Yes", value: 1 },
-                            { name: "No", value: 0 },
-                        ]}
-                    />
-                </UpdateContentBox>
-
-
-
-            </div>
-
-
-            <VisaProfessionTable
-                visaProfessionList={visaProfessionList}
-                onChange={(value) => setVisaProfessionList(value)}
-            />
-
-        </FullScreenModal>
-    )
+      <VisaProfessionTable
+        visaProfessionList={visaProfessionList}
+        onChange={(value) => setVisaProfessionList(value)}
+      />
+    </FullScreenModal>
+  );
 }

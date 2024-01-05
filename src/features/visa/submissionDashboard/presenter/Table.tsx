@@ -120,9 +120,10 @@ const Table = (props: {
 
     const [showModal, setShowMadal] = useState("")
 
-    useEffect(() => {
-        console.log(props.change_string);   // Only Dev
-    }, [props.change_string]);
+    // useEffect(() => {
+        // console.log(props.change_string);   // Only Dev
+    // }, [props.change_string]);
+
     const onClickDocCharges = (value: SubmissionDashboardInterface) => {
         setCurrentData(value);
         setShowMadal("DocCharge")

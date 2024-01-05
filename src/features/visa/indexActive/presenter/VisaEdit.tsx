@@ -10,15 +10,19 @@ import {
   TableRow3,
 } from "../../../../componenets/Table";
 import { convertDateFormat } from "../../../../utils/function";
+import { useUserAuth } from "../../../context/UserAuthContext";
 import { VisaProfessionEditInterface } from "../type2";
 
 export default function Main(props: {
-  onClose: any;
+  onClose: () => void;
   editProVisaList: VisaProfessionEditInterface[];
-  onClickVisaProEdit: (value:VisaProfessionEditInterface)=>void
+  onClickVisaProEdit: (value: VisaProfessionEditInterface) => void;
 }) {
-  console.log(props.editProVisaList,"SS")
-  const onClickAdd = () => {console.log(props.editProVisaList,"SS")}; 
+  // console.log(props.editProVisaList,"SS")
+  const onClickAdd = () => {
+    console.log(props.editProVisaList, "SS");
+  };
+  const { authPermissionList } = useUserAuth();
   return (
     <>
       <FullScreenModal
@@ -50,33 +54,35 @@ export default function Main(props: {
             </TableHead3>
             <TableBody3>
               <TableRow3>
-                {props.editProVisaList.map((ele, index)=>
-                (
+                {props.editProVisaList.map((ele, index) => (
                   <>
-               <TableCell3>{index + 1}</TableCell3>
-                <TableCell3>{convertDateFormat(ele.index_date)}</TableCell3>
-                <TableCell3>{ele.company_name}</TableCell3>
-                <TableCell3>{ele.party_code} </TableCell3>
-                <TableCell3>{ele.visa_profession}</TableCell3>
-                <TableCell3>{ele.aravic_visa_category}</TableCell3>
-                <TableCell3>{ele.visa_quantity}</TableCell3>
-                <TableCell3>{ele.visa_used}</TableCell3>
-                <TableCell3>{ele.dead_visa_qty}</TableCell3>
-                <TableCell3>{ele.visa_balance}</TableCell3>
-                <TableCell3>{ele.mofa_done}</TableCell3>
-                <TableCell3>{ele.pp_submission}</TableCell3>
-                <TableCell3>{ele.rejected}</TableCell3>
-                <TableCell3>{ele.canceled}</TableCell3> 
-                <TableCell3>
-
-                  <BlueButton
-                    text={"Visa Edit"}
-                    onClick={() => {
-                      props.onClickVisaProEdit(ele);
-                    }}
-                  />
-                </TableCell3>
-                </>
+                    <TableCell3>{index + 1}</TableCell3>
+                    <TableCell3>{convertDateFormat(ele.index_date)}</TableCell3>
+                    <TableCell3>{ele.company_name}</TableCell3>
+                    <TableCell3>{ele.party_code} </TableCell3>
+                    <TableCell3>{ele.visa_profession}</TableCell3>
+                    <TableCell3>{ele.aravic_visa_category}</TableCell3>
+                    <TableCell3>{ele.visa_quantity}</TableCell3>
+                    <TableCell3>{ele.visa_used}</TableCell3>
+                    <TableCell3>{ele.dead_visa_qty}</TableCell3>
+                    <TableCell3>{ele.visa_balance}</TableCell3>
+                    <TableCell3>{ele.mofa_done}</TableCell3>
+                    <TableCell3>{ele.pp_submission}</TableCell3>
+                    <TableCell3>{ele.rejected}</TableCell3>
+                    <TableCell3>{ele.canceled}</TableCell3>
+                    <TableCell3>
+                      {authPermissionList.url_has("update") ? (
+                        <BlueButton
+                          text={"Visa Edit"}
+                          onClick={() => {
+                            props.onClickVisaProEdit(ele);
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </TableCell3>
+                  </>
                 ))}
               </TableRow3>
             </TableBody3>

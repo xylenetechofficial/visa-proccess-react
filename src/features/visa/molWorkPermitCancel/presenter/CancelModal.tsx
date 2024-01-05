@@ -11,7 +11,7 @@ import { MistakeByList } from '../../../db';
 
 export default function Main(props: {
     setModalName: (value: string) => void,
-    currentData: any
+    currentData: any,
 }) {
     const [data, setData] = useState({})
     const [molWorkPermit, setmolWorkPermit] = useState<MolWorkPermitCancelInterface2>(

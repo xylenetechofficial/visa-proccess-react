@@ -15,14 +15,14 @@ import { VisaProfessionInterface } from "../type/VisaProfession";
 
 export default function Main(props: {
   currentFullIndex: FullIndexInterface;
-  onClose: any;
+  onClose: ()=>void;
 }) {
 
   const [visaProfessionList, setVisaProfessionList] = useState<VisaProfessionInterface[]>([]);
 
   const fetchVisaProfessionList = async () => {
     const data = await readVisaProfessionList(props.currentFullIndex.party_code);
-    console.log(data, "visaProfessionList",props.currentFullIndex.party_code);
+    // console.log(data, "visaProfessionList",props.currentFullIndex.party_code);
     if (data) {
       setVisaProfessionList(data);
     }

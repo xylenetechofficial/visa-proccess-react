@@ -12,9 +12,9 @@ import {
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { FullScreenModal } from "../../../../componenets/Modal";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
-
-export default function Main(props:{onClose:()=>void}) {
+export default function Main(props: { onClose: () => void }) {
   const [JobOrderList, setJobOrderList] = useState<MolReceivedInterface[]>([]);
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
@@ -28,8 +28,8 @@ export default function Main(props:{onClose:()=>void}) {
     }
   );
 
-
- const onClickCreate = async () => {
+  const { authPermissionList } = useUserAuth();
+  const onClickCreate = async () => {
     const res = await updateMolReceivedData(JobOrderList);
     fetchMofaRecievedData();
   };
@@ -46,20 +46,23 @@ export default function Main(props:{onClose:()=>void}) {
 
   return (
     <FullScreenModal
-    // buttonName="submit"
-    handleClick={onClickCreate}
-    title="Add Work permit received from company"
-    onClose={props.onClose}
->
-
+      // buttonName="submit"
+      handleClick={onClickCreate}
+      title="Add Work permit received from company"
+      onClose={props.onClose}
+    >
       {/*  indexVisa stable */}
       <Table
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onChange={(value) => setJobOrderList(value)}
       />
       <br />
-      <GreenButton onClick={onClickCreate} text="Create" />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={onClickCreate} text="Create" />
+      ) : (
+        ""
+      )}
       <br />
       <br />
 

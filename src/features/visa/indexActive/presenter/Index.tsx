@@ -65,10 +65,10 @@ export default function Main() {
   const [visaProEditList, setVisaProEditList] =
     useState<VisaProfessionEditInterface>({} as VisaProfessionEditInterface);
 
-  const onClickEditProVisa = async (item: any) => {
-    console.log("onClickEdit"); // Only Dev
+  const onClickEditProVisa = async (item:any) => {
+    // console.log("onClickEdit"); // Only Dev
     setModalName("Visa Prof. Edit");
-    console.log(item, "IT");
+    // console.log(item, "IT");
     const res: any = await readVisaProEditList(item.party_code);
     if (res) {
       setEditProVisaList(res);
@@ -76,19 +76,19 @@ export default function Main() {
   };
 
   const onClickVisaProEdit = (item: VisaProfessionEditInterface) => {
-    console.log("onClickEdit", item); // Only Dev
+    // console.log("onClickEdit", item); // Only Dev
     setModalName("Visa Edit");
     setVisaProEditList(item);
   };
 
   const onClickProView = (ActiveIndex: ActiveIndexInterface) => {
     setCurrentActiveIndex(ActiveIndex);
-    console.log("on Click view"); // Only Dev
+    // console.log("on Click view"); // Only Dev
     setModalName("View Visa Prof");
   };
 
   const onClickVisaEdit = (item: ActiveIndexListInterface) => {
-    console.log("onClickEdit"); // Only Dev
+    // console.log("onClickEdit"); // Only Dev
     setModalName("Edit");
     setEditIndexActiveList(item);
   };
@@ -139,7 +139,7 @@ export default function Main() {
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchIndexVisaList(e);
         }}
       />

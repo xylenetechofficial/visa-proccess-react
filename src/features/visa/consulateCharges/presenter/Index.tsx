@@ -13,6 +13,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 export default function Main() {
   const [consulateChargesList, setConsulateChargesList] = useState<
@@ -29,7 +30,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchConsulateChargesList = async (page?: number) => {
@@ -48,9 +49,8 @@ export default function Main() {
 
       new_list.push(element);
     }
-
-    const data: any = await createConsulateCharges(new_list);
-    console.log(data, "crete");
+    await createConsulateCharges(new_list);
+    // console.log(data, "crete");
     fetchConsulateChargesList();
   };
 
@@ -72,13 +72,16 @@ export default function Main() {
       />
 
       <br />
-
-      <BlueButton
-        text="Submit"
-        onClick={() => {
-          createConsulateChargesList(consulateChargesList);
-        }}
-      />
+      {authPermissionList.url_has("create") ? (
+        <BlueButton
+          text="Submit"
+          onClick={() => {
+            createConsulateChargesList(consulateChargesList);
+          }}
+        />
+      ) : (
+        ""
+      )}
 
       <br />
       <br />

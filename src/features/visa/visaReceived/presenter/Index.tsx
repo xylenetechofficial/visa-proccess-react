@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // import CreateModal from './Create'
-import EditModal from './Edit'
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import {
   CustomButton2,
@@ -16,6 +16,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -52,7 +53,7 @@ export default function Main() {
   const [JobOrderList, setJobOrderList] = useState<VisaReceivedInterface[]>([]);
   const [currentElement, setCurrentElement] =
     useState<VisaReceivedInterface>(initValue);
-
+  const { authPermissionList } = useUserAuth();
   const [modalName, setModalName] = useState("");
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
@@ -110,18 +111,25 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
+        {authPermissionList.url_has("update") ? (
+          <BlueButton text="Edit" onClick={() => setModalName("edit")} />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       {/*  indexVisa stable */}
       <Table
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onChange={(value) => setJobOrderList(value)}
       />
       <br />
-
-      <GreenButton onClick={OnClickSubmit} text="Submit" />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={OnClickSubmit} text="Submit" />
+      ) : (
+        ""
+      )}
       <br />
       <br />
       <Pagination
@@ -134,7 +142,10 @@ export default function Main() {
       {modalName !== "edit" ? (
         ""
       ) : (
-        <EditModal onClose={()=>setModalName('')} currentElement={JobOrderList} />
+        <EditModal
+          onClose={() => setModalName("")}
+          currentElement={JobOrderList}
+        />
       )}
     </div>
   );

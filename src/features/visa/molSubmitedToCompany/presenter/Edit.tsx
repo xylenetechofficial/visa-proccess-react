@@ -27,10 +27,9 @@ const CardHeader = styled(Box)(() => ({
   justifyContent: "space-between",
 }));
 
-export default function Main(props:{onClose:()=>void}) {
+export default function Main(props: { onClose: () => void }) {
   const [JobOrderList, setJobOrderList] = useState<MolReceivedInterface[]>([]);
 
- 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -42,14 +41,13 @@ export default function Main(props:{onClose:()=>void}) {
     }
   );
 
-
   const onClickUpdate = async () => {
-    const res = await updateMolReceivedData(JobOrderList);
+    await updateMolReceivedData(JobOrderList);
     fetchMofaRecievedData();
   };
 
   const fetchMofaRecievedData = async (page?: number) => {
-    const data = await ReadMolRecievedData(page ?? 1,"yes");
+    const data = await ReadMolRecievedData(page ?? 1, "yes");
     console.log(data);
     setJobOrderList(data);
     setAdditionalData(await PaginationManager.getData());
@@ -60,14 +58,13 @@ export default function Main(props:{onClose:()=>void}) {
 
   return (
     <FullScreenModal
-    handleClick={onClickUpdate}
-    title="Edit Mol submitted to company"
-    onClose={props.onClose}
->
-
+      handleClick={onClickUpdate}
+      title="Edit Mol submitted to company"
+      onClose={props.onClose}
+    >
       {/*  indexVisa stable */}
       <Table
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         jobOrderList={JobOrderList}
         onChange={(value) => setJobOrderList(value)}
       />
@@ -83,6 +80,6 @@ export default function Main(props:{onClose:()=>void}) {
           fetchMofaRecievedData(e);
         }}
       />
-</FullScreenModal>
+    </FullScreenModal>
   );
 }

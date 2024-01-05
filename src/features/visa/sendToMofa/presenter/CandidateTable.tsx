@@ -31,8 +31,6 @@ const initValue: SendToMofa_JobOrderInterface = {
     visaProfession: "",
     PartyCode_VisaProfession: "",
 
-
-
 }
 
 const CandidateTable = (props: {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CreateModal from './Create'
+import CreateModal from "./Create";
 // import EditModal from './Edit'
 import { Box, styled } from "@mui/material";
 import {
@@ -20,7 +20,8 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
-import EditModel from './Edit'
+import EditModel from "./Edit";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -45,7 +46,7 @@ export default function Main() {
   const [JobOrderList, setJobOrderList] = useState<
     MolForwardedTovisaDepartmentDataInterface[]
   >([]);
-
+  const { authPermissionList } = useUserAuth();
   const [modalName, setModalName] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -68,12 +69,11 @@ export default function Main() {
     setModalName("create");
   };
 
-
   const onClickSubmit = async () => {
     // const res = await updateMolForwardedToVisaDeptData(JobOrderList);
     const res = await createMolForwardedToVisaDeptData(JobOrderList);
-    if(res){
-      fetchMolForwardedToDepartment()
+    if (res) {
+      fetchMolForwardedToDepartment();
     }
   };
 
@@ -103,12 +103,16 @@ export default function Main() {
               setModalName("create");
             }}
           /> */}
-          <BlueButton
-            text={"Edit"}
-            onClick={() => {
-              setModalName("edit");
-            }}
-          />
+          {authPermissionList.url_has("update") ? (
+            <BlueButton
+              text={"Edit"}
+              onClick={() => {
+                setModalName("edit");
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </CardHeader>
 
@@ -119,7 +123,12 @@ export default function Main() {
         onChange={(value) => setJobOrderList(value)}
       />
       <br />
-      <GreenButton onClick={onClickSubmit} text="Submit" />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={onClickSubmit} text="Submit" />
+      ) : (
+        ""
+      )}
+
       <br />
       <br />
 
@@ -130,16 +139,21 @@ export default function Main() {
           fetchMolForwardedToDepartment(e);
         }}
       />
-      {modalName === 'create' ?
-        <CreateModal onClose={() => setModalName('')}
-        /> : ''}
-      {modalName === 'edit' ?
+      {modalName === "create" ? (
+        <CreateModal onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
+      {modalName === "edit" ? (
         <EditModel
           onClose={() => {
-            setModalName("")
-            fetchMolForwardedToDepartment()
-          }} /> : ''}
+            setModalName("");
+            fetchMolForwardedToDepartment();
+          }}
+        />
+      ) : (
+        ""
+      )}
     </div>
-
   );
 }

@@ -20,6 +20,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -44,7 +45,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [modalName, setModalName] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -70,7 +71,7 @@ export default function Main() {
   // useEffect(() => {
   // }, [editIndexVisa, modalName])
   const onClickSubmit = async () => {
-    const res = await updateMolWorkPermitCancelData(MolWorkPermitList);
+    await updateMolWorkPermitCancelData(MolWorkPermitList);
   };
 
   const fetchMolForwardedToDepartment = async (page?: number) => {
@@ -97,7 +98,7 @@ export default function Main() {
 
       {/*  indexVisa stable */}
       <Table
-       snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         MolWorkPermitList={MolWorkPermitList}
         onChange={(value) => setMolWorkPermitList(value)}
         setModalName={(value) => setModalName(value)}
@@ -112,13 +113,17 @@ export default function Main() {
         ""
       )}
       <br />
-      <GreenButton onClick={onClickSubmit} text="Submit" />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={onClickSubmit} text="Submit" />
+      ) : (
+        ""
+      )}
       <br />
       <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchMolForwardedToDepartment(e);
         }}
       />

@@ -7,8 +7,8 @@ import CandidateTable from "./CandidateTable";
 
 
 export default function Main(props: {
-    onClose: any,
-    fetchSendToMofaJobOrder: any
+    onClose: () => void,
+    fetchSendToMofaJobOrder: () => void,
 }) {
 
    

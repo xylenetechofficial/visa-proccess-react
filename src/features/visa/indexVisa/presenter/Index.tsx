@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CreateModal from "./Create";
-import EditModal from './Edit'
+import EditModal from "./Edit";
 import { Box, styled } from "@mui/material";
 import IndexVisaTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
@@ -23,6 +23,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
   display: "flex",
   flexWrap: "wrap",
@@ -43,7 +44,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [indexVisaList, setIndexVisaList] = useState<IndexVisaInterface[]>([]);
 
   const [editIndexVisa, setEditIndexVisa] = useState<IndexVisaInterface>(
@@ -148,12 +149,17 @@ export default function Main() {
         >
           <BlueButton key={"mfbvjhdb"} text="View Cancel Party Code" />
         </a>
-        <GreenButton
-          text={"Add +"}
-          onClick={() => {
-            setModalName("create");
-          }}
-        />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton
+            text={"Add +"}
+            onClick={() => {
+              setModalName("create");
+            }}
+          />
+        ) : (
+          ""
+        )}
+
         {/* <Button
                     variant="contained"
                     color="success"
@@ -203,7 +209,9 @@ export default function Main() {
       )}
 
       {/* Edit */}
-      {modalName !== "edit" ? "" :
+      {modalName !== "edit" ? (
+        ""
+      ) : (
         <EditModal
           currentElement={editIndexVisa}
           onClose={() => setModalName("")}
@@ -211,7 +219,8 @@ export default function Main() {
           companyList={companyList}
           countryList={countryList}
           sectorList={sectorList}
-        />}
+        />
+      )}
     </div>
   );
 }
