@@ -1,9 +1,6 @@
 import React from 'react'
-import { FullScreenModal, HalfScreenModal } from '../../../../componenets/Modal'
+import { HalfScreenModal } from '../../../../componenets/Modal'
 import { Table3, TableBody3, TableCell3, TableHeadCell3, TableHeadRed, TableHeadRow3, TableRow3 } from '../../../../componenets/Table'
-import { BlueButton, RedButton } from '../../../../componenets/CustomButton'
-import { convertDateFormat } from '../../../../utils/function'
-
 export default function ViewModal(props:{
     setModalName:(value:string)=>void,
     data:any

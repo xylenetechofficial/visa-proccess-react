@@ -19,8 +19,8 @@ import { fetchDemanDetailsList } from "../repository";
 const IndexForEwakalaTable = (props: {
   snoBase: number,
   indexForEwakala: IndexEwakalaInterface[];
-  setIndexForEwakala: any
-  data: any;
+  setIndexForEwakala: any;
+  data: string;
   setData: any,
   setModalName: (value: string) => void,
   onChange: (value: IndexEwakalaInterface[]) => void,
@@ -38,12 +38,12 @@ const IndexForEwakalaTable = (props: {
     });
     props.onChange(nextData)
   }
-  const [date, setDate] = useState<any>([])
+  // const [date, setDate] = useState<any>([])
   console.log(props.data)
   const fetchModalData = async(name:string, code:number)=>{
     props.setModalName(name);
-    const res :any= await fetchDemanDetailsList(code)
-    console.log(res)
+    const res: any= await fetchDemanDetailsList(code)
+    // console.log(res+"Amit")
     if(res){
       props.setModalData(res)
     }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import {
   Table3,
   TableBody3,
@@ -7,26 +7,28 @@ import {
   TableHeadCell3,
   TableHeadRow3,
   TableRow3,
-
 } from "../../../../componenets/Table";
 
 // import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
 import { ImmigrationInterface } from "../type";
 // import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 // import { GivenToList, GivenToList_only_passprt, GivenToList_without_RC } from "../../../db";
-import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox";
+import {
+  CustomCheckBox,
+  CustomSingleCheckBox,
+} from "../../../../componenets/Checkbox";
 import { convertDateFormat } from "../../../../utils/function";
-import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput } from "../../../../componenets/Input";
 import { RedButton } from "../../../../componenets/CustomButton";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 const ImmigrationTable = (props: {
-  snoBase: number,
+  snoBase: number;
   list: ImmigrationInterface[];
-  onChange: (value: ImmigrationInterface[]) => void,
-  onClickReject?: (item: ImmigrationInterface) => void
-  actionType?: string
+  onChange: (value: ImmigrationInterface[]) => void;
+  onClickReject?: (item: ImmigrationInterface) => void;
+  actionType?: string;
 }) => {
-
   function onUpdateRow(index: number, rowData: ImmigrationInterface) {
     const nextData = props.list.map((e, i) => {
       if (i === index) {
@@ -37,10 +39,10 @@ const ImmigrationTable = (props: {
         return e;
       }
     });
-    props.onChange(nextData)
+    props.onChange(nextData);
   }
-  
 
+  const { authPermissionList } = useUserAuth();
   const HEADERLIST = [
     "SR NO.",
     "COMPANY NAME",
@@ -73,26 +75,25 @@ const ImmigrationTable = (props: {
     "VISA RECEIVED DATE",
     "VISA EXPIRE DATE",
     "MOL NUMBER",
-    "REJECT"]
+    "REJECT",
+  ];
 
   return (
     <div className="overflow-auto">
-
       <Table3>
         <TableHead3>
           <TableHeadRow3>
             {HEADERLIST.map((item) => {
               if (props.actionType == "read") {
                 // add & edit oparation
-                if (item == "SELECT") return
+                if (item == "SELECT") return;
               }
-              return (<TableHeadCell3> {item}</TableHeadCell3>)
+              return <TableHeadCell3> {item}</TableHeadCell3>;
             })}
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
           {props.list.map((item, index) => (
-
             // <TableRow3 key={index}>
             <TableRow3 key={index + 1} color={item.color_code}>
               <TableCell3>{index + props.snoBase + 1}</TableCell3>
@@ -100,53 +101,74 @@ const ImmigrationTable = (props: {
               <TableCell3>{item.name}</TableCell3>
               <TableCell3>{item.passport_no}</TableCell3>
 
-              {props.actionType == "read" ? <>
-                {/* incase read oparation */}
-                <TableCell3>
-                  {item.immigration_required}
-                </TableCell3>
+              {props.actionType == "read" ? (
+                <>
+                  {/* incase read oparation */}
+                  <TableCell3>{item.immigration_required}</TableCell3>
 
-                <TableCell3>
-                  {item.immigration_submission_date}
-                </TableCell3>
-                <TableCell3>
-                  {item.immigration_received_date}
-                </TableCell3>
-              </> : <>
-                {/* add & edit oparation */}
-                <TableCell3>
-                  <CustomSingleCheckBox
-                    onChange={(value) => {
-                      onUpdateRow(index, { ...item, checked: value })
-                    }}
-                    value={item.checked ? true : false}
-                  />
-                </TableCell3>
+                  <TableCell3>{item.immigration_submission_date}</TableCell3>
+                  <TableCell3>{item.immigration_received_date}</TableCell3>
+                </>
+              ) : (
+                <>
+                  {/* add & edit oparation */}
+                  <TableCell3>
+                    <CustomSingleCheckBox
+                      onChange={(value) => {
+                        onUpdateRow(index, { ...item, checked: value });
+                      }}
+                      value={item.checked ? true : false}
+                    />
+                  </TableCell3>
 
-                <TableCell3>
-                  <CustomCheckBox
-                    value={item.immigration_required}
-                    onChange={(value) => {
-                      if (value == item.immigration_required)
-                        onUpdateRow(index, { ...item, immigration_required: "" })
-                      else
-                        onUpdateRow(index, { ...item, immigration_required: value })
-                    }}
-                    option={[{ name: "Yes", value: "yes" }, { name: "No", value: "no" }]} /></TableCell3>
+                  <TableCell3>
+                    <CustomCheckBox
+                      value={item.immigration_required}
+                      onChange={(value) => {
+                        if (value == item.immigration_required)
+                          onUpdateRow(index, {
+                            ...item,
+                            immigration_required: "",
+                          });
+                        else
+                          onUpdateRow(index, {
+                            ...item,
+                            immigration_required: value,
+                          });
+                      }}
+                      option={[
+                        { name: "Yes", value: "yes" },
+                        { name: "No", value: "no" },
+                      ]}
+                    />
+                  </TableCell3>
 
-                <TableCell3>
-                  <DateInput id="kfvhkd" onChange={(value) => {
-                    onUpdateRow(index, { ...item, immigration_submission_date: value })
-                  }}
-                    value={item.immigration_submission_date} />
-                </TableCell3>
-                <TableCell3>
-                  <DateInput id="kfvhgfdkd" onChange={(value) => {
-                    onUpdateRow(index, { ...item, immigration_received_date: value })
-                  }}
-                    value={item.immigration_received_date} />
-                </TableCell3>
-              </>}
+                  <TableCell3>
+                    <DateInput
+                      id="kfvhkd"
+                      onChange={(value) => {
+                        onUpdateRow(index, {
+                          ...item,
+                          immigration_submission_date: value,
+                        });
+                      }}
+                      value={item.immigration_submission_date}
+                    />
+                  </TableCell3>
+                  <TableCell3>
+                    <DateInput
+                      id="kfvhgfdkd"
+                      onChange={(value) => {
+                        onUpdateRow(index, {
+                          ...item,
+                          immigration_received_date: value,
+                        });
+                      }}
+                      value={item.immigration_received_date}
+                    />
+                  </TableCell3>
+                </>
+              )}
 
               <TableCell3>{item.party_code}</TableCell3>
               <TableCell3>{item.division}</TableCell3>
@@ -167,16 +189,30 @@ const ImmigrationTable = (props: {
               {/* <TableCell3>{item.agent_name}</TableCell3> */}
               {/* <TableCell3>{item.agent_location_name}</TableCell3> */}
               <TableCell3>{item.visa_authorization_name}</TableCell3>
-              <TableCell3>{convertDateFormat(item.visa_issued_date)}</TableCell3>
-              <TableCell3>{convertDateFormat(item.visa_received_date)}</TableCell3>
-              <TableCell3>{convertDateFormat(item.visa_expire_date)}</TableCell3>
+              <TableCell3>
+                {convertDateFormat(item.visa_issued_date)}
+              </TableCell3>
+              <TableCell3>
+                {convertDateFormat(item.visa_received_date)}
+              </TableCell3>
+              <TableCell3>
+                {convertDateFormat(item.visa_expire_date)}
+              </TableCell3>
               <TableCell3>{item.mol_number}</TableCell3>
-              <TableCell3><RedButton text={"Reject"} onClick={() => props.onClickReject ? props.onClickReject(item) : ""} /></TableCell3>
+              <TableCell3>
+                {authPermissionList.url_has("delete") ? (
+                  <RedButton
+                    text={"Reject"}
+                    onClick={() =>
+                      props.onClickReject ? props.onClickReject(item) : ""
+                    }
+                  />
+                ) : (
+                  ""
+                )}
+              </TableCell3>
             </TableRow3>
           ))}
-
-
-
         </TableBody3>
       </Table3>
     </div>

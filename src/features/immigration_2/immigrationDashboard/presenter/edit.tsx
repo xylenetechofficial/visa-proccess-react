@@ -7,7 +7,7 @@ import { ImmigrationInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 
 export default function Main(props: {
-    onClose: any,
+    onClose: () => void,
 }) {
 
     const [immigrationList, setImmigrationList] = useState<ImmigrationInterface[]>([]);
@@ -23,7 +23,7 @@ export default function Main(props: {
     );
 
     const fetchImmigrationDoneList = async (page?: number) => {
-        const data: any = await readImmigrationList({
+        const data: ImmigrationInterface[] = await readImmigrationList({
             page: page ?? 1,
             status: "yes"
         });
@@ -62,6 +62,7 @@ export default function Main(props: {
                     actionType="edit"
                     onChange={(list) => setImmigrationList(list)}
                 />
+                <br />
                 <Pagination
                     data={additionalData}
                     onPageChange={(e) => {

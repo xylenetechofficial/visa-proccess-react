@@ -10,7 +10,7 @@ import {
 
 } from "../../../../componenets/Table";
 
-import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
+import { DateInput } from "../../../../componenets/Input";
 import { ImmigrationDonePPReleaseInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
 import { GivenToList, GivenToList_only_passprt, GivenToList_without_RC } from "../../../db";
@@ -80,7 +80,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
         </TableHead3>
         <TableBody3>
           {props.RcPPRecieved_list.map((item, index) => {
-            let GivenToList_local: any = [];
+            let GivenToList_local = [];
             let isFreeze = true;
 
             console.log(item.passport_no + "  " + item.local_given_to);   // Only Dev
@@ -121,7 +121,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
                   <CustomSelectComponentUnlabeled
                     label={item.local_given_to}
                     value={item.given_to}
-                    onChange={(value: any) => {
+                    onChange={(value) => {
                       onUpdateRow(index, { ...item, given_to: value })
                     }}
                     options={GivenToList}
@@ -163,7 +163,7 @@ const ImmigrationDOnePPReleaseTable = (props: {
                     <CustomSelectComponentUnlabeled
                       label={item.local_given_to}
                       value={item.given_to}
-                      onChange={(value: any) => {
+                      onChange={(value) => {
                         onUpdateRow(index, { ...item, given_to: value })
                       }}
                       options={GivenToList_local}

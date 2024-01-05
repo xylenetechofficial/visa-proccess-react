@@ -2,15 +2,24 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
-import { CustomNavbarV3, CustomButton2 } from "../../../../componenets/CustomComponents";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  CustomNavbarV3,
+  CustomButton2,
+} from "../../../../componenets/CustomComponents";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import { FaFilter } from "react-icons/fa";
 
-import EditModal from './edit';
-import CreateModal from './add';
+import EditModal from "./edit";
+import CreateModal from "./add";
 import Pagination from "../../../../componenets/Pagination";
 import { ImmigrationDonePPReleaseInterface } from "../type";
-import { createImmigrationDonePPRelease, readImmigrationDonePPReleaseList } from "../repository";
+import {
+  createImmigrationDonePPRelease,
+  readImmigrationDonePPReleaseList,
+} from "../repository";
 import ImmigrationDOnePPReleaseTable from "./Table";
 import { useUserAuth } from "../../../context/UserAuthContext";
 const CardHeader = styled(Box)(() => ({
@@ -23,7 +32,7 @@ const CardHeader = styled(Box)(() => ({
 }));
 
 export default function Main() {
-  const { authPermissionList } = useUserAuth()
+  const { authPermissionList } = useUserAuth();
 
   const [modalName, setModalName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,14 +47,15 @@ export default function Main() {
     }
   );
 
-
-  const [immigrationDonePPReleaseList, setImmigrationDonePPReleaseList] = useState<ImmigrationDonePPReleaseInterface[]>([]);
+  const [immigrationDonePPReleaseList, setImmigrationDonePPReleaseList] =
+    useState<ImmigrationDonePPReleaseInterface[]>([]);
 
   const fetchImmigrationDoneList = async (page?: number) => {
-    const data = await readImmigrationDonePPReleaseList({
-      page: page ?? 1,
-      // status: "yes"
-    });
+    const data: ImmigrationDonePPReleaseInterface[] =
+      await readImmigrationDonePPReleaseList({
+        page: page ?? 1,
+        // status: "yes"
+      });
     setImmigrationDonePPReleaseList(data);
     setAdditionalData(await PaginationManager.getData());
   };
@@ -54,19 +64,19 @@ export default function Main() {
     fetchImmigrationDoneList(additionalData.pagination.page);
   }, []);
 
-
   const onClickSubmit = async () => {
-    const newArray = []
+    const newArray = [];
 
     for (let i = 0; i < immigrationDonePPReleaseList.length; i++) {
-      if (immigrationDonePPReleaseList[i].checked) newArray.push(immigrationDonePPReleaseList[i])
+      if (immigrationDonePPReleaseList[i].checked)
+        newArray.push(immigrationDonePPReleaseList[i]);
     }
-    const update = await createImmigrationDonePPRelease(newArray)
+    const update = await createImmigrationDonePPRelease(newArray);
     if (update) {
       // props.onClose();
-      fetchImmigrationDoneList()
+      fetchImmigrationDoneList();
     }
-  }
+  };
 
   return (
     <div>
@@ -86,12 +96,16 @@ export default function Main() {
               setModalName("add");
             }}
           /> : ""} */}
-          {authPermissionList.url_has('update') ? <BlueButton
-            text={"Edit"}
-            onClick={() => {
-              setModalName("edit");
-            }}
-          /> : ""}
+          {authPermissionList.url_has("update") ? (
+            <BlueButton
+              text={"Edit"}
+              onClick={() => {
+                setModalName("edit");
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </CardHeader>
 
@@ -99,15 +113,19 @@ export default function Main() {
       <ImmigrationDOnePPReleaseTable
         snoBase={additionalData.pagination.sno_base}
         RcPPRecieved_list={immigrationDonePPReleaseList}
-        onChange={(list) => setImmigrationDonePPReleaseList(list)}
+        onChange={(list: ImmigrationDonePPReleaseInterface[]) =>
+          setImmigrationDonePPReleaseList(list)
+        }
         actionType="add"
       />
 
       <br />
-      <GreenButton
-        onClick={onClickSubmit}
-        text="Submit"
-      />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton onClick={onClickSubmit} text="Submit" />
+      ) : (
+        ""
+      )}
+
       <br />
 
       <Pagination
@@ -126,8 +144,8 @@ export default function Main() {
       ) : (
         <CreateModal
           onClose={() => {
-            setModalName("")
-            fetchImmigrationDoneList()
+            setModalName("");
+            fetchImmigrationDoneList();
           }}
         />
       )}
@@ -138,8 +156,8 @@ export default function Main() {
       ) : (
         <EditModal
           onClose={() => {
-            setModalName("")
-            fetchImmigrationDoneList()
+            setModalName("");
+            fetchImmigrationDoneList();
           }}
         />
       )}

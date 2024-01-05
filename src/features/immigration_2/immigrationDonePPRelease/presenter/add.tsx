@@ -7,7 +7,7 @@ import { ImmigrationDonePPReleaseInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 
 export default function Main(props: {
-    onClose: any,
+    onClose: ()=>void,
 }) {
 
     const [immigrationDonePPReleaseList, setImmigrationDonePPReleaseList] = useState<ImmigrationDonePPReleaseInterface[]>([]);
@@ -23,7 +23,7 @@ export default function Main(props: {
     );
 
     const fetchImmigrationDoneList = async (page?: number) => {
-        const data: any = await readImmigrationDonePPReleaseList({
+        const data: ImmigrationDonePPReleaseInterface[] = await readImmigrationDonePPReleaseList({
             page: page ?? 1,
             status: "no"
           });

@@ -35,7 +35,7 @@ export default function Main() {
 >([]);
 
   const fetchIndexEwakalaList = async (page?: number) => {
-    const data: any = await readIndexEwakalaList(page??additionalData.pagination.page);
+    const data: IndexEwakalaInterface[] = await readIndexEwakalaList(page??additionalData.pagination.page);
     if (data) {
       setIndexForEwakala(data);
     }
@@ -50,7 +50,7 @@ export default function Main() {
     for (let i = 0; i < indexForEwakala.length; i++) {
       newArray.push(indexForEwakala[i]);
     }
-    const res = updateEwakalaeDate(newArray);
+     updateEwakalaeDate(newArray);
     fetchIndexEwakalaList();
   };
 
@@ -87,7 +87,7 @@ export default function Main() {
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchIndexEwakalaList(e);
         }}
       />
