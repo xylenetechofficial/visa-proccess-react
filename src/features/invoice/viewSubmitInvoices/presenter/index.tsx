@@ -4,7 +4,6 @@ import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomCom
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import {   readinvoiceSubmitList } from '../repository';
-import { GreenButton } from '../../../../componenets/CustomButton';
 import { InvoiceSubmitInterface } from '../type';
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
@@ -24,9 +23,9 @@ export default function Main() {
     }
   );
 
-  const [editAgent, setEditAgent] = useState<AgentInterface>(
+/*  const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
-  );
+  );*/
 
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -63,7 +62,7 @@ export default function Main() {
       
       setAdditionalData(await PaginationManager.getData());
     }
-    console.log(invoiceContactPersonList,";;")
+    console.log(invoiceContactPersonList,"")
   }
   useEffect(() => {
     fetchInvoiceContactPerson(additionalData.pagination.page)

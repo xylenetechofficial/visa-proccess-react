@@ -1,14 +1,24 @@
-import { useEffect, useState } from 'react';
-import InvoiceAdminRemarkTable from './Table';
-import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
+import { useEffect, useState } from "react";
+import InvoiceAdminRemarkTable from "./Table";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import { createInvoiceAdminRemark, readInvoiceAdminRemarkList } from '../repository';
-import { AddInvoiceAdminInterface, InvoiceAdminRemarkInterface } from '../type';
-import { GreenButton } from '../../../../componenets/CustomButton';
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  createInvoiceAdminRemark,
+  readInvoiceAdminRemarkList,
+} from "../repository";
+import { AddInvoiceAdminInterface, InvoiceAdminRemarkInterface } from "../type";
+import { GreenButton } from "../../../../componenets/CustomButton";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { AgentInterface } from "../../../masters/agent/type";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -29,11 +39,12 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
+  /*
   const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
   );
-
+*/
 
   const [searchQuery, setSearchQuery] = useState("");
   const filterData = (query: string, data: AgentInterface[]) => {
@@ -46,30 +57,33 @@ export default function Main() {
     }
   };
   const dataFiltered = filterData(searchQuery, agentList);
-  const [InvoiceAdminData, setInvoiceAdminData] = useState<AddInvoiceAdminInterface[]>([]);
-  const [InvoiceAdminRemarkList, setInvoiceAdminRemarkList] = useState<InvoiceAdminRemarkInterface[]>([])
+  const [InvoiceAdminData, setInvoiceAdminData] = useState<
+    AddInvoiceAdminInterface[]
+  >([]);
+  const [InvoiceAdminRemarkList, setInvoiceAdminRemarkList] = useState<
+    InvoiceAdminRemarkInterface[]
+  >([]);
   const onCreate = async (item: AddInvoiceAdminInterface[]) => {
-
     const data = await createInvoiceAdminRemark(item);
-    if(data){
+    if (data) {
       fetchInvoiceAdminRemarked();
     }
-  }
+  };
   const fetchInvoiceAdminRemarked = async (page?: number) => {
-    const data = await readInvoiceAdminRemarkList({page:page ?? additionalData.pagination.page});
+    const data = await readInvoiceAdminRemarkList({
+      page: page ?? additionalData.pagination.page,
+    });
     if (data) {
       filterData("", agentList);
       setInvoiceAdminRemarkList(data);
       setAdditionalData(await PaginationManager.getData());
     }
-  }
+  };
   useEffect(() => {
-
-    fetchInvoiceAdminRemarked(additionalData.pagination.page)
-  }, [])
-console.log(InvoiceAdminData,"Data",InvoiceAdminRemarkList)
+    fetchInvoiceAdminRemarked(additionalData.pagination.page);
+  }, []);
+  console.log(InvoiceAdminData, "Data", InvoiceAdminRemarkList);
   return (
-
     <>
       <CustomNavbarV3
         pageName=" Invoice Admin Remarks"
@@ -80,21 +94,29 @@ console.log(InvoiceAdminData,"Data",InvoiceAdminRemarkList)
       </CardHeader>
 
       <InvoiceAdminRemarkTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         setInvoiceAdminData={setInvoiceAdminData}
         onChange={(value) => setInvoiceAdminRemarkList(value)}
-        InvoiceAdminRemarkList={InvoiceAdminRemarkList} />
-      <GreenButton text='Submit' onClick={() => { onCreate(InvoiceAdminData) }} />
-
+        InvoiceAdminRemarkList={InvoiceAdminRemarkList}
+      />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton
+          text="Submit"
+          onClick={() => {
+            onCreate(InvoiceAdminData);
+          }}
+        />
+      ) : (
+        ""
+      )}
 
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchInvoiceAdminRemarked(e);
         }}
       />
     </>
-
-  )
+  );
 }

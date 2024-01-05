@@ -10,7 +10,7 @@ import { readCompanyList } from "../../../masters/company/repository"
 
 
 export default function Main(props: {
-    onClose: any, 
+    onClose: () =>void, 
     fetchClientAdditionalInvoiceList: any,
     createClientAdditionalInvoiceTemp:any
 

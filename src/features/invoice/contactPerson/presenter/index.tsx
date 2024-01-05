@@ -1,11 +1,18 @@
-import { useEffect, useState } from 'react';
-import InvoicedispatchTable from './Table';
-import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
+import { useEffect, useState } from "react";
+import InvoicedispatchTable from "./Table";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import { createInvoiceDispatch, readinvoiceContactPersonList } from '../repository';
-import { ContactPersonInterface } from '../type';
-import { GreenButton } from '../../../../componenets/CustomButton';
+import {
+  createInvoiceDispatch,
+  readinvoiceContactPersonList,
+} from "../repository";
+import { ContactPersonInterface } from "../type";
+import { GreenButton } from "../../../../componenets/CustomButton";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -15,27 +22,28 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
-  const [searchQuery, setSearchQuery] = useState('');
-  const [invoiceContactPersonList, setInvoiceContactPersonList] = useState<ContactPersonInterface[]>([])
+  const { authPermissionList } = useUserAuth();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [invoiceContactPersonList, setInvoiceContactPersonList] = useState<
+    ContactPersonInterface[]
+  >([]);
   const onCreate = async (item: ContactPersonInterface[]) => {
-
-  const data =  await createInvoiceDispatch(item);
-  if(data){
-    fetchInvoiceContactPerson();
-  }
-  }
+    const data = await createInvoiceDispatch(item);
+    if (data) {
+      fetchInvoiceContactPerson();
+    }
+  };
   const fetchInvoiceContactPerson = async () => {
     const data = await readinvoiceContactPersonList();
     if (data) {
       setInvoiceContactPersonList(data);
     }
-  }
+  };
   useEffect(() => {
-    fetchInvoiceContactPerson()
-  }, [])
+    fetchInvoiceContactPerson();
+  }, []);
 
   return (
-
     <>
       <CustomNavbarV3
         pageName="Invoice Contact Person"
@@ -47,9 +55,19 @@ export default function Main() {
 
       <InvoicedispatchTable
         onChange={(value) => setInvoiceContactPersonList(value)}
-        invoiceContactPersonList={invoiceContactPersonList} />
-      <GreenButton text='Submit' onClick={() => { onCreate(invoiceContactPersonList) }} />
+        invoiceContactPersonList={invoiceContactPersonList}
+      />
+      <br />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton
+          text="Submit"
+          onClick={() => {
+            onCreate(invoiceContactPersonList);
+          }}
+        />
+      ) : (
+        ""
+      )}
     </>
-
-  )
+  );
 }

@@ -7,15 +7,23 @@ import {
 import CandidateInvoiceNumber from "./Table";
 import { Box, styled } from "@mui/material";
 import { BlueButton } from "../../../../componenets/CustomButton";
-import { AddCandidateInvoiceNumberInterface, ClientInvoiceNumberInterface } from "../type";
-import { createCandidatesInvoiceNumber, readCandidateInvoiceNumbersList } from "../repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AddCandidateInvoiceNumberInterface,
+  ClientInvoiceNumberInterface,
+} from "../type";
+import {
+  createCandidatesInvoiceNumber,
+  readCandidateInvoiceNumbersList,
+} from "../repository";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { AgentInterface } from "../../../masters/agent/type";
+import { useUserAuth } from "../../../context/UserAuthContext";
 // import { AgentInterface } from "../type";
 export default function Main() {
-
-
   const [agentList, setAgentList] = useState<AgentInterface[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -28,10 +36,9 @@ export default function Main() {
     }
   );
 
-  const [editAgent, setEditAgent] = useState<AgentInterface>(
+  /* const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
-  );
-
+  ); */
 
   const [searchQuery, setSearchQuery] = useState("");
   const filterData = (query: string, data: AgentInterface[]) => {
@@ -45,7 +52,6 @@ export default function Main() {
   };
   const dataFiltered = filterData(searchQuery, agentList);
 
-
   const CardHeader = styled(Box)(() => ({
     display: "flex",
     flexWrap: "wrap",
@@ -55,31 +61,34 @@ export default function Main() {
     justifyContent: "space-between",
   }));
 
-  const [candidateNumbreList, setCandidateNumberList] = useState<ClientInvoiceNumberInterface[]>([]);
+  const [candidateNumbreList, setCandidateNumberList] = useState<
+    ClientInvoiceNumberInterface[]
+  >([]);
   // const [data, setData]= useState<AddCandidateInvoiceNumberInterface[]>([])
-  const [data, setData] = useState<AddCandidateInvoiceNumberInterface[]>([])
-
+  const [data, setData] = useState<AddCandidateInvoiceNumberInterface[]>([]);
 
   const createCandidateNumber = async (item: any) => {
-    await createCandidatesInvoiceNumber(item)
-  }
+    await createCandidatesInvoiceNumber(item);
+  };
 
-
+  const { authPermissionList } = useUserAuth();
 
   const fetchCandidateNumbersList = async (page?: number) => {
-    const data = await readCandidateInvoiceNumbersList({page:page ?? additionalData.pagination.page});
+    const data = await readCandidateInvoiceNumbersList({
+      page: page ?? additionalData.pagination.page,
+    });
     if (data) {
       filterData("", agentList);
       // setAgentList(data);
       setCandidateNumberList(data);
-      
+
       setAdditionalData(await PaginationManager.getData());
     }
-  }
+  };
 
   useEffect(() => {
     fetchCandidateNumbersList(additionalData.pagination.page);
-  }, [])
+  }, []);
 
   //hello das
   return (
@@ -94,19 +103,19 @@ export default function Main() {
 
       <CandidateInvoiceNumber
         candidateNumbreList={candidateNumbreList}
-         snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         // setCandidateNumberList={candidateNumbreList}
         onChange={(value) => setCandidateNumberList(value)}
         data={data}
         setData={setData}
       />
-
-
-
-      <BlueButton text="Submit" onClick={() => createCandidateNumber(data)} />
-
-
-
+<br />
+      {authPermissionList.url_has("create") ? (
+        <BlueButton text="Submit" onClick={() => createCandidateNumber(data)} />
+      ) : (
+        ""
+      )}
+<br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {

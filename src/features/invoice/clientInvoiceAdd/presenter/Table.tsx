@@ -6,19 +6,20 @@ import {
   TableHeadCell3,
   TableHeadRow3,
   TableRow3,
-
 } from "../../../../componenets/Table";
 
 import { UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeledv2, selectOptionConveterv2 } from "../../../../componenets/SelectBox";
+import {
+  CustomSelectComponentUnlabeledv2,
+  selectOptionConveterv2,
+} from "../../../../componenets/SelectBox";
 import { ClientInvoiceAddInterface } from "../type";
 
 const ClientInvoiceAddTable = (props: {
   ClientInvoiceAddList: ClientInvoiceAddInterface[];
-  setClientInvoiceAddList: any
-  onChange: (value: ClientInvoiceAddInterface[]) => void
+  setClientInvoiceAddList: any;
+  onChange: (value: ClientInvoiceAddInterface[]) => void;
 }) => {
-
   function onUpdateRow(index: number, rowData: ClientInvoiceAddInterface) {
     const nextData = props.ClientInvoiceAddList.map((e, i) => {
       if (i === index) {
@@ -29,11 +30,10 @@ const ClientInvoiceAddTable = (props: {
         return e;
       }
     });
-    props.onChange(nextData)
+    props.onChange(nextData);
   }
   return (
     <div className="overflow-auto">
-
       <Table3>
         <TableHead3>
           <TableHeadRow3>
@@ -51,13 +51,11 @@ const ClientInvoiceAddTable = (props: {
             <TableHeadCell3> RC </TableHeadCell3>
             <TableHeadCell3> OTHER CHARGES</TableHeadCell3>
             <TableHeadCell3> SERVICES CHARGES</TableHeadCell3>
-
           </TableHeadRow3>
         </TableHead3>
         <TableBody3>
           {props.ClientInvoiceAddList?.map((ele, index) => (
             <TableRow3 key={index + 1}>
-
               <TableCell3> {ele.id}</TableCell3>
               <TableCell3> {ele.party_code}</TableCell3>
               <TableCell3> {ele.company_name}</TableCell3>
@@ -70,15 +68,14 @@ const ClientInvoiceAddTable = (props: {
               <TableCell3> {ele.division}</TableCell3>
               <TableCell3> {ele.visa_authorization}</TableCell3>
               <TableCell3> {ele.rc}</TableCell3>
-              <TableCell3> {ele.other_charges}
+              <TableCell3>
+                {" "}
+                {ele.other_charges}
                 <UnlabeledInput
-                  
-type="number"
-                    
+                  type="number"
                   // value={props.data[index]?.amount}
                   value={ele.other_charges}
                   onchange={(value) => {
-
                     // props.setData((prev: any) => {
                     //   const newData = [...prev];
                     //   newData[index] = {
@@ -90,11 +87,10 @@ type="number"
                     // });
                     // console.log(props.data, value)
                     if (value) {
-                      onUpdateRow(index, { ...ele, other_charges: value })
-                        , console.log(value)
-                    }
-                    else {
-                      onUpdateRow(index, { ...ele, other_charges: value })
+                      onUpdateRow(index, { ...ele, other_charges: value }),
+                        console.log(value);
+                    } else {
+                      onUpdateRow(index, { ...ele, other_charges: value });
                     }
                   }}
                 />
@@ -103,7 +99,10 @@ type="number"
                   options={selectOptionConveterv2({
                     // options: props?.ClientInvoiceAddList?.bulk_payment_list,
                     options: [],
-                    options_struct: [{ name: "amount", value: "id" }, { name: "amount_used", value: "id" }]
+                    options_struct: [
+                      { name: "amount", value: "id" },
+                      { name: "amount_used", value: "id" },
+                    ],
                   })}
                   onChange={(value) => {
                     // props.setData((prev: any) => {
@@ -115,24 +114,22 @@ type="number"
                     //   return newData;
                     // });
                     if (value) {
-                      onUpdateRow(index, { ...ele, other_charges: value })
-                        , console.log(value)
+                      onUpdateRow(index, { ...ele, other_charges: value }),
+                        console.log(value);
+                    } else {
+                      onUpdateRow(index, { ...ele, other_charges: value });
                     }
-                    else {
-                      onUpdateRow(index, { ...ele, other_charges: value })
-                    }
-                  }
-                  } />
+                  }}
+                />
               </TableCell3>
-              <TableCell3> {ele.service_charges}
+              <TableCell3>
+                {" "}
+                {ele.service_charges}
                 <UnlabeledInput
-                  
-type="number"
-                    
+                  type="number"
                   // value={props.data[index]?.amount}
                   value={ele.other_charges}
                   onchange={(value) => {
-
                     // props.setData((prev: any) => {
                     //   const newData = [...prev];
                     //   newData[index] = {
@@ -144,11 +141,10 @@ type="number"
                     // });
                     // console.log(props.data, value)
                     if (value) {
-                      onUpdateRow(index, { ...ele, other_charges: value })
-                        , console.log(value)
-                    }
-                    else {
-                      onUpdateRow(index, { ...ele, other_charges: value })
+                      onUpdateRow(index, { ...ele, other_charges: value }),
+                        console.log(value);
+                    } else {
+                      onUpdateRow(index, { ...ele, other_charges: value });
                     }
                   }}
                 />
@@ -157,7 +153,10 @@ type="number"
                   options={selectOptionConveterv2({
                     // options: props?.ClientInvoiceAddList?.bulk_payment_list,
                     options: [],
-                    options_struct: [{ name: "amount", value: "id" }, { name: "amount_used", value: "id" }]
+                    options_struct: [
+                      { name: "amount", value: "id" },
+                      { name: "amount_used", value: "id" },
+                    ],
                   })}
                   onChange={(value) => {
                     // props.setData((prev: any) => {
@@ -169,23 +168,18 @@ type="number"
                     //   return newData;
                     // });
                     if (value) {
-                      onUpdateRow(index, { ...ele, service_charges: value })
-                        , console.log(value)
+                      onUpdateRow(index, { ...ele, service_charges: value }),
+                        console.log(value);
+                    } else {
+                      onUpdateRow(index, { ...ele, service_charges: value });
                     }
-                    else {
-                      onUpdateRow(index, { ...ele, service_charges: value })
-                    }
-                  }
-                  } />
+                  }}
+                />
               </TableCell3>
-
             </TableRow3>
-          ))
-          }
-
+          ))}
         </TableBody3>
       </Table3>
-
     </div>
   );
 };

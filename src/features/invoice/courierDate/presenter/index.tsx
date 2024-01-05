@@ -1,16 +1,27 @@
-import { useEffect, useState } from 'react';
-import CourierDateTable from './Table';
-import { CustomButton2, CustomNavbarV3 } from '../../../../componenets/CustomComponents';
+import { useEffect, useState } from "react";
+import CourierDateTable from "./Table";
+import {
+  CustomButton2,
+  CustomNavbarV3,
+} from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
-import { AddCourierDateInterface, AllSelectionInvoiceDateInterface, CourierDateInterface } from '../type';
-import { createInvoiceDate, readCourierDateEntrylist } from '../repository';
-import { GreenButton } from '../../../../componenets/CustomButton';
-import { readSectorList } from '../../../masters/sector/repository';
-import { SectorInterface } from '../../../masters/sector/type';
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AddCourierDateInterface,
+  AllSelectionInvoiceDateInterface,
+  CourierDateInterface,
+} from "../type";
+import { createInvoiceDate, readCourierDateEntrylist } from "../repository";
+import { GreenButton } from "../../../../componenets/CustomButton";
+import { readSectorList } from "../../../masters/sector/repository";
+import { SectorInterface } from "../../../masters/sector/type";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { AgentInterface } from "../../../masters/agent/type";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
   const [agentList, setAgentList] = useState<AgentInterface[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
@@ -23,11 +34,11 @@ export default function Main() {
       },
     }
   );
-
+  /*
   const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
   );
-
+*/
 
   const [searchQuery, setSearchQuery] = useState("");
   const filterData = (query: string, data: AgentInterface[]) => {
@@ -40,58 +51,64 @@ export default function Main() {
     }
   };
   const dataFiltered = filterData(searchQuery, agentList);
-    const CardHeader = styled(Box)(() => ({
-        display: "flex",
-        flexWrap: "wrap",
-        paddingRight: "24px",
-        marginBottom: "18px",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }));
-      
-    const [courierDateList, setCourierDateList] = useState<CourierDateInterface[]>([])
-    const [additionalInvoiceList, setAdditionalInvoiceList] = useState<CourierDateInterface[]>([])
-    const [courierDateData, setCourierDateData]= useState<AddCourierDateInterface[]>([])
-    const fetchCourierDateEntryData =async(page?: number)=>{
-     const data : any =   await readCourierDateEntrylist({page:page ?? additionalData.pagination.page})
-     if(data){
+  const CardHeader = styled(Box)(() => ({
+    display: "flex",
+    flexWrap: "wrap",
+    paddingRight: "24px",
+    marginBottom: "18px",
+    alignItems: "center",
+    justifyContent: "space-between",
+  }));
 
+  const { authPermissionList } = useUserAuth();
+  const [courierDateList, setCourierDateList] = useState<
+    CourierDateInterface[]
+  >([]);
+  const [additionalInvoiceList, setAdditionalInvoiceList] = useState<
+    CourierDateInterface[]
+  >([]);
+  const [courierDateData, setCourierDateData] = useState<
+    AddCourierDateInterface[]
+  >([]);
+
+  const fetchCourierDateEntryData = async (page?: number) => {
+    const data: any = await readCourierDateEntrylist({
+      page: page ?? additionalData.pagination.page,
+    });
+    if (data) {
       filterData("", agentList);
       // setAgentList(data);
-      
-      
 
-      setCourierDateList(data.invoice_list)
-      setAdditionalInvoiceList(data.additional_invoice_list)
+      setCourierDateList(data.invoice_list);
+      setAdditionalInvoiceList(data.additional_invoice_list);
       // setAdditionalData(await PaginationManager.getData());
-     }
     }
-    const onClickAdd =async ()=>{
-      const list :any ={
-        invoice_list:courierDateList
-      }
-     const data = await createInvoiceDate(list);
-     if(data){
-      fetchCourierDateEntryData(additionalData.pagination.page);
-     }
-    }
-
-    const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
-    const fetchSectorList = async () => {
-        const data = await readSectorList();
-        if (data) {
-            setSectorList(data);
-        }
+  };
+  const onClickAdd = async () => {
+    const list: any = {
+      invoice_list: courierDateList,
     };
+    const data = await createInvoiceDate(list);
+    if (data) {
+      fetchCourierDateEntryData(additionalData.pagination.page);
+    }
+  };
 
-    useEffect(()=>{
-      fetchSectorList();
-        fetchCourierDateEntryData(additionalData.pagination.page)
-    },[])
-    return (
+  const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
+  const fetchSectorList = async () => {
+    const data = await readSectorList();
+    if (data) {
+      setSectorList(data);
+    }
+  };
 
-        <>
-         <CustomNavbarV3
+  useEffect(() => {
+    fetchSectorList();
+    fetchCourierDateEntryData(additionalData.pagination.page);
+  }, []);
+  return (
+    <>
+      <CustomNavbarV3
         pageName=" Invoice Courier Date "
         searchFunction={(query) => setSearchQuery(query)}
       />
@@ -99,22 +116,27 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
 
-            <CourierDateTable
-            snoBase={additionalData.pagination.sno_base}
-                onChange ={(value)=>setCourierDateList(value)}
-                CourierDateList={courierDateList}
-                sectorList={sectorList}
-                setCourierDateData={setCourierDateData}
-                />
-        <GreenButton text='Submit' onClick={()=>onClickAdd()} />
-
-        <Pagination
+      <CourierDateTable
+        snoBase={additionalData.pagination.sno_base}
+        onChange={(value) => setCourierDateList(value)}
+        CourierDateList={courierDateList}
+        sectorList={sectorList}
+        setCourierDateData={setCourierDateData}
+      />
+      <br />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton text="Submit" onClick={() => onClickAdd()} />
+      ) : (
+        ""
+      )}
+<br />
+      <Pagination
         data={additionalData}
         onPageChange={(e) => {
           console.log(e); // Only Dev
           fetchCourierDateEntryData(e);
         }}
       />
-        </>
-    )
+    </>
+  );
 }

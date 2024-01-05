@@ -14,10 +14,11 @@ import { readClientAdditionalPaymentList } from '../repository';
 import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { AgentInterface } from "../../../masters/agent/type";
+import { useUserAuth } from '../../../context/UserAuthContext';
 
 export default function Main() {
 
-
+const {authPermissionList} = useUserAuth();
     const [agentList, setAgentList] = useState<AgentInterface[]>([]);
     const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
       {
@@ -29,10 +30,11 @@ export default function Main() {
         },
       }
     );
-  
+  /*
     const [editAgent, setEditAgent] = useState<AgentInterface>(
       {} as AgentInterface
     );
+    */
   
   
     const [searchQuery, setSearchQuery] = useState("");
@@ -76,7 +78,7 @@ export default function Main() {
     return (
         <div className='h-screen'>
 
-            <CustomNavbarV3 pageName="CLIENT  ADDITIONAL PAYMENT " searchFunction={(query) => setSearchQuery(query)} />
+            <CustomNavbarV3 pageName="CLIENT  ADDITIONAL PAYMENT" searchFunction={(query) => setSearchQuery(query)} />
 
             <CardHeader>
                 <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
@@ -94,6 +96,7 @@ export default function Main() {
                     setModal('adjust')
                 }}
                 
+              
                 onClickAdd={(value) => {
                     setClientAdditionalPayment(value)
                     setModal('add')

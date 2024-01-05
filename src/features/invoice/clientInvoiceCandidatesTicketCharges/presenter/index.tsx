@@ -29,9 +29,9 @@ export default function Main() {
     }
   );
 
-  const [editAgent, setEditAgent] = useState<AgentInterface>(
+/*  const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
-  );
+  ); */
 
   const CardHeader = styled(Box)(() => ({
     display: "flex",

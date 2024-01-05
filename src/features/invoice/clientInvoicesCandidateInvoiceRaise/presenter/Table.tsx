@@ -9,22 +9,26 @@ import {
 } from "../../../../componenets/Table";
 import { Checkbox } from "@mui/material";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponentUnlabeledv2, selectOptionConveter } from "../../../../componenets/SelectBox";
+import {
+  CustomSelectComponentUnlabeledv2,
+  selectOptionConveter,
+} from "../../../../componenets/SelectBox";
 import { CandidateInvoiceRaiseListInterface } from "../type";
 import { currencyList } from "../../../db";
 import { BankInterface } from "../../../masters/bank/type";
 
 const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
-  snoBase: number,
+  snoBase: number;
   candidateInvoiceRaiseList: CandidateInvoiceRaiseListInterface[];
-  onClickEdit: any,
-  onChange: (value: CandidateInvoiceRaiseListInterface[]) => void
-  setData: (value: any) => void
-  BankList: BankInterface[]
+  onClickEdit: any;
+  onChange: (value: CandidateInvoiceRaiseListInterface[]) => void;
+  setData: (value: any) => void;
+  BankList: BankInterface[];
 }) => {
-
-
-  function onUpdateRow(index: number, rowData: CandidateInvoiceRaiseListInterface) {
+  function onUpdateRow(
+    index: number,
+    rowData: CandidateInvoiceRaiseListInterface
+  ) {
     const nextData = props.candidateInvoiceRaiseList.map((e, i) => {
       if (i === index) {
         // Increment the clicked counter
@@ -35,11 +39,10 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
       }
     });
     props.onChange(nextData);
-    props.setData(nextData)
+    props.setData(nextData);
   }
   return (
     <div className="overflow-auto">
-
       <Table3>
         <TableHead3>
           <TableHeadRow3>
@@ -79,72 +82,96 @@ const ClientInvoicesCandidateInvoiceRaiseTable = (props: {
               <TableCell3> {ele.visa_authorisation_name}</TableCell3>
               <TableCell3> {ele.rc_name}</TableCell3>
               <TableCell3> {ele.other_charges}</TableCell3>
-              <TableCell3> {ele.service_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
-              <TableCell3> {ele.ticket_charges} {currencyList.map(e => e.id == parseInt(ele.service_charges_currency) ? e.name : "")}</TableCell3>
-              <TableCell3> <UnlabeledInput
-                type="number"
-                value={ele.total_charges} onchange={(value) =>
-                  onUpdateRow(index, { ...ele, total_charges: parseInt(value) })} /></TableCell3>
+              <TableCell3>
+                {" "}
+                {ele.service_charges}{" "}
+                {currencyList.map((e) =>
+                  e.id == parseInt(ele.service_charges_currency) ? e.name : ""
+                )}
+              </TableCell3>
+              <TableCell3>
+                {" "}
+                {ele.ticket_charges}{" "}
+                {currencyList.map((e) =>
+                  e.id == parseInt(ele.service_charges_currency) ? e.name : ""
+                )}
+              </TableCell3>
+              <TableCell3>
+                {" "}
+                <UnlabeledInput
+                  type="number"
+                  value={ele.total_charges}
+                  onchange={(value) =>
+                    onUpdateRow(index, {
+                      ...ele,
+                      total_charges: parseInt(value),
+                    })
+                  }
+                />
+              </TableCell3>
               <TableCell3>
                 <UnlabeledInput
                   // type="number"
                   value={ele?.invoice_number}
                   onchange={(value) => {
                     if (value) {
-                      onUpdateRow(index, { ...ele, invoice_number: value })
+                      onUpdateRow(index, { ...ele, invoice_number: value });
+                    } else {
+                      onUpdateRow(index, { ...ele, invoice_number: value });
                     }
-                    else {
-                      onUpdateRow(index, { ...ele, invoice_number: value })
-                    }
-                  }
-                  }
+                  }}
                 />
               </TableCell3>
               <TableCell3>
-                <DateInput id="date"
+                <DateInput
+                  id="date"
                   value={ele.invoice_date}
                   onChange={(value) => {
                     if (value) {
-                      onUpdateRow(index, { ...ele, invoice_date: value })
-                      console.log(value)
+                      onUpdateRow(index, { ...ele, invoice_date: value });
+                      console.log(value);
+                    } else {
+                      onUpdateRow(index, { ...ele, invoice_date: "" });
                     }
-                    else {
-                      onUpdateRow(index, { ...ele, invoice_date: '' })
-                    }
-                  }} />
+                  }}
+                />
               </TableCell3>
               <TableCell3>
-                <Checkbox value={ele.is_without} checked={ele.is_without ? true : false} onChange={(e) => {
-                  if (e.target.checked) {
-                    onUpdateRow(index, { ...ele, is_without: e.target.checked ? 1 : 0 })
-                      , console.log(e.target.checked, "checked")
-                  }
-                  else {
-                    onUpdateRow(index, { ...ele, is_without: 0 })
-                  }
-                }} />
+                <Checkbox
+                  value={ele.is_without}
+                  checked={ele.is_without ? true : false}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      onUpdateRow(index, {
+                        ...ele,
+                        is_without: e.target.checked ? 1 : 0,
+                      }),
+                        console.log(e.target.checked, "checked");
+                    } else {
+                      onUpdateRow(index, { ...ele, is_without: 0 });
+                    }
+                  }}
+                />
               </TableCell3>
               <TableCell3>
                 <CustomSelectComponentUnlabeledv2
                   value={ele.bank_id}
                   options={selectOptionConveter({
                     options: props.BankList,
-                    options_struct: { name: "name", value: "id" }
+                    options_struct: { name: "name", value: "id" },
                   })}
                   onChange={(value) => {
                     if (value) {
-                      onUpdateRow(index, { ...ele, bank_id: value })
-                        , console.log(value)
+                      onUpdateRow(index, { ...ele, bank_id: value }),
+                        console.log(value);
+                    } else {
+                      onUpdateRow(index, { ...ele, bank_id: value });
                     }
-                    else {
-                      onUpdateRow(index, { ...ele, bank_id: value })
-                    }
-                  }
-                  } />
+                  }}
+                />
               </TableCell3>
             </TableRow3>
-          ))
-          }
+          ))}
         </TableBody3>
       </Table3>
     </div>

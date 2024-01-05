@@ -6,17 +6,24 @@ import {
 } from "../../../../componenets/CustomComponents";
 import ClientInvoicesCandidateInvoiceRaiseTable from "./Table";
 import { Box, styled } from "@mui/material";
-import { CandidateInvoiceRaiseInterface, CandidateInvoiceRaiseListInterface } from "../type";
-import { createCandidatesInvoiceRaiseList, readCandidatesInvoiceRaiseList } from "../repository";
+import {
+  CandidateInvoiceRaiseInterface,
+  CandidateInvoiceRaiseListInterface,
+} from "../type";
+import {
+  createCandidatesInvoiceRaiseList,
+  readCandidatesInvoiceRaiseList,
+} from "../repository";
 import { BankInterface } from "../../../masters/bank/type";
 import { readBankList } from "../../../masters/bank/repository";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { AgentInterface } from "../../../masters/agent/type";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
-
-
-
   const [agentList, setAgentList] = useState<AgentInterface[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -28,11 +35,11 @@ export default function Main() {
       },
     }
   );
-
+  /*
   const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
   );
-
+*/
   const [searchQuery, setSearchQuery] = useState("");
   const filterData = (query: string, data: AgentInterface[]) => {
     if (!query) {
@@ -53,49 +60,51 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
-  const [candidateInvoiceRaise, setCandidateInvoiceRaiseList] = useState<CandidateInvoiceRaiseListInterface[]>([]);
+  const [candidateInvoiceRaise, setCandidateInvoiceRaiseList] = useState<
+    CandidateInvoiceRaiseListInterface[]
+  >([]);
 
- 
+  const { authPermissionList } = useUserAuth();
 
-  const [data, setData] = useState<any>([])
+  const [data, setData] = useState<any>([]);
 
   const fetchCandidatesInvoiceRaiseList = async (page?: number) => {
-    console.log("called")
-    const data = await readCandidatesInvoiceRaiseList({page:page ?? additionalData.pagination.page});
+    console.log("called");
+    const data = await readCandidatesInvoiceRaiseList({
+      page: page ?? additionalData.pagination.page,
+    });
     if (data) {
       filterData("", agentList);
-      setCandidateInvoiceRaiseList(data)
+      setCandidateInvoiceRaiseList(data);
       setAdditionalData(await PaginationManager.getData());
     }
+  };
 
-  }
   const onClickAdd = async (candidateInvoiceRaise: any) => {
+    const newArray = [];
 
-    const newArray = []
-
-        for (let i = 0; i < candidateInvoiceRaise.length; i++) {
-            if (!candidateInvoiceRaise[i].is_without)
-                continue
-                newArray.push(candidateInvoiceRaise[i])
-        }
+    for (let i = 0; i < candidateInvoiceRaise.length; i++) {
+      if (!candidateInvoiceRaise[i].is_without) continue;
+      newArray.push(candidateInvoiceRaise[i]);
+    }
 
     // console.log("first", newArray)
     const data = await createCandidatesInvoiceRaiseList(candidateInvoiceRaise);
     if (data) {
       fetchCandidatesInvoiceRaiseList(additionalData.pagination.page);
     }
-  }
+  };
 
-  const [BankList, setBankList] = useState<BankInterface[]>([])
+  const [BankList, setBankList] = useState<BankInterface[]>([]);
   async function fetchBanckList() {
-    const data = await readBankList(false, 0)
-    setBankList(data)
+    const data = await readBankList(false, 0);
+    setBankList(data);
   }
 
   useEffect(() => {
     fetchCandidatesInvoiceRaiseList(additionalData.pagination.page);
-    fetchBanckList()
-  }, [])
+    fetchBanckList();
+  }, []);
   return (
     <div>
       <CustomNavbarV3
@@ -108,26 +117,28 @@ export default function Main() {
       </CardHeader>
 
       <ClientInvoicesCandidateInvoiceRaiseTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         onClickEdit={() => console.log("first")}
         onChange={(value) => setCandidateInvoiceRaiseList(value)}
         candidateInvoiceRaiseList={candidateInvoiceRaise}
         setData={(value: any) => setData(value)}
         BankList={BankList}
       />
+      <br />
+      {authPermissionList.url_has("create") ? (
+        <CustomButton2 buttonText="Submit" onClick={() => onClickAdd(data)} />
+      ) : (
+        ""
+      )}
 
-      <CustomButton2 buttonText="Submit" onClick={() => onClickAdd(data)} />
-
-
-
+      <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchCandidatesInvoiceRaiseList(e);
         }}
       />
-
     </div>
   );
 }

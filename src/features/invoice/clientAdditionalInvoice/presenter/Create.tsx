@@ -8,7 +8,7 @@ import { useState } from "react"
 
 export default function Main(props: {
     onClose: () => void,
-    fetchClientAdditionalInvoiceList: any,
+    fetchClientAdditionalInvoiceList: () => void,
     companyList: CompanyInterface[]
 }) {
 
@@ -24,7 +24,7 @@ export default function Main(props: {
     async function onClickAdd() {
 
         // call create
-        const newArray: any = clientAdditionalInvoice;
+        const newArray = clientAdditionalInvoice;
         const flag = await createClientAdditionalInvoice(newArray);
         if (!flag) {
             return;

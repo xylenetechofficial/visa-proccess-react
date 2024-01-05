@@ -17,6 +17,7 @@ const fetchClientPaymentListPaymentAddTable = (props: {
     ClientPaymentList: ClientPaymentInterface[],
     snoBase:number
 }) => {
+    
     const HEADERLIST = [
         "SR NO.",
         "COMPANY NAME",
@@ -50,7 +51,7 @@ const fetchClientPaymentListPaymentAddTable = (props: {
                         <TableRow3 key={index}>
                            <TableCell3 >{index + props.snoBase+1}</TableCell3>
                             <TableCell3>{item.company_name}</TableCell3>
-                            <TableCell3><span style={{cursor:"pointer",color:"#ff3c3c"}} onClick={() => props.onClickCandidateList(item)}>{item.invoice_number}</span></TableCell3>
+                            <TableCell3><span className="hover:underline" style={{cursor:"pointer",color:"#ff3c3c"}} onClick={() => props.onClickCandidateList(item)}>{item.invoice_number}</span></TableCell3>
                             <TableCell3>{convertDateFormat(item.invoice_date)}</TableCell3>
 
                             <TableCell3>{item.other_charges}</TableCell3>
@@ -58,7 +59,7 @@ const fetchClientPaymentListPaymentAddTable = (props: {
                             <TableCell3>{item.ticket_charges}</TableCell3>
                             <TableCell3>{item.total_charges}</TableCell3>
 
-                            <TableCell3><span style={{cursor:"pointer",color:"#ff3c3c"}} onClick={() => props.onClickPaymentList(item)}>{item.payment_received}</span></TableCell3>
+                            <TableCell3><span className="hover:underline" style={{cursor:"pointer",color:"#ff3c3c",}} onClick={() => props.onClickPaymentList(item)}>{item.payment_received}</span></TableCell3>
 
                             <TableCell3>{item.balance_payment}</TableCell3>
                             <TableCell3>{item.bank_name}</TableCell3>

@@ -1,4 +1,4 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaFilter } from "react-icons/fa";
 import {
   CustomButton2,
@@ -7,14 +7,19 @@ import {
 import ClientInvoiceChargesListTable from "./Table";
 import { Box, styled } from "@mui/material";
 import { AddCandidateInvoiceChargesInterface } from "../type";
-import { createCandidatesInvoiceCharges, readCandidateInvoiceChargessList } from "../repository";
+import {
+  createCandidatesInvoiceCharges,
+  readCandidateInvoiceChargessList,
+} from "../repository";
 import { BlueButton } from "../../../../componenets/CustomButton";
 import Pagination from "../../../../componenets/Pagination";
 import { AgentInterface } from "../../../masters/agent/type";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
-
-
   const [agentList, setAgentList] = useState<AgentInterface[]>([]);
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -26,11 +31,11 @@ export default function Main() {
       },
     }
   );
-
+  /*
   const [editAgent, setEditAgent] = useState<AgentInterface>(
     {} as AgentInterface
   );
-
+  */
 
   const [searchQuery, setSearchQuery] = useState("");
   const filterData = (query: string, data: AgentInterface[]) => {
@@ -52,52 +57,63 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
-
-  const [ClientInvoiceChargesList, setClientInvoiceChargesList] = useState<any>([]);
-  const [data, setData] = useState<AddCandidateInvoiceChargesInterface[]>([])
-
+  const { authPermissionList } = useUserAuth();
+  const [ClientInvoiceChargesList, setClientInvoiceChargesList] = useState<any>(
+    []
+  );
+  const [data, setData] = useState<AddCandidateInvoiceChargesInterface[]>([]);
 
   const createCandidateCharges = async (item: any) => {
-    console.log(item);   // Only Dev
-    await createCandidatesInvoiceCharges(item)
-  }
+    console.log(item); // Only Dev
+    await createCandidatesInvoiceCharges(item);
+  };
 
   const fetchCandidateNumbersList = async (page?: number) => {
-    const data = await readCandidateInvoiceChargessList({page:page ?? additionalData.pagination.page});
+    const data = await readCandidateInvoiceChargessList({
+      page: page ?? additionalData.pagination.page,
+    });
     if (data) {
       setClientInvoiceChargesList(data);
       filterData("", agentList);
       setAdditionalData(await PaginationManager.getData());
     }
-  }
+  };
 
   useEffect(() => {
     fetchCandidateNumbersList(additionalData.pagination.page);
-  }, [])
-
+  }, []);
 
   return (
     <div>
       <CustomNavbarV3
         pageName=" Invoice Charges"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>fetchCandidateNumbersList()}
+        refresh={() => fetchCandidateNumbersList()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
 
       <ClientInvoiceChargesListTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         ClientInvoiceChargesList={ClientInvoiceChargesList}
         onChange={(value) => setClientInvoiceChargesList(value)}
         setData={setData}
       />
-      <BlueButton text="Submit" onClick={()=>{createCandidateCharges(ClientInvoiceChargesList)}} />
+      {authPermissionList.url_has("create") ? (
+        <BlueButton
+          text="Submit"
+          onClick={() => {
+            createCandidateCharges(ClientInvoiceChargesList);
+          }}
+        />
+      ) : (
+        ""
+      )}
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchCandidateNumbersList(e);
         }}
       />
