@@ -1,20 +1,21 @@
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table";
 import { RedButton } from "../../../../componenets/CustomButton";
-import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox";
+import { CustomCheckBox } from "../../../../componenets/Checkbox";
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { convertDateFormat } from "../../../../utils/function";
 import { CandidateInterface } from "../type";
 import { CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox";
-import { DAD_GivenToList, GivenToList } from "../../../db";
+import { DAD_GivenToList } from "../../../db";
 import { removeCandidate } from "../repository";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 
 const Main = (props: {
   snoBase: number,
   candidateDataList: CandidateInterface[],
   onChange: (value: CandidateInterface[]) => void,
-  fetchCandidateList: any
+  fetchCandidateList: () => void
 }) => {
+  const {authPermissionList} = useUserAuth();
 
   const HEADERLIST = [
     "SR NO.",
@@ -100,7 +101,7 @@ const Main = (props: {
               <TableCell3>
                 <CustomSelectComponentUnlabeled
                   value={item.given_to}
-                  onChange={(value: any) => {
+                  onChange={(value) => {
                     onUpdateRow(index, { ...item, given_to: value })
                   }}
                   options={DAD_GivenToList}
@@ -114,14 +115,18 @@ const Main = (props: {
               </TableCell3>
 
               <TableCell3>
-                <RedButton
+                {
+                  authPermissionList.url_has("delete")?
+                  <RedButton
                   text="Remove"
                   onClick={()=>{
                     removeCandidate(item)
                     window.location.reload()
                     // props.fetchCandidateList()
                   }}
-                />
+                />:""
+                }
+            
               </TableCell3>
             </TableRow3>
           ))}

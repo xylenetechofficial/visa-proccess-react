@@ -5,7 +5,6 @@ import {
   CustomButton2,
   CustomNavbarV3,
 } from "../../../../componenets/CustomComponents";
-import { BlueButton } from "../../../../componenets/CustomButton";
 import PP_RC_CandidateTable from "./Table";
 import { PP_RC_CandidateInterface } from "../type";
 import { readPP_RC_CandidateList } from "../repository";
@@ -61,10 +60,13 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
+
       <PP_RC_CandidateTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         pp_rc_candidateDataList={pp_rc_candidateDataList}
-        onChange={(value: any) => setPP_RC_CandidateDataList(value)}
+        onChange={(value: PP_RC_CandidateInterface[]) =>
+          setPP_RC_CandidateDataList(value)
+        }
         fetchPP_RC_CandidateList={fetchPP_RC_CandidateList}
       />
       <br />

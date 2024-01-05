@@ -14,6 +14,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -28,7 +29,7 @@ export default function Main() {
   const [candidateDataList, setCandidateDataList] = useState<
     CandidateInterface[]
   >([]);
-
+  const { authPermissionList } = useUserAuth();
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -41,7 +42,7 @@ export default function Main() {
   );
 
   const fetchCandidateList = async (page?: number) => {
-    const data: any = await readCandidateList({
+    const data = await readCandidateList({
       page: page ?? additionalData.pagination.page,
       status: "yes",
     });
@@ -61,13 +62,18 @@ export default function Main() {
       //     if (element.candidate_received_date == '' || element.candidate_submission_date == '')
       //         continue
 
-      if (element.given_date == "" || element.given_to == "" || element.dad_amount < 1 || element.dad_service_tax == "")
-        continue
+      if (
+        element.given_date == "" ||
+        element.given_to == "" ||
+        element.dad_amount < 1 ||
+        element.dad_service_tax == ""
+      )
+        continue;
 
       new_list.push(element);
     }
-console.log(new_list);   // Only Dev
-    const data: any = await createCandidateList(new_list);
+    // console.log(new_list);   // Only Dev
+    await createCandidateList(new_list);
     fetchCandidateList();
   };
   useEffect(() => {
@@ -87,21 +93,27 @@ console.log(new_list);   // Only Dev
       <CandidateTable
         snoBase={additionalData.pagination.sno_base}
         candidateDataList={candidateDataList}
-        onChange={(value: any) => setCandidateDataList(value)}
+        onChange={(value: CandidateInterface[]) => setCandidateDataList(value)}
         fetchCandidateList={fetchCandidateList}
       />
       <br />
-      <BlueButton
-        text="Submit"
-        onClick={() => {
-          createCandidate(candidateDataList);
-        }}
-      />
+      {
+      authPermissionList.url_has("create") ? (
+        <BlueButton
+          text="Submit"
+          onClick={() => {
+            createCandidate(candidateDataList);
+          }}
+        />
+      ) : (
+        ""
+      )}
+
       <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchCandidateList(e);
         }}
       />

@@ -14,6 +14,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -28,7 +29,7 @@ export default function Main() {
   const [rc_candidateDataList, setRC_CandidateDataList] = useState<
     RC_CandidateInterface[]
   >([]);
-
+  const { authPermissionList } = useUserAuth();
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -41,7 +42,7 @@ export default function Main() {
   );
 
   const fetchRC_CandidateList = async (page?: number) => {
-    const data: any = await readRC_CandidateList({
+    const data = await readRC_CandidateList({
       page: page ?? additionalData.pagination.page,
       status: "yes",
     });
@@ -63,8 +64,7 @@ export default function Main() {
 
       new_list.push(element);
     }
-
-    const data: any = await createRC_CandidateList(new_list);
+    await createRC_CandidateList(new_list);
     fetchRC_CandidateList();
   };
   useEffect(() => {
@@ -75,30 +75,39 @@ export default function Main() {
       <CustomNavbarV3
         pageName="RC - Candidate List"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>readRC_CandidateList({page:additionalData.pagination.page})}
+        refresh={() =>
+          readRC_CandidateList({ page: additionalData.pagination.page })
+        }
       />
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
       </CardHeader>
       <RC_CandidateTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         rc_candidateDataList={rc_candidateDataList}
-        onChange={(value: any) => setRC_CandidateDataList(value)}
+        onChange={(value: RC_CandidateInterface[]) =>
+          setRC_CandidateDataList(value)
+        }
         fetchRC_CandidateList={fetchRC_CandidateList}
       />
       <br />
-      <BlueButton
-        text="Submit"
-        onClick={() => {
-          createRC_Candidate(rc_candidateDataList);
-        }}
-      />
+      {authPermissionList.url_has("create") ? (
+        <BlueButton
+          text="Submit"
+          onClick={() => {
+            createRC_Candidate(rc_candidateDataList);
+          }}
+        />
+      ) : (
+        ""
+      )}
+
       <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchRC_CandidateList(e);
         }}
       />
