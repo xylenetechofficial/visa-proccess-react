@@ -7,7 +7,7 @@ import { TicketAgencyInvoiceAwaitingInterface } from "../type";
 import { createTicketAgencyInvoiceAwaitingList, readTicketAgencyInvoiceAwaitingList } from "../repository";
 
 export default function Main(props: {
-    onClose: any,
+    onClose: () => void,
 }) {
 
     const [ticketAgencyInvoiceAwaitingList, setTicketAgencyInvoiceAwaitingList] =
@@ -24,7 +24,7 @@ export default function Main(props: {
     );
 
     const fetchTicketAgencyInvoiceAwaitingList = async (page?: number) => {
-        const data: any = await readTicketAgencyInvoiceAwaitingList({
+        const data = await readTicketAgencyInvoiceAwaitingList({
             page: page ?? 1,
             status: "no"
           });

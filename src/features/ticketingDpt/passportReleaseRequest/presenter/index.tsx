@@ -1,5 +1,5 @@
 import PassportReleaseRequest from "./Table";
-import EditModal from './Edit';
+import EditModal from "./Edit";
 import { useState, useEffect } from "react";
 import {
   CustomButton2,
@@ -18,6 +18,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -28,7 +29,7 @@ export default function Main() {
     justifyContent: "space-between",
   }));
   const [searchQuery, setSearchQuery] = useState("");
-  const [modalName, setModalName]=useState('')
+  const [modalName, setModalName] = useState("");
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
       pagination: {
@@ -39,7 +40,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   const [PassportReleaseRequestList, setPassportReleaseRequestList] = useState<
     PassportReleaseRequestInterface[]
   >([]);
@@ -47,8 +48,7 @@ export default function Main() {
     const data = await readPassportReleaseRequestList({
       page: page ?? additionalData.pagination.page,
       status: "no",
-    }
-    );
+    });
     if (data) {
       setPassportReleaseRequestList(data);
     }
@@ -70,7 +70,11 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <BlueButton text="Edit"  onClick={()=>setModalName('edit')}/>
+        {authPermissionList.url_has("update") ? (
+          <BlueButton text="Edit" onClick={() => setModalName("edit")} />
+        ) : (
+          ""
+        )}
       </CardHeader>
       <PassportReleaseRequest
         PassportReleaseRequestList={PassportReleaseRequestList}
@@ -78,10 +82,16 @@ export default function Main() {
         snoBase={additionalData.pagination.sno_base}
       />
       <br />
-      <GreenButton
-        text="Submit"
-        onClick={() => onClickCreate(PassportReleaseRequestList)}
-      />
+
+      {authPermissionList.url_has("create") ? (
+        <GreenButton
+          text="Submit"
+          onClick={() => onClickCreate(PassportReleaseRequestList)}
+        />
+      ) : (
+        ""
+      )}
+
       <br />
       <Pagination
         data={additionalData}
@@ -90,7 +100,11 @@ export default function Main() {
           fetchPassportReleaseRequest(e);
         }}
       />
-      {modalName === 'edit' ? <EditModal onClose={(value)=>setModalName(value)}/>:''}
+      {modalName === "edit" ? (
+        <EditModal onClose={(value) => setModalName(value)} />
+      ) : (
+        ""
+      )}
     </>
   );
 }

@@ -2,15 +2,13 @@ import RMAdvanceBooking from "./Table";
 import { useState, useEffect } from "react";
 import {
   CustomButton2,
-  CustomNavbarV3,
-} from "../../../../componenets/CustomComponents";
+  } from "../../../../componenets/CustomComponents";
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { RMAdvanceBookingInterface } from "../type";
-import { confirmationMessage,confirmationMessagealert,confirmationMessage_v2,showMessage } from "../../../../utils/alert";
+import { confirmationMessage_v2,} from "../../../../utils/alert";
 import {
-  createRMAdvanceBooking,
-  readRMAdvanceBookingList,
+ readRMAdvanceBookingList,
   updateRMAdvanceBooking,
 } from "../repository";
 import { GreenButton, YellowButton } from "../../../../componenets/CustomButton";

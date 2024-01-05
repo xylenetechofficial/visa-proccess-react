@@ -8,7 +8,7 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { Box, styled } from "@mui/material";
 import { RMAdvanceBookingInterface } from "../type";
-import { confirmationMessage,confirmationMessagealert,confirmationMessage_v2,showMessage } from "../../../../utils/alert";
+import { confirmationMessage_v2 } from "../../../../utils/alert";
 import {
   createRMAdvanceBooking,
   readRMAdvanceBookingList,
@@ -19,6 +19,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 // import { confirmationMessage, confirmationMessage_v2 } from "../../../../utils/alert";
 
 const filterButtonList = [
@@ -51,7 +52,7 @@ export default function Main() {
       },
     }
   );
-
+const {authPermissionList} = useUserAuth();
   const [RMAdvanceBookingList, setRMAdvanceBookingList] = useState<
     RMAdvanceBookingInterface[]
   >([]);
@@ -77,8 +78,8 @@ export default function Main() {
     }
 
     const final_data = await get_approve_data(new_data, 1)
-    console.log("new_data", new_data);   // Only Dev
-    console.log("final_data", final_data);   // Only Dev
+    // console.log("new_data", new_data);   // Only Dev
+    // console.log("final_data", final_data);   // Only Dev
 
     await createRMAdvanceBooking(final_data);
     fetchRMAdvanceBooking();
@@ -86,7 +87,7 @@ export default function Main() {
   };
 
   async function get_approve_data(list: RMAdvanceBookingInterface[], context: number): Promise<RMAdvanceBookingInterface[]> {
-    console.log("get_approve_data context: 1");   // Only Dev
+    // console.log("get_approve_data context: 1");   // Only Dev
     const new_data: RMAdvanceBookingInterface[] = [];
     let find_one = false;
 
@@ -142,7 +143,11 @@ export default function Main() {
               fetchRMAdvanceBooking(additionalData.pagination.page, { immigration_status: ele.value });
             }}
           />)}
+          {
+            authPermissionList.url_has("update")?
           <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
+          :""
+          }
         </div>
       </CardHeader>
       <RMAdvanceBooking
@@ -151,10 +156,15 @@ export default function Main() {
         onChange={(value) => setRMAdvanceBookingList(value)}
       />
       <br />
-      <GreenButton
-        text="Submit"
-        onClick={() => onClickCreate(RMAdvanceBookingList)}
-      />
+      {
+            authPermissionList.url_has("create")?
+            <GreenButton
+            text="Submit"
+            onClick={() => onClickCreate(RMAdvanceBookingList)}
+          />
+          :""
+          }
+      
       <br />
 
       <Pagination

@@ -72,14 +72,14 @@ export default function Main(props:{onClose:(value:string)=>void}) {
       />
       <br />
       <GreenButton
-        text="Updatte"
+        text="Update"
         onClick={() => onClickUpdate(PassportReleaseRequestList)}
       />
       <br />
       <Pagination
         data={additionalData}
         onPageChange={(e) => {
-          console.log(e); // Only Dev
+          // console.log(e); // Only Dev
           fetchPassportReleaseRequest(e);
         }}
       />

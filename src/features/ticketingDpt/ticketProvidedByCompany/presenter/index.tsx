@@ -1,6 +1,6 @@
 import TicketProvidedByCompanyTable from "./Table";
 import { useEffect, useState } from "react";
-import EditModal from './Edit';
+import EditModal from "./Edit";
 import {
   CustomButton2,
   CustomNavbarV3,
@@ -15,8 +15,12 @@ import { TicketProvidedByCompanyInterface } from "../type";
 import { readSectorList } from "../../../masters/sector/repository";
 import { SectorInterface } from "../../../masters/sector/type";
 import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
-import { AdditionalDataInterface, PaginationManager } from "../../../../utils/api_helper";
+import {
+  AdditionalDataInterface,
+  PaginationManager,
+} from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -27,7 +31,7 @@ export default function Main() {
     justifyContent: "space-between",
   }));
   const [searchQuery, setSearchQuery] = useState("");
-  const [modalName, setModalName] = useState('')
+  const [modalName, setModalName] = useState("");
   const [TicketProvidedByCompanyList, setTicketProvidedByCompanyList] =
     useState<TicketProvidedByCompanyInterface[]>([]);
   const [TicketProvidedByCompanyData, setTicketProvidedByCompanyData] =
@@ -43,7 +47,7 @@ export default function Main() {
       },
     }
   );
-
+  const { authPermissionList } = useUserAuth();
   async function fetchTicketProvidedByCompany(page?: number) {
     const data = await readTicketProvidedByCompanyList({
       page: page ?? additionalData.pagination.page,
@@ -55,10 +59,10 @@ export default function Main() {
     setAdditionalData(await PaginationManager.getData());
   }
   const onClickCreate = async (item: TicketProvidedByCompanyInterface[]) => {
-    const newArray = []
-        for (let i = 0; i < item.length; i++) {
-            if (item[i].checked) newArray.push(item[i])
-        }
+    const newArray = [];
+    for (let i = 0; i < item.length; i++) {
+      if (item[i].checked) newArray.push(item[i]);
+    }
     await createTicketProvidedByCompanyList(newArray);
   };
   const [sectorList, setSectorList] = useState<SectorInterface[]>([]);
@@ -83,7 +87,11 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-      <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
+        {authPermissionList.url_has("update") ? (
+          <BlueButton text="Edit" onClick={() => setModalName("edit")} />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       <TicketProvidedByCompanyTable
@@ -93,10 +101,14 @@ export default function Main() {
         onChange={(value) => setTicketProvidedByCompanyList(value)}
       />
       <br />
-      <GreenButton
-        text="Submit"
-        onClick={() => onClickCreate(TicketProvidedByCompanyList)}
-      />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton
+          text="Submit"
+          onClick={() => onClickCreate(TicketProvidedByCompanyList)}
+        />
+      ) : (
+        ""
+      )}
 
       <br />
       <Pagination
@@ -106,7 +118,11 @@ export default function Main() {
           fetchTicketProvidedByCompany(e);
         }}
       />
-      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} /> : ''}
+      {modalName === "edit" ? (
+        <EditModal onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
     </>
   );
 }

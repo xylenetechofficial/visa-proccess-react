@@ -16,6 +16,7 @@ import {
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
 import { BlueButton } from "../../../../componenets/CustomButton";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -26,7 +27,7 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
-
+  const { authPermissionList } = useUserAuth();
   const [searchQuery, setSearchQuery] = useState("");
 
   const [modalName, setModalName] = useState("");
@@ -94,12 +95,16 @@ export default function Main() {
               setModalName("add");
             }}
           /> : ""} */}
-          <BlueButton
-            text={"Edit"}
-            onClick={() => {
-              setModalName("edit");
-            }}
-          />
+          {authPermissionList.url_has("update") ? (
+            <BlueButton
+              text={"Edit"}
+              onClick={() => {
+                setModalName("edit");
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </CardHeader>
 

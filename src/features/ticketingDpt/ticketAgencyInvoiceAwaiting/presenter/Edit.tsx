@@ -7,7 +7,7 @@ import { TicketAgencyInvoiceAwaitingInterface } from "../type";
 import Pagination from "../../../../componenets/Pagination";
 
 export default function Main(props: {
-    onClose: any,
+    onClose: () => void,
 }) {
     
     const [ticketAgencyInvoiceAwaitingList, setTicketAgencyInvoiceAwaitingList] =
@@ -65,6 +65,7 @@ export default function Main(props: {
                     actionType="edit"
                     onChange={(list) => setTicketAgencyInvoiceAwaitingList(list)}
                 />
+                <br />
                 <Pagination
                     data={additionalData}
                     onPageChange={(e) => {

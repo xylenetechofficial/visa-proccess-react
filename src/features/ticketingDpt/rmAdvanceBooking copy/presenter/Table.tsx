@@ -1,14 +1,12 @@
 import { Checkbox } from "flowbite-react";
-import { CustomCheckBox } from "../../../../componenets/Checkbox"
-import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled } from "../../../../componenets/SelectBox"
+import { DateInput } from "../../../../componenets/Input";
 import { Table3, TableBody2,  TableCell3,  TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { RMAdvanceBookingInterface } from "../type";
 import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props:{
     RMAdvanceBookingList:RMAdvanceBookingInterface[],
-    onChange:(value:any)=>void,
+    onChange:(value:RMAdvanceBookingInterface[])=>void,
     snoBase: number;
 }) {
     const HEADERLIST = [

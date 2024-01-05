@@ -1,11 +1,9 @@
-import { Checkbox } from "@mui/material";
-import { CustomCheckBox, CustomSingleCheckBox } from "../../../../componenets/Checkbox"
+import {  CustomSingleCheckBox } from "../../../../componenets/Checkbox"
 import { DateInput, UnlabeledInput } from "../../../../componenets/Input";
-import { CustomSelectComponent, CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
+import {  CustomSelectComponentUnlabeled, selectOptionConveter } from "../../../../componenets/SelectBox"
 import { Table3, TableBody3, TableCell3, TableHead3, TableHeadCell3, TableHeadRow3, TableRow3 } from "../../../../componenets/Table"
 import { SectorInterface } from "../../../masters/sector/type";
 import { TicketProvidedByCompanyInterface } from "../type";
-import { useState } from "react";
 import { convertDateFormat } from "../../../../utils/function";
 
 export default function Main(props: {

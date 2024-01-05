@@ -1,6 +1,5 @@
 import TicketProvidedByCompanyTable from "./Table";
 import { useEffect, useState } from "react";
-import { Box, styled } from "@mui/material";
 import {
     readTicketProvidedByCompanyList,
     updateTicketProvidedByCompanyList,

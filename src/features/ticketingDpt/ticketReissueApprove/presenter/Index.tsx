@@ -17,6 +17,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
@@ -27,7 +28,7 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
-
+  const { authPermissionList } = useUserAuth();
   const [searchQuery, setSearchQuery] = useState("");
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
@@ -41,17 +42,17 @@ export default function Main() {
     }
   );
 
-  const [modalName, setModalName] = useState("");
-  const [reIssueApprove, setReIssueApprove] = useState<
-    TicketReIssueApprovedInterface[]
-  >([] as TicketReIssueApprovedInterface[]);
+  // const [modalName, setModalName] = useState("");
+  // const [reIssueApprove, setReIssueApprove] = useState<
+  //   TicketReIssueApprovedInterface[]
+  // >([] as TicketReIssueApprovedInterface[]);
 
   const [ticketReissueApproveList, setTicketReissueApproveList] = useState<
     TicketReIssueApprovedInterface[]
   >([] as TicketReIssueApprovedInterface[]);
 
   const fetchTicketissue = async (page?: number) => {
-    const res: any = await readTicketReIssueApprovedList({
+    const res = await readTicketReIssueApprovedList({
       page: page ?? additionalData.pagination.page,
       status: "no",
     });
@@ -104,7 +105,11 @@ export default function Main() {
       />
 
       <div className="flex justify-end items-center mt-3">
-        <GreenButton text="Submit" onClick={() => handleClick()} />
+        {authPermissionList.url_has("create") ? (
+          <GreenButton text="Submit" onClick={() => handleClick()} />
+        ) : (
+          ""
+        )}
       </div>
 
       <Pagination

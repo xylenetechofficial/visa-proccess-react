@@ -11,7 +11,7 @@ import {
   createTicketBookingRequest,
   readTicketBookingRequestList,
 } from "../repository";
-import EditModal from './Edit';
+import EditModal from "./Edit";
 import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
 import { SectorInterface } from "../../../masters/sector/type";
 import { readSectorList } from "../../../masters/sector/repository";
@@ -20,6 +20,7 @@ import {
   PaginationManager,
 } from "../../../../utils/api_helper";
 import Pagination from "../../../../componenets/Pagination";
+import { useUserAuth } from "../../../context/UserAuthContext";
 export default function Main() {
   const CardHeader = styled(Box)(() => ({
     display: "flex",
@@ -29,7 +30,8 @@ export default function Main() {
     alignItems: "center",
     justifyContent: "space-between",
   }));
-  const [modalName, setModalName]= useState('')
+  const { authPermissionList } = useUserAuth();
+  const [modalName, setModalName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -47,10 +49,9 @@ export default function Main() {
   >([]);
   async function fetchTicketBookingRequest(page?: number) {
     const data = await readTicketBookingRequestList({
-        page: page ?? additionalData.pagination.page,
-        status: "no",
-      }
-    );
+      page: page ?? additionalData.pagination.page,
+      status: "no",
+    });
     if (data) {
       setTicketBookingRequestList(data);
     }
@@ -86,24 +87,32 @@ export default function Main() {
       <CustomNavbarV3
         pageName="Ticket Booking Request"
         searchFunction={(query) => setSearchQuery(query)}
-        refresh={()=>fetchTicketBookingRequest()}
+        refresh={() => fetchTicketBookingRequest()}
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
-        <BlueButton text="Edit" onClick={()=>setModalName('edit')} />
+        {authPermissionList.url_has("update") ? (
+          <BlueButton text="Edit" onClick={() => setModalName("edit")} />
+        ) : (
+          ""
+        )}
       </CardHeader>
 
       <BookingTable
-      snoBase={additionalData.pagination.sno_base}
+        snoBase={additionalData.pagination.sno_base}
         ticketBookingRequestList={ticketBookingRequestList}
         sectorList={sectorList}
         onChange={(value) => setTicketBookingRequestList(value)}
       />
       <br />
-      <GreenButton
-        text="Submit"
-        onClick={() => onClickCreate(ticketBookingRequestList)}
-      />
+      {authPermissionList.url_has("create") ? (
+        <GreenButton
+          text="Submit"
+          onClick={() => onClickCreate(ticketBookingRequestList)}
+        />
+      ) : (
+        ""
+      )}
 
       <br />
       <Pagination
@@ -113,7 +122,11 @@ export default function Main() {
           fetchTicketBookingRequest(e);
         }}
       />
-      {modalName === 'edit' ? <EditModal onClose={()=>setModalName('')} /> :''}
+      {modalName === "edit" ? (
+        <EditModal onClose={() => setModalName("")} />
+      ) : (
+        ""
+      )}
     </>
   );
 }
