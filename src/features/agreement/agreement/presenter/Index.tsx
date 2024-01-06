@@ -8,11 +8,12 @@ import {
 import { FaFilter } from "react-icons/fa";
 import { AgreementInterface } from "../type";
 import AgreementTable from "./Table";
+import ReportModal from "./Report";
 import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
-import { BlueButton, GreenButton } from "../../../../componenets/CustomButton";
+import { BlueButton, GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import { useUserAuth } from "../../../context/UserAuthContext";
 
 import CreateModal from "./Create";
@@ -88,6 +89,19 @@ export default function Main() {
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
         <div>
+          {/* Report  */}
+
+          {/* {authPermissionList.url_has("create") ? ( */}
+          <RedButton
+            text={"Report"}
+            onClick={() => {
+              setModalName("report");
+            }}
+          />
+          {/* ) : (
+          ""
+        )} */}
+
           {/* {authPermissionList.url_has("create") ? (
             <GreenButton
               text={"Add"}
@@ -128,10 +142,7 @@ export default function Main() {
       />
 
       <br />
-      <GreenButton
-        text={"Submit"}
-        onClick={onClickSubmit}
-      />
+      <GreenButton text={"Submit"} onClick={onClickSubmit} />
 
       {/* <!-- Modal --> */}
 
@@ -139,20 +150,31 @@ export default function Main() {
       {modalName !== "create" ? (
         ""
       ) : (
-        <CreateModal onClose={() => {
-          setModalName("")
-          fetchAgreementList()
-        }} />
+        <CreateModal
+          onClose={() => {
+            setModalName("");
+            fetchAgreementList();
+          }}
+        />
       )}
 
       {/* Edit */}
       {modalName !== "edit" ? (
         ""
       ) : (
-        <EditModal onClose={() => {
-          setModalName("")
-          fetchAgreementList(additionalData.pagination.page, "no");
-        }} />
+        <EditModal
+          onClose={() => {
+            setModalName("");
+            fetchAgreementList(additionalData.pagination.page, "no");
+          }}
+        />
+      )}
+
+      {/* Report */}
+      {modalName !== "report" ? (
+        ""
+      ) : (
+        <ReportModal onClose={() => setModalName("")} />
       )}
     </div>
   );

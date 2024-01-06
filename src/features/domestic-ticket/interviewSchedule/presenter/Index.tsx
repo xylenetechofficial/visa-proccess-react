@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
+import ReportModal from "./Report";
 import { Box, styled } from "@mui/material";
 import InterviewScheduleTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import {
   CustomButton2,
   CustomNavbarV3,
@@ -146,7 +147,19 @@ export default function Main() {
       />
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+<div>
+   {/* Report  */}
 
+        {/* {authPermissionList.url_has("create") ? ( */}
+        <RedButton
+            text={"Report"}
+            onClick={() => {
+              setModalName("report");
+            }}
+          />
+        {/* ) : (
+          ""
+        )} */}
         {/* Add */}
         {authPermissionList.url_has("create") ? (
           <GreenButton
@@ -157,7 +170,10 @@ export default function Main() {
           />
         ) : (
           ""
-        )}
+        )} 
+
+       
+        </div>
       </CardHeader>
 
       {/*  interviewSchedule stable */}
@@ -205,6 +221,15 @@ export default function Main() {
           fetchInterviewScheduleList={fetchInterviewScheduleList}
           InterviewSchedulePeriodList={interviewschedulePeriodList}
           sectorList={InterviewSectorList}
+        />
+      )}
+
+        {/* Report */}
+        {modalName !== "report" ? (
+        ""
+      ) : (
+        <ReportModal 
+          onClose={() => setModalName("")}    
         />
       )}
     </div>

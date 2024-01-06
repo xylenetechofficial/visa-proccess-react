@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, styled } from "@mui/material";
 import DeployCandidateTable from "./Table";
+import ReportModal from "./Report";
 import {
   CustomButton2,
   CustomNavbarV3,
@@ -11,7 +12,7 @@ import {
   AdditionalDataInterface,
   PaginationManager,
 } from "../../../../utils/api_helper";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { GreenButton, RedButton } from "../../../../componenets/CustomButton";
 import Pagination from "../../../../componenets/Pagination";
 import { readDeployCandidatesList, updateDeployCandidates } from "../repository";
 
@@ -28,6 +29,8 @@ export default function Main() {
   const [deployCandidateList, setDeployCandidateList] = useState<
     DeployCandidatesInterface[]
   >([]);
+
+  const [modalName, setModalName] = useState("");
 
   const [additionalData, setAdditionalData] = useState<AdditionalDataInterface>(
     {
@@ -72,6 +75,19 @@ export default function Main() {
 
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
+ {/* Report  */}
+
+          {/* {authPermissionList.url_has("create") ? ( */}
+          <RedButton
+            text={"Report"}
+            onClick={() => {
+              setModalName("report");
+            }}
+          />
+          {/* ) : (
+          ""
+        )} */}
+
       </CardHeader>
 
       {/*  Deploy Candidate table */}
@@ -91,6 +107,14 @@ export default function Main() {
           fetchDeployCandidateData(e);
         }}
       />
+
+          {/* Report */}
+          {modalName !== "report" ? (
+        ""
+      ) : (
+        <ReportModal onClose={() => setModalName("")} />
+      )}
+
     </div>
   );
 }

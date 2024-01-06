@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import CreateModal from "./Create";
 import EditModal from "./Edit";
+import ReportModal from "./Report";
 import { Box, styled } from "@mui/material";
 import TicketIssueTable from "./Table";
 import { confirmationMessage } from "../../../../utils/alert";
-import { GreenButton } from "../../../../componenets/CustomButton";
+import { RedButton, GreenButton } from "../../../../componenets/CustomButton";
 import {
   CustomButton2,
   CustomNavbarV3,
@@ -133,17 +134,32 @@ export default function Main() {
       <CardHeader>
         <CustomButton2 buttonText="Add filter" icon={<FaFilter />} />
 
-        {/* Add */}
-        {authPermissionList.url_has("create") ? (
-          <GreenButton
-            text={"Add +"}
+        <div>
+          {/* Report  */}
+
+          {/* {authPermissionList.url_has("create") ? ( */}
+          <RedButton
+            text={"Report"}
             onClick={() => {
-              setModalName("create");
+              setModalName("report");
             }}
           />
-        ) : (
+          {/* ) : (
           ""
-        )}
+        )} */}
+
+          {/* Add */}
+          {authPermissionList.url_has("create") ? (
+            <GreenButton
+              text={"Add +"}
+              onClick={() => {
+                setModalName("create");
+              }}
+            />
+          ) : (
+            ""
+          )}
+        </div>
       </CardHeader>
 
       {/*  interviewSchedule stable */}
@@ -191,6 +207,13 @@ export default function Main() {
           interviewSchedulePeriodList={interviewschedulePeriodList}
           sectorList={sectorList}
         />
+      )}
+
+        {/* Report */}
+        {modalName !== "report" ? (
+        ""
+      ) : (
+        <ReportModal onClose={() => setModalName("")} />
       )}
     </div>
   );
